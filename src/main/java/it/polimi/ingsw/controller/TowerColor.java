@@ -1,2 +1,5 @@
-package it.polimi.ingsw.controller;public enum TowerColor {
+package it.polimi.ingsw.controller;
+
+public enum TowerColor {
+    WHITE, BLACK, GREY
 }
