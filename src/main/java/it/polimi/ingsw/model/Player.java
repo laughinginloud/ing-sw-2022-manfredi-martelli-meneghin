@@ -1,10 +1,11 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.model;
 
-public abstract class Player {
+public class Player {
     private int playerID;
     private AssistantCard[] assistantDeck;
     private Wizard playerWizard;
     private String username;
+    private SchoolBoard schoolBoard;
 
     private void assistantDeckSetup() {
         assistantDeck = new AssistantCard[10];

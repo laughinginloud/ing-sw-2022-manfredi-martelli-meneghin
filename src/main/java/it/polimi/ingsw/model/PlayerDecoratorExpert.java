@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.model;
 
 public class PlayerDecoratorExpert extends PlayerDecorator {
     private int coinCount;
