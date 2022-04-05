@@ -3,54 +3,60 @@
 \usepackage[T1]{fontenc}
 \usepackage[italian]{babel}
 
+\usepackage{inconsolata}
+\usepackage[a4paper, margin=1.3in]{geometry}
+
+\pagestyle{empty}
+
 \title{Peer-Review 1: UML}
 \author{Giovanni Manfredi, Mattia Martelli, Sebastiano Meneghin\\Gruppo 27}
+\date{Valutazione del diagramma UML delle classi del gruppo 26}
 
 \begin{document}
 
 \maketitle
 
-Valutazione del diagramma UML delle classi del gruppo 26.
+\thispagestyle{empty}
 
-\section{Lati positivi}
+\section*{Lati positivi}
 
 Abbiamo trovato nell'utilizzo del pattern \emph{facade} una soluzione molto elegante, in quanto semplifica l'accesso ai dati contenuti nel model e nasconde
 la loro effettiva implementazione a terze parti, permettendo agilmente modifiche strutturali. Abbiamo inoltre apprezzato la bassa frammentazione in classi di
 concetti adiacenti, che permette dunque di avere uno schema molto compatto, pur possedendo un elevato grado di chiarezza all'atto della comprensione
 dello stesso.
 
-\section{Lati negativi}
+\section*{Lati negativi}
 
 L'utilizzo di una struttura dati dedicata per il salvataggio dell'effetto correntemente attivo sembra superfluo, poiché non è un dato, bensì un'azione
-riguardante lo stato globale. Medesimo discorso vale per l'attributo \emph{winner}, in quanto la partita termina una volta individuato il vincitore,
+riguardante lo stato globale. Medesimo discorso vale per l'attributo \texttt{winner}, in quanto la partita termina una volta individuato il vincitore,
 portando ad un'eliminazione dei dati.
 
-A giudicare dagli attributi della classe \emph{Character}, sembrerebbe esserci un fraintendimento riguardante le regole di gioco: parrebbe che il costo di
+A giudicare dagli attributi della classe \texttt{Character}, sembrerebbe esserci un fraintendimento riguardante le regole di gioco: parrebbe che il costo di
 ogni carta aumenti ad ogni utilizzo, mentre dalle regole si evince che questo dovrebbe accadere solo al primo utilizzo. Per quanto riguarda la gestione
 delle sottoclassi, è necessario prestare attenzione ai metodi non specificati nella classe padre, in quanto questi non saranno visibili staticamente.
 
-Per come descritta, la classe \emph{Island} non favorisce l'unificazione delle isole, in quanto questa sembrerebbe essere delegata a terzi.  Inoltre,
+Per come descritta, la classe \texttt{Island} non favorisce l'unificazione delle isole, in quanto questa sembrerebbe essere delegata a terzi.  Inoltre,
 l'approccio adottato per indicare la posizione della pedina \emph{mother nature}, ovvero quello di renderla un puntatore all'isola su cui si trova,
 potrebbe risultare di difficile gestione ogniqualvolta si necessita un suo spostamento, in quanto si lega al discorso della gestione dell'unificazione
-delle isole. Infine, l'attributo \emph{influences} sembrerebbe rappresentare informazioni parzialmente sovrapponibili con l'attibuto \emph{students},
+delle isole. Infine, l'attributo \texttt{influences} sembrerebbe rappresentare informazioni parzialmente sovrapponibili con l'attibuto \texttt{students},
 generando potenzialmente errori legati a dati contrastanti.
 
-La funzione \emph{addStudents} presente in \emph{Cloud}, avendo un numero fisso di parametri, potrebbe generare problemi nel caso di partite a tre
+La funzione \texttt{addStudents} presente in \texttt{Cloud}, avendo un numero fisso di parametri, potrebbe generare problemi nel caso di partite a tre
 giocatori, poiché il numero di studenti è differente rispetto alle altre tipologie.
 
-La classe \emph{Bag}, rappresentante il sacchetto in cui sono contenuti gli studenti, non permette di aumentare a runtime i contatori al suo interno
+La classe \texttt{Bag}, rappresentante il sacchetto in cui sono contenuti gli studenti, non permette di aumentare a runtime i contatori al suo interno
 presenti: ciò rende impossibile l'implementazione di una carta personaggio.
 
 La fusione dei concetti \emph{SchoolBoard} e \emph{Player} parrebbe essere incompleta: la \emph{DiningRoom} è difatti a sé stante, divisa in una classe
-\emph{DiningTable} istanziata cinque volte, una per tavolata, dalla classe \emph{Player}. Ci sembra che ciò crei problemi di gestione facilmente
-risolvibili implementando questo concetto come una mappa di tipo \(StudentColor \to int\), eliminando la necessità di avere una classe separata per ogni
-contatore.
+\texttt{DiningTable} istanziata cinque volte, una per tavolata, dalla classe \texttt{Player}. Ci sembra che ciò crei problemi di gestione facilmente
+risolvibili implementando questo concetto come una mappa di tipo \texttt{StudentColor} \(\to\) \texttt{int}, eliminando la necessità di avere una classe
+separata per ogni contatore.
 
-\section{Confronto tra le architetture}
+\section*{Confronto tra le architetture}
 
-Per quanto riguarda la gestione di strutture dati complesse, il loro approccio sembra concentrarsi sui tipi \emph{List} e \emph{HashMap}. In generale,
-sembra collocarsi su un livello di astrazione più elevato rispetto al nostro, che si basa su \emph{Array}: ci sembrava superfluo utilizzare delle mappe
-quando possiamo facilmente avere coerenza sfruttando la numerazione intrinseca dell'enumeratore \emph{StudentColor}, mentre abbiamo preferito non utilizzare
+Per quanto riguarda la gestione di strutture dati complesse, il loro approccio sembra concentrarsi sui tipi \texttt{List} e \texttt{HashMap}. In generale,
+sembra collocarsi su un livello di astrazione più elevato rispetto al nostro, che si basa su \texttt{Array}: ci sembrava superfluo utilizzare delle mappe
+quando possiamo facilmente avere coerenza sfruttando la numerazione intrinseca dell'enumeratore \texttt{StudentColor}, mentre abbiamo preferito non utilizzare
 liste in quanto abbiamo trovato comodo basarci sugli indici posizionali. Ci ha fatto però riflettere sull'effettiva bontà del nostro approccio, che
 potrebbe essere in certi punti aggiornato in favore di soluzioni più eleganti.
 

@@ -1,5 +1,5 @@
 # Eriantys
-by Manfredi Giovanni, Martelli Mattia, Meneghing Sebastiano
+by Manfredi Giovanni, Martelli Mattia, Meneghin Sebastiano
 
 Repo containing the files related to the class "Prova finale di ingegneria del software", A.Y. 2021/2022, Polytechnic University of Milan.
 
