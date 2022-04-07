@@ -28,7 +28,7 @@ public class Bag {
      * @return An int representing the current value
      */
     public int getStudentCounter (Color color){
-        return(studentCounters[color.ordinal()]);
+        return studentCounters[color.ordinal()];
     }
 
     /**
