@@ -8,10 +8,19 @@ import java.util.Arrays;
 
 class CloudTileTest {
     private CloudTile cloudTileTest;
+    private Color[]   globalTestArray;
 
     @BeforeEach
-    void setUp() {
-        cloudTileTest = new CloudTile(new Color[]{Color.RED, Color.YELLOW, Color.GREEN, Color.PINK});
+    void setUp() throws NoSuchFieldException, IllegalAccessException {
+        cloudTileTest   = new CloudTile();
+        globalTestArray = new Color[]{Color.RED, Color.YELLOW, Color.GREEN, Color.PINK};
+
+        // Use reflection to get the private field "students" and change its visibility
+        Field studentField = cloudTileTest.getClass().getDeclaredField("students");
+        studentField.setAccessible(true);
+
+        // Set the field to a predetermined test value
+        studentField.set(cloudTileTest, Arrays.copyOf(globalTestArray, globalTestArray.length));
     }
 
     /**
@@ -34,7 +43,7 @@ class CloudTileTest {
      */
     @Test
     void getStudentsCorrectTest() {
-        if (!Arrays.equals(cloudTileTest.getStudents(), new Color[]{Color.RED, Color.YELLOW, Color.GREEN, Color.PINK}))
+        if (!Arrays.equals(cloudTileTest.getStudents(), globalTestArray))
             throw new AssertionError("Returned students differ from the ones currently on the tile");
     }
 
@@ -43,7 +52,7 @@ class CloudTileTest {
      */
     @Test
     void retreiveStudentsSuccessionTest() {
-        Color[] firstRetrieve = cloudTileTest.retrieveStudents();
+        Color[] firstRetrieve  = cloudTileTest.retrieveStudents();
         Color[] secondRetrieve = cloudTileTest.retrieveStudents();
 
         if (Arrays.equals(firstRetrieve, secondRetrieve))
@@ -58,7 +67,7 @@ class CloudTileTest {
      */
     @Test
     void retreiveStudentsCorrectTest() {
-        if (!Arrays.equals(cloudTileTest.retrieveStudents(), new Color[]{Color.RED, Color.YELLOW, Color.GREEN, Color.PINK}))
+        if (!Arrays.equals(cloudTileTest.retrieveStudents(), globalTestArray))
             throw new AssertionError("Retrieved students differ from the ones that were on the tile");
     }
 
@@ -67,14 +76,18 @@ class CloudTileTest {
      */
     @Test
     void setStudentsTest() throws NoSuchFieldException, IllegalAccessException {
-        Color[] testColor = new Color[]{Color.BLUE, Color.RED, Color.GREEN, Color.PINK};
-        cloudTileTest.setStudents(testColor);
+        Color[] testSet = new Color[]{Color.BLUE, Color.RED, Color.GREEN, Color.PINK};
+        cloudTileTest.setStudents(testSet);
 
         // Use reflection to get the private field "students" and change its visibility
         Field studentField = cloudTileTest.getClass().getDeclaredField("students");
         studentField.setAccessible(true);
+        Color[] studentValue = (Color[]) studentField.get(cloudTileTest);
 
-        if (!Arrays.equals(testColor, (Color[]) studentField.get(cloudTileTest)))
+        if (Arrays.equals(globalTestArray, studentValue))
+            throw new AssertionError("Attribute students not set");
+
+        if (!Arrays.equals(testSet, studentValue))
             throw new AssertionError("Attribute students set to wrong value");
     }
 }
