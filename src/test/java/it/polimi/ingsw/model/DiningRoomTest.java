@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  * Tests for class "DiningRoom"
- * @author Martelli Mattia
+ * @author Mattia Martelli
  */
 class DiningRoomTest {
     private DiningRoom diningRoomTest;

@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  * Tests for class "CloudTile"
- * @author Martelli Mattia
+ * @author Mattia Martelli
  */
 class CloudTileTest {
     private CloudTile cloudTileTest;

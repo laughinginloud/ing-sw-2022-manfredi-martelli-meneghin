@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * Class representing the cloud tiles
+ * @author Mattia Martelli
  */
 public class CloudTile {
     private Color[] students = new Color[4];

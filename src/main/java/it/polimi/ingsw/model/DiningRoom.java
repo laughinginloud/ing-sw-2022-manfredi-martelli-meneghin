@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model;
 
 /**
- * Class representing the dining room, part of SchoolBoard
+ * Class representing the school's dining room
+ * To be used as part of SchoolBoard
+ * @author Mattia Martelli
  */
 public class DiningRoom {
     private int[] studentCounters = new int[Color.values().length];

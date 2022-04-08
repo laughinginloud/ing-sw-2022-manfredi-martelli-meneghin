@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Class representing the school's entrance
  * To be used as part of SchoolBoard
- * @author Martelli Mattia
+ * @author Mattia Martelli
  */
 public class Entrance {
     private Color[] students;

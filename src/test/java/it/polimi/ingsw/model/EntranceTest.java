@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  * Tests for class "Entrance"
- * @author Martelli Mattia
+ * @author Mattia Martelli
  */
 class EntranceTest {
     private Entrance entranceTest;
