@@ -4,14 +4,15 @@ import java.util.Arrays;
 
 /**
  * Class representing the cloud tiles
+ * @author Mattia Martelli
  */
 public class CloudTile {
     private Color[] students = new Color[4];
 
-    CloudTile() {}
+    public CloudTile() {}
 
-    CloudTile(Color[] students) {
-        this.students = Arrays.copyOf(students, students.length);
+    public CloudTile(Color[] students) {
+        setStudents(students);
     }
 
     /**
