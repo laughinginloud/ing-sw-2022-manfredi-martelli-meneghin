@@ -1,12 +1,14 @@
 package it.polimi.ingsw.model;
 
+/**
+ * Class representing a unique ProfessorTable
+ * @author Sebastiano Meneghin
+ */
 public class GlobalProfessorTable {
     private Player[] professorLocations;
     private static GlobalProfessorTable instance;
 
-    private GlobalProfessorTable(){
-        professorLocations = new Player[5];
-    }
+    private GlobalProfessorTable(){ professorLocations = new Player[Color.values().length]; }
 
     /**
      * Return the instance of the GlobalProfessorTable. If the instance doesn't exist it creates a new GlobalProfessorTable.
