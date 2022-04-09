@@ -8,7 +8,8 @@ public class Bag {
     private static Bag instance;
 
     private Bag(){
-        studentCounters = new int[5];
+        studentCounters = new int[Color.values().length];
+        setStudentCounter(0);
     }
 
     /**
@@ -27,7 +28,7 @@ public class Bag {
      * @param color Color of the studentCounter to return
      * @return An int representing the current value
      */
-    public int getStudentCounter (Color color){
+    public int getStudentCounter(Color color){
         return studentCounters[color.ordinal()];
     }
 
@@ -36,7 +37,7 @@ public class Bag {
      * @param color Color of the studentCounter to set
      * @param n Int to set studentCounter to
      */
-    public void setStudentCounter (Color color, int n){
+    public void setStudentCounter(Color color, int n){
         this.studentCounters[color.ordinal()] = n;
     }
 
@@ -44,9 +45,9 @@ public class Bag {
      * Set all studentCounter of the bag to a specific value
      * @param n Int to set all studentCounter to
      */
-    public void SetStudentCounter (int n){
-        for (int i = 0; i < studentCounters.length; i++){
-            this.studentCounters[i] = n;
+    public void setStudentCounter(int n){
+        for (Color color : Color.values()) {
+            setStudentCounter(color, n);
         }
     }
 }
