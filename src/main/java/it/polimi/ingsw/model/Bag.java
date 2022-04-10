@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 /**
  * Class representing the bag
+ * @author Sebastiano Meneghin
  */
 public class Bag {
     private int[] studentCounters;
