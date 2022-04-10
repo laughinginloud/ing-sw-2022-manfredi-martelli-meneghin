@@ -19,7 +19,8 @@ public class Island {
         setStudentCounter(0);
         setMultiplicity(0);
         noEntryTileCount = Optional.empty();
-        backgroundID = new int[12];                         //A merged island will consist of a maximum of 12 sub-islands
+        //A merged island will consist of a maximum of 11 sub-islands, according to winning rules
+        backgroundID = new int[11];
     }
 
     /**

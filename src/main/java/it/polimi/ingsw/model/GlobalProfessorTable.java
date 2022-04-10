@@ -31,7 +31,7 @@ public class GlobalProfessorTable {
     }
 
     /**
-     * Set a professour of the GlobalProfessorTable to a specific player
+     * Set a professor of the GlobalProfessorTable to a specific player
      * @param color Color of the professor to be assigned
      * @param player Player to assign the professor to
      */

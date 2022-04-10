@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 /**
- * Tests for class "Bag"
+ * Test for class "Bag"
  * @author Sebastiano Meneghin
  */
 class BagTest {
