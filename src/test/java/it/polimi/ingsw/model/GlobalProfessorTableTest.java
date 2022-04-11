@@ -43,9 +43,9 @@ class GlobalProfessorTableTest {
      */
     @Test
     void getProfessorLocationsTest() throws IllegalAccessException {
-        Player[] tempPlayer = new Player [Color.values().length];
+        Player[] tempPlayer = new Player[Color.values().length];
 
-        for (Color color :  Color.values())
+        for (Color color : Color.values())
             tempPlayer[color.ordinal()] = testPlayers[color.ordinal()];
 
         professorLocationsField.set(globalProfessorTableTest, tempPlayer);
@@ -66,5 +66,10 @@ class GlobalProfessorTableTest {
             if (testPlayers[testColor.ordinal()] != ((Player[]) professorLocationsField.get(globalProfessorTableTest))[testColor.ordinal()])
                 throw new AssertionError("Setter set wrong value");
         }
+
+        // Check the correctness of multiple consequential calls of setProfessorLocation
+        for (Color testColor : Color.values())
+            if (testPlayers[testColor.ordinal()] != ((Player[]) professorLocationsField.get(globalProfessorTableTest))[testColor.ordinal()])
+                throw new AssertionError("Setter set wrong value");
     }
 }
