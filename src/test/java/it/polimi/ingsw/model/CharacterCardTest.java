@@ -11,10 +11,14 @@ import java.lang.reflect.Field;
  */
 class CharacterCardTest {
     private CharacterCard characterCardTest;
-    private int costTest = 2;
+    private final int costTest = 2;
     private Field costField;
-    private int cardIDTest = 99;
+    private final int cardIDTest = 99;
     private Field cardIdField;
+    private final int cardIDTestBuildSimple = 1;
+    private final int cardIDTestBuildStudent = 0;
+    private final int cardIDTestBuildNoEntry = 4;
+
 
     @BeforeEach
     public void setUp() throws NoSuchFieldException, IllegalAccessException  {
@@ -32,8 +36,30 @@ class CharacterCardTest {
         cardIdField.set(characterCardTest, null);
     }
 
-    // Hypothetical test for method "build"
-    // ...............
+    /**
+     * Test for the method "build"
+     */
+    @Test
+    void buildTest() throws NullPointerException {
+        CharacterCard temp;
+
+        //Check first conditional branch in method "build"
+        temp = CharacterCard.build(cardIDTestBuildStudent);
+        if (!temp.getClass().equals(CharacterCardStudent.class))
+            throw new AssertionError("Builder has not build a 'CharacterCardStudent' object as requested");
+        temp = null;
+
+        //Check second conditional branch in method "build"
+        temp = CharacterCard.build(cardIDTestBuildNoEntry);
+        if (!temp.getClass().equals(CharacterCardNoEntry.class))
+            throw new AssertionError("Builder has not build a 'CharacterCardNoEntry' object as requested");
+        temp = null;
+
+        //Check default conditional branch in method "build"
+        temp = CharacterCard.build(cardIDTestBuildSimple);
+        if (!temp.getClass().equals(CharacterCard.class))
+            throw new AssertionError("Builder has not build a 'CharacterCard' object as requested");
+    }
 
     /**
      * Test for the getter of the field "cardID"
