@@ -16,7 +16,7 @@ public class CharacterCard {
      * @return A new CharacterCard object of a specific class
      */
     //CharacterCard are ordinal numbered according to their order in the Eriantys Manual
-    public CharacterCard build(int cardID) {
+    public static CharacterCard build(int cardID) {
         //CharacterCards that need students on them
         if(cardID == 0 || cardID == 6 || cardID == 10)
             return new CharacterCardStudent(cardID);
