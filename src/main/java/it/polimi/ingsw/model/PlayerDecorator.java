@@ -1,7 +1,28 @@
 package it.polimi.ingsw.model;
 
+import java.util.Arrays;
+
+/**
+ * Abstract class providing the interface for the player's decorators
+ * @author Mattia Martelli
+ */
 public abstract class PlayerDecorator {
-    private Player basePlayer;
+    /**
+     * The player to be decorated
+     */
+    protected final Player basePlayer;
+
+    protected PlayerDecorator(Player basePlayer) {
+        this.basePlayer = basePlayer;
+    }
+
+    public AssistantCard getAssistantCard(int index) {
+        return basePlayer.getAssistantCard(index);
+    }
+
+    public AssistantCard[] getAssistantDeck() {
+        return basePlayer.getAssistantDeck();
+    }
 
     public int getPlayerID() {
         return basePlayer.getPlayerID();
