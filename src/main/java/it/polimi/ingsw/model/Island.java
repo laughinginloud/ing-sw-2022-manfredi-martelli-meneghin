@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -12,7 +12,7 @@ public class Island {
     private int multiplicity;
     private TowerColor towerColor;
     private Optional<Integer> noEntryTileCount;
-    private int[] backgroundID;
+    private ArrayList<Integer> backgroundID;
 
     public Island() {
         studentCounters = new int[Color.values().length];
@@ -20,7 +20,7 @@ public class Island {
         setMultiplicity(0);
         noEntryTileCount = Optional.empty();
         //A merged island will consist of a maximum of 11 sub-islands, according to winning rules
-        backgroundID = new int[11];
+        backgroundID = new ArrayList<>();
     }
 
     /**
@@ -85,30 +85,32 @@ public class Island {
 
     /**
      * Get all the backgroundIDs assigned to the island, without deleting them
-     * @return An array of island's backgroundIDs
+     * @return An int array of island's backgroundIDs
      */
-    public int[] getBackgroundID() { return backgroundID; }
+    public int[] getBackgroundID() {
+        int[] temp = null;
+
+        if (backgroundID.size() > 0){
+            temp = new int[backgroundID.size()];
+            for (int i = 0; i < backgroundID.size(); i++)
+                temp[i] = backgroundID.get(i);
+        }
+
+        return temp;
+    }
 
     /**
-     * Add a backgroundID to backgroundID's array on first free position, without modifying its length
+     * Add a backgroundID to the end of the backgroundID's list, modifying its length
      * @param id The backgroundID to add
      */
-    public void addBackgroundID(int id) { backgroundID[multiplicity - 1] = id; }
+    public void addBackgroundID(int id) { backgroundID.add(id); }
 
     /**
-     * Add every backgroundID of the array ids to backgroundID's array on first free positions, without modifying its length
+     * Add every backgroundID of the array ids to the and of backgroundID's list, modifying its length
      * @param ids Array of backgroundID to add
      */
     public void addBackgroundID(int[] ids) {
-        System.arraycopy(ids, 0, backgroundID, multiplicity - ids.length, backgroundID.length);
+        for (int id : ids)
+            addBackgroundID(id);
     }
-
-
-
-
-
-
-
-
-
 }
