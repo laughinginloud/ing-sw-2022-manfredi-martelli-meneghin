@@ -6,7 +6,7 @@ package it.polimi.ingsw.model;
  */
 public class CharacterCard {
     private int cost;
-    private final int cardID;
+    private int cardID;
 
     protected CharacterCard(int cardID) { this.cardID = cardID; }
 
