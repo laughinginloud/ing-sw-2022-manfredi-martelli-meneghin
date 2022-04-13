@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +15,15 @@ import java.util.Arrays;
 class GlobalProfessorTableTest {
     private GlobalProfessorTable globalProfessorTableTest;
     private Field instanceField;
-    //Using the constructor method of Player Class: Player(id, username, wizard, assistantDeck)
-    private Player[] testPlayers = {new Player(10, null, null, null), new Player(20, null, null, null), new Player(30, null, null, null), new Player(40, null, null, null), new Player(50, null, null, null)};
+    //Using the constructor method of Player Class: Player(id, username, wizard, schoolboard)
+    private Player[] testPlayers = new Player[5];
     private Field professorLocationsField;
+
+    @BeforeAll
+    void dataInitializaion() {
+        for (int i = 0; i < testPlayers.length; ++i)
+            testPlayers[i] = new Player((i + 1) * 10, null, null, null);
+    }
 
     @BeforeEach
     void setUp() throws IllegalAccessException, NoSuchFieldException {

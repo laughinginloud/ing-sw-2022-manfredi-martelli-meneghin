@@ -9,11 +9,7 @@ import java.util.Optional;
 public class GameModel {
     private static GameModel instance;
     private Player[] players;
-    // playersCount >=2 && playersCount <= 4
-    private int playersCount;
     private Island[] islands;
-    // islandCount <=12 islandCount >= 2
-    private int islandsCount;
     // motherNaturePosition (condition) do we want to enum from 1 or 0?
     private int motherNaturePosition;
     private Optional<Integer> coinPool;
@@ -50,13 +46,7 @@ public class GameModel {
      * Get the number of Players in the game
      * @return The number of players (from 2 to 4)
      */
-    public int getPlayersCount(){ return playersCount;}
-
-    /**
-     * Set the number of Players in the game
-     * @param playersCount The number of players to be set (from 2 to 4)
-     */
-    public void setPlayersCount(int playersCount){ this.playersCount = playersCount;}
+    public int getPlayersCount(){ return players.length;}
 
     /**
      * Get the Island saved at a specific index
@@ -84,13 +74,7 @@ public class GameModel {
      * Get the number of Island present
      * @return The number of Island present (from 0 to 12)
      */
-    public int getIslandsCount(){ return islandsCount;}
-
-    /**
-     * Set the number of Island present
-     * @param islandsCount The value of island to be set (from 0 to 12)
-     */
-    public void setIslandsCount(int islandsCount){ this.islandsCount = islandsCount;}
+    public int getIslandsCount(){ return islands.length;}
 
     /**
      * Get the position of mother nature saved

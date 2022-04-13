@@ -1,11 +1,13 @@
 package it.polimi.ingsw.model;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Tests for class "Game Model"
@@ -22,15 +24,9 @@ class GameModelTest {
     private GameModel gameModelTest;
     private Field instanceField;
     private Field playersField;
-    //Using the constructor method of Player Class: Player(id, username, wizard, assistantDeck)
-    private Player[] testPlayers = {new Player(10, null, null, null), new Player(20, null, null, null), new Player(30, null, null, null), new Player(40, null, null, null), new Player(50, null, null, null)};
-    private Field playersCountField;
-    private int testPlayersCount = MIN_PLAYERS;
+    private Player[] testPlayers = new Player[MAX_PLAYERS];
     private Field islandsField;
-    // How do I initialize this island test?
-    private Island[] testIslands = {};
-    private Field islandsCountField;
-    private int testIslandsCount = 12;
+    private Island[] testIslands = new Island[MAX_ISLANDS];
     private Field motherNaturePositionField;
     private int testMotherNaturePosition = 11;
     private Field coinPoolField;
@@ -38,30 +34,28 @@ class GameModelTest {
     private Field expertModeField;
     private boolean testExpertMode = true;
 
+    @BeforeAll
+    void dataInitializaion() {
+        for (int i = 0; i < testPlayers.length; ++i)
+            testPlayers[i] = new Player(i, null, null, null);
+
+        for (int i = 0; i < testIslands.length; ++i)
+            testIslands[i] = new Island();
+    }
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
         gameModelTest = GameModel.getInstance();
 
-        // Use reflection to get the private field "players" and change its visibility
+        // Use reflection to get the private fields, change their visibilities and set test values
         playersField = gameModelTest.getClass().getDeclaredField("players");
         playersField.setAccessible(true);
         playersField.set(gameModelTest, new Player[MAX_PLAYERS]);
-
-        // Use reflection to get the private field "playersCount" and change its visibility
-        playersCountField = gameModelTest.getClass().getDeclaredField("playersCount");
-        playersCountField.setAccessible(true);
-        playersCountField.set(gameModelTest, MAX_PLAYERS);
 
         // Use reflection to get the private field "islands" and change its visibility
         islandsField = gameModelTest.getClass().getDeclaredField("islands");
         islandsField.setAccessible(true);
         islandsField.set(gameModelTest,new Island[MAX_ISLANDS]);
-
-        // Use reflection to get the private field "islandsCount" and change its visibility
-        islandsCountField = gameModelTest.getClass().getDeclaredField("islandsCount");
-        islandsCountField.setAccessible(true);
-        islandsCountField.set(gameModelTest, MAX_ISLANDS);
 
         // Use reflection to get the private field "motherNaturePosition" and change its visibility
         motherNaturePositionField = gameModelTest.getClass().getDeclaredField("motherNaturePosition");
@@ -131,7 +125,7 @@ class GameModelTest {
     void setPlayersCountTest() throws  IllegalAccessException {
         // Sets the playersCount to testPlayersCount and checks if it's set correctly
         gameModelTest.setPlayersCount(testPlayersCount);
-        if (/* Without using get how do I verify that the value has been set correctly?*/) {
+        if ((int) playersCountField.get(gameModelTest) != testPlayersCount) {
             throw new AssertionError("Setter returned wrong value");
         }
     }
@@ -222,7 +216,12 @@ class GameModelTest {
      */
     @Test
     void getCoinPoolTest() throws IllegalAccessException {
-        // Gets
+        if (!gameModelTest.getCoinPool().equals(Optional.empty()))
+            throw new AssertionError("Getter returned wrong value");
+
+        coinPoolField.set(gameModelTest, Optional.of(testCoinPool));
+        if (!gameModelTest.getCoinPool().equals(Optional.of(testCoinPool)))
+            throw new AssertionError("Getter returned wrong value");
     }
 
     /**
@@ -230,7 +229,9 @@ class GameModelTest {
      */
     @Test
     void setCoinPoolTest() throws IllegalAccessException {
-        // Sets
+        gameModelTest.setCoinPool(testCoinPool);
+        if (!coinPoolField.get(gameModelTest).equals(testCoinPool))
+            throw new AssertionError("Setter returned wrong value");
     }
 
     /**
