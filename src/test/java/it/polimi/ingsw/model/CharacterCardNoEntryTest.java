@@ -16,7 +16,7 @@ class CharacterCardNoEntryTest {
     private int cardIDTest = 99;
 
     @BeforeEach
-    public void setUp() throws NoSuchFieldException, IllegalAccessException  {
+    void setUp() throws NoSuchFieldException, IllegalAccessException  {
         characterCardNoEntryTest = new CharacterCardNoEntry(cardIDTest);
 
         // Use reflection to get the private field "noEntryCount" and change its visibility
@@ -30,7 +30,7 @@ class CharacterCardNoEntryTest {
      * Test for the getter of the field "noEntryCount"
      */
     @Test
-    public void getNoEntryCountTest() throws IllegalAccessException {
+    void getNoEntryCountTest() throws IllegalAccessException {
         noEntryCountField.setInt(characterCardNoEntryTest, noEntryCountTest);
 
         if (noEntryCountTest != characterCardNoEntryTest.getNoEntryCount())
@@ -41,7 +41,7 @@ class CharacterCardNoEntryTest {
      * Test for the setter of the field "noEntryCount"
      */
     @Test
-    public void setNoEntryCountTest() throws IllegalAccessException {
+    void setNoEntryCountTest() throws IllegalAccessException {
         characterCardNoEntryTest.setNoEntryCount(noEntryCountTest);
 
         if (noEntryCountTest != ((int) noEntryCountField.get(characterCardNoEntryTest)))

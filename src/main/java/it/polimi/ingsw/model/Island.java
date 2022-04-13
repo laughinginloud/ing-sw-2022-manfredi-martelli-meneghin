@@ -16,7 +16,7 @@ public class Island {
 
     public Island() {
         studentCounters = new int[Color.values().length];
-        setStudentCounter(0);
+        setStudentCounters(0);
         setMultiplicity(0);
         noEntryTileCount = Optional.empty();
         //A merged island will consist of a maximum of 11 sub-islands, according to winning rules
@@ -52,22 +52,22 @@ public class Island {
      * @param color The color of the counter
      * @return The value of the counter
      */
-    public int getStudentCounter(Color color) { return studentCounters[color.ordinal()]; }
+    public int getStudentCounters(Color color) { return studentCounters[color.ordinal()]; }
 
     /**
      * Set a specific counter to a value
      * @param color Color of the counter
      * @param n Value to be set
      */
-    public void setStudentCounter(Color color, int n) { this.studentCounters[color.ordinal()] = n; }
+    public void setStudentCounters(Color color, int n) { this.studentCounters[color.ordinal()] = n; }
 
     /**
      * Set all the counters to a value
      * @param n Value to be set for all counters
      */
-    public void setStudentCounter(int n) {
+    public void setStudentCounters(int n) {
         for (Color color : Color.values()) {
-            setStudentCounter(color, n);
+            setStudentCounters(color, n);
         }
     }
 
@@ -89,7 +89,6 @@ public class Island {
      */
     public int[] getBackgroundID() {
         int[] temp = null;
-
         if (backgroundID.size() > 0){
             temp = new int[backgroundID.size()];
             for (int i = 0; i < backgroundID.size(); i++)

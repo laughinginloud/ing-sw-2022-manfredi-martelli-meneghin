@@ -55,17 +55,17 @@ class BagTest {
     @Test
     void setStudentCountersTest() throws IllegalAccessException {
         // Sets all counters independently and tries to retrieve the same value
-        for (Color testColor : Color.values()) {
-            bagTest.setStudentCounters(testColor, testSet[testColor.ordinal()]);
-            if (testSet[testColor.ordinal()] != ((int[]) studentCountersField.get(bagTest))[testColor.ordinal()])
+        for (Color color : Color.values()) {
+            bagTest.setStudentCounters(color, testSet[color.ordinal()]);
+            if (testSet[color.ordinal()] != ((int[]) studentCountersField.get(bagTest))[color.ordinal()])
                 throw new AssertionError("Independent setter set wrong value");
         }
 
         // Sets all counters to the first value of the test set and tries to retrieve all the values
         bagTest.setStudentCounters(testSet[0]);
         int[] studentCountersTest = (int[]) studentCountersField.get(bagTest);
-        for (Color testColor : Color.values()) {
-            if (studentCountersTest[testColor.ordinal()] != testSet[0])
+        for (Color color : Color.values()) {
+            if (studentCountersTest[color.ordinal()] != testSet[0])
                 throw new AssertionError("Global setter set wrong value");
         }
     }

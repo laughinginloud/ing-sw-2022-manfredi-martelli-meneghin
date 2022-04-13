@@ -21,7 +21,7 @@ class CharacterCardTest {
 
 
     @BeforeEach
-    public void setUp() throws NoSuchFieldException, IllegalAccessException  {
+    void setUp() throws NoSuchFieldException, IllegalAccessException  {
         characterCardTest = new CharacterCard(99);
 
         // Use reflection to get the private field "cost" and change its visibility
@@ -65,7 +65,7 @@ class CharacterCardTest {
      * Test for the getter of the field "cardID"
      */
     @Test
-    public void getCardIDTest() throws IllegalAccessException {
+    void getCardIDTest() throws IllegalAccessException {
         cardIdField.setInt(characterCardTest, cardIDTest);
 
         if (cardIDTest != characterCardTest.getCardID())
@@ -76,21 +76,21 @@ class CharacterCardTest {
      * Test for the getter of the field "cost"
      */
     @Test
-    public void getCostTest() throws IllegalAccessException {
+    void getCostTest() throws IllegalAccessException {
         costField.setInt(characterCardTest, costTest);
 
         if (costTest != characterCardTest.getCost())
-            throw new AssertionError("Getter of Cost returned wrong value");
+            throw new AssertionError("Getter of cost returned wrong value");
     }
 
     /**
      * Test for the setter of the field "cost"
      */
     @Test
-    public void setCostTest() throws IllegalAccessException {
+    void setCostTest() throws IllegalAccessException {
         characterCardTest.setCost(costTest);
 
         if (costTest != ((int) costField.get(characterCardTest)))
-            throw new AssertionError("Setter of Cost set wrong value");
+            throw new AssertionError("Setter of cost set wrong value");
     }
 }
