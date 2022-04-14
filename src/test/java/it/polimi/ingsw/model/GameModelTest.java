@@ -15,14 +15,12 @@ import java.util.Optional;
  */
 class GameModelTest {
     private static final int MAX_PLAYERS = 4;
-    private static final int MIN_PLAYERS = 2;
     private static final int MAX_ISLANDS = 12;
     private static final int MIN_MOTHERNATUREPOSITION = 4;
     private static final int MAX_COINPOOL = 20;
     private static final boolean DEFAULT_MODE = false;
 
     private GameModel gameModelTest;
-    private Field instanceField;
     private Field playersField;
     private Player[] testPlayers = new Player[MAX_PLAYERS];
     private Field islandsField;
@@ -35,7 +33,7 @@ class GameModelTest {
     private boolean testExpertMode = true;
 
     @BeforeAll
-    void dataInitializaion() {
+    void dataInitialization() {
         for (int i = 0; i < testPlayers.length; ++i)
             testPlayers[i] = new Player(i, null, null, null);
 
@@ -45,40 +43,28 @@ class GameModelTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        gameModelTest = GameModel.getInstance();
+        gameModelTest = new GameModel(MAX_PLAYERS);
 
         // Use reflection to get the private fields, change their visibilities and set test values
         playersField = gameModelTest.getClass().getDeclaredField("players");
         playersField.setAccessible(true);
         playersField.set(gameModelTest, new Player[MAX_PLAYERS]);
 
-        // Use reflection to get the private field "islands" and change its visibility
         islandsField = gameModelTest.getClass().getDeclaredField("islands");
         islandsField.setAccessible(true);
         islandsField.set(gameModelTest,new Island[MAX_ISLANDS]);
 
-        // Use reflection to get the private field "motherNaturePosition" and change its visibility
         motherNaturePositionField = gameModelTest.getClass().getDeclaredField("motherNaturePosition");
         motherNaturePositionField.setAccessible(true);
         motherNaturePositionField.set(gameModelTest, MIN_MOTHERNATUREPOSITION);
 
-        // Use reflection to get the private field "coinPool" and change its visibility
         coinPoolField = gameModelTest.getClass().getDeclaredField("coinPool");
         coinPoolField.setAccessible(true);
         coinPoolField.set(gameModelTest, MAX_COINPOOL);
 
-        // Use reflection to get the private field "expertMode" and change its visibility
         expertModeField = gameModelTest.getClass().getDeclaredField("expertMode");
         expertModeField.setAccessible(true);
         expertModeField.set(gameModelTest, DEFAULT_MODE);
-    }
-
-    @AfterEach
-    void cleanUp() throws IllegalAccessException, NoSuchFieldException {
-        //Use reflection to get the private field "instance" and change it visibility
-        instanceField = gameModelTest.getClass().getDeclaredField("instance");
-        instanceField.setAccessible(true);
-        instanceField.set(gameModelTest, null);
     }
 
     /**
@@ -116,18 +102,6 @@ class GameModelTest {
         int tmp = gameModelTest.getPlayersCount();
             if (tmp != MAX_PLAYERS)
                 throw new AssertionError("Getter returned wrong value");
-    }
-
-    /**
-     * Test for setter of the field "playersCount"
-     */
-    @Test
-    void setPlayersCountTest() throws  IllegalAccessException {
-        // Sets the playersCount to testPlayersCount and checks if it's set correctly
-        gameModelTest.setPlayersCount(testPlayersCount);
-        if ((int) playersCountField.get(gameModelTest) != testPlayersCount) {
-            throw new AssertionError("Setter returned wrong value");
-        }
     }
 
     /**
@@ -176,18 +150,6 @@ class GameModelTest {
     }
 
     /**
-     * Test for setter of the field "islandCount"
-     */
-    @Test
-    void setIslandCountTest() throws IllegalAccessException {
-        // Sets the islandsCount to testPlayersCount and checks if it's set correctly
-        gameModelTest.setIslandsCount(testIslandsCount);
-        if (/* Without using get how do I verify that the value has been set correctly?*/) {
-            throw new AssertionError("Setter returned wrong value");
-        }
-    }
-
-    /**
      * Test for getter of the field "motherNaturePosition"
      */
     @Test
@@ -206,7 +168,7 @@ class GameModelTest {
     void setMotherNaturePositionTest() throws IllegalAccessException {
         // Sets
         gameModelTest.setMotherNaturePosition(testMotherNaturePosition);
-        if (/* Without using get how do I verify that the value has been set correctly?*/) {
+        if (!motherNaturePositionField.get(gameModelTest).equals(testMotherNaturePosition)) {
             throw new AssertionError("Setter returned wrong value");
         }
     }
@@ -253,7 +215,7 @@ class GameModelTest {
     void setExpertModeTest() throws IllegalAccessException {
         // Sets
         gameModelTest.setExpertMode(testExpertMode);
-        if (/* Without using get how do I verify that the value has been set correctly?*/) {
+        if (!expertModeField.get(gameModelTest).equals(testExpertMode)) {
             throw new AssertionError("Setter returned wrong value");
         }
     }

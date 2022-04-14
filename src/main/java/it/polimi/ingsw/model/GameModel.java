@@ -7,7 +7,6 @@ import java.util.Optional;
  * @author Giovanni Manfredi
  */
 public class GameModel {
-    private static GameModel instance;
     private Player[] players;
     private Island[] islands;
     // motherNaturePosition (condition) do we want to enum from 1 or 0?
@@ -15,17 +14,10 @@ public class GameModel {
     private Optional<Integer> coinPool;
     private boolean expertMode;
 
-    private GameModel(){
-        players = new Player[4];
+    public GameModel(int numOfPlayers){
+        players = new Player[numOfPlayers];
         islands = new Island[12];
         coinPool = Optional.empty();
-    }
-
-    public static GameModel getInstance(){
-        if (instance == null){
-            instance = new GameModel();
-        }
-        return instance;
     }
 
     /**
