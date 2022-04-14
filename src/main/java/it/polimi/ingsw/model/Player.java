@@ -33,7 +33,7 @@ public class Player {
     }
 
     /**
-     * Retrurn the selected card, deleting it from the deck in the process
+     * Return the selected card, deleting it from the deck in the process
      * @param index The index of the card to be removed
      * @return A record representing the card
      */
@@ -72,8 +72,8 @@ public class Player {
     }
 
     /**
-     * Returns the schoolboard associated with the player
-     * @return A pointer to the desired schoolboard
+     * Returns the schoolBoard associated with the player
+     * @return A pointer to the desired schoolBoard
      */
     public SchoolBoard getSchoolBoard() {
         return schoolBoard;
@@ -81,7 +81,7 @@ public class Player {
 
     /**
      * Returns the player's username
-     * @return A stiring containing the username
+     * @return A string containing the username
      */
     public String getUsername() {
         return username;
