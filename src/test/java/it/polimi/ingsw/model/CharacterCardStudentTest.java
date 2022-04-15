@@ -24,7 +24,7 @@ class CharacterCardStudentTest {
         studentsField = characterCardStudentTest.getClass().getDeclaredField("students");
         studentsField.setAccessible(true);
 
-        studentsField.set(characterCardStudentTest, null);
+        studentsField.set(characterCardStudentTest, new Color[studentsTest.length]);
     }
 
     /**

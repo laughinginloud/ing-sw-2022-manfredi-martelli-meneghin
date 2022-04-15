@@ -143,9 +143,9 @@ public class IslandTest {
      */
     @Test
     void getNoEntryTileCountTest() throws IllegalAccessException {
-        noEntryTileCountField.set(islandTest, noEntryTileCountTest);
+        noEntryTileCountField.set(islandTest, Optional.of(noEntryTileCountTest));
 
-        if (!islandTest.getNoEntryTileCount().equals(Optional.empty()))
+        if (islandTest.getNoEntryTileCount().equals(Optional.empty()))
             throw new AssertionError("Getter of noEntryTileCount returned wrongly a null value");
 
         if (!islandTest.getNoEntryTileCount().equals(Optional.of(noEntryTileCountTest)))
@@ -157,9 +157,9 @@ public class IslandTest {
      */
     @Test
     void setNoEntryTileCountTest() throws IllegalAccessException {
-        islandTest.setNoEntryTileCount(Optional.of(noEntryTileCountTest));
+        islandTest.setNoEntryTileCount(noEntryTileCountTest);
 
-        if (!noEntryTileCountField.get(islandTest).equals(noEntryTileCountTest))
+        if (!(noEntryTileCountField.get(islandTest)).equals(Optional.of(noEntryTileCountTest)))
             throw new AssertionError("Setter of noEntryTileCount returned wrong value");
     }
 
@@ -185,15 +185,10 @@ public class IslandTest {
     @Test
     void addBackgroundIDTest() throws IllegalAccessException {
         //Add multiple backgroundIDs to the backgroundID's list
-        ArrayList<Integer> tempCur = new ArrayList<>();
-        for (int i = 0; i < multiplicityTest; i++) {
-            tempCur.add(backgroundIDTest.get(i));
-            backgroundIDField.set(islandTest, tempCur);
+        for (int i = 0; i < multiplicityTest; i++)
             islandTest.addBackgroundID(backgroundIDTest.get(i));
 
-            if (!backgroundIDTest.get(i).equals(((ArrayList<Integer>) backgroundIDField.get(islandTest)).get(i)))
-                throw new AssertionError("Adder of backgroundID added wrong value");
-        }
+        List<Integer> backgroundIDValue = (ArrayList<Integer>) backgroundIDField.get(islandTest);
 
         //Check at the end
         for (int i = 0; i < multiplicityTest; i++)
@@ -201,7 +196,7 @@ public class IslandTest {
                 throw new AssertionError("Adder of backgroundID added value in wrong position");
 
         //Problem with different lengths
-        if (((ArrayList<Integer>) backgroundIDField.get(islandTest)).size() != backgroundIDTest.size())
+        if (backgroundIDValue.size() != backgroundIDTest.size())
             throw new AssertionError("Adder of backgroundID added too many/not enough elements");
     }
 }
