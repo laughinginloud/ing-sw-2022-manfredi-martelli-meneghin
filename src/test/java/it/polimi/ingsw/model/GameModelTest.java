@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,18 +21,18 @@ class GameModelTest {
 
     private GameModel gameModelTest;
     private Field playersField;
-    private Player[] testPlayers = new Player[MAX_PLAYERS];
+    private static final Player[] testPlayers = new Player[MAX_PLAYERS];
     private Field islandsField;
-    private Island[] testIslands = new Island[MAX_ISLANDS];
+    private static final Island[] testIslands = new Island[MAX_ISLANDS];
     private Field motherNaturePositionField;
     private int testMotherNaturePosition = 11;
     private Field coinPoolField;
-    private int testCoinPool = 0;
+    private final int testCoinPool = 0;
     private Field expertModeField;
     private boolean testExpertMode = true;
 
     @BeforeAll
-    void dataInitialization() {
+    static void dataInitialization() {
         for (int i = 0; i < testPlayers.length; ++i)
             testPlayers[i] = new Player(i, null, null, null);
 
@@ -52,7 +51,7 @@ class GameModelTest {
 
         islandsField = gameModelTest.getClass().getDeclaredField("islands");
         islandsField.setAccessible(true);
-        islandsField.set(gameModelTest,new Island[MAX_ISLANDS]);
+        islandsField.set(gameModelTest, Arrays.copyOf(testIslands, testIslands.length));
 
         motherNaturePositionField = gameModelTest.getClass().getDeclaredField("motherNaturePosition");
         motherNaturePositionField.setAccessible(true);
@@ -60,7 +59,7 @@ class GameModelTest {
 
         coinPoolField = gameModelTest.getClass().getDeclaredField("coinPool");
         coinPoolField.setAccessible(true);
-        coinPoolField.set(gameModelTest, MAX_COINPOOL);
+        coinPoolField.set(gameModelTest, Optional.empty());
 
         expertModeField = gameModelTest.getClass().getDeclaredField("expertMode");
         expertModeField.setAccessible(true);
@@ -88,7 +87,7 @@ class GameModelTest {
         // Sets all players independently and tries to retrieve the same value
         for (int i = 0; i < MAX_PLAYERS; i++) {
             gameModelTest.setPlayer(testPlayers[i],i);
-            if (!testPlayers[i].equals(playersField.get(gameModelTest)))
+            if (!testPlayers[i].equals(((Player[]) playersField.get(gameModelTest))[i]))
                 throw new AssertionError("Independent setter set wrong value");
         }
     }
@@ -97,7 +96,7 @@ class GameModelTest {
      * Test for getter of the field "playersCount"
      */
     @Test
-    void getPlayersCountTest() throws IllegalAccessException {
+    void getPlayersCountTest() {
         // Gets the playersCount and checks if it's they same as set in BeforeEach
         int tmp = gameModelTest.getPlayersCount();
             if (tmp != MAX_PLAYERS)
@@ -109,7 +108,6 @@ class GameModelTest {
      */
     @Test
     void getIslandTest() throws IllegalAccessException {
-        // Gets
         islandsField.set(gameModelTest, Arrays.copyOf(testIslands, testIslands.length));
         for (int i = 0; i < MAX_ISLANDS; i++)
             if (testIslands[i] != gameModelTest.getIsland(i))
@@ -121,10 +119,9 @@ class GameModelTest {
      */
     @Test
     void setIslandTest() throws  IllegalAccessException {
-        // Sets
         for (int i = 0; i < MAX_ISLANDS; i++) {
-            gameModelTest.setIsland(testIslands[i],i);
-            if (!testIslands[i].equals(islandsField.get(gameModelTest)))
+            gameModelTest.setIsland(testIslands[i], i);
+            if (!testIslands[i].equals(((Island[]) islandsField.get(gameModelTest))[i]))
                 throw new AssertionError("Independent setter set wrong value");
         }
     }
@@ -133,15 +130,23 @@ class GameModelTest {
      * Test for the method "shiftIslands"
      */
     @Test
-    void shiftIslands() throws IllegalAccessException {
-        // Shifts
+    void shiftIslandsTest() throws IllegalAccessException {
+        gameModelTest.shiftIslands(0);
+
+        Island[] islandsValue = (Island[]) islandsField.get(gameModelTest);
+
+        if (islandsValue.length == testIslands.length)
+            throw new AssertionError("Islands array not shortened");
+
+        if (islandsValue[0].equals(testIslands[0]))
+            throw new AssertionError("Island not removed");
     }
 
     /**
      * Test for getter of the field "islandCount"
      */
     @Test
-    void getIslandCountTest() throws IllegalAccessException {
+    void getIslandCountTest() {
         // Gets the islandsCount and checks if it's they same as set in BeforeEach
         int tmp = gameModelTest.getIslandsCount();
         if (tmp != MAX_ISLANDS){
@@ -153,8 +158,7 @@ class GameModelTest {
      * Test for getter of the field "motherNaturePosition"
      */
     @Test
-    void getMotherNaturePositionTest() throws IllegalAccessException {
-        // Gets
+    void getMotherNaturePositionTest() {
         int tmp = gameModelTest.getMotherNaturePosition();
         if (tmp != MIN_MOTHERNATUREPOSITION){
             throw new AssertionError("Getter returned wrong value");
@@ -192,7 +196,7 @@ class GameModelTest {
     @Test
     void setCoinPoolTest() throws IllegalAccessException {
         gameModelTest.setCoinPool(testCoinPool);
-        if (!coinPoolField.get(gameModelTest).equals(testCoinPool))
+        if (!coinPoolField.get(gameModelTest).equals(Optional.of(testCoinPool)))
             throw new AssertionError("Setter returned wrong value");
     }
 
@@ -200,8 +204,7 @@ class GameModelTest {
      * Test for getter of the field "expertMode"
      */
     @Test
-    void getExpertModeTest() throws IllegalAccessException {
-        // Gets
+    void getExpertModeTest() {
         boolean tmp = gameModelTest.getExpertMode();
         if (tmp != DEFAULT_MODE){
             throw new AssertionError("Getter returned wrong value");
@@ -213,7 +216,6 @@ class GameModelTest {
      */
     @Test
     void setExpertModeTest() throws IllegalAccessException {
-        // Sets
         gameModelTest.setExpertMode(testExpertMode);
         if (!expertModeField.get(gameModelTest).equals(testExpertMode)) {
             throw new AssertionError("Setter returned wrong value");
