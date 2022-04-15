@@ -6,22 +6,10 @@ package it.polimi.ingsw.model;
  */
 public class Bag {
     private int[] studentCounters;
-    private static Bag instance;
 
-    private Bag(){
+    public Bag(){
         studentCounters = new int[Color.values().length];
         setStudentCounters(0);
-    }
-
-    /**
-     * Return the instance of the bag. If the instance doesn't exist it creates a new Bag.
-     * @return The unique bag
-     */
-    public static Bag getInstance(){
-        if(instance == null){
-            instance = new Bag();
-        }
-        return instance;
     }
 
     /**
