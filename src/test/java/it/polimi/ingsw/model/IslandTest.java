@@ -16,18 +16,18 @@ import java.util.Optional;
 public class IslandTest {
     private Island islandTest;
     private Field studentCountersField;
-    private int[] studentCountersTest = new int[]{1, 2, 3, 4, 5};
+    private final int[] studentCountersTest = new int[]{1, 2, 3, 4, 5};
     private Field multiplicityField;
-    private final int multiplicityTest = 3;
+    private static final int multiplicityTest = 3;
     private Field towerColorField;
     private final TowerColor towerColorTest = TowerColor.GREY;
     private Field noEntryTileCountField;
     private final int noEntryTileCountTest = 1;
     private Field backgroundIDField;
-    private ArrayList<Integer> backgroundIDTest;
+    private static ArrayList<Integer> backgroundIDTest;
 
     @BeforeAll
-    void dataInitialization() {
+    static void dataInitialization() {
         backgroundIDTest = new ArrayList<>();
         for (int i = 0; i < multiplicityTest; i++)
             backgroundIDTest.add(i % 4);
