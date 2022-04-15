@@ -14,7 +14,7 @@ class CharacterCardStudentTest {
     private CharacterCardStudent characterCardStudentTest;
     private Color[] studentsTest = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE, Color.YELLOW};
     private Field studentsField;
-    private final int cardIDTest = 99;
+    private final int cardIDTest = 100;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {

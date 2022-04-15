@@ -13,7 +13,8 @@ class CharacterCardNoEntryTest {
     private CharacterCardNoEntry characterCardNoEntryTest;
     private Field noEntryCountField;
     private int noEntryCountTest = 10;
-    private int cardIDTest = 99;
+    private int cardIDTest = 100;
+    private final int defaultValue = 1000;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException  {
@@ -23,7 +24,7 @@ class CharacterCardNoEntryTest {
         noEntryCountField = characterCardNoEntryTest.getClass().getDeclaredField("noEntryCount");
         noEntryCountField.setAccessible(true);
 
-        noEntryCountField.set(characterCardNoEntryTest, null);
+        noEntryCountField.setInt(characterCardNoEntryTest, defaultValue);
     }
 
     /**
