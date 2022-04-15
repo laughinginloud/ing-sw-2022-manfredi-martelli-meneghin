@@ -8,6 +8,10 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for class "Player"
+ * @author Mattia Martelli
+ */
 class PlayerTest {
     private Player playerTest;
     private SchoolBoard schoolBoardTest;

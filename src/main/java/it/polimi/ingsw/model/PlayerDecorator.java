@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import java.util.Arrays;
-
 /**
  * Abstract class providing the interface for the player's decorators
  * @author Mattia Martelli
