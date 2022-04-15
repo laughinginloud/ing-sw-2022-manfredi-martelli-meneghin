@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,7 +13,7 @@ public class Island {
     private int multiplicity;
     private TowerColor towerColor;
     private Optional<Integer> noEntryTileCount;
-    private ArrayList<Integer> backgroundID;
+    private List<Integer> backgroundID;
 
     public Island() {
         studentCounters = new int[Color.values().length];
@@ -81,7 +82,7 @@ public class Island {
      *Set noEntryTileCount to a value
      * @param noEntryTileCount Value to be set
      */
-    public void setNoEntryTileCount(Optional<Integer> noEntryTileCount) { this.noEntryTileCount = noEntryTileCount; }
+    public void setNoEntryTileCount(int noEntryTileCount) { this.noEntryTileCount = Optional.of(noEntryTileCount); }
 
     /**
      * Get all the backgroundIDs assigned to the island, without deleting them
@@ -105,7 +106,7 @@ public class Island {
     public void addBackgroundID(int id) { backgroundID.add(id); }
 
     /**
-     * Add every backgroundID of the array ids to the and of backgroundID's list, modifying its length
+     * Add every backgroundID of the array ids to the end of backgroundID's list, modifying its length
      * @param ids Array of backgroundID to add
      */
     public void addBackgroundID(int[] ids) {

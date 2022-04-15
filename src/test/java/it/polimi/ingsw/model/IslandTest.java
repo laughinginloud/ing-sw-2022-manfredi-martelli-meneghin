@@ -5,9 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Test for class "Island"
@@ -24,7 +22,7 @@ public class IslandTest {
     private Field noEntryTileCountField;
     private final int noEntryTileCountTest = 1;
     private Field backgroundIDField;
-    private static ArrayList<Integer> backgroundIDTest;
+    private static List<Integer> backgroundIDTest;
 
     @BeforeAll
     static void dataInitialization() {
@@ -192,7 +190,7 @@ public class IslandTest {
 
         //Check at the end
         for (int i = 0; i < multiplicityTest; i++)
-            if (!backgroundIDTest.get(i).equals(((ArrayList<Integer>) backgroundIDField.get(islandTest)).get(i)))
+            if (!Objects.equals(backgroundIDTest.get(i), backgroundIDValue.get(i)))
                 throw new AssertionError("Adder of backgroundID added value in wrong position");
 
         //Problem with different lengths
