@@ -10,8 +10,9 @@ public class SchoolBoard {
     private final Entrance   entrance;
     private final DiningRoom diningRoom;
 
-    public SchoolBoard(TowerColor towerColor, Entrance entrance, DiningRoom diningRoom) {
+    public SchoolBoard(TowerColor towerColor, int towerCount, Entrance entrance, DiningRoom diningRoom) {
         this.towerColor = towerColor;
+        this.towerCount = towerCount;
         this.entrance   = entrance;
         this.diningRoom = diningRoom;
     }
@@ -39,4 +40,16 @@ public class SchoolBoard {
     public void setTowerCount(int towerCount) {
         this.towerCount = towerCount;
     }
+
+    /**
+     * Returns the entrance associated with the school board
+     * @return A pointer to the school board's entrance
+     */
+    public Entrance getEntrance() { return entrance; }
+
+    /**
+     * Returns the dining room associated with the school board
+     * @return A pointer to the school board's dining room
+     */
+    public DiningRoom getDiningRoom() { return diningRoom; }
 }
