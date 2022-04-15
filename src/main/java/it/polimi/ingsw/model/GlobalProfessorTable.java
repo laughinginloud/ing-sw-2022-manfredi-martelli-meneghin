@@ -6,20 +6,8 @@ package it.polimi.ingsw.model;
  */
 public class GlobalProfessorTable {
     private Player[] professorLocations;
-    private static GlobalProfessorTable instance;
 
-    private GlobalProfessorTable(){ professorLocations = new Player[Color.values().length]; }
-
-    /**
-     * Return the instance of the GlobalProfessorTable. If the instance doesn't exist it creates a new GlobalProfessorTable.
-     * @return The unique GlobalProfessorTable
-     */
-    public static GlobalProfessorTable getInstance(){
-        if(instance == null){
-            instance = new GlobalProfessorTable();
-        }
-        return instance;
-    }
+    public GlobalProfessorTable(){ professorLocations = new Player[Color.values().length]; }
 
     /**
      * Return the player who is controlling the specific professor (or null if no one is controlling the professor)
