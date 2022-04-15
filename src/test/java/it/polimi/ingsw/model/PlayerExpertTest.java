@@ -5,20 +5,18 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
- * Tests for class "PlayerDecoratorExpert"
+ * Tests for class "PlayerExpert"
  * @author Mattia Martelli
  */
-class PlayerDecoratorExpertTest {
-    private PlayerDecoratorExpert playerDecoratorExpertTest;
-    Field coinCountField;
+class PlayerExpertTest {
+    private PlayerExpert playerExpertTest;
+    private Field        coinCountField;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException {
-        playerDecoratorExpertTest = new PlayerDecoratorExpert(new Player(0, null, null, null));
-        coinCountField = playerDecoratorExpertTest.getClass().getDeclaredField("coinCount");
+        playerExpertTest = new PlayerExpert(0, null, null, null);
+        coinCountField = playerExpertTest.getClass().getDeclaredField("coinCount");
         coinCountField.setAccessible(true);
     }
 
@@ -27,9 +25,9 @@ class PlayerDecoratorExpertTest {
      */
     @Test
     void getCoinCountTest() throws IllegalAccessException {
-        coinCountField.set(playerDecoratorExpertTest, 5);
+        coinCountField.set(playerExpertTest, 5);
 
-        if (playerDecoratorExpertTest.getCoinCount() != 5)
+        if (playerExpertTest.getCoinCount() != 5)
             throw new AssertionError("Returned wrong coin count");
     }
 
@@ -38,9 +36,9 @@ class PlayerDecoratorExpertTest {
      */
     @Test
     void setCoinCountTest() throws IllegalAccessException {
-        playerDecoratorExpertTest.setCoinCount(5);
+        playerExpertTest.setCoinCount(5);
 
-        if ((int) coinCountField.get(playerDecoratorExpertTest) != 5)
+        if ((int) coinCountField.get(playerExpertTest) != 5)
             throw new AssertionError("Set wrong coin count");
     }
 }

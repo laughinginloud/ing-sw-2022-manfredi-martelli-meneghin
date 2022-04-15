@@ -4,11 +4,11 @@ package it.polimi.ingsw.model;
  * Player decorator adding the coins count
  * @author Mattia Martelli
  */
-public class PlayerDecoratorExpert extends PlayerDecorator {
+public class PlayerExpert extends Player {
     private int coinCount;
 
-    public PlayerDecoratorExpert(Player basePlayer) {
-        super(basePlayer);
+    public PlayerExpert(int playerID, String username, Wizard playerWizard, SchoolBoard schoolBoard) {
+        super(playerID, username, playerWizard, schoolBoard);
     }
 
     /**

@@ -4,13 +4,19 @@ package it.polimi.ingsw.model;
  * Player decorator adding the concept of team
  * @author Mattia Martelli
  */
-public class PlayerDecoratorTeam extends PlayerDecorator {
+public class PlayerTeam extends Player {
     private final Player teamMember;
 
-    public PlayerDecoratorTeam(Player basePlayer, Player teamMember) {
-        super(basePlayer);
+    public PlayerTeam(int playerID, String username, Wizard playerWizard, SchoolBoard schoolBoard, Player teamMember) {
+        super(playerID, username, playerWizard, schoolBoard);
         this.teamMember = teamMember;
     }
+
+
+    /*public PlayerTeam(Player basePlayer, Player teamMember) {
+        super(basePlayer);
+        this.teamMember = teamMember;
+    }*/
 
     /**
      * Returns the team member of the player
