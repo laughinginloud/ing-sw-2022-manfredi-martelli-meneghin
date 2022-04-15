@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -55,11 +56,12 @@ public class GameModel {
     public void setIsland(Island island, int index){ this.islands[index] = island;}
 
     /**
-     * Shift of the islands array needed when merging islands
+     * Shift of the islands array needed when merging islands, shrinking it in the process
      * @param index The index of the island I will overwrite
      */
     public void shiftIslands(int index){
         System.arraycopy(islands, index + 1, islands, index, islands.length - index - 1);
+        islands = Arrays.copyOf(islands, islands.length - 1);
     }
 
     /**
