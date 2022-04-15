@@ -13,16 +13,16 @@ class CharacterCardTest {
     private CharacterCard characterCardTest;
     private final int costTest = 2;
     private Field costField;
-    private final int cardIDTest = 99;
+    private final int cardIDTest = 100;
     private Field cardIdField;
     private final int cardIDTestBuildSimple = 1;
     private final int cardIDTestBuildStudent = 0;
     private final int cardIDTestBuildNoEntry = 4;
-
+    private final int defaultValue = 1000;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException  {
-        characterCardTest = new CharacterCard(99);
+        characterCardTest = new CharacterCard(cardIDTest);
 
         // Use reflection to get the private field "cost" and change its visibility
         costField = characterCardTest.getClass().getDeclaredField("cost");
@@ -32,8 +32,9 @@ class CharacterCardTest {
         cardIdField = characterCardTest.getClass().getDeclaredField("cardID");
         cardIdField.setAccessible(true);
 
-        costField.set(characterCardTest, null);
-        cardIdField.set(characterCardTest, null);
+        //Use reflection to set private field "cardID" and "cost" to a default value
+        costField.setInt(characterCardTest, defaultValue);
+        cardIdField.setInt(characterCardTest, defaultValue);
     }
 
     /**
