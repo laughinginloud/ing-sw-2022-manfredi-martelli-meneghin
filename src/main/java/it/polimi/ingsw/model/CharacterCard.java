@@ -5,8 +5,8 @@ package it.polimi.ingsw.model;
  * @author Sebastiano Meneghin
  */
 public class CharacterCard {
-    private int cost;
-    private int cardID;
+    private       int cost;
+    private final int cardID;
 
     protected CharacterCard(int cardID) { this.cardID = cardID; }
 

@@ -5,7 +5,7 @@ package it.polimi.ingsw.model;
  * @author Sebastiano Meneghin
  */
 public class GlobalProfessorTable {
-    private Player[] professorLocations;
+    private final Player[] professorLocations;
 
     public GlobalProfessorTable(){ professorLocations = new Player[Color.values().length]; }
 

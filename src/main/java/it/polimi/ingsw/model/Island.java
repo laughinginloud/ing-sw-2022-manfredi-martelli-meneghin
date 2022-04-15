@@ -9,11 +9,11 @@ import java.util.Optional;
  * @author Sebastiano Meneghin
  */
 public class Island {
-    private int[] studentCounters;
-    private int multiplicity;
-    private TowerColor towerColor;
-    private Optional<Integer> noEntryTileCount;
-    private List<Integer> backgroundID;
+    private final int[]             studentCounters;
+    private       int               multiplicity;
+    private       TowerColor        towerColor;
+    private       Optional<Integer> noEntryTileCount;
+    private final List<Integer>     backgroundID;
 
     public Island() {
         studentCounters = new int[Color.values().length];

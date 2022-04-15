@@ -6,7 +6,7 @@ package it.polimi.ingsw.model;
  * @author Mattia Martelli
  */
 public class DiningRoom {
-    private int[] studentCounters = new int[Color.values().length];
+    private final int[] studentCounters = new int[Color.values().length];
 
     public DiningRoom() {
         setStudentCounters(0);

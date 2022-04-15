@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public class CharacterCardNoEntry extends CharacterCard{
+public class CharacterCardNoEntry extends CharacterCard {
     private int noEntryCount;
 
     /**

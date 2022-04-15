@@ -6,21 +6,19 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Tests for class "Player"
  * @author Mattia Martelli
  */
 class PlayerTest {
-    private Player playerTest;
+    private Player      playerTest;
     private SchoolBoard schoolBoardTest;
-    Field assistantDeckField;
+    private Field       assistantDeckField;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException {
         schoolBoardTest = new SchoolBoard(null, 0, null, null);
-        playerTest = new Player(0, "test", Wizard.CLOUD, schoolBoardTest);
+        playerTest      = new Player(0, "test", Wizard.CLOUD, schoolBoardTest);
 
         assistantDeckField = playerTest.getClass().getDeclaredField("assistantDeck");
         assistantDeckField.setAccessible(true);

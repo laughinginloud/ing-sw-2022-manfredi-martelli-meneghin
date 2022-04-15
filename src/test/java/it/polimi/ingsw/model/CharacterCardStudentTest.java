@@ -11,14 +11,13 @@ import java.util.Arrays;
  * @author Sebastiano Meneghin
  */
 class CharacterCardStudentTest {
-    private CharacterCardStudent characterCardStudentTest;
-    private Color[] studentsTest = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE, Color.YELLOW};
-    private Field studentsField;
-    private final int cardIDTest = 100;
+    private       CharacterCardStudent characterCardStudentTest;
+    private final Color[]              studentsTest = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE, Color.YELLOW};
+    private       Field                studentsField;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        characterCardStudentTest = new CharacterCardStudent(cardIDTest);
+        characterCardStudentTest = new CharacterCardStudent(100);
 
         // Use reflection to get the private field "noEntryCount" and change its visibility
         studentsField = characterCardStudentTest.getClass().getDeclaredField("students");

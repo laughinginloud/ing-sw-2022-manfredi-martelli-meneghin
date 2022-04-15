@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,7 @@ import java.util.Arrays;
 class BagTest {
     private Bag bagTest;
     private Field studentCountersField;
-    private int[] studentCountersTest = {1,2,3,4,5};
+    private final int[] studentCountersTest = {1,2,3,4,5};
 
     @BeforeEach
     void setUp() throws IllegalAccessException, NoSuchFieldException {

@@ -3,8 +3,8 @@ package it.polimi.ingsw.model;
 import java.util.Arrays;
 
 /**
- * Class representing the school's entrance
- * To be used as part of SchoolBoard
+ * Class representing the school's entrance,
+ * to be used as part of SchoolBoard
  * @author Mattia Martelli
  */
 public class Entrance {

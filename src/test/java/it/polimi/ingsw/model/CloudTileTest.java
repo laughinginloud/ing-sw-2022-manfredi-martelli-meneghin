@@ -11,9 +11,9 @@ import java.util.Arrays;
  * @author Mattia Martelli
  */
 class CloudTileTest {
-    private CloudTile cloudTileTest;
-    private Field     studentsField;
-    private Color[]   globalTestSet = new Color[]{Color.RED, Color.YELLOW, Color.GREEN, Color.PINK};
+    private       CloudTile cloudTileTest;
+    private       Field     studentsField;
+    private final Color[]   globalTestSet = new Color[]{Color.RED, Color.YELLOW, Color.GREEN, Color.PINK};
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
@@ -66,7 +66,7 @@ class CloudTileTest {
      * Test the correctness of the method setStudents
      */
     @Test
-    void setStudentsTest() throws NoSuchFieldException, IllegalAccessException {
+    void setStudentsTest() throws IllegalAccessException {
         Color[] testSet = new Color[]{Color.BLUE, Color.RED, Color.GREEN, Color.PINK};
         cloudTileTest.setStudents(testSet);
 

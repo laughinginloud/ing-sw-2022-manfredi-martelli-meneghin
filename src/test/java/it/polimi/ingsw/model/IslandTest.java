@@ -12,17 +12,17 @@ import java.util.*;
  * @author Sebastiano Meneghin
  */
 public class IslandTest {
-    private Island islandTest;
-    private Field studentCountersField;
-    private final int[] studentCountersTest = new int[]{1, 2, 3, 4, 5};
-    private Field multiplicityField;
-    private static final int multiplicityTest = 3;
-    private Field towerColorField;
-    private final TowerColor towerColorTest = TowerColor.GREY;
-    private Field noEntryTileCountField;
-    private final int noEntryTileCountTest = 1;
-    private Field backgroundIDField;
-    private static List<Integer> backgroundIDTest;
+    private              Island        islandTest;
+    private              Field         studentCountersField;
+    private        final int[]         studentCountersTest = new int[]{1, 2, 3, 4, 5};
+    private              Field         multiplicityField;
+    private static final int           multiplicityTest = 3;
+    private              Field         towerColorField;
+    private        final TowerColor    towerColorTest = TowerColor.GREY;
+    private              Field         noEntryTileCountField;
+    private        final int           noEntryTileCountTest = 1;
+    private              Field         backgroundIDField;
+    private static       List<Integer> backgroundIDTest;
 
     @BeforeAll
     static void dataInitialization() {
@@ -186,6 +186,7 @@ public class IslandTest {
         for (int i = 0; i < multiplicityTest; i++)
             islandTest.addBackgroundID(backgroundIDTest.get(i));
 
+        @SuppressWarnings("unchecked")
         List<Integer> backgroundIDValue = (ArrayList<Integer>) backgroundIDField.get(islandTest);
 
         //Check at the end

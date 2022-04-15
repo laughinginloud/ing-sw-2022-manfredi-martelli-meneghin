@@ -11,9 +11,9 @@ import java.util.Arrays;
  * @author Mattia Martelli
  */
 class DiningRoomTest {
-    private DiningRoom diningRoomTest;
-    private Field      studentCountersField;
-    private int[]      testSet = {1,2,3,4,5};
+    private       DiningRoom diningRoomTest;
+    private       Field      studentCountersField;
+    private final int[]      testSet = {1,2,3,4,5};
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {

@@ -13,23 +13,20 @@ import java.util.Optional;
  * @author Giovanni Manfredi
  */
 class GameModelTest {
-    private static final int MAX_PLAYERS = 4;
-    private static final int MAX_ISLANDS = 12;
-    private static final int MIN_MOTHERNATUREPOSITION = 4;
-    private static final int MAX_COINPOOL = 20;
-    private static final boolean DEFAULT_MODE = false;
+    private static final int     MAX_PLAYERS              = 4;
+    private static final int     MAX_ISLANDS              = 12;
+    private static final int     MIN_MOTHERNATUREPOSITION = 4;
+    private static final boolean DEFAULT_MODE             = false;
 
-    private GameModel gameModelTest;
-    private Field playersField;
-    private static final Player[] testPlayers = new Player[MAX_PLAYERS];
-    private Field islandsField;
-    private static final Island[] testIslands = new Island[MAX_ISLANDS];
-    private Field motherNaturePositionField;
-    private int testMotherNaturePosition = 11;
-    private Field coinPoolField;
-    private final int testCoinPool = 0;
-    private Field expertModeField;
-    private boolean testExpertMode = true;
+    private              GameModel gameModelTest;
+    private              Field     playersField;
+    private static final Player[]  testPlayers = new Player[MAX_PLAYERS];
+    private              Field     islandsField;
+    private static final Island[]  testIslands = new Island[MAX_ISLANDS];
+    private              Field     motherNaturePositionField;
+    private              Field     coinPoolField;
+    private        final int       testCoinPool = 0;
+    private              Field     expertModeField;
 
     @BeforeAll
     static void dataInitialization() {
@@ -98,9 +95,8 @@ class GameModelTest {
     @Test
     void getPlayersCountTest() {
         // Gets the playersCount and checks if it's they same as set in BeforeEach
-        int tmp = gameModelTest.getPlayersCount();
-            if (tmp != MAX_PLAYERS)
-                throw new AssertionError("Getter returned wrong value");
+        if (gameModelTest.getPlayersCount() != MAX_PLAYERS)
+            throw new AssertionError("Getter returned wrong value");
     }
 
     /**
@@ -148,10 +144,8 @@ class GameModelTest {
     @Test
     void getIslandCountTest() {
         // Gets the islandsCount and checks if it's they same as set in BeforeEach
-        int tmp = gameModelTest.getIslandsCount();
-        if (tmp != MAX_ISLANDS){
+        if (gameModelTest.getIslandsCount() != MAX_ISLANDS)
             throw new AssertionError("Getter returned wrong value");
-        }
     }
 
     /**
@@ -159,10 +153,8 @@ class GameModelTest {
      */
     @Test
     void getMotherNaturePositionTest() {
-        int tmp = gameModelTest.getMotherNaturePosition();
-        if (tmp != MIN_MOTHERNATUREPOSITION){
+        if (gameModelTest.getMotherNaturePosition() != MIN_MOTHERNATUREPOSITION)
             throw new AssertionError("Getter returned wrong value");
-        }
     }
 
     /**
@@ -170,11 +162,9 @@ class GameModelTest {
      */
     @Test
     void setMotherNaturePositionTest() throws IllegalAccessException {
-        // Sets
-        gameModelTest.setMotherNaturePosition(testMotherNaturePosition);
-        if (!motherNaturePositionField.get(gameModelTest).equals(testMotherNaturePosition)) {
+        gameModelTest.setMotherNaturePosition(11);
+        if (!motherNaturePositionField.get(gameModelTest).equals(11))
             throw new AssertionError("Setter returned wrong value");
-        }
     }
 
     /**
@@ -205,8 +195,7 @@ class GameModelTest {
      */
     @Test
     void getExpertModeTest() {
-        boolean tmp = gameModelTest.getExpertMode();
-        if (tmp != DEFAULT_MODE){
+        if (gameModelTest.getExpertMode() != DEFAULT_MODE){
             throw new AssertionError("Getter returned wrong value");
         }
     }
@@ -216,9 +205,8 @@ class GameModelTest {
      */
     @Test
     void setExpertModeTest() throws IllegalAccessException {
-        gameModelTest.setExpertMode(testExpertMode);
-        if (!expertModeField.get(gameModelTest).equals(testExpertMode)) {
+        gameModelTest.setExpertMode(true);
+        if (!expertModeField.get(gameModelTest).equals(true))
             throw new AssertionError("Setter returned wrong value");
-        }
     }
 }

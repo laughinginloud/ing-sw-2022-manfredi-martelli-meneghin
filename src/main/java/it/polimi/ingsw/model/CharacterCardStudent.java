@@ -4,8 +4,8 @@ package it.polimi.ingsw.model;
  * Class representing a "CharactedCardStudent"
  * @author Sebastiano Meneghin
  */
-public class CharacterCardStudent extends CharacterCard{
-    private Color[] students;
+public class CharacterCardStudent extends CharacterCard {
+    private final Color[] students;
 
     protected CharacterCardStudent (int cardID) {
         super(cardID);

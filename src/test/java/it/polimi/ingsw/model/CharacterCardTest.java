@@ -15,10 +15,6 @@ class CharacterCardTest {
     private Field costField;
     private final int cardIDTest = 100;
     private Field cardIdField;
-    private final int cardIDTestBuildSimple = 1;
-    private final int cardIDTestBuildStudent = 0;
-    private final int cardIDTestBuildNoEntry = 4;
-    private final int defaultValue = 1000;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException  {
@@ -33,8 +29,8 @@ class CharacterCardTest {
         cardIdField.setAccessible(true);
 
         //Use reflection to set private field "cardID" and "cost" to a default value
-        costField.setInt(characterCardTest, defaultValue);
-        cardIdField.setInt(characterCardTest, defaultValue);
+        costField.setInt(characterCardTest, 1000);
+        cardIdField.setInt(characterCardTest, 1000);
     }
 
     /**
@@ -45,19 +41,17 @@ class CharacterCardTest {
         CharacterCard temp;
 
         //Check first conditional branch in method "build"
-        temp = CharacterCard.build(cardIDTestBuildStudent);
+        temp = CharacterCard.build(0);
         if (!temp.getClass().equals(CharacterCardStudent.class))
             throw new AssertionError("Builder has not build a 'CharacterCardStudent' object as requested");
-        temp = null;
 
         //Check second conditional branch in method "build"
-        temp = CharacterCard.build(cardIDTestBuildNoEntry);
+        temp = CharacterCard.build(4);
         if (!temp.getClass().equals(CharacterCardNoEntry.class))
             throw new AssertionError("Builder has not build a 'CharacterCardNoEntry' object as requested");
-        temp = null;
 
         //Check default conditional branch in method "build"
-        temp = CharacterCard.build(cardIDTestBuildSimple);
+        temp = CharacterCard.build(1);
         if (!temp.getClass().equals(CharacterCard.class))
             throw new AssertionError("Builder has not build a 'CharacterCard' object as requested");
     }

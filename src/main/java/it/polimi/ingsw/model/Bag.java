@@ -5,7 +5,7 @@ package it.polimi.ingsw.model;
  * @author Sebastiano Meneghin
  */
 public class Bag {
-    private int[] studentCounters;
+    private final int[] studentCounters;
 
     public Bag(){
         studentCounters = new int[Color.values().length];

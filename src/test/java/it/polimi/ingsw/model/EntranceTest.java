@@ -11,9 +11,9 @@ import java.util.Arrays;
  * @author Mattia Martelli
  */
 class EntranceTest {
-    private Entrance entranceTest;
-    private Field    studentsField;
-    private Color[]  globalTestSet = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE};
+    private       Entrance entranceTest;
+    private       Field    studentsField;
+    private final Color[]  globalTestSet = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE};
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {

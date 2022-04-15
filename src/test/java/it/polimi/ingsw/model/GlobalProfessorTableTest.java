@@ -11,9 +11,9 @@ import java.lang.reflect.Field;
  * @author Sebastiano Meneghin
  */
 class GlobalProfessorTableTest {
-    private GlobalProfessorTable globalProfessorTableTest;
-    private static Player[] professorLocationsTest = new Player[5];
-    private Field professorLocationsField;
+    private              GlobalProfessorTable globalProfessorTableTest;
+    private static final Player[]             professorLocationsTest = new Player[5];
+    private              Field                professorLocationsField;
 
     @BeforeAll
     static void dataInitialization() {
