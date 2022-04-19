@@ -8,16 +8,18 @@ import java.util.Optional;
  * @author Giovanni Manfredi
  */
 public class GameModel {
-    private final Player[]          players;
-    private       Island[]          islands;
-    private       int               motherNaturePosition;
-    private       Optional<Integer> coinPool;
-    private       boolean           expertMode;
+    private final Player[]                  players;
+    private       Island[]                  islands;
+    private       CloudTile[]               cloudTiles;
+    private       int                       motherNaturePosition;
+    private       Optional<Integer>         coinPool;
+    private       boolean                   expertMode;
 
-    public GameModel(int numOfPlayers){
-        players  = new Player[numOfPlayers];
-        islands  = new Island[12];
-        coinPool = Optional.empty();
+    public GameModel(int numOfPlayers, int numOfCloudTiles){
+        players              = new Player[numOfPlayers];
+        islands              = new Island[12];
+        cloudTiles           = new CloudTile[numOfCloudTiles];
+        coinPool             = Optional.empty();
     }
 
     /**
@@ -69,6 +71,26 @@ public class GameModel {
      */
     public int getIslandsCount(){ return islands.length;}
 
+    /**
+     * Get the CloudTile saved at a specific index
+     * @param index The index of the cloudTile array
+     * @return The specific cloudTile requested
+     */
+    public CloudTile getCloudTile(int index){ return cloudTiles[index];}
+
+    /**
+     * Set the cloudTile saved at a specific index
+     * @param cloudTile The cloudTile to be saved
+     * @param index The index of the specific cloudTile that needs to be set
+     */
+    public void setCloudTile(CloudTile cloudTile, int index){ this.cloudTiles[index] = cloudTile;}
+
+    /**
+     * Get the number of cloudTiles present
+     * @return The number of CloudTiles present (from 2 to 4)
+     */
+    public int getCloudTilesCount(){ return cloudTiles.length;}
+    
     /**
      * Get the position of mother nature saved
      * @return The position of mother nature (from 0 to 11)
