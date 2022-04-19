@@ -15,6 +15,7 @@ public class GameModel {
     private       Bag                       bag;
     private       GlobalProfessorTable      globalProfessorTable;
     private       boolean                   expertMode;
+    private       Optional<CharacterCard>[] characterCards;
     private       Optional<Integer>         coinPool;
 
     public GameModel(int numOfPlayers, int numOfCloudTiles){
@@ -23,6 +24,9 @@ public class GameModel {
         cloudTiles           = new CloudTile[numOfCloudTiles];
         bag                  = new Bag();
         globalProfessorTable = new GlobalProfessorTable();
+        for (int i = 0; i < 3; i++){
+            characterCards[i] = Optional.empty();
+        }
         coinPool             = Optional.empty();
     }
 
@@ -142,6 +146,20 @@ public class GameModel {
      * @param expertMode true is Expert, false otherwise
      */
     public void setExpertMode(boolean expertMode){ this.expertMode = expertMode;}
+
+    /**
+     * Get the specific characterCard saved at a specific index
+     * @param index The index at which the characterCard is saved
+     * @return The specific characterCard requested
+     */
+    public Optional<CharacterCard> getCharacterCard(int index){ return characterCards[index];}
+
+    /**
+     * Set the characterCard saved at a specific index
+     * @param characterCard The characterCard to be saved
+     * @param index The index of the specific characterCard that needs to be set
+     */
+    public void setCharacterCard(CharacterCard characterCard, int index){ this.characterCards[index] = Optional.of(characterCard);}
 
     /**
      * Get the number of coins in the pool
