@@ -13,6 +13,7 @@ public class GameModel {
     private       CloudTile[]               cloudTiles;
     private       int                       motherNaturePosition;
     private       Bag                       bag;
+    private       GlobalProfessorTable      globalProfessorTable;
     private       Optional<Integer>         coinPool;
     private       boolean                   expertMode;
 
@@ -21,6 +22,7 @@ public class GameModel {
         islands              = new Island[12];
         cloudTiles           = new CloudTile[numOfCloudTiles];
         bag                  = new Bag();
+        globalProfessorTable = new GlobalProfessorTable();
         coinPool             = Optional.empty();
     }
 
@@ -116,6 +118,18 @@ public class GameModel {
      * @param bag The bag to be saved
      */
     public void setBag(Bag bag){ this.bag = bag;}
+
+    /**
+     * Get the globalProfessorTable saved
+     * @return the globalProfessorTable
+     */
+    public GlobalProfessorTable getGlobalProfessorTable(){ return globalProfessorTable;}
+
+    /**
+     * Set the saved globalProfessorTable to a specific globalProfessorTable
+     * @param globalProfessorTable The globalProfessorTable to be saved
+     */
+    public void setGlobalProfessorTable(GlobalProfessorTable globalProfessorTable){ this.globalProfessorTable = globalProfessorTable;}
 
     /**
      * Get the number of coins in the pool
