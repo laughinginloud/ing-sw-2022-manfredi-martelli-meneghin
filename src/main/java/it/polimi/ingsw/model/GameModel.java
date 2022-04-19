@@ -14,8 +14,8 @@ public class GameModel {
     private       int                       motherNaturePosition;
     private       Bag                       bag;
     private       GlobalProfessorTable      globalProfessorTable;
-    private       Optional<Integer>         coinPool;
     private       boolean                   expertMode;
+    private       Optional<Integer>         coinPool;
 
     public GameModel(int numOfPlayers, int numOfCloudTiles){
         players              = new Player[numOfPlayers];
@@ -132,18 +132,6 @@ public class GameModel {
     public void setGlobalProfessorTable(GlobalProfessorTable globalProfessorTable){ this.globalProfessorTable = globalProfessorTable;}
 
     /**
-     * Get the number of coins in the pool
-     * @return The number of coins currently in the pool (from 0 to 20)
-     */
-    public Optional<Integer> getCoinPool(){ return coinPool;}
-
-    /**
-     * Set the number of coins in the pool
-     * @param coinPool The number of coins that are in the pool (from 0 to 20)
-     */
-    public void setCoinPool(int coinPool){ this.coinPool = Optional.of(coinPool);}
-
-    /**
      * Get if the GameMode is expert or not
      * @return true if Expert is set, false otherwise
      */
@@ -154,4 +142,16 @@ public class GameModel {
      * @param expertMode true is Expert, false otherwise
      */
     public void setExpertMode(boolean expertMode){ this.expertMode = expertMode;}
+
+    /**
+     * Get the number of coins in the pool
+     * @return The number of coins currently in the pool (from 0 to 20)
+     */
+    public Optional<Integer> getCoinPool(){ return coinPool;}
+
+    /**
+     * Set the number of coins in the pool
+     * @param coinPool The number of coins that are in the pool (from 0 to 20)
+     */
+    public void setCoinPool(int coinPool){ this.coinPool = Optional.of(coinPool);}
 }
