@@ -12,6 +12,7 @@ public class GameModel {
     private       Island[]                  islands;
     private       CloudTile[]               cloudTiles;
     private       int                       motherNaturePosition;
+    private       Bag                       bag;
     private       Optional<Integer>         coinPool;
     private       boolean                   expertMode;
 
@@ -19,6 +20,7 @@ public class GameModel {
         players              = new Player[numOfPlayers];
         islands              = new Island[12];
         cloudTiles           = new CloudTile[numOfCloudTiles];
+        bag                  = new Bag();
         coinPool             = Optional.empty();
     }
 
@@ -90,7 +92,7 @@ public class GameModel {
      * @return The number of CloudTiles present (from 2 to 4)
      */
     public int getCloudTilesCount(){ return cloudTiles.length;}
-    
+
     /**
      * Get the position of mother nature saved
      * @return The position of mother nature (from 0 to 11)
@@ -102,6 +104,18 @@ public class GameModel {
      * @param motherNaturePosition The position of mother nature to be saved (from 0 to 11)
      */
     public void setMotherNaturePosition(int motherNaturePosition){ this.motherNaturePosition = motherNaturePosition;}
+
+    /**
+     * Get the Bag saved
+     * @return The Bag
+     */
+    public Bag getBag(){ return bag;}
+
+    /**
+     * Set the saved bag to a specific bag
+     * @param bag The bag to be saved
+     */
+    public void setBag(Bag bag){ this.bag = bag;}
 
     /**
      * Get the number of coins in the pool
