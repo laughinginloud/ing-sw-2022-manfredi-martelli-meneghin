@@ -8,7 +8,17 @@ public class CharacterCard {
     private       int cost;
     private final int cardID;
 
-    protected CharacterCard(int cardID) { this.cardID = cardID; }
+    protected CharacterCard(int cardID) {
+        this.cardID = cardID;
+
+        //Set the cost of the Card depending on its cardID
+        if (cardID == 0 || cardID == 3 || cardID == 6 || cardID == 9)
+            setCost(1);
+        else if (cardID == 1 || cardID == 4 || cardID == 7 || cardID == 10)
+            setCost(2);
+        else if (cardID == 2 || cardID == 5 || cardID == 8 || cardID == 11)
+            setCost(3);
+    }
 
     /**
      * Build a new CharacterCard according to the cardID is given (like a factory)
