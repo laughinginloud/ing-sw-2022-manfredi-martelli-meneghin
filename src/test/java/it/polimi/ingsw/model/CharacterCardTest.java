@@ -10,11 +10,13 @@ import java.lang.reflect.Field;
  * @author Sebastiano Meneghin
  */
 class CharacterCardTest {
-    private CharacterCard characterCardTest;
-    private final int costTest = 2;
-    private Field costField;
-    private final int cardIDTest = 100;
-    private Field cardIdField;
+    private         CharacterCard   characterCardTest;
+    private final   int             costTest = 2;
+    private         Field           costField;
+    private final   int             cardIDTest = 100;
+    private         Field           cardIdField;
+    private final   boolean         hasCoinTest = false;
+    private         Field           hasCoinField;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException  {
@@ -28,9 +30,14 @@ class CharacterCardTest {
         cardIdField = characterCardTest.getClass().getDeclaredField("cardID");
         cardIdField.setAccessible(true);
 
+        //Use reflection to get the private field "hasCoin" and change its visibility
+        hasCoinField = characterCardTest.getClass().getDeclaredField("hasCoin");
+        hasCoinField.setAccessible(true);
+
         //Use reflection to set private field "cardID" and "cost" to a default value
         costField.setInt(characterCardTest, 1000);
         cardIdField.setInt(characterCardTest, 1000);
+        hasCoinField.setBoolean(characterCardTest, false);
     }
 
     /**
@@ -87,5 +94,27 @@ class CharacterCardTest {
 
         if (costTest != ((int) costField.get(characterCardTest)))
             throw new AssertionError("Setter of cost set wrong value");
+    }
+
+    /**
+     * Test for the getter of the field "hasCoin"
+     */
+    @Test
+    void getHasCoinTest() throws IllegalAccessException {
+        hasCoinField.setBoolean(characterCardTest, hasCoinTest);
+
+        if ((hasCoinTest && !characterCardTest.getHasCoin()) || (!hasCoinTest && characterCardTest.getHasCoin()))
+            throw new AssertionError("Getter of hasCoin returned wrong value");
+    }
+
+    /**
+     * Test for the setter of the field "hasCoin"
+     */
+    @Test
+    void setHasCoinTest() throws IllegalAccessException {
+        characterCardTest.setHasCoin(hasCoinTest);
+
+        if ((hasCoinTest && !hasCoinField.getBoolean(characterCardTest)) || (!hasCoinTest && hasCoinField.getBoolean(characterCardTest)))
+            throw new AssertionError("Setter of hasCoin set wrong value");
     }
 }

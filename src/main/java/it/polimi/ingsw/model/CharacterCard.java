@@ -7,6 +7,7 @@ package it.polimi.ingsw.model;
 public class CharacterCard {
     private       int cost;
     private final int cardID;
+    private       boolean hasCoin;
 
     protected CharacterCard(int cardID) {
         this.cardID = cardID;
@@ -18,6 +19,8 @@ public class CharacterCard {
             setCost(2);
         else if (cardID == 2 || cardID == 5 || cardID == 8 || cardID == 11)
             setCost(3);
+
+        hasCoin = false;
     }
 
     /**
@@ -56,4 +59,16 @@ public class CharacterCard {
      * @return The cardID of the CharacterCard
      */
     public int getCardID() { return this.cardID; }
+
+    /**
+     * Get the flag hasCoin of CharacterCard
+     * @return A Boolean representing the absence/presence of the coin on the CharacterCard
+     */
+    public boolean getHasCoin() { return hasCoin; }
+
+    /**
+     * Set the flag hasCoin to a specific value
+     * @param hasCoin The value to be set (true or false)
+     */
+    public void setHasCoin(boolean hasCoin) { this.hasCoin = hasCoin; }
 }
