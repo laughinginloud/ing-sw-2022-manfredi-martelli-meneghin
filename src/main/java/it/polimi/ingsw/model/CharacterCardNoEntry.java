@@ -13,7 +13,7 @@ public class CharacterCardNoEntry extends CharacterCard {
     }
 
     /**
-     * Get the field "noEntrycount"
+     * Get the field "noEntryCount"
      * @return The value of the field
      */
     public int getNoEntryCount() { return this.noEntryCount; }
@@ -22,5 +22,10 @@ public class CharacterCardNoEntry extends CharacterCard {
      * Set the field "noEntryCount" to a specific value
      * @param noEntryCount The value to be set
      */
-    public void setNoEntryCount(int noEntryCount) { this.noEntryCount = noEntryCount; }
+    public void setNoEntryCount (int noEntryCount) throws IllegalArgumentException {
+        if (noEntryCount < 0 || noEntryCount > 4)
+            throw new IllegalArgumentException("CharacterCardNoEntry.noEntryCount accepted value is between 0 and 4");
+
+        this.noEntryCount = noEntryCount;
+    }
 }

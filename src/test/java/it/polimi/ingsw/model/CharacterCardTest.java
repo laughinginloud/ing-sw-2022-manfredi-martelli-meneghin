@@ -13,7 +13,7 @@ class CharacterCardTest {
     private         CharacterCard   characterCardTest;
     private final   int             costTest = 2;
     private         Field           costField;
-    private final   int             cardIDTest = 100;
+    private final   int             cardIDTest = 1;
     private         Field           cardIdField;
     private final   boolean         hasCoinTest = false;
     private         Field           hasCoinField;
@@ -35,8 +35,8 @@ class CharacterCardTest {
         hasCoinField.setAccessible(true);
 
         //Use reflection to set private field "cardID" and "cost" to a default value
-        costField.setInt(characterCardTest, 1000);
-        cardIdField.setInt(characterCardTest, 1000);
+        costField.setInt(characterCardTest, 1);
+        cardIdField.setInt(characterCardTest, 2);
         hasCoinField.setBoolean(characterCardTest, false);
     }
 
