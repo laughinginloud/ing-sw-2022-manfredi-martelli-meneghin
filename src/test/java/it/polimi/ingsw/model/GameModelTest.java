@@ -18,15 +18,15 @@ class GameModelTest {
     private static final int     MIN_MOTHERNATUREPOSITION = 4;
     private static final boolean DEFAULT_MODE             = false;
 
-    private              GameModel gameModelTest;
-    private              Field     playersField;
-    private static final Player[]  testPlayers = new Player[MAX_PLAYERS];
-    private              Field     islandsField;
-    private static final Island[]  testIslands = new Island[MAX_ISLANDS];
-    private              Field     motherNaturePositionField;
-    private              Field     coinPoolField;
-    private        final int       testCoinPool = 0;
-    private              Field     expertModeField;
+    private              GameModel       gameModelTest;
+    private              Field           playersField;
+    private static final Player[]        testPlayers = new Player[MAX_PLAYERS];
+    private              Field           islandsField;
+    private static final Island[]        testIslands = new Island[MAX_ISLANDS];
+    private              Field           motherNaturePositionField;
+    private              Field           expertModeField;
+    private              Field           coinPoolField;
+    private        final int             testCoinPool = 0;
 
     @BeforeAll
     static void dataInitialization() {
