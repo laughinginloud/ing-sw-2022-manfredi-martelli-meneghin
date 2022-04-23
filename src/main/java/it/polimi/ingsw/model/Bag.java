@@ -26,7 +26,10 @@ public class Bag {
      * @param color Color of the studentCounter to set
      * @param n Int to set studentCounter to
      */
-    public void setStudentCounters(Color color, int n){
+    public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
+        if (n < 0 || n > 26)
+            throw new IllegalArgumentException("Bag.studentCounters accepted value is between 0 and 26");
+
         this.studentCounters[color.ordinal()] = n;
     }
 

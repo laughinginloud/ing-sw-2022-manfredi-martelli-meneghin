@@ -46,7 +46,12 @@ public class Island {
      * Set the multiplicity to a value
      * @param multiplicity Value to be set
      */
-    public void setMultiplicity(int multiplicity) { this.multiplicity = multiplicity; }
+    public void setMultiplicity(int multiplicity) throws IllegalArgumentException {
+        if(multiplicity < 0 || multiplicity > 12)
+            throw new IllegalArgumentException("Island.multiplicity accepted value is between 0 and 12");
+
+        this.multiplicity = multiplicity;
+    }
 
     /**
      * Get the counter specific color
@@ -60,7 +65,12 @@ public class Island {
      * @param color Color of the counter
      * @param n Value to be set
      */
-    public void setStudentCounters(Color color, int n) { this.studentCounters[color.ordinal()] = n; }
+    public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
+        if(n < 0 || n > 26)
+            throw new IllegalArgumentException("Island.studentCounters accepted value is between 0 and 26");
+
+        this.studentCounters[color.ordinal()] = n;
+    }
 
     /**
      * Set all the counters to a value
@@ -82,7 +92,12 @@ public class Island {
      *Set noEntryTileCount to a value
      * @param noEntryTileCount Value to be set
      */
-    public void setNoEntryTileCount(int noEntryTileCount) { this.noEntryTileCount = Optional.of(noEntryTileCount); }
+    public void setNoEntryTileCount(int noEntryTileCount) throws IllegalArgumentException {
+        if(noEntryTileCount < 0 || noEntryTileCount > 4)
+            throw new IllegalArgumentException("Island.noEntryTileCount accepted value is between 0 and 4");
+
+        this.noEntryTileCount = Optional.of(noEntryTileCount);
+    }
 
     /**
      * Get all the backgroundIDs assigned to the island, without deleting them
@@ -103,7 +118,12 @@ public class Island {
      * Add a backgroundID to the end of the backgroundID's list, modifying its length
      * @param id The backgroundID to add
      */
-    public void addBackgroundID(int id) { backgroundID.add(id); }
+    public void addBackgroundID(int id) throws IllegalArgumentException {
+        if(id < 0 || id > 3)
+            throw new IllegalArgumentException("Island.backgroundID accepted value is between 0 and 3");
+
+        backgroundID.add(id);
+    }
 
     /**
      * Add every backgroundID of the array ids to the end of backgroundID's list, modifying its length
