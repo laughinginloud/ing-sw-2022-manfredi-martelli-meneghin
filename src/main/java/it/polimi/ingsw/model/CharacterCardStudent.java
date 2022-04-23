@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 /**
- * Class representing a "CharactedCardStudent"
+ * Class representing a "CharacterCardStudent"
  * @author Sebastiano Meneghin
  */
 public class CharacterCardStudent extends CharacterCard {
@@ -32,5 +32,9 @@ public class CharacterCardStudent extends CharacterCard {
      * @param color The color to be set
      * @param index The index of the student (0 to "students.length - 1")
      */
-    public void setStudents(Color color, int index) { this.students[index] = color; }
+    public void setStudents(Color color, int index) throws IllegalArgumentException {
+        if (index < 0 || index > 5)
+            throw new IllegalArgumentException("CharacterCardStudent.students has maximum length 6");
+        this.students[index] = color;
+    }
 }

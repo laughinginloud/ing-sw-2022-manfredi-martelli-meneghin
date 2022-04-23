@@ -10,6 +10,9 @@ public class CharacterCard {
     private       boolean hasCoin;
 
     protected CharacterCard(int cardID) {
+        if (cardID < 0 || cardID > 11)
+            throw new IllegalArgumentException("CharacterCard.cardID accepted value is between 0 and 11");
+
         this.cardID = cardID;
 
         //Set the cost of the Card depending on its cardID
@@ -17,7 +20,7 @@ public class CharacterCard {
             setCost(1);
         else if (cardID == 1 || cardID == 4 || cardID == 7 || cardID == 10)
             setCost(2);
-        else if (cardID == 2 || cardID == 5 || cardID == 8 || cardID == 11)
+        else
             setCost(3);
 
         hasCoin = false;
@@ -29,7 +32,10 @@ public class CharacterCard {
      * @return A new CharacterCard object of a specific class
      */
     //CharacterCard are ordinal numbered according to their order in the Eriantys Manual
-    public static CharacterCard build(int cardID) {
+    public static CharacterCard build (int cardID) throws IllegalArgumentException {
+        if (cardID < 0 || cardID > 11)
+            throw new IllegalArgumentException("CharacterCard.cardID accepted value is between 0 and 11");
+
         //CharacterCards that need students on them
         if(cardID == 0 || cardID == 6 || cardID == 10)
             return new CharacterCardStudent(cardID);
@@ -52,7 +58,12 @@ public class CharacterCard {
      * Set the cost of the CharacterCard to a specific value
      * @param cost The value to be set to
      */
-    public void setCost(int cost) { this.cost = cost; }
+    public void setCost(int cost) throws IllegalArgumentException {
+        if (cost > 4)
+            throw new IllegalArgumentException("CharacterCard.cost accepted value is maximum 4");
+
+        this.cost = cost;
+    }
 
     /**
      * Get the cardID of the CharacterCard

@@ -12,17 +12,17 @@ import java.lang.reflect.Field;
 class CharacterCardNoEntryTest {
     private CharacterCardNoEntry characterCardNoEntryTest;
     private Field noEntryCountField;
-    private final int noEntryCountTest = 10;
+    private final int noEntryCountTest = 4;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException  {
-        characterCardNoEntryTest = new CharacterCardNoEntry(100);
+        characterCardNoEntryTest = new CharacterCardNoEntry(4);
 
         // Use reflection to get the private field "noEntryCount" and change its visibility
         noEntryCountField = characterCardNoEntryTest.getClass().getDeclaredField("noEntryCount");
         noEntryCountField.setAccessible(true);
 
-        noEntryCountField.setInt(characterCardNoEntryTest, 1000);
+        noEntryCountField.setInt(characterCardNoEntryTest, 1);
     }
 
     /**
