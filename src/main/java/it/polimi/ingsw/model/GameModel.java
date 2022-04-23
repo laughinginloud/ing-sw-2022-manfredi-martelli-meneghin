@@ -94,12 +94,6 @@ public class GameModel {
     public void setCloudTile(CloudTile cloudTile, int index){ this.cloudTiles[index] = cloudTile;}
 
     /**
-     * Get the number of cloudTiles present
-     * @return The number of CloudTiles present (from 2 to 4)
-     */
-    public int getCloudTilesCount(){ return cloudTiles.length;}
-
-    /**
      * Get the position of mother nature saved
      * @return The position of mother nature (from 0 to 11)
      */

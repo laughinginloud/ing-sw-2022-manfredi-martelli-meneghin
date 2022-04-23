@@ -15,6 +15,7 @@ import java.util.Optional;
 class GameModelTest {
     private static final int     MAX_PLAYERS              = 4;
     private static final int     MAX_ISLANDS              = 12;
+    private static final int     MAX_CLOUDTILES           = 4;
     private static final int     MIN_MOTHERNATUREPOSITION = 4;
     private static final boolean DEFAULT_MODE             = false;
 
@@ -23,6 +24,8 @@ class GameModelTest {
     private static final Player[]        testPlayers = new Player[MAX_PLAYERS];
     private              Field           islandsField;
     private static final Island[]        testIslands = new Island[MAX_ISLANDS];
+    private              Field           cloudTilesField;
+    private static final CloudTile[]     testCloudTiles = new CloudTile[MAX_CLOUDTILES];
     private              Field           motherNaturePositionField;
     private              Field           expertModeField;
     private              Field           coinPoolField;
@@ -35,11 +38,14 @@ class GameModelTest {
 
         for (int i = 0; i < testIslands.length; ++i)
             testIslands[i] = new Island();
+
+        for (int i = 0; i < testCloudTiles.length; ++i)
+            testCloudTiles[i] = new CloudTile();
     }
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        gameModelTest = new GameModel(MAX_PLAYERS);
+        gameModelTest = new GameModel(MAX_PLAYERS, MAX_CLOUDTILES);
 
         // Use reflection to get the private fields, change their visibilities and set test values
         playersField = gameModelTest.getClass().getDeclaredField("players");
@@ -48,7 +54,11 @@ class GameModelTest {
 
         islandsField = gameModelTest.getClass().getDeclaredField("islands");
         islandsField.setAccessible(true);
-        islandsField.set(gameModelTest, Arrays.copyOf(testIslands, testIslands.length));
+        islandsField.set(gameModelTest, new Island[MAX_ISLANDS]);
+
+        cloudTilesField = gameModelTest.getClass().getDeclaredField("cloudTiles");
+        cloudTilesField.setAccessible(true);
+        cloudTilesField.set(gameModelTest, new CloudTile[MAX_CLOUDTILES]);
 
         motherNaturePositionField = gameModelTest.getClass().getDeclaredField("motherNaturePosition");
         motherNaturePositionField.setAccessible(true);
@@ -146,6 +156,29 @@ class GameModelTest {
         // Gets the islandsCount and checks if it's they same as set in BeforeEach
         if (gameModelTest.getIslandsCount() != MAX_ISLANDS)
             throw new AssertionError("Getter returned wrong value");
+    }
+
+    /**
+     * Test for getter of the field "cloudTiles"
+     */
+    @Test
+    void getCloudTileTest() throws IllegalAccessException {
+        cloudTilesField.set(gameModelTest, Arrays.copyOf(testCloudTiles, testCloudTiles.length));
+        for (int i = 0; i < MAX_CLOUDTILES; i++)
+            if (testCloudTiles[i] != gameModelTest.getCloudTile(i))
+                throw new AssertionError("Getter returned wrong value");
+    }
+
+    /**
+     * Test for setter of the field "cloudTiles"
+     */
+    @Test
+    void setCloudTileTest() throws  IllegalAccessException {
+        for (int i = 0; i < MAX_CLOUDTILES; i++) {
+            gameModelTest.setCloudTile(testCloudTiles[i], i);
+            if (!testCloudTiles[i].equals(((CloudTile[]) cloudTilesField.get(gameModelTest))[i]))
+                throw new AssertionError("Independent setter set wrong value");
+        }
     }
 
     /**
