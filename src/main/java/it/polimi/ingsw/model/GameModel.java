@@ -29,18 +29,17 @@ public class GameModel {
 
         // If the expert mode is enabled, create the three CharacterCards that will be used during the game
         if (expertMode) {
-            characterCards = new CharacterCard[3];
             Random rng = new Random();
             // Use a set to avoid getting duplicates
             Set<Integer> cardSet = new HashSet<>();
 
             // Create a subset of three elements from [0, 11]
-            for (int i = 0; i < characterCards.length; ++i)
+            for (int i = 0; i < 3; ++i)
                 // Add a new random integer, retrying if add returns false, i.e. the set already contains the element
                 while (!cardSet.add(rng.nextInt(12)));
 
-            // Build a card for each element of the set
-            cardSet.forEach(CharacterCard::build);
+            // Create a stream from the set, transform it into a stream containing the cards and morph it into the destination array
+            characterCards = cardSet.stream().map(CharacterCard::build).toArray(CharacterCard[]::new);
         }
 
         else
