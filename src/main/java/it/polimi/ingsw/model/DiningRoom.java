@@ -25,7 +25,10 @@ public class DiningRoom {
      * Set all the counters to a value
      * @param n Value to be set for all counters
      */
-    public void setStudentCounters(int n) {
+    public void setStudentCounters(int n) throws IllegalArgumentException {
+        if (n < 0 || n > 10)
+            throw new IllegalArgumentException("The counter must be an element of [0, 10]");
+
         for (Color color : Color.values()) {
             setStudentCounters(color, n);
         }
@@ -36,7 +39,7 @@ public class DiningRoom {
      * @param color Color of the counter
      * @param n Value to be set
      */
-    public void setStudentCounters(Color color, int n) {
+    public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
         studentCounters[color.ordinal()] = n;
     }
 }
