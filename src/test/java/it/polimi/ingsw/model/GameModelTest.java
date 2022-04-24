@@ -27,6 +27,8 @@ class GameModelTest {
     private              Field           cloudTilesField;
     private static final CloudTile[]     testCloudTiles = new CloudTile[MAX_CLOUDTILES];
     private              Field           motherNaturePositionField;
+    private              Field           bagField;
+    private static final Bag             testBag = new Bag();
     private              Field           expertModeField;
     private              Field           coinPoolField;
     private        final int             testCoinPool = 0;
@@ -45,7 +47,7 @@ class GameModelTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        gameModelTest = new GameModel(MAX_PLAYERS, MAX_CLOUDTILES);
+        gameModelTest = new GameModel(MAX_PLAYERS);
 
         // Use reflection to get the private fields, change their visibilities and set test values
         playersField = gameModelTest.getClass().getDeclaredField("players");
@@ -64,13 +66,17 @@ class GameModelTest {
         motherNaturePositionField.setAccessible(true);
         motherNaturePositionField.set(gameModelTest, MIN_MOTHERNATUREPOSITION);
 
-        coinPoolField = gameModelTest.getClass().getDeclaredField("coinPool");
-        coinPoolField.setAccessible(true);
-        coinPoolField.set(gameModelTest, Optional.empty());
+        bagField = gameModelTest.getClass().getDeclaredField("bag");
+        bagField.setAccessible(true);
+        bagField.set(gameModelTest, testBag);
 
         expertModeField = gameModelTest.getClass().getDeclaredField("expertMode");
         expertModeField.setAccessible(true);
         expertModeField.set(gameModelTest, DEFAULT_MODE);
+
+        coinPoolField = gameModelTest.getClass().getDeclaredField("coinPool");
+        coinPoolField.setAccessible(true);
+        coinPoolField.set(gameModelTest, Optional.empty());
     }
 
     /**
@@ -201,6 +207,47 @@ class GameModelTest {
     }
 
     /**
+     * Test for getter of the field "bag"
+     */
+    @Test
+    void getBagTest() {
+        if (!gameModelTest.getBag().equals(testBag))
+            throw new AssertionError("Getter returned wrong value");
+    }
+
+    /**
+     * Test for setter of the field "bag"
+     */
+    @Test
+    void setBagTest() throws IllegalAccessException {
+        Bag tmp = new Bag();
+        gameModelTest.setBag(tmp);
+        if (!bagField.get(gameModelTest).equals(tmp))
+            throw new AssertionError("Setter returned wrong value");
+    }
+
+
+    /**
+     * Test for getter of the field "expertMode"
+     */
+    @Test
+    void getExpertModeTest() {
+        if (gameModelTest.getExpertMode() != DEFAULT_MODE){
+            throw new AssertionError("Getter returned wrong value");
+        }
+    }
+
+    /**
+     * Test for setter of the field "expertMode"
+     */
+    @Test
+    void setExpertModeTest() throws IllegalAccessException {
+        gameModelTest.setExpertMode(true);
+        if (!expertModeField.get(gameModelTest).equals(true))
+            throw new AssertionError("Setter returned wrong value");
+    }
+
+    /**
      * Test for getter of the field "coinPool"
      */
     @Test
@@ -220,26 +267,6 @@ class GameModelTest {
     void setCoinPoolTest() throws IllegalAccessException {
         gameModelTest.setCoinPool(testCoinPool);
         if (!coinPoolField.get(gameModelTest).equals(Optional.of(testCoinPool)))
-            throw new AssertionError("Setter returned wrong value");
-    }
-
-    /**
-     * Test for getter of the field "expertMode"
-     */
-    @Test
-    void getExpertModeTest() {
-        if (gameModelTest.getExpertMode() != DEFAULT_MODE){
-            throw new AssertionError("Getter returned wrong value");
-        }
-    }
-
-    /**
-     * Test for setter of the field "expertMode"
-     */
-    @Test
-    void setExpertModeTest() throws IllegalAccessException {
-        gameModelTest.setExpertMode(true);
-        if (!expertModeField.get(gameModelTest).equals(true))
             throw new AssertionError("Setter returned wrong value");
     }
 }

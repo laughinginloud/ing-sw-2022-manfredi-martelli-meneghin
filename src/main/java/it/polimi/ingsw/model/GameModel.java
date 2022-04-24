@@ -18,10 +18,10 @@ public class GameModel {
     private       Optional<CharacterCard>[] characterCards;
     private       Optional<Integer>         coinPool;
 
-    public GameModel(int numOfPlayers, int numOfCloudTiles){
+    public GameModel(int numOfPlayers){
         players              = new Player[numOfPlayers];
         islands              = new Island[12];
-        cloudTiles           = new CloudTile[numOfCloudTiles];
+        cloudTiles           = new CloudTile[numOfPlayers];
         bag                  = new Bag();
         globalProfessorTable = new GlobalProfessorTable();
         for (int i = 0; i < 3; i++){
