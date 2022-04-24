@@ -5,25 +5,21 @@ package it.polimi.ingsw.model;
  * @author Sebastiano Meneghin
  */
 public class CharacterCard {
-    private       int cost;
-    private final int cardID;
+    private       int     cost;
+    private final int     cardID;
     private       boolean hasCoin;
 
-    protected CharacterCard(int cardID) {
-        if (cardID < 0 || cardID > 11)
-            throw new IllegalArgumentException("CharacterCard.cardID accepted value is between 0 and 11");
+    protected CharacterCard(int cardID) throws IllegalArgumentException {
+        //Set the cost of the Card depending on its cardID
+        switch (cardID) {
+            case 0, 3, 6, 9  -> setCost(1);
+            case 1, 4, 7, 10 -> setCost(2);
+            case 2, 5, 8, 11 -> setCost(3);
+            default          -> throw new IllegalArgumentException("CharacterCard.cardID accepted value is between 0 and 11");
+        }
 
         this.cardID = cardID;
-
-        //Set the cost of the Card depending on its cardID
-        if (cardID == 0 || cardID == 3 || cardID == 6 || cardID == 9)
-            setCost(1);
-        else if (cardID == 1 || cardID == 4 || cardID == 7 || cardID == 10)
-            setCost(2);
-        else
-            setCost(3);
-
-        hasCoin = false;
+        hasCoin     = false;
     }
 
     /**
@@ -37,7 +33,7 @@ public class CharacterCard {
             throw new IllegalArgumentException("CharacterCard.cardID accepted value is between 0 and 11");
 
         //CharacterCards that need students on them
-        if(cardID == 0 || cardID == 6 || cardID == 10)
+        if (cardID == 0 || cardID == 6 || cardID == 10)
             return new CharacterCardStudent(cardID);
 
         //CharacterCard that needs NoEntryTile on it
