@@ -10,13 +10,13 @@ import java.lang.reflect.Field;
  * @author Sebastiano Meneghin
  */
 class CharacterCardTest {
-    private         CharacterCard   characterCardTest;
-    private final   int             costTest = 2;
-    private         Field           costField;
-    private final   int             cardIDTest = 1;
-    private         Field           cardIdField;
-    private final   boolean         hasCoinTest = false;
-    private         Field           hasCoinField;
+    private       CharacterCard characterCardTest;
+    private final int           costTest = 2;
+    private       Field         costField;
+    private final int           cardIDTest = 1;
+    private       Field         cardIdField;
+    private final boolean       hasCoinTest = false;
+    private       Field         hasCoinField;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException  {
