@@ -15,23 +15,25 @@ import java.util.Optional;
 class GameModelTest {
     private static final int     MAX_PLAYERS              = 4;
     private static final int     MAX_ISLANDS              = 12;
-    private static final int     MAX_CLOUDTILES           = 4;
-    private static final int     MIN_MOTHERNATUREPOSITION = 4;
+    private static final int     MAX_CLOUD_TILES           = 4;
+    private static final int     MIN_MOTHER_NATURE_POSITION = 4;
     private static final boolean DEFAULT_MODE             = false;
 
-    private              GameModel       gameModelTest;
-    private              Field           playersField;
-    private static final Player[]        testPlayers = new Player[MAX_PLAYERS];
-    private              Field           islandsField;
-    private static final Island[]        testIslands = new Island[MAX_ISLANDS];
-    private              Field           cloudTilesField;
-    private static final CloudTile[]     testCloudTiles = new CloudTile[MAX_CLOUDTILES];
-    private              Field           motherNaturePositionField;
-    private              Field           bagField;
-    private static final Bag             testBag = new Bag();
-    private              Field           expertModeField;
-    private              Field           coinPoolField;
-    private        final int             testCoinPool = 0;
+    private              GameModel            gameModelTest;
+    private              Field                playersField;
+    private static final Player[]             testPlayers = new Player[MAX_PLAYERS];
+    private              Field                islandsField;
+    private static final Island[]             testIslands = new Island[MAX_ISLANDS];
+    private              Field                cloudTilesField;
+    private static final CloudTile[]          testCloudTiles = new CloudTile[MAX_CLOUD_TILES];
+    private              Field                motherNaturePositionField;
+    private              Field                bagField;
+    private static final Bag                  testBag = new Bag();
+    private              Field                globalProfessorTableField;
+    private static final GlobalProfessorTable testGlobalProfessorTable = new GlobalProfessorTable();
+    private              Field                expertModeField;
+    private              Field                coinPoolField;
+    private        final int                  testCoinPool = 0;
 
     @BeforeAll
     static void dataInitialization() {
@@ -60,15 +62,19 @@ class GameModelTest {
 
         cloudTilesField = gameModelTest.getClass().getDeclaredField("cloudTiles");
         cloudTilesField.setAccessible(true);
-        cloudTilesField.set(gameModelTest, new CloudTile[MAX_CLOUDTILES]);
+        cloudTilesField.set(gameModelTest, new CloudTile[MAX_CLOUD_TILES]);
 
         motherNaturePositionField = gameModelTest.getClass().getDeclaredField("motherNaturePosition");
         motherNaturePositionField.setAccessible(true);
-        motherNaturePositionField.set(gameModelTest, MIN_MOTHERNATUREPOSITION);
+        motherNaturePositionField.set(gameModelTest, MIN_MOTHER_NATURE_POSITION);
 
         bagField = gameModelTest.getClass().getDeclaredField("bag");
         bagField.setAccessible(true);
         bagField.set(gameModelTest, testBag);
+
+        globalProfessorTableField = gameModelTest.getClass().getDeclaredField("globalProfessorTable");
+        globalProfessorTableField.setAccessible(true);
+        globalProfessorTableField.set(gameModelTest, testGlobalProfessorTable);
 
         expertModeField = gameModelTest.getClass().getDeclaredField("expertMode");
         expertModeField.setAccessible(true);
@@ -170,7 +176,7 @@ class GameModelTest {
     @Test
     void getCloudTileTest() throws IllegalAccessException {
         cloudTilesField.set(gameModelTest, Arrays.copyOf(testCloudTiles, testCloudTiles.length));
-        for (int i = 0; i < MAX_CLOUDTILES; i++)
+        for (int i = 0; i < MAX_CLOUD_TILES; i++)
             if (testCloudTiles[i] != gameModelTest.getCloudTile(i))
                 throw new AssertionError("Getter returned wrong value");
     }
@@ -180,7 +186,7 @@ class GameModelTest {
      */
     @Test
     void setCloudTileTest() throws  IllegalAccessException {
-        for (int i = 0; i < MAX_CLOUDTILES; i++) {
+        for (int i = 0; i < MAX_CLOUD_TILES; i++) {
             gameModelTest.setCloudTile(testCloudTiles[i], i);
             if (!testCloudTiles[i].equals(((CloudTile[]) cloudTilesField.get(gameModelTest))[i]))
                 throw new AssertionError("Independent setter set wrong value");
@@ -192,7 +198,7 @@ class GameModelTest {
      */
     @Test
     void getMotherNaturePositionTest() {
-        if (gameModelTest.getMotherNaturePosition() != MIN_MOTHERNATUREPOSITION)
+        if (gameModelTest.getMotherNaturePosition() != MIN_MOTHER_NATURE_POSITION)
             throw new AssertionError("Getter returned wrong value");
     }
 
@@ -226,6 +232,25 @@ class GameModelTest {
             throw new AssertionError("Setter returned wrong value");
     }
 
+    /**
+     * Test for getter of the field "globalProfessorTable"
+     */
+    @Test
+    void getGlobalProfessorTableTest() {
+        if (!gameModelTest.getGlobalProfessorTable().equals(testGlobalProfessorTable))
+            throw new AssertionError("Getter returned wrong value");
+    }
+
+    /**
+     * Test for setter of the field "globalProfessorTable"
+     */
+    @Test
+    void setGlobalProfessorTableTest() throws IllegalAccessException {
+        GlobalProfessorTable tmp = new GlobalProfessorTable();
+        gameModelTest.setGlobalProfessorTable(tmp);
+        if (!globalProfessorTableField.get(gameModelTest).equals(tmp))
+            throw new AssertionError("Setter returned wrong value");
+    }
 
     /**
      * Test for getter of the field "expertMode"
