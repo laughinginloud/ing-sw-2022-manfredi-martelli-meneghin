@@ -10,7 +10,10 @@ import java.util.Arrays;
 public class Entrance {
     private Color[] students;
 
-    public Entrance(int size) {
+    public Entrance(int size) throws IllegalArgumentException {
+        if (size != 7 && size != 9)
+            throw new IllegalArgumentException("Entrance's size must be either 7 or 9");
+
         students = new Color[size];
     }
 
@@ -27,7 +30,10 @@ public class Entrance {
      * @param index The position of the student in the entrance, starting from 0
      * @return The color that represents the student
      */
-    public Color retrieveStudent(int index) {
+    public Color retrieveStudent(int index) throws IllegalArgumentException {
+        if (index < 0 || index > students.length)
+            throw new IllegalArgumentException("Index out of bounds");
+
         Color temp = students[index];
         System.arraycopy(students, index + 1, students, index, students.length - index - 1);
         students[students.length - 1] = null;
@@ -38,7 +44,10 @@ public class Entrance {
      * Set all the students in the entrance to the set specified
      * @param students The set containing the students
      */
-    public void setStudents(Color[] students) {
+    public void setStudents(Color[] students) throws IllegalArgumentException {
+        if (students.length != this.students.length)
+            throw new IllegalArgumentException("Passed wrongly dimensioned array");
+
         this.students = Arrays.copyOf(students, students.length);
     }
 

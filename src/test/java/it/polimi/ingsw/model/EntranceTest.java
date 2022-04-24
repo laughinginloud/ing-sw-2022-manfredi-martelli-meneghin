@@ -13,7 +13,7 @@ import java.util.Arrays;
 class EntranceTest {
     private       Entrance entranceTest;
     private       Field    studentsField;
-    private final Color[]  globalTestSet = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE};
+    private final Color[]  globalTestSet = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE, Color.RED, Color.PINK};
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
@@ -49,7 +49,7 @@ class EntranceTest {
      */
     @Test
     void retrieveStudentTest() throws IllegalAccessException {
-        Color[] testSet          = new Color[]{Color.RED, Color.GREEN, Color.GREEN, Color.BLUE, null};
+        Color[] testSet          = new Color[]{Color.RED, Color.GREEN, Color.GREEN, Color.BLUE, Color.RED, Color.PINK, null};
         Color   retrievedStudent = entranceTest.retrieveStudent(1);
 
         if (retrievedStudent != Color.PINK)
@@ -66,7 +66,7 @@ class EntranceTest {
      */
     @Test
     void setStudentsTest() throws IllegalAccessException {
-        Color[] testSet = new Color[]{Color.YELLOW, Color.PINK, Color.RED, Color.GREEN, Color.BLUE};
+        Color[] testSet = new Color[]{Color.YELLOW, Color.PINK, Color.RED, Color.GREEN, Color.BLUE, Color.BLUE, Color.YELLOW};
         entranceTest.setStudents(testSet);
         Color[] studentsValue = (Color[]) studentsField.get(entranceTest);
 
@@ -82,9 +82,9 @@ class EntranceTest {
      */
     @Test
     void appendStudentTest() throws IllegalAccessException {
-        Color[] testSet = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, null};
+        Color[] testSet = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE, Color.RED, null};
         studentsField.set(entranceTest, Arrays.copyOf(testSet, testSet.length));
-        entranceTest.appendStudent(Color.BLUE);
+        entranceTest.appendStudent(Color.PINK);
         Color[] postAppendStudents = (Color[]) studentsField.get(entranceTest);
 
         if (Arrays.equals(postAppendStudents,testSet))
