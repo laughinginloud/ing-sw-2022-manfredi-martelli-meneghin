@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * Tests for class "Game Model"
@@ -49,7 +48,7 @@ class GameModelTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        gameModelTest = new GameModel(MAX_PLAYERS);
+        gameModelTest = new GameModel(MAX_PLAYERS, true);
 
         // Use reflection to get the private fields, change their visibilities and set test values
         playersField = gameModelTest.getClass().getDeclaredField("players");
@@ -82,7 +81,7 @@ class GameModelTest {
 
         coinPoolField = gameModelTest.getClass().getDeclaredField("coinPool");
         coinPoolField.setAccessible(true);
-        coinPoolField.set(gameModelTest, Optional.empty());
+        coinPoolField.set(gameModelTest, null);
     }
 
     /**
@@ -149,6 +148,8 @@ class GameModelTest {
      */
     @Test
     void shiftIslandsTest() throws IllegalAccessException {
+        islandsField.set(gameModelTest, Arrays.copyOf(testIslands, testIslands.length));
+
         gameModelTest.shiftIslands(0);
 
         Island[] islandsValue = (Island[]) islandsField.get(gameModelTest);
@@ -257,9 +258,8 @@ class GameModelTest {
      */
     @Test
     void getExpertModeTest() {
-        if (gameModelTest.getExpertMode() != DEFAULT_MODE){
+        if (gameModelTest.getExpertMode() != DEFAULT_MODE)
             throw new AssertionError("Getter returned wrong value");
-        }
     }
 
     /**
@@ -277,11 +277,11 @@ class GameModelTest {
      */
     @Test
     void getCoinPoolTest() throws IllegalAccessException {
-        if (!gameModelTest.getCoinPool().equals(Optional.empty()))
+        if (gameModelTest.getCoinPool() != null)
             throw new AssertionError("Getter returned wrong value");
 
-        coinPoolField.set(gameModelTest, Optional.of(testCoinPool));
-        if (!gameModelTest.getCoinPool().equals(Optional.of(testCoinPool)))
+        coinPoolField.set(gameModelTest, testCoinPool);
+        if (gameModelTest.getCoinPool() != testCoinPool)
             throw new AssertionError("Getter returned wrong value");
     }
 
@@ -291,7 +291,7 @@ class GameModelTest {
     @Test
     void setCoinPoolTest() throws IllegalAccessException {
         gameModelTest.setCoinPool(testCoinPool);
-        if (!coinPoolField.get(gameModelTest).equals(Optional.of(testCoinPool)))
+        if ((int) coinPoolField.get(gameModelTest) != testCoinPool)
             throw new AssertionError("Setter returned wrong value");
     }
 }
