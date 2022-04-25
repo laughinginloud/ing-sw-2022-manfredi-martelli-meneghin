@@ -16,7 +16,7 @@ class SchoolBoardTest {
 
     @BeforeEach
     void setUp() {
-        entranceTest    = new Entrance(0);
+        entranceTest    = new Entrance(7);
         diningRoomTest  = new DiningRoom();
         schoolBoardTest = new SchoolBoard(TowerColor.BLACK, 5, entranceTest, diningRoomTest);
     }

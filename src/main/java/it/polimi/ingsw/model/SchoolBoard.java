@@ -37,7 +37,10 @@ public class SchoolBoard {
      * Sets the number of towers on the board to a specified value
      * @param towerCount An integer containing the number to be set
      */
-    public void setTowerCount(int towerCount) {
+    public void setTowerCount(int towerCount) throws IllegalArgumentException {
+        if (towerCount < 0 || towerCount > 8)
+            throw new IllegalArgumentException("TowerCount must be an element of [0, 8]");
+
         this.towerCount = towerCount;
     }
 

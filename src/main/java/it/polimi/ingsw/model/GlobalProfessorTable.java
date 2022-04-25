@@ -23,7 +23,10 @@ public class GlobalProfessorTable {
      * @param color Color of the professor to be assigned
      * @param player Player to assign the professor to
      */
-    public void setProfessorLocation(Color color, Player player){
+    public void setProfessorLocation(Color color, Player player) throws IllegalArgumentException {
+        if (player == null)
+            throw new AssertionError("The player to set professor to is null");
+
         professorLocations[color.ordinal()] = player;
     }
 }

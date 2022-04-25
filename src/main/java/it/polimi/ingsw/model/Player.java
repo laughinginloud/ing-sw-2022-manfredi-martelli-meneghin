@@ -37,7 +37,10 @@ public class Player {
      * @param index The index of the card to be removed
      * @return A record representing the card
      */
-    public AssistantCard getAssistantCard(int index) {
+    public AssistantCard getAssistantCard(int index) throws IllegalArgumentException {
+        if (index < 0 || index >= assistantDeck.length)
+            throw new IllegalArgumentException("Index out of bounds");
+
         AssistantCard tempCard = assistantDeck[index];
 
         // Shifts the array and then shrinks it

@@ -37,7 +37,10 @@ public class CloudTile {
      * Set all the students on the tile to a specific set
      * @param students Array containing the set of students
      */
-    public void setStudents(Color[] students) {
+    public void setStudents(Color[] students) throws IllegalArgumentException {
+        if (students.length != this.students.length)
+            throw new IllegalArgumentException("Passed wrongly dimensioned array");
+
         this.students = Arrays.copyOf(students, students.length);
     }
 }
