@@ -17,6 +17,6 @@ public class GameStateModelInitialization implements GameStateSetup {
     }
 
     public void executeState() {
-        ControllerData.getInstance().setGameModel(new GameModel(ControllerData.getInstance().getNumOfPlayers()));
+        ControllerData.getInstance().setGameModel(new GameModel(ControllerData.getInstance().getNumOfPlayers(), ControllerData.getInstance().getExpertMode()));
     }
 }

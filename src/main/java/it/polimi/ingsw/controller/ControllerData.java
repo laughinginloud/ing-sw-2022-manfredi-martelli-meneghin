@@ -17,6 +17,7 @@ public class ControllerData {
     private        boolean                    trigger;
     private        boolean                    hasPlayedCard;
     private        Integer                    numOfPlayers;
+    private        boolean                    expertMode;
 
     public static ControllerData getInstance() {
         return instance != null ? instance : new ControllerData();
@@ -99,5 +100,13 @@ public class ControllerData {
 
     public int getNumOfPlayers() {
         return numOfPlayers;
+    }
+
+    public void setExpertMode(boolean expertMode) {
+        this.expertMode = expertMode;
+    }
+
+    public boolean getExpertMode() {
+        return expertMode;
     }
 }
