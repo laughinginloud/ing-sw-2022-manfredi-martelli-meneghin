@@ -12,11 +12,12 @@ import java.util.Arrays;
  * @author Giovanni Manfredi
  */
 class GameModelTest {
-    private static final int     MAX_PLAYERS              = 4;
-    private static final int     MAX_ISLANDS              = 12;
-    private static final int     MAX_CLOUD_TILES           = 4;
+    private static final int     MAX_PLAYERS                = 4;
+    private static final int     MAX_ISLANDS                = 12;
+    private static final int     MAX_CLOUD_TILES            = 4;
     private static final int     MIN_MOTHER_NATURE_POSITION = 4;
-    private static final boolean DEFAULT_MODE             = false;
+    private static final boolean DEFAULT_EXPERT_MODE        = false;
+    private static final int     CHARACTER_CARDS_NUMBER     = 3;
 
     private              GameModel            gameModelTest;
     private              Field                playersField;
@@ -31,6 +32,8 @@ class GameModelTest {
     private              Field                globalProfessorTableField;
     private static final GlobalProfessorTable testGlobalProfessorTable = new GlobalProfessorTable();
     private              Field                expertModeField;
+    private              Field                characterCardsField;
+    private static final CharacterCard[]      testCharacterCards = new CharacterCard[CHARACTER_CARDS_NUMBER];
     private              Field                coinPoolField;
     private        final int                  testCoinPool = 0;
 
@@ -44,6 +47,9 @@ class GameModelTest {
 
         for (int i = 0; i < testCloudTiles.length; ++i)
             testCloudTiles[i] = new CloudTile();
+
+        for (int i = 0; i < testCharacterCards.length; ++i)
+            testCharacterCards[i] = new CharacterCard(i);
     }
 
     @BeforeEach
@@ -77,7 +83,11 @@ class GameModelTest {
 
         expertModeField = gameModelTest.getClass().getDeclaredField("expertMode");
         expertModeField.setAccessible(true);
-        expertModeField.set(gameModelTest, DEFAULT_MODE);
+        expertModeField.set(gameModelTest, DEFAULT_EXPERT_MODE);
+
+        characterCardsField = gameModelTest.getClass().getDeclaredField("characterCards");
+        characterCardsField.setAccessible(true);
+        characterCardsField.set(gameModelTest, new CharacterCard[CHARACTER_CARDS_NUMBER]);
 
         coinPoolField = gameModelTest.getClass().getDeclaredField("coinPool");
         coinPoolField.setAccessible(true);
@@ -258,7 +268,7 @@ class GameModelTest {
      */
     @Test
     void getExpertModeTest() {
-        if (gameModelTest.getExpertMode() != DEFAULT_MODE)
+        if (gameModelTest.getExpertMode() != DEFAULT_EXPERT_MODE)
             throw new AssertionError("Getter returned wrong value");
     }
 
@@ -270,6 +280,30 @@ class GameModelTest {
         gameModelTest.setExpertMode(true);
         if (!expertModeField.get(gameModelTest).equals(true))
             throw new AssertionError("Setter returned wrong value");
+    }
+
+    /**
+     * Test for getter of the field "characterCards"
+     */
+    @Test
+    void getCharacterCardsTest() throws IllegalAccessException {
+        characterCardsField.set(gameModelTest, Arrays.copyOf(testCharacterCards, testCharacterCards.length));
+
+        for (int i = 0; i < CHARACTER_CARDS_NUMBER; i++)
+            if (testCharacterCards[i] != gameModelTest.getCharacterCard(i))
+                throw new AssertionError("Getter returned wrong value");
+    }
+
+    /**
+     * Test for setter of the field "characterCards"
+     */
+    @Test
+    void setCharacterCardTest() throws IllegalAccessException {
+        for (int i = 0; i < CHARACTER_CARDS_NUMBER; i++) {
+            gameModelTest.setCharacterCard(testCharacterCards[i],i);
+            if (!testCharacterCards[i].equals(((CharacterCard[]) characterCardsField.get(gameModelTest))[i]))
+                throw new AssertionError("Independent setter set wrong value");
+        }
     }
 
     /**
