@@ -119,7 +119,7 @@ public class Island {
      * @param id The backgroundID to add
      */
     public void addBackgroundID(int id) throws IllegalArgumentException {
-        if(id < 0 || id > 3)
+        if (id < 0 || id > 3)
             throw new IllegalArgumentException("Island.backgroundID accepted value is between 0 and 3");
 
         backgroundID.add(id);
@@ -129,7 +129,10 @@ public class Island {
      * Add every backgroundID of the array ids to the end of backgroundID's list, modifying its length
      * @param ids Array of backgroundID to add
      */
-    public void addBackgroundID(int[] ids) {
+    public void addBackgroundID(int[] ids) throws IllegalArgumentException {
+        if (ids == null)
+            throw new IllegalArgumentException("addBackgroundID does not accept null arrays! Insert a not null int[]");
+
         for (int id : ids)
             addBackgroundID(id);
     }

@@ -54,7 +54,7 @@ class PlayerTest {
         for (int i = 0; i < 10; ++i)
             assistantDeckTest[i] = new AssistantCard(i + 1, (i / 2) + 1);
 
-        if (!Arrays.equals(assistantDeckTest, (AssistantCard[]) assistantDeckField.get(playerTest)))
+        if (!Arrays.equals(assistantDeckTest, playerTest.getAssistantDeck()))
             throw new AssertionError("Returned malformed assistant deck");
     }
 

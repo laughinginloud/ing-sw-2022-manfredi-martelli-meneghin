@@ -45,10 +45,10 @@ class CloudTileTest {
     }
 
     /**
-     * Test correctness and multiple subsequent calls of the method retieveStudents
+     * Test correctness and multiple subsequent calls of the method retrieveStudents
      */
     @Test
-    void retreiveStudentsSuccessionTest() {
+    void retrieveStudentsSuccessionTest() {
         Color[] firstRetrieve  = cloudTileTest.retrieveStudents();
         Color[] secondRetrieve = cloudTileTest.retrieveStudents();
 
