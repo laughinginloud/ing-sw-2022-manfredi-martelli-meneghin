@@ -5,10 +5,6 @@ public class GameStatePlaceTokens implements GameStateSetup {
         return null;
     }
 
-    public void sendNetworkMessage() {
-
-    }
-
     public void executeState() {
 
     }

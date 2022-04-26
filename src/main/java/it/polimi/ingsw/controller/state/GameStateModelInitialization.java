@@ -12,10 +12,6 @@ public class GameStateModelInitialization implements GameStateSetup {
         return new GameStatePlaceTokens();
     }
 
-    public void sendNetworkMessage() {
-
-    }
-
     public void executeState() {
         ControllerData data = ControllerData.getInstance();
         data.setGameModel(new GameModel(data.getNumOfPlayers(), data.getExpertMode()));

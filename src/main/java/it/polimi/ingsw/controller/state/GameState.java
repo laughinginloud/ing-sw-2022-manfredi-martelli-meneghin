@@ -7,7 +7,5 @@ package it.polimi.ingsw.controller.state;
 public interface GameState {
     GameState nextState();
 
-    void sendNetworkMessage();
-
     void executeState();
 }
