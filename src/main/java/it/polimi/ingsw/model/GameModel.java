@@ -30,15 +30,18 @@ public class GameModel {
         bag                  = new Bag();
         globalProfessorTable = new GlobalProfessorTable();
         this.expertMode      = expertMode;
-        characterCards       = expertMode ? extractCards() : null;
+        characterCards       = expertMode ? chooseCharacterCards() : null;
         coinPool             = expertMode ? 20 : null;
+
+        buildIslands();
+        buildClouds();
     }
 
     /**
      * Select randomly the cards that will be used during the game
      * @return An array containing the cards
      */
-    private CharacterCard[] extractCards() {
+    private CharacterCard[] chooseCharacterCards() {
         Random rng = new Random();
         // Use a set to avoid getting duplicates
         Set<Integer> cardSet = new HashSet<>();
@@ -50,6 +53,19 @@ public class GameModel {
 
         // Create a stream from the set, transform it into a stream containing the cards and morph it into the destination array
         return cardSet.stream().map(CharacterCard::build).toArray(CharacterCard[]::new);
+    }
+
+    private void buildIslands() {
+        int seed = (int) (Math.random() * 3);
+        for (int i = 0; i < islands.length; ++i) {
+            islands[i] = new Island();
+            islands[i].addBackgroundID(seed++ % 4);
+        }
+    }
+
+    private void buildClouds() {
+        for (int i = 0; i < cloudTiles.length; ++i)
+            cloudTiles[i] = new CloudTile();
     }
 
     /**
