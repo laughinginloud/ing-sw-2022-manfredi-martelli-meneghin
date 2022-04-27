@@ -5,7 +5,14 @@ package it.polimi.ingsw.controller.state;
  * @author Mattia Martelli
  */
 public interface GameState {
+    /**
+     * Returns the next state of the abstract DFA
+     * @return A pointer to the next state
+     */
     GameState nextState();
 
+    /**
+     * Execute the current state of the DFA
+     */
     void executeState();
 }

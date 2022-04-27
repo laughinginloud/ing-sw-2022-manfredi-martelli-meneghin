@@ -11,10 +11,6 @@ public class CloudTile {
 
     public CloudTile() {}
 
-    public CloudTile(Color[] students) {
-        setStudents(students);
-    }
-
     /**
      * Return all the students currently present on the tile, without removing them
      * @return An array containing the students
