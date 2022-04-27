@@ -18,7 +18,7 @@ public class GameModel {
     private       int                  motherNaturePosition;
     private       Bag                  bag;
     private       GlobalProfessorTable globalProfessorTable;
-    private       boolean              expertMode;
+    private final boolean              expertMode;
     private final CharacterCard[]      characterCards;
     private       Integer              coinPool;
 
@@ -29,25 +29,27 @@ public class GameModel {
         cloudTiles           = new CloudTile[numOfPlayers];
         bag                  = new Bag();
         globalProfessorTable = new GlobalProfessorTable();
+        this.expertMode      = expertMode;
+        characterCards       = expertMode ? extractCards() : null;
+        coinPool             = expertMode ? 20 : null;
+    }
 
-        // If the expert mode is enabled, create the three CharacterCards that will be used during the game
-        if (expertMode) {
-            Random rng = new Random();
-            // Use a set to avoid getting duplicates
-            Set<Integer> cardSet = new HashSet<>();
+    /**
+     * Select randomly the cards that will be used during the game
+     * @return An array containing the cards
+     */
+    private CharacterCard[] extractCards() {
+        Random rng = new Random();
+        // Use a set to avoid getting duplicates
+        Set<Integer> cardSet = new HashSet<>();
 
-            // Create a subset of three elements from [0, 11]
-            for (int i = 0; i < 3; ++i)
-                // Add a new random integer, retrying if add returns false, i.e. the set already contains the element
-                while (!cardSet.add(rng.nextInt(12)));
+        // Create a subset of three elements from [0, 11]
+        for (int i = 0; i < 3; ++i)
+            // Add a new random integer, retrying if add returns false, i.e. the set already contains the element
+            while (!cardSet.add(rng.nextInt(12)));
 
-            // Create a stream from the set, transform it into a stream containing the cards and morph it into the destination array
-            characterCards = cardSet.stream().map(CharacterCard::build).toArray(CharacterCard[]::new);
-        }
-        else
-            characterCards = null;
-
-        coinPool = expertMode ? 20 : null;
+        // Create a stream from the set, transform it into a stream containing the cards and morph it into the destination array
+        return cardSet.stream().map(CharacterCard::build).toArray(CharacterCard[]::new);
     }
 
     /**
@@ -219,12 +221,6 @@ public class GameModel {
      * @return true if Expert is set, false otherwise
      */
     public boolean getExpertMode() { return expertMode; }
-
-    /**
-     * Set GameMode to Expert
-     * @param expertMode true is Expert, false otherwise
-     */
-    public void setExpertMode(boolean expertMode) { this.expertMode = expertMode; }
 
     /**
      * Get the characterCard saved at a specific index

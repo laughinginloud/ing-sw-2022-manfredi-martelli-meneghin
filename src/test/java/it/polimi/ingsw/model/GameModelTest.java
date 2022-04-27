@@ -34,7 +34,6 @@ class GameModelTest {
     private static final Bag                  testBag = new Bag();
     private              Field                globalProfessorTableField;
     private static final GlobalProfessorTable testGlobalProfessorTable = new GlobalProfessorTable();
-    private              Field                expertModeField;
     private              Field                characterCardsField;
     private static final CharacterCard[]      testCharacterCards = new CharacterCard[CHARACTER_CARDS_NUMBER];
     private              Field                coinPoolField;
@@ -58,7 +57,7 @@ class GameModelTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        gameModelTest = new GameModel(MAX_PLAYERS, true);
+        gameModelTest = new GameModel(MAX_PLAYERS, DEFAULT_EXPERT_MODE);
 
         // Use of reflection to get the private fields, change their visibilities and set test values
         // This is repeated for each Field that needs to be tested
@@ -85,10 +84,6 @@ class GameModelTest {
         globalProfessorTableField = gameModelTest.getClass().getDeclaredField("globalProfessorTable");
         globalProfessorTableField.setAccessible(true);
         globalProfessorTableField.set(gameModelTest, testGlobalProfessorTable);
-
-        expertModeField = gameModelTest.getClass().getDeclaredField("expertMode");
-        expertModeField.setAccessible(true);
-        expertModeField.set(gameModelTest, DEFAULT_EXPERT_MODE);
 
         characterCardsField = gameModelTest.getClass().getDeclaredField("characterCards");
         characterCardsField.setAccessible(true);
@@ -303,19 +298,6 @@ class GameModelTest {
         // Gets expertMode and checks if it is the same set in BeforeAll
         if (gameModelTest.getExpertMode() != DEFAULT_EXPERT_MODE)
             throw new AssertionError("getExpertMode returned wrong value");
-    }
-
-    /**
-     * Test for setter of the field "expertMode"
-     */
-    @Test
-    void setExpertModeTest() throws IllegalAccessException {
-        // Sets expertMode to a boolean (different from the one used in BeforeAll)
-        gameModelTest.setExpertMode(true);
-
-        // Gets expertMode using get (library method) and checks if it is equal to true
-        if (!expertModeField.get(gameModelTest).equals(true))
-            throw new AssertionError("setExpertMode set wrong value");
     }
 
     /**
