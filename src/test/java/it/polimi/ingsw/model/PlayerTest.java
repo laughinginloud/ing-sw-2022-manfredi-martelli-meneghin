@@ -11,9 +11,11 @@ import java.util.Arrays;
  * @author Mattia Martelli
  */
 class PlayerTest {
-    private Player      playerTest;
-    private SchoolBoard schoolBoardTest;
-    private Field       assistantDeckField;
+    private Player        playerTest;
+    private SchoolBoard   schoolBoardTest;
+    private Field         assistantDeckField;
+    private Field         lastPlayedCardField;
+    private AssistantCard assistantCardTest = new AssistantCard(1, 1);
 
     @BeforeEach
     void setUp() throws NoSuchFieldException {
@@ -22,6 +24,9 @@ class PlayerTest {
 
         assistantDeckField = playerTest.getClass().getDeclaredField("assistantDeck");
         assistantDeckField.setAccessible(true);
+
+        lastPlayedCardField = playerTest.getClass().getDeclaredField("lastPlayedCard");
+        lastPlayedCardField.setAccessible(true);
     }
 
     /**
@@ -49,7 +54,7 @@ class PlayerTest {
      * Test for the getter of the whole deck
      */
     @Test
-    void getAssistantDeck() throws IllegalAccessException {
+    void getAssistantDeckTest() throws IllegalAccessException {
         AssistantCard[] assistantDeckTest = new AssistantCard[10];
         for (int i = 0; i < 10; ++i)
             assistantDeckTest[i] = new AssistantCard(i + 1, (i / 2) + 1);
@@ -62,7 +67,7 @@ class PlayerTest {
      * Test for the getter of the player's ID
      */
     @Test
-    void getPlayerID() {
+    void getPlayerIDTest() {
         if (playerTest.getPlayerID() != 0)
             throw new AssertionError("Returned wrong ID");
     }
@@ -71,7 +76,7 @@ class PlayerTest {
      * Test for the getter of the player's wizard
      */
     @Test
-    void getPlayerWizard() {
+    void getPlayerWizardTest() {
         if (!playerTest.getPlayerWizard().equals(Wizard.CLOUD))
             throw new AssertionError("Returned wrong wizard");
     }
@@ -80,7 +85,7 @@ class PlayerTest {
      * Test for the getter of the player's school board
      */
     @Test
-    void getSchoolBoard() {
+    void getSchoolBoardTest() {
         if (playerTest.getSchoolBoard() != schoolBoardTest)
             throw new AssertionError("Returned wrong schoolboard");
     }
@@ -89,8 +94,37 @@ class PlayerTest {
      * Test for the getter of the player's username
      */
     @Test
-    void getUsername() {
+    void getUsernameTest() {
         if (!playerTest.getUsername().equals("test"))
             throw new AssertionError("Returned wrong username");
+    }
+
+    /**
+     * Test for the getter of the player's last played card
+     */
+    @Test
+    void getLastPlayedCardTest() throws IllegalAccessException {
+        lastPlayedCardField.set(playerTest, assistantCardTest);
+
+        if (!playerTest.getLastPlayedCard().equals(assistantCardTest))
+            throw new AssertionError("Getter returned wrong assistant card");
+    }
+
+    /**
+     * Test for the getter of the player's last played card
+     */
+    @Test
+    void setLastPlayedCardTest() throws IllegalAccessException {
+        AssistantCard localTest = new AssistantCard(2, 1);
+        lastPlayedCardField.set(playerTest, assistantCardTest);
+
+        playerTest.setLastPlayedCard(localTest);
+        AssistantCard retrievedValue = playerTest.getLastPlayedCard();
+
+        if (retrievedValue.equals(assistantCardTest))
+            throw new AssertionError("Last played card not set");
+
+        if (!retrievedValue.equals(localTest))
+            throw new AssertionError("Set wrong last played card");
     }
 }

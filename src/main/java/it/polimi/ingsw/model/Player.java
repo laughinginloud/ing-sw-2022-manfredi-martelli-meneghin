@@ -8,6 +8,7 @@ import java.util.Arrays;
  */
 public class Player {
     private       AssistantCard[] assistantDeck;
+    private       AssistantCard   lastPlayedCard;
     private final int             playerID;
     private final Wizard          playerWizard;
     private final SchoolBoard     schoolBoard;
@@ -19,6 +20,7 @@ public class Player {
         this.username     = username;
         this.playerWizard = playerWizard;
         this.schoolBoard  = schoolBoard;
+        lastPlayedCard    = null;
     }
 
     /**
@@ -88,5 +90,25 @@ public class Player {
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Set the last played card
+     * @param lastPlayedCard The card to be set
+     */
+    public void setLastPlayedCard(AssistantCard lastPlayedCard) throws IllegalArgumentException {
+        // Check whether the first field is in the valid range and the second field follows the correct pattern
+        if (lastPlayedCard.cardValue() < 0 || lastPlayedCard.cardValue() > 10 || lastPlayedCard.movementPoints() != (((lastPlayedCard.cardValue() - 1) / 2) + 1))
+            throw new IllegalArgumentException("Invalid assistant card");
+
+        this.lastPlayedCard = lastPlayedCard;
+    }
+
+    /**
+     * Get the last played card
+     * @return Last played card
+     */
+    public AssistantCard getLastPlayedCard() {
+        return lastPlayedCard;
     }
 }
