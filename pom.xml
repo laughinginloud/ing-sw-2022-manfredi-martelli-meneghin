@@ -9,7 +9,7 @@
     <artifactId>PSP27</artifactId>
 
     <version>1.0-SNAPSHOT</version>
-    <name>Eryantis</name>
+    <name>Eriantys</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +50,25 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M6</version>
+            </plugin>
+            <!-- Javadoc plugin, responsible for compiling the documentation to HTML -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <doctitle>Docs for ${project.name} ${project.version}</doctitle> <!-- Used by javadoc:javadoc goal -->
+                    <windowtitle>Docs for ${project.name} ${project.version}</windowtitle> <!-- Used by javadoc:javadoc goal -->
+
+                    <testDoctitle>Docs for tests for ${project.name} ${project.version}</testDoctitle> <!-- Used by javadoc:test-javadoc goal -->
+                    <testWindowtitle>Docs for tests for ${project.name} ${project.version}</testWindowtitle> <!-- Used by javadoc:test-javadoc goal -->
+                </configuration>
+            </plugin>
+            <!-- Project-info plugin, required by javadoc's -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.2.2</version>
             </plugin>
         </plugins>
     </build>
