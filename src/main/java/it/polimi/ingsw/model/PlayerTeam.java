@@ -5,18 +5,11 @@ package it.polimi.ingsw.model;
  * @author Mattia Martelli
  */
 public class PlayerTeam extends Player {
-    private final Player teamMember;
+    private Player teamMember;
 
-    public PlayerTeam(int playerID, String username, Wizard playerWizard, SchoolBoard schoolBoard, Player teamMember) {
+    public PlayerTeam(int playerID, String username, Wizard playerWizard, SchoolBoard schoolBoard) {
         super(playerID, username, playerWizard, schoolBoard);
-        this.teamMember = teamMember;
     }
-
-
-    /*public PlayerTeam(Player basePlayer, Player teamMember) {
-        super(basePlayer);
-        this.teamMember = teamMember;
-    }*/
 
     /**
      * Returns the team member of the player
@@ -24,5 +17,16 @@ public class PlayerTeam extends Player {
      */
     public Player getTeamMember() {
         return teamMember;
+    }
+
+    /**
+     * Sets the associated team member
+     * @param teamMember A pointer to the Player representing the team member
+     */
+    public void setTeamMember(Player teamMember) throws IllegalArgumentException {
+        if (teamMember == null)
+            throw new IllegalArgumentException("teamMember is null");
+
+        this.teamMember = teamMember;
     }
 }
