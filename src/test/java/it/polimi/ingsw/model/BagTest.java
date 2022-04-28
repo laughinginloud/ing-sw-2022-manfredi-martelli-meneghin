@@ -14,6 +14,9 @@ class BagTest {
     private Bag bagTest;
     private Field studentCountersField;
     private final int[] studentCountersTest = {1,2,3,4,5};
+    private final int[] studentCountersTestSingleDraw = {1,0,0,0,0};
+    private final int[] studentCountersTestDoubleDraw = {1,1,0,0,0};
+
 
     @BeforeEach
     void setUp() throws IllegalAccessException, NoSuchFieldException {
@@ -57,5 +60,37 @@ class BagTest {
             if (studentCountersTest[color.ordinal()] != studentCountersTest[0])
                 throw new AssertionError("Global setter set wrong value");
         }
+    }
+
+    /**
+     * Test for both methods drawStudents of class "Bag"
+     */
+    @Test
+    void drawStudentsTest() throws IllegalAccessException {
+        //Set a single counter to 1 and try a single draw
+        studentCountersField.set(bagTest, Arrays.copyOf(studentCountersTestSingleDraw, studentCountersTestSingleDraw.length));
+
+        try {
+            if (bagTest.drawStudents() != Color.values()[0])
+                throw new AssertionError("Single drawStudents drawn wrong student");
+        }
+        catch (EmptyBagException e) {
+            throw new AssertionError("Single drawStudents emptied the bag without drawing a student");
+        }
+
+
+        //Set two different counter to 1 and try a double draw
+        studentCountersField.set(bagTest, Arrays.copyOf(studentCountersTestDoubleDraw, studentCountersTestDoubleDraw.length));
+        Color[] colorDoubleTest;
+
+        try {
+            colorDoubleTest = bagTest.drawStudents(2);
+        }
+        catch (EmptyBagException e) {
+            throw new AssertionError("Double drawStudents emptied the bag without drawing both of the students");
+        }
+
+        if ((colorDoubleTest[0] != Color.RED && colorDoubleTest[1] != Color.RED) || (colorDoubleTest[0] != Color.YELLOW && colorDoubleTest[1] != Color.YELLOW))
+            throw new AssertionError("Double drawStudents drawn wrong students");
     }
 }
