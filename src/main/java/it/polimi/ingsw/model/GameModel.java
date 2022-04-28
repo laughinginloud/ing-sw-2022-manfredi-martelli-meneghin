@@ -283,4 +283,15 @@ public class GameModel {
 
         this.coinPool = coinPool;
     }
+
+    /**
+     * Decrease the coin pool of a specified amount
+     * @param n The amount to remove from the pool
+     */
+    public void decreaseCoinPool(Integer n) throws IllegalArgumentException {
+        if (n <= 0 || n > coinPool)
+            throw new IllegalArgumentException("Quantity n to remove must be 0 < n <= coinPool");
+
+        coinPool -= n;
+    }
 }
