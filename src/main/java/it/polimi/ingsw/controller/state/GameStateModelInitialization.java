@@ -23,9 +23,6 @@ public class GameStateModelInitialization implements GameStateSetup {
 
         if (data.getNumOfPlayers() == 4)
             setMembers(players);
-
-        if (data.getExpertMode())
-            setCoins(players, model);
     }
 
     /**
@@ -42,23 +39,5 @@ public class GameStateModelInitialization implements GameStateSetup {
             else
                 throw new IllegalStateException("The players were not correctly created: use PlayerTeam or PlayerTeamExpert when there are four players");
         }
-    }
-
-    /**
-     * Give a coin to each player, removing the corresponding amount from the model
-     */
-    private void setCoins(Player[] players, GameModel model) {
-        for (Player player : players) {
-            if (player instanceof PlayerExpert p)
-                p.setCoinCount(1);
-
-            else if ((player instanceof PlayerTeamExpert p))
-                p.setCoinCount(1);
-
-            else
-                throw new IllegalStateException("The players were not correctly created: use PlayerExpert or PlayerExpertTeam when using the expert ruleset");
-        }
-
-        model.decreaseCoinPool(players.length);
     }
 }
