@@ -1,17 +1,17 @@
 package it.polimi.ingsw.model;
 
-import java.util.Random;
-
 /**
  * Class representing the bag
  * @author Sebastiano Meneghin
  */
 public class Bag {
     private final int[] studentCounters;
+    private       int   numOfStudents;
 
     public Bag(){
         studentCounters = new int[Color.values().length];
         setStudentCounters(0);
+        numOfStudents = 0;
     }
 
     /**
@@ -32,6 +32,8 @@ public class Bag {
         if (n < 0 || n > 26)
             throw new IllegalArgumentException("Bag.studentCounters accepted value is between 0 and 26");
 
+        numOfStudents = numOfStudents - studentCounters[color.ordinal()] + n;
+
         this.studentCounters[color.ordinal()] = n;
     }
 
@@ -50,23 +52,15 @@ public class Bag {
      * @return Color of the student selected
      * @throws EmptyBagException Launched when trying to draw a student from an empty bag
      */
-    public Color drawStudents() throws EmptyBagException {
-        int numOfStudents = 0;
+    private Color drawStudents() {
+        int randomColorIndex;
+        do {
+            randomColorIndex = ((int) (Math.random() * 4));
+        } while (studentCounters[randomColorIndex] == 0);
 
-        for (Color color : Color.values())
-            numOfStudents = numOfStudents + getStudentCounters(color);
+        studentCounters[randomColorIndex] = studentCounters[randomColorIndex] - 1;
 
-        if (numOfStudents == 0)
-            throw new EmptyBagException("The bag has been emptied");
-
-        int seed = ((int) (Math.random() * 4));
-        while (getStudentCounters((Color.values())[seed]) == 0)
-            seed = ((int) (Math.random() * 4));
-
-        int counterValue = getStudentCounters(Color.values()[seed]);
-        setStudentCounters(Color.values()[seed], counterValue - 1);
-
-        return Color.values()[seed];
+        return Color.values()[randomColorIndex];
     }
 
     /**
@@ -75,11 +69,15 @@ public class Bag {
      * @return An array of Color containing the students drawn
      * @throws EmptyBagException Launched when trying to draw a student from an empty bag
      */
-    public Color[] drawStudents(int n) throws EmptyBagException {
-        Color[] students = new Color[n];
-        for (int i = 0; i < n; i++)
+    public BagResult drawStudents(int n) throws EmptyBagException {
+        if (numOfStudents == 0)
+            throw new EmptyBagException();
+
+        int length = n > numOfStudents ? numOfStudents : n;
+        Color[] students = new Color[length];
+        for (int i = 0; i < length; i++)
             students[i] = drawStudents();
 
-        return students;
+        return new BagResult(students, numOfStudents == 0);
     }
 }

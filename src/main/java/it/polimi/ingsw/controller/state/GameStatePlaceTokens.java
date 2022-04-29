@@ -12,8 +12,8 @@ public class GameStatePlaceTokens implements GameStateSetup {
         GameModel model = ControllerData.getInstance().getGameModel();
         Bag       bag   = model.getBag();
 
-        // Set Mother Nature's position to a random number in [0, 12]
-        int motherNaturePosition = (int) (Math.random() * 12);
+        // Set Mother Nature's position to a random number in [0, 11]
+        int motherNaturePosition = (int) (Math.random() * 11);
         model.setMotherNaturePosition(motherNaturePosition);
 
         // Set the initial students on the islands
@@ -30,13 +30,16 @@ public class GameStatePlaceTokens implements GameStateSetup {
         try {
             // Use the bag to generate a random sequence of colors whilst following the restrictions
             bag.setStudentCounters(2);
-            Color[] initialStudents = bag.drawStudents(10);
+            BagResult initialStudents = bag.drawStudents(10);
+
+            if (!initialStudents.emptyBag() || initialStudents.drawnStudents().length < 10)
+                throw new IllegalStateException("Bag not correctly filled using the corresponding functions");
 
             // Iterate through the islands, adding the students
             // Note: "j++" executes the increment at the end of the statement, after the current value ("j") has been used
             for (int i = 0, j = 0; i < 12; ++i)
-                if (i != motherNaturePosition && i != ((motherNaturePosition + 6) % 12))
-                    model.getIsland(i).setStudentCounters(initialStudents[j++], 1);
+                if (i != motherNaturePosition && i != ((motherNaturePosition + 6) % 11))
+                    model.getIsland(i).setStudentCounters(initialStudents.drawnStudents()[j++], 1);
         }
 
         catch (EmptyBagException e) {
@@ -54,8 +57,14 @@ public class GameStatePlaceTokens implements GameStateSetup {
             int      entranceCapacity = players.length == 3 ? 9 : 7;
 
             // Iterate through all the players, adding a random set of students to the entrances
-            for (Player player : players)
-                player.getSchoolBoard().getEntrance().setStudents(bag.drawStudents(entranceCapacity));
+            for (Player player : players) {
+                BagResult br = bag.drawStudents(entranceCapacity);
+
+                if (br.emptyBag() || br.drawnStudents().length < entranceCapacity)
+                    throw new IllegalStateException("Bag not correctly filled using the corresponding functions");
+
+                player.getSchoolBoard().getEntrance().setStudents(br.drawnStudents());
+            }
         }
 
         catch (EmptyBagException e) {

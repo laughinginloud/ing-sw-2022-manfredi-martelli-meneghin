@@ -62,9 +62,11 @@ class BagTest {
         }
     }
 
+
     /**
      * Test for both methods drawStudents of class "Bag"
      */
+    /*
     @Test
     void drawStudentsTest() throws IllegalAccessException {
         //Set a single counter to 1 and try a single draw
@@ -93,4 +95,5 @@ class BagTest {
         if ((colorDoubleTest[0] != Color.RED && colorDoubleTest[1] != Color.RED) || (colorDoubleTest[0] != Color.YELLOW && colorDoubleTest[1] != Color.YELLOW))
             throw new AssertionError("Double drawStudents drawn wrong students");
     }
+    */
 }
