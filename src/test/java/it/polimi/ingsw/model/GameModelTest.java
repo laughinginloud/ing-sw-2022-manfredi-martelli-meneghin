@@ -352,4 +352,29 @@ class GameModelTest {
         if (!coinPoolField.get(gameModelTest).equals(testCoinPool))
             throw new AssertionError("setCoinPool set wrong value");
     }
+
+    /**
+     * Test for the coin pool's decreaser
+     */
+    @Test
+    void decreaseCoinPoolTest() throws IllegalAccessException {
+        coinPoolField.set(gameModelTest, 5);
+        gameModelTest.decreaseCoinPool(3);
+
+        if ((int) coinPoolField.get(gameModelTest) != 2)
+            throw new AssertionError("Decreased the wrong amount of coins");
+
+        try {
+            gameModelTest.decreaseCoinPool(10);
+
+            throw new AssertionError("No exception thrown when going out of bounds");
+        }
+        catch (IllegalArgumentException e) {
+            if ((int) coinPoolField.get(gameModelTest) != 2)
+                throw new AssertionError("Still decreased even after throwing the exception");
+        }
+        catch (Exception e) {
+            throw new AssertionError("Wrong exception thrown");
+        }
+    }
 }
