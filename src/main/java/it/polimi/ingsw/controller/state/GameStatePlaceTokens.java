@@ -5,7 +5,8 @@ import it.polimi.ingsw.model.*;
 
 public class GameStatePlaceTokens implements GameStateSetup {
     public GameState nextState() {
-        return ControllerData.getInstance().getExpertMode() ? new GameStateExpertInitialization() : new GameStateInitialPlayer();
+        //return ControllerData.getInstance().getExpertMode() ? new GameStateExpertInitialization() : new GameStateDrawStudents();
+        return null;
     }
 
     public void executeState() {
