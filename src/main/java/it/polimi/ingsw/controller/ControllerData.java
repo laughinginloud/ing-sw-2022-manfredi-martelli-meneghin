@@ -17,7 +17,8 @@ public class ControllerData {
     private        GameModel                  gameModel;
     private        Map<Player, AssistantCard> playerAssistantCardMap;
     private        Player[]                   playersOrder;
-    private        boolean                    trigger;
+    private        boolean                    emptyBagTrigger;
+    private        boolean                    emptyAssistantDeckTrigger;
     private        boolean                    hasPlayedCard;
     private        Integer                    numOfPlayers;
     private        boolean                    expertMode;
@@ -61,11 +62,19 @@ public class ControllerData {
     }
 
     /**
-     * Returns the trigger value
+     * Returns the trigger representing the bag's emptiness
      * @return A boolean representing the trigger
      */
-    public boolean getTrigger() {
-        return trigger;
+    public boolean getEmptyBagTrigger() {
+        return emptyBagTrigger;
+    }
+
+    /**
+     * Returns the trigger representing the deck's emptiness
+     * @return A boolean representing the trigger
+     */
+    public boolean getEmptyAssistantDeckTrigger() {
+        return emptyAssistantDeckTrigger;
     }
 
     /**
@@ -137,17 +146,31 @@ public class ControllerData {
     }
 
     /**
-     * Set the generic trigger to true
+     * Set the empty bag trigger to true
      */
-    public void setTrigger() {
-        trigger = true;
+    public void setEmptyBagTrigger() {
+        emptyBagTrigger = true;
     }
 
     /**
-     * Set the generic trigger to false
+     * Set the empty bag trigger to false
      */
-    public void resetTrigger() {
-        trigger = false;
+    public void resetEmptyBagTrigger() {
+        emptyBagTrigger = false;
+    }
+
+    /**
+     * Set the assistant deck trigger to true
+     */
+    public void setEmptyAssistantDeckTrigger() {
+        emptyAssistantDeckTrigger = true;
+    }
+
+    /**
+     * Set the assistant deck trigger to false
+     */
+    public void resetEmptyAssistantDeckTrigger() {
+        emptyAssistantDeckTrigger = false;
     }
 
     /**
@@ -206,7 +229,7 @@ public class ControllerData {
         instance.gameModel              = data.gameModel;
         instance.playerAssistantCardMap = data.playerAssistantCardMap;
         instance.playersOrder           = data.playersOrder;
-        instance.trigger                = data.trigger;
+        instance.emptyBagTrigger = data.emptyBagTrigger;
         instance.numOfPlayers           = data.numOfPlayers;
     }
 
