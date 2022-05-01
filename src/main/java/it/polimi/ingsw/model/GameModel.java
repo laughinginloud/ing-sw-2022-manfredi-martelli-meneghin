@@ -11,6 +11,9 @@ import java.util.Set;
  * @author Giovanni Manfredi
  */
 public class GameModel {
+
+    // region Fields
+
     // Attributes of the class GameModel
     private final Player[]             players;
     private       Island[]             islands;
@@ -21,6 +24,10 @@ public class GameModel {
     private final boolean              expertMode;
     private final CharacterCard[]      characterCards;
     private       Integer              coinPool;
+
+    // endregion
+
+    // region Construction
 
     // Constructor of the class GameModel
     public GameModel(int numOfPlayers, boolean expertMode) {
@@ -68,6 +75,10 @@ public class GameModel {
             cloudTiles[i] = new CloudTile();
     }
 
+    // endregion
+
+    // region Getter
+
     /**
      * Get the Player saved at a specific index
      * @param index The index at which the Player is saved
@@ -79,21 +90,6 @@ public class GameModel {
             throw new IllegalArgumentException("getPlayer: Index value invalid! Accepted index in the range [0, 3]");
 
         return players[index];
-    }
-
-    /**
-     * Set the Player saved at a specific index
-     * @param player The player to be saved
-     * @param index The index of the Player that needs to be set
-     */
-    public void setPlayer(Player player, int index) throws IllegalArgumentException {
-        // Checks if the player is not null and if the index is within the accepted range [0, 3]
-        if (player == null)
-            throw new IllegalArgumentException("setPlayer: The player to be set is null!");
-        else if (index < 0 || index > 3)
-            throw new IllegalArgumentException("setPlayer: Index value invalid! Accepted index in the range [0, 3]");
-
-        this.players[index] = player;
     }
 
     /**
@@ -116,35 +112,6 @@ public class GameModel {
     }
 
     /**
-     * Set the Island saved at a specific index
-     * @param island The island to be saved
-     * @param index The index of the island that needs to be set
-     */
-    public void setIsland(Island island, int index) throws IllegalArgumentException {
-        // Checks if the island is not null and if the index is within the accepted range [0, 11]
-        if (island == null)
-            throw new IllegalArgumentException("setIsland: The island to be set is null!");
-        else if (index < 0 || index > 11)
-            throw new IllegalArgumentException("setIsland: Index value invalid! Accepted index in the range [0, 11]");
-
-        this.islands[index] = island;
-    }
-
-    /**
-     * Shift of the islands array needed when merging islands, shrinking it in the process
-     * @param index The index of the island I will overwrite
-     */
-    public void shiftIslands(int index) throws IllegalArgumentException {
-        // Checks if the index is within the accepted range [0, 11]
-        if (index < 0 || index > 11)
-            throw new IllegalArgumentException("shiftIslands: Index value invalid! Accepted index in the range [0, 11]");
-
-        // Copies the part of the island Array after the index over the index and then shrinks it
-        System.arraycopy(islands, index + 1, islands, index, islands.length - index - 1);
-        islands = Arrays.copyOf(islands, islands.length - 1);
-    }
-
-    /**
      * Get the number of Island present, i.e. the length of islands
      * @return The number of Island present (in the range [0, 12])
      */
@@ -164,36 +131,24 @@ public class GameModel {
     }
 
     /**
-     * Set the cloudTile saved at a specific index
-     * @param cloudTile The cloudTile to be saved
-     * @param index The index of the cloudTile that needs to be set
-     */
-    public void setCloudTile(CloudTile cloudTile, int index) throws IllegalArgumentException {
-        // Checks if the cloudTile is not null and if the index is within the accepted range [0, 3]
-        if (cloudTile == null)
-            throw new IllegalArgumentException("setCloudTile: The cloudTile to be set is null!");
-        else if (index < 0 || index > 3)
-            throw new IllegalArgumentException("setCloudTile: Index value invalid! Accepted index in the range [0, 3]");
-
-        this.cloudTiles[index] = cloudTile;
-    }
-
-    /**
      * Get the position of mother nature saved
      * @return The position of mother nature (from 0 to 11)
      */
     public int getMotherNaturePosition() { return motherNaturePosition; }
 
     /**
-     * Set the saved position of mother nature to a parameter
-     * @param motherNaturePosition The position of mother nature to be saved (between 0 and 11)
+     * Set the Player saved at a specific index
+     * @param player The player to be saved
+     * @param index The index of the Player that needs to be set
      */
-    public void setMotherNaturePosition(int motherNaturePosition) throws IllegalArgumentException {
-        // Checks if the motherNaturePosition is within the accepted range [0, 11]
-        if (motherNaturePosition < 0 || motherNaturePosition > 11)
-            throw new IllegalArgumentException("setMotherNaturePosition: MotherNaturePosition value invalid! Accepted motherNaturePosition in the range [0, 11]");
+    public void setPlayer(Player player, int index) throws IllegalArgumentException {
+        // Checks if the player is not null and if the index is within the accepted range [0, 3]
+        if (player == null)
+            throw new IllegalArgumentException("setPlayer: The player to be set is null!");
+        else if (index < 0 || index > 3)
+            throw new IllegalArgumentException("setPlayer: Index value invalid! Accepted index in the range [0, 3]");
 
-        this.motherNaturePosition = motherNaturePosition;
+        this.players[index] = player;
     }
 
     /**
@@ -203,34 +158,10 @@ public class GameModel {
     public Bag getBag() { return bag; }
 
     /**
-     * Set the saved bag to a specific bag
-     * @param bag The bag to be saved
-     */
-    public void setBag(Bag bag) throws IllegalArgumentException {
-        // Checks if the bag is not null
-        if (bag == null)
-            throw new IllegalArgumentException("setBag: The bag to be set is null!");
-
-        this.bag = bag;
-    }
-
-    /**
      * Get the globalProfessorTable saved
      * @return the globalProfessorTable
      */
     public GlobalProfessorTable getGlobalProfessorTable() { return globalProfessorTable; }
-
-    /**
-     * Set the saved globalProfessorTable to a specific globalProfessorTable
-     * @param globalProfessorTable The globalProfessorTable to be saved
-     */
-    public void setGlobalProfessorTable(GlobalProfessorTable globalProfessorTable) throws IllegalArgumentException {
-        // Checks if the globalProfessorTable is not null
-        if (globalProfessorTable == null)
-            throw new IllegalArgumentException("setGlobalProfessorTable: The globalProfessorTable to be set is null!");
-
-        this.globalProfessorTable = globalProfessorTable;
-    }
 
     /**
      * Get if the GameMode is expert or not
@@ -252,6 +183,82 @@ public class GameModel {
     }
 
     /**
+     * Get the number of coins in the pool
+     * @return The number of coins currently in the pool
+     */
+    public Integer getCoinPool() { return coinPool; }
+
+    // endregion
+
+    // region Setter
+
+    /**
+     * Set the Island saved at a specific index
+     * @param island The island to be saved
+     * @param index The index of the island that needs to be set
+     */
+    public void setIsland(Island island, int index) throws IllegalArgumentException {
+        // Checks if the island is not null and if the index is within the accepted range [0, 11]
+        if (island == null)
+            throw new IllegalArgumentException("setIsland: The island to be set is null!");
+        else if (index < 0 || index > 11)
+            throw new IllegalArgumentException("setIsland: Index value invalid! Accepted index in the range [0, 11]");
+
+        this.islands[index] = island;
+    }
+
+    /**
+     * Set the cloudTile saved at a specific index
+     * @param cloudTile The cloudTile to be saved
+     * @param index The index of the cloudTile that needs to be set
+     */
+    public void setCloudTile(CloudTile cloudTile, int index) throws IllegalArgumentException {
+        // Checks if the cloudTile is not null and if the index is within the accepted range [0, 3]
+        if (cloudTile == null)
+            throw new IllegalArgumentException("setCloudTile: The cloudTile to be set is null!");
+        else if (index < 0 || index > 3)
+            throw new IllegalArgumentException("setCloudTile: Index value invalid! Accepted index in the range [0, 3]");
+
+        this.cloudTiles[index] = cloudTile;
+    }
+
+    /**
+     * Set the saved position of mother nature to a parameter
+     * @param motherNaturePosition The position of mother nature to be saved (between 0 and 11)
+     */
+    public void setMotherNaturePosition(int motherNaturePosition) throws IllegalArgumentException {
+        // Checks if the motherNaturePosition is within the accepted range [0, 11]
+        if (motherNaturePosition < 0 || motherNaturePosition > 11)
+            throw new IllegalArgumentException("setMotherNaturePosition: MotherNaturePosition value invalid! Accepted motherNaturePosition in the range [0, 11]");
+
+        this.motherNaturePosition = motherNaturePosition;
+    }
+
+    /**
+     * Set the saved bag to a specific bag
+     * @param bag The bag to be saved
+     */
+    public void setBag(Bag bag) throws IllegalArgumentException {
+        // Checks if the bag is not null
+        if (bag == null)
+            throw new IllegalArgumentException("setBag: The bag to be set is null!");
+
+        this.bag = bag;
+    }
+
+    /**
+     * Set the saved globalProfessorTable to a specific globalProfessorTable
+     * @param globalProfessorTable The globalProfessorTable to be saved
+     */
+    public void setGlobalProfessorTable(GlobalProfessorTable globalProfessorTable) throws IllegalArgumentException {
+        // Checks if the globalProfessorTable is not null
+        if (globalProfessorTable == null)
+            throw new IllegalArgumentException("setGlobalProfessorTable: The globalProfessorTable to be set is null!");
+
+        this.globalProfessorTable = globalProfessorTable;
+    }
+
+    /**
      * Set the characterCard saved at a specific index
      * @param characterCard The characterCard to be saved
      * @param index The index of the specific characterCard that needs to be set
@@ -267,12 +274,6 @@ public class GameModel {
     }
 
     /**
-     * Get the number of coins in the pool
-     * @return The number of coins currently in the pool
-     */
-    public Integer getCoinPool() { return coinPool; }
-
-    /**
      * Set the number of coins in the pool
      * @param coinPool The number of coins that are in the pool
      */
@@ -282,6 +283,24 @@ public class GameModel {
             throw new IllegalArgumentException("setCoinPool: CoinPool value invalid! Accepted coinPool in the range [0, 20]");
 
         this.coinPool = coinPool;
+    }
+
+    // endregion
+
+    // region Others
+
+    /**
+     * Shift of the islands array needed when merging islands, shrinking it in the process
+     * @param index The index of the island I will overwrite
+     */
+    public void shiftIslands(int index) throws IllegalArgumentException {
+        // Checks if the index is within the accepted range [0, 11]
+        if (index < 0 || index > 11)
+            throw new IllegalArgumentException("shiftIslands: Index value invalid! Accepted index in the range [0, 11]");
+
+        // Copies the part of the island Array after the index over the index and then shrinks it
+        System.arraycopy(islands, index + 1, islands, index, islands.length - index - 1);
+        islands = Arrays.copyOf(islands, islands.length - 1);
     }
 
     /**
@@ -294,4 +313,6 @@ public class GameModel {
 
         coinPool -= n;
     }
+
+    // endregion
 }

@@ -50,7 +50,6 @@ public class Bag {
     /**
      * Draw a random student from the Bag
      * @return Color of the student selected
-     * @throws EmptyBagException Launched when trying to draw a student from an empty bag
      */
     private Color drawStudents() {
         int randomColorIndex;

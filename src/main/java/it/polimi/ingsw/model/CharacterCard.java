@@ -9,6 +9,8 @@ public class CharacterCard {
     private final int     cardID;
     private       boolean hasCoin;
 
+    // region Constructor and Builder
+
     protected CharacterCard(int cardID) throws IllegalArgumentException {
         //Set the cost of the Card depending on its cardID
         switch (cardID) {
@@ -44,22 +46,15 @@ public class CharacterCard {
             return new CharacterCard(cardID);
     }
 
+    // endregion
+
+    // region Getter
+
     /**
      * Get the current cost of the CharacterCard
      * @return The cost of the CharacterCard
      */
     public int getCost() { return this.cost; }
-
-    /**
-     * Set the cost of the CharacterCard to a specific value
-     * @param cost The value to be set to
-     */
-    public void setCost(int cost) throws IllegalArgumentException {
-        if (cost > 4)
-            throw new IllegalArgumentException("CharacterCard.cost accepted value is maximum 4");
-
-        this.cost = cost;
-    }
 
     /**
      * Get the cardID of the CharacterCard
@@ -73,9 +68,26 @@ public class CharacterCard {
      */
     public boolean getHasCoin() { return hasCoin; }
 
+    // endregion
+
+    // region Setter
+
+    /**
+     * Set the cost of the CharacterCard to a specific value
+     * @param cost The value to be set to
+     */
+    public void setCost(int cost) throws IllegalArgumentException {
+        if (cost > 4)
+            throw new IllegalArgumentException("CharacterCard.cost accepted value is maximum 4");
+
+        this.cost = cost;
+    }
+
     /**
      * Set the flag hasCoin to a specific value
      * @param hasCoin The value to be set (true or false)
      */
     public void setHasCoin(boolean hasCoin) { this.hasCoin = hasCoin; }
+
+    // endregion
 }
