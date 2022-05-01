@@ -141,12 +141,12 @@ public class IslandTest {
      */
     @Test
     void getNoEntryTileCountTest() throws IllegalAccessException {
-        noEntryTileCountField.set(islandTest, Optional.of(noEntryTileCountTest));
+        noEntryTileCountField.set(islandTest, noEntryTileCountTest);
 
-        if (islandTest.getNoEntryTileCount().equals(Optional.empty()))
+        if (islandTest.getNoEntryTileCount() == null)
             throw new AssertionError("Getter of noEntryTileCount returned wrongly a null value");
 
-        if (!islandTest.getNoEntryTileCount().equals(Optional.of(noEntryTileCountTest)))
+        if (!islandTest.getNoEntryTileCount().equals(noEntryTileCountTest))
             throw new AssertionError("Getter of noEntryTileCount returned wrong value");
     }
 
@@ -157,7 +157,7 @@ public class IslandTest {
     void setNoEntryTileCountTest() throws IllegalAccessException {
         islandTest.setNoEntryTileCount(noEntryTileCountTest);
 
-        if (!(noEntryTileCountField.get(islandTest)).equals(Optional.of(noEntryTileCountTest)))
+        if (!(noEntryTileCountField.get(islandTest)).equals(noEntryTileCountTest))
             throw new AssertionError("Setter of noEntryTileCount returned wrong value");
     }
 

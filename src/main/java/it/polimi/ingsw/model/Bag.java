@@ -57,7 +57,7 @@ public class Bag {
             randomColorIndex = ((int) (Math.random() * 4));
         } while (studentCounters[randomColorIndex] == 0);
 
-        studentCounters[randomColorIndex] = studentCounters[randomColorIndex] - 1;
+        studentCounters[randomColorIndex]--;
 
         return Color.values()[randomColorIndex];
     }
@@ -72,7 +72,7 @@ public class Bag {
         if (numOfStudents == 0)
             throw new EmptyBagException();
 
-        int length = n > numOfStudents ? numOfStudents : n;
+        int length = Math.min(n, numOfStudents);
         Color[] students = new Color[length];
         for (int i = 0; i < length; i++)
             students[i] = drawStudents();

@@ -12,11 +12,11 @@ public class Island {
 
     // region Fields
 
-    private final int[]             studentCounters;
-    private       int               multiplicity;
-    private       TowerColor        towerColor;
-    private       Optional<Integer> noEntryTileCount;
-    private final List<Integer>     backgroundID;
+    private final int[]         studentCounters;
+    private       int           multiplicity;
+    private       TowerColor    towerColor;
+    private       Integer       noEntryTileCount;
+    private final List<Integer> backgroundID;
 
     // endregion
 
@@ -26,7 +26,7 @@ public class Island {
         studentCounters = new int[Color.values().length];
         setStudentCounters(0);
         setMultiplicity(0);
-        noEntryTileCount = Optional.empty();
+        noEntryTileCount = null;
         //A merged island will consist of a maximum of 11 sub-islands, according to winning rules
         backgroundID = new ArrayList<>();
     }
@@ -58,7 +58,7 @@ public class Island {
      * Get the number of noEntryTiles currently on the island
      * @return An Integer representing noEntryTilesCount, null if there are no noEntryTiles on the island.
      */
-    public Optional<Integer> getNoEntryTileCount() { return noEntryTileCount; }
+    public Integer getNoEntryTileCount() { return noEntryTileCount; }
 
     /**
      * Get all the backgroundIDs assigned to the island, without deleting them
@@ -126,7 +126,7 @@ public class Island {
         if(noEntryTileCount < 0 || noEntryTileCount > 4)
             throw new IllegalArgumentException("Island.noEntryTileCount accepted value is between 0 and 4");
 
-        this.noEntryTileCount = Optional.of(noEntryTileCount);
+        this.noEntryTileCount = noEntryTileCount;
     }
 
     // endregion
