@@ -12,7 +12,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
     }
 
     public void executeState() {
-        VirtualView player   = ControllerData.getInstance().getPlayerViewMap().get(ControllerData.getInstance().getCurrentPlayer());
+        VirtualView player   = ControllerData.getInstance().getPlayerViewMap().getRight(ControllerData.getInstance().getCurrentPlayer());
 
         GameCommand request  = new GameCommandRequestValueClient(GameCommandValues.MOTHERNATURE);
         GameCommand response; //response instanceof GameCommandMoveMotherNature
