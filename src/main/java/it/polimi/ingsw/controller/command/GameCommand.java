@@ -5,5 +5,5 @@ package it.polimi.ingsw.controller.command;
  * @author Mattia Martelli
  */
 public interface GameCommand {
-    void executeCommand();
+    Object executeCommand();
 }
