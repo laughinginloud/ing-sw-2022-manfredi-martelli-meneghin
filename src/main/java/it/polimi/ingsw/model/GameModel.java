@@ -234,6 +234,10 @@ public class GameModel {
         this.motherNaturePosition = motherNaturePosition;
     }
 
+    public void movemotherNature(int movementPoints) {
+        setMotherNaturePosition((motherNaturePosition + movementPoints) % 12);
+    }
+
     /**
      * Set the saved bag to a specific bag
      * @param bag The bag to be saved

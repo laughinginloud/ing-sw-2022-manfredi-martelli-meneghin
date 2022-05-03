@@ -3,6 +3,10 @@ package it.polimi.ingsw.controller.state;
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.model.*;
 
+/**
+ * State representing the placement of the tokens on the board, following the model's initialization
+ * @author Mattia Martelli
+ */
 public class GameStatePlaceTokens implements GameStateSetup {
     public GameState nextState() {
         return ControllerData.getInstance().getExpertMode() ? new GameStateExpertInitialization() : new GameStateFillClouds();
