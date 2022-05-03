@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.Isomorphism;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -13,15 +15,17 @@ public class ControllerData {
 
     // region Fields
 
-    private static ControllerData             instance;
-    private        GameModel                  gameModel;
-    private        Map<Player, AssistantCard> playerAssistantCardMap;
-    private        Player[]                   playersOrder;
-    private        boolean                    emptyBagTrigger;
-    private        boolean                    emptyAssistantDeckTrigger;
-    private        boolean                    hasPlayedCard;
-    private        Integer                    numOfPlayers;
-    private        boolean                    expertMode;
+    private static ControllerData                   instance;
+    private        GameModel                        gameModel;
+    private        Map<Player, AssistantCard>       playerAssistantCardMap;
+    private        Player[]                         playersOrder;
+    private        boolean                          emptyBagTrigger;
+    private        boolean                          emptyAssistantDeckTrigger;
+    private        boolean                          hasPlayedCard;
+    private        Integer                          numOfPlayers;
+    private        boolean                          expertMode;
+    private        Isomorphism<Player, VirtualView> playerViewMap;
+    private        Player                           currentPlayer;
 
     // endregion
 
@@ -99,6 +103,22 @@ public class ControllerData {
      */
     public boolean getExpertMode() {
         return expertMode;
+    }
+
+    public Isomorphism<Player, VirtualView> getPlayerViewMap() {
+        return playerViewMap;
+    }
+
+    public Player getViewPlayer(VirtualView virtualView) {
+        return playerViewMap.getLeft(virtualView);
+    }
+
+    public VirtualView getPlayerView(Player player) {
+        return playerViewMap.getRight(player);
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     // endregion
@@ -200,6 +220,10 @@ public class ControllerData {
      */
     public void setExpertMode() {
         expertMode = true;
+    }
+
+    public void setPlayerViewMap(Isomorphism<Player, VirtualView> playerViewMap) {
+        this.playerViewMap = playerViewMap;
     }
 
     // endregion
