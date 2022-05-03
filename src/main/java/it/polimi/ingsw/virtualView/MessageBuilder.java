@@ -12,13 +12,23 @@ class MessageBuilder {
     }
 
     public static String fromCommand(GameCommand command) {
-        return stringBuilder.toJson(switch (command) {
-            case GameCommandRequestValueClient c -> new Message(MessageType.REQUEST,        c.executeCommand());
-            case GameCommandIllegalCommand     c -> new Message(MessageType.ILLEGALMESSAGE, c.executeCommand());
-            case GameCommandIllegalValue       c -> new Message(MessageType.ILLEGALVALUE,   c.executeCommand());
-            case GameCommandSendInfo           c -> new Message(MessageType.SENDINFO,       c.executeCommand());
-            default                              -> throw new IllegalStateException(); //TODO: gestione dell'errore
-        });
+        return stringBuilder.toJson(commandSwitch(command));
+    }
+
+    private static Message commandSwitch(GameCommand command) {
+        if (command instanceof GameCommandRequestValueClient c)
+            return new Message(MessageType.REQUEST, c.executeCommand());
+
+        if (command instanceof GameCommandIllegalCommand c)
+            return new Message(MessageType.ILLEGALMESSAGE, c.executeCommand());
+
+        if (command instanceof GameCommandIllegalValue c)
+            return new Message(MessageType.ILLEGALVALUE, c.executeCommand());
+
+        if (command instanceof GameCommandSendInfo c)
+            new Message(MessageType.SENDINFO, c.executeCommand());
+
+        throw new IllegalStateException("No suitable constructor for the provided command");
     }
 
     public static GameCommand toCommand(String message) {
