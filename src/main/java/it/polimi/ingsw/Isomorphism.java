@@ -1,7 +1,10 @@
 package it.polimi.ingsw;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * Class representing an isomorphism between two classes
@@ -29,7 +32,8 @@ public class Isomorphism<Left, Right> {
      * @return A boolean representing whether the insertion was successful
      */
     public boolean put(Left left, Right right) {
-        if (leftRightMap.containsKey(left) || rightLeftMap.containsKey(right))
+        if (leftRightMap.containsKey(left) || rightLeftMap.containsKey(right)
+            || left == null || right == null)
             return false;
 
         leftRightMap.put(left, right);
@@ -72,5 +76,29 @@ public class Isomorphism<Left, Right> {
      */
     public boolean containsRight(Right right) {
         return rightLeftMap.containsKey(right);
+    }
+
+    /**
+     * Clears all the data from the isomorphism
+     */
+    public void clear() {
+        leftRightMap.clear();
+        rightLeftMap.clear();
+    }
+
+    /**
+     * Traverse the isomorphism, discarding the intermediate results
+     * @param action The action to apply to each element of the isomorphism
+     */
+    public void forEach(BiConsumer<? super Left, ? super Right> action) {
+        leftRightMap.forEach(action);
+    }
+
+    /**
+     * Creates a Set containing the entries the isomorphism
+     * @return A Set containing a copy of the entries
+     */
+    public Set<Map.Entry<Left, Right>> entrySet() {
+        return new HashSet<>(leftRightMap.entrySet());
     }
 }
