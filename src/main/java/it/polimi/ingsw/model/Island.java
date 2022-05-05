@@ -29,6 +29,7 @@ public class Island {
         noEntryTileCount = null;
         //A merged island will consist of a maximum of 11 sub-islands, according to winning rules
         backgroundID = new ArrayList<>();
+        towerColor = null;
     }
 
     // endregion

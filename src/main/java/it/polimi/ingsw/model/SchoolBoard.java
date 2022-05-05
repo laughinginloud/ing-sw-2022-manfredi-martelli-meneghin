@@ -44,6 +44,20 @@ public class SchoolBoard {
         this.towerCount = towerCount;
     }
 
+    public void increaseTowerCount() throws IllegalStateException {
+        if (towerCount >= 8)
+            throw new IllegalStateException();
+
+        towerCount++;
+    }
+
+    public void decreaseTowerCount() throws IllegalStateException {
+        if (towerCount <= 0)
+            throw new IllegalStateException();
+
+        towerCount--;
+    }
+
     /**
      * Returns the entrance associated with the school board
      * @return A pointer to the school board's entrance

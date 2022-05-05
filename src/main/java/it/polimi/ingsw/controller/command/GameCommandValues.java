@@ -1,5 +1,5 @@
 package it.polimi.ingsw.controller.command;
 
 public enum GameCommandValues {
-    MOTHERNATURE, MAP
+    MOTHERNATURE, MAP, ISLANDARRAY, PLAYERARRAY
 }

@@ -188,6 +188,10 @@ public class GameModel {
      */
     public Integer getCoinPool() { return coinPool; }
 
+    public Island[] getIslands() {
+        return islands;
+    }
+
     // endregion
 
     // region Setter
@@ -235,7 +239,7 @@ public class GameModel {
     }
 
     public void movemotherNature(int movementPoints) {
-        setMotherNaturePosition((motherNaturePosition + movementPoints) % 12);
+        setMotherNaturePosition((motherNaturePosition + movementPoints) % getIslandsCount());
     }
 
     /**
