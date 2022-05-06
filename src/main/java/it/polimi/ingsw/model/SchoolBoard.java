@@ -44,16 +44,24 @@ public class SchoolBoard {
         this.towerCount = towerCount;
     }
 
+
+    /**
+     * Increase the tower's count by one
+     */
     public void increaseTowerCount() throws IllegalStateException {
         if (towerCount >= 8)
-            throw new IllegalStateException();
+            throw new IllegalStateException("Cannot have more than 8 towers");
 
         towerCount++;
     }
 
+
+    /**
+     * Decrease the tower's count by one
+     */
     public void decreaseTowerCount() throws IllegalStateException {
         if (towerCount <= 0)
-            throw new IllegalStateException();
+            throw new IllegalStateException("Cannot have negative towers");
 
         towerCount--;
     }
