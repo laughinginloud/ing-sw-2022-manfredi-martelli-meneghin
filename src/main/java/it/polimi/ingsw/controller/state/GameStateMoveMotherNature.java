@@ -6,20 +6,23 @@ import it.polimi.ingsw.virtualView.VirtualView;
 import it.polimi.ingsw.controller.command.*;
 
 import java.io.IOException;
-
+/**
+ * State representing the request and subsequent movement of the Mother Nature pawn
+ * @author Mattia Martelli
+ */
 public class GameStateMoveMotherNature implements GameStateActionPhase {
     public GameState nextState() {
         return new GameStateComputeIsland();
     }
 
     public void executeState() {
-        Player player          = ControllerData.getInstance().getCurrentPlayer();
-        VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
-
         try {
+            Player      player     = ControllerData.getInstance().getCurrentPlayer();
+            VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
+
             // Create a command representing the request of MotherNature's movement and send it to the player
-            GameCommand request  = new GameCommandRequestValueClient(GameCommandValues.MOTHERNATURE);
-            GameCommand response = playerView.sendRequest(request);
+            GameCommand request    = new GameCommandRequestValueClient(GameCommandValues.MOTHERNATURE);
+            GameCommand response   = playerView.sendRequest(request);
 
             // If the response is of the right kind, try to execute the movement
             if (response instanceof GameCommandMoveMotherNature c) {
@@ -33,12 +36,17 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
                         playerView.sendMessage(new GameCommandIllegalValue());
                     }
 
-                    catch (IOException ex) {
+                    catch (Exception ex) {
                         // Fatal error: print the stack trace to help debug
                         ex.printStackTrace();
                     }
 
                     executeState();
+                }
+
+                catch (Exception ex) {
+                    // Fatal error: print the stack trace to help debug
+                    ex.printStackTrace();
                 }
             }
 
@@ -48,7 +56,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
                     playerView.sendMessage(new GameCommandIllegalCommand());
                 }
 
-                catch (IOException e) {
+                catch (Exception e) {
                     // Fatal error: print the stack trace to help debug
                     e.printStackTrace();
                 }
@@ -57,7 +65,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
             }
         }
 
-        catch (IOException e) {
+        catch (Exception e) {
             // Fatal error: print the stack trace to help debug
             e.printStackTrace();
         }
