@@ -13,12 +13,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+/**
+ * State representing the operations on the islands: control, conquest and unification
+ * @author Mattia Martelli
+ */
 public class GameStateComputeIsland implements GameStateActionPhase {
     boolean winTrigger = false;
     Player  winner     = null;
 
     public GameState nextState() {
-        //return winTrigger ? new GameStateEndGame(winner) : new GameStateChooseCloud();
+        //return winTrigger ? new GameStateEndGame(winner) : new GameStateChooseCloud(); //TODO: uncomment when GameStateEnd has been created
         return null;
     }
 
@@ -41,6 +45,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
         unifyIslands(model, islandIndex);
 
+        //TODO: modificare in aggiornamenti più repentini
         try {
             player.sendMessage(createMap(data, model));
         }
@@ -66,6 +71,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         island.setTowerColor(schoolBoard.getTowerColor());
         schoolBoard.decreaseTowerCount();
 
+        // If the current player has no more towers, call the end game trigger
         if (schoolBoard.getTowerCount() == 0)
             endGame(maxPlayer);
     }
@@ -83,6 +89,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             maxPlayerBoard.decreaseTowerCount();
             curPlayerBoard.increaseTowerCount();
 
+            // If the current player ha no more towers, call the end game trigger
             if (maxPlayerBoard.getTowerCount() == 0)
                 endGame(maxPlayer);
         }
@@ -145,9 +152,12 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         Player towerPlayer =
             // Transform the array of players into a stream to ease filtering
             Arrays.stream(data.getPlayersOrder())
-                // Reduce to the player who has the corresponding tower color
-                .reduce((a, b) -> a.getSchoolBoard().getTowerColor() == island.getTowerColor() ? a : b)
-                // Unpack the value from the optional, with a check to be safe
+                // Remove from the stream all players that do not meet the criteria
+                .filter(p -> p.getSchoolBoard().getTowerColor() == island.getTowerColor())
+                // Take the first element, which will be the one with the same tower color
+                .findFirst()
+                // Unpack the value from the optional, throwing an exception if it's empty
+                // Note: if the optional's empty it means that the model wasn't populated correctly
                 .orElseThrow();
 
         // Check whether the player is really the correct one, to be safe
