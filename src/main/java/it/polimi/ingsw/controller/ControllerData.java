@@ -50,6 +50,20 @@ public class ControllerData {
     }
 
     /**
+     * Get the PlayerAssistantCardMap
+     * @return A Map (Player, AssistantCard) copy of the PlayerAssistantCardMap
+     */
+    public Map<Player, AssistantCard> getPlayerAssistantCardMap() {
+        Map<Player, AssistantCard> temp = new HashMap<>();
+
+        if (this.playerAssistantCardMap == null)
+            return null;
+
+        temp.putAll(this.playerAssistantCardMap);
+        return temp;
+    }
+
+    /**
      * Returns the players' play order
      * @return An array containing the play order
      */
@@ -294,7 +308,7 @@ public class ControllerData {
         instance.expertMode                = data.expertMode;
         instance.playerViewMap             = data.playerViewMap;
         instance.currentPlayer             = data.currentPlayer;
-        
+
         //TODO: link player <-> gamemodel, link player <-> new view
     }
 

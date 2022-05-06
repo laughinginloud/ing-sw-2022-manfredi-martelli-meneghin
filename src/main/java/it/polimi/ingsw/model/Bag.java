@@ -65,7 +65,7 @@ public class Bag {
     /**
      * Draw a specific number of random students from the bag
      * @param n Int representing the number of students to be drawn
-     * @return An array of Color containing the students drawn
+     * @return A variable length array of Color containing the students drawn (if there are fewer students than required, its size is <n)
      * @throws EmptyBagException Launched when trying to draw a student from an empty bag
      */
     public BagResult drawStudents(int n) throws EmptyBagException {
