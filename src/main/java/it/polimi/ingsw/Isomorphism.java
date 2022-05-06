@@ -1,10 +1,9 @@
 package it.polimi.ingsw;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Class representing an isomorphism between two classes
@@ -92,6 +91,65 @@ public class Isomorphism<Left, Right> {
      */
     public void forEach(BiConsumer<? super Left, ? super Right> action) {
         leftRightMap.forEach(action);
+    }
+
+    /**
+     * Traverse the isomorphism, appending the intermediate results to a list
+     * @param action The action to apply to each element of the isomorphism
+     * @return A list containing the intermediate results
+     * @param <T> The tipe of the result
+     */
+    public <T> List<T> traverse(BiFunction<? super Left, ? super Right, T> action) {
+        List<T> result = new ArrayList<>();
+        for (Map.Entry<Left, Right> entry : entrySet())
+            result.add(action.apply(entry.getKey(), entry.getValue()));
+        return result;
+    }
+
+    /**
+     * Map the left side of the isomorphism to a new domain
+     * @param map The mapper function
+     * @return The new isomorphism
+     * @param <NewLeft> The type of the new domain
+     */
+    public <NewLeft> Isomorphism<NewLeft, Right> mapLeft(Function<Left, NewLeft> map) {
+        Isomorphism<NewLeft, Right> result = new Isomorphism<>();
+        entrySet().forEach(e -> result.put(map.apply(e.getKey()), e.getValue()));
+        return result;
+    }
+
+    /**
+     * Map the right side of the isomorphism to a new domain
+     * @param map The mapper function
+     * @return The new isomorphism
+     * @param <NewRight> The type of the new domain
+     */
+    public <NewRight> Isomorphism<Left, NewRight> mapRight(Function<Right, NewRight> map) {
+        Isomorphism<Left, NewRight> result = new Isomorphism<>();
+        entrySet().forEach(e -> result.put(e.getKey(), map.apply(e.getValue())));
+        return result;
+    }
+
+    /**
+     * Map the isomorphism to a new domain
+     * @param leftMap The mapper function for the left side
+     * @param rightMap The mapper function for the right side
+     * @return The new isomorphism
+     * @param <NewLeft> The type of the new left domain
+     * @param <NewRight> The type of the new right domain
+     */
+    public <NewLeft, NewRight> Isomorphism<NewLeft, NewRight> map(Function<Left, NewLeft> leftMap, Function<Right, NewRight> rightMap) {
+        return mapLeft(leftMap).mapRight(rightMap);
+    }
+
+    /**
+     * Swap the domain with the codomain
+     * @return The new isomorphism with the domains swapped
+     */
+    public Isomorphism<Right, Left> swap() {
+        Isomorphism<Right, Left> result = new Isomorphism<>();
+        entrySet().forEach(e -> result.put(e.getValue(), e.getKey()));
+        return result;
     }
 
     /**
