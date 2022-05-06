@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -105,18 +106,36 @@ public class ControllerData {
         return expertMode;
     }
 
+    /**
+     * Returns the entire player view map
+     * @return An array to the map
+     */
     public Isomorphism<Player, VirtualView> getPlayerViewMap() {
         return playerViewMap;
     }
 
+    /**
+     * Get the player associated with the provided view
+     * @param virtualView The view to search for
+     * @return The associated player, or null if none exists
+     */
     public Player getViewPlayer(VirtualView virtualView) {
         return playerViewMap.getLeft(virtualView);
     }
 
+    /**
+     * Get the view associated with the provided player
+     * @param player The player to search for
+     * @return The associated view, or null if none exists
+     */
     public VirtualView getPlayerView(Player player) {
         return playerViewMap.getRight(player);
     }
 
+    /**
+     * Return the player currently playing
+     * @return A pointer to the player
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -154,6 +173,9 @@ public class ControllerData {
      * @param assistantCard The chosen card
      */
     public void addPlayerCard(Player player, AssistantCard assistantCard) {
+        if (playerAssistantCardMap == null)
+            playerAssistantCardMap = new HashMap<>();
+
         playerAssistantCardMap.put(player, assistantCard);
     }
 
@@ -222,8 +244,20 @@ public class ControllerData {
         expertMode = true;
     }
 
+    /**
+     * Set the player view map to a specified value
+     * @param playerViewMap The pointer to the map to set
+     */
     public void setPlayerViewMap(Isomorphism<Player, VirtualView> playerViewMap) {
         this.playerViewMap = playerViewMap;
+    }
+
+    /**
+     * Set the player currently playing
+     * @param currentPlayer The player to set
+     */
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     // endregion
@@ -250,11 +284,18 @@ public class ControllerData {
         if (instance == null)
             instance = new ControllerData();
 
-        instance.gameModel              = data.gameModel;
-        instance.playerAssistantCardMap = data.playerAssistantCardMap;
-        instance.playersOrder           = data.playersOrder;
-        instance.emptyBagTrigger = data.emptyBagTrigger;
-        instance.numOfPlayers           = data.numOfPlayers;
+        instance.gameModel                 = data.gameModel;
+        instance.playerAssistantCardMap    = data.playerAssistantCardMap;
+        instance.playersOrder              = data.playersOrder;
+        instance.emptyBagTrigger           = data.emptyBagTrigger;
+        instance.emptyAssistantDeckTrigger = data.emptyBagTrigger;
+        instance.hasPlayedCard             = data.hasPlayedCard;
+        instance.numOfPlayers              = data.numOfPlayers;
+        instance.expertMode                = data.expertMode;
+        instance.playerViewMap             = data.playerViewMap;
+        instance.currentPlayer             = data.currentPlayer;
+        
+        //TODO: link player <-> gamemodel, link player <-> new view
     }
 
     /**
