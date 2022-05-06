@@ -44,7 +44,7 @@ public class Isomorphism<Left, Right> {
     /**
      * Returns the value of the domain corresponding the specified codomain value
      * @param right The value of the codomain
-     * @return The value of the domain
+     * @return The value of the domain, or null if none exists
      */
     public Left getLeft(Right right) {
         return rightLeftMap.get(right);
@@ -53,7 +53,7 @@ public class Isomorphism<Left, Right> {
     /**
      * Returns the value of the codomain corresponding the specified domain value
      * @param left The value of the domain
-     * @return The value of the codomain
+     * @return The value of the codomain, or null if none exists
      */
     public Right getRight(Left left) {
         return leftRightMap.get(left);
