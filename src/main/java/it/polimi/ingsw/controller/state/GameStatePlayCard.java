@@ -13,12 +13,14 @@ import java.util.Map;
  */
 public class GameStatePlayCard implements GameStatePlanPhase {
     public GameState nextState() {
-        // return new GameStateSelectTurnOrder();
-        return null;
+        return new GameStateSelectTurnOrder();
     }
 
     @Override
     public void executeState() {
+        // Order the player according to the Eriantys Rules (the first to pick is the first player of the previous round, the other follow clockwise)
+        selectPlanPlasePlayersOrder();
+
         // Clean the PlayerAssistantCardMap, removing previous rounds' played cards
         ControllerData.getInstance().nukePlayerAssistantCardMap();
         Player[] players = ControllerData.getInstance().getPlayersOrder();
@@ -99,6 +101,30 @@ public class GameStatePlayCard implements GameStatePlanPhase {
 
     }
 
+    /**
+     * Modify the playersOrder in ControllerData in order to start the DrawAssistantCardPhase with the rule-based new playersOrder
+     */
+    private void selectPlanPlasePlayersOrder() {
+        // Retrieve the number of the current players and create a vector of this length
+        int numOfPlayers = ControllerData.getInstance().getNumOfPlayers();
+        Player[] planPhasePlayersOrder = new Player[numOfPlayers];
+
+        // Retrieve the first player of the previous round
+        Player firstPickers = ControllerData.getInstance().getPlayersOrder()[0];
+        int firstPickerSeatPosition = 0;
+
+        // Find the seat of the first picker around the table
+        for (int i = 0; i < numOfPlayers; i++)
+            if (firstPickers.equals(ControllerData.getInstance().getGameModel().getPlayer(i)))
+                firstPickerSeatPosition = i;
+
+        // Order the player clockwise after the first picker, depending on where they are sat around the "table"
+        for (int i = 0; i < numOfPlayers; i++)
+            planPhasePlayersOrder[i] = ControllerData.getInstance().getGameModel().getPlayer((i + firstPickerSeatPosition) % 4);
+
+        // Set then the new playersOrder in ControllerData
+        ControllerData.getInstance().setPlayersOrder(planPhasePlayersOrder);
+    }
 }
 
 

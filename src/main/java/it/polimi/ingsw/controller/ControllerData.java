@@ -33,7 +33,7 @@ public class ControllerData {
     // region Getters
 
     /**
-     * Returns the currently instanciated GameModel
+     * Returns the currently instanced GameModel
      * @return The pointer to the GameModel
      */
     public GameModel getGameModel() {
@@ -194,7 +194,7 @@ public class ControllerData {
     }
 
     /**
-     * Set the order the players will follw
+     * Set the order the players will follow
      * @param playersOrder An array containing the play order
      */
     public void setPlayersOrder(Player[] playersOrder) {
