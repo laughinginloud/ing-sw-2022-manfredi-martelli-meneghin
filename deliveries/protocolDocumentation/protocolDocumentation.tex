@@ -1,28 +1,33 @@
 % Document Type and font dimension
 \documentclass[12pt]{article}
-% Import package  to read letters with accents
+
+% Import package to read letters with accents
 \usepackage[utf8]{inputenc}
+
 % Import package for font coding
 \usepackage[T1]{fontenc}
+
 % Language of the document
 \usepackage[english]{babel}
-% Import package inconsolata
-\usepackage{inconsolata}
+
 % Set margin
 \usepackage[a4paper, margin=1.3in]{geometry}
+
 % Import packages for images
 \usepackage{graphicx}
+\graphicspath{{img}}
 \usepackage[export]{adjustbox}
+
 % Import package for tables
-\usepackage{tabularborder}
-\usepackage{tabularx}
-\usepackage{multirow}
-\usepackage{multicol}
-\usepackage{longtable}
-%\usepackage[table]{xcolor}
+\usepackage{
+	tabularborder,
+	tabularx,
+	multirow,
+	multicol,
+	longtable}
 
 \title{Eriantys Protocol Documentation}
-\author{Giovanni Manfredi, Mattia Martelli, Sebastiano Meneghin  \\Group 27}
+\author{Giovanni Manfredi, Mattia Martelli, Sebastiano Meneghin\\Group 27}
 \date{}
 
 \begin{document}
@@ -146,12 +151,12 @@
 				Client & \emph{String} fieldName: name of the field is requested the value of. \\
 				\midrule
 				responseValue & Responds to requestValue with the value of the field requested. \textbf{Parametric message}.&
-				Server & \emph{<type> fieldValue:} value of the field. \newline i.e.  type = int[], Color[], ... \\
+				Server & \emph{<type> fieldValue:} value of the field. \newline i.e.\ type = int[], Color[], \ldots \\
 				\midrule
 				sendInfo & Sends all the information about the GameBoard (after the setUpPhase) or its changes any time its modified. \textbf{Parametric message}. &
 				Server & \emph{Int} numOfFields: number of the field/fieldArray included in the message. \newline
 								\emph{<type>} fieldArray[]: various fields are needed to update local player data, \newline 
-								i.e. professorsLocation, emptiedCloudTile \\
+								i.e.\ professorsLocation, emptiedCloudTile \\
 				\midrule
 				signalWaitTurnStatus & Notifies player that he has to wait another player turn. &
 				Server & \\
@@ -162,7 +167,7 @@
 			
 				% Second page of the table
 				requestAction & Requests player to make an action (i.e choose an assistantCard, move students) between provided options. \textbf{Parametric message}. &
-				Server & \emph{<type>} fieldArray[]: options for a specific field to choose from, \newline i.e. studentsArray, fillCloudTileArray \\
+				Server & \emph{<type>} fieldArray[]: options for a specific field to choose from, \newline i.e.\ studentsArray, fillCloudTileArray \\
 				\midrule
 				responseAction & Responds to requestAction with the option selected by the player. \textbf{Parametric message}. &
 				Client & \emph{<type>} field: value selected by the player \\
@@ -239,7 +244,7 @@
 					\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Connection_3}
 				\end{center}
 			
-				The server sends the client a \emph{requestResumeGame()} if a saved game is present in the server with a username equal to the client's. The client, if it has received this message, responds with \emph{responseResumeGame(bool)} indicating the choice to resume his game (1 $\rightarrow$ true, 0 $\rightarrow$ false). \\
+				The server sends the client a \emph{requestResumeGame()} if a saved game is present in the server with a username equal to the client's. The client, if it has received this message, responds with \emph{responseResumeGame(bool)} indicating the choice to resume his game (1 \(\rightarrow\) true, 0 \(\rightarrow\) false). \\
 				If the client didn't receive \emph{requestResumeGame()} or chose to not resume his old game the alternative taken by the program is [createGame]. \\
 				Then based on the other players already connected to the server there could be three different scenarios:
 				%
@@ -308,7 +313,7 @@
 					%
 					\item \textbf{PlayAssistantCard}: the server informs the players with what AssistantCards have already been played with \emph{sendInfo(assistantCardsPlayed)} and then asks him what AssistantCard he wants to play from an available pool with \emph{requestAction(availableAssistantCards)}. The client responds with the card he wants to play using the message \emph{responseAction(chosenAssistantCard)}. The server further replies by sending \emph{sendInfo(assistantCardsPlayed)} informing the client and the other players on what AssistantCard was just played. 
 					%
-					\item \textbf{SelectTurnOrder}: the server selects a turn order based on the played cards and sends the client a \emph{sendInfo(TurnOrder)} to inform him on the turn order. Then the client could be the firstPlayer or not, if he is , the server notifies him with a \emph{signalGameTurnStatus()} indicating that he will now start his turn. Alternatively, the server informs him with \emph{signalWaitTurnStatus()} that he will wait another player's turn. 
+					\item \textbf{SelectTurnOrder}: the server selects a turn order based on the played cards and sends the client a \emph{sendInfo(TurnOrder)} to inform him on the turn order. Then the client could be the firstPlayer or not, if he is, the server notifies him with a \emph{signalGameTurnStatus()} indicating that he will now start his turn. Alternatively, the server informs him with \emph{signalWaitTurnStatus()} that he will wait another player's turn. 
 					%
 				\end{itemize}
 				
@@ -331,9 +336,9 @@
 				Subsequently GameThread applies the three effects of Mother Nature's movement which are:
 				%
 				\begin{itemize}
-					\item \textbf{ControlIsland}: if no tower is present on the island (on which Mother Nature finished the turn on), the server calculates the influence on the island and places the tower of the player with the highest influence on that island. Then, after informing the client with a \emph{sendInfo()}, the GameThread controls if the winning condition is reached (all towers of a player played), and if so, it enters in a optional block called "EndGame".
-					\item \textbf{ConquerIsland}: if one or more towers are present on the island the server calculates the influence on the island (on which Mother Nature finished the turn on) and replaces the tower with the one of the player with the highest influence on that island. Then, after informing the client with a \emph{sendInfo()}, the GameThread controls if the winning condition is reached (all towers of a player played), and if so, it enters in a optional block called "EndGame".
-					\item \textbf{UnifyIsland}: if the adjacent islands (either or both) to the island (on which Mother Nature finished the turn on) have towers of the same TowerColor to the current island, the server unifies the islands (from three to one or from two to one). Then, after informing the client with a \emph{sendInfo()}, the GameThread controls if the winning condition is reached (three or less islands on board), and if so, it enters in a optional block called "EndGame". 
+					\item \textbf{ControlIsland}: if no tower is present on the island (on which Mother Nature finished the turn on), the server calculates the influence on the island and places the tower of the player with the highest influence on that island. Then, after informing the client with a \emph{sendInfo()}, the GameThread controls if the winning condition is reached (all towers of a player played), and if so, it enters in a optional block called ``EndGame''.
+					\item \textbf{ConquerIsland}: if one or more towers are present on the island the server calculates the influence on the island (on which Mother Nature finished the turn on) and replaces the tower with the one of the player with the highest influence on that island. Then, after informing the client with a \emph{sendInfo()}, the GameThread controls if the winning condition is reached (all towers of a player played), and if so, it enters in a optional block called ``EndGame''.
+					\item \textbf{UnifyIsland}: if the adjacent islands (either or both) to the island (on which Mother Nature finished the turn on) have towers of the same TowerColor to the current island, the server unifies the islands (from three to one or from two to one). Then, after informing the client with a \emph{sendInfo()}, the GameThread controls if the winning condition is reached (three or less islands on board), and if so, it enters in a optional block called ``EndGame''. 
 				\end{itemize}
 				
 			\subsubsection{ActionPhase - ChooseCloud}
@@ -343,7 +348,7 @@
 				\end{center}
 				
 				First the client is asked which CloudTile he is going to select with the message \emph{requestAction(ChooseCloud)} to which the client responds with \emph{responseAction(ChooseCloud, index)} specifying the CloudTile he chose. Then the GameThread after having moved the students from the chosen CloudTile to the Entrance of the player shows him the updated GameBoard with a \emph{sendInfo()}. \\
-				Finally the server asks the client if he wants to end his turn using \emph{requestAction(endOfTurn)} to which the client responds with \emph{responseAction(boolean)} containing his decision (1 $\rightarrow$ true, 0 $\rightarrow$ false). The server waits until he receives a positive response (with value 1) and after receiving it, he ends the turn. \\
+				Finally the server asks the client if he wants to end his turn using \emph{requestAction(endOfTurn)} to which the client responds with \emph{responseAction(boolean)} containing his decision (1 \(\rightarrow\) true, 0 \(\rightarrow\) false). The server waits until he receives a positive response (with value 1) and after receiving it, he ends the turn. \\
 				CharacterCardThread is informed and set to a waitStatus and the client receives a \emph{signalWaitTurnStatus} which makes him wait for another player to play. 
 				After this Phase, GameThread goes to the next player, starting the turn from the ActionPhase, or if the current player was the last player GameThread continues in the EndCheckPhase.
 							
@@ -353,7 +358,7 @@
 					\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Game_5}
 				\end{center}
 				
-				First, the GameThread checks if any trigger (among EmptyBag or EmptyDeck) is set, if so the server enters the "EndGame", otherwise the server informs the players of the beginning of a new round with \emph{sendInfo()} and the GameThread returns back to the PlanningPhase.
+				First, the GameThread checks if any trigger (among EmptyBag or EmptyDeck) is set, if so the server enters the ``EndGame'', otherwise the server informs the players of the beginning of a new round with \emph{sendInfo()} and the GameThread returns back to the PlanningPhase.
 				
 			\begin{figure}[htp]
 				\centering
@@ -365,7 +370,7 @@
 		\subsection{Info}
 			
 			\begin{center}
-				\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Info}
+				\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{img/Info}
 			\end{center}
 			
 			During the Game, the players could ask for information about the Game's or the Model's status. These requests are handled concurrently with GameThread using a loop in the InfoThread. This thread is initialized once at the end of SetUpPhase and will be active until EndGame. When a \emph{requestValue()} is received by the InfoThread, it answers with a \emph{responseValue()} contaning the value of the field/attribute the player requested.
@@ -377,7 +382,7 @@
 			\end{center}
 		
 			During the Game, the players could ask to use one of the CharacterCards. These requests are handled concurrently with GameThread in the CharacterCardThread. This thread is initialized once at the end of the SetUpPhase and will be active until the EndOfTurn or the EndGame. When a \emph{responseAction(playCharacterCard)} is received by the CharacterCardThread, it answers with \emph{requestAction(CharacterCards, costs)} containing the available Cards to choose from and their respective costs. The client further responds with his choice in the message \emph{responseAction(CharacterCard)}. \\
-			The server then proceeds to remove the coins from the player (if he has enough to pay the cost, else he sends an error message) and then activate the effect of the card. The card may need a further communication with the player (e.g. move a student counter or a no entry tile) so a server-client request-response is present as \emph{requestAction()} and \emph{responseAction()}. Once the effect of the card is activated the server informs the client with a \emph{sendInfo()}.
+			The server then proceeds to remove the coins from the player (if he has enough to pay the cost, else he sends an error message) and then activate the effect of the card. The card may need a further communication with the player (e.g.\ move a student counter or a no entry tile) so a server-client request-response is present as \emph{requestAction()} and \emph{responseAction()}. Once the effect of the card is activated the server informs the client with a \emph{sendInfo()}.
 			
 		\subsection{EndGame}
 			
