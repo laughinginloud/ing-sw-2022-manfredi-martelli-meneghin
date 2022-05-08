@@ -93,6 +93,14 @@ public class GameModel {
     }
 
     /**
+     * Return the entire array of players
+     * @return The desired array
+     */
+    public Player[] getPlayer() {
+        return players;
+    }
+
+    /**
      * Get the number of Players in the game
      * @return The number of players (in the range [2, 4])
      */
