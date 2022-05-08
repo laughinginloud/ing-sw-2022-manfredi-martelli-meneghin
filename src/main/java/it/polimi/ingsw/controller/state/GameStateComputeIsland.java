@@ -30,16 +30,16 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
     public void executeState() {
         ControllerData data          = ControllerData.getInstance();
-        GameModel      model         = ControllerData.getInstance().getGameModel();
+        GameModel      model         = data.getGameModel();
         int            islandIndex   = model.getMotherNaturePosition();
         Island         currentIsland = model.getIsland(islandIndex);
         VirtualView    player        = data.getPlayerView(data.getCurrentPlayer());
 
         // If the island doesn't have a tower on it launch the control routine, otherwise launch the conquest one
         if (currentIsland.getTowerColor() == null)
-            controlIsland(data, model, currentIsland);
+            controlIsland(model, currentIsland);
         else
-            conquerIsland(data, model, currentIsland);
+            conquerIsland(model, currentIsland);
 
         // No point in continuing if the winner has already been decided
         if (winTrigger)
@@ -59,8 +59,8 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             winTrigger = true;
     }
 
-    private void controlIsland(ControllerData data, GameModel model, Island island) {
-        Map<Player, Integer> influencePoints = getIslandInfluences(data, model, island);
+    private void controlIsland(GameModel model, Island island) {
+        Map<Player, Integer> influencePoints = getIslandInfluences(model, island);
 
         // If nobody has any influence then nobody controls the island
         if (noInfluencePoints(influencePoints))
@@ -79,9 +79,9 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             endGame(maxPlayer);
     }
 
-    private void conquerIsland(ControllerData data, GameModel model, Island island) {
-        Map<Player, Integer> influencePoints = getIslandInfluences(data, model, island);
-        addTowerInfluence(influencePoints, data, model, island);
+    private void conquerIsland(GameModel model, Island island) {
+        Map<Player, Integer> influencePoints = getIslandInfluences(model, island);
+        addTowerInfluence(influencePoints, model, island);
 
         Player      maxPlayer      = getMaxPlayer(influencePoints);
         SchoolBoard maxPlayerBoard = maxPlayer.getSchoolBoard();
@@ -115,14 +115,14 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         }
     }
 
-    private Map<Player, Integer> getIslandInfluences(ControllerData data, GameModel model, Island island) {
-        return model.getPlayersCount() == 4 ? getIslandInfluencesFourPlayers(data, model, island) : getIslandInfluencesTwoThreePlayers(data, model, island);
+    private Map<Player, Integer> getIslandInfluences(GameModel model, Island island) {
+        return model.getPlayersCount() == 4 ? getIslandInfluencesFourPlayers(model, island) : getIslandInfluencesTwoThreePlayers(model, island);
     }
 
-    private Map<Player, Integer> getIslandInfluencesFourPlayers(ControllerData data, GameModel model, Island island) {
+    private Map<Player, Integer> getIslandInfluencesFourPlayers(GameModel model, Island island) {
         // If there are four players, calculate the influence for each one and then fuse the teams
         Player[]             players          = model.getPlayer();
-        Map<Player, Integer> influencesSingle = getIslandInfluencesTwoThreePlayers(data, model, island);
+        Map<Player, Integer> influencesSingle = getIslandInfluencesTwoThreePlayers(model, island);
 
         // Create a map that will contain just two players: both teams' tower holders and sum the elements of the original map
         Map<Player, Integer> influencesTeams  = new HashMap<>();
@@ -132,7 +132,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         return influencesTeams;
     }
 
-    private Map<Player, Integer> getIslandInfluencesTwoThreePlayers(ControllerData data, GameModel model, Island island) {
+    private Map<Player, Integer> getIslandInfluencesTwoThreePlayers(GameModel model, Island island) {
         // Create and initialize a new map to represent the players' influences
         Map<Player, Integer> influences = new HashMap<>();
         for (Player player : model.getPlayer())
@@ -161,7 +161,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         return true;
     }
 
-    private void addTowerInfluence(Map<Player, Integer> influences, ControllerData data, GameModel model, Island island) {
+    private void addTowerInfluence(Map<Player, Integer> influences, GameModel model, Island island) {
         Player towerPlayer = getTowerPlayer(model, island);
 
         // Add +1 to the player possessing the tower
