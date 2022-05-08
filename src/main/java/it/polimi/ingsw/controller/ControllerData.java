@@ -298,18 +298,48 @@ public class ControllerData {
         if (instance == null)
             instance = new ControllerData();
 
+        // Load everything that doesn't need linking
         instance.gameModel                 = data.gameModel;
-        instance.playerAssistantCardMap    = data.playerAssistantCardMap;
-        instance.playersOrder              = data.playersOrder;
         instance.emptyBagTrigger           = data.emptyBagTrigger;
         instance.emptyAssistantDeckTrigger = data.emptyBagTrigger;
         instance.hasPlayedCard             = data.hasPlayedCard;
         instance.numOfPlayers              = data.numOfPlayers;
         instance.expertMode                = data.expertMode;
-        instance.playerViewMap             = data.playerViewMap;
-        instance.currentPlayer             = data.currentPlayer;
 
-        //TODO: link player <-> gamemodel, link player <-> new view
+        // Create a copy the players, to aid the linking process
+        Player[] players = instance.gameModel.getPlayer();
+
+        instance.playerAssistantCardMap = new HashMap<>();
+        // For each entry (Player, AssistantCard) of the map, load it in the new map whilst linking the player
+        for (Map.Entry<Player, AssistantCard> entry : data.playerAssistantCardMap.entrySet())
+            instance.playerAssistantCardMap.put(
+                // Find the original copy of the player
+                findPlayer(players, entry.getKey()),
+                // Along with the player, put the corresponding assistant card
+                entry.getValue());
+
+        instance.playersOrder = new Player[data.numOfPlayers];
+        // For each element of the array "playersOrder", find the original copy of the player and put it in the same spot in the array
+        for (int i = 0; i < data.numOfPlayers; ++i)
+            instance.playersOrder[i] = findPlayer(players, data.playersOrder[i]);
+
+        // Find the orignal copy of the current player and put it into the corresponding spot in the instance
+        instance.currentPlayer = findPlayer(players, data.getCurrentPlayer());
+    }
+
+    /**
+     * Method to search for the original copy of a player in the model
+     * @param players The array containing the original copies
+     * @param player The player to search in the model
+     * @return A pointer to the original copy of the player
+     */
+    private static Player findPlayer(Player[] players, Player player) {
+        // Transform the array into a stream to ease operations
+        return Arrays.stream(players)
+            // Reduce the stream to a single element, using a lambda that will compare all players and keep only the one with the correct id
+            .reduce((a, b) -> a.getPlayerID() == player.getPlayerID() ? a : b)
+            // Extract the value, throwing an exception in case of an error, just to be safe
+            .orElseThrow();
     }
 
     /**
