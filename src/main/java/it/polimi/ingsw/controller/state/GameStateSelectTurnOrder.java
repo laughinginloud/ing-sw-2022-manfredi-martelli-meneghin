@@ -22,8 +22,7 @@ public class GameStateSelectTurnOrder implements GameStatePlanPhase {
         Player playerToOrder;
 
         // For each player in the game, which will be his turn priority during the next ActionPhase
-        for (int i = 0; i < numOfPlayers; i++)
-        {
+        for (int i = 0; i < numOfPlayers; i++) {
             playerToOrder = ControllerData.getInstance().getPlayersOrder()[i];
             newPlayerOrder = addPlayerInOrder(newPlayerOrder, playerToOrder, i);
         }
@@ -60,19 +59,4 @@ public class GameStateSelectTurnOrder implements GameStatePlanPhase {
         playersOrdered[playerToOrderDest] = playerToOrder;
         return playersOrdered;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

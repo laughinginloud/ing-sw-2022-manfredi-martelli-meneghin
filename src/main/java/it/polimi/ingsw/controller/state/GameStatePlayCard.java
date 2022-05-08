@@ -19,7 +19,7 @@ public class GameStatePlayCard implements GameStatePlanPhase {
     @Override
     public void executeState() {
         // Order the player according to the Eriantys Rules (the first to pick is the first player of the previous round, the other follow clockwise)
-        selectPlanPlasePlayersOrder();
+        selectPlanPhasePlayersOrder();
 
         // Clean the PlayerAssistantCardMap, removing previous rounds' played cards
         ControllerData.getInstance().nukePlayerAssistantCardMap();
@@ -104,7 +104,7 @@ public class GameStatePlayCard implements GameStatePlanPhase {
     /**
      * Modify the playersOrder in ControllerData in order to start the DrawAssistantCardPhase with the rule-based new playersOrder
      */
-    private void selectPlanPlasePlayersOrder() {
+    private void selectPlanPhasePlayersOrder() {
         // Retrieve the number of the current players and create a vector of this length
         int numOfPlayers = ControllerData.getInstance().getNumOfPlayers();
         Player[] planPhasePlayersOrder = new Player[numOfPlayers];

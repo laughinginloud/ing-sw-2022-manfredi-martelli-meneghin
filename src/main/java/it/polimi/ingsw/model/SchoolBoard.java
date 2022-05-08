@@ -37,9 +37,9 @@ public class SchoolBoard {
      * Sets the number of towers on the board to a specified value
      * @param towerCount An integer containing the number to be set
      */
-    public void setTowerCount(int towerCount) throws IllegalArgumentException {
+    public void setTowerCount(int towerCount) {
         if (towerCount < 0 || towerCount > 8)
-            throw new IllegalArgumentException("TowerCount must be an element of [0, 8]");
+            return;
 
         this.towerCount = towerCount;
     }
@@ -48,22 +48,31 @@ public class SchoolBoard {
     /**
      * Increase the tower's count by one
      */
-    public void increaseTowerCount() throws IllegalStateException {
-        if (towerCount >= 8)
-            throw new IllegalStateException("Cannot have more than 8 towers");
-
-        towerCount++;
+    public void increaseTowerCount() {
+        increaseTowerCount(1);
     }
 
+    public void increaseTowerCount(int n) {
+        if (towerCount + n > 8)
+            throw new IllegalStateException();
+
+        towerCount += n;
+    }
+
+    //TODO: test
 
     /**
      * Decrease the tower's count by one
      */
-    public void decreaseTowerCount() throws IllegalStateException {
-        if (towerCount <= 0)
-            throw new IllegalStateException("Cannot have negative towers");
+    public void decreaseTowerCount() {
+        decreaseTowerCount(1);
+    }
 
-        towerCount--;
+    public void decreaseTowerCount(int n) {
+        if (towerCount < n)
+            return;
+
+        towerCount -= n;
     }
 
     /**
