@@ -47,7 +47,6 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
         unifyIslands(model, islandIndex);
 
-        //TODO: modificare in aggiornamenti più repentini
         try {
             player.sendMessage(createMap(data, model));
         }
@@ -86,7 +85,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
         Player      maxPlayer      = getMaxPlayer(influencePoints);
         SchoolBoard maxPlayerBoard = maxPlayer.getSchoolBoard();
-        SchoolBoard curPlayerBoard = getTowerPlayer(data, island).getSchoolBoard();
+        SchoolBoard curPlayerBoard = getTowerPlayer(model, island).getSchoolBoard();
 
         if (maxPlayerBoard != curPlayerBoard) {
             island.setTowerColor(maxPlayerBoard.getTowerColor());
@@ -103,7 +102,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         int previousIndex  = islandIndex - 1 % model.getIslandsCount(),
             successorIndex = islandIndex + 1 % model.getIslandsCount();
 
-        if (model.getIsland(previousIndex).getTowerColor() == model.getIsland(islandIndex).getTowerColor()){
+        if (model.getIsland(previousIndex).getTowerColor() == model.getIsland(islandIndex).getTowerColor()) {
             mergeIslandsData(model.getIsland(previousIndex), model.getIsland(islandIndex));
             model.shiftIslands(islandIndex);
             successorIndex = islandIndex;
@@ -117,9 +116,26 @@ public class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private Map<Player, Integer> getIslandInfluences(ControllerData data, GameModel model, Island island) {
+        return model.getPlayersCount() == 4 ? getIslandInfluencesFourPlayers(data, model, island) : getIslandInfluencesTwoThreePlayers(data, model, island);
+    }
+
+    private Map<Player, Integer> getIslandInfluencesFourPlayers(ControllerData data, GameModel model, Island island) {
+        // If there are four players, calculate the influence for each one and then fuse the teams
+        Player[]             players          = model.getPlayer();
+        Map<Player, Integer> influencesSingle = getIslandInfluencesTwoThreePlayers(data, model, island);
+
+        // Create a map that will contain just two players: both teams' tower holders and sum the elements of the original map
+        Map<Player, Integer> influencesTeams  = new HashMap<>();
+        influencesTeams.put(players[0], influencesSingle.get(players[0]) + influencesSingle.get(players[2]));
+        influencesTeams.put(players[1], influencesSingle.get(players[1]) + influencesSingle.get(players[3]));
+
+        return influencesTeams;
+    }
+
+    private Map<Player, Integer> getIslandInfluencesTwoThreePlayers(ControllerData data, GameModel model, Island island) {
         // Create and initialize a new map to represent the players' influences
         Map<Player, Integer> influences = new HashMap<>();
-        for (Player player : data.getPlayersOrder())
+        for (Player player : model.getPlayer())
             influences.put(player, 0);
 
         // Iterate for each color on the island and add +1 influence to the player who controls the professor
@@ -146,16 +162,16 @@ public class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private void addTowerInfluence(Map<Player, Integer> influences, ControllerData data, GameModel model, Island island) {
-        Player towerPlayer = getTowerPlayer(data, island);
+        Player towerPlayer = getTowerPlayer(model, island);
 
         // Add +1 to the player possessing the tower
         influences.replace(towerPlayer, influences.get(towerPlayer) + 1);
     }
 
-    private Player getTowerPlayer(ControllerData data, Island island) throws IllegalStateException, NoSuchElementException {
+    private Player getTowerPlayer(GameModel model, Island island) throws IllegalStateException, NoSuchElementException {
         Player towerPlayer =
             // Transform the array of players into a stream to ease filtering
-            Arrays.stream(data.getPlayersOrder())
+            Arrays.stream(model.getPlayer())
                 // Remove from the stream all players that do not meet the criteria
                 .filter(p -> p.getSchoolBoard().getTowerColor() == island.getTowerColor())
                 // Take the first element, which will be the one with the same tower color
