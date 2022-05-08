@@ -22,8 +22,10 @@ public class GameStateComputeIsland implements GameStateActionPhase {
     Player  winner     = null;
 
     public GameState nextState() {
-        //return winTrigger ? new GameStateEndGame(winner) : new GameStateChooseCloud(); //TODO: uncomment when GameStateEnd has been created
-        return null;
+        if (winTrigger)
+            return winner == null ? new GameStateEndGame() : new GameStateEndGame(winner);
+
+        return new GameStateChooseCloud();
     }
 
     public void executeState() {
@@ -53,6 +55,9 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        if (model.getIslandsCount() <= 3)
+            winTrigger = true;
     }
 
     private void controlIsland(ControllerData data, GameModel model, Island island) {
@@ -65,7 +70,6 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         // Find the school board associated with the controlling player
         Player      maxPlayer   = getMaxPlayer(influencePoints);
         SchoolBoard schoolBoard = maxPlayer.getSchoolBoard();
-
 
         // Set the color of the tower on the island and decrease the count in the school board
         island.setTowerColor(schoolBoard.getTowerColor());
@@ -86,10 +90,10 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
         if (maxPlayerBoard != curPlayerBoard) {
             island.setTowerColor(maxPlayerBoard.getTowerColor());
-            maxPlayerBoard.decreaseTowerCount();
-            curPlayerBoard.increaseTowerCount();
+            maxPlayerBoard.decreaseTowerCount(island.getMultiplicity());
+            curPlayerBoard.increaseTowerCount(island.getMultiplicity());
 
-            // If the current player ha no more towers, call the end game trigger
+            // If the current player has no more towers, call the end game trigger
             if (maxPlayerBoard.getTowerCount() == 0)
                 endGame(maxPlayer);
         }
