@@ -12,9 +12,7 @@ import java.util.Map;
  * @author Sebastiano Meneghin
  */
 public class GameStatePlayCard implements GameStatePlanPhase {
-    public GameState nextState() {
-        return new GameStateSelectTurnOrder();
-    }
+    public GameState nextState() { return new GameStateSelectTurnOrder(); }
 
     @Override
     public void executeState() {

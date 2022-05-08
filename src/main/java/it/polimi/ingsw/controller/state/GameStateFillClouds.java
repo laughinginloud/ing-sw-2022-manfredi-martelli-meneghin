@@ -8,9 +8,7 @@ import it.polimi.ingsw.model.*;
  * @author Sebastiano Meneghin
  */
 public class GameStateFillClouds implements GameStatePlanPhase {
-    public GameState nextState() {
-        return new GameStatePlayCard();
-    }
+    public GameState nextState() { return new GameStatePlayCard(); }
 
     @Override
     public void executeState() {

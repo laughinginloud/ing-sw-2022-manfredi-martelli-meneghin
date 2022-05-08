@@ -10,10 +10,7 @@ import java.util.Map;
  * @author Sebastiano Meneghin
  */
 public class GameStateSelectTurnOrder implements GameStatePlanPhase {
-    public GameState nextState() {
-        //return new GameStateMoveStudents();
-        return null;
-    }
+    public GameState nextState() { return new GameStateMoveStudents(); }
 
     @Override
     public void executeState() {
