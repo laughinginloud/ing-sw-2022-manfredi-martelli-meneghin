@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GameStateEndGame implements GameState {
-    // Quick definition of a record used as a result
-    private record Result (int a, int b) {}
+    // Quick definition of an enum used as a result of a compare
+    private enum Ordering { LT, GT, EQ }
 
     private Player       winner = null;
     private List<Player> team   = null;
@@ -52,52 +52,52 @@ public class GameStateEndGame implements GameState {
                 fourPlayerWinner(data, players);
 
             else
-                winner(data, players);
+                twoThreePlayerWinner(data, players);
         }
     }
 
     private void fourPlayerWinner(ControllerData data, Player[] players) {
         // If there are four players, I check for the teams (A for ids 0 and 2, B for 1 and 3)
-        switch (Integer.compare(players[0].getSchoolBoard().getTowerCount(), players[1].getSchoolBoard().getTowerCount())) {
+        switch (compare(players[0].getSchoolBoard().getTowerCount(), players[1].getSchoolBoard().getTowerCount())) {
             // Team A wins the game by having fewer towers on their board
-            case -1 -> {
+            case LT -> {
                 team.add(players[0]);
                 team.add(players[2]);
                 sendTeam(data);
             }
 
             // Team B wins the game by having fewer towers on their board
-            case 1 -> {
+            case GT -> {
                 team.add(players[1]);
                 team.add(players[3]);
                 sendTeam(data);
             }
 
             // Both teams have the same number of towers left, so I check the professors
-            case 0 -> {
+            case EQ -> {
                 switch (compareProfessorsTeam(data.getGameModel().getGlobalProfessorTable(), players)) {
                     // Team A wins the game by controlling more professors
-                    case 1 -> {
+                    case GT -> {
                         team.add(players[0]);
                         team.add(players[2]);
                         sendTeam(data);
                     }
 
                     // Team B wins the game by controlling more professors
-                    case -1 -> {
+                    case LT -> {
                         team.add(players[1]);
                         team.add(players[3]);
                         sendTeam(data);
                     }
 
                     // Both teams control the same number of professors, so the game ends in a draw
-                    case 0 -> sendDraw(data, players);
+                    case EQ -> sendDraw(data, players);
                 }
             }
         }
     }
 
-    private void winner(ControllerData data, Player[] players) {
+    private void twoThreePlayerWinner(ControllerData data, Player[] players) {
         winner = players[0];
 
         boolean draw = false;
@@ -109,40 +109,35 @@ public class GameStateEndGame implements GameState {
                     winner = players[i];
                 }
 
-                else if (players[i].getSchoolBoard().getTowerCount() == team.get(0).getSchoolBoard().getTowerCount()) {
-                    Result r = compareProfessors(data.getGameModel().getGlobalProfessorTable(), team.get(0), players[i]);
-                    int w = r.a,
-                        p = r.b;
+                else if (players[i].getSchoolBoard().getTowerCount() == team.get(0).getSchoolBoard().getTowerCount())
+                    switch (compareProfessors(data.getGameModel().getGlobalProfessorTable(), team.get(0), players[i])) {
+                        case LT -> {
+                            draw = false;
+                            winner = players[i];
+                        }
 
-                    if (p > w) {
-                        draw = false;
-                        winner = players[i];
+                        case EQ -> team.add(players[i]);
+
+                        case GT -> {}
                     }
-
-                    else if (p == w)
-                        team.add(players[i]);
-                }
             }
 
             else {
-                if (players[i].getSchoolBoard().getTowerCount() < winner.getSchoolBoard().getTowerCount()) {
+                if (players[i].getSchoolBoard().getTowerCount() < winner.getSchoolBoard().getTowerCount())
                     winner = players[i];
-                }
 
-                else if (players[i].getSchoolBoard().getTowerCount() == winner.getSchoolBoard().getTowerCount()) {
-                    Result r = compareProfessors(data.getGameModel().getGlobalProfessorTable(), winner, players[i]);
-                    int w = r.a,
-                        p = r.b;
+                else if (players[i].getSchoolBoard().getTowerCount() == winner.getSchoolBoard().getTowerCount())
+                    switch (compareProfessors(data.getGameModel().getGlobalProfessorTable(), team.get(0), players[i])) {
+                        case LT -> winner = players[i];
 
-                    if (p > w)
-                        winner = players[i];
+                        case EQ -> {
+                            team.add(winner);
+                            team.add(players[i]);
+                            draw = true;
+                        }
 
-                    else if (p == w) {
-                        team.add(winner);
-                        team.add(players[i]);
-                        draw = true;
+                        case GT -> {}
                     }
-                }
             }
         }
 
@@ -153,7 +148,16 @@ public class GameStateEndGame implements GameState {
             sendWinner(data);
     }
 
-    private int compareProfessorsTeam(GlobalProfessorTable globalProfessorTable, Player[] players) {
+    private Ordering compare(int a, int b) {
+        int result = Integer.compare(a, b);
+
+        return
+            result < 0 ? Ordering.LT :
+                result > 0 ? Ordering.GT :
+                    Ordering.EQ;
+    }
+
+    private Ordering compareProfessorsTeam(GlobalProfessorTable globalProfessorTable, Player[] players) {
         int teamA = 0,
             teamB = 0;
 
@@ -167,10 +171,10 @@ public class GameStateEndGame implements GameState {
                 teamB++;
         }
 
-        return Integer.compare(teamA, teamB);
+        return compare(teamA, teamB);
     }
 
-    private Result compareProfessors(GlobalProfessorTable gpt, Player a, Player b) {
+    private Ordering compareProfessors(GlobalProfessorTable gpt, Player a, Player b) {
         int aR = 0,
             bR = 0;
 
@@ -180,7 +184,7 @@ public class GameStateEndGame implements GameState {
             else if (gpt.getProfessorLocation(color) == b)
                 ++bR;
 
-        return new Result(aR, bR);
+        return compare(aR, bR);
     }
 
     private void sendWinner(ControllerData data) {
