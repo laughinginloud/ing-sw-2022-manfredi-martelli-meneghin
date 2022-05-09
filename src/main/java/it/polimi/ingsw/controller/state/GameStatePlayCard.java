@@ -1,8 +1,12 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.*;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
 
+import javax.naming.ldap.Control;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -23,19 +27,33 @@ public class GameStatePlayCard implements GameStatePlanPhase {
         ControllerData.getInstance().nukePlayerAssistantCardMap();
         Player[] players = ControllerData.getInstance().getPlayersOrder();
 
+        // Makes every player play an AssistantCard
         for (Player player : players) {
             ControllerData.getInstance().setCurrentPlayer(player);
             AssistantCard[] playableAssistantCards = getPlayableAssistantCards(player);
 
+            try {
+                // Request to the current player to play a card between the playable AssistantCard he has in his deck
+                VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
+                GameCommand request = new GameCommandRequestAction(GameCommandActions.PLAYASSISTANTCARD, playableAssistantCards);
+                GameCommand response = playerView.sendRequest(request);
 
-            //TODO: [Command] request an action to the current player, sending him the playableAC! (He has to choose between one of the provided AssistantCards
-            //PLACE-HOLDER!
-            AssistantCard chosenCard = new AssistantCard(1,1);
+                if (response instanceof GameCommandPlayAssistantCard c) {
+                    AssistantCard chosenCard = (AssistantCard) c.executeCommand();
 
-            saveAssistantCardChoice(player, chosenCard);
+                    // Save the chosenAssistantCard into the playerAssistantCardMap, updates the GameBoard and notifies all the players
+                    saveAssistantCardChoice(player, chosenCard);
 
-            if (player.getAssistantDeck().length == 0)
-                ControllerData.getInstance().setEmptyAssistantDeckTrigger();
+                    // If playing the AssistantCard the player emptied his deck, sets the EmptyAssistantDeckTrigger
+                    if (player.getAssistantDeck().length == 0)
+                        ControllerData.getInstance().setEmptyAssistantDeckTrigger();
+                }
+            }
+
+            catch (Exception e) {
+                // Fatal error: print the stack trace to help debug
+                e.printStackTrace();
+            }
         }
     }
 
@@ -84,8 +102,8 @@ public class GameStatePlayCard implements GameStatePlanPhase {
      */
     private void saveAssistantCardChoice(Player player, AssistantCard chosenCard) {
         // Gets the AssistantCard from the current player's deck
-        AssistantCard temp = player.getAssistantCard(chosenCard.cardValue());
-        if (!temp.equals(chosenCard))
+        AssistantCard drawnFromDeck = player.getAssistantCard(chosenCard.cardValue());
+        if (!drawnFromDeck.equals(chosenCard))
             throw new IllegalStateException("The two AssistantCards cannot be different");
 
         // Save the usage of the chosenCard into the ControllerData's PlayerAssistantCardMap
@@ -94,9 +112,24 @@ public class GameStatePlayCard implements GameStatePlanPhase {
         // Set the chosenCard as lastPlayerCard on the current player board
         player.setLastPlayedCard(chosenCard);
 
+        try {
+            // Notifies all the players about the lastPlayedCard now on the board of the current player
+            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
+                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerViewMap().getRight(playerToUpdate);
 
-        //TODO: [Command] notify all the players about the lastPlayerCard now on the board of the current player
+                // Creates updateInfo and adds to it the updated playerArray, containing the new value of lastPlayerCard
+                Map<GameCommandValues, Object> updateInfo = new HashMap<>();
+                updateInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
 
+                GameCommand update = new GameCommandSendInfo(updateInfo);
+                playerToUpdateView.sendMessage(update);
+            }
+        }
+
+        catch (Exception e) {
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
+        }
     }
 
     /**
