@@ -17,7 +17,7 @@ class MessageBuilder {
 
     private static Message commandSwitch(GameCommand command) {
         if (command instanceof GameCommandRequestValueClient c)
-            return new Message(MessageType.REQUEST, c.executeCommand());
+            return new Message(MessageType.REQUESTVALUE, c.executeCommand());
 
         if (command instanceof GameCommandIllegalCommand c)
             return new Message(MessageType.ILLEGALMESSAGE, c.executeCommand());
@@ -27,6 +27,9 @@ class MessageBuilder {
 
         if (command instanceof GameCommandSendInfo c)
             new Message(MessageType.SENDINFO, c.executeCommand());
+
+        if (command instanceof GameCommandRequestAction c)
+            new Message(MessageType.REQUESTACTION, c.executeCommand());
 
         throw new IllegalStateException("No suitable constructor for the provided command");
     }
