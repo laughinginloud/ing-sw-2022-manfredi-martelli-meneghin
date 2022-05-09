@@ -89,6 +89,19 @@ public class GameStateMoveStudents implements GameStateActionPhase{
                 playerView.sendMessage(update);
             }
         }
+
+        else {
+            try {
+                playerView.sendMessage(new GameCommandIllegalCommand());
+            }
+
+            catch (Exception e) {
+                // Fatal error: print the stack trace to help debug
+                e.printStackTrace();
+            }
+
+            executeState();
+        }
     }
 
     /**

@@ -139,6 +139,12 @@ public class GameModel {
     }
 
     /**
+     * Get the CloudTiles of the current Game
+     * @return An Array containing all the CloudTiles of the GameModel
+     */
+    public CloudTile[] getCloudTile() { return Arrays.copyOf(cloudTiles, cloudTiles.length); }
+
+    /**
      * Get the position of mother nature saved
      * @return The position of mother nature (from 0 to 11)
      */
