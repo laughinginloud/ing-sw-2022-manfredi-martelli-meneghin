@@ -16,7 +16,7 @@ public class GameStateMoveStudents implements GameStateActionPhase{
     public GameState nextState() { return new GameStateMoveMotherNature(); }
 
     public void executeState() {
-        Player player = ControllerData.getInstance().getCurrentPlayer();
+        Player player = updateCurrentPlayer();
         VirtualView playerView =  ControllerData.getInstance().getPlayerViewMap().getRight(player);
         int numOfMovements = 0;
 
@@ -38,6 +38,29 @@ public class GameStateMoveStudents implements GameStateActionPhase{
     }
 
     /**
+     * Determines and set the currentPlayer at the beginning of his ActionPhase
+     * @return A Player representing the current player of this ActionPhase turn
+     */
+    private Player updateCurrentPlayer() {
+        Player updatedCurrentPlayer = null;
+        Player previousCurrentPlayer = ControllerData.getInstance().getCurrentPlayer();
+
+        // If it is the first turn, set currentPlayer to the firstPlayer of the PlayersOrderArray
+        if (previousCurrentPlayer == null)
+            updatedCurrentPlayer = ControllerData.getInstance().getPlayersOrder(0);
+
+        // If not, set currentPlayer to the nextPlayer of the PlayersOrderArray
+        else
+            for (int i = 0; i < ControllerData.getInstance().getNumOfPlayers(); i ++)
+                if (previousCurrentPlayer.equals(ControllerData.getInstance().getPlayersOrder(i))) {
+                    updatedCurrentPlayer = ControllerData.getInstance().getPlayersOrder(i + 1);
+                    break;
+                }
+
+        return updatedCurrentPlayer;
+    }
+
+    /**
      * Asks the current player which player to move. Once received it adds the student to the right Island/DiningRoomTable and check if studentMovement related GameModel fields need to be updated
      * @param player Current Player that has to move a student
      * @param playerView VirtualView of the current player
@@ -45,9 +68,11 @@ public class GameStateMoveStudents implements GameStateActionPhase{
      */
     private void moveOneStudent(Player player, VirtualView playerView) throws Exception {
         Color[] movableStudents = player.getSchoolBoard().getEntrance().getStudents();
+        Map<Color[], Boolean[]> moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
         Map<GameCommandValues, Object> updateInfo = new HashMap<>();
 
-        GameCommand request = new GameCommandRequestAction(GameCommandActions.MOVESTUDENT, movableStudents);
+        // Send a RequestAction to the player is playing, requesting him to move students from the provided movableStudents to an Island or to a DiningRoomTable (if it is possible)
+        GameCommand request = new GameCommandRequestAction(GameCommandActions.MOVESTUDENT, moveStudentsInfo);
         GameCommand response = playerView.sendRequest(request);
 
         if (response instanceof GameCommandMoveStudent c) {
@@ -63,8 +88,9 @@ public class GameStateMoveStudents implements GameStateActionPhase{
                 // If the current player is playing an ExpertMode Game it checks if the current player will receive a Coin adding a student to a specific DiningRoomTable
                 if (ControllerData.getInstance().getExpertMode())
                     if (checkAndAddCoin(player, movedStudent)) {
-                        // Adds globalCoinPool value to the updateInfo Map that will be sent to all the players
+                        // Adds globalCoinPool and playerArray values to the updateInfo Map that will be sent to all the players
                         updateInfo.put(GameCommandValues.COINPOOL, ControllerData.getInstance().getGameModel().getCoinPool());
+                        updateInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
                     }
 
                 // Checks if the current player has more student on a specific color's DiningRoomTable than the player which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
@@ -81,12 +107,20 @@ public class GameStateMoveStudents implements GameStateActionPhase{
             // Adds current player Entrance value to the updateInfo Map that will be sent to all the players
             updateInfo.put(GameCommandValues.ENTRANCE, player.getSchoolBoard().getEntrance());
 
-            // Sends to all the player the updateInfo Map containing all the GameModel's fields which need to be updated after the movement of the student
-            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
-                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerViewMap().getRight(playerToUpdate);
 
-                GameCommand update = new GameCommandSendInfo(updateInfo);
-                playerView.sendMessage(update);
+            try {
+                // Sends to all the player the updateInfo Map containing all the GameModel's fields which need to be updated after the movement of the student
+                for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
+                    VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerViewMap().getRight(playerToUpdate);
+
+                    GameCommand update = new GameCommandSendInfo(updateInfo);
+                    playerToUpdateView.sendMessage(update);
+                }
+            }
+
+            catch (Exception e) {
+                // Fatal error: print the stack trace to help debug
+                e.printStackTrace();
             }
         }
 
@@ -100,8 +134,28 @@ public class GameStateMoveStudents implements GameStateActionPhase{
                 e.printStackTrace();
             }
 
-            executeState();
+            // Recall the same function and makes the player choose a student once again
+            moveOneStudent(player, playerView);
         }
+    }
+
+    /**
+     * Calculates which DiningRoomTable have free-seats for new students. Then inserts in a Map the movableStudents and the diningRoomTableFreeSeatAvailable flag for each DiningRoomTableColor
+     * @param player The player that has to move a student
+     * @param movableStudents The students, currently in the player's entrance, that can be moved
+     * @return A Map containing the movableStudents and an Array of boolean representing the diningRoomTableFreeSeatAvailable flags
+     */
+    private Map<Color[], Boolean[]> setMoveStudentsInfo (Player player, Color[] movableStudents) {
+        Boolean[] diningRoomTableFreeSeatAvailable = {false, false, false, false, false};
+        Map<Color[], Boolean[]> moveStudentsInfo = new HashMap<>();
+
+        // For each color checks if the correspondent DiningRoomTable has free seat(s)
+        for (Color color : Color.values())
+            if (player.getSchoolBoard().getDiningRoom().getStudentCounters(color) < 10)
+                diningRoomTableFreeSeatAvailable[color.ordinal()] = true;
+        
+        moveStudentsInfo.put(movableStudents, diningRoomTableFreeSeatAvailable);
+        return moveStudentsInfo;
     }
 
     /**
