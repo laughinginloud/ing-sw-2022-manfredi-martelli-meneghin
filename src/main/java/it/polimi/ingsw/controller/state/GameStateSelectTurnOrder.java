@@ -25,6 +25,9 @@ public class GameStateSelectTurnOrder implements GameStatePlanPhase {
         }
 
         ControllerData.getInstance().setPlayersOrder(newPlayerOrder);
+
+        // Set current player to null at the end of the GameStatePlanPhase. It will be initialized to firstPlayer in GameStateActionPhase.GameStateMoveStudents
+        ControllerData.getInstance().setCurrentPlayer(null);
     }
 
     /**
