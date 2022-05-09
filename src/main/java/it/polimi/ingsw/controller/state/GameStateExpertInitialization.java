@@ -1,7 +1,14 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.GameCommand;
+import it.polimi.ingsw.controller.command.GameCommandSendInfo;
+import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class containing the initialization procedure of ExpertMode feature
@@ -25,7 +32,28 @@ public class GameStateExpertInitialization implements GameStateSetup {
         setStudentsOnCards(characterCards, model);
         setCoins(players, model);
 
-        //TODO: [VirtualView - Command] Notify players about coins added on their board and possible students added on the CharacterCards
+        try {
+            for (Player player : players) {
+                GameModel gameModel = ControllerData.getInstance().getGameModel();
+                CharacterCard[] updatedCharacterCards = new CharacterCard[]{gameModel.getCharacterCard(0), gameModel.getCharacterCard(1), gameModel.getCharacterCard(2)};
+
+                // Get the virtualView of the player we need to send the updated information to
+                VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
+
+                // Creates the Map to send via GameCommand and adds updated CharacterCards, PlayerCoinCounts and CoinPool to it
+                Map<GameCommandValues, Object> updatedExpertInfo = new HashMap<>();
+                updatedExpertInfo.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
+                updatedExpertInfo.put(GameCommandValues.COINPOOL, ControllerData.getInstance().getGameModel().getCoinPool());
+                updatedExpertInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
+
+                playerView.sendMessage(new GameCommandSendInfo(updatedExpertInfo));
+            }
+        }
+
+        catch (Exception e) {
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -41,8 +69,8 @@ public class GameStateExpertInitialization implements GameStateSetup {
             //Select numOfRequiredStudents depending on the CharacterCard's cardID
             for (CharacterCard characterCard : characterCards) {
                 switch (characterCard.getCardID()) {
-                    case 0, 10 -> numOfRequiredStudents = 4;
-                    case 6 -> numOfRequiredStudents = 6;
+                    case 0, 10                      -> numOfRequiredStudents = 4;
+                    case 6                          -> numOfRequiredStudents = 6;
                     case 1, 2, 3, 4, 5, 7, 8, 9, 11 -> numOfRequiredStudents = 0;
                     default -> throw new IllegalStateException("The characterCard were not correctly created: their CardIDs accepted value are between 0 and 11");
                 }
