@@ -28,7 +28,7 @@
 	
 	In generale, la descrizione del protocollo mediante i soli sequence diagram e l’UML dei messaggi ci è sembrata di difficile lettura in quanto ha lasciato diversi punti non specificati ad un livello di dettaglio sufficiente da poter comprendere se il protocollo funziona o no in modo corretto.
 	
-	Dal protocollo, visto che non è esplicitato, sembra che il gruppo 26 abbia implementato le funzionalità avanzate seguenti:
+	Dal protocollo, visto che non è esplicitato, sembra che il gruppo 26 abbia implementato le funzionalità avanzate (FA) seguenti:
 	%
 	\begin{itemize}
 		\item Partita a 4 giocatori
@@ -47,7 +47,7 @@
 	Quindi in \emph{Pianificazione} vediamo la gestione del passaggio di turno, che però senza l’utilizzo di un ciclo rappresentandola in questo modo , permette di giocare solo il primo giocatore.
 	
 	Passando alla \emph{ActionPhase 1} notiamo l’assenza di un controllo su un posizionamento errato di uno studente (ad esempio avrò un errore se voglio posizionare uno studente in un tavolo già pieno). 
-	Leggendo la nota lasciata sulla gestione di \emph{CharacterCard} ci è sembrata una scelta più che corretta limitare alcune operazioni creando sequenze atomiche tuttavia nel protocollo non è riportato in nessun caso come viene gestito il protocollo di rete se il giocatore sceglie di usare una \emph{CharacterCard} e inoltre crediamo che il giocatore dovrebbe avere la possibilità di giocare la carta appena prima della fine del turno (dopo aver preso gli studenti da una nuvola).
+	Leggendo la nota lasciata sulla gestione di \emph{CharacterCard} ci è sembrata una scelta più che corretta limitare alcune operazioni creando sequenze atomiche tuttavia crediamo che il giocatore dovrebbe avere la possibilità di giocare la carta appena prima della fine del turno (dopo aver preso gli studenti da una nuvola). Lo scambio di messaggi per la \emph{CharacterCard} ci è sembrato coerente con il protocollo, ma non appare chiaro il contenuto dei messaggi e manca il loop per richiedere al client le informazioni nel caso di un una richiesta errata del client.
 	
 	Nella \emph{ActionPhase 2} invece ci è sembrata un po’ eccessiva la riduzione delle operazioni sul movimento di madre natura ad un’unica funzione in quanto le azioni da gestire con quel movimento sono tre: il movimento di madre natura, alternativamente il controllo o conquista dell’isola e l’unificazione delle isole. E’ specificato tramite una nota che la funzione di occupa di tutte queste componenti, ma non è chiaro se al termine di controllo o conquista e di unificazione delle isole viene verificata la condizione di vittoria, in quando riterremmo fuori regolamento unificare le isole dopo che l’ultima torre di un giocatore è stata piazzata.
 	Sempre in questa fase viene fatto un controllo sulla correttezza del movimento richiesto di madre natura, ma in caso di errore non viene data la possibilità di inserire un altro valore di movimento creando così un’azione illegale per il gioco ovvero il movimento (da regole madre natura deve muovere di almeno un’isola ogni turno (è risolvibile utilizzando un ciclo).
