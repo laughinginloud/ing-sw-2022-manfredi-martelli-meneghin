@@ -13,9 +13,4 @@ public class GameCommandMoveMotherNature implements GameCommand {
         ControllerData.getInstance().getGameModel().movemotherNature(movementPoints);
         return null;
     }
-
-    public void checkLegalValue(int cardPoints) throws IllegalArgumentException {
-        if (cardPoints < movementPoints || movementPoints < 0)
-            throw new IllegalArgumentException();
-    }
 }
