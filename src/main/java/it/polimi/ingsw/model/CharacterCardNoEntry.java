@@ -5,10 +5,10 @@ public class CharacterCardNoEntry extends CharacterCard {
 
     /**
      * Construct a new "CharacterCardNoEntry and initialize field "noEntryCount" to 4
-     * @param cardID The cardID of the specific CharacterCard to construct
+     * @param character The character of the specific CharacterCard to construct
      */
-    protected CharacterCardNoEntry (int cardID) {
-        super(cardID);
+    protected CharacterCardNoEntry (Character character) {
+        super(character);
         noEntryCount = 4;
     }
 

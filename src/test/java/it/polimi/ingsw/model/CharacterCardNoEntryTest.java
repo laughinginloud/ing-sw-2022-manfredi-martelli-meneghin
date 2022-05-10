@@ -16,7 +16,7 @@ class CharacterCardNoEntryTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException  {
-        characterCardNoEntryTest = new CharacterCardNoEntry(4);
+        characterCardNoEntryTest = new CharacterCardNoEntry(Character.HERBALIST);
 
         // Use reflection to get the private field "noEntryCount" and change its visibility
         noEntryCountField = characterCardNoEntryTest.getClass().getDeclaredField("noEntryCount");

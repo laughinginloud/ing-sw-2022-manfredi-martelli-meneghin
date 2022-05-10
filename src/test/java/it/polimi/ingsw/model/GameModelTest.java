@@ -52,7 +52,7 @@ class GameModelTest {
             testCloudTiles[i] = new CloudTile();
 
         for (int i = 0; i < testCharacterCards.length; ++i)
-            testCharacterCards[i] = new CharacterCard(i);
+            testCharacterCards[i] = new CharacterCard(Character.fromInt(i));
     }
 
     @BeforeEach

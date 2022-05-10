@@ -7,10 +7,10 @@ package it.polimi.ingsw.model;
 public class CharacterCardStudent extends CharacterCard {
     private final Color[] students;
 
-    protected CharacterCardStudent (int cardID) {
-        super(cardID);
+    protected CharacterCardStudent (Character character) {
+        super(character);
 
-        if(cardID == 0 || cardID == 10)
+        if(character == Character.MONK || character == Character.PRINCESS)
             students = new Color[4];
 
         else

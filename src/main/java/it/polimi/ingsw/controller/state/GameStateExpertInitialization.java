@@ -66,13 +66,12 @@ public class GameStateExpertInitialization implements GameStateSetup {
             int numOfRequiredStudents;
             BagResult studentsToSet;
 
-            //Select numOfRequiredStudents depending on the CharacterCard's cardID
+            //Select numOfRequiredStudents depending on the CharacterCard's character
             for (CharacterCard characterCard : characterCards) {
-                switch (characterCard.getCardID()) {
-                    case 0, 10                      -> numOfRequiredStudents = 4;
-                    case 6                          -> numOfRequiredStudents = 6;
-                    case 1, 2, 3, 4, 5, 7, 8, 9, 11 -> numOfRequiredStudents = 0;
-                    default -> throw new IllegalStateException("The characterCard were not correctly created: their CardIDs accepted value are between 0 and 11");
+                switch (characterCard.getCharacter()) {
+                    case MONK, PRINCESS -> numOfRequiredStudents = 4;
+                    case JESTER         -> numOfRequiredStudents = 6;
+                    default             -> numOfRequiredStudents = 0;
                 }
 
                 //Set numOfRequiredStudents students to the CharacterCard when it's needed

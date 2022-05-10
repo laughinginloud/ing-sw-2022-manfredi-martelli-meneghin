@@ -59,7 +59,7 @@ public class GameModel {
             while (!cardSet.add(rng.nextInt(12)));
 
         // Create a stream from the set, transform it into a stream containing the cards and morph it into the destination array
-        return cardSet.stream().map(CharacterCard::build).toArray(CharacterCard[]::new);
+        return cardSet.stream().map(Character::fromInt).map(CharacterCard::build).toArray(CharacterCard[]::new);
     }
 
     private void buildIslands() {

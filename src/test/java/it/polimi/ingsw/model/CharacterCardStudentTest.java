@@ -17,7 +17,7 @@ class CharacterCardStudentTest {
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        characterCardStudentTest = new CharacterCardStudent(6);
+        characterCardStudentTest = new CharacterCardStudent(Character.JESTER);
 
         // Use reflection to get the private field "noEntryCount" and change its visibility
         studentsField = characterCardStudentTest.getClass().getDeclaredField("students");

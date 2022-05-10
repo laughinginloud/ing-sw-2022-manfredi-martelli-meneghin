@@ -5,45 +5,40 @@ package it.polimi.ingsw.model;
  * @author Sebastiano Meneghin
  */
 public class CharacterCard {
-    private       int     cost;
-    private final int     cardID;
-    private       boolean hasCoin;
+    private       int       cost;
+    private final Character character;
+    private       boolean   hasCoin;
 
     // region Constructor and Builder
 
-    protected CharacterCard(int cardID) throws IllegalArgumentException {
-        //Set the cost of the Card depending on its cardID
-        switch (cardID) {
-            case 0, 3, 6, 9  -> setCost(1);
-            case 1, 4, 7, 10 -> setCost(2);
-            case 2, 5, 8, 11 -> setCost(3);
-            default          -> throw new IllegalArgumentException("CharacterCard.cardID accepted value is between 0 and 11");
+    protected CharacterCard(Character character) throws IllegalArgumentException {
+        //Set the cost of the Card depending on its character
+        switch (character) {
+            case MONK, MAGICIAN, JESTER, BARD              -> setCost(1);
+            case FARMER, HERBALIST, CAVALIER, PRINCESS     -> setCost(2);
+            case STANDARD_BEARER, CENTAUR, MERCHANT, THIEF -> setCost(3);
         }
 
-        this.cardID = cardID;
-        hasCoin     = false;
+        this.character = character;
+        hasCoin        = false;
     }
 
     /**
-     * Build a new CharacterCard according to the cardID is given (like a factory)
-     * @param cardID The cardID of a specific CharacterCard (CharacterCard are ordinal numbered according to their order in the Eriantys Manual)
+     * Build a new CharacterCard according to the character is given (like a factory)
+     * @param character The character of a specific CharacterCard (CharacterCard are enum according to their order in the Eriantys Manual)
      * @return A new CharacterCard object of a specific class
      */
-    //CharacterCard are ordinal numbered according to their order in the Eriantys Manual
-    public static CharacterCard build (int cardID) throws IllegalArgumentException {
-        if (cardID < 0 || cardID > 11)
-            throw new IllegalArgumentException("CharacterCard.cardID accepted value is between 0 and 11");
-
+    public static CharacterCard build (Character character) throws IllegalArgumentException {
         //CharacterCards that need students on them
-        if (cardID == 0 || cardID == 6 || cardID == 10)
-            return new CharacterCardStudent(cardID);
+        if (character == Character.MONK || character == Character.JESTER || character == Character.PRINCESS)
+            return new CharacterCardStudent(character);
 
         //CharacterCard that needs NoEntryTile on it
-        else if (cardID == 4)
-            return new CharacterCardNoEntry(cardID);
+        else if (character == Character.HERBALIST)
+            return new CharacterCardNoEntry(character);
 
         else
-            return new CharacterCard(cardID);
+            return new CharacterCard(character);
     }
 
     // endregion
@@ -57,10 +52,10 @@ public class CharacterCard {
     public int getCost() { return this.cost; }
 
     /**
-     * Get the cardID of the CharacterCard
-     * @return The cardID of the CharacterCard
+     * Get the character of the CharacterCard
+     * @return The character of the CharacterCard
      */
-    public int getCardID() { return this.cardID; }
+    public Character getCharacter() { return this.character; }
 
     /**
      * Get the flag hasCoin of CharacterCard
