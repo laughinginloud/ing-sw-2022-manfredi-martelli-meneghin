@@ -252,7 +252,7 @@ public class GameModel {
         this.motherNaturePosition = motherNaturePosition;
     }
 
-    public void movemotherNature(int movementPoints) {
+    public void moveMotherNature(int movementPoints) {
         setMotherNaturePosition((motherNaturePosition + movementPoints) % getIslandsCount());
     }
 

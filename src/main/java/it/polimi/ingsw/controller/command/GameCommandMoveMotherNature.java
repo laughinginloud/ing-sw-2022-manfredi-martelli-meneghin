@@ -10,7 +10,7 @@ public class GameCommandMoveMotherNature implements GameCommand {
     }
 
     public Object executeCommand() {
-        ControllerData.getInstance().getGameModel().movemotherNature(movementPoints);
+        ControllerData.getInstance().getGameModel().moveMotherNature(movementPoints);
         return null;
     }
 }
