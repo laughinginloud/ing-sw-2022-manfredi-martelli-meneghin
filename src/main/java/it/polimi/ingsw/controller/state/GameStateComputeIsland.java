@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.command.GameCommand;
 import it.polimi.ingsw.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.controller.command.GameCommandValues;
@@ -8,22 +9,21 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * State representing the operations on the islands: control, conquest and unification
  * @author Mattia Martelli
  */
 public class GameStateComputeIsland implements GameStateActionPhase {
+    boolean notEnoughTowerTrigger = false;
+    Integer remainingTower = null;
     boolean winTrigger = false;
     Player  winner     = null;
 
     public GameState nextState() {
         if (winTrigger)
-            return winner == null ? new GameStateEndGame() : new GameStateEndGame(winner);
+            return winner == null ? new GameStateEndGame() : new GameStateEndGame(putWinners(winner));
 
         return new GameStateChooseCloud();
     }
@@ -41,14 +41,45 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         else
             conquerIsland(model, currentIsland);
 
+        // Updates all the players about the variation on IslandArray caused by the execution of controlIsland or conquerIsland
+        try {
+            Map<GameCommandValues, Object> controlAndConquerInfo = new HashMap<>();
+            GameCommand controlAndConquerUpdate;
+
+            // If there aren't enough towers to fill tre recolored island, saves into the map the num of remainingTower, the conquered Island
+            if (notEnoughTowerTrigger) {
+                controlAndConquerInfo.put(GameCommandValues.REMAININGTOWER, remainingTower);
+                controlAndConquerInfo.put(GameCommandValues.ISLANDNUM, islandIndex);
+            }
+
+            // Then save anyway the update IslandArray and PlayerArray into the map
+            controlAndConquerInfo.put(GameCommandValues.ISLANDARRAY, model.getIslands());
+            controlAndConquerInfo.put(GameCommandValues.PLAYERARRAY, data.getPlayersOrder());
+            controlAndConquerUpdate = new GameCommandSendInfo(controlAndConquerInfo);
+
+            // Updates all the players
+            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder())
+                ControllerData.getInstance().getPlayerView(playerToUpdate).sendMessage(controlAndConquerUpdate);
+
+        }
+
+        catch (Exception e) {
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
+        }
+
         // No point in continuing if the winner has already been decided
         if (winTrigger)
             return;
 
         unifyIslands(model, islandIndex);
 
+        // Update every player about the GameBoard's changes
         try {
-            player.sendMessage(createMap(data, model));
+            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
+                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playerToUpdate);
+                playerToUpdateView.sendMessage(createMap(data, model));
+            }
         }
 
         catch (IOException e) {
@@ -84,12 +115,21 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         addTowerInfluence(influencePoints, model, island);
 
         Player      maxPlayer      = getMaxPlayer(influencePoints);
+        Player      curPlayer      = getTowerPlayer(model, island);
         SchoolBoard maxPlayerBoard = maxPlayer.getSchoolBoard();
-        SchoolBoard curPlayerBoard = getTowerPlayer(model, island).getSchoolBoard();
+        SchoolBoard curPlayerBoard = curPlayer.getSchoolBoard();
 
         if (maxPlayerBoard != curPlayerBoard) {
+            boolean notEnoughTower = maxPlayer.getSchoolBoard().getTowerCount() < island.getMultiplicity();
+
+            // If the current player has not enough towers to replace all the towers previous present on the conquered island
+            if (notEnoughTower) {
+                notEnoughTowerTrigger = true;
+                remainingTower = maxPlayerBoard.getTowerCount();
+            }
+
             island.setTowerColor(maxPlayerBoard.getTowerColor());
-            maxPlayerBoard.decreaseTowerCount(island.getMultiplicity());
+            maxPlayerBoard.decreaseTowerCount(notEnoughTower ? maxPlayer.getSchoolBoard().getTowerCount() : island.getMultiplicity());
             curPlayerBoard.increaseTowerCount(island.getMultiplicity());
 
             // If the current player has no more towers, call the end game trigger
@@ -220,5 +260,19 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         map.put(GameCommandValues.ISLANDARRAY, model.getIslands());
         map.put(GameCommandValues.PLAYERARRAY, data.getPlayersOrder());
         return new GameCommandSendInfo(map);
+    }
+
+    private List<Player> putWinners (Player winner) {
+        int numOfPlayer = ControllerData.getInstance().getNumOfPlayers();
+        Player[] players = ControllerData.getInstance().getGameModel().getPlayer();
+        List<Player> winners = new ArrayList<>();
+        winners.add(winner);
+
+        if (numOfPlayer == 4)
+            for (int i = 0; i < numOfPlayer; i++)
+                if (players[i].equals(winner))
+                    winners.add(players[(i + 2) % 4]);
+
+        return winners;
     }
 }
