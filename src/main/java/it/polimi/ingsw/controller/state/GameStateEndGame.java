@@ -2,17 +2,18 @@ package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.command.GameCommandEndGame;
+import it.polimi.ingsw.controller.command.GameCommandSendInfo;
+import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.GlobalProfessorTable;
 import it.polimi.ingsw.model.Player;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * State representing the end of the game
+ * @author Mattia Martelli
  */
 public class GameStateEndGame implements GameState {
     // Quick definition of an enum used as the result of a compare
@@ -249,7 +250,9 @@ public class GameStateEndGame implements GameState {
         data.getPlayerViewMap()
             .forEach((p, v) -> {
                 try {
-                    v.sendMessage(new GameCommandEndGame(winner.getUsername()));
+                    Map<GameCommandValues, Object> winnerMap = new HashMap<>();
+                    winnerMap.put(GameCommandValues.WINNER, winner.getUsername());
+                    v.sendMessage(new GameCommandSendInfo(winnerMap));
                 }
 
                 catch (IOException e) {
@@ -267,7 +270,9 @@ public class GameStateEndGame implements GameState {
         data.getPlayerViewMap()
             .forEach((p, v) -> {
                 try {
-                    v.sendMessage(new GameCommandEndGame(teamMembers, false));
+                    Map<GameCommandValues, Object> winnerMap = new HashMap<>();
+                    winnerMap.put(GameCommandValues.WINNINGTEAM, teamMembers);
+                    v.sendMessage(new GameCommandSendInfo(winnerMap));
                 }
 
                 catch (IOException e) {
@@ -280,12 +285,14 @@ public class GameStateEndGame implements GameState {
      * Send the result of the draw to every player
      */
     private void sendDraw(ControllerData data, List<Player> players) {
-        List<String> winners = players.stream().map(Player::getUsername).toList();
+        List<String> drawers = players.stream().map(Player::getUsername).toList();
 
         data.getPlayerViewMap()
             .forEach((p, v) -> {
                 try {
-                    v.sendMessage(new GameCommandEndGame(winners, true));
+                    Map<GameCommandValues, Object> drawerMap = new HashMap<>();
+                    drawerMap.put(GameCommandValues.DRAWERS, drawers);
+                    v.sendMessage(new GameCommandSendInfo(drawerMap));
                 }
 
                 catch (IOException e) {

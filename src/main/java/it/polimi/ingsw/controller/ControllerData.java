@@ -237,7 +237,7 @@ public class ControllerData {
     }
 
     /**
-     * Set the trigger that represents whether the current player has played a card to true
+     * Set the trigger that represents whether the current player has played a card to false
      */
     public void resetPlayedCard() {
         hasPlayedCard = false;

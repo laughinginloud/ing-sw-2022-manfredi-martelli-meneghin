@@ -2,6 +2,9 @@ package it.polimi.ingsw.controller.command;
 
 import java.util.List;
 
+/**
+ * Class that could be useful in the Client
+ */
 public class GameCommandEndGame implements GameCommand {
     private String       winner = null;
     private List<String> team   = null;
