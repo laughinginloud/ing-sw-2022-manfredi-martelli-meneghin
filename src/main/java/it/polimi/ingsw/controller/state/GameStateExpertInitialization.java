@@ -22,12 +22,7 @@ public class GameStateExpertInitialization implements GameStateSetup {
     public void executeState() {
         Player[] players = ControllerData.getInstance().getPlayersOrder();
         GameModel model = ControllerData.getInstance().getGameModel();
-        CharacterCard[] characterCards = new CharacterCard[3];
-
-        //Save the CharacterCard associated to the GameModel in a CharacterCard Array
-        for (int i = 0; i < 3; i++) {
-            characterCards[i] = ControllerData.getInstance().getGameModel().getCharacterCard(i);
-        }
+        CharacterCard[] characterCards = model.getCharacterCards();
 
         setStudentsOnCards(characterCards, model);
         setCoins(players, model);
@@ -35,7 +30,7 @@ public class GameStateExpertInitialization implements GameStateSetup {
         try {
             for (Player player : players) {
                 GameModel gameModel = ControllerData.getInstance().getGameModel();
-                CharacterCard[] updatedCharacterCards = new CharacterCard[]{gameModel.getCharacterCard(0), gameModel.getCharacterCard(1), gameModel.getCharacterCard(2)};
+                CharacterCard[] updatedCharacterCards = gameModel.getCharacterCards();
 
                 // Get the virtualView of the player we need to send the updated information to
                 VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);

@@ -197,6 +197,14 @@ public class GameModel {
     }
 
     /**
+     * Returns the CharacterCard's Array
+     * @return An array containing all the CharacterCards drawn at the beginning of the game
+     */
+    public CharacterCard[] getCharacterCards() {
+        return Arrays.copyOf(characterCards, characterCards.length);
+    }
+
+    /**
      * Get the number of coins in the pool
      * @return The number of coins currently in the pool
      */
