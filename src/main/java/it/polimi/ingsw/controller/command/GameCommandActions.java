@@ -1,5 +1,5 @@
 package it.polimi.ingsw.controller.command;
 
 public enum GameCommandActions {
-    MOVESTUDENT, MOVEMOTHERNATURE, PLAYASSISTANTCARD
+    MOVESTUDENT, MOVEMOTHERNATURE, PLAYASSISTANTCARD, PLAYCHARACTERCARD,
 }
