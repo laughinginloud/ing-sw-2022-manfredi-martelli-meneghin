@@ -78,7 +78,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         try {
             for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
                 VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playerToUpdate);
-                playerToUpdateView.sendMessage(createMap(data, model));
+                playerToUpdateView.sendMessage(createLightMap(model));
             }
         }
 
@@ -259,6 +259,12 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         Map<GameCommandValues, Object> map = new HashMap<>();
         map.put(GameCommandValues.ISLANDARRAY, model.getIslands());
         map.put(GameCommandValues.PLAYERARRAY, data.getPlayersOrder());
+        return new GameCommandSendInfo(map);
+    }
+
+    private GameCommand createLightMap(GameModel model) {
+        Map<GameCommandValues, Object> map = new HashMap<>();
+        map.put(GameCommandValues.ISLANDARRAY, model.getIslands());
         return new GameCommandSendInfo(map);
     }
 

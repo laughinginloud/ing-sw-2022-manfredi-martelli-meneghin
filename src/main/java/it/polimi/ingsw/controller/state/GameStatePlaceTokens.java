@@ -111,7 +111,7 @@ public class GameStatePlaceTokens implements GameStateSetup {
     private Map<GameCommandValues, Object> packPlacedTokens() {
         Map<GameCommandValues, Object> placedTokens = new HashMap<>();
 
-        /* TODO: [ClientCache] Caricare tutte le informazioni in una mappa */
+        /* TODO: [ClientCache] Caricare tutte le informazioni in una mappa, facendo attenzione ai puntatori disaccoppiati (player in team) */
         // Get all the objects/fields each player's Client need to know
         GameModel placedModel = ControllerData.getInstance().getGameModel();
         // ...
