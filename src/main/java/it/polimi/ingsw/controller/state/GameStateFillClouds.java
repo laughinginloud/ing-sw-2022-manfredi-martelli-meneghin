@@ -19,28 +19,19 @@ public class GameStateFillClouds implements GameStatePlanPhase {
 
     public void executeState() {
         try {
-            // There's one CloudTile for each player, it is required to fill all of them
+            // Fill all the CloudTiles, one for each player in game
             int numOfClouds = ControllerData.getInstance().getNumOfPlayers();
-            for (int i = 0; i < numOfClouds; i++) {
+            for (int i = 0; i < numOfClouds; i++)
                 fillCloud(ControllerData.getInstance().getGameModel().getCloudTile(i));
-            }
 
-            try {
-                // Sends to all the players the updated array of Clouds, once they have been filled
-                for (Player player : ControllerData.getInstance().getPlayersOrder()) {
-                    VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
+            // Creates the Map to send via GameCommand and adds updated CloudTiles to it
+            Map<GameCommandValues, Object> updatedCloud = new HashMap<>();
+            updatedCloud.put(GameCommandValues.CLOUDARRAY, ControllerData.getInstance().getGameModel().getCloudTile());
 
-                    // Creates the Map to send via GameCommand and adds updated CloudTiles to it
-                    Map<GameCommandValues, Object> updatedCloud = new HashMap<>();
-                    updatedCloud.put(GameCommandValues.CLOUDARRAY, ControllerData.getInstance().getGameModel().getCloudTile());
-
-                    playerView.sendMessage(new GameCommandSendInfo(updatedCloud));
-                }
-            }
-
-            catch (IllegalArgumentException e) {
-                // Fatal error: print the stack trace to help debug
-                e.printStackTrace();
+            // Sends to all the players the updated array of Clouds, once they have been filled
+            for (Player player : ControllerData.getInstance().getPlayersOrder()) {
+                VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
+                playerView.sendMessage(new GameCommandSendInfo(updatedCloud));
             }
         }
 
@@ -76,6 +67,7 @@ public class GameStateFillClouds implements GameStatePlanPhase {
 
             cloudTile.setStudents(drawnStudents);
         }
+
         catch (EmptyBagException e){
             ControllerData.getInstance().setEmptyBagTrigger();
         }

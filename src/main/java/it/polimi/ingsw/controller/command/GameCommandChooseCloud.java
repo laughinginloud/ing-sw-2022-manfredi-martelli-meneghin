@@ -6,6 +6,10 @@ import it.polimi.ingsw.model.Color;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
+/**
+ * Command used by the client to reply after ActionPhase's CloudTile choice of the current player
+ * @author Mattia Martelli
+ */
 public class GameCommandChooseCloud implements GameCommand {
     private final int cloudIndex;
 

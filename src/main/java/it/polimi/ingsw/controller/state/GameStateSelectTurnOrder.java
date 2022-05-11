@@ -14,20 +14,27 @@ public class GameStateSelectTurnOrder implements GameStatePlanPhase {
 
     @Override
     public void executeState() {
-        int numOfPlayers = ControllerData.getInstance().getNumOfPlayers();
-        Player[] newPlayerOrder = new Player[numOfPlayers];
-        Player playerToOrder;
+        try {
+            int numOfPlayers = ControllerData.getInstance().getNumOfPlayers();
+            Player[] newPlayerOrder = new Player[numOfPlayers];
+            Player playerToOrder;
 
-        // For each player in the game, which will be his turn priority during the next ActionPhase
-        for (int i = 0; i < numOfPlayers; i++) {
-            playerToOrder = ControllerData.getInstance().getPlayersOrder()[i];
-            newPlayerOrder = addPlayerInOrder(newPlayerOrder, playerToOrder, i);
+            // For each player in the game, which will be his turn priority during the next ActionPhase
+            for (int i = 0; i < numOfPlayers; i++) {
+                playerToOrder = ControllerData.getInstance().getPlayersOrder()[i];
+                newPlayerOrder = addPlayerInOrder(newPlayerOrder, playerToOrder, i);
+            }
+
+            ControllerData.getInstance().setPlayersOrder(newPlayerOrder);
+
+            // Set current player to null at the end of the GameStatePlanPhase. It will be initialized to firstPlayer in GameStateActionPhase.GameStateMoveStudents
+            ControllerData.getInstance().setCurrentPlayer(null);
         }
 
-        ControllerData.getInstance().setPlayersOrder(newPlayerOrder);
-
-        // Set current player to null at the end of the GameStatePlanPhase. It will be initialized to firstPlayer in GameStateActionPhase.GameStateMoveStudents
-        ControllerData.getInstance().setCurrentPlayer(null);
+        catch (Exception e) {
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
+        }
     }
 
     /**

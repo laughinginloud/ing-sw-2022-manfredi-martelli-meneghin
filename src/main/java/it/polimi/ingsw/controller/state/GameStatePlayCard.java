@@ -6,10 +6,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
 import javax.naming.ldap.Control;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Class controlling the PlayCardPhase of the PlanPhase of every round
@@ -20,10 +17,10 @@ public class GameStatePlayCard implements GameStatePlanPhase {
 
     @Override
     public void executeState() {
-        // Order the player according to the Eriantys Rules (the first to pick is the first player of the previous round, the other follow clockwise)
+        // Orders the player according to the Eriantys Rules (the first to pick is the first player of the previous round, the other follow clockwise)
         selectPlanPhasePlayersOrder();
 
-        // Clean the PlayerAssistantCardMap, removing previous rounds' played cards
+        // Cleans the PlayerAssistantCardMap, removing previous rounds' played cards
         ControllerData.getInstance().nukePlayerAssistantCardMap();
         Player[] players = ControllerData.getInstance().getPlayersOrder();
 
@@ -33,15 +30,15 @@ public class GameStatePlayCard implements GameStatePlanPhase {
             AssistantCard[] playableAssistantCards = getPlayableAssistantCards(player);
 
             try {
-                // Request to the current player to play a card between the playable AssistantCard he has in his deck
-                VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
+                // Requests to the current player to play a card between the playable AssistantCard he has in his deck
+                VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
                 GameCommand request = new GameCommandRequestAction(GameCommandActions.PLAYASSISTANTCARD, playableAssistantCards);
                 GameCommand response = playerView.sendRequest(request);
 
                 if (response instanceof GameCommandPlayAssistantCard c) {
                     AssistantCard chosenCard = (AssistantCard) c.executeCommand();
 
-                    // Save the chosenAssistantCard into the playerAssistantCardMap, updates the GameBoard and notifies all the players
+                    // Saves the chosenAssistantCard into the playerAssistantCardMap, updates the GameBoard and notifies all the players
                     saveAssistantCardChoice(player, chosenCard);
 
                     // If playing the AssistantCard the player emptied his deck, sets the EmptyAssistantDeckTrigger
@@ -56,7 +53,6 @@ public class GameStatePlayCard implements GameStatePlanPhase {
             }
         }
     }
-
 
     /**
      * Get all the playable AssistantCards from a specific player's deck, according to the Eriantys Rules
@@ -84,7 +80,7 @@ public class GameStatePlayCard implements GameStatePlanPhase {
             if (playableCards.isEmpty())
                 return availableCards;
 
-
+            // Saves the playable AssistantCards in an array of AssistantCard that will be returned by the current function
             AssistantCard[] remainingAssistantCards = new AssistantCard[playableCards.size()];
             for (int i = 0; i < playableCards.size(); i++)
                 remainingAssistantCards[i] = playableCards.get(i);
@@ -101,25 +97,25 @@ public class GameStatePlayCard implements GameStatePlanPhase {
      * @param chosenCard The AssistantCard that has been chosen
      */
     private void saveAssistantCardChoice(Player player, AssistantCard chosenCard) {
-        // Gets the AssistantCard from the current player's deck
-        AssistantCard drawnFromDeck = player.getAssistantCard(chosenCard.cardValue());
-        if (!drawnFromDeck.equals(chosenCard))
-            throw new IllegalStateException("The two AssistantCards cannot be different");
-
-        // Save the usage of the chosenCard into the ControllerData's PlayerAssistantCardMap
-        ControllerData.getInstance().addPlayerCard(player, chosenCard);
-
-        // Set the chosenCard as lastPlayerCard on the current player board
-        player.setLastPlayedCard(chosenCard);
-
         try {
+            // Gets the AssistantCard from the current player's deck
+            AssistantCard drawnFromDeck = player.getAssistantCard(chosenCard.cardValue());
+            if (!drawnFromDeck.equals(chosenCard))
+                throw new IllegalStateException("The two AssistantCards cannot be different");
+
+            // Save the usage of the chosenCard into the ControllerData's PlayerAssistantCardMap
+            ControllerData.getInstance().addPlayerCard(player, chosenCard);
+
+            // Set the chosenCard as lastPlayerCard on the current player board
+            player.setLastPlayedCard(chosenCard);
+
+            // Creates updateInfo and adds to it the updated playerArray, containing the new value of lastPlayerCard
+            Map<GameCommandValues, Object> updateInfo = new HashMap<>();
+            updateInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
+
             // Notifies all the players about the lastPlayedCard now on the board of the current player
             for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
-                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerViewMap().getRight(playerToUpdate);
-
-                // Creates updateInfo and adds to it the updated playerArray, containing the new value of lastPlayerCard
-                Map<GameCommandValues, Object> updateInfo = new HashMap<>();
-                updateInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
+                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playerToUpdate);
 
                 GameCommand update = new GameCommandSendInfo(updateInfo);
                 playerToUpdateView.sendMessage(update);
