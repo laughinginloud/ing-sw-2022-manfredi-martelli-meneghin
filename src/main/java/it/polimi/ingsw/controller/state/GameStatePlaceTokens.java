@@ -1,7 +1,15 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.GameCommand;
+import it.polimi.ingsw.controller.command.GameCommandSendInfo;
+import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * State representing the placement of the tokens on the board, following the model's initialization
@@ -28,6 +36,23 @@ public class GameStatePlaceTokens implements GameStateSetup {
 
         // Set the students in the school board's entrances
         setEntrancesStudents(bag);
+
+        try {
+            // Get all the Object/Fields have to be sent to each player's Client
+            Map<GameCommandValues, Object> placedTokens = packPlacedTokens();
+
+            // Send those Object/Fields via a SendMessage message, through the Network
+            for (Player player : ControllerData.getInstance().getPlayersOrder()) {
+                VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
+                GameCommand tokensUpdate = new GameCommandSendInfo(placedTokens);
+                playerView.sendMessage(tokensUpdate);
+            }
+        }
+
+        catch (Exception e) {
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
+        }
     }
 
     private void setIslandsStudents(GameModel model, Bag bag, int motherNaturePosition) {
@@ -78,5 +103,23 @@ public class GameStatePlaceTokens implements GameStateSetup {
         catch (Exception e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    /**
+     * Get all the Tokens that have to be sent to each Client and save them in a Map
+     */
+    private Map<GameCommandValues, Object> packPlacedTokens() {
+        Map<GameCommandValues, Object> placedTokens = new HashMap<>();
+
+        /* TODO: [ClientCache] Caricare tutte le informazioni in una mappa */
+        // Get all the objects/fields each player's Client need to know
+        GameModel placedModel = ControllerData.getInstance().getGameModel();
+        // ...
+
+        // Add to placedTokens Map all the object/fields that will be sent to the client
+        placedTokens.put(GameCommandValues.MODEL, placedModel);
+        // ...
+
+        return placedTokens;
     }
 }
