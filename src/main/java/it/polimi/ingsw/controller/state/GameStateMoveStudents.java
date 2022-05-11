@@ -20,8 +20,14 @@ public class GameStateMoveStudents implements GameStateActionPhase{
         try {
             Player player = updateCurrentPlayer();
             VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
-            int numOfMovements = 0;
+            boolean expertMode = ControllerData.getInstance().getExpertMode();
 
+            // If it's an expertMode game, set the flag hasPlayedCard to "false"
+            if (expertMode)
+                ControllerData.getInstance().resetPlayedCard();
+
+            int numOfMovements = 0;
+            // Sets the num of students the player is required to move, according to the number of players in the match
             switch (ControllerData.getInstance().getNumOfPlayers()) {
                 case 2, 4 -> numOfMovements = 3;
                 case 3 -> numOfMovements = 4;
@@ -120,7 +126,13 @@ public class GameStateMoveStudents implements GameStateActionPhase{
 
         // If the player decided to play a CharacterCard
         else if (response instanceof GameCommandPlayCharacterCard c) {
+            // If the player already used a CharacterCard during this turn, throws an exception
+            if(ControllerData.getInstance().checkPlayedCard())
+                throw new IllegalStateException("CharacterCard has been already used by the current player!");
+
+            // Executes the command received and set to "true" the flag hasPlayedCard stored in ControllerData
             Character calledCharacter = (Character) c.executeCommand();
+            ControllerData.getInstance().setPlayedCard();
 
             /* TODO: [CharacterCard] Insert here the real name of the function which manage the CharacterCardUse */
             // CharacterCardUse.useCharacterCard(calledCharacter);

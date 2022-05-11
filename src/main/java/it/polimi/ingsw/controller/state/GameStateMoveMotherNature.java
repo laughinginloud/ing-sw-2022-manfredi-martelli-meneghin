@@ -44,7 +44,14 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
 
             // If the player decided to play a CharacterCard
             else if (response instanceof GameCommandPlayCharacterCard c) {
+                // If the player already used a CharacterCard during this turn, throws an exception
+                if(ControllerData.getInstance().checkPlayedCard())
+                    throw new IllegalStateException("CharacterCard has been already used by the current player!");
+
+                // Executes the command received and set to "true" the flag hasPlayedCard stored in ControllerData
                 Character calledCharacter = (Character) c.executeCommand();
+                ControllerData.getInstance().setPlayedCard();
+
                 try {
                     /* TODO: [CharacterCard] Insert here the real name of the function which manage the CharacterCardUse */
                     // CharacterCardUse.useCharacterCard(calledCharacter);
