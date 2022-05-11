@@ -58,8 +58,14 @@ public class GameModel {
             // Add a new random integer, retrying if add returns false, i.e. the set already contains the element
             while (!cardSet.add(rng.nextInt(12)));
 
-        // Create a stream from the set, transform it into a stream containing the cards and morph it into the destination array
-        return cardSet.stream().map(Character::fromInt).map(CharacterCard::build).toArray(CharacterCard[]::new);
+        // Create a stream from the set to ease operations
+        return cardSet.stream()
+            // Map each element of the set to the corresponding enum constant
+            .map(Character::fromInt)
+            // Map each enum constant to the corresponding CharacterCard
+            .map(CharacterCard::build)
+            // Collect the results into a new array
+            .toArray(CharacterCard[]::new);
     }
 
     private void buildIslands() {

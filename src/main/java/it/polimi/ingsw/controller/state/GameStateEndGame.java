@@ -191,7 +191,7 @@ public class GameStateEndGame implements GameState {
      * @return The result of the compare
      */
     private Ordering compare(int a, int b) {
-        int result = Integer.compare(a, b);
+        int result = b - a;
 
         return
             result < 0 ? Ordering.LT :
