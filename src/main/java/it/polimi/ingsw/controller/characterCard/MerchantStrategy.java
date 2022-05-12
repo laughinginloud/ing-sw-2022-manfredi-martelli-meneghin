@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'MERCHANT'
  * @author Giovanni Manfredi
  */
-public class MerchantStrategy implements CharacterCardStrategy {
+public class MerchantStrategy extends CharacterCardStrategy {
+    public MerchantStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'MERCHANT'

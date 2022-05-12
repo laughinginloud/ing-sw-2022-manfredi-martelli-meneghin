@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'THIEF'
  * @author Giovanni Manfredi
  */
-public class ThiefStrategy implements CharacterCardStrategy {
+public class ThiefStrategy extends CharacterCardStrategy {
+    public ThiefStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'THIEF'

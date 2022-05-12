@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'MAGICIAN'
  * @author Giovanni Manfredi
  */
-public class MagicianStrategy implements CharacterCardStrategy {
+public class MagicianStrategy extends CharacterCardStrategy {
+    public MagicianStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'MAGICIAN'

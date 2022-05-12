@@ -1,10 +1,16 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'BARD'
  * @author Giovanni Manfredi
  */
-public class BardStrategy implements CharacterCardStrategy {
+public class BardStrategy extends CharacterCardStrategy {
+
+    public BardStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'BARD'

@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'HERBALIST'
  * @author Giovanni Manfredi
  */
-public class HerbalistStrategy implements CharacterCardStrategy {
+public class HerbalistStrategy extends CharacterCardStrategy {
+    public HerbalistStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'HERBALIST'

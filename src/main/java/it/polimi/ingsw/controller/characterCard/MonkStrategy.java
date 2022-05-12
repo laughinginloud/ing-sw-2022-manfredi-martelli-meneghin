@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'MONK'
  * @author Giovanni Manfredi
  */
-public class MonkStrategy implements CharacterCardStrategy{
+public class MonkStrategy extends CharacterCardStrategy {
+    public MonkStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'MONK'
@@ -12,7 +17,6 @@ public class MonkStrategy implements CharacterCardStrategy{
     @Override
     public void activateEffect() {
         // TODO [CharacterCardStrategy] implementation
-        // The player sends the index of the chosen Card to play
         // The server asks the player which student he wants to move and the island he wants to move the player to (requestAction())
         // The player responds with the information requested by the server (responseAction(student, island))
         // The server moves the student from the CharacterCard to the selected island

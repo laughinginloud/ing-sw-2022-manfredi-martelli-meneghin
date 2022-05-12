@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'CENTAUR'
  * @author Giovanni Manfredi
  */
-public class CentaurStrategy implements CharacterCardStrategy {
+public class CentaurStrategy extends CharacterCardStrategy {
+    public CentaurStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'CENTAUR'

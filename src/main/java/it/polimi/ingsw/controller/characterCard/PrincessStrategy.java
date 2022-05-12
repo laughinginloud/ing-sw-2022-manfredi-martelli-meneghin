@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'PRINCESS'
  * @author Giovanni Manfredi
  */
-public class PrincessStrategy implements CharacterCardStrategy {
+public class PrincessStrategy extends CharacterCardStrategy {
+    public PrincessStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'PRINCESS'

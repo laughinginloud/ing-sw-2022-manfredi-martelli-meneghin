@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'CAVALIER'
  * @author Giovanni Manfredi
  */
-public class CavalierStrategy implements CharacterCardStrategy {
+public class CavalierStrategy extends CharacterCardStrategy {
+    public CavalierStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'CAVALIER'

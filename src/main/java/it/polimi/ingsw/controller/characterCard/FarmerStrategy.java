@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'FARMER'
  * @author Giovanni Manfredi
  */
-public class FarmerStrategy implements CharacterCardStrategy{
+public class FarmerStrategy extends CharacterCardStrategy {
+    public FarmerStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'FARMER'

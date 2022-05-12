@@ -1,10 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.model.CharacterCard;
+
 /**
  * Strategy representing the activation of the CharacterCard 'STANDARD_BEARER'
  * @author Giovanni Manfredi
  */
-public class StandardBearerStrategy implements CharacterCardStrategy{
+public class StandardBearerStrategy extends CharacterCardStrategy {
+    public StandardBearerStrategy(CharacterCard card) {
+        this.card = card;
+    }
 
     /**
      * Activates the effect of the CharacterCard 'STANDARD_BEARER'
