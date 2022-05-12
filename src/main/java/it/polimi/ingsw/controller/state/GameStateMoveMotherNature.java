@@ -26,7 +26,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
             VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
 
             // Create a command representing the request of MotherNature's movement and send it to the player
-            GameCommand request    = new GameCommandRequestAction(GameCommandActions.MOVEMOTHERNATURE, player.getLastPlayedCard().movementPoints());
+            GameCommand request    = new GameCommandRequestAction(GameCommandActions.MOVEMOTHERNATURE, player.getLastPlayedCard().movementPoints() + (ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0));
             GameCommand response   = playerView.sendRequest(request);
 
             // If the response is of the right kind, try to execute the movement

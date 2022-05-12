@@ -13,7 +13,7 @@ import java.util.Map;
  * State representing the student movements made by each player at the beginning of his ActionPhase
  * @author Sebastiano Meneghin
  */
-public class GameStateMoveStudents implements GameStateActionPhase{
+public class GameStateMoveStudents implements GameStateActionPhase {
     public GameState nextState() { return new GameStateMoveMotherNature(); }
 
     public void executeState() {
@@ -101,11 +101,12 @@ public class GameStateMoveStudents implements GameStateActionPhase{
                         updateInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
                     }
 
-                // Checks if the current player has more student on a specific color's DiningRoomTable than the player which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
-                Player playerControllingProfessor = ControllerData.getInstance().getGameModel().getGlobalProfessorTable().getProfessorLocation(movedStudent);
-                if (!player.equals(playerControllingProfessor) && player.getSchoolBoard().getDiningRoom().getStudentCounters(movedStudent) > playerControllingProfessor.getSchoolBoard().getDiningRoom().getStudentCounters(movedStudent)) {
-                    ControllerData.getInstance().getGameModel().getGlobalProfessorTable().setProfessorLocation(movedStudent, player);
-                    updateInfo.put(GameCommandValues.GLOBALPROFESSORTABLE, ControllerData.getInstance().getGameModel().getGlobalProfessorTable());
+                GlobalProfessorTable gpt = ControllerData.getInstance().getGameModel().getGlobalProfessorTable();
+                // Checks if the current player has more students on a specific color's DiningRoomTable than the player which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
+                Player playerControllingProfessor = gpt.getProfessorLocation(movedStudent);
+                if (!player.equals(playerControllingProfessor) && canMoveProfessor(player, playerControllingProfessor, movedStudent)) {
+                    gpt.setProfessorLocation(movedStudent, player);
+                    updateInfo.put(GameCommandValues.GLOBALPROFESSORTABLE, gpt);
                 }
 
                 // Adds current player DiningRoom value to the updateInfo Map that will be sent to all the players
@@ -140,6 +141,13 @@ public class GameStateMoveStudents implements GameStateActionPhase{
             // After the CharacterCard usage, it recalls the same function and makes the player choose a student once again
             moveOneStudent(player, playerView);
         }
+    }
+
+    public boolean canMoveProfessor(Player newPlayer, Player controllingPlayer, Color student) {
+        // TODO: More readable?
+        return ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.equalStudentsFlag) ?
+            newPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) >= controllingPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) :
+            newPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) >  controllingPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) ;
     }
 
     /**

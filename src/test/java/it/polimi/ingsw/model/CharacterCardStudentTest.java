@@ -34,7 +34,7 @@ class CharacterCardStudentTest {
         studentsField.set(characterCardStudentTest, Arrays.copyOf(studentsTest, studentsTest.length));
 
         for (int i = 0; i < studentsTest.length; i++)
-            if (studentsTest[i] != (characterCardStudentTest.getStudent())[i])
+            if (studentsTest[i] != (characterCardStudentTest.getStudents())[i])
                 throw new AssertionError("Getter returned wrong value");
     }
 

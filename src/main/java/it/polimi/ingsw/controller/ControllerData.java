@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.Isomorphism;
+import it.polimi.ingsw.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
@@ -13,6 +14,8 @@ import java.util.Map;
  * @author Mattia Martelli
  */
 public class ControllerData {
+
+    public enum Flags { equalStudentsFlag, extraMovementFlag, ignoreTowersFlag, extraInfluenceFlag, excludeColorFlag }
 
     // region Fields
 
@@ -27,6 +30,10 @@ public class ControllerData {
     private        boolean                          expertMode;
     private        Isomorphism<Player, VirtualView> playerViewMap;
     private        Player                           currentPlayer;
+    private        CharacterCardStrategy[]          cardStrategies;
+    private        boolean[]                        characterCardFlags;
+    private        Color                            excludedColor;
+    private        boolean                          winTrigger;
 
     // endregion
 
@@ -280,6 +287,8 @@ public class ControllerData {
 
     private ControllerData() {
         expertMode = false;
+        winTrigger = false;
+        //TODO: trigger rimanenti
     }
 
     /**
@@ -305,6 +314,9 @@ public class ControllerData {
         instance.hasPlayedCard             = data.hasPlayedCard;
         instance.numOfPlayers              = data.numOfPlayers;
         instance.expertMode                = data.expertMode;
+        instance.cardStrategies            = Arrays.copyOf(data.cardStrategies, data.cardStrategies.length);
+        instance.characterCardFlags        = Arrays.copyOf(data.characterCardFlags, data.characterCardFlags.length);
+        //TODO: winTrigger
 
         // Create a copy the players, to aid the linking process
         Player[] players = instance.gameModel.getPlayer();
@@ -351,4 +363,38 @@ public class ControllerData {
 
     // endregion
 
+    public void setCardStrategies(CharacterCardStrategy[] cardStrategies) {
+        this.cardStrategies = cardStrategies;
+    }
+
+    public void setCardStrategies(CharacterCardStrategy cardStrategy, int index) {
+        cardStrategies[index] = cardStrategy;
+    }
+
+    public void setCharacterCardFlag(Flags flag, boolean value) {
+        if (characterCardFlags == null)
+            characterCardFlags = new boolean[4];
+
+        characterCardFlags[flag.ordinal()] = value;
+    }
+
+    public boolean getCharacterCardFlag(Flags flag) {
+        return characterCardFlags[flag.ordinal()];
+    }
+
+    public void setWinTrigger(boolean winTrigger) {
+        this.winTrigger = winTrigger;
+    }
+
+    public boolean checkWinTrigger() {
+        return winTrigger;
+    }
+
+    public void setExcludedColor(Color excludedColor) {
+        this.excludedColor = excludedColor;
+    }
+
+    public Color getExcludedColor() {
+        return excludedColor;
+    }
 }

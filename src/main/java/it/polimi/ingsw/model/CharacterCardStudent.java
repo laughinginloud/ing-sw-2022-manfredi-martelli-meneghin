@@ -21,9 +21,19 @@ public class CharacterCardStudent extends CharacterCard {
      * Get the students on the CharacterCard, without deleting them
      * @return An array of Color containing currently on the CharacterCard
      */
-    public Color[] getStudent() {
+    public Color[] getStudents() {
         Color[] temp = new Color[students.length];
         System.arraycopy(students, 0, temp, 0, students.length);
+        return temp;
+    }
+
+    public Color retrieveStudent(int index) {
+        if (index < 0 || index > students.length)
+            throw new IllegalArgumentException("Index out of bounds");
+
+        Color temp = students[index];
+        System.arraycopy(students, index + 1, students, index, students.length - index - 1);
+        students[students.length - 1] = null;
         return temp;
     }
 
@@ -35,6 +45,16 @@ public class CharacterCardStudent extends CharacterCard {
     public void setStudents(Color color, int index) throws IllegalArgumentException {
         if (index < 0 || index > 5)
             throw new IllegalArgumentException("CharacterCardStudent.students has maximum length 6");
+
         this.students[index] = color;
+    }
+
+    public void appendStudent(Color color) {
+        for (int i = 0; i < students.length; ++i) {
+            if (students[i] == null) {
+                students[i] = color;
+                return;
+            }
+        }
     }
 }

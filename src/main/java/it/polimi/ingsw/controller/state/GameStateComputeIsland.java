@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.command.GameCommand;
 import it.polimi.ingsw.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.controller.command.GameCommandValues;
@@ -16,14 +15,19 @@ import java.util.*;
  * @author Mattia Martelli
  */
 public class GameStateComputeIsland implements GameStateActionPhase {
-    boolean notEnoughTowerTrigger = false;
-    Integer remainingTower = null;
-    boolean winTrigger = false;
-    Player  winner     = null;
+    private boolean notEnoughTowerTrigger = false;
+    private Integer remainingTower        = null;
+    private Player  winner                = null;
+    //TODO: winner list team
 
+    //TODO: ripulire
     public GameState nextState() {
-        if (winTrigger)
-            return winner == null ? new GameStateEndGame() : new GameStateEndGame(putWinners(winner));
+        if (ControllerData.getInstance().checkWinTrigger())
+            return winner == null ?
+                new GameStateEndGame() :
+                ControllerData.getInstance().getGameModel().getPlayersCount() == 4 ?
+                    new GameStateEndGame(putWinners(winner)) :
+                    new GameStateEndGame(winner);
 
         return new GameStateChooseCloud();
     }
@@ -33,13 +37,12 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         GameModel      model         = data.getGameModel();
         int            islandIndex   = model.getMotherNaturePosition();
         Island         currentIsland = model.getIsland(islandIndex);
-        VirtualView    player        = data.getPlayerView(data.getCurrentPlayer());
 
         // If the island doesn't have a tower on it launch the control routine, otherwise launch the conquest one
         if (currentIsland.getTowerColor() == null)
-            controlIsland(model, currentIsland);
+            controlIsland(data, model, currentIsland);
         else
-            conquerIsland(model, currentIsland);
+            conquerIsland(data, model, currentIsland);
 
         // Updates all the players about the variation on IslandArray caused by the execution of controlIsland or conquerIsland
         try {
@@ -58,8 +61,8 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             controlAndConquerUpdate = new GameCommandSendInfo(controlAndConquerInfo);
 
             // Updates all the players
-            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder())
-                ControllerData.getInstance().getPlayerView(playerToUpdate).sendMessage(controlAndConquerUpdate);
+            for (Player playerToUpdate : data.getPlayersOrder())
+                data.getPlayerView(playerToUpdate).sendMessage(controlAndConquerUpdate);
 
         }
 
@@ -69,15 +72,15 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         }
 
         // No point in continuing if the winner has already been decided
-        if (winTrigger)
+        if (data.checkWinTrigger())
             return;
 
         unifyIslands(model, islandIndex);
 
         // Update every player about the GameBoard's changes
         try {
-            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
-                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playerToUpdate);
+            for (Player playerToUpdate : data.getPlayersOrder()) {
+                VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
                 playerToUpdateView.sendMessage(createLightMap(model));
             }
         }
@@ -87,11 +90,11 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         }
 
         if (model.getIslandsCount() <= 3)
-            winTrigger = true;
+            data.setWinTrigger(true);
     }
 
-    private void controlIsland(GameModel model, Island island) {
-        Map<Player, Integer> influencePoints = getIslandInfluences(model, island);
+    private void controlIsland(ControllerData data, GameModel model, Island island) {
+        Map<Player, Integer> influencePoints = getIslandInfluences(data, model, island);
 
         // If nobody has any influence then nobody controls the island
         if (noInfluencePoints(influencePoints))
@@ -110,9 +113,11 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             endGame(maxPlayer);
     }
 
-    private void conquerIsland(GameModel model, Island island) {
-        Map<Player, Integer> influencePoints = getIslandInfluences(model, island);
-        addTowerInfluence(influencePoints, model, island);
+    private void conquerIsland(ControllerData data, GameModel model, Island island) {
+        Map<Player, Integer> influencePoints = getIslandInfluences(data, model, island);
+
+        if (!ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.ignoreTowersFlag))
+            addTowerInfluence(influencePoints, model, island);
 
         Player      maxPlayer      = getMaxPlayer(influencePoints);
         Player      curPlayer      = getTowerPlayer(model, island);
@@ -155,14 +160,19 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         }
     }
 
-    private Map<Player, Integer> getIslandInfluences(GameModel model, Island island) {
-        return model.getPlayersCount() == 4 ? getIslandInfluencesFourPlayers(model, island) : getIslandInfluencesTwoThreePlayers(model, island);
+    private Map<Player, Integer> getIslandInfluences(ControllerData data, GameModel model, Island island) {
+        Map<Player, Integer> mpi = model.getPlayersCount() == 4 ? getIslandInfluencesFourPlayers(data, model, island) : getIslandInfluencesTwoThreePlayers(data, model, island);
+
+        if (data.getCharacterCardFlag(ControllerData.Flags.extraInfluenceFlag))
+            mpi.replace(data.getCurrentPlayer(), mpi.get(data.getCurrentPlayer()) + 2);
+
+        return mpi;
     }
 
-    private Map<Player, Integer> getIslandInfluencesFourPlayers(GameModel model, Island island) {
+    private Map<Player, Integer> getIslandInfluencesFourPlayers(ControllerData data, GameModel model, Island island) {
         // If there are four players, calculate the influence for each one and then fuse the teams
         Player[]             players          = model.getPlayer();
-        Map<Player, Integer> influencesSingle = getIslandInfluencesTwoThreePlayers(model, island);
+        Map<Player, Integer> influencesSingle = getIslandInfluencesTwoThreePlayers(data, model, island);
 
         // Create a map that will contain just two players: both teams' tower holders and sum the elements of the original map
         Map<Player, Integer> influencesTeams  = new HashMap<>();
@@ -172,21 +182,25 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         return influencesTeams;
     }
 
-    private Map<Player, Integer> getIslandInfluencesTwoThreePlayers(GameModel model, Island island) {
+    private Map<Player, Integer> getIslandInfluencesTwoThreePlayers(ControllerData data, GameModel model, Island island) {
         // Create and initialize a new map to represent the players' influences
         Map<Player, Integer> influences = new HashMap<>();
         for (Player player : model.getPlayer())
             influences.put(player, 0);
 
         // Iterate for each color on the island and add +1 influence to the player who controls the professor
-        // Note that pofessorLocation is null checked because it is null if the professor's not controlled by anyone
-        for (Color color : Color.values())
+        // Note that professorLocation is null checked because it is null if the professor's not controlled by anyone
+        for (Color color : Color.values()) {
+            if (data.getCharacterCardFlag(ControllerData.Flags.excludeColorFlag) && data.getExcludedColor() == color)
+                continue;
+
             if (island.getStudentCounters(color) > 0) {
                 Player professorLocation = model.getGlobalProfessorTable().getProfessorLocation(color);
 
                 if (professorLocation != null)
                     influences.replace(professorLocation, influences.get(professorLocation) + 1);
             }
+        }
 
         return influences;
     }
@@ -217,7 +231,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
                 // Take the first element, which will be the one with the same tower color
                 .findFirst()
                 // Unpack the value from the optional, throwing an exception if it's empty
-                // Note: if the optional's empty it means that the model wasn't populated correctly
+                // Note: if the optional is empty it means that the model wasn't populated correctly
                 .orElseThrow();
 
         // Check whether the player is really the correct one, to be safe
@@ -252,7 +266,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
     private void endGame(Player winner) {
         this.winner = winner;
-        winTrigger  = true;
+        ControllerData.getInstance().setWinTrigger(true);
     }
 
     private GameCommand createMap(ControllerData data, GameModel model) {
@@ -274,10 +288,9 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         List<Player> winners = new ArrayList<>();
         winners.add(winner);
 
-        if (numOfPlayer == 4)
-            for (int i = 0; i < numOfPlayer; i++)
-                if (players[i].equals(winner))
-                    winners.add(players[(i + 2) % 4]);
+        for (int i = 0; i < numOfPlayer; i++)
+            if (players[i].equals(winner))
+                winners.add(players[(i + 2) % 4]);
 
         return winners;
     }
