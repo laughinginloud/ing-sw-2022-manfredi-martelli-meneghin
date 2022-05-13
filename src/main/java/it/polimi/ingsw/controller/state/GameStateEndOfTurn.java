@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller.state;
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.command.*;
 import it.polimi.ingsw.model.Character;
+import it.polimi.ingsw.model.CharacterCard;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.virtualView.VirtualView;
@@ -21,23 +22,48 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
     public void executeState() {
         try {
-            Player curPlayer = ControllerData.getInstance().getCurrentPlayer();
-            VirtualView curPlayerView = ControllerData.getInstance().getPlayerView(curPlayer);
+            Map<GameCommandValues, Object> characterCardInfo = new HashMap<>();
+            boolean expertMode = ControllerData.getInstance().getExpertMode();
+            boolean canPlayCharacterCard = false;
 
-            GameCommand request = new GameCommandRequestAction(GameCommandActions.ENDTURN, null);
-            GameCommand response = curPlayerView.sendRequest(request);
+            // If the player hasn't player a card yet and the game is in ExpertMode
+            if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
+                // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
+                /* TODO: [CharacterCardChecking] Link to the getPlayableCharacterFunction
+                CharacterCard[] playableCharacterCard = getPlayableCharacterCard(player); */
+                CharacterCard[] playableCharacterCard = null; //TO CHANGE!
 
-            if (response instanceof GameCommandPlayCharacterCard c) {
-                // If the player already used a CharacterCard during this turn, throws an exception
-                if(ControllerData.getInstance().checkPlayedCard())
-                    throw new IllegalStateException("CharacterCard has been already used by the current player!");
+                // If there are CharacterCard playable by the current player, add them to the moveStudentsInfo
+                if (playableCharacterCard != null) {
+                    characterCardInfo.put(GameCommandValues.CHARACTERCARDARRAY, playableCharacterCard);
 
-                // Executes the command received and set to "true" the flag hasPlayedCard stored in ControllerData
-                Character calledCharacter = (Character) c.executeCommand();
-                ControllerData.getInstance().setPlayedCard();
+                    //Set the flag to true to change the GameCommandRequestAction's type during its initialization
+                    canPlayCharacterCard = true;
 
-                /* TODO: [CharacterCard] Insert here the real name of the function which manage the CharacterCardUse */
-                // CharacterCardUse.useCharacterCard(calledCharacter);
+                }
+
+                // If a CharacterCard can be played by the current player
+                if (canPlayCharacterCard) {
+
+                    Player curPlayer = ControllerData.getInstance().getCurrentPlayer();
+                    VirtualView curPlayerView = ControllerData.getInstance().getPlayerView(curPlayer);
+
+                    GameCommand request = new GameCommandRequestAction(GameCommandActions.ENDTURN, characterCardInfo);
+                    GameCommand response = curPlayerView.sendRequest(request);
+
+                    if (response instanceof GameCommandPlayCharacterCard c) {
+                        // If the player already used a CharacterCard during this turn, throws an exception
+                        if (ControllerData.getInstance().checkPlayedCard())
+                            throw new IllegalStateException("CharacterCard has been already used by the current player!");
+
+                        // Executes the command received and set to "true" the flag hasPlayedCard stored in ControllerData
+                        Character calledCharacter = (Character) c.executeCommand();
+                        ControllerData.getInstance().setPlayedCard();
+
+                        /* TODO: [CharacterCard] Insert here the real name of the function which manage the CharacterCardUse */
+                        // CharacterCardUse.useCharacterCard(calledCharacter);
+                    }
+                }
             }
         }
 

@@ -8,6 +8,15 @@ public enum GameCommandValues {
     CHARACTERCARDARRAY,
     MODEL,
 
+    // An array of color (students or professor)
+    COLORARRAY,
+
+    // An array of boolean of various lenght
+    BOOLARRAY,
+
+    // An integer representing this turn MotherNature's movement-range
+    MOTHERNATUREMOVEMENT,
+
     // Position of MotherNature
     MOTHERNATURE,
 

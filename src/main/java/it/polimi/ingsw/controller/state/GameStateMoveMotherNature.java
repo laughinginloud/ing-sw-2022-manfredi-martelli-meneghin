@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.model.Character;
+import it.polimi.ingsw.model.CharacterCard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.virtualView.VirtualView;
 import it.polimi.ingsw.controller.command.*;
@@ -24,9 +25,35 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
         try {
             Player      player     = ControllerData.getInstance().getCurrentPlayer();
             VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
+            Map<GameCommandValues, Object> moveMNInfo = new HashMap<>();
+            boolean expertMode = ControllerData.getInstance().getExpertMode();
+            boolean canPlayCharacterCard = false;
+
+            // Calculates the max motherNature movement and store it on the Map moveMNInfo
+            int motherNatureMovement = player.getLastPlayedCard().movementPoints() + (ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0);
+            moveMNInfo.put(GameCommandValues.MOTHERNATUREMOVEMENT, motherNatureMovement);
+
+            // If the player hasn't played a card yet
+            if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
+                // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
+                /* TODO: [CharacterCardChecking] Link to the getPlayableCharacterFunction
+                   CharacterCard[] playableCharacterCard = getPlayableCharacterCard(player); */
+                CharacterCard[] playableCharacterCard = null; //TO CHANGE!
+
+                // If there are CharacterCard playable by the current player, adds them to the moveStudentsInfo
+                if (playableCharacterCard != null) {
+                    moveMNInfo.put(GameCommandValues.CHARACTERCARDARRAY, playableCharacterCard);
+
+                    //Set the flag to true to change the GameCommandRequestAction's type during its initialization
+                    canPlayCharacterCard = true;
+                }
+            }
 
             // Create a command representing the request of MotherNature's movement and send it to the player
-            GameCommand request    = new GameCommandRequestAction(GameCommandActions.MOVEMOTHERNATURE, player.getLastPlayedCard().movementPoints() + (ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0));
+            // If the player is allowed to, send also the CharacterCard he could play
+            GameCommand request    = canPlayCharacterCard ?
+                new GameCommandRequestAction(GameCommandActions.MOVEMOTHERNATUREORPLAYCARD, moveMNInfo):
+                new GameCommandRequestAction(GameCommandActions.MOVEMOTHERNATURE, moveMNInfo);
             GameCommand response   = playerView.sendRequest(request);
 
             // If the response is of the right kind, try to execute the movement
