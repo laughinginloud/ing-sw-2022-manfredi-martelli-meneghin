@@ -29,6 +29,9 @@ public enum GameCommandValues {
     // A specified player's DiningRoom
     DININGROOM,
 
+    // An array of diningRoom containing all the players' diningRooms
+    DININGROOMARRAY,
+
     // The globalProfessorTable linked to the class GameModel
     GLOBALPROFESSORTABLE,
 
