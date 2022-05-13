@@ -49,4 +49,7 @@ public enum GameCommandValues {
 
     // An array of players that "drawn" the Game
     DRAWERS,
+
+    // CharacterCard that has been played by the player (response Client -> Server)
+    PLAYEDCHARACTERCARD,
 }
