@@ -5,7 +5,6 @@ import it.polimi.ingsw.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.controller.command.*;
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.CharacterCard;
-import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.virtualView.VirtualView;
 
@@ -48,6 +47,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
                     GameCommand request = new GameCommandRequestAction(GameCommandActions.ENDTURN, characterCardInfo);
                     GameCommand response = curPlayerView.sendRequest(request);
 
+                    // If the player decide to play a characterCard
                     if (response instanceof GameCommandPlayCharacterCard c) {
                         // If the player already used a CharacterCard during this turn, throws an exception
                         if (ControllerData.getInstance().checkPlayedCard())
@@ -59,6 +59,29 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
                         /* TODO: [CharacterCard] Insert here the real name of the function which manage the CharacterCardUse */
                         // CharacterCardUse.useCharacterCard(calledCharacter);
+
+                        // Reset then all the characterCard flags that has been enabled during this turn and end the player's turn
+                        resetCharacterCardFlags();
+                    }
+
+                    // If the player decide to end his turn
+                    else if (response instanceof GameCommandEndTurn c) {
+                        // Reset then all the characterCard flags that has been enabled during this turn and end the player's turn
+                        resetCharacterCardFlags();
+                    }
+
+                    // If the response is of the wrong kind, send an Illegal Command message and try this state again
+                    else {
+                        try {
+                            curPlayerView.sendMessage(new GameCommandIllegalCommand());
+                        }
+
+                        catch (Exception e) {
+                            // Fatal error: print the stack trace to help debug
+                            e.printStackTrace();
+                        }
+
+                        executeState();
                     }
                 }
             }
@@ -70,6 +93,10 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
         }
     }
 
+    /**
+     * Check if there's another player that has to play his turn during this Round
+     * @return A boolean representing the presence of another player that has to play his turn
+     */
     private boolean anotherPlayerTurn() {
         Player[] orderedPlayer = ControllerData.getInstance().getPlayersOrder();
         Player currentPlayer   = ControllerData.getInstance().getCurrentPlayer();
@@ -77,4 +104,17 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
         // If the currentPlayer it's not the last player of the round, then anotherPlayerTurn() -> True
         return !currentPlayer.equals(orderedPlayer[ControllerData.getInstance().getNumOfPlayers() - 1]);
     }
+
+    /**
+     * #ExpertModeOnly - Resets all the characterCard flags to false, resets the ExcludedColor
+     */
+    private void resetCharacterCardFlags() {
+        ControllerData data = ControllerData.getInstance();
+        for (ControllerData.Flags flag : ControllerData.Flags.values())
+            data.setCharacterCardFlag(flag, false);
+
+        ControllerData.getInstance().setExcludedColor(null);
+    }
+
+
 }
