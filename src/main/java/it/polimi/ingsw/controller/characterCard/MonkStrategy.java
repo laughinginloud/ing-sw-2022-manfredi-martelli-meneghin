@@ -55,14 +55,26 @@ public class MonkStrategy extends CharacterCardStrategy {
                 @SuppressWarnings("unchecked")
                 Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
 
-
-
-                // TODO [CharacterCardStrategy] logic implementation
+                // TODO [CharacterCard] index access
                 // The server moves the student from the CharacterCard to the selected island
-                // The server refills the card taking a student from the Bag (EmptyBagException)
-                // The server sets the Player to hasPlayedCard = true
+                Color tmp = enhancedCard.retrieveStudent(student_index);
+                Island target = model.getIsland(island_index);
+                target.setStudentCounters(tmp, target.getStudentCounters(tmp) + 1);
 
-                /* It could be useful create a method in CharacterCardStrategy who implements the following procedures
+                // The server refills the card taking a student from the Bag (EmptyBagException)
+                try{
+                    tmp = model.getBag().drawStudents(1).drawnStudents()[0];
+                } catch (EmptyBagException e){
+                    data.setEmptyBagTrigger();
+                }
+                enhancedCard.appendStudent(tmp);
+
+                // The server sets the Player to hasPlayedCard = true
+                data.setPlayedCard();
+
+
+                /* TODO [CharacterCard] - Check coinIncrease
+                It could be useful create a method in CharacterCardStrategy who implements the following procedures
                        The server decrease the Player coinCount
                        The server increase the global coinCount
                        Only the first time {
@@ -71,7 +83,6 @@ public class MonkStrategy extends CharacterCardStrategy {
                         }
                        The server notify all the players about those new game board conditions
                 */
-
 
 
                 // After the server managed the use of the CharacterCard, gets the updated values of CharacterCardsArray and IslandsArray
