@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.CharacterCard;
 import it.polimi.ingsw.model.Player;
@@ -36,9 +37,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
             // If the player hasn't played a card yet
             if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
                 // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
-                /* TODO: [CharacterCardChecking] Link to the getPlayableCharacterFunction
-                   CharacterCard[] playableCharacterCard = getPlayableCharacterCard(player); */
-                CharacterCard[] playableCharacterCard = null; //TO CHANGE!
+                CharacterCard[] playableCharacterCard = CharacterCardManager.getPlayableCharacterCard(player);
 
                 // If there are CharacterCard playable by the current player, adds them to the moveStudentsInfo
                 if (playableCharacterCard != null) {

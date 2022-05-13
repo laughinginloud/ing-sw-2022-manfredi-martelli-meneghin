@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.controller.command.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Character;
@@ -81,7 +82,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
         // If the player hasn't played a card yet
         if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
             // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
-            CharacterCard[] playableCharacterCard = getPlayableCharacterCard(player);
+            CharacterCard[] playableCharacterCard = CharacterCardManager.getPlayableCharacterCard(player);
 
             // If there are CharacterCard playable by the current player, adds them to the moveStudentsInfo
             if (playableCharacterCard != null) {
@@ -208,105 +209,6 @@ public class GameStateMoveStudents implements GameStateActionPhase {
         }
 
         return false;
-    }
-
-    /**
-     * Gets the card that are playable by the current player
-     * @param player The player who could play a CharacterCard
-     * @return An array of CharacterCard containing the playable CharacterCards
-     */
-    private CharacterCard[] getPlayableCharacterCard(Player player) {
-        PlayerExpert playerExpert = (PlayerExpert) player;
-        CharacterCard[]     presentCharacterCard = ControllerData.getInstance().getGameModel().getCharacterCards();
-        CharacterCard[]     characterCardsToSend;
-        List<CharacterCard> playableCharacterCard = new ArrayList<>();
-
-        // Select which CharacterCard can be played by the player
-        for (CharacterCard characterCard : presentCharacterCard)
-            if (playerExpert.getCoinCount() >= characterCard.getCost() && checkCharacterCardTokens(characterCard, playerExpert))
-                playableCharacterCard.add(characterCard);
-
-        // If there are no playable CharacterCards
-        if (playableCharacterCard.isEmpty())
-            return null;
-
-        // If there's at least one playable CharacterCard
-        else {
-            characterCardsToSend = new CharacterCard[playableCharacterCard.size()];
-            for (int i = 0; i < playableCharacterCard.size(); i++)
-                characterCardsToSend[i] = playableCharacterCard.get(i);
-
-            return characterCardsToSend;
-        }
-    }
-
-    /**
-     * Checks if with the current game-board condition specific CharacterCard can be played by the current player
-     * @param characterCard The CharacterCard which need a game-board situation compatibility check
-     * @param player The player who could use the CharacterCard
-     * @return A boolean representing the playability of the card
-     */
-    private boolean checkCharacterCardTokens(CharacterCard characterCard, Player player) {
-        Character character = characterCard.getCharacter();
-        boolean   characterCardPlayability = false;
-
-        // MONK, BARD: Check if there is at least one student still on the CharacterCard, that can be then moved
-        if (character == Character.MONK || character == Character.PRINCESS) {
-            CharacterCardStudent characterCardStudent = (CharacterCardStudent) characterCard;
-            Color[] studentColors = characterCardStudent.getStudents();
-
-            for (Color studentColor : studentColors)
-                if (studentColor != null) {
-                    characterCardPlayability = true;
-                    break;
-                }
-        }
-
-        // FARMER: Check if there is at least on Professor which has been moved to a player's DiningRoom
-        else if (character == Character.FARMER) {
-            GlobalProfessorTable gpt = ControllerData.getInstance().getGameModel().getGlobalProfessorTable();
-
-            for (Color color : Color.values())
-                if (gpt.getProfessorLocation(color) != null)
-                    characterCardPlayability = true;
-        }
-
-        // HERBALIST: Check if there is at least on noEntryTile still on the card
-        else if (character == Character.HERBALIST) {
-            CharacterCardNoEntry characterCardNoEntry = (CharacterCardNoEntry) characterCard;
-            if (characterCardNoEntry.getNoEntryCount() > 0)
-                characterCardPlayability = true;
-        }
-
-        // BARD: Check if there is at least one student in the current player DiningRoom
-        else if (character == Character.BARD) {
-            DiningRoom currentPlayerDiningRoom = player.getSchoolBoard().getDiningRoom();
-            for (Color color : Color.values())
-                if (currentPlayerDiningRoom.getStudentCounters(color) > 0)
-                    characterCardPlayability = true;
-        }
-
-        // THIEF: Check if there is at least one student in one of all players' DiningRoom
-        else if (character == Character.THIEF) {
-            Player[]     players     = ControllerData.getInstance().getPlayersOrder();
-            DiningRoom[] diningRooms = new DiningRoom[players.length];
-
-            // Gets the players' diningRoom
-            for (int i = 0; i < players.length; i++)
-                diningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
-
-            // Check every diningRoom and set characterCardPlayability to true if a student is found
-            for (DiningRoom diningRoom : diningRooms)
-                for (Color color : Color.values())
-                    if (diningRoom.getStudentCounters(color) > 0)
-                        characterCardPlayability = true;
-        }
-
-        // If this characterCar's utilization is always allowed
-        else
-            characterCardPlayability = true;
-
-        return characterCardPlayability;
     }
 }
 

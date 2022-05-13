@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.controller.command.*;
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.CharacterCard;
@@ -22,6 +23,8 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
     public void executeState() {
         try {
+            Player curPlayer = ControllerData.getInstance().getCurrentPlayer();
+            VirtualView curPlayerView = ControllerData.getInstance().getPlayerView(curPlayer);
             Map<GameCommandValues, Object> characterCardInfo = new HashMap<>();
             boolean expertMode = ControllerData.getInstance().getExpertMode();
             boolean canPlayCharacterCard = false;
@@ -29,9 +32,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
             // If the player hasn't player a card yet and the game is in ExpertMode
             if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
                 // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
-                /* TODO: [CharacterCardChecking] Link to the getPlayableCharacterFunction
-                CharacterCard[] playableCharacterCard = getPlayableCharacterCard(player); */
-                CharacterCard[] playableCharacterCard = null; //TO CHANGE!
+                CharacterCard[] playableCharacterCard = CharacterCardManager.getPlayableCharacterCard(curPlayer);
 
                 // If there are CharacterCard playable by the current player, add them to the moveStudentsInfo
                 if (playableCharacterCard != null) {
@@ -44,10 +45,6 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
                 // If a CharacterCard can be played by the current player
                 if (canPlayCharacterCard) {
-
-                    Player curPlayer = ControllerData.getInstance().getCurrentPlayer();
-                    VirtualView curPlayerView = ControllerData.getInstance().getPlayerView(curPlayer);
-
                     GameCommand request = new GameCommandRequestAction(GameCommandActions.ENDTURN, characterCardInfo);
                     GameCommand response = curPlayerView.sendRequest(request);
 
