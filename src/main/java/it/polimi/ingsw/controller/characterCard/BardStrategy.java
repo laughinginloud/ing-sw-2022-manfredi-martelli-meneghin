@@ -1,6 +1,14 @@
 package it.polimi.ingsw.controller.characterCard;
 
-import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.*;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'BARD'
@@ -17,10 +25,230 @@ public class BardStrategy extends CharacterCardStrategy {
      */
     @Override
     public void activateEffect() {
-        // TODO [CharacterCardStrategy] @Gio @Seba implementation
-        // The server asks the player which student he wants to exchange between the entrance and the schoolBoard (requestAction())
-        // The player responds with the information requested by the server (responseAction(student[], student[]))
-        // The server exchanges the students across entrance and schoolBoard (using a tmp array)
-        // sendInfo to all players
+        try {
+            ControllerData data       = ControllerData.getInstance();
+            GameModel      model      = data.getGameModel();
+            Player         curPlayer  = data.getCurrentPlayer();
+            VirtualView    playerView = data.getPlayerView(curPlayer);
+
+            // Sets the max number of students that can be moved using a single time this characterCard
+            int maxNumOfMovements = 2;
+
+            // Create a Map and save in it the maxNumOfMovement in order to send it to the player
+            Map<GameCommandValues, Object> movementMap = new HashMap<>();
+            movementMap.put(GameCommandValues.MAXMOVEMENTBARD, maxNumOfMovements);
+
+            // The server asks the player how many students he would like to move using the Bard's cardEffect
+            GameCommand request  = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, movementMap);
+            GameCommand response = playerView.sendRequest(request);
+
+            // If the response is of the right kind
+            if (response instanceof GameCommandChosenCharacterCardFields c) {
+                // The player responds with the information requested by the server
+                @SuppressWarnings("unchecked")
+                Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+
+                // Gets the number of students that the player wants to move, from the Map received from the client
+                // TODO: [ClientImplementation] Int movementBard chosen from the client has to be between 1 and maxNumOfMovements
+                int chosenNumOfMovement = (int) chosenField.get(GameCommandValues.MOVEMENTBARD);
+
+                // For chosenNumOfMovement times asks the player which students he would like to move, waits for response and notifies all the players after the movement
+                for (int i = 0; i < chosenNumOfMovement; i++)
+                    changeStudent(data, model, curPlayer, playerView);
+
+            }
+
+            // If the response is of the wrong kind, send an Illegal Command message and restart the method
+            else {
+                try {
+                    playerView.sendMessage(new GameCommandIllegalCommand());
+                }
+
+                catch (Exception ex) {
+                    // Fatal error: print the stack trace to help debug
+                    ex.printStackTrace();
+                }
+
+                activateEffect();
+            }
+        }
+
+        catch (Exception e){
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
+        }
+    }
+
+    private void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
+        Player[] players = model.getPlayer();
+
+        // Gets the students present in the current player's Entrance
+        Color[] entranceStudents = curPlayer.getSchoolBoard().getEntrance().getStudents();
+
+        // Gets the entranceStudents that can be swapped using the Bard's effect
+        Color[] swappableStudents = getSwappableStudents(curPlayer, entranceStudents);
+
+        // Create a Map where save the fields that will be sent to the player as RequestAction's payload
+        Map<GameCommandValues, Object> bardMap = new HashMap<>();
+        bardMap.put(GameCommandValues.BARDSWAPPABLESTUDENTS, swappableStudents);
+
+        // Add to the Map that will be sent to the player the SwapMap related to the swappableStudents
+        Map<Color, Boolean[]> bardPossibleMovementMap = setBardPossibleMovements(curPlayer, swappableStudents);
+        bardMap.put(GameCommandValues.BARDSWAPMAP, bardPossibleMovementMap);
+
+        // The server asks the player which students would like to move (one from the Card, one from the Entrance)
+        GameCommand movementRequest  = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, bardMap);
+        GameCommand movementResponse = playerView.sendRequest(movementRequest);
+
+        // If the response is of the right kind
+        if (movementResponse instanceof GameCommandChosenCharacterCardFields c) {
+            // The player responds with the information requested by the server
+            @SuppressWarnings("unchecked")
+            Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+
+            // Gets the index of the swappableStudent and the diningRoomTable's student color of the player wants to swap the swappableStudent with
+            int   swappableStudentIndex    = (int)   chosenField.get(GameCommandValues.ENTRANCESTUDENTINDEX);
+            Color diningRoomTableStudent   = (Color) chosenField.get(GameCommandValues.DININGROOMTABLECOLOR);
+
+            // Retrieve the entranceStudentIndex corresponding to student indicated with the swappableStudentIndex
+            int entranceStudentIndex = getEntranceStudentIndex(entranceStudents, swappableStudents, swappableStudentIndex);
+
+
+
+
+            // TODO [CharacterCardStrategy] implementation
+            // The server exchanges the students across entrance and DiningRoom (using a tmp array)
+            // Update the globalProfessorTable according to the new SchoolBoard (professor could change location)
+
+
+
+
+            // After the server managed the use of the CharacterCard, gets the updated values of the SchoolBoards and of the GlobalProfessorTable
+            SchoolBoard[]        updatedSchoolBoards = new SchoolBoard[players.length];
+            GlobalProfessorTable updatedGPT          = model.getGlobalProfessorTable();
+
+            // Gets the schoolBoard of each player and saves it in updatedSchoolBoards
+            for (int i = 0; i < players.length; i++)
+                updatedSchoolBoards[i] = players[i].getSchoolBoard();
+
+            // Creates a map containing the updated fields to send to all the players
+            Map<GameCommandValues, Object> afterEffectUpdate = new HashMap<>();
+            afterEffectUpdate.put(GameCommandValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
+            afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGPT);
+
+            // Sends to all the players the updated fields
+            for (Player playersToUpdate : players) {
+                VirtualView playerToUpdateView = data.getPlayerView(playersToUpdate);
+                playerToUpdateView.sendMessage(new GameCommandSendInfo(afterEffectUpdate));
+            }
+        }
+
+        // If the response is of the wrong kind, send an Illegal Command message and restart the method
+        else {
+            try {
+                playerView.sendMessage(new GameCommandIllegalCommand());
+            }
+
+            catch (Exception ex) {
+                // Fatal error: print the stack trace to help debug
+                ex.printStackTrace();
+            }
+
+            changeStudent(data, model, curPlayer, playerView);
+        }
+    }
+
+    /**
+     * Gets all the entranceStudents that can be swapped with a diningRoom's student
+     * @param player The player who is going to swap a student
+     * @param entranceStudents The student in the entrance of the current player
+     * @return An array of Color representing the students of the entrance that can be swapped
+     */
+    private Color[] getSwappableStudents(Player player, Color[] entranceStudents) {
+        DiningRoom diningRoom = player.getSchoolBoard().getDiningRoom();
+        List<Color> swappableStudentsList = new ArrayList<>();
+        boolean addable = false;
+
+        // For each student currently present in the entrance
+        for (Color color : entranceStudents) {
+            // If there's a DiningTable of a different color of the student that is not empty, set "addable" to true
+            for (Color compareColor : Color.values())
+                if (color != compareColor && diningRoom.getStudentCounters(compareColor) > 0)
+                    addable = true;
+
+            // If the DiningTable of the same color of the student is full, set "addable" to false
+            if (diningRoom.getStudentCounters(color) == 10)
+                addable = false;
+
+            // If the student is swappable at least with a single DiningRoomTable, add it to the swappableStudents list
+            if (addable)
+                swappableStudentsList.add(color);
+        }
+
+        // Save the swappableStudentsList in a ColorArray of the same size
+        Color[] swappableStudents = new Color[swappableStudentsList.size()];
+        for (int i = 0; i < swappableStudentsList.size(); i++)
+            swappableStudents[i] = swappableStudentsList.get(i);
+
+        return swappableStudents;
+
+    }
+
+    /**
+     * For each swappableStudents calculates which DiningTable contains a student which is swappable with the entranceStudent
+     * @param player The player that has to swap the student
+     * @param swappableStudents The entranceStudents that can be swapped
+     * @return A Map(Color, Boolean[]) containing, for each swappableStudent, the compatibleDiningTable flags
+     */
+    private Map<Color, Boolean[]> setBardPossibleMovements (Player player, Color[] swappableStudents) {
+        DiningRoom diningRoom = player.getSchoolBoard().getDiningRoom();
+        Map<Color, Boolean[]> swapMap = new HashMap<>();
+
+        // For each swappableStudents (that is contained in the Entrance)
+        for (Color student : swappableStudents) {
+            Boolean[] compatibleDiningTable = {false, false, false, false, false};
+
+            // For each color different by the student's color, set the compatibleDiningTable to true
+            // That is because the entrance's student can only be swapped with different colored students
+            // and then at least one DiningTable has to contain at least one student
+            for (Color compareColor : Color.values())
+                if (student != compareColor && diningRoom.getStudentCounters(compareColor) > 0)
+                    compatibleDiningTable[compareColor.ordinal()] = true;
+
+            // Add an entry in the map with the swappableStudent as a key and the compatibleDiningTable flags array as value
+            swapMap.put(student, compatibleDiningTable);
+        }
+
+        return swapMap;
+    }
+
+    /**
+     * Link the selected swappableStudent to the correspondent entranceStudent
+     * @param entranceStudents An array of students containing the entrance's students
+     * @param swappableStudent An array of students containing the swappableStudents
+     * @param swappableStudentIndex The index of the students selected by the player from the swappableStudents
+     * @return The index of the student selected by the player mapped on the entranceStudents
+     */
+    private int getEntranceStudentIndex (Color[] entranceStudents, Color[] swappableStudent, int swappableStudentIndex) {
+        Color swappedStudent = swappableStudent[swappableStudentIndex];
+        int sameColorAntecedentSwappedStudents  = 0;
+        int sameColorAntecedentEntranceStudents = 0;
+        boolean sameAntecedents = false;
+
+        for (int i = 0; i < swappableStudentIndex; i++)
+            if (swappableStudent[i] == swappedStudent)
+                sameColorAntecedentSwappedStudents++;
+
+        if (sameColorAntecedentEntranceStudents == sameColorAntecedentSwappedStudents)
+            sameAntecedents = true;
+
+        for (int i = 0; i < entranceStudents.length; i++)
+            if (entranceStudents[i] == swappedStudent)
+                if (!sameAntecedents)
+                    sameColorAntecedentSwappedStudents++;
+                else
+                    return i;
+
+        throw new IllegalStateException("Entrance must contain the student select by the swappableStudents");
     }
 }

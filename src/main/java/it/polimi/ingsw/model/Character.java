@@ -32,7 +32,7 @@ public enum Character {
     // ID = 8  - Cost = 3 - Rules: the chosen Color is not considered when calculating influence on islands
     MERCHANT,
 
-    // ID = 9  - Cost = 1 - Rules: 2 students can be exchanged between schoolBoard and Entrance of the active player
+    // ID = 9  - Cost = 1 - Rules: 2 students can be exchanged between DiningRoom and Entrance of the active player
     BARD,
 
     // ID = 10 - Cost = 2 - Rules: 4 students on the card. Allows to move one to a SchoolBoard. Refills from Bag

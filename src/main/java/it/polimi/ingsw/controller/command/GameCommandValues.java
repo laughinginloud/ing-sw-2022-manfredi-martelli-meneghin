@@ -35,6 +35,9 @@ public enum GameCommandValues {
     // An array of diningRoom containing all the players' diningRooms
     DININGROOMARRAY,
 
+    // An array of schoolBoard containing all the players' schoolBoards
+    SCHOOLBOARDARRAY,
+
     // The globalProfessorTable linked to the class GameModel
     GLOBALPROFESSORTABLE,
 
@@ -78,9 +81,27 @@ public enum GameCommandValues {
     // An Array of color representing the students present on a characterCard
     CARDSTUDENTS,
 
-    // An integer that indicates the index of the student the client selected from the entrance - CharacterCard 'JESTER'
+    // An integer that indicates the index of the student the player selected from the entrance - CharacterCard 'JESTER'
     ENTRANCESTUDENTINDEX,
 
-    // An integer that indicates the index of the student the client selected from the card's students - CharacterCard 'JESTER'
+    // An integer that indicates the index of the student the player selected from the card's students - CharacterCard 'JESTER'
     CARDSTUDENTINDEX,
+
+    // An integer representing the max number of students that can be moved using the characterCard Bard
+    MAXMOVEMENTBARD,
+
+    // An integer representing the number of students that will be moved by the player using the characterCard Bard
+    MOVEMENTBARD,
+
+    // An array of entrances' students that can be swapped with diningRoom's students by the player using the characterCard 'BARD'
+    BARDSWAPPABLESTUDENTS,
+
+    // A Map(Color, Boolean[]) that representing which diningRoom's student can be swapped with a selected entrance's student (which is the key)
+    BARDSWAPMAP,
+
+    // An integer that indicates the index of the student the player selected from the swappableStudents - CharacterCard 'BARD'
+    SWAPPABLESTUDENTINDEX,
+
+    // The color of the diningRoomTable containing the student that the player want to swap the swappableStudent with - CharacterCard 'BARD'
+    DININGROOMTABLECOLOR,
 }
