@@ -12,7 +12,7 @@ public abstract class CharacterCardStrategy {
     protected CharacterCard card;
 
     /**
-     * Factory method: Builder of the CharacterCardStrategy. Associates the strategy to the CharacterCard
+     * Factory method: Associates the strategy to the CharacterCard
      * @param card The card that needs the strategy
      * @return the CharacterCardStrategy containing the association between card and strategy
      */

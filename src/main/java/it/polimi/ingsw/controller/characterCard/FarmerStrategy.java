@@ -15,6 +15,11 @@ import java.util.Map;
  * @author Giovanni Manfredi
  */
 public class FarmerStrategy extends CharacterCardStrategy {
+
+    /**
+     * Builder of the class 'FarmerStrategy'
+     * @param card the card to which the class is initialized
+     */
     public FarmerStrategy(CharacterCard card) {
         this.card = card;
     }
@@ -45,9 +50,6 @@ public class FarmerStrategy extends CharacterCardStrategy {
                 model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
             }
         }
-
-        // The server sets the Player to hasPlayedCard = true
-        data.setPlayedCard();
 
         try {
             Player[] players = data.getPlayersOrder();

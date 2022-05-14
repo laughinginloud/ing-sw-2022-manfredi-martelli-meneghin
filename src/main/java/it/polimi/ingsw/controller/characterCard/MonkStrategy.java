@@ -15,6 +15,11 @@ import java.util.Map;
  * @author Giovanni Manfredi
  */
 public class MonkStrategy extends CharacterCardStrategy {
+
+    /**
+     * Constructor of the class 'MonkStrategy'
+     * @param card the card to which the class is initialized
+     */
     public MonkStrategy(CharacterCard card) {
         this.card = card;
     }
@@ -68,9 +73,6 @@ public class MonkStrategy extends CharacterCardStrategy {
                     data.setEmptyBagTrigger();
                 }
                 enhancedCard.appendStudent(movedStudent);
-
-                // The server sets the Player to hasPlayedCard = true
-                data.setPlayedCard();
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
                 // CharacterCardsArray and IslandsArray
