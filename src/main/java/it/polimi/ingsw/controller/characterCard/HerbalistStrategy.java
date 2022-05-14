@@ -16,6 +16,11 @@ import java.util.Map;
  * @author Giovanni Manfredi
  */
 public class HerbalistStrategy extends CharacterCardStrategy {
+
+    /**
+     * Constructor of the class 'HerbalistStrategy'
+     * @param card the card to which the class is initialized
+     */
     public HerbalistStrategy(CharacterCard card) {
         this.card = card;
     }
@@ -51,13 +56,12 @@ public class HerbalistStrategy extends CharacterCardStrategy {
                 // Gets the value of the chosenField from the Map
                 Island chosenIsland = (Island) chosenField.get(GameCommandValues.ISLANDINDEX);
 
-                // TODO [CharacterCardStrategy]: @Gio Logic implementation
-                // The server places the token on the the selected island (noEntryTile++)
-                // sendInfo to all players
-
+                // The server places the token on the selected island (noEntryTile++)
+                int currentNoEntryTileCount = chosenIsland.getNoEntryTileCount();
+                chosenIsland.setNoEntryTileCount(currentNoEntryTileCount + 1);
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
-                // CharacterCardsArray and IslandsArray and put them in the map that will be broadcasted
+                // CharacterCardsArray and IslandsArray and put them in the map that will be broadcast
                 afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, model.getCharacterCards());
                 afterEffectUpdate.put(GameCommandValues.ISLANDARRAY,        model.getIslands());
             }
