@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
+import it.polimi.ingsw.controller.state.GameStateMoveStudents;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,17 +26,34 @@ public class FarmerStrategy extends CharacterCardStrategy {
     public void activateEffect() {
         ControllerData data = ControllerData.getInstance();
         GameModel model = data.getGameModel();
+        GameStateMoveStudents stateWithMethod = new GameStateMoveStudents();
+        Player currentPlayer = data.getCurrentPlayer();
+        Player controllingPlayer;
 
-        // TODO [CharacterCardStrategy] implementation
-        // The player sends the index of the chosen Card to play
-        // The cards allows the player to take control of the professor even if he has the same number of students in the schoolBoard - use of the flag equalStudentsFlag
+        // The card allows the player to take control of the professor even if he has the same number of students
+        // in the schoolBoard - use of the flag equalStudentsFlag
+        data.setCharacterCardFlag(ControllerData.Flags.equalStudentsFlag, true);
+
         // For each Color, the server re-checks if a Professor needs to be changed
+        for (Color student: Color.values()) {
+            controllingPlayer = model.getGlobalProfessorTable().getProfessorLocation(student);
+            // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
+            // The professorLocation is changed to the currentPlayer
+            if (!currentPlayer.equals(controllingPlayer) &&
+                stateWithMethod.checkProfessorMovement(currentPlayer, controllingPlayer, student)) {
+
+                model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
+            }
+        }
+
         // The server sets the Player to hasPlayedCard = true
+        data.setPlayedCard();
 
         try {
             Player[] players = data.getPlayersOrder();
 
-            // After the server managed the use of the CharacterCard, gets the updated GlobalProfessorTable and the updated DiningRooms
+            // After the server managed the use of the CharacterCard, gets the updated GlobalProfessorTable and
+            // the updated DiningRooms
             GlobalProfessorTable updatedGlobalProfessorTable = model.getGlobalProfessorTable();
             DiningRoom[] updatedDiningRooms                  = new DiningRoom[players.length];
             for (int i = 0; i < players.length; i++)
