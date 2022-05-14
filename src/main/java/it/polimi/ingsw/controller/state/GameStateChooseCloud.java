@@ -100,7 +100,7 @@ public class GameStateChooseCloud implements GameStateActionPhase {
                 CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);
 
                 // Calls the selected characterCard's strategy effect
-                chosenCardStrategy.activateEffect();
+                chosenCardStrategy.playCharacterCard();
 
                 // After the CharacterCard utilization, it recalls execute once again the procedure of GameStateChooseCloud
                 executeState();

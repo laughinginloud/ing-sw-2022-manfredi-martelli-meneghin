@@ -169,7 +169,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
             CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);
 
             // Calls the selected characterCard's strategy effect
-            chosenCardStrategy.activateEffect();
+            chosenCardStrategy.playCharacterCard();
 
             // After the CharacterCard usage, it recalls the same function and makes the player choose a student once again
             moveOneStudent(player, playerView);

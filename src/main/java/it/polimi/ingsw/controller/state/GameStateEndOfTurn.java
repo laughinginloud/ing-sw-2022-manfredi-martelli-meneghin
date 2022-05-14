@@ -61,7 +61,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
                         CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);
 
                         // Calls the selected characterCard's strategy effect
-                        chosenCardStrategy.activateEffect();
+                        chosenCardStrategy.playCharacterCard();
 
                         // Reset then all the characterCard flags that has been enabled during this turn and end the player's turn
                         resetCharacterCardFlags();

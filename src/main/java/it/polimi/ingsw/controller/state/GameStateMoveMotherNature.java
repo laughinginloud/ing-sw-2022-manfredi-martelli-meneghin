@@ -83,7 +83,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
                     CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);
 
                     // Calls the selected characterCard's strategy effect
-                    chosenCardStrategy.activateEffect();
+                    chosenCardStrategy.playCharacterCard();
 
                     // Restart the method from the beginning in order to allow the MotherNature movement
                     executeState();
