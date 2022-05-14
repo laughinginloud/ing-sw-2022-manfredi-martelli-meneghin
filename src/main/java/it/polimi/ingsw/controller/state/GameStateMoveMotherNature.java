@@ -84,6 +84,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
 
                     // Calls the selected characterCard's strategy effect
                     chosenCardStrategy.playCharacterCard();
+                    // TODO [CharacterCardStrategy]: Check Possible EndGame Condition
 
                     // Restart the method from the beginning in order to allow the MotherNature movement
                     executeState();

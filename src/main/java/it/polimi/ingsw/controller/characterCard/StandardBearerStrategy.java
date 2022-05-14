@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.command.*;
+import it.polimi.ingsw.controller.state.GameStateComputeIsland;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
@@ -13,6 +14,11 @@ import java.util.Map;
  * @author Giovanni Manfredi
  */
 public class StandardBearerStrategy extends CharacterCardStrategy {
+
+    /**
+     * Constructor of the class 'StandardBearerStrategy'
+     * @param card the card to which the class is initialized
+     */
     public StandardBearerStrategy(CharacterCard card) {
         this.card = card;
     }
@@ -45,15 +51,9 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
                 @SuppressWarnings("unchecked")
                 Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
 
-
-
-
-                // TODO [CharacterCardStrategy]: @Gio Logic implementation
                 // The server activates the same routine as in GameStateComputeIsland (also with the possibility of ending the game)
-                // The server sends the info to all the player (possibly using the same commands used in GameStateComputeIsland)
-
-
-
+                GameStateComputeIsland computeIsland = new GameStateComputeIsland();
+                computeIsland.executeState();
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

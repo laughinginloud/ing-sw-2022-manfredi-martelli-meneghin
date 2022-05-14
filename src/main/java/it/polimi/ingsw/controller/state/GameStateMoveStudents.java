@@ -170,6 +170,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
 
             // Calls the selected characterCard's strategy effect
             chosenCardStrategy.playCharacterCard();
+            // TODO [CharacterCardStrategy]: Check Possible EndGame Condition
 
             // After the CharacterCard usage, it recalls the same function and makes the player choose a student once again
             moveOneStudent(player, playerView);

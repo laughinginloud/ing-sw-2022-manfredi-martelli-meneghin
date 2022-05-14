@@ -101,6 +101,7 @@ public class GameStateChooseCloud implements GameStateActionPhase {
 
                 // Calls the selected characterCard's strategy effect
                 chosenCardStrategy.playCharacterCard();
+                // TODO [CharacterCardStrategy]: Check Possible EndGame Condition
 
                 // After the CharacterCard utilization, it recalls execute once again the procedure of GameStateChooseCloud
                 executeState();
