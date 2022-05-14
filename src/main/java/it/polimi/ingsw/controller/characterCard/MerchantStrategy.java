@@ -13,6 +13,11 @@ import java.util.Map;
  * @author Giovanni Manfredi
  */
 public class MerchantStrategy extends CharacterCardStrategy {
+
+    /**
+     * Constructor of the class 'MerchantStrategy'
+     * @param card the card to which the class is initialized
+     */
     public MerchantStrategy(CharacterCard card) {
         this.card = card;
     }
@@ -46,12 +51,12 @@ public class MerchantStrategy extends CharacterCardStrategy {
 
                 // A cast for the information requested by the server (color to inhibit)
                 Color selectedColor = (Color) chosenFields.get(GameCommandValues.MERCHANTCOLOR);
+                data.setExcludedColor(selectedColor);
 
-
-
-                // TODO [CharacterCardStrategy] @Gio @Seba? implementation
                 // The server sets the flag: excludeColorFlag and the variable: Color noInfluenceColor
-                // Update player? Not sure it's needed
+                data.setCharacterCardFlag(ControllerData.Flags.noInfluenceColor, true);
+
+                // TODO [CharacterCardStrategy]: Command implementation - Confirm Message operation successful
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method
