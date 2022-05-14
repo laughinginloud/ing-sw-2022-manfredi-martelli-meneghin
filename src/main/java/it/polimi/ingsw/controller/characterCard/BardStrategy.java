@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.command.*;
+import it.polimi.ingsw.controller.state.GameStateMoveStudents;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
@@ -16,6 +17,10 @@ import java.util.Map;
  */
 public class BardStrategy extends CharacterCardStrategy {
 
+    /**
+     * Constructor of the class 'BardStrategy'
+     * @param card the card to which the class is initialized
+     */
     public BardStrategy(CharacterCard card) {
         this.card = card;
     }
@@ -113,15 +118,32 @@ public class BardStrategy extends CharacterCardStrategy {
             // Retrieve the entranceStudentIndex corresponding to student indicated with the swappableStudentIndex
             int entranceStudentIndex = getEntranceStudentIndex(entranceStudents, swappableStudents, swappableStudentIndex);
 
+            // TODO [CharacterCardStrategy] REFACTOR for readability
+            // The server exchanges the students across Entrance and DiningRoom (using a tmp student)
+            DiningRoom diningRoom = curPlayer.getSchoolBoard().getDiningRoom();
+            Entrance entrance = curPlayer.getSchoolBoard().getEntrance();
 
+            Color tmpEntranceStudent = entrance.retrieveStudent(entranceStudentIndex);
 
+            int diningRoomStudents = diningRoom.getStudentCounters(tmpEntranceStudent);
+            diningRoom.setStudentCounters(tmpEntranceStudent, diningRoomStudents + 1);
 
-            // TODO [CharacterCardStrategy] implementation
-            // The server exchanges the students across entrance and DiningRoom (using a tmp array)
+            int tmpDiningRoomStudents = diningRoom.getStudentCounters(diningRoomTableStudent);
+            diningRoom.setStudentCounters(diningRoomTableStudent, tmpDiningRoomStudents - 1 );
+
+            entrance.appendStudent(diningRoomTableStudent);
+
             // Update the globalProfessorTable according to the new SchoolBoard (professor could change location)
+            for (Color student: Color.values()) {
+                Player controllingPlayer = model.getGlobalProfessorTable().getProfessorLocation(student);
+                // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
+                // The professorLocation is changed to the currentPlayer
+                if (!curPlayer.equals(controllingPlayer) &&
+                    GameStateMoveStudents.checkProfessorMovement(curPlayer, controllingPlayer, student)) {
 
-
-
+                    model.getGlobalProfessorTable().setProfessorLocation(student, curPlayer);
+                }
+            }
 
             // After the server managed the use of the CharacterCard, gets the updated values of the SchoolBoards and of the GlobalProfessorTable
             SchoolBoard[]        updatedSchoolBoards = new SchoolBoard[players.length];
