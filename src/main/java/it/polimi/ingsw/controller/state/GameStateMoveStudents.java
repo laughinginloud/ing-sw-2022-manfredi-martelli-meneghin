@@ -183,7 +183,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
      * @param student the Color of the student Dining room it's checking
      * @return if the professorNeeds to be moved (true or false)
      */
-    public boolean checkProfessorMovement(Player newPlayer, Player controllingPlayer, Color student) {
+    public static boolean checkProfessorMovement(Player newPlayer, Player controllingPlayer, Color student) {
 
         ControllerData data = ControllerData.getInstance();
         DiningRoom diningRoomNewPlayer = newPlayer.getSchoolBoard().getDiningRoom();
