@@ -25,6 +25,6 @@ public enum GameCommandActions {
     // Array of assistantCard playable by the current player
     PLAYASSISTANTCARD,
 
-    // The chosen characterCard's character + Fields related to that characterCard utilization
+    // Fields related to the characterCard utilization
     CHARACTERCARDEFFECT,
 }

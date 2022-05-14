@@ -26,6 +26,9 @@ public enum GameCommandValues {
     // A specified player's entrance
     ENTRANCE,
 
+    // An array of entrance containing all the players' entrances
+    ENTRANCEARRAY,
+
     // A specified player's DiningRoom
     DININGROOM,
 
@@ -56,11 +59,28 @@ public enum GameCommandValues {
     // CharacterCard that has been played by the player (response Client -> Server)
     PLAYEDCHARACTERCARD,
 
-    // An integer that indicates the index of the student the client selected - CharacterCard 'MONK', 'JESTER',
-    // 'PRINCESS'
+    // An integer that indicates the index of the student the client selected - CharacterCard 'MONK', 'PRINCESS',
     STUDENTINDEX,
 
     // An integer that indicates the index of the island that client selected - CharacterCard 'MONK', 'HERBALIST',
     // 'STANDARD_BEARER'
     ISLANDINDEX,
+
+    // An integer representing the max number of students that can be moved using the characterCard Jester
+    MAXMOVEMENTJESTER,
+
+    // An integer representing the number of students that will be moved by the player using the characterCard Jester
+    MOVEMENTJESTER,
+
+    // An Array of color representing the students present on the Entrance of a player
+    ENTRANCESTUDENTS,
+
+    // An Array of color representing the students present on a characterCard
+    CARDSTUDENTS,
+
+    // An integer that indicates the index of the student the client selected from the entrance - CharacterCard 'JESTER'
+    ENTRANCESTUDENTINDEX,
+
+    // An integer that indicates the index of the student the client selected from the card's students - CharacterCard 'JESTER'
+    CARDSTUDENTINDEX,
 }

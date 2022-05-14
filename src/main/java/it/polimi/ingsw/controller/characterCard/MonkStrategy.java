@@ -39,7 +39,7 @@ public class MonkStrategy extends CharacterCardStrategy {
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
             Map<GameCommandValues, Object> monkMap = new HashMap<>();
-            monkMap.put(GameCommandValues.COLORARRAY, availableStudents);
+            monkMap.put(GameCommandValues.CARDSTUDENTS, availableStudents);
             monkMap.put(GameCommandValues.ISLANDARRAY, availableIslands);
 
             // The server asks the player which student he wants to move and the island he wants to move the student to
