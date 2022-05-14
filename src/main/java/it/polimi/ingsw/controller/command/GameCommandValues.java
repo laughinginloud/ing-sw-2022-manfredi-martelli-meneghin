@@ -55,4 +55,12 @@ public enum GameCommandValues {
 
     // CharacterCard that has been played by the player (response Client -> Server)
     PLAYEDCHARACTERCARD,
+
+    // An integer that indicates the index of the student the client selected - CharacterCard 'MONK', 'JESTER',
+    // 'PRINCESS'
+    STUDENTINDEX,
+
+    // An integer that indicates the index of the island that client selected - CharacterCard 'MONK', 'HERBALIST',
+    // 'STANDARD_BEARER'
+    ISLANDINDEX,
 }

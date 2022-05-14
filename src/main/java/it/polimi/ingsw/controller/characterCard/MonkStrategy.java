@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.command.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,12 +33,8 @@ public class MonkStrategy extends CharacterCardStrategy {
             // Cast the CharacterCard to a CharacterCardStudent
             CharacterCardStudent enhancedCard = (CharacterCardStudent) card;
 
-            /* TODO: [CommandFields] Trovare gli studenti che davvero sono utilizzabili
-            *        Potremmo dover utilizzare un array di int (invece di un array di Color, siccome la sua selezione
-            *        sarà posizionale rispetto agli studenti presenti sulla carta
-            */
-            // The server select the students that can be moved and the Island
-            Color[] availableStudents = enhancedCard.getStudents();
+            // The server select the students that can be moved and the Island (the not-Null students)
+            Color[] availableStudents = getAvailableStudents(enhancedCard.getStudents(), 4);
             Island[] availableIslands = model.getIslands();
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
@@ -55,37 +52,28 @@ public class MonkStrategy extends CharacterCardStrategy {
                 @SuppressWarnings("unchecked")
                 Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
 
-                // TODO [CharacterCard] index access
-                // The server moves the student from the CharacterCard to the selected island
-                Color tmp = enhancedCard.retrieveStudent(student_index);
-                Island target = model.getIsland(island_index);
-                target.setStudentCounters(tmp, target.getStudentCounters(tmp) + 1);
+                // A cast for the information requested by the server (student and island index)
+                int student_index = (int) chosenFields.get(GameCommandValues.STUDENTINDEX);
+                int island_index  = (int) chosenFields.get(GameCommandValues.ISLANDINDEX);
 
-                // The server refills the card taking a student from the Bag (EmptyBagException)
+                // The server moves the student from the CharacterCard to the selected island
+                Color movedStudent = enhancedCard.retrieveStudent(student_index);
+                Island targetIsland = model.getIsland(island_index);
+                targetIsland.setStudentCounters(movedStudent, targetIsland.getStudentCounters(movedStudent) + 1);
+
+                // The server refills the card (appending the player) taking a student from the Bag (EmptyBagException)
                 try{
-                    tmp = model.getBag().drawStudents(1).drawnStudents()[0];
+                    movedStudent = model.getBag().drawStudents(1).drawnStudents()[0];
                 } catch (EmptyBagException e){
                     data.setEmptyBagTrigger();
                 }
-                enhancedCard.appendStudent(tmp);
+                enhancedCard.appendStudent(movedStudent);
 
                 // The server sets the Player to hasPlayedCard = true
                 data.setPlayedCard();
 
-
-                /* TODO [CharacterCard] - Check coinIncrease
-                It could be useful create a method in CharacterCardStrategy who implements the following procedures
-                       The server decrease the Player coinCount
-                       The server increase the global coinCount
-                       Only the first time {
-                            The server update the characterCard's flag hasCoin
-                            The server increase the characterCard's cost
-                        }
-                       The server notify all the players about those new game board conditions
-                */
-
-
-                // After the server managed the use of the CharacterCard, gets the updated values of CharacterCardsArray and IslandsArray
+                // After the server managed the use of the CharacterCard, gets the updated values of
+                // CharacterCardsArray and IslandsArray
                 CharacterCard[] updatedCharacterCards = model.getCharacterCards();
                 Island[]        updatedIslands        = model.getIslands();
 
@@ -122,4 +110,22 @@ public class MonkStrategy extends CharacterCardStrategy {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This method gets the Students array of this card and reduces it, removing all null elements
+     * @param students the array that needs to be reduced
+     * @param max_length the length of the array
+     * @return the new array of not-Null elements
+     */
+    private Color [] getAvailableStudents(Color[] students, int max_length){
+        int length = 0;
+        do {
+            if (students[length] != null)
+                length++;
+        } while (length < max_length && students[length] != null);
+
+        return Arrays.copyOf(students,length);
+    }
 }
+
+
