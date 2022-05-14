@@ -13,6 +13,11 @@ import java.util.Map;
  * @author Giovanni Manfredi
  */
 public class JesterStrategy extends CharacterCardStrategy {
+
+    /**
+     * Constructor of the class 'JesterStrategy'
+     * @param card the card to which the class is initialized
+     */
     public JesterStrategy(CharacterCard card) {
         this.card = card;
     }
@@ -105,12 +110,12 @@ public class JesterStrategy extends CharacterCardStrategy {
             int entranceStudentIndex = (int) chosenField.get(GameCommandValues.ENTRANCESTUDENTINDEX);
             int cardStudentIndex     = (int) chosenField.get(GameCommandValues.CARDSTUDENTINDEX);
 
+            // The server exchanges the students (using a temporary object) from the Entrance and the card
+            Color tmpEntranceStudent = curPlayer.getSchoolBoard().getEntrance().retrieveStudent(entranceStudentIndex);
+            Color tmpCardStudent = ((CharacterCardStudent) card).retrieveStudent(cardStudentIndex);
 
-
-            // TODO [CharacterCardStrategy]: @Gio Logic implementation
-            // The server exchanges the students (using a temporary array) from the Entrance and the card
-
-
+            curPlayer.getSchoolBoard().getEntrance().appendStudent(tmpCardStudent);
+            ((CharacterCardStudent) card).appendStudent(tmpEntranceStudent);
 
             // After the server managed the use of the CharacterCard, gets the updated values of CharacterCardsArray and players' Entrances
             CharacterCard[] updatedCharacterCards = model.getCharacterCards();
