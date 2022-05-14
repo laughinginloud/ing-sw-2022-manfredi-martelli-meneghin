@@ -44,7 +44,7 @@ public class SchoolBoard {
         this.towerCount = towerCount;
     }
 
-
+    //TODO: test increaseTowerCount
     /**
      * Increase the tower's count by one
      */
@@ -59,7 +59,7 @@ public class SchoolBoard {
         towerCount += n;
     }
 
-    //TODO: test
+    //TODO: test decreaseTowerCount
 
     /**
      * Decrease the tower's count by one

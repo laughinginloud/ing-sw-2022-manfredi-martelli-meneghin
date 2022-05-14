@@ -216,6 +216,7 @@ public class GameModel {
      */
     public Integer getCoinPool() { return coinPool; }
 
+    // TODO JavaDoc and Test
     public Island[] getIslands() {
         return islands;
     }

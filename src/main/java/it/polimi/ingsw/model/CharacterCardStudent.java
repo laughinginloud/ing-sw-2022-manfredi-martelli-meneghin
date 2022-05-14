@@ -27,6 +27,7 @@ public class CharacterCardStudent extends CharacterCard {
         return temp;
     }
 
+    // TODO: JavaDoc + Test
     public Color retrieveStudent(int index) {
         if (index < 0 || index > students.length)
             throw new IllegalArgumentException("Index out of bounds");
@@ -49,6 +50,7 @@ public class CharacterCardStudent extends CharacterCard {
         this.students[index] = color;
     }
 
+    // TODO: JavaDoc + Test
     public void appendStudent(Color color) {
         for (int i = 0; i < students.length; ++i) {
             if (students[i] == null) {
