@@ -120,16 +120,8 @@ public class JesterStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedEntrances[i] = players[i].getSchoolBoard().getEntrance();
 
-            // Creates a map containing the updated field to send to all the players
-            Map<GameCommandValues, Object> afterEffectUpdate = new HashMap<>();
             afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
-            afterEffectUpdate.put(GameCommandValues.ENTRANCEARRAY, updatedEntrances);
-
-            // Sends to all the players the updated fields
-            for (Player playersToUpdate : players) {
-                VirtualView playerToUpdateView = data.getPlayerView(playersToUpdate);
-                playerToUpdateView.sendMessage(new GameCommandSendInfo(afterEffectUpdate));
-            }
+            afterEffectUpdate.put(GameCommandValues.ENTRANCEARRAY,      updatedEntrances);
         }
 
         // If the response is of the wrong kind, send an Illegal Command message and restart the method
