@@ -45,7 +45,7 @@ public class MonkStrategy extends CharacterCardStrategy {
             monkMap.put(GameCommandValues.COLORARRAY, availableStudents);
             monkMap.put(GameCommandValues.ISLANDARRAY, availableIslands);
 
-            // The server asks the player which student he wants to move and the island he wants to move the player to
+            // The server asks the player which student he wants to move and the island he wants to move the student to
             GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, monkMap);
             GameCommand response = playerView.sendRequest(request);
 

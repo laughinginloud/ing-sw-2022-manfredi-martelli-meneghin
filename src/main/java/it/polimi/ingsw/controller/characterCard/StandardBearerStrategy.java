@@ -1,6 +1,12 @@
 package it.polimi.ingsw.controller.characterCard;
 
-import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.*;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'STANDARD_BEARER'
@@ -16,12 +22,59 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
      */
     @Override
     public void activateEffect() {
-        // TODO [CharacterCardStrategy] implementation
-        // The player sends the index of the chosen Card to play
-        // The server asks the player which island he wants to activate the effect (requestAction())
-        // The player responds with the information requested by the server (responseAction(island))
-        // The server activates the same routine as in GameStateComputeIsland (also with the possibility of ending the game)
-        // The server sets the Player to hasPlayedCard = true
-        // sendInfo to all players
+        try {
+            ControllerData data       = ControllerData.getInstance();
+            GameModel      model      = data.getGameModel();
+            Player         curPlayer  = data.getCurrentPlayer();
+            VirtualView    playerView = data.getPlayerView(curPlayer);
+
+            // The server gets the Island where the influence could be calculated using the characterCard effect
+            Island[] availableIslands = model.getIslands();
+
+            // Create a Map and save the fields that will be sent to the player as RequestAction's payload
+            Map<GameCommandValues, Object> standardBearerMap = new HashMap<>();
+            standardBearerMap.put(GameCommandValues.ISLANDARRAY, availableIslands);
+
+            // The server asks the player on which Island he would like to calculate the influence
+            GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, standardBearerMap);
+            GameCommand response = playerView.sendRequest(request);
+
+            // If the response is of the right kind
+            if (response instanceof GameCommandChosenCharacterCardFields c) {
+                // The player responds with the information requested by the server
+                @SuppressWarnings("unchecked")
+                Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
+
+
+
+
+                // TODO [CharacterCardStrategy] implementation
+                // The server activates the same routine as in GameStateComputeIsland (also with the possibility of ending the game)
+                // The server sends the info to all the player (possibly using the same commands used in GameStateComputeIsland)
+                // The server sets the Player to hasPlayedCard = true
+
+
+
+            }
+
+            // If the response is of the wrong kind, send an Illegal Command message and restart the method
+            else {
+                try {
+                    playerView.sendMessage(new GameCommandIllegalCommand());
+                }
+
+                catch (Exception ex) {
+                    // Fatal error: print the stack trace to help debug
+                    ex.printStackTrace();
+                }
+
+                activateEffect();
+            }
+        }
+
+        catch (Exception e){
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
+        }
     }
 }

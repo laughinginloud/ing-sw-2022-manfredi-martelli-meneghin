@@ -111,6 +111,11 @@ public class CharacterCardManager {
         return characterCardPlayability;
     }
 
+    /**
+     * Gets the characterCardStrategy linked to the characterCard provided as parameter
+     * @param chosenCharacter The characterCard that needs to be linked to a characterCardStrategy
+     * @return The characterCardStrategy linked to characterCard
+     */
     public static CharacterCardStrategy getChosenCharacterCardStrategy(Character chosenCharacter) {
         // Gets the model's characterCards array and the controller's cardStrategies array, linked positionally in CharacterCard-CharacterCardStrategy
         CharacterCard[]         characterCards          = ControllerData.getInstance().getGameModel().getCharacterCards();
