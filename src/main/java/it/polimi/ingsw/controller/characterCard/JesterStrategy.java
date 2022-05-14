@@ -107,7 +107,7 @@ public class JesterStrategy extends CharacterCardStrategy {
 
 
 
-            // TODO [CharacterCardStrategy] implementation
+            // TODO [CharacterCardStrategy]: @Gio Logic implementation
             // The server exchanges the students (using a temporary array) from the Entrance and the card
 
 

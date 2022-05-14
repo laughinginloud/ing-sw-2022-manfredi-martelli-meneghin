@@ -20,11 +20,9 @@ public class MagicianStrategy extends CharacterCardStrategy {
     public void activateEffect() {
         ControllerData data = ControllerData.getInstance();
         GameModel model = data.getGameModel();
-        // TODO [CharacterCardStrategy] implementation
-        // The player sends the index of the chosen Card to play
+        // TODO [CharacterCardStrategy]: @Seba Command implementation
         // The server allows MotherNature to be moved of two additional islands this turn - sets the flag extraMovementFlag
         data.setCharacterCardFlag(ControllerData.Flags.extraMovementFlag, true);
-        // The server sets the Player to hasPlayedCard = true
         // sendInfo to all players
     }
 }

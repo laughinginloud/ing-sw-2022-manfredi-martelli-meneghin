@@ -48,10 +48,9 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
 
 
 
-                // TODO [CharacterCardStrategy] implementation
+                // TODO [CharacterCardStrategy]: @Gio Logic implementation
                 // The server activates the same routine as in GameStateComputeIsland (also with the possibility of ending the game)
                 // The server sends the info to all the player (possibly using the same commands used in GameStateComputeIsland)
-                // The server sets the Player to hasPlayedCard = true
 
 
 

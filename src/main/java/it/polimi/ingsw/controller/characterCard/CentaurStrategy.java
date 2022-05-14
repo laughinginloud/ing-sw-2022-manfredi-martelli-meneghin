@@ -21,11 +21,9 @@ public class CentaurStrategy extends CharacterCardStrategy {
         ControllerData data = ControllerData.getInstance();
         GameModel model = data.getGameModel();
 
-        // TODO [CharacterCardStrategy] implementation
-        // The player sends the index of the chosen Card to play
+        // TODO [CharacterCardStrategy]: @Seba Command implementation
         // The server "deactivates" the towers which are not counted for the influence - sets the flag ignoreTowersFlag
         data.setCharacterCardFlag(ControllerData.Flags.ignoreTowersFlag, true);
-        // The server sets the Player to hasPlayedCard = true
         // sendInfo to all players
     }
 }

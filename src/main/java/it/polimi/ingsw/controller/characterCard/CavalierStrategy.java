@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.characterCard;
 
+import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.model.GameModel;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CAVALIER'
@@ -16,10 +18,12 @@ public class CavalierStrategy extends CharacterCardStrategy {
      */
     @Override
     public void activateEffect() {
-        // TODO [CharacterCardStrategy] implementation
-        // The player sends the index of the chosen Card to play
+        ControllerData data = ControllerData.getInstance();
+        GameModel model = data.getGameModel();
+
+        // TODO [CharacterCardStrategy] @Seba command implementation
         // The server increases the influence of the current player of two by setting the flag: extraInfluenceFlag
-        // The server sets the Player to hasPlayedCard = true
+        data.setCharacterCardFlag(ControllerData.Flags.extraInfluenceFlag, true);
         // sendInfo to all players
     }
 }

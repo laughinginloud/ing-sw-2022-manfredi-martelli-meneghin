@@ -51,7 +51,7 @@ public class HerbalistStrategy extends CharacterCardStrategy {
                 // Gets the value of the chosenField from the Map
                 Island chosenIsland = (Island) chosenField.get(GameCommandValues.ISLANDINDEX);
 
-                // TODO [CharacterCardStrategy] implementation
+                // TODO [CharacterCardStrategy]: @Gio Logic implementation
                 // The server places the token on the the selected island (noEntryTile++)
                 // sendInfo to all players
 
