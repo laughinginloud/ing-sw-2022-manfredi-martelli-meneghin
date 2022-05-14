@@ -54,7 +54,7 @@ public class MerchantStrategy extends CharacterCardStrategy {
                 data.setExcludedColor(selectedColor);
 
                 // The server sets the flag: excludeColorFlag and the variable: Color noInfluenceColor
-                data.setCharacterCardFlag(ControllerData.Flags.noInfluenceColor, true);
+                data.setCharacterCardFlag(ControllerData.Flags.excludeColorFlag, true);
 
                 // TODO [CharacterCardStrategy]: Command implementation - Confirm Message operation successful
             }

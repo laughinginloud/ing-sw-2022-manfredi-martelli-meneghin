@@ -15,8 +15,7 @@ import java.util.Map;
  */
 public class ControllerData {
 
-    public enum Flags { equalStudentsFlag, extraMovementFlag, ignoreTowersFlag, extraInfluenceFlag, excludeColorFlag,
-                        noInfluenceColor }
+    public enum Flags { equalStudentsFlag, extraMovementFlag, ignoreTowersFlag, extraInfluenceFlag, excludeColorFlag}
 
     // region Fields
 

@@ -163,7 +163,6 @@ public class GameStateComputeIsland implements GameStateActionPhase {
     private Map<Player, Integer> getIslandInfluences(ControllerData data, GameModel model, Island island) {
         Map<Player, Integer> mpi = model.getPlayersCount() == 4 ? getIslandInfluencesFourPlayers(data, model, island) : getIslandInfluencesTwoThreePlayers(data, model, island);
 
-        // TODO: noInfluenceColor needs to be checked
         if (data.getCharacterCardFlag(ControllerData.Flags.extraInfluenceFlag))
             mpi.replace(data.getCurrentPlayer(), mpi.get(data.getCurrentPlayer()) + 2);
 
