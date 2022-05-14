@@ -75,9 +75,8 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
                 if (ControllerData.getInstance().checkPlayedCard())
                     throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
-                // Executes the command received and set to "true" the flag hasPlayedCard stored in ControllerData
+                // Executes the command received
                 Character chosenCharacter = (Character) c.executeCommand();
-                ControllerData.getInstance().setPlayedCard();
 
                 try {
                     // Gets the characterCardStrategy linked to the CharacterCard chosen by the player
