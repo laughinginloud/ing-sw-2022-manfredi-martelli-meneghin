@@ -31,7 +31,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
             // Sets the num of students the player is required to move, according to the number of players in the match
             switch (ControllerData.getInstance().getNumOfPlayers()) {
                 case 2, 4 -> numOfMovements = 3;
-                case 3 -> numOfMovements = 4;
+                case 3    -> numOfMovements = 4;
             }
 
             for (int i = 0; i < numOfMovements; i++)
@@ -124,7 +124,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
                 GlobalProfessorTable gpt = ControllerData.getInstance().getGameModel().getGlobalProfessorTable();
                 // Checks if the current player has more students on a specific color's DiningRoomTable than the player which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
                 Player playerControllingProfessor = gpt.getProfessorLocation(movedStudent);
-                if (!player.equals(playerControllingProfessor) && canMoveProfessor(player, playerControllingProfessor, movedStudent)) {
+                if (!player.equals(playerControllingProfessor) && checkProfessorMovement(player, playerControllingProfessor, movedStudent)) {
                     gpt.setProfessorLocation(movedStudent, player);
                     updateInfo.put(GameCommandValues.GLOBALPROFESSORTABLE, gpt);
                 }
@@ -166,11 +166,24 @@ public class GameStateMoveStudents implements GameStateActionPhase {
         }
     }
 
-    public boolean canMoveProfessor(Player newPlayer, Player controllingPlayer, Color student) {
-        // TODO: More readable?
-        return ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.equalStudentsFlag) ?
-            newPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) >= controllingPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) :
-            newPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) >  controllingPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) ;
+    /**
+     * Calculates if the professor needs to be moved from the current position to a new one.
+     * @param newPlayer the player that could become the new controllingPlayer
+     * @param controllingPlayer the current player who's controlling the Professor
+     * @param student the Color of the student Dining room it's checking
+     * @return if the professorNeeds to be moved (true or false)
+     */
+    public boolean checkProfessorMovement(Player newPlayer, Player controllingPlayer, Color student) {
+
+        ControllerData data = ControllerData.getInstance();
+        DiningRoom diningRoomNewPlayer = newPlayer.getSchoolBoard().getDiningRoom();
+        DiningRoom diningRoomControllingPlayer = controllingPlayer.getSchoolBoard().getDiningRoom();
+
+        // If the flag 'equalStudentsFlag' is set the professor moves if the number of students in the dining room
+        // is >= to the player is currently holding the professor. Otherwise, only if the number of students is >.
+        return data.getCharacterCardFlag(ControllerData.Flags.equalStudentsFlag) ?
+            diningRoomNewPlayer.getStudentCounters(student) >= diningRoomControllingPlayer.getStudentCounters(student) :
+            diningRoomNewPlayer.getStudentCounters(student) >  diningRoomControllingPlayer.getStudentCounters(student) ;
     }
 
     /**
