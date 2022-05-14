@@ -2,8 +2,10 @@ package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.characterCard.CharacterCardManager;
+import it.polimi.ingsw.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.controller.command.*;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.virtualView.VirtualView;
 
 import java.util.ArrayList;
@@ -92,11 +94,14 @@ public class GameStateChooseCloud implements GameStateActionPhase {
                     throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
                 // Executes the command received and set to "true" the flag hasPlayedCard stored in ControllerData
-                CharacterCard calledCharacter = (CharacterCard) c.executeCommand();
+                Character chosenCharacter = (Character) c.executeCommand();
                 ControllerData.getInstance().setPlayedCard();
 
-                /* TODO: [CharacterCard] Insert here the real name of the function which manage the CharacterCardUse */
-                // CharacterCardUse.useCharacterCard(calledCharacter);
+                // Gets the characterCardStrategy linked to the CharacterCard chosen by the player
+                CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);
+
+                // Calls the selected characterCard's strategy effect
+                chosenCardStrategy.activateEffect();
 
                 // After the CharacterCard utilization, it recalls execute once again the procedure of GameStateChooseCloud
                 executeState();

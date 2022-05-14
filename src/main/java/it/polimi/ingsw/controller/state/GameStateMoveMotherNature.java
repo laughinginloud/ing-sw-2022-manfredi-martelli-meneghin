@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.state;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.characterCard.CharacterCardManager;
+import it.polimi.ingsw.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.CharacterCard;
 import it.polimi.ingsw.model.Player;
@@ -71,16 +72,22 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
             // If the player decided to play a CharacterCard
             else if (response instanceof GameCommandPlayCharacterCard c) {
                 // If the player already used a CharacterCard during this turn, throws an exception
-                if(ControllerData.getInstance().checkPlayedCard())
+                if (ControllerData.getInstance().checkPlayedCard())
                     throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
                 // Executes the command received and set to "true" the flag hasPlayedCard stored in ControllerData
-                Character calledCharacter = (Character) c.executeCommand();
+                Character chosenCharacter = (Character) c.executeCommand();
                 ControllerData.getInstance().setPlayedCard();
 
                 try {
-                    /* TODO: [CharacterCard] Insert here the real name of the function which manage the CharacterCardUse */
-                    // CharacterCardUse.useCharacterCard(calledCharacter);
+                    // Gets the characterCardStrategy linked to the CharacterCard chosen by the player
+                    CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);
+
+                    // Calls the selected characterCard's strategy effect
+                    chosenCardStrategy.activateEffect();
+
+                    // Restart the method from the beginning in order to allow the MotherNature movement
+                    executeState();
                 }
 
                 catch (Exception e) {

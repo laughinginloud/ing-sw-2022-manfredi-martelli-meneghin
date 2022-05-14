@@ -363,6 +363,8 @@ public class ControllerData {
 
     // endregion
 
+    public CharacterCardStrategy[] getCardStrategies() { return Arrays.copyOf(cardStrategies, cardStrategies.length); }
+
     public void setCardStrategies(CharacterCardStrategy[] cardStrategies) {
         this.cardStrategies = cardStrategies;
     }

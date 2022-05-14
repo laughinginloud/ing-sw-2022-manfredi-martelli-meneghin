@@ -110,4 +110,24 @@ public class CharacterCardManager {
 
         return characterCardPlayability;
     }
+
+    public static CharacterCardStrategy getChosenCharacterCardStrategy(Character chosenCharacter) {
+        // Gets the model's characterCards array and the controller's cardStrategies array, linked positionally in CharacterCard-CharacterCardStrategy
+        CharacterCard[]         characterCards          = ControllerData.getInstance().getGameModel().getCharacterCards();
+        CharacterCardStrategy[] characterCardStrategies = ControllerData.getInstance().getCardStrategies();
+        CharacterCardStrategy   chosenCardStrategy      = null;
+
+        // Finds the strategy linked to the characterCard chosen by the player
+        for (int i = 0; i < characterCards.length; i ++)
+            if ((characterCards[i].getCharacter()).equals(chosenCharacter))
+                chosenCardStrategy = characterCardStrategies[i];
+
+        if (chosenCardStrategy == null) {
+            throw new IllegalStateException("A characterCard didn't accessed to his Strategy, it might not have been linked to");
+        }
+
+        // If there is a characterCardStrategy linked to the chosenCharacterCard, returns it
+        else
+            return chosenCardStrategy;
+    }
 }
