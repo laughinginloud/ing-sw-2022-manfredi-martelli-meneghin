@@ -49,7 +49,7 @@ public class HerbalistStrategy extends CharacterCardStrategy {
                 Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
 
                 // Gets the value of the chosenField from the Map
-                Island chosenIsland = chosenField.get(GameCommandValues.ISLANDINDEX);
+                Island chosenIsland = (Island) chosenField.get(GameCommandValues.ISLANDINDEX);
 
                 // TODO [CharacterCardStrategy] implementation
                 // The server places the token on the the selected island (noEntryTile++)

@@ -74,6 +74,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
      * @throws Exception Can be thrown by GameCommands or by the Network
      */
     private void moveOneStudent(Player player, VirtualView playerView) throws Exception {
+        Player[] players = ControllerData.getInstance().getPlayersOrder();
         Color[] movableStudents = player.getSchoolBoard().getEntrance().getStudents();
         Map<GameCommandValues, Object> moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
         Map<GameCommandValues, Object> updateInfo = new HashMap<>();
@@ -129,15 +130,25 @@ public class GameStateMoveStudents implements GameStateActionPhase {
                     updateInfo.put(GameCommandValues.GLOBALPROFESSORTABLE, gpt);
                 }
 
+                // Gets the DiningRoom of each player and save it a DiningRoomArray
+                DiningRoom[] updatedDiningRooms = new DiningRoom[players.length];
+                for (int i = 0; i < players.length; i++)
+                    updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
+
                 // Adds current player DiningRoom value to the updateInfo Map that will be sent to all the players
-                updateInfo.put(GameCommandValues.DININGROOM, player.getSchoolBoard().getDiningRoom());
+                updateInfo.put(GameCommandValues.DININGROOMARRAY, updatedDiningRooms);
             }
 
+            // Gets the entrance of each player and save it an entranceArray
+            Entrance[] updatedEntrances = new Entrance[players.length];
+            for (int i = 0; i < players.length; i++)
+                updatedEntrances[i] = players[i].getSchoolBoard().getEntrance();
+
             // Adds current player Entrance value to the updateInfo Map that will be sent to all the players
-            updateInfo.put(GameCommandValues.ENTRANCE, player.getSchoolBoard().getEntrance());
+            updateInfo.put(GameCommandValues.ENTRANCEARRAY, updatedEntrances);
 
             // Sends to all the player the updateInfo Map containing all the GameModel's fields which need to be updated after the movement of the student
-            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
+            for (Player playerToUpdate : players) {
                 VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playerToUpdate);
 
                 GameCommand update = new GameCommandSendInfo(updateInfo);
