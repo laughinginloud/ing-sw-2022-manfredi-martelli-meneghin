@@ -53,7 +53,7 @@ public class CharacterCardManager {
         boolean   characterCardPlayability = false;
 
         switch (character) {
-            // MONK, BARD: Check if there is at least one student still on the CharacterCard, that can be then moved
+            // MONK, PRINCESS: Check if there is at least one student still on the CharacterCard, that can be then moved
             case MONK, PRINCESS -> {
                 CharacterCardStudent characterCardStudent = (CharacterCardStudent) characterCard;
                 Color[] studentColors = characterCardStudent.getStudents();

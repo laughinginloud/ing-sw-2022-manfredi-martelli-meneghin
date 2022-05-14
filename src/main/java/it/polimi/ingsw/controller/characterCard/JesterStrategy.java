@@ -135,7 +135,7 @@ public class JesterStrategy extends CharacterCardStrategy {
                 ex.printStackTrace();
             }
 
-            activateEffect();
+            changeStudent(data, model, curPlayer, playerView);
         }
     }
 }
