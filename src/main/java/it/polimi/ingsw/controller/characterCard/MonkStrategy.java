@@ -67,29 +67,19 @@ public class MonkStrategy extends CharacterCardStrategy {
                 targetIsland.setStudentCounters(movedStudent, targetIsland.getStudentCounters(movedStudent) + 1);
 
                 // The server refills the card (appending the player) taking a student from the Bag (EmptyBagException)
-                try{
+                try {
                     movedStudent = model.getBag().drawStudents(1).drawnStudents()[0];
-                } catch (EmptyBagException e){
+                }
+
+                catch (EmptyBagException e){
                     data.setEmptyBagTrigger();
                 }
                 enhancedCard.appendStudent(movedStudent);
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
-                // CharacterCardsArray and IslandsArray
-                CharacterCard[] updatedCharacterCards = model.getCharacterCards();
-                Island[]        updatedIslands        = model.getIslands();
-
-                // Creates a map containing the updated field to send to all the players
-                Map<GameCommandValues, Object> afterEffectUpdate = new HashMap<>();
-                afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
-                afterEffectUpdate.put(GameCommandValues.ISLANDARRAY, updatedIslands);
-
-                // Sends to all the players the updated fields
-                Player[] players = data.getPlayersOrder();
-                for (Player playersToUpdate : players) {
-                    VirtualView playerToUpdateView = data.getPlayerView(playersToUpdate);
-                    playerToUpdateView.sendMessage(new GameCommandSendInfo(afterEffectUpdate));
-                }
+                // CharacterCardsArray and IslandsArray and put them in the map that will be broadcasted
+                afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, model.getCharacterCards());
+                afterEffectUpdate.put(GameCommandValues.ISLANDARRAY,        model.getIslands());
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

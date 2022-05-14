@@ -29,11 +29,10 @@ public class FarmerStrategy extends CharacterCardStrategy {
      */
     @Override
     public void activateEffect() {
-        ControllerData data = ControllerData.getInstance();
-        GameModel model = data.getGameModel();
-        GameStateMoveStudents stateWithMethod = new GameStateMoveStudents();
-        Player currentPlayer = data.getCurrentPlayer();
-        Player controllingPlayer;
+        ControllerData data              = ControllerData.getInstance();
+        GameModel      model             = data.getGameModel();
+        Player         currentPlayer     = data.getCurrentPlayer();
+        Player         controllingPlayer;
 
         // The card allows the player to take control of the professor even if he has the same number of students
         // in the schoolBoard - use of the flag equalStudentsFlag
@@ -45,14 +44,14 @@ public class FarmerStrategy extends CharacterCardStrategy {
             // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
             // The professorLocation is changed to the currentPlayer
             if (!currentPlayer.equals(controllingPlayer) &&
-                stateWithMethod.checkProfessorMovement(currentPlayer, controllingPlayer, student)) {
+                GameStateMoveStudents.checkProfessorMovement(currentPlayer, controllingPlayer, student)) {
 
                 model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
             }
         }
 
         try {
-            Player[] players = data.getPlayersOrder();
+            Player[] players = model.getPlayer();
 
             // After the server managed the use of the CharacterCard, gets the updated GlobalProfessorTable and
             // the updated DiningRooms
@@ -61,16 +60,8 @@ public class FarmerStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
-            // Creates a map containing the updated field to send to all the players
-            Map<GameCommandValues, Object> afterEffectUpdate = new HashMap<>();
             afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGlobalProfessorTable);
-            afterEffectUpdate.put(GameCommandValues.DININGROOMARRAY, updatedDiningRooms);
-
-            // Sends to all the players the updated fields
-            for (Player playersToUpdate : players) {
-                VirtualView playerToUpdateView = data.getPlayerView(playersToUpdate);
-                playerToUpdateView.sendMessage(new GameCommandSendInfo(afterEffectUpdate));
-            }
+            afterEffectUpdate.put(GameCommandValues.DININGROOMARRAY,      updatedDiningRooms);
         }
 
         catch (Exception e) {

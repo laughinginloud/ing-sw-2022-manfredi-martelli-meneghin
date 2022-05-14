@@ -1,15 +1,25 @@
 package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.GameCommand;
+import it.polimi.ingsw.controller.command.GameCommandSendInfo;
+import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Abstract class representing the strategy of the CharacterCard
  * @author Giovanni Manfredi
  */
 public abstract class CharacterCardStrategy {
-    // reference to the same object in the model
+    // Reference to the corresponding card in the model
     protected CharacterCard card;
+
+    // The map that will be updated by the concrete strategies with the data they modified
+    protected Map<GameCommandValues, Object> afterEffectUpdate = new HashMap<>();
 
     /**
      * Factory method: Associates the strategy to the CharacterCard
@@ -53,6 +63,8 @@ public abstract class CharacterCardStrategy {
 
         // Sets that a flag which indicates that a CharacterCard has been played this turn
         data.setPlayedCard();
+
+        updatePlayers(); //TODO
     }
 
     /**
@@ -92,4 +104,17 @@ public abstract class CharacterCardStrategy {
      * Activates the effect of the CharacterCard
      */
     abstract public void activateEffect();
+
+    /**
+     * Send the updated data contained in the afterEffectUpdate map to every player
+     */
+    private void updatePlayers() {
+        GameCommand sendInfo = new GameCommandSendInfo(afterEffectUpdate);
+
+        Player[] players = ControllerData.getInstance().getPlayersOrder();
+        for (Player playersToUpdate : players) {
+            VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
+            playerToUpdateView.sendMessage(sendInfo);
+        }
+    }
 }
