@@ -104,4 +104,7 @@ public enum GameCommandValues {
 
     // The color of the diningRoomTable containing the student that the player want to swap the swappableStudent with - CharacterCard 'BARD'
     DININGROOMTABLECOLOR,
+
+    // The color to inhibite selected by the player
+    MERCHANTCOLOR,
 }
