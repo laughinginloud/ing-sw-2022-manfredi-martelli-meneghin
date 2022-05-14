@@ -7,6 +7,7 @@ import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,10 +112,16 @@ public abstract class CharacterCardStrategy {
     private void updatePlayers() {
         GameCommand sendInfo = new GameCommandSendInfo(afterEffectUpdate);
 
-        Player[] players = ControllerData.getInstance().getPlayersOrder();
-        for (Player playersToUpdate : players) {
-            VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
-            playerToUpdateView.sendMessage(sendInfo);
+        try {
+            Player[] players = ControllerData.getInstance().getPlayersOrder();
+            for (Player playersToUpdate : players) {
+                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
+                playerToUpdateView.sendMessage(sendInfo);
+            }
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
