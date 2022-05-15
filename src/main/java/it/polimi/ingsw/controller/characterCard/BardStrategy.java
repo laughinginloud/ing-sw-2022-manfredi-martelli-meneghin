@@ -153,16 +153,9 @@ public class BardStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedSchoolBoards[i] = players[i].getSchoolBoard();
 
-            // Creates a map containing the updated fields to send to all the players
-            Map<GameCommandValues, Object> afterEffectUpdate = new HashMap<>();
+            // Save into the afterEffectUpdate the updated fields that will be broadcasted to the players
             afterEffectUpdate.put(GameCommandValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
             afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGPT);
-
-            // Sends to all the players the updated fields
-            for (Player playersToUpdate : players) {
-                VirtualView playerToUpdateView = data.getPlayerView(playersToUpdate);
-                playerToUpdateView.sendMessage(new GameCommandSendInfo(afterEffectUpdate));
-            }
         }
 
         // If the response is of the wrong kind, send an Illegal Command message and restart the method
