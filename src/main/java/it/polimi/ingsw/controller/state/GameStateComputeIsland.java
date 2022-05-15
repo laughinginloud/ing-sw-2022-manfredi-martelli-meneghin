@@ -15,27 +15,43 @@ import java.util.*;
  * @author Mattia Martelli
  */
 public class GameStateComputeIsland implements GameStateActionPhase {
-    private boolean notEnoughTowerTrigger = false;
-    private Integer remainingTower        = null;
-    private Player  winner                = null;
-    //TODO: winner list team
+    private       boolean notEnoughTowerTrigger;
+    private       Integer remainingTower;
+    private       Player  winner;
+    private final int     islandIndex;
 
-    //TODO: ripulire
+    public GameStateComputeIsland() {
+        this(ControllerData.getInstance().getGameModel().getMotherNaturePosition());
+    }
+
+    public GameStateComputeIsland(int islandIndex) {
+        this.islandIndex      = islandIndex;
+        notEnoughTowerTrigger = false;
+        remainingTower        = null;
+        winner                = null;
+    }
+
     public GameState nextState() {
-        if (ControllerData.getInstance().checkWinTrigger())
-            return winner == null ?
-                new GameStateEndGame() :
-                ControllerData.getInstance().getGameModel().getPlayersCount() == 4 ?
-                    new GameStateEndGame(putWinners(winner)) :
-                    new GameStateEndGame(winner);
-
-        return new GameStateChooseCloud();
+        return
+            // Check if the game has been won already (negated, to help readability)
+            !ControllerData.getInstance().checkWinTrigger() ?
+                // If the game hasn't ended yet, go to the next phase
+                new GameStateChooseCloud() :
+                // Otherwise, check if a winner has already been decided
+                winner == null ?
+                    // If no player has been elected as winner, return a plain end phase, which will decide who won
+                    new GameStateEndGame() :
+                    // Otherwise, check whether there are four players
+                    ControllerData.getInstance().getGameModel().getPlayersCount() == 4 ?
+                        // If that's true, create the end state with the winning team
+                        new GameStateEndGame(putWinners(winner)) :
+                        // Otherwise, create the end state with the single winner
+                        new GameStateEndGame(winner);
     }
 
     public void executeState() {
         ControllerData data          = ControllerData.getInstance();
         GameModel      model         = data.getGameModel();
-        int            islandIndex   = model.getMotherNaturePosition();
         Island         currentIsland = model.getIsland(islandIndex);
 
         // If the island doesn't have a tower on it launch the control routine, otherwise launch the conquest one
@@ -52,7 +68,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             // If there aren't enough towers to fill tre recolored island, saves into the map the num of remainingTower, the conquered Island
             if (notEnoughTowerTrigger) {
                 controlAndConquerInfo.put(GameCommandValues.REMAININGTOWER, remainingTower);
-                controlAndConquerInfo.put(GameCommandValues.ISLANDNUM, islandIndex);
+                controlAndConquerInfo.put(GameCommandValues.ISLANDNUM,      islandIndex);
             }
 
             // Then save anyway the update IslandArray and PlayerArray into the map
@@ -143,19 +159,19 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         }
     }
 
-    private void unifyIslands(GameModel model, int islandIndex) {
-        int previousIndex  = islandIndex - 1 % model.getIslandsCount(),
-            successorIndex = islandIndex + 1 % model.getIslandsCount();
+    private void unifyIslands(GameModel model, int localIslandIndex) {
+        int previousIndex  = localIslandIndex - 1 % model.getIslandsCount(),
+            successorIndex = localIslandIndex + 1 % model.getIslandsCount();
 
-        if (model.getIsland(previousIndex).getTowerColor() == model.getIsland(islandIndex).getTowerColor()) {
-            mergeIslandsData(model.getIsland(previousIndex), model.getIsland(islandIndex));
-            model.shiftIslands(islandIndex);
-            successorIndex = islandIndex;
-            islandIndex    = previousIndex;
+        if (model.getIsland(previousIndex).getTowerColor() == model.getIsland(localIslandIndex).getTowerColor()) {
+            mergeIslandsData(model.getIsland(previousIndex), model.getIsland(localIslandIndex));
+            model.shiftIslands(localIslandIndex);
+            successorIndex = localIslandIndex;
+            localIslandIndex    = previousIndex;
         }
 
-        if (model.getIsland(islandIndex).getTowerColor() == model.getIsland(successorIndex).getTowerColor()) {
-            mergeIslandsData(model.getIsland(islandIndex), model.getIsland(successorIndex));
+        if (model.getIsland(localIslandIndex).getTowerColor() == model.getIsland(successorIndex).getTowerColor()) {
+            mergeIslandsData(model.getIsland(localIslandIndex), model.getIsland(successorIndex));
             model.shiftIslands(successorIndex);
         }
     }
@@ -283,14 +299,15 @@ public class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private List<Player> putWinners (Player winner) {
-        int numOfPlayer = ControllerData.getInstance().getNumOfPlayers();
-        Player[] players = ControllerData.getInstance().getGameModel().getPlayer();
         List<Player> winners = new ArrayList<>();
+
         winners.add(winner);
 
-        for (int i = 0; i < numOfPlayer; i++)
-            if (players[i].equals(winner))
-                winners.add(players[(i + 2) % 4]);
+        if (winner instanceof PlayerTeam t)
+            winners.add(t.getTeamMember());
+
+        else
+            winners.add(((PlayerTeamExpert) winner).getTeamMember());
 
         return winners;
     }
