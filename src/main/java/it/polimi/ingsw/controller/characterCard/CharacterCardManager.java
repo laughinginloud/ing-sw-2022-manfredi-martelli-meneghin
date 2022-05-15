@@ -81,10 +81,11 @@ public class CharacterCardManager {
 
             // BARD: Check if there is at least one student in the current player DiningRoom
             case BARD -> {
-                DiningRoom currentPlayerDiningRoom = player.getSchoolBoard().getDiningRoom();
-                for (Color color : Color.values())
-                    if (currentPlayerDiningRoom.getStudentCounters(color) > 0)
-                        characterCardPlayability = true;
+                Color[] entranceStudents  = player.getSchoolBoard().getEntrance().getStudents();
+                Color[] swappableStudents = BardStrategy.getSwappableStudents(player, entranceStudents);
+
+                if (swappableStudents != null)
+                    characterCardPlayability = true;
             }
 
             // THIEF: Check if there is at least one student in one of all players' DiningRoom

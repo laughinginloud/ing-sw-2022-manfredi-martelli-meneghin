@@ -179,7 +179,7 @@ public class BardStrategy extends CharacterCardStrategy {
      * @param entranceStudents The student in the entrance of the current player
      * @return An array of Color representing the students of the entrance that can be swapped
      */
-    private Color[] getSwappableStudents(Player player, Color[] entranceStudents) {
+    public static Color[] getSwappableStudents(Player player, Color[] entranceStudents) {
         DiningRoom diningRoom = player.getSchoolBoard().getDiningRoom();
         List<Color> swappableStudentsList = new ArrayList<>();
         boolean addable = false;
@@ -200,13 +200,16 @@ public class BardStrategy extends CharacterCardStrategy {
                 swappableStudentsList.add(color);
         }
 
+        // If the swappableStudentsList is empty, return null (it should happen only during the CharacterCardManager's function call
+        if (swappableStudentsList.isEmpty())
+            return null;
+
         // Save the swappableStudentsList in a ColorArray of the same size
         Color[] swappableStudents = new Color[swappableStudentsList.size()];
         for (int i = 0; i < swappableStudentsList.size(); i++)
             swappableStudents[i] = swappableStudentsList.get(i);
 
         return swappableStudents;
-
     }
 
     /**
