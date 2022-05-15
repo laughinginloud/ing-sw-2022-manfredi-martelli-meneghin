@@ -19,18 +19,21 @@ public class GameStateFillClouds implements GameStatePlanPhase {
 
     public void executeState() {
         try {
+            ControllerData data  = ControllerData.getInstance();
+            GameModel      model = data.getGameModel();
+
             // Fill all the CloudTiles, one for each player in game
-            int numOfClouds = ControllerData.getInstance().getNumOfPlayers();
+            int numOfClouds = data.getNumOfPlayers();
             for (int i = 0; i < numOfClouds; i++)
-                fillCloud(ControllerData.getInstance().getGameModel().getCloudTile(i));
+                fillCloud(model.getCloudTile(i), data);
 
             // Creates the Map to send via GameCommand and adds updated CloudTiles to it
             Map<GameCommandValues, Object> updatedCloud = new HashMap<>();
-            updatedCloud.put(GameCommandValues.CLOUDARRAY, ControllerData.getInstance().getGameModel().getCloudTile());
+            updatedCloud.put(GameCommandValues.CLOUDARRAY, model.getCloudTile());
 
             // Sends to all the players the updated array of Clouds, once they have been filled
-            for (Player player : ControllerData.getInstance().getPlayersOrder()) {
-                VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
+            for (Player player : data.getPlayersOrder()) {
+                VirtualView playerView = data.getPlayerView(player);
                 playerView.sendMessage(new GameCommandSendInfo(updatedCloud));
             }
         }
@@ -44,12 +47,13 @@ public class GameStateFillClouds implements GameStatePlanPhase {
     /**
      * Set a precise number of student on a CloudTile, depending on the number of the player. If it empties the bag it sets "true" the EmptyBagTrigger
      * @param cloudTile The cloudTile to be filled of students
+     * @param data The current Game's controllerData
      */
-    private void fillCloud (CloudTile cloudTile) {
+    private void fillCloud (CloudTile cloudTile, ControllerData data) {
         int numOfStudentsToDraw;
 
         // Select the number of students to draw according to the number of players are playing this Game
-        switch (ControllerData.getInstance().getNumOfPlayers()) {
+        switch (data.getNumOfPlayers()) {
             case 2, 4 -> numOfStudentsToDraw = 3;
             case 3    -> numOfStudentsToDraw = 4;
             default   -> throw new IllegalStateException("The number of students to set on a CloudTile could be only 3 or 4");
@@ -57,11 +61,12 @@ public class GameStateFillClouds implements GameStatePlanPhase {
 
         try {
             // Try to draw "numOfStudentsToDraw" students
-            Color[] drawnStudents = ControllerData.getInstance().getGameModel().getBag().drawStudents(numOfStudentsToDraw).drawnStudents();
+            Bag     bagToDrawFrom = data.getGameModel().getBag();
+            Color[] drawnStudents = bagToDrawFrom.drawStudents(numOfStudentsToDraw).drawnStudents();
 
             // If the Bag get emptied during the withdrawal set to "true" the EmptyBagTrigger
             if (drawnStudents.length < numOfStudentsToDraw) {
-                ControllerData.getInstance().setEmptyBagTrigger();
+                data.setEmptyBagTrigger();
                 drawnStudents = Arrays.copyOf(drawnStudents, numOfStudentsToDraw);
             }
 
@@ -69,7 +74,7 @@ public class GameStateFillClouds implements GameStatePlanPhase {
         }
 
         catch (EmptyBagException e){
-            ControllerData.getInstance().setEmptyBagTrigger();
+            data.setEmptyBagTrigger();
         }
     }
 }

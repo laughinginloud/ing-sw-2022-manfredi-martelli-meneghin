@@ -15,20 +15,21 @@ public class GameStateSelectTurnOrder implements GameStatePlanPhase {
     @Override
     public void executeState() {
         try {
-            int numOfPlayers = ControllerData.getInstance().getNumOfPlayers();
-            Player[] newPlayerOrder = new Player[numOfPlayers];
-            Player playerToOrder;
+            ControllerData data     = ControllerData.getInstance();
+            int            numOfPlayers   = data.getNumOfPlayers();
+            Player[]       newPlayerOrder = new Player[numOfPlayers];
+            Player         playerToOrder;
 
             // For each player in the game, which will be his turn priority during the next ActionPhase
             for (int i = 0; i < numOfPlayers; i++) {
-                playerToOrder = ControllerData.getInstance().getPlayersOrder()[i];
+                playerToOrder  = data.getPlayersOrder()[i];
                 newPlayerOrder = addPlayerInOrder(newPlayerOrder, playerToOrder, i);
             }
 
-            ControllerData.getInstance().setPlayersOrder(newPlayerOrder);
+            data.setPlayersOrder(newPlayerOrder);
 
             // Set current player to null at the end of the GameStatePlanPhase. It will be initialized to firstPlayer in GameStateActionPhase.GameStateMoveStudents
-            ControllerData.getInstance().setCurrentPlayer(null);
+            data.setCurrentPlayer(null);
         }
 
         catch (Exception e) {

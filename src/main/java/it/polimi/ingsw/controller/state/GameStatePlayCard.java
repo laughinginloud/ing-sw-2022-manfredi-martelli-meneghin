@@ -17,21 +17,22 @@ public class GameStatePlayCard implements GameStatePlanPhase {
 
     @Override
     public void executeState() {
+        ControllerData data  = ControllerData.getInstance();
         // Orders the player according to the Eriantys Rules (the first to pick is the first player of the previous round, the other follow clockwise)
         selectPlanPhasePlayersOrder();
 
         // Cleans the PlayerAssistantCardMap, removing previous rounds' played cards
         ControllerData.getInstance().nukePlayerAssistantCardMap();
-        Player[] players = ControllerData.getInstance().getPlayersOrder();
 
         // Makes every player play an AssistantCard
+        Player[] players = data.getGameModel().getPlayer();
         for (Player player : players) {
-            ControllerData.getInstance().setCurrentPlayer(player);
+            data.setCurrentPlayer(player);
             AssistantCard[] playableAssistantCards = getPlayableAssistantCards(player);
 
             try {
                 // Requests to the current player to play a card between the playable AssistantCard he has in his deck
-                VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
+                VirtualView playerView = data.getPlayerView(player);
                 GameCommand request = new GameCommandRequestAction(GameCommandActions.PLAYASSISTANTCARD, playableAssistantCards);
                 GameCommand response = playerView.sendRequest(request);
 
@@ -43,7 +44,7 @@ public class GameStatePlayCard implements GameStatePlanPhase {
 
                     // If playing the AssistantCard the player emptied his deck, sets the EmptyAssistantDeckTrigger
                     if (player.getAssistantDeck().length == 0)
-                        ControllerData.getInstance().setEmptyAssistantDeckTrigger();
+                        data.setEmptyAssistantDeckTrigger();
                 }
             }
 
@@ -60,8 +61,8 @@ public class GameStatePlayCard implements GameStatePlanPhase {
      * @return An array of AssistantCards containing the playable AssistantCards
      */
     private AssistantCard[] getPlayableAssistantCards (Player player) {
-        AssistantCard[] availableCards = player.getAssistantDeck();
-        List<AssistantCard> playableCards = new LinkedList<>();
+        AssistantCard[]            availableCards     = player.getAssistantDeck();
+        List<AssistantCard>        playableCards      = new LinkedList<>();
         Map<Player, AssistantCard> alreadyPlayedCards = ControllerData.getInstance().getPlayerAssistantCardMap();
 
         if (availableCards.length == 0)
@@ -98,24 +99,26 @@ public class GameStatePlayCard implements GameStatePlanPhase {
      */
     private void saveAssistantCardChoice(Player player, AssistantCard chosenCard) {
         try {
+            ControllerData data = ControllerData.getInstance();
+
             // Gets the AssistantCard from the current player's deck
             AssistantCard drawnFromDeck = player.getAssistantCard(chosenCard.cardValue());
             if (!drawnFromDeck.equals(chosenCard))
                 throw new IllegalStateException("The two AssistantCards cannot be different");
 
             // Save the usage of the chosenCard into the ControllerData's PlayerAssistantCardMap
-            ControllerData.getInstance().addPlayerCard(player, chosenCard);
+            data.addPlayerCard(player, chosenCard);
 
             // Set the chosenCard as lastPlayerCard on the current player board
             player.setLastPlayedCard(chosenCard);
 
             // Creates updateInfo and adds to it the updated playerArray, containing the new value of lastPlayerCard
             Map<GameCommandValues, Object> updateInfo = new HashMap<>();
-            updateInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
+            updateInfo.put(GameCommandValues.PLAYERARRAY, data.getGameModel().getPlayer());
 
             // Notifies all the players about the lastPlayedCard now on the board of the current player
-            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder()) {
-                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playerToUpdate);
+            for (Player playerToUpdate : data.getPlayersOrder()) {
+                VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
 
                 GameCommand update = new GameCommandSendInfo(updateInfo);
                 playerToUpdateView.sendMessage(update);
@@ -132,25 +135,28 @@ public class GameStatePlayCard implements GameStatePlanPhase {
      * Modify the playersOrder in ControllerData in order to start the DrawAssistantCardPhase with the rule-based new playersOrder
      */
     private void selectPlanPhasePlayersOrder() {
+        ControllerData data  = ControllerData.getInstance();
+        GameModel      model = data.getGameModel();
+
         // Retrieve the number of the current players and create a vector of this length
-        int numOfPlayers = ControllerData.getInstance().getNumOfPlayers();
+        int      numOfPlayers          = data.getNumOfPlayers();
         Player[] planPhasePlayersOrder = new Player[numOfPlayers];
 
         // Retrieve the first player of the previous round
-        Player firstPickers = ControllerData.getInstance().getPlayersOrder()[0];
-        int firstPickerSeatPosition = 0;
+        Player firstPickers            = data.getPlayersOrder()[0];
+        int    firstPickerSeatPosition = 0;
 
         // Find the seat of the first picker around the table
         for (int i = 0; i < numOfPlayers; i++)
-            if (firstPickers.equals(ControllerData.getInstance().getGameModel().getPlayer(i)))
+            if (firstPickers.equals(model.getPlayer(i)))
                 firstPickerSeatPosition = i;
 
         // Order the player clockwise after the first picker, depending on where they are sat around the "table"
         for (int i = 0; i < numOfPlayers; i++)
-            planPhasePlayersOrder[i] = ControllerData.getInstance().getGameModel().getPlayer((i + firstPickerSeatPosition) % 4);
+            planPhasePlayersOrder[i] = model.getPlayer((i + firstPickerSeatPosition) % 4);
 
         // Set then the new playersOrder in ControllerData
-        ControllerData.getInstance().setPlayersOrder(planPhasePlayersOrder);
+        data.setPlayersOrder(planPhasePlayersOrder);
     }
 }
 

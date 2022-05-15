@@ -49,18 +49,21 @@ public class GameStateMoveStudents implements GameStateActionPhase {
      * @return A Player representing the current player of this ActionPhase turn
      */
     private Player updateCurrentPlayer() {
-        Player updatedCurrentPlayer = null;
-        Player previousCurrentPlayer = ControllerData.getInstance().getCurrentPlayer();
+        ControllerData data = ControllerData.getInstance();
+
+        // Creates a new player, that will be the updatedCurrentPlayer and gets the current player
+        Player updatedCurrentPlayer  = null;
+        Player previousCurrentPlayer = data.getCurrentPlayer();
 
         // If it is the first turn, set currentPlayer to the firstPlayer of the PlayersOrderArray
         if (previousCurrentPlayer == null)
-            updatedCurrentPlayer = ControllerData.getInstance().getPlayersOrder(0);
+            updatedCurrentPlayer = data.getPlayersOrder(0);
 
         // If not, set currentPlayer to the nextPlayer of the PlayersOrderArray
         else
-            for (int i = 0; i < ControllerData.getInstance().getNumOfPlayers(); i ++)
-                if (previousCurrentPlayer.equals(ControllerData.getInstance().getPlayersOrder(i))) {
-                    updatedCurrentPlayer = ControllerData.getInstance().getPlayersOrder(i + 1);
+            for (int i = 0; i < data.getNumOfPlayers(); i ++)
+                if (previousCurrentPlayer.equals(data.getPlayersOrder(i))) {
+                    updatedCurrentPlayer = data.getPlayersOrder(i + 1);
                     break;
                 }
 
@@ -74,15 +77,20 @@ public class GameStateMoveStudents implements GameStateActionPhase {
      * @throws Exception Can be thrown by GameCommands or by the Network
      */
     private void moveOneStudent(Player player, VirtualView playerView) throws Exception {
-        Player[] players = ControllerData.getInstance().getPlayersOrder();
-        Color[] movableStudents = player.getSchoolBoard().getEntrance().getStudents();
-        Map<GameCommandValues, Object> moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
-        Map<GameCommandValues, Object> updateInfo = new HashMap<>();
-        boolean expertMode = ControllerData.getInstance().getExpertMode();
+        ControllerData data            = ControllerData.getInstance();
+        GameModel      model           = data.getGameModel();
+        Player[]       players         = model.getPlayer();
+
+        // Gets the entrance's students, the flag expertMode and sets useful flags to "false"
+        Color[] movableStudents      = player.getSchoolBoard().getEntrance().getStudents();
+        boolean expertMode           = data.getExpertMode();
         boolean canPlayCharacterCard = false;
 
+        // Creates a map that will be filled by the fields to send to the player in order to let him move a student
+        Map<GameCommandValues, Object> moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
+
         // If the player hasn't played a card yet
-        if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
+        if (expertMode && !data.checkPlayedCard()) {
             // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
             CharacterCard[] playableCharacterCard = CharacterCardManager.getPlayableCharacterCard(player);
 
@@ -106,24 +114,29 @@ public class GameStateMoveStudents implements GameStateActionPhase {
         if (response instanceof GameCommandMoveStudent c) {
             // Executes the Command and saves the returned values
             Object[] commandReturnInfo = (Object[]) c.executeCommand();
-            boolean toDiningRoom = (boolean) commandReturnInfo[0];
-            Color   movedStudent = (Color) commandReturnInfo[1];
+            boolean  toDiningRoom      = (boolean)  commandReturnInfo[0];
+            Color    movedStudent      = (Color)    commandReturnInfo[1];
+
+            // Create a Map where to store updatedFields in order to send them to the players
+            Map<GameCommandValues, Object> updateInfo = new HashMap<>();
 
             if (!toDiningRoom)
                 // Adds IslandArray value to the updateInfo Map that will be sent to all the players
-                updateInfo.put(GameCommandValues.ISLANDARRAY, ControllerData.getInstance().getGameModel().getIslands());
+                updateInfo.put(GameCommandValues.ISLANDARRAY, model.getIslands());
 
             else {
-                // If the current player is playing an ExpertMode Game it checks if the current player will receive a Coin adding a student to a specific DiningRoomTable
-                if (ControllerData.getInstance().getExpertMode())
+                // If the current player is playing an ExpertMode Game it checks if the current player will receive
+                // a Coin adding a student to a specific DiningRoomTable
+                if (data.getExpertMode())
                     if (checkAndAddCoin(player, movedStudent)) {
                         // Adds globalCoinPool and playerArray values to the updateInfo Map that will be sent to all the players
-                        updateInfo.put(GameCommandValues.COINPOOL, ControllerData.getInstance().getGameModel().getCoinPool());
-                        updateInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
+                        updateInfo.put(GameCommandValues.COINPOOL, model.getCoinPool());
+                        updateInfo.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
                     }
 
-                GlobalProfessorTable gpt = ControllerData.getInstance().getGameModel().getGlobalProfessorTable();
-                // Checks if the current player has more students on a specific color's DiningRoomTable than the player which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
+                // Checks if the current player has more students on a specific color's DiningRoomTable than the player
+                // which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
+                GlobalProfessorTable          gpt = model.getGlobalProfessorTable();
                 Player playerControllingProfessor = gpt.getProfessorLocation(movedStudent);
                 if (!player.equals(playerControllingProfessor) && checkProfessorMovement(player, playerControllingProfessor, movedStudent)) {
                     gpt.setProfessorLocation(movedStudent, player);
@@ -149,7 +162,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
 
             // Sends to all the player the updateInfo Map containing all the GameModel's fields which need to be updated after the movement of the student
             for (Player playerToUpdate : players) {
-                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playerToUpdate);
+                VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
 
                 GameCommand update = new GameCommandSendInfo(updateInfo);
                 playerToUpdateView.sendMessage(update);
@@ -159,7 +172,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
         // If the player decided to play a CharacterCard
         else if (response instanceof GameCommandPlayCharacterCard c) {
             // If the player already used a CharacterCard during this turn, throws an exception
-            if(ControllerData.getInstance().checkPlayedCard())
+            if(data.checkPlayedCard())
                 throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
             // Executes the command received
@@ -186,9 +199,9 @@ public class GameStateMoveStudents implements GameStateActionPhase {
      */
     public static boolean checkProfessorMovement(Player newPlayer, Player controllingPlayer, Color student) {
 
-        ControllerData data = ControllerData.getInstance();
-        DiningRoom diningRoomNewPlayer = newPlayer.getSchoolBoard().getDiningRoom();
-        DiningRoom diningRoomControllingPlayer = controllingPlayer.getSchoolBoard().getDiningRoom();
+        ControllerData data                        = ControllerData.getInstance();
+        DiningRoom     diningRoomNewPlayer         = newPlayer.getSchoolBoard().getDiningRoom();
+        DiningRoom     diningRoomControllingPlayer = controllingPlayer.getSchoolBoard().getDiningRoom();
 
         // If the flag 'equalStudentsFlag' is set the professor moves if the number of students in the dining room
         // is >= to the player is currently holding the professor. Otherwise, only if the number of students is >.

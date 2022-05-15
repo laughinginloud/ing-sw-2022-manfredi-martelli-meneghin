@@ -4,9 +4,8 @@ import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.controller.command.*;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Character;
-import it.polimi.ingsw.model.CharacterCard;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.virtualView.VirtualView;
 
 import java.util.HashMap;
@@ -23,14 +22,19 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
     public void executeState() {
         try {
-            Player curPlayer = ControllerData.getInstance().getCurrentPlayer();
-            VirtualView curPlayerView = ControllerData.getInstance().getPlayerView(curPlayer);
-            Map<GameCommandValues, Object> characterCardInfo = new HashMap<>();
-            boolean expertMode = ControllerData.getInstance().getExpertMode();
+            ControllerData data          = ControllerData.getInstance();
+            Player         curPlayer     = data.getCurrentPlayer();
+            VirtualView    curPlayerView = data.getPlayerView(curPlayer);
+
+            // Gets the expertMode and set useful flag to "false"
+            boolean expertMode = data.getExpertMode();
             boolean canPlayCharacterCard = false;
 
+            // Creates a map where to save the fields that will be sent to the current player
+            Map<GameCommandValues, Object> characterCardInfo = new HashMap<>();
+
             // If the player hasn't player a card yet and the game is in ExpertMode
-            if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
+            if (expertMode && !data.checkPlayedCard()) {
                 // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
                 CharacterCard[] playableCharacterCard = CharacterCardManager.getPlayableCharacterCard(curPlayer);
 
@@ -51,7 +55,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
                     // If the player decide to play a characterCard
                     if (response instanceof GameCommandPlayCharacterCard c) {
                         // If the player already used a CharacterCard during this turn, throws an exception
-                        if (ControllerData.getInstance().checkPlayedCard())
+                        if (data.checkPlayedCard())
                             throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
                         // Executes the command received

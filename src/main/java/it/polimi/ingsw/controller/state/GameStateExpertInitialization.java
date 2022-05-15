@@ -20,8 +20,9 @@ public class GameStateExpertInitialization implements GameStateSetup {
     }
 
     public void executeState() {
-        Player[] players = ControllerData.getInstance().getPlayersOrder();
-        GameModel model = ControllerData.getInstance().getGameModel();
+        ControllerData  data           = ControllerData.getInstance();
+        GameModel       model          = data.getGameModel();
+        Player[]        players        = data.getPlayersOrder();
         CharacterCard[] characterCards = model.getCharacterCards();
 
         setStudentsOnCards(characterCards, model);
@@ -29,17 +30,14 @@ public class GameStateExpertInitialization implements GameStateSetup {
 
         try {
             for (Player player : players) {
-                GameModel gameModel = ControllerData.getInstance().getGameModel();
-                CharacterCard[] updatedCharacterCards = gameModel.getCharacterCards();
-
                 // Get the virtualView of the player we need to send the updated information to
                 VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
 
                 // Creates the Map to send via GameCommand and adds updated CharacterCards, CoinPool and PlayerCoinCounts
                 Map<GameCommandValues, Object> updatedExpertInfo = new HashMap<>();
-                updatedExpertInfo.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
-                updatedExpertInfo.put(GameCommandValues.COINPOOL, ControllerData.getInstance().getGameModel().getCoinPool());
-                updatedExpertInfo.put(GameCommandValues.PLAYERARRAY, ControllerData.getInstance().getGameModel().getPlayer());
+                updatedExpertInfo.put(GameCommandValues.CHARACTERCARDARRAY, characterCards);
+                updatedExpertInfo.put(GameCommandValues.COINPOOL, model.getCoinPool());
+                updatedExpertInfo.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
 
                 playerView.sendMessage(new GameCommandSendInfo(updatedExpertInfo));
             }
