@@ -78,7 +78,7 @@ public enum GameCommandValues {
     // An Array of color representing the students present on the Entrance of a player
     ENTRANCESTUDENTS,
 
-    // An Array of color representing the students present on a characterCard
+    // An Array of color representing the students present on a characterCard - CharacterCard 'PRINCESS'
     CARDSTUDENTS,
 
     // An integer that indicates the index of the student the player selected from the entrance - CharacterCard 'JESTER'

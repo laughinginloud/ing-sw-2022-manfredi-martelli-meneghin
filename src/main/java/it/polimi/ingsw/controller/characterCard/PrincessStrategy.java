@@ -1,7 +1,15 @@
 package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.*;
+import it.polimi.ingsw.controller.state.GameStateMoveStudents;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.virtualView.VirtualView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'PRINCESS'
@@ -22,32 +30,157 @@ public class PrincessStrategy extends CharacterCardStrategy {
      */
     @Override
     public void activateEffect() {
-        ControllerData data = ControllerData.getInstance();
-        GameModel model = data.getGameModel();
-        Player currentPlayer = data.getCurrentPlayer();
-
-        // TODO [CharacterCardStrategy] Command implementation
-        // The server asks the player which student he wants to move to a DiningRoom (requestAction())
-        // The player responds with the information requested by the server (responseAction(student_index))
-
-        // The server moves the student from the CharacterCard to the SchoolBoard (FullBoardException?)
-        Color movedStudent = ((CharacterCardStudent) card).retrieveStudent(student_index);
-        DiningRoom diningRoom = currentPlayer.getSchoolBoard().getDiningRoom();
-        int currentStudents = diningRoom.getStudentCounters(movedStudent);
-        diningRoom.setStudentCounters(movedStudent, currentStudents + 1);
-
-        // The server refills the card taking a student from the Bag (EmptyBagException)
         try {
-            movedStudent = model.getBag().drawStudents(1).drawnStudents()[0];
+            ControllerData data = ControllerData.getInstance();
+            GameModel model = data.getGameModel();
+            Player currentPlayer = data.getCurrentPlayer();
+            VirtualView playerView = data.getPlayerView(currentPlayer);
+
+            // Cast the current characterCard to a CharacterCardStudent
+            CharacterCardStudent enhancedCard = (CharacterCardStudent) card;
+
+            // Gets the students currently present on the CharacterCard, then select the student that can be moved to a DiningRoomTable
+            Color[] characterCardStudents = enhancedCard.getStudents();
+            Color[] movableStudents = getMovableStudents(currentPlayer, characterCardStudents);
+
+            // Create a Map and save the field that will be sent to the player as RequestAction's payload
+            Map<GameCommandValues, Object> princessMap = new HashMap<>();
+            princessMap.put(GameCommandValues.CARDSTUDENTS, characterCardStudents);
+
+            // The server asks the player which students would like to move from the entrance to its DiningRoom
+            GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, princessMap);
+            GameCommand response = playerView.sendRequest(request);
+
+            // If the response is of the right kind
+            if (response instanceof GameCommandChosenCharacterCardFields c) {
+                // The player responds with the information requested by the server
+                @SuppressWarnings("unchecked")
+                Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+
+                // Gets the index of students that the player wants to move, from the Map received from the client
+                int movableStudentIndex = (int) chosenField.get(GameCommandValues.STUDENTINDEX);
+
+                // Retrieve the characterCardStudentIndex corresponding to student indicated with the movableStudentIndex
+                int characterCardStudentIndex = getCharacterCardStudentIndex(characterCardStudents, movableStudents, movableStudentIndex);
+
+                // The server moves the student from the CharacterCard to the SchoolBoard
+                Color movedStudent = enhancedCard.retrieveStudent(characterCardStudentIndex);
+                DiningRoom diningRoom = currentPlayer.getSchoolBoard().getDiningRoom();
+                int currentStudents = diningRoom.getStudentCounters(movedStudent);
+                diningRoom.setStudentCounters(movedStudent, currentStudents + 1);
+
+                // The server refills the card taking a student from the Bag (EmptyBagException)
+                Color drawnStudent = null;
+                try {
+                    drawnStudent = model.getBag().drawStudents(1).drawnStudents()[0];
+                } catch (EmptyBagException e) {
+                    data.setEmptyBagTrigger();
+                }
+
+                enhancedCard.appendStudent(drawnStudent);
+
+                // Update the globalProfessorTable according to the new SchoolBoards (professor could change location)
+                for (Color student: Color.values()) {
+                    Player controllingPlayer = model.getGlobalProfessorTable().getProfessorLocation(student);
+                    // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
+                    // The professorLocation is changed to the currentPlayer
+                    if (!currentPlayer.equals(controllingPlayer) &&
+                        GameStateMoveStudents.checkProfessorMovement(currentPlayer, controllingPlayer, student)) {
+
+                        model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
+                    }
+                }
+
+                // After the server managed the use of the CharacterCard, gets the updated values of schoolBoards, globalProfessorTable
+                // and characterCards
+                Player[]             players               = model.getPlayer();
+                DiningRoom[]         updatedDiningRooms    = new DiningRoom[players.length];
+                GlobalProfessorTable updatedGPT            = model.getGlobalProfessorTable();
+                CharacterCard[]      updatedCharacterCards = model.getCharacterCards();
+
+                // Gets the diningRoom of each player and saves it in updatedDiningRooms
+                for (int i = 0; i < players.length; i++)
+                    updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
+
+                // Save into the afterEffectUpdate the updated fields that will be broadcasted to the players
+                afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
+                afterEffectUpdate.put(GameCommandValues.DININGROOMARRAY, updatedDiningRooms);
+                afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGPT );
+            }
+
+            // If the response is of the wrong kind, send an Illegal Command message and restart the method
+            else {
+                try {
+                    playerView.sendMessage(new GameCommandIllegalCommand());
+                }
+
+                catch (Exception ex) {
+                    // Fatal error: print the stack trace to help debug
+                    ex.printStackTrace();
+                }
+
+                activateEffect();
+            }
         }
 
-        catch (EmptyBagException e){
-            data.setEmptyBagTrigger();
+        catch (Exception e){
+            // Fatal error: print the stack trace to help debug
+            e.printStackTrace();
         }
+    }
 
-        ((CharacterCardStudent) card).appendStudent(movedStudent);
+    /**
+     * Select which students from the availableStudents are really movable, according to the seats on the DiningRoomTables
+     * @param player The player who will move the student
+     * @param availableStudents The students that are currently on the characterCard
+     * @return An array of color representing the students that can really be moved
+     */
+    private Color[] getMovableStudents (Player player, Color[] availableStudents) {
+        DiningRoom diningRoom = player.getSchoolBoard().getDiningRoom();
+        List<Color> movableStudentsList = new ArrayList<>();
 
-        // TODO [CharacterCardStrategy] Command implementation
-        // sendInfo to all players
+        // For each student of the array availableStudents select if it's movable
+        for (Color availableStudent : availableStudents)
+            // A student is movable if the DiningTable of the same color has free seat(s)
+            if (diningRoom.getStudentCounters(availableStudent) < 10)
+                movableStudentsList.add(availableStudent);
+
+        // Save the movableStudentList in an array movableStudents of the same size
+        Color[] movableStudents = new Color[movableStudentsList.size()];
+        for (int i = 0; i < movableStudentsList.size(); i++)
+            movableStudents[i] = movableStudentsList.get(i);
+
+        return movableStudents;
+
+    }
+
+    /**
+     * Link the selected movableStudent to the correspondent characterCardStudent
+     * @param characterCardStudents An array of students containing the characterCard's students
+     * @param movableStudents An array of students containing the movableStudents
+     * @param movableStudentIndex The index of the students selected by the player from the movableStudents
+     * @return The index of the student selected by the player mapped on the characterCardStudents
+     */
+    private int getCharacterCardStudentIndex (Color[] characterCardStudents, Color[] movableStudents, int movableStudentIndex) {
+        Color movedStudent = movableStudents[movableStudentIndex];
+        int sameColorAntecedentMovedStudents  = 0;
+        int sameColorAntecedentCharacterCardStudents = 0;
+        boolean sameAntecedents = false;
+
+        for (int i = 0; i < movableStudentIndex; i++)
+            if (movableStudents[i] == movedStudent)
+                sameColorAntecedentMovedStudents++;
+
+        if (sameColorAntecedentCharacterCardStudents == sameColorAntecedentMovedStudents)
+            sameAntecedents = true;
+
+        for (int i = 0; i < characterCardStudents.length; i++)
+            if (characterCardStudents[i] == movedStudent)
+                if (!sameAntecedents)
+                    sameColorAntecedentMovedStudents++;
+                else
+                    return i;
+
+        throw new IllegalStateException("CharacterCard must contain the student select by the movableStudents");
     }
 }
