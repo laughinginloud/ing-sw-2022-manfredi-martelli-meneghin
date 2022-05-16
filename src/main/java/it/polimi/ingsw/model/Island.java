@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Class representing the islands
@@ -22,6 +21,9 @@ public class Island {
 
     //region Constructor
 
+    /**
+     * Constructor of the class 'Island'
+     */
     public Island() {
         studentCounters = new int[Color.values().length];
         setStudentCounters(0);
@@ -37,32 +39,32 @@ public class Island {
     //region Getter
 
     /**
-     * Get the current TowerColor on the Island. This color is associated to the player who is controlling the Island
+     * Gets the current TowerColor on the Island. This color is associated to the player who is controlling the Island
      * @return The color of towerColor
      */
     public TowerColor getTowerColor() { return towerColor; }
 
     /**
-     * Get the multiplicity, the number of sub-island this island consist in
+     * Gets the multiplicity, the number of sub-island this island consist in
      * @return An int representing the multiplicity
      */
     public int getMultiplicity() { return multiplicity; }
 
     /**
-     * Get the counter specific color
-     * @param color The color of the counter
+     * Gets the counter of a specific color
+     * @param color The color of the counter (not null)
      * @return The value of the counter
      */
     public int getStudentCounters(Color color) { return studentCounters[color.ordinal()]; }
 
     /**
-     * Get the number of noEntryTiles currently on the island
+     * Gets the number of noEntryTiles currently on the island
      * @return An Integer representing noEntryTilesCount, null if there are no noEntryTiles on the island.
      */
     public Integer getNoEntryTileCount() { return noEntryTileCount; }
 
     /**
-     * Get all the backgroundIDs assigned to the island, without deleting them
+     * Gets all the backgroundIDs assigned to the island, without deleting them
      * @return An int array of island's backgroundIDs
      */
     public int[] getBackgroundID() {
@@ -81,14 +83,15 @@ public class Island {
     // region Setter
 
     /**
-     * Set towerColor to a specific TowerColor
-     * @param towerColor The color to set towerColor to
+     * Sets towerColor to a specific TowerColor
+     * @param towerColor The color to set towerColor to (not null)
      */
     public void setTowerColor(TowerColor towerColor) { this.towerColor = towerColor; }
 
     /**
-     * Set the multiplicity to a value
-     * @param multiplicity Value to be set
+     * Sets the multiplicity to a value
+     * @param multiplicity Value to be set (positive integer between 0 and 12)
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void setMultiplicity(int multiplicity) throws IllegalArgumentException {
         if(multiplicity < 0 || multiplicity > 12)
@@ -98,9 +101,10 @@ public class Island {
     }
 
     /**
-     * Set a specific counter to a value
-     * @param color Color of the counter
-     * @param n Value to be set
+     * Sets a specific counter to a value
+     * @param color Color of the counter (not null)
+     * @param n Value to be set (positive integer between 0 and 26)
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
         if(n < 0 || n > 26)
@@ -111,7 +115,7 @@ public class Island {
 
     /**
      * Set all the counters to a value
-     * @param n Value to be set for all counters
+     * @param n Value to be set for all counters (positive integer between 0 and 26)
      */
     public void setStudentCounters(int n) {
         for (Color color : Color.values()) {
@@ -120,8 +124,9 @@ public class Island {
     }
 
     /**
-     *Set noEntryTileCount to a value
-     * @param noEntryTileCount Value to be set
+     * Sets noEntryTileCount to a value
+     * @param noEntryTileCount Value to be set (positive integer between 0 and 4)
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void setNoEntryTileCount(int noEntryTileCount) throws IllegalArgumentException {
         if(noEntryTileCount < 0 || noEntryTileCount > 4)
@@ -135,8 +140,9 @@ public class Island {
     // region Others
 
     /**
-     * Add a backgroundID to the end of the backgroundID's list, modifying its length
-     * @param id The backgroundID to add
+     * Adds a backgroundID to the end of the backgroundID's list, modifying its length
+     * @param id The backgroundID to add (positive integer between 0 and 3)
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void addBackgroundID(int id) throws IllegalArgumentException {
         if (id < 0 || id > 3)
@@ -146,8 +152,9 @@ public class Island {
     }
 
     /**
-     * Add every backgroundID of the array ids to the end of backgroundID's list, modifying its length
-     * @param ids Array of backgroundID to add
+     * Adds every backgroundID of the array ids to the end of backgroundID's list, modifying its length
+     * @param ids Array of backgroundID to add (not null)
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void addBackgroundID(int[] ids) throws IllegalArgumentException {
         if (ids == null)

@@ -8,22 +8,25 @@ package it.polimi.ingsw.model;
 public class DiningRoom {
     private final int[] studentCounters = new int[Color.values().length];
 
+    /**
+     * Constructor of the class 'Dining Room'
+     */
     public DiningRoom() {
         setStudentCounters(0);
     }
 
     /**
-     * Get the counter for a specific color
-     * @param color The color of the counter
-     * @return The value of the counter
+     * Gets the counter for a specific color
+     * @param color The color of the counter (not null)
+     * @return The value of the counter (positive integer)
      */
     public int getStudentCounters(Color color) {
         return studentCounters[color.ordinal()];
     }
 
     /**
-     * Set all the counters to a value
-     * @param n Value to be set for all counters
+     * Sets all the counters to a value
+     * @param n Value to be set for all counters (positive integer)
      */
     public void setStudentCounters(int n) throws IllegalArgumentException {
         if (n < 0 || n > 10)
@@ -35,9 +38,9 @@ public class DiningRoom {
     }
 
     /**
-     * Set a specific counter to a value
-     * @param color Color of the counter
-     * @param n Value to be set
+     * Sets a specific counter to a value
+     * @param color Color of the counter (not null)
+     * @param n Value to be set (positive integer)
      */
     public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
         studentCounters[color.ordinal()] = n;

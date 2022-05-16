@@ -8,6 +8,9 @@ public class Bag {
     private final int[] studentCounters;
     private       int   numOfStudents;
 
+    /**
+     * Constructor of the class 'Bag'
+     */
     public Bag(){
         studentCounters = new int[Color.values().length];
         setStudentCounters(0);
@@ -15,18 +18,19 @@ public class Bag {
     }
 
     /**
-     * Return the current value of a specific studentCounter
-     * @param color Color of the studentCounter to return
-     * @return An int representing the current value
+     * Gets the current value of a specific studentCounter
+     * @param color Color of the studentCounter to return (not null)
+     * @return An int representing the current value of the specified color
+     *         (positive integer between 0 and 16 included)
      */
     public int getStudentCounters(Color color){
         return studentCounters[color.ordinal()];
     }
 
     /**
-     * Set a studentCounter of a specific color to a specific value
-     * @param color Color of the studentCounter to set
-     * @param n Int to set studentCounter to
+     * Sets a studentCounter of a specific color to a specific value
+     * @param color Color of the studentCounter to set (not null)
+     * @param n Int to set studentCounter to (positive integer between 0 and 16 included)
      */
     public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
         if (n < 0 || n > 26)
@@ -38,8 +42,8 @@ public class Bag {
     }
 
     /**
-     * Set all studentCounter of the bag to a specific value
-     * @param n Int to set all studentCounter to
+     * Sets all studentCounter of the bag to a specific value
+     * @param n Int to set all studentCounter to (positive integer between 0 and 16 included)
      */
     public void setStudentCounters(int n){
         for (Color color : Color.values()) {
@@ -48,8 +52,9 @@ public class Bag {
     }
 
     /**
-     * Draw a random student from the Bag
-     * @return Color of the student selected
+     * Draws a random student from the Bag
+     * @author Mattia Martelli & Sebastiano Meneghin
+     * @return Color of the student selected (not null)
      */
     private Color drawStudents() {
         int randomColorIndex;
@@ -63,9 +68,11 @@ public class Bag {
     }
 
     /**
-     * Draw a specific number of random students from the bag
-     * @param n Int representing the number of students to be drawn
-     * @return A variable length array of Color containing the students drawn (if there are fewer students than required, its size is <n)
+     * Draws a specific number of random students from the bag
+     * @author Mattia Martelli & Sebastiano Meneghin
+     * @param n Int representing the number of students to be drawn (a positive integer)
+     * @return A variable length array of Color containing the students drawn
+     *         (if there are fewer students than required, its size is < n) - not null
      * @throws EmptyBagException Launched when trying to draw a student from an empty bag
      */
     public BagResult drawStudents(int n) throws EmptyBagException {

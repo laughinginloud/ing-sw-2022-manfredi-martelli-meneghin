@@ -14,6 +14,13 @@ public class Player {
     private final SchoolBoard     schoolBoard;
     private final String          username;
 
+    /**
+     * Constructor of the class 'Player'
+     * @param playerID the player ID (positive integer between 0 and 3)
+     * @param username the username of the player
+     * @param playerWizard the Wizard associated with the player (not null)
+     * @param schoolBoard the schoolBoard of the player (not null)
+     */
     public Player(int playerID, String username, Wizard playerWizard, SchoolBoard schoolBoard) {
         assistantDeckSetup();
         this.playerID     = playerID;
@@ -35,9 +42,10 @@ public class Player {
     }
 
     /**
-     * Return the selected card, deleting it from the deck in the process
-     * @param index The index of the card to be removed
+     * Gets the selected card, deleting it from the deck in the process
+     * @param index The index of the card to be removed (positive integer between 0 and 9)
      * @return A record representing the card
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public AssistantCard getAssistantCard(int index) throws IllegalArgumentException {
         if (index < 0 || index >= assistantDeck.length)
@@ -53,7 +61,7 @@ public class Player {
     }
 
     /**
-     * Returns the entire assistant deck
+     * Gets the entire assistant deck
      * @return An array containing the deck
      */
     public AssistantCard[] getAssistantDeck() {
@@ -61,7 +69,7 @@ public class Player {
     }
 
     /**
-     * Returns the player's ID
+     * Gets the player's ID
      * @return An integer containing the ID
      */
     public int getPlayerID() {
@@ -69,7 +77,7 @@ public class Player {
     }
 
     /**
-     * Returns the player's chosen wizard
+     * Gets the player's chosen wizard
      * @return An enumeration constant representing the choice
      */
     public Wizard getPlayerWizard() {
@@ -77,7 +85,7 @@ public class Player {
     }
 
     /**
-     * Returns the schoolBoard associated with the player
+     * Gets the schoolBoard associated with the player
      * @return A pointer to the desired schoolBoard
      */
     public SchoolBoard getSchoolBoard() {
@@ -85,7 +93,7 @@ public class Player {
     }
 
     /**
-     * Returns the player's username
+     * Gets the player's username
      * @return A string containing the username
      */
     public String getUsername() {
@@ -93,8 +101,9 @@ public class Player {
     }
 
     /**
-     * Set the last played card
-     * @param lastPlayedCard The card to be set
+     * Sets the last played card
+     * @param lastPlayedCard The card to be set (not null)
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void setLastPlayedCard(AssistantCard lastPlayedCard) throws IllegalArgumentException {
         // Check whether the first field is in the valid range and the second field follows the correct pattern
@@ -105,7 +114,7 @@ public class Player {
     }
 
     /**
-     * Get the last played card
+     * Gets the last played card
      * @return Last played card
      */
     public AssistantCard getLastPlayedCard() {

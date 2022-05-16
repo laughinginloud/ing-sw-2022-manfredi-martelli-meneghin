@@ -23,7 +23,8 @@ public enum Character {
     // ID = 5  - Cost = 3 - Rules: towers are not considered when calculating the influence
     CENTAUR,
 
-    // ID = 6  - Cost = 1 - Rules: 6 students on the card. 3 can be exchange with the same number of students in an entrance
+    // ID = 6  - Cost = 1 - Rules: 6 students on the card.
+    //                             3 students can be exchanged with the same number of students in an entrance.
     JESTER,
 
     // ID = 7  - Cost = 2 - Rules: 2 additional points of influence on each island
@@ -41,6 +42,13 @@ public enum Character {
     // ID = 11 - Cost = 3 - Rules: 3 students (or all if less) of the chosen color are removed from each SchoolBoard
     THIEF;
 
+
+    /**
+     * Returns the corresponding Character given the integer
+     * @author Giovanni Manfredi & Mattia Martelli
+     * @param num the integer that needs to be converted to a Character (positive integer from 0 to 11)
+     * @return the corresponding Character
+     */
     public static Character fromInt(int num) {
         return values()[num];
     }

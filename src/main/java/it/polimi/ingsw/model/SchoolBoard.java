@@ -10,6 +10,13 @@ public class SchoolBoard {
     private final Entrance   entrance;
     private final DiningRoom diningRoom;
 
+    /**
+     * Constructor of the class 'SchoolBoard'
+     * @param towerColor color of the tower
+     * @param towerCount number of the towers
+     * @param entrance entrance of the player
+     * @param diningRoom dining room of the player
+     */
     public SchoolBoard(TowerColor towerColor, int towerCount, Entrance entrance, DiningRoom diningRoom) {
         this.towerColor = towerColor;
         this.towerCount = towerCount;
@@ -18,7 +25,7 @@ public class SchoolBoard {
     }
 
     /**
-     * Returns the tower color associated with the school board
+     * Gets the tower color associated with the school board
      * @return An enum value representing the towers' color
      */
     public TowerColor getTowerColor() {
@@ -26,7 +33,7 @@ public class SchoolBoard {
     }
 
     /**
-     * Returns the number of towers currently on the board
+     * Gets the number of towers currently on the board
      * @return An integer containing the number of towers
      */
     public int getTowerCount() {
@@ -35,7 +42,7 @@ public class SchoolBoard {
 
     /**
      * Sets the number of towers on the board to a specified value
-     * @param towerCount An integer containing the number to be set
+     * @param towerCount An integer containing the number to be set (positive integer between 0 and 8)
      */
     public void setTowerCount(int towerCount) {
         if (towerCount < 0 || towerCount > 8)
@@ -44,9 +51,8 @@ public class SchoolBoard {
         this.towerCount = towerCount;
     }
 
-    //TODO: test increaseTowerCount
     /**
-     * Increase the tower's count by one
+     * Increases the tower's count by one
      */
     public void increaseTowerCount() {
         increaseTowerCount(1);
@@ -59,10 +65,8 @@ public class SchoolBoard {
         towerCount += n;
     }
 
-    //TODO: test decreaseTowerCount
-
     /**
-     * Decrease the tower's count by one
+     * Decreases the tower's count by one
      */
     public void decreaseTowerCount() {
         decreaseTowerCount(1);
@@ -76,14 +80,14 @@ public class SchoolBoard {
     }
 
     /**
-     * Returns the entrance associated with the school board
-     * @return A pointer to the school board's entrance
+     * Gets the entrance associated with the school board
+     * @return A reference to the school board's entrance
      */
     public Entrance getEntrance() { return entrance; }
 
     /**
-     * Returns the dining room associated with the school board
-     * @return A pointer to the school board's dining room
+     * Gets the dining room associated with the school board
+     * @return A reference to the school board's dining room
      */
     public DiningRoom getDiningRoom() { return diningRoom; }
 }

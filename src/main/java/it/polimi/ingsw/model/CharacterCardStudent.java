@@ -1,12 +1,16 @@
 package it.polimi.ingsw.model;
 
 /**
- * Class representing a "CharacterCardStudent"
+ * Class representing CharacterCards that need students on them - MONK, JESTER and PRINCESS
  * @author Sebastiano Meneghin
  */
 public class CharacterCardStudent extends CharacterCard {
     private final Color[] students;
 
+    /**
+     * Constructor of the class 'CharacterCardStudent'
+     * @param character the character to which the card is set (not null and in the set {MONK, JESTER, PRINCESS})
+     */
     protected CharacterCardStudent (Character character) {
         super(character);
 
@@ -18,7 +22,7 @@ public class CharacterCardStudent extends CharacterCard {
     }
 
     /**
-     * Get the students on the CharacterCard, without deleting them
+     * Gets the students on the CharacterCard, without deleting them
      * @return An array of Color containing currently on the CharacterCard
      */
     public Color[] getStudents() {
@@ -27,7 +31,14 @@ public class CharacterCardStudent extends CharacterCard {
         return temp;
     }
 
-    // TODO: JavaDoc + Test
+    // TODO: Test
+    /**
+     * Removes the student from the specified index and moves it the other elements in the array,
+     * leaving the last element as null
+     * @author Giovanni Manfredi
+     * @param index the index of the student that needs to be removed (positive integer between 0 and 5)
+     * @return the student removed from the array
+     */
     public Color retrieveStudent(int index) {
         if (index < 0 || index > students.length)
             throw new IllegalArgumentException("Index out of bounds");
@@ -39,9 +50,10 @@ public class CharacterCardStudent extends CharacterCard {
     }
 
     /**
-     * Set a student of the field "students" to a specific Color
-     * @param color The color to be set
+     * Sets a student of the field "students" to a specific Color
+     * @param color The color to be set (not null)
      * @param index The index of the student (0 to "students.length - 1")
+     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void setStudents(Color color, int index) throws IllegalArgumentException {
         if (index < 0 || index > 5)
@@ -50,7 +62,12 @@ public class CharacterCardStudent extends CharacterCard {
         this.students[index] = color;
     }
 
-    // TODO: JavaDoc + Test
+    // TODO: Test
+    /**
+     * Adds the specified student at the end of the student's array
+     * @author Giovanni Manfredi
+     * @param color the student to be added (not null)
+     */
     public void appendStudent(Color color) {
         for (int i = 0; i < students.length; ++i) {
             if (students[i] == null) {
