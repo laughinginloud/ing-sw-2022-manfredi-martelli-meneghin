@@ -1,7 +1,9 @@
 package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.model.Player;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CAVALIER'
@@ -23,10 +25,15 @@ public class CavalierStrategy extends CharacterCardStrategy {
     @Override
     public void activateEffect() {
         ControllerData data = ControllerData.getInstance();
+        Player currentPlayer = data.getCurrentPlayer();
 
         // The server increases the influence of the current player of two by setting the flag: extraInfluenceFlag
         data.setCharacterCardFlag(ControllerData.Flags.extraInfluenceFlag, true);
 
-        // TODO [CharacterCardStrategy]: Command implementation - Confirm Message operation successful
+        // Confirm Message operation successful
+        String cavalierConfirmString = "The card effect has been correctly applied! " +
+                                        currentPlayer.getUsername() +
+                                       " will have two more influence on each island until the end of turn";
+        afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, cavalierConfirmString);
     }
 }

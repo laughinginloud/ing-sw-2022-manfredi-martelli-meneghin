@@ -112,5 +112,9 @@ public enum GameCommandValues {
     REDUCIBLECOLOR,
 
     // The color, chosen by the player, of the students that will be reduced in the player's diningRooms - CharacterCard 'THIEF'
-    REDUCECOLOR
+    REDUCECOLOR,
+
+    // The string that the server will send to the client as a confirmation that
+    // the CharacterCard effect has been correctly applied - CharacterCard 'CAVALIER', 'CENTAUR', 'MAGICIAN', 'MERCHANT'
+    CONFIRMATIONSTRING
 }

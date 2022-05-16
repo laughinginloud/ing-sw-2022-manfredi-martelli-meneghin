@@ -56,7 +56,11 @@ public class MerchantStrategy extends CharacterCardStrategy {
                 // The server sets the flag: excludeColorFlag and the variable: Color noInfluenceColor
                 data.setCharacterCardFlag(ControllerData.Flags.excludeColorFlag, true);
 
-                // TODO [CharacterCardStrategy]: Command implementation - Confirm Message operation successful
+                // Confirm Message operation successful
+                String merchantConfirmString = "The card effect has been correctly applied! " + "The color: " +
+                                               selectedColor.toString() +
+                                               " won't be considered during the influence calculation until the end of turn";
+                afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, merchantConfirmString);
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

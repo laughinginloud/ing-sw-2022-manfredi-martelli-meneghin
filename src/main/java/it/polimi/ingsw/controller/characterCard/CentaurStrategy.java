@@ -1,7 +1,9 @@
 package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.model.Player;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CENTAUR'
@@ -27,6 +29,9 @@ public class CentaurStrategy extends CharacterCardStrategy {
         // The server "deactivates" the towers which are not counted for the influence - sets the flag ignoreTowersFlag
         data.setCharacterCardFlag(ControllerData.Flags.ignoreTowersFlag, true);
 
-        // TODO [CharacterCardStrategy]: Command implementation - Confirm Message operation successful
+        // Confirm Message operation successful
+        String centaurConfirmString = "The card effect has been correctly applied!" +
+                                      " Towers won't be counted for the influence calculation until the end of turn";
+        afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, centaurConfirmString);
     }
 }

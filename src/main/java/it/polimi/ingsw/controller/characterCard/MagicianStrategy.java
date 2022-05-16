@@ -1,7 +1,9 @@
 package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
+import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.model.Player;
 
 /**
  * Strategy representing the activation of the CharacterCard 'MAGICIAN'
@@ -23,10 +25,15 @@ public class MagicianStrategy extends CharacterCardStrategy {
     @Override
     public void activateEffect() {
         ControllerData data = ControllerData.getInstance();
+        Player currentPlayer = data.getCurrentPlayer();
 
         // The server allows MotherNature to be moved of two additional islands this turn - sets the flag extraMovementFlag
         data.setCharacterCardFlag(ControllerData.Flags.extraMovementFlag, true);
 
-        // TODO [CharacterCardStrategy]: Command implementation - Confirm Message operation successful
+        // Confirm Message operation successful
+        String magicianConfirmString = "The card effect has been correctly applied! " +
+                                       currentPlayer.getUsername() +
+                                       " can move Mother Nature of two additional tiles this turn";
+        afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, magicianConfirmString);
     }
 }
