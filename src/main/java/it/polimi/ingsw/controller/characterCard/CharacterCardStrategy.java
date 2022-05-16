@@ -84,7 +84,7 @@ public abstract class CharacterCardStrategy {
         else if (currentPlayer instanceof PlayerTeamExpert teamExpertPlayer){
             currentCoins = teamExpertPlayer.getCoinCount();
             teamExpertPlayer.setCoinCount(currentCoins - characterCardCost);
-        };
+        }
 
         GameModel model = ControllerData.getInstance().getGameModel();
         // Based on if the card was already played once or not, the card could have or have not a coin on it

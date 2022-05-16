@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.model.CharacterCard;
-import it.polimi.ingsw.model.GameModel;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CENTAUR'
@@ -24,7 +23,7 @@ public class CentaurStrategy extends CharacterCardStrategy {
     @Override
     public void activateEffect() {
         ControllerData data = ControllerData.getInstance();
-        
+
         // The server "deactivates" the towers which are not counted for the influence - sets the flag ignoreTowersFlag
         data.setCharacterCardFlag(ControllerData.Flags.ignoreTowersFlag, true);
 

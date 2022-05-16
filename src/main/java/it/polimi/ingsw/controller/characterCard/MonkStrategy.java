@@ -77,7 +77,7 @@ public class MonkStrategy extends CharacterCardStrategy {
                 enhancedCard.appendStudent(movedStudent);
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
-                // CharacterCardsArray and IslandsArray and put them in the map that will be broadcasted
+                // CharacterCardsArray and IslandsArray and put them in the map that will be broadcast
                 afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, model.getCharacterCards());
                 afterEffectUpdate.put(GameCommandValues.ISLANDARRAY,        model.getIslands());
             }

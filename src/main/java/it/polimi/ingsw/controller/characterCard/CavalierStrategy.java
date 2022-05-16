@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.model.CharacterCard;
-import it.polimi.ingsw.model.GameModel;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CAVALIER'

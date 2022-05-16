@@ -102,7 +102,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
                 for (int i = 0; i < players.length; i++)
                     updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
-                // Save into the afterEffectUpdate the updated fields that will be broadcasted to the players
+                // Save into the afterEffectUpdate the updated fields that will be broadcast to the players
                 afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
                 afterEffectUpdate.put(GameCommandValues.DININGROOMARRAY, updatedDiningRooms);
                 afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGPT );

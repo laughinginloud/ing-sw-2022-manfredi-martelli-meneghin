@@ -1,14 +1,9 @@
 package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
-import it.polimi.ingsw.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.controller.command.GameCommandValues;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.virtualView.VirtualView;
 import it.polimi.ingsw.controller.state.GameStateMoveStudents;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'FARMER'

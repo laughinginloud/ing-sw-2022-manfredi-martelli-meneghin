@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller.characterCard;
 
 import it.polimi.ingsw.controller.ControllerData;
 import it.polimi.ingsw.controller.command.*;
-import it.polimi.ingsw.controller.state.GameStateMoveStudents;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.virtualView.VirtualView;
 
@@ -83,7 +82,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
                 for (int i = 0; i < players.length; i++)
                     updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
-                // Save into the afterEffectUpdate the updated field that will be broadcasted to the players
+                // Save into the afterEffectUpdate the updated field that will be broadcast to the players
                 afterEffectUpdate.put(GameCommandValues.DININGROOM, updatedDiningRooms);
             }
 

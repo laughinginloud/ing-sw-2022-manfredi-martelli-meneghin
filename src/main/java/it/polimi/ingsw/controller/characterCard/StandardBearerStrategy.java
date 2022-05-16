@@ -51,8 +51,11 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
                 @SuppressWarnings("unchecked")
                 Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
 
+                // Gets the index of Island that the player wants to compute, from the Map received from the client
+                int island_index = (int) chosenFields.get(GameCommandValues.ISLANDINDEX);
+
                 // The server activates the same routine as in GameStateComputeIsland (also with the possibility of ending the game)
-                GameStateComputeIsland computeIsland = new GameStateComputeIsland();
+                GameStateComputeIsland computeIsland = new GameStateComputeIsland(island_index);
                 computeIsland.executeState();
             }
 
