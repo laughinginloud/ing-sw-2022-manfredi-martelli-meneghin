@@ -5,5 +5,9 @@ package it.polimi.ingsw.model;
  * @author Mattia Martelli
  */
 public enum TowerColor {
-    WHITE, BLACK, GREY
+    BLACK, WHITE, GREY;
+
+    public static TowerColor fromInt(int num) {
+        return values()[num];
+    }
 }
