@@ -7,10 +7,6 @@ import it.polimi.ingsw.controller.command.*;
 class MessageBuilder {
     private static final Gson stringBuilder = new GsonBuilder().setPrettyPrinting().create();
 
-    public static void main(String[] args) {
-
-    }
-
     public static String fromCommand(GameCommand command) {
         return stringBuilder.toJson(commandSwitch(command));
     }
@@ -31,10 +27,17 @@ class MessageBuilder {
         if (command instanceof GameCommandRequestAction c)
             new Message(MessageType.REQUESTACTION, c.executeCommand());
 
+
+        if (command instanceof GameCommandEndGame c)
+            new Message(c.isDraw() ? MessageType.GAMEDRAW : MessageType.GAMEWINNER, c.executeCommand()); //TODO: ripulire per team?
+
         throw new IllegalStateException("No suitable constructor for the provided command");
     }
 
     public static GameCommand toCommand(String message) {
+        if (message == null)
+            return null;
+
         return null; //TODO
     }
 }
