@@ -116,5 +116,8 @@ public enum GameCommandValues {
 
     // The string that the server will send to the client as a confirmation that
     // the CharacterCard effect has been correctly applied - CharacterCard 'CAVALIER', 'CENTAUR', 'MAGICIAN', 'MERCHANT'
-    CONFIRMATIONSTRING
+    CONFIRMATIONSTRING,
+
+    // Username and chosen wizard, to be asked in during the setup process
+    USERNAME, WIZARD,
 }
