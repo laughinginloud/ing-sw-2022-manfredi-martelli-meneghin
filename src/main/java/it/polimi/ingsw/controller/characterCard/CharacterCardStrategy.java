@@ -111,17 +111,10 @@ public abstract class CharacterCardStrategy {
      */
     private void updatePlayers() {
         GameCommand sendInfo = new GameCommandSendInfo(afterEffectUpdate);
-
-        try {
-            Player[] players = ControllerData.getInstance().getPlayersOrder();
-            for (Player playersToUpdate : players) {
-                VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
-                playerToUpdateView.sendMessage(sendInfo);
-            }
-        }
-
-        catch (IOException e) {
-            e.printStackTrace();
+        Player[] players = ControllerData.getInstance().getPlayersOrder();
+        for (Player playersToUpdate : players) {
+            VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
+            playerToUpdateView.sendMessage(sendInfo);
         }
     }
 }

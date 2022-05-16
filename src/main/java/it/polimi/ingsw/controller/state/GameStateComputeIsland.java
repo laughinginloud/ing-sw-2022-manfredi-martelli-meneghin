@@ -94,15 +94,9 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         unifyIslands(model, islandIndex);
 
         // Update every player about the GameBoard's changes
-        try {
-            for (Player playerToUpdate : data.getPlayersOrder()) {
-                VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
-                playerToUpdateView.sendMessage(createLightMap(model));
-            }
-        }
-
-        catch (IOException e) {
-            throw new RuntimeException(e);
+        for (Player playerToUpdate : data.getPlayersOrder()) {
+            VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
+            playerToUpdateView.sendMessage(createLightMap(model));
         }
 
         if (model.getIslandsCount() <= 3)

@@ -249,15 +249,9 @@ public class GameStateEndGame implements GameState {
     private void sendWinner(ControllerData data, Player winner) {
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                try {
-                    Map<GameCommandValues, Object> winnerMap = new HashMap<>();
-                    winnerMap.put(GameCommandValues.WINNER, winner.getUsername());
-                    v.sendMessage(new GameCommandSendInfo(winnerMap));
-                }
-
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Map<GameCommandValues, Object> winnerMap = new HashMap<>();
+                winnerMap.put(GameCommandValues.WINNER, winner.getUsername());
+                v.sendMessage(new GameCommandSendInfo(winnerMap));
             });
     }
 
@@ -269,15 +263,9 @@ public class GameStateEndGame implements GameState {
 
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                try {
-                    Map<GameCommandValues, Object> winnerMap = new HashMap<>();
-                    winnerMap.put(GameCommandValues.WINNINGTEAM, teamMembers);
-                    v.sendMessage(new GameCommandSendInfo(winnerMap));
-                }
-
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Map<GameCommandValues, Object> winnerMap = new HashMap<>();
+                winnerMap.put(GameCommandValues.WINNINGTEAM, teamMembers);
+                v.sendMessage(new GameCommandSendInfo(winnerMap));
             });
     }
 
@@ -289,15 +277,9 @@ public class GameStateEndGame implements GameState {
 
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                try {
-                    Map<GameCommandValues, Object> drawerMap = new HashMap<>();
-                    drawerMap.put(GameCommandValues.DRAWERS, drawers);
-                    v.sendMessage(new GameCommandSendInfo(drawerMap));
-                }
-
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Map<GameCommandValues, Object> drawerMap = new HashMap<>();
+                drawerMap.put(GameCommandValues.DRAWERS, drawers);
+                v.sendMessage(new GameCommandSendInfo(drawerMap));
             });
     }
 }
