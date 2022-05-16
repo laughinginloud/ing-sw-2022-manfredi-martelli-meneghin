@@ -61,13 +61,10 @@ public class ControllerData {
      * @return A Map (Player, AssistantCard) copy of the PlayerAssistantCardMap
      */
     public Map<Player, AssistantCard> getPlayerAssistantCardMap() {
-        Map<Player, AssistantCard> temp = new HashMap<>();
-
         if (this.playerAssistantCardMap == null)
             return null;
 
-        temp.putAll(this.playerAssistantCardMap);
-        return temp;
+        return new HashMap<>(this.playerAssistantCardMap);
     }
 
     /**
@@ -129,9 +126,12 @@ public class ControllerData {
 
     /**
      * Returns the entire player view map
-     * @return An array to the map
+     * @return A pointer to the map
      */
     public Isomorphism<Player, VirtualView> getPlayerViewMap() {
+        if (playerViewMap == null)
+            playerViewMap = new Isomorphism<>();
+
         return playerViewMap;
     }
 
@@ -316,7 +316,7 @@ public class ControllerData {
         instance.expertMode                = data.expertMode;
         instance.cardStrategies            = Arrays.copyOf(data.cardStrategies, data.cardStrategies.length);
         instance.characterCardFlags        = Arrays.copyOf(data.characterCardFlags, data.characterCardFlags.length);
-        //TODO: winTrigger
+        instance.winTrigger                = data.winTrigger;
 
         // Create a copy the players, to aid the linking process
         Player[] players = instance.gameModel.getPlayer();
