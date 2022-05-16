@@ -62,7 +62,7 @@ public class GameStateEndGame implements GameState {
 
     /**
      * Function to decide the winner in the case of a two or three players game
-     * @param data The contoller data's instance
+     * @param data The controller data's instance
      * @param players An array containing the players, ordered by their id
      */
     private void fourPlayerWinner(ControllerData data, Player[] players) {

@@ -15,26 +15,35 @@ import java.util.*;
  * @author Sebastiano Meneghin
  */
 public class GameStateMoveStudents implements GameStateActionPhase {
-    public GameState nextState() { return new GameStateMoveMotherNature(); }
+    public GameState nextState() {
+        return
+            // Check if the game has been won already
+            ControllerData.getInstance().checkWinTrigger() ?
+                // If the game has ended, return a plain end phase, which will decide who won
+                new GameStateEndGame() :
+                // Otherwise, go to the next phase
+                new GameStateMoveMotherNature();
+    }
 
     public void executeState() {
         try {
+            ControllerData data = ControllerData.getInstance();
             Player player = updateCurrentPlayer();
-            VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
-            boolean expertMode = ControllerData.getInstance().getExpertMode();
+            VirtualView playerView = data.getPlayerView(player);
+            boolean expertMode = data.getExpertMode();
 
             // If it's an expertMode game, set the flag hasPlayedCard to "false"
             if (expertMode)
-                ControllerData.getInstance().resetPlayedCard();
+                data.resetPlayedCard();
 
             int numOfMovements = 0;
             // Sets the num of students the player is required to move, according to the number of players in the match
-            switch (ControllerData.getInstance().getNumOfPlayers()) {
+            switch (data.getNumOfPlayers()) {
                 case 2, 4 -> numOfMovements = 3;
                 case 3    -> numOfMovements = 4;
             }
 
-            for (int i = 0; i < numOfMovements; i++)
+            for (int i = 0; i < numOfMovements && !data.checkWinTrigger(); i++)
                 moveOneStudent(player, playerView);
         }
 
@@ -183,10 +192,10 @@ public class GameStateMoveStudents implements GameStateActionPhase {
 
             // Calls the selected characterCard's strategy effect
             chosenCardStrategy.playCharacterCard();
-            // TODO [CharacterCardStrategy]: Check Possible EndGame Condition
 
             // After the CharacterCard usage, it recalls the same function and makes the player choose a student once again
-            moveOneStudent(player, playerView);
+            if (!data.checkWinTrigger())
+                moveOneStudent(player, playerView);
         }
     }
 

@@ -20,7 +20,13 @@ import java.util.Map;
  */
 public class GameStateMoveMotherNature implements GameStateActionPhase {
     public GameState nextState() {
-        return new GameStateComputeIsland();
+        return
+            // Check if the game has been won already
+            ControllerData.getInstance().checkWinTrigger() ?
+                // If the game has ended, return a plain end phase, which will decide who won
+                new GameStateEndGame() :
+                // Otherwise, go to the next phase
+                new GameStateComputeIsland();
     }
 
     public void executeState() {
@@ -84,10 +90,11 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
 
                     // Calls the selected characterCard's strategy effect
                     chosenCardStrategy.playCharacterCard();
-                    // TODO [CharacterCardStrategy]: Check Possible EndGame Condition
 
-                    // Restart the method from the beginning in order to allow the MotherNature movement
-                    executeState();
+                    // If the game hasn't ended restart the method from the beginning
+                    // in order to allow the MotherNature movement
+                    if (!ControllerData.getInstance().checkWinTrigger())
+                        executeState();
                 }
 
                 catch (Exception e) {

@@ -17,7 +17,15 @@ import java.util.Map;
  */
 public class GameStateEndOfTurn implements GameStateActionPhase {
     public GameState nextState() {
-        return anotherPlayerTurn() ? new GameStateMoveStudents() : new GameStateEndCheckPhase();
+        return
+            // Check if the game has been won already
+            ControllerData.getInstance().checkWinTrigger() ?
+                // If the game has ended, return a plain end phase, which will decide who won
+                new GameStateEndGame() :
+                // Otherwise, go to the next phase
+                anotherPlayerTurn() ?
+                    new GameStateMoveStudents() :
+                    new GameStateEndCheckPhase();
     }
 
     public void executeState() {
@@ -66,10 +74,11 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
                         // Calls the selected characterCard's strategy effect
                         chosenCardStrategy.playCharacterCard();
-                        // TODO [CharacterCardStrategy]: Check Possible EndGame Condition
 
-                        // Reset then all the characterCard flags that has been enabled during this turn and end the player's turn
-                        resetCharacterCardFlags();
+                        // If the game hasn't ended reset then all the characterCard flags that has been enabled
+                        // during this turn and end the player's turn
+                        if (!data.checkWinTrigger())
+                            resetCharacterCardFlags();
                     }
 
                     // If the player decide to end his turn

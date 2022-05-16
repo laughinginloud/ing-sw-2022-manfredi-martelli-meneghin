@@ -18,14 +18,23 @@ import java.util.Map;
  * @author Mattia Martelli
  */
 public class GameStateChooseCloud implements GameStateActionPhase {
-    public GameState nextState() { return new GameStateEndOfTurn(); }
+    public GameState nextState() {
+        return
+            // Check if the game has been won already
+            ControllerData.getInstance().checkWinTrigger() ?
+                // If the game has ended, return a plain end phase, which will decide who won
+                new GameStateEndGame() :
+                // Otherwise, go to the next phase
+                new GameStateEndOfTurn();
+    }
 
     public void executeState() {
         try {
-            Player player          = ControllerData.getInstance().getCurrentPlayer();
-            VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
+            ControllerData data    = ControllerData.getInstance();
+            Player player          = data.getCurrentPlayer();
+            VirtualView playerView = data.getPlayerView(player);
             Map<GameCommandValues, Object> chooseCloudInfo = new HashMap<>();
-            boolean expertMode = ControllerData.getInstance().getExpertMode();
+            boolean expertMode = data.getExpertMode();
             boolean canPlayCharacterCard = false;
 
             // Gets all the cloud still filled by students
@@ -37,7 +46,7 @@ public class GameStateChooseCloud implements GameStateActionPhase {
                 return;
 
             // If the player hasn't player a card yet
-            if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
+            if (expertMode && !data.checkPlayedCard()) {
                 // Get all the playableCharacterCard, according to previous CharacterCards utilization and to current player's coin pool
                 CharacterCard[] playableCharacterCard = CharacterCardManager.getPlayableCharacterCard(player);
 
@@ -67,10 +76,10 @@ public class GameStateChooseCloud implements GameStateActionPhase {
 
                     Map<GameCommandValues, Object> map = new HashMap<>();
                     map.put(GameCommandValues.ENTRANCE, player.getSchoolBoard().getEntrance());
-                    map.put(GameCommandValues.CLOUDARRAY, ControllerData.getInstance().getGameModel().getCloudTile());
+                    map.put(GameCommandValues.CLOUDARRAY, data.getGameModel().getCloudTile());
 
-                    for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder())
-                        ControllerData.getInstance().getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(map));
+                    for (Player playerToUpdate : data.getPlayersOrder())
+                        data.getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(map));
                 }
 
                 catch (IllegalArgumentException e) {
@@ -90,7 +99,7 @@ public class GameStateChooseCloud implements GameStateActionPhase {
             // If the player decided to play a CharacterCard
             else if (response instanceof GameCommandPlayCharacterCard c) {
                 // If the player already used a CharacterCard during this turn, throws an exception
-                if(ControllerData.getInstance().checkPlayedCard())
+                if(data.checkPlayedCard())
                     throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
                 // Executes the command received
@@ -101,10 +110,11 @@ public class GameStateChooseCloud implements GameStateActionPhase {
 
                 // Calls the selected characterCard's strategy effect
                 chosenCardStrategy.playCharacterCard();
-                // TODO [CharacterCardStrategy]: Check Possible EndGame Condition
 
-                // After the CharacterCard utilization, it recalls execute once again the procedure of GameStateChooseCloud
-                executeState();
+                // After the CharacterCard utilization, it recalls
+                // execute once again the procedure of GameStateChooseCloud if the game hasn't ended
+                if (!data.checkWinTrigger())
+                    executeState();
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and try this state again
