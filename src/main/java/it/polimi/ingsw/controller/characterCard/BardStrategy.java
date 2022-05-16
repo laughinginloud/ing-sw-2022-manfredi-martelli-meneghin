@@ -118,19 +118,22 @@ public class BardStrategy extends CharacterCardStrategy {
             // Retrieve the entranceStudentIndex corresponding to student indicated with the swappableStudentIndex
             int entranceStudentIndex = getEntranceStudentIndex(entranceStudents, swappableStudents, swappableStudentIndex);
 
-            // TODO [CharacterCardStrategy] REFACTOR for readability
             // The server exchanges the students across Entrance and DiningRoom (using a tmp student)
             DiningRoom diningRoom = curPlayer.getSchoolBoard().getDiningRoom();
             Entrance entrance = curPlayer.getSchoolBoard().getEntrance();
 
-            Color tmpEntranceStudent = entrance.retrieveStudent(entranceStudentIndex);
+            // Removes the chosen student from the entrance
+            Color movedStudent = entrance.retrieveStudent(entranceStudentIndex);
 
-            int diningRoomStudents = diningRoom.getStudentCounters(tmpEntranceStudent);
-            diningRoom.setStudentCounters(tmpEntranceStudent, diningRoomStudents + 1);
+            // Gets the number of students in the dining room of the chosen color and increases their count by one
+            int numTargetDiningRoomStudents = diningRoom.getStudentCounters(movedStudent);
+            diningRoom.setStudentCounters(movedStudent, numTargetDiningRoomStudents + 1);
 
-            int tmpDiningRoomStudents = diningRoom.getStudentCounters(diningRoomTableStudent);
-            diningRoom.setStudentCounters(diningRoomTableStudent, tmpDiningRoomStudents - 1 );
+            // Gets the number of students in the dining room of the exchanged color and decreases their count by one
+            int numExchangeDiningRoomStudents = diningRoom.getStudentCounters(diningRoomTableStudent);
+            diningRoom.setStudentCounters(diningRoomTableStudent, numExchangeDiningRoomStudents - 1 );
 
+            // Adds the exchanged student in the entrance
             entrance.appendStudent(diningRoomTableStudent);
 
             // Update the globalProfessorTable according to the new SchoolBoard (professor could change location)
@@ -153,7 +156,7 @@ public class BardStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedSchoolBoards[i] = players[i].getSchoolBoard();
 
-            // Save into the afterEffectUpdate the updated fields that will be broadcasted to the players
+            // Save into the afterEffectUpdate the updated fields that will be broadcast to the players
             afterEffectUpdate.put(GameCommandValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
             afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGPT);
         }
