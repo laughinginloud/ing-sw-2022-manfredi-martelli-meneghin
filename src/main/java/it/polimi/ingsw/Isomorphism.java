@@ -159,4 +159,24 @@ public class Isomorphism<Left, Right> {
     public Set<Map.Entry<Left, Right>> entrySet() {
         return new HashSet<>(leftRightMap.entrySet());
     }
+
+    /**
+     * Remove a tuple from the isomorphism
+     * @param left The domain value of the tuple
+     * @return The codomain value of the tuple that was removed
+     */
+    public Right removeLeft(Left left) {
+        rightLeftMap.remove(leftRightMap.get(left));
+        return leftRightMap.remove(left);
+    }
+
+    /**
+     * Remove a tuple from the isomorphism
+     * @param right The codomain value of the tuple
+     * @return The domain value of the tuple that was removed
+     */
+    public Left removeRight(Right right) {
+        leftRightMap.remove(rightLeftMap.get(right));
+        return rightLeftMap.remove(right);
+    }
 }
