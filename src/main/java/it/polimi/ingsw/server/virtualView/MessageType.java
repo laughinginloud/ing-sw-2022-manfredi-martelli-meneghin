@@ -13,4 +13,7 @@ enum MessageType {
 
     // Ping messages
     PING, PONG,
+
+    // Messages to signal the start of a game and the fact that a game is already in progress
+    GAMESTART, GAMEPROGRESS,
 }

@@ -27,4 +27,7 @@ public enum GameCommandActions {
 
     // Fields related to the characterCard utilization
     CHARACTERCARDEFFECT,
+
+    // Request whether a game should be loaded
+    LOADGAME,
 }

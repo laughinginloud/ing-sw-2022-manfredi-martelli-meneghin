@@ -12,6 +12,12 @@ class MessageBuilder {
     }
 
     private static Message commandSwitch(GameCommand command) {
+        if (command instanceof GameCommandGameStart)
+            return new Message(MessageType.GAMESTART, null);
+
+        if (command instanceof GameCommandGameProgress)
+            return new Message(MessageType.GAMEPROGRESS, null);
+
         if (command instanceof GameCommandRequestValueClient c)
             return new Message(MessageType.REQUESTVALUE, c.executeCommand());
 
