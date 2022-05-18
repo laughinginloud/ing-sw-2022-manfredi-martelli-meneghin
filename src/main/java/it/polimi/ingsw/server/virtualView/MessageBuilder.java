@@ -28,15 +28,15 @@ class MessageBuilder {
             return new Message(MessageType.ILLEGALVALUE, c.executeCommand());
 
         if (command instanceof GameCommandSendInfo c)
-            new Message(MessageType.SENDINFO, c.executeCommand());
+            return new Message(MessageType.SENDINFO, c.executeCommand());
 
         if (command instanceof GameCommandRequestAction c)
-            new Message(MessageType.REQUESTACTION, c.executeCommand());
+            return new Message(MessageType.REQUESTACTION, c.executeCommand());
 
         //TODO: request cloud
 
         if (command instanceof GameCommandEndGame c)
-            new Message(c.isDraw() ? MessageType.GAMEDRAW : MessageType.GAMEWINNER, c.executeCommand()); //TODO: ripulire per team?
+            return new Message(c.isDraw() ? MessageType.GAMEDRAW : MessageType.GAMEWINNER, c.executeCommand()); //TODO: ripulire per team?
 
         throw new IllegalStateException("No suitable constructor for the provided command");
     }
