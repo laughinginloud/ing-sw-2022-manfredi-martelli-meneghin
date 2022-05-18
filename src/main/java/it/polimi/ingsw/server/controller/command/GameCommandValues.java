@@ -118,6 +118,6 @@ public enum GameCommandValues {
     // the CharacterCard effect has been correctly applied - CharacterCard 'CAVALIER', 'CENTAUR', 'MAGICIAN', 'MERCHANT'
     CONFIRMATIONSTRING,
 
-    // Username and chosen wizard, to be asked in during the setup process
-    USERNAME, WIZARD,
+    // Setup phase requests
+    RULES, USERNAME, WIZARD,
 }
