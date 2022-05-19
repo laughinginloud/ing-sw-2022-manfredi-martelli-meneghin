@@ -2,10 +2,10 @@ package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
-import it.polimi.ingsw.model.CharacterCard;
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.Island;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.common.model.CharacterCard;
+import it.polimi.ingsw.common.model.GameModel;
+import it.polimi.ingsw.common.model.Island;
+import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.HashMap;

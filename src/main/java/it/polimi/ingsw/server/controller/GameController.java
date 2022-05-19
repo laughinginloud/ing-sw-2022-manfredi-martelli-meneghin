@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
 import it.polimi.ingsw.server.controller.state.GameStateThread;

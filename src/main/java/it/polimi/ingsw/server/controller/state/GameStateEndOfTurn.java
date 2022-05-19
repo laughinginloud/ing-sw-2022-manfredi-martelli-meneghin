@@ -4,9 +4,9 @@ import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.server.controller.command.*;
-import it.polimi.ingsw.model.Character;
-import it.polimi.ingsw.model.CharacterCard;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.model.CharacterCard;
+import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.HashMap;

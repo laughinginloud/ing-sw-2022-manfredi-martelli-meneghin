@@ -1,8 +1,9 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.model.Character;
 
 import java.util.ArrayList;
 import java.util.List;

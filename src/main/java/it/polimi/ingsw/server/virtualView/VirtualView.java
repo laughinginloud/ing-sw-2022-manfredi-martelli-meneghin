@@ -2,6 +2,8 @@ package it.polimi.ingsw.server.virtualView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw.common.message.Message;
+import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.controller.command.GameCommand;
 

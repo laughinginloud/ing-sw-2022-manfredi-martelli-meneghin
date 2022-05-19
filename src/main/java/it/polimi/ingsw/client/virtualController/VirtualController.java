@@ -3,6 +3,8 @@ package it.polimi.ingsw.client.virtualController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.Address;
+import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.common.message.Message;
 
 import java.io.Closeable;
 import java.io.DataInputStream;

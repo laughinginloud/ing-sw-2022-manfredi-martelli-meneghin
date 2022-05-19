@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerTeam;
-import it.polimi.ingsw.model.PlayerTeamExpert;
+import it.polimi.ingsw.common.model.GameModel;
+import it.polimi.ingsw.common.model.Player;
+import it.polimi.ingsw.common.model.PlayerTeam;
+import it.polimi.ingsw.common.model.PlayerTeamExpert;
 
 /**
  * State representing the initial model initialization

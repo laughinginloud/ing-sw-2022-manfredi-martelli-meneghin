@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;

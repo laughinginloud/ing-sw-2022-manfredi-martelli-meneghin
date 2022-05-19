@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.controller.command;
 
-import it.polimi.ingsw.model.Character;
+import it.polimi.ingsw.common.model.Character;
 
 public class GameCommandPlayCharacterCard {
     private final Character character;

@@ -2,10 +2,10 @@ package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.Isomorphism;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
-import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.common.model.AssistantCard;
+import it.polimi.ingsw.common.model.Color;
+import it.polimi.ingsw.common.model.GameModel;
+import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.Arrays;

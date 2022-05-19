@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller.command;
 
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.common.model.Color;
 
 import java.util.Arrays;
 

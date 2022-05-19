@@ -3,9 +3,9 @@ package it.polimi.ingsw.server.controller.state;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.server.controller.command.GameCommandValues;
-import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.GlobalProfessorTable;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.common.model.Color;
+import it.polimi.ingsw.common.model.GlobalProfessorTable;
+import it.polimi.ingsw.common.model.Player;
 
 import java.util.*;
 

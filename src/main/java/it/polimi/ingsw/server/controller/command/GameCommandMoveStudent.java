@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server.controller.command;
 
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.DiningRoom;
-import it.polimi.ingsw.model.Island;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.common.model.Color;
+import it.polimi.ingsw.common.model.DiningRoom;
+import it.polimi.ingsw.common.model.Island;
+import it.polimi.ingsw.common.model.Player;
 
 public class GameCommandMoveStudent implements GameCommand{
     private final int     movedStudentIndex;

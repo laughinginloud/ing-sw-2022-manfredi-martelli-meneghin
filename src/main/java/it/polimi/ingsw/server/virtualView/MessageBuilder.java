@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.virtualView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw.common.message.*;
 import it.polimi.ingsw.server.controller.command.*;
 
 class MessageBuilder {

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.controller.command;
 
-import it.polimi.ingsw.model.AssistantCard;
+import it.polimi.ingsw.common.model.AssistantCard;
 
 public class GameCommandPlayAssistantCard implements GameCommand {
     private final AssistantCard chosenAssistantCard;

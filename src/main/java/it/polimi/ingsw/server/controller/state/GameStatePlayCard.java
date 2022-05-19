@@ -2,9 +2,9 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
-import it.polimi.ingsw.model.AssistantCard;
-import it.polimi.ingsw.model.GameModel;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.common.model.AssistantCard;
+import it.polimi.ingsw.common.model.GameModel;
+import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.*;

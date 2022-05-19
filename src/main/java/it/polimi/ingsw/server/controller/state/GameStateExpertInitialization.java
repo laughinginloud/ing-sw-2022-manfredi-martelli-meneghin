@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.server.controller.command.GameCommandValues;

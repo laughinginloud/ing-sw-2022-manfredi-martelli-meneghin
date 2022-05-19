@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandValues;
-import it.polimi.ingsw.model.CharacterCard;
+import it.polimi.ingsw.common.model.CharacterCard;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CENTAUR'
