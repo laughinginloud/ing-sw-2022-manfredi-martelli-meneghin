@@ -4,7 +4,6 @@ import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
 import it.polimi.ingsw.server.controller.state.GameStateThread;
-import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.io.File;

@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandValues;
-import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 
 /**
