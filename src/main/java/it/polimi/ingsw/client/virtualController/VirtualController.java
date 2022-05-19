@@ -32,7 +32,13 @@ public class VirtualController extends Thread implements Closeable {
 
     public void run() {
         while (!interrupted()) {
-            inputStream.readUTF(); //TODO: interfaccia interna comandi
+            try {
+                Message msg = messageBuilder.fromJson(inputStream.readUTF(), Message.class); //TODO: interfaccia interna comandi
+            }
+
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
