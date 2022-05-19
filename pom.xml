@@ -16,6 +16,7 @@
     </properties>
 
     <dependencies>
+
         <!-- JUnit provides unit testing for Java applications -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -23,18 +24,36 @@
             <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
+
         <!-- GSON provides serialization and deseralization via JSON -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.9.0</version>
         </dependency>
+
         <!-- JLine to help develop the CLI -->
         <dependency>
             <groupId>org.jline</groupId>
             <artifactId>jline</artifactId>
             <version>3.21.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.jline</groupId>
+            <artifactId>jline-terminal</artifactId>
+            <version>3.21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.11.0</version>
+        </dependency>
+
         <!-- JavaFX to develop the GUI -->
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -46,10 +65,12 @@
             <artifactId>javafx-fxml</artifactId>
             <version>18.0.1</version>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+
             <!-- Compiler plugin, sets the Java version -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -59,12 +80,14 @@
                     <release>17</release>
                 </configuration>
             </plugin>
+
             <!-- Surefire plugin, responsible for running tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M6</version>
             </plugin>
+
             <!-- Javadoc plugin, responsible for compiling the documentation to HTML -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,12 +101,14 @@
                     <testWindowtitle>Docs for tests for ${project.name} ${project.version}</testWindowtitle> <!-- Used by javadoc:test-javadoc goal -->
                 </configuration>
             </plugin>
+
             <!-- Project-info plugin, required by javadoc's -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>3.2.2</version>
             </plugin>
+
             <!-- JavaFX plugin -->
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -93,6 +118,7 @@
                     <mainClass>it.polimi.ingsw.client.view.gui.ViewGUI</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>
