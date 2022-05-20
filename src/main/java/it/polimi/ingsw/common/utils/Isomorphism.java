@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.common.utils;
 
 import java.util.*;
 import java.util.function.BiConsumer;
