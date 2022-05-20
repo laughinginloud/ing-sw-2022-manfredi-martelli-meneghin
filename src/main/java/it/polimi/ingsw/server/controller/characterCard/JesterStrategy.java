@@ -82,7 +82,7 @@ public class JesterStrategy extends CharacterCardStrategy {
     }
 
     public void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
-        Player[] players = data.getPlayersOrder();
+        Player[] players = data.getGameModel().getPlayer();
 
         // Cast the CharacterCard to a CharacterCardStudent
         CharacterCardStudent enhancedCard = (CharacterCardStudent) card;

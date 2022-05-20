@@ -59,7 +59,7 @@ public class MonkStrategy extends CharacterCardStrategy {
 
                 // A cast for the information requested by the server (student and island index)
                 int student_index = (int) chosenFields.get(GameCommandValues.STUDENTINDEX);
-                int island_index  = (int) chosenFields.get(GameCommandValues.ISLANDINDEX);
+                int  island_index = (int) chosenFields.get(GameCommandValues.ISLANDINDEX);
 
                 // The server moves the student from the CharacterCard to the selected island
                 Color movedStudent = enhancedCard.retrieveStudent(student_index);

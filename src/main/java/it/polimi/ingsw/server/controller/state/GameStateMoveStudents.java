@@ -226,7 +226,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
      * @return A Map containing the movableStudents and an Array of boolean representing the diningRoomTableFreeSeatAvailable flags
      */
     private Map<GameCommandValues, Object> setMoveStudentsInfo (Player player, Color[] movableStudents) {
-        Boolean[] diningRoomTableFreeSeatAvailable = {false, false, false, false, false};
+        boolean[] diningRoomTableFreeSeatAvailable = new boolean[5];
         Map<GameCommandValues, Object> moveStudentsInfo = new HashMap<>();
 
         // For each color checks if the correspondent DiningRoomTable has free seat(s)
@@ -234,7 +234,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
             if (player.getSchoolBoard().getDiningRoom().getStudentCounters(color) < 10)
                 diningRoomTableFreeSeatAvailable[color.ordinal()] = true;
 
-        moveStudentsInfo.put(GameCommandValues.COLORARRAY,movableStudents);
+        moveStudentsInfo.put(GameCommandValues.COLORARRAY, movableStudents);
         moveStudentsInfo.put(GameCommandValues.BOOLARRAY, diningRoomTableFreeSeatAvailable);
         return moveStudentsInfo;
     }

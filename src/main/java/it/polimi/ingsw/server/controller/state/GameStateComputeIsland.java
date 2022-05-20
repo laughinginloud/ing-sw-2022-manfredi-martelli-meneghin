@@ -64,7 +64,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             Map<GameCommandValues, Object> controlAndConquerInfo = new HashMap<>();
             GameCommand controlAndConquerUpdate;
 
-            // If there aren't enough towers to fill tre recolored island, saves into the map the num of remainingTower, the conquered Island
+            // If there aren't enough towers to fill the recolored islands, saves into the map the num of remainingTower, the conquered Island
             if (notEnoughTowerTrigger) {
                 controlAndConquerInfo.put(GameCommandValues.REMAININGTOWER, remainingTower);
                 controlAndConquerInfo.put(GameCommandValues.ISLANDNUM,      islandIndex);
@@ -78,7 +78,6 @@ public class GameStateComputeIsland implements GameStateActionPhase {
             // Updates all the players
             for (Player playerToUpdate : data.getPlayersOrder())
                 data.getPlayerView(playerToUpdate).sendMessage(controlAndConquerUpdate);
-
         }
 
         catch (Exception e) {

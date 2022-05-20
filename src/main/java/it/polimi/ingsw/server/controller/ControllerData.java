@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.Isomorphism;
+import it.polimi.ingsw.common.utils.Isomorphism;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.common.model.AssistantCard;
 import it.polimi.ingsw.common.model.Color;
