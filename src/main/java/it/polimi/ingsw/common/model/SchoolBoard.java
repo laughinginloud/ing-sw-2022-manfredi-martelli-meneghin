@@ -7,8 +7,8 @@ package it.polimi.ingsw.common.model;
 public class SchoolBoard {
     private final TowerColor towerColor;
     private       int        towerCount;
-    private final Entrance   entrance;
-    private final DiningRoom diningRoom;
+    private       Entrance   entrance;
+    private       DiningRoom diningRoom;
 
     /**
      * Constructor of the class 'SchoolBoard'
@@ -51,6 +51,8 @@ public class SchoolBoard {
         this.towerCount = towerCount;
     }
 
+    //TODO: test
+
     /**
      * Increases the tower's count by one
      */
@@ -86,8 +88,25 @@ public class SchoolBoard {
     public Entrance getEntrance() { return entrance; }
 
     /**
+     * Sets the entrance associated with the school board
+     * @param entrance A reference to the school board's entrance
+     */
+    public void setEntrance(Entrance entrance) {
+        this.entrance = entrance;
+    }
+
+    /**
      * Gets the dining room associated with the school board
      * @return A reference to the school board's dining room
      */
-    public DiningRoom getDiningRoom() { return diningRoom; }
+    public DiningRoom getDiningRoom() {
+        return diningRoom;
+    }
+    /**
+     * Sets the dining room associated with the school board
+     * @param diningRoom A reference to the school board's dining room
+     */
+    public void setDiningRoom(DiningRoom diningRoom) {
+        this.diningRoom = diningRoom;
+    }
 }

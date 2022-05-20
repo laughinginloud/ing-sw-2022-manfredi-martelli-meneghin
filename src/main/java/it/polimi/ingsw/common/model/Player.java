@@ -11,7 +11,7 @@ public class Player {
     private       AssistantCard   lastPlayedCard;
     private final int             playerID;
     private final Wizard          playerWizard;
-    private final SchoolBoard     schoolBoard;
+    private       SchoolBoard     schoolBoard;
     private final String          username;
 
     /**
@@ -119,5 +119,13 @@ public class Player {
      */
     public AssistantCard getLastPlayedCard() {
         return lastPlayedCard;
+    }
+
+    /**
+     * Set the school board
+     * @param schoolBoard The pointer to the school board
+     */
+    public void setSchoolBoard(SchoolBoard schoolBoard) {
+        this.schoolBoard = schoolBoard;
     }
 }

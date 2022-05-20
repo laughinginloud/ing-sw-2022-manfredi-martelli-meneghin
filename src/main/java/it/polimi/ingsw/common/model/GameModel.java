@@ -15,14 +15,14 @@ public class GameModel {
     // region Fields
 
     // Attributes of the class GameModel
-    private final Player[]             players;
+    private       Player[]             players;
     private       Island[]             islands;
-    private final CloudTile[]          cloudTiles;
+    private       CloudTile[]          cloudTiles;
     private       int                  motherNaturePosition;
     private       Bag                  bag;
     private       GlobalProfessorTable globalProfessorTable;
     private final boolean              expertMode;
-    private final CharacterCard[]      characterCards;
+    private       CharacterCard[]      characterCards;
     private       Integer              coinPool;
 
     // endregion
@@ -113,6 +113,7 @@ public class GameModel {
         return players[index];
     }
 
+    // TODO: test
     /**
      * Gets the entire array of players
      * @author Mattia Martelli
@@ -192,6 +193,15 @@ public class GameModel {
         this.players[index] = player;
     }
 
+    //TODO: test
+    /**
+     * Set the entire array of players
+     * @param players The array to copy into the model
+     */
+    public void setPlayer(Player[] players) {
+        this.players = Arrays.copyOf(players, players.length);
+    }
+
     /**
      * Gets the Bag saved
      * @return The Bag
@@ -269,6 +279,15 @@ public class GameModel {
         this.islands[index] = island;
     }
 
+    //TODO: test
+    /**
+     * Set the entire Island array
+     * @param islands The array to be copied in the model
+     */
+    public void setIsland(Island[] islands) {
+        this.islands = Arrays.copyOf(islands, islands.length);
+    }
+
     /**
      * Sets the cloudTile saved at a specific index
      * @param cloudTile The cloudTile to be saved (not null)
@@ -284,6 +303,15 @@ public class GameModel {
                                                "Accepted index in the range [0, 3]");
 
         this.cloudTiles[index] = cloudTile;
+    }
+
+    //TODO: test
+    /**
+     * Set the entire array of cloud tiles
+     * @param cloudTiles The array to copy into the model
+     */
+    public void setCloudTile(CloudTile[] cloudTiles) {
+        this.cloudTiles = Arrays.copyOf(cloudTiles, cloudTiles.length);
     }
 
     /**
@@ -304,6 +332,7 @@ public class GameModel {
      * Moves Mother Nature by increasing motherNaturePosition
      * @param movementPoints the steps that motherNature makes (positive integer from 1 to 5)
      */
+    //TODO: test
     public void moveMotherNature(int movementPoints) {
         setMotherNaturePosition((motherNaturePosition + movementPoints) % getIslandsCount());
     }
@@ -349,6 +378,15 @@ public class GameModel {
                                                "Accepted index in the range [0, 2]");
 
         this.characterCards[index] = characterCard;
+    }
+
+    //TODO: test
+    /**
+     * Set the entire array of character cards
+     * @param characterCards The array to copy into the model
+     */
+    public void setCharacterCard(CharacterCard[] characterCards) {
+        this.characterCards = Arrays.copyOf(characterCards, characterCards.length);
     }
 
     /**
@@ -398,4 +436,5 @@ public class GameModel {
     }
 
     // endregion
+
 }
