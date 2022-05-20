@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
 import it.polimi.ingsw.server.controller.state.GameStateThread;
 import it.polimi.ingsw.server.virtualView.VirtualView;
+import it.polimi.ingsw.common.viewRecord.*;
 
 import java.io.File;
 import java.io.IOException;
