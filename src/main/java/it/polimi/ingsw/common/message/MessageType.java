@@ -14,6 +14,6 @@ public enum MessageType {
     // Ping messages
     PING, PONG,
 
-    // Messages to signal the start of a game and the fact that a game is already in progress
-    GAMESTART, GAMEPROGRESS,
+    // Messages to signal the start of a game, the fact that a game is already in progress and the interruption because of a network error
+    GAMESTART, GAMEPROGRESS, GAMEINTERRUPT,
 }
