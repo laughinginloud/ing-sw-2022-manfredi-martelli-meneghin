@@ -113,7 +113,4 @@ public enum GameValues {
     // The string that the server will send to the client as a confirmation that
     // the CharacterCard effect has been correctly applied - CharacterCard 'CAVALIER', 'CENTAUR', 'MAGICIAN', 'MERCHANT'
     CONFIRMATIONSTRING,
-
-    // Setup phase requests
-    RULES, USERNAME, WIZARD,
 }

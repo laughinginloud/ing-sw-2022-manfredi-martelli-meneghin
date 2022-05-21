@@ -31,5 +31,6 @@ public enum GameActions {
     // Request whether a game should be loaded
     LOADGAME,
 
-    //TODO: rules et company
+    // Setup phase requests
+    RULES, USERNAME, WIZARD,
 }
