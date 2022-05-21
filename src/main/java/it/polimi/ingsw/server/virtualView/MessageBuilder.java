@@ -39,6 +39,9 @@ class MessageBuilder {
         if (command instanceof GameCommandEndGame c)
             return new Message(c.isDraw() ? MessageType.GAMEDRAW : MessageType.GAMEWINNER, c.executeCommand()); //TODO: ripulire per team?
 
+        if (command instanceof GameCommandInterruptGame)
+            return new Message(MessageType.GAMEINTERRUPT, null);
+
         throw new IllegalStateException("No suitable constructor for the provided command");
     }
 
