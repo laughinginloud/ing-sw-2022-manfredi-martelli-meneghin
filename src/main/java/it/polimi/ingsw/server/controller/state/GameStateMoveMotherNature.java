@@ -134,7 +134,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
 
         try {
             // Notify to all the player the new MotherNaturePosition
-            for (Player playerToUpdate : ControllerData.getInstance().getPlayersOrder())
+            for (Player playerToUpdate : ControllerData.getInstance().getGameModel().getPlayer())
                 ControllerData.getInstance().getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(updateInfo));
         }
 

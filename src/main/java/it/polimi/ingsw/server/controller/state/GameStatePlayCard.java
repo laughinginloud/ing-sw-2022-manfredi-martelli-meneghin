@@ -118,7 +118,7 @@ public class GameStatePlayCard implements GameStatePlanPhase {
             updateInfo.put(GameCommandValues.PLAYERARRAY, data.getGameModel().getPlayer());
 
             // Notifies all the players about the lastPlayedCard now on the board of the current player
-            for (Player playerToUpdate : data.getPlayersOrder()) {
+            for (Player playerToUpdate : data.getGameModel().getPlayer()) {
                 VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
 
                 GameCommand update = new GameCommandSendInfo(updateInfo);

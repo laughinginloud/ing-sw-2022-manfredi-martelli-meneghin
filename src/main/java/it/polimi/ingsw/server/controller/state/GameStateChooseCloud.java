@@ -79,7 +79,7 @@ public class GameStateChooseCloud implements GameStateActionPhase {
                     map.put(GameCommandValues.ENTRANCE, new Tuple<>(player.getPlayerID(), player.getSchoolBoard().getEntrance()));
                     map.put(GameCommandValues.CLOUDARRAY, data.getGameModel().getCloudTile());
 
-                    for (Player playerToUpdate : data.getPlayersOrder())
+                    for (Player playerToUpdate : data.getGameModel().getPlayer())
                         data.getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(map));
                 }
 

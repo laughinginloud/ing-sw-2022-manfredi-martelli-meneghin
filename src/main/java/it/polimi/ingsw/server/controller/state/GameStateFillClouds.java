@@ -32,7 +32,7 @@ public class GameStateFillClouds implements GameStatePlanPhase {
             updatedCloud.put(GameCommandValues.CLOUDARRAY, model.getCloudTile());
 
             // Sends to all the players the updated array of Clouds, once they have been filled
-            for (Player player : data.getPlayersOrder()) {
+            for (Player player : model.getPlayer()) {
                 VirtualView playerView = data.getPlayerView(player);
                 playerView.sendMessage(new GameCommandSendInfo(updatedCloud));
             }

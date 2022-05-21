@@ -41,7 +41,7 @@ public class GameStatePlaceTokens implements GameStateSetup {
             Map<GameCommandValues, Object> placedTokens = packPlacedTokens();
 
             // Send those Object/Fields via a SendMessage message, through the Network
-            for (Player player : ControllerData.getInstance().getPlayersOrder()) {
+            for (Player player : ControllerData.getInstance().getGameModel().getPlayer()) {
                 VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
                 GameCommand tokensUpdate = new GameCommandSendInfo(placedTokens);
                 playerView.sendMessage(tokensUpdate);
@@ -81,7 +81,7 @@ public class GameStatePlaceTokens implements GameStateSetup {
 
     private void setEntrancesStudents(Bag bag) {
         try {
-            Player[] players          = ControllerData.getInstance().getPlayersOrder();
+            Player[] players          = ControllerData.getInstance().getGameModel().getPlayer();
             int      entranceCapacity = players.length == 3 ? 9 : 7;
 
             // Iterate through all the players, adding a random set of students to the entrances

@@ -20,7 +20,7 @@ public class GameStateModelInitialization implements GameStateSetup {
         data.setGameModel(new GameModel(data.getNumOfPlayers(), data.getExpertMode()));
 
         GameModel model   = data.getGameModel();
-        Player[]  players = ControllerData.getInstance().getPlayersOrder();
+        Player[]  players = ControllerData.getInstance().getGameModel().getPlayer();
         for (int i = 0; i < players.length; ++i)
             model.setPlayer(players[i], i);
 

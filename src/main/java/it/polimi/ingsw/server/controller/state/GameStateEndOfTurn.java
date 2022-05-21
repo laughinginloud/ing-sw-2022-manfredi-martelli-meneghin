@@ -116,7 +116,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
      * @return A boolean representing the presence of another player that has to play his turn
      */
     private boolean anotherPlayerTurn() {
-        Player[] orderedPlayer = ControllerData.getInstance().getPlayersOrder();
+        Player[] orderedPlayer = ControllerData.getInstance().getGameModel().getPlayer();
         Player currentPlayer   = ControllerData.getInstance().getCurrentPlayer();
 
         // If the currentPlayer it's not the last player of the round, then anotherPlayerTurn() -> True

@@ -21,7 +21,7 @@ public class GameStateExpertInitialization implements GameStateSetup {
     public void executeState() {
         ControllerData  data           = ControllerData.getInstance();
         GameModel       model          = data.getGameModel();
-        Player[]        players        = data.getPlayersOrder();
+        Player[]        players        = model.getPlayer();
         CharacterCard[] characterCards = model.getCharacterCards();
 
         setStudentsOnCards(characterCards, model);

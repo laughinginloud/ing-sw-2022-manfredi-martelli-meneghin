@@ -72,11 +72,11 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
             // Then save anyway the update IslandArray and PlayerArray into the map
             controlAndConquerInfo.put(GameCommandValues.ISLANDARRAY, model.getIslands());
-            controlAndConquerInfo.put(GameCommandValues.PLAYERARRAY, data.getPlayersOrder());
+            controlAndConquerInfo.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
             controlAndConquerUpdate = new GameCommandSendInfo(controlAndConquerInfo);
 
             // Updates all the players
-            for (Player playerToUpdate : data.getPlayersOrder())
+            for (Player playerToUpdate : model.getPlayer())
                 data.getPlayerView(playerToUpdate).sendMessage(controlAndConquerUpdate);
         }
 
@@ -92,7 +92,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         unifyIslands(model, islandIndex);
 
         // Update every player about the GameBoard's changes
-        for (Player playerToUpdate : data.getPlayersOrder()) {
+        for (Player playerToUpdate : model.getPlayer()) {
             VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
             playerToUpdateView.sendMessage(createLightMap(model));
         }
@@ -280,7 +280,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
     private GameCommand createMap(ControllerData data, GameModel model) {
         Map<GameCommandValues, Object> map = new HashMap<>();
         map.put(GameCommandValues.ISLANDARRAY, model.getIslands());
-        map.put(GameCommandValues.PLAYERARRAY, data.getPlayersOrder());
+        map.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
         return new GameCommandSendInfo(map);
     }
 
