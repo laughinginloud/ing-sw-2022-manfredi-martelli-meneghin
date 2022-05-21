@@ -8,7 +8,7 @@ import it.polimi.ingsw.server.controller.command.*;
 class MessageBuilder {
     private static final Gson stringBuilder = new GsonBuilder().setPrettyPrinting().create();
 
-    public static String fromCommand(GameCommand command) {
+    public static String commandToMessage(GameCommand command) {
         return stringBuilder.toJson(commandSwitch(command));
     }
 
@@ -42,7 +42,7 @@ class MessageBuilder {
         throw new IllegalStateException("No suitable constructor for the provided command");
     }
 
-    public static GameCommand toCommand(String message) {
+    public static GameCommand messageToCommand(String message) {
         if (message == null)
             return null;
 
