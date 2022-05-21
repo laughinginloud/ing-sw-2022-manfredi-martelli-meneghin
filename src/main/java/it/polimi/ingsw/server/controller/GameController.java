@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
@@ -73,7 +75,7 @@ public class GameController {
 
             else
                 try {
-                    String username  = (String) view.sendRequest(new GameCommandRequestValueClient(GameCommandValues.USERNAME)).executeCommand();
+                    String username  = (String) view.sendRequest(new GameCommandRequestValueClient(GameValues.USERNAME)).executeCommand();
 
                     if (!rulesSet) {
                         Optional<File> savedGame = GameSave.findSavedGame(username);
@@ -82,7 +84,7 @@ public class GameController {
                             File save = savedGame.get();
 
                             // Ask the player whether he wants to load the saved game
-                            if ((boolean) view.sendRequest(new GameCommandRequestAction(GameCommandActions.LOADGAME, null)).executeCommand())
+                            if ((boolean) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand())
                                 GameSave.loadGame(save);
 
                             // Ask the new rules
@@ -142,7 +144,7 @@ public class GameController {
         Player[] players = data.getPlayersOrder();
         int numOfPlayers = data.getNumOfPlayers();
 
-        Wizard  wizard   = (Wizard) view.sendRequest(new GameCommandRequestValueClient(GameCommandValues.WIZARD)).executeCommand();
+        Wizard  wizard   = (Wizard) view.sendRequest(new GameCommandRequestValueClient(GameValues.WIZARD /*TODO: aggiungere wizard disponibili*/)).executeCommand();
         boolean teamMode = numOfPlayers == 4;
 
         for (int i = 0; i < numOfPlayers; ++i)
@@ -214,7 +216,7 @@ public class GameController {
      */
     private static boolean askRules(VirtualView view) {
         try {
-            GameRules rules = (GameRules) view.sendRequest(new GameCommandRequestValueClient(GameCommandValues.RULES)).executeCommand();
+            GameRules rules = (GameRules) view.sendRequest(new GameCommandRequestValueClient(GameValues.RULES)).executeCommand();
 
             data.setNumOfPlayers(rules.numOfPlayers());
             if (rules.expertMode())
@@ -229,7 +231,7 @@ public class GameController {
     }
 
     //TODO
-    public static Object requestValue(GameCommandValues value) {
+    public static Object requestValue(GameValues value) {
         return switch (value) {
             case MOTHERNATURE -> ControllerData.getInstance().getGameModel().getMotherNaturePosition();
             default           -> throw new IllegalArgumentException();

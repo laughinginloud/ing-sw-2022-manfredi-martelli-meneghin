@@ -1,9 +1,9 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.HashMap;
@@ -33,10 +33,10 @@ public class GameStateExpertInitialization implements GameStateSetup {
                 VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
 
                 // Creates the Map to send via GameCommand and adds updated CharacterCards, CoinPool and PlayerCoinCounts
-                Map<GameCommandValues, Object> updatedExpertInfo = new HashMap<>();
-                updatedExpertInfo.put(GameCommandValues.CHARACTERCARDARRAY, characterCards);
-                updatedExpertInfo.put(GameCommandValues.COINPOOL, model.getCoinPool());
-                updatedExpertInfo.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
+                Map<GameValues, Object> updatedExpertInfo = new HashMap<>();
+                updatedExpertInfo.put(GameValues.CHARACTERCARDARRAY, characterCards);
+                updatedExpertInfo.put(GameValues.COINPOOL, model.getCoinPool());
+                updatedExpertInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
 
                 playerView.sendMessage(new GameCommandSendInfo(updatedExpertInfo));
             }

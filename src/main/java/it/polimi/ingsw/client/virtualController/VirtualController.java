@@ -5,11 +5,11 @@ import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.utils.Tuple;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
 
 import java.io.Closeable;
 import java.io.DataInputStream;
@@ -79,11 +79,11 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case SENDINFO -> {
-                Map<GameCommandValues, Object> map = (Map<GameCommandValues, Object>) message.value();
+                Map<GameValues, Object> map = (Map<GameValues, Object>) message.value();
 
-                if (map.containsKey(GameCommandValues.MODEL)) {
-                    Client.setModel((GameModel) map.get(GameCommandValues.MODEL));
-                    map.remove(GameCommandValues.MODEL);
+                if (map.containsKey(GameValues.MODEL)) {
+                    Client.setModel((GameModel) map.get(GameValues.MODEL));
+                    map.remove(GameValues.MODEL);
                 }
 
                 map.forEach((v, o) -> modifyModelInfo(Client.getModel(), v, o));
@@ -112,7 +112,7 @@ public class VirtualController extends Thread implements Closeable {
         }
     }
 
-    private void modifyModelInfo(GameModel model, GameCommandValues value, Object object) {
+    private void modifyModelInfo(GameModel model, GameValues value, Object object) {
         switch (value) {
             case ISLANDARRAY -> model.setIsland((Island[]) object);
 

@@ -1,27 +1,23 @@
-package it.polimi.ingsw.server.controller.command;
+package it.polimi.ingsw.common;
 
-public enum GameCommandValues {
+public enum GameValues {
     ISLANDARRAY,
     PLAYERARRAY,
-    CLOUD,
     CLOUDARRAY,
     CHARACTERCARDARRAY,
     MODEL,
 
     // An array of color (students or professor)
-    COLORARRAY,
+    COLORARRAY, //TODO: utilizzato per scelte giocatori, da gestire in client
 
     // An array of boolean of various lenght
-    BOOLARRAY,
+    BOOLARRAY, //TODO: utilizzato per scelte giocatori, da gestire in client
 
     // An integer representing this turn MotherNature's movement-range
-    MOTHERNATUREMOVEMENT,
+    MOTHERNATUREMOVEMENT, //TODO: implementare come ritorno in client
 
     // Position of MotherNature
     MOTHERNATURE,
-
-    // Generic map <GameCommandValues, Object>
-    MAP,
 
     // A specified player's entrance
     ENTRANCE,

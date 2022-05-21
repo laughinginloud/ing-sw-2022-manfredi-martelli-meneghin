@@ -1,6 +1,6 @@
-package it.polimi.ingsw.server.controller.command;
+package it.polimi.ingsw.common;
 
-public enum GameCommandActions {
+public enum GameActions {
     // Array of characterCard playable by the current player
     ENDTURN,
 
@@ -30,4 +30,6 @@ public enum GameCommandActions {
 
     // Request whether a game should be loaded
     LOADGAME,
+
+    //TODO: rules et company
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.CharacterCard;
@@ -38,21 +40,21 @@ public class MerchantStrategy extends CharacterCardStrategy {
             Color[] availableColors = Color.values();
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
-            Map<GameCommandValues, Object> merchantMap = new HashMap<>();
-            merchantMap.put(GameCommandValues.COLORARRAY, availableColors);
+            Map<GameValues, Object> merchantMap = new HashMap<>();
+            merchantMap.put(GameValues.COLORARRAY, availableColors);
 
             // The server asks the player which color he wants to inhibit calculating the influences during this turn
-            GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, merchantMap);
+            GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, merchantMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenFields = (Map<GameValues, Object>) c.executeCommand();
 
                 // A cast for the information requested by the server (color to inhibit)
-                Color selectedColor = (Color) chosenFields.get(GameCommandValues.MERCHANTCOLOR);
+                Color selectedColor = (Color) chosenFields.get(GameValues.MERCHANTCOLOR);
                 data.setExcludedColor(selectedColor);
 
                 // The server sets the flag: excludeColorFlag and the variable: Color noInfluenceColor
@@ -62,7 +64,7 @@ public class MerchantStrategy extends CharacterCardStrategy {
                 String merchantConfirmString = "The card effect has been correctly applied! The color: " +
                                                selectedColor.toString() +
                                                " won't be considered during the influence calculation until the end of turn";
-                afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, merchantConfirmString);
+                afterEffectUpdate.put(GameValues.CONFIRMATIONSTRING, merchantConfirmString);
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

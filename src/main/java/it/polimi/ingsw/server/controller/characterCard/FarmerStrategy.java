@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 
 /**
@@ -55,8 +55,8 @@ public class FarmerStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
-            afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGlobalProfessorTable);
-            afterEffectUpdate.put(GameCommandValues.DININGROOMARRAY,      updatedDiningRooms);
+            afterEffectUpdate.put(GameValues.GLOBALPROFESSORTABLE, updatedGlobalProfessorTable);
+            afterEffectUpdate.put(GameValues.DININGROOMARRAY,      updatedDiningRooms);
         }
 
         catch (Exception e) {

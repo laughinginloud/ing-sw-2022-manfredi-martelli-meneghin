@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
@@ -96,7 +98,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
         boolean canPlayCharacterCard = false;
 
         // Creates a map that will be filled by the fields to send to the player in order to let him move a student
-        Map<GameCommandValues, Object> moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
+        Map<GameValues, Object> moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
 
         // If the player hasn't played a card yet
         if (expertMode && !data.checkPlayedCard()) {
@@ -105,7 +107,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
 
             // If there are CharacterCard playable by the current player, adds them to the moveStudentsInfo
             if (playableCharacterCard != null) {
-                moveStudentsInfo.put(GameCommandValues.CHARACTERCARDARRAY, playableCharacterCard);
+                moveStudentsInfo.put(GameValues.CHARACTERCARDARRAY, playableCharacterCard);
 
                 //Set the flag to true to change the GameCommandRequestAction's type during its initialization
                 canPlayCharacterCard = true;
@@ -115,8 +117,8 @@ public class GameStateMoveStudents implements GameStateActionPhase {
         // Send a RequestAction to the player is playing, requesting him to move students from the provided movableStudents to an Island or to a DiningRoomTable (if it is possible)
         // If the player is allowed to, send also the CharacterCard he could play
         GameCommand request = canPlayCharacterCard ?
-            new GameCommandRequestAction(GameCommandActions.MOVESTUDENTORPLAYCARD, moveStudentsInfo):
-            new GameCommandRequestAction(GameCommandActions.MOVESTUDENT, moveStudentsInfo);
+            new GameCommandRequestAction(GameActions.MOVESTUDENTORPLAYCARD, moveStudentsInfo):
+            new GameCommandRequestAction(GameActions.MOVESTUDENT, moveStudentsInfo);
         GameCommand response = playerView.sendRequest(request);
 
         // If the player responded with the students he wants to move
@@ -127,11 +129,11 @@ public class GameStateMoveStudents implements GameStateActionPhase {
             Color    movedStudent      = (Color)    commandReturnInfo[1];
 
             // Create a Map where to store updatedFields in order to send them to the players
-            Map<GameCommandValues, Object> updateInfo = new HashMap<>();
+            Map<GameValues, Object> updateInfo = new HashMap<>();
 
             if (!toDiningRoom)
                 // Adds IslandArray value to the updateInfo Map that will be sent to all the players
-                updateInfo.put(GameCommandValues.ISLANDARRAY, model.getIslands());
+                updateInfo.put(GameValues.ISLANDARRAY, model.getIslands());
 
             else {
                 // If the current player is playing an ExpertMode Game it checks if the current player will receive
@@ -139,8 +141,8 @@ public class GameStateMoveStudents implements GameStateActionPhase {
                 if (data.getExpertMode())
                     if (checkAndAddCoin(player, movedStudent)) {
                         // Adds globalCoinPool and playerArray values to the updateInfo Map that will be sent to all the players
-                        updateInfo.put(GameCommandValues.COINPOOL, model.getCoinPool());
-                        updateInfo.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
+                        updateInfo.put(GameValues.COINPOOL, model.getCoinPool());
+                        updateInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
                     }
 
                 // Checks if the current player has more students on a specific color's DiningRoomTable than the player
@@ -149,7 +151,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
                 Player playerControllingProfessor = gpt.getProfessorLocation(movedStudent);
                 if (!player.equals(playerControllingProfessor) && checkProfessorMovement(player, playerControllingProfessor, movedStudent)) {
                     gpt.setProfessorLocation(movedStudent, player);
-                    updateInfo.put(GameCommandValues.GLOBALPROFESSORTABLE, gpt);
+                    updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
                 }
 
                 // Gets the DiningRoom of each player and save it a DiningRoomArray
@@ -158,7 +160,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
                     updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
                 // Adds current player DiningRoom value to the updateInfo Map that will be sent to all the players
-                updateInfo.put(GameCommandValues.DININGROOMARRAY, updatedDiningRooms);
+                updateInfo.put(GameValues.DININGROOMARRAY, updatedDiningRooms);
             }
 
             // Gets the entrance of each player and save it an entranceArray
@@ -167,7 +169,7 @@ public class GameStateMoveStudents implements GameStateActionPhase {
                 updatedEntrances[i] = players[i].getSchoolBoard().getEntrance();
 
             // Adds current player Entrance value to the updateInfo Map that will be sent to all the players
-            updateInfo.put(GameCommandValues.ENTRANCEARRAY, updatedEntrances);
+            updateInfo.put(GameValues.ENTRANCEARRAY, updatedEntrances);
 
             // Sends to all the player the updateInfo Map containing all the GameModel's fields which need to be updated after the movement of the student
             for (Player playerToUpdate : players) {
@@ -225,17 +227,17 @@ public class GameStateMoveStudents implements GameStateActionPhase {
      * @param movableStudents The students, currently in the player's entrance, that can be moved
      * @return A Map containing the movableStudents and an Array of boolean representing the diningRoomTableFreeSeatAvailable flags
      */
-    private Map<GameCommandValues, Object> setMoveStudentsInfo (Player player, Color[] movableStudents) {
+    private Map<GameValues, Object> setMoveStudentsInfo (Player player, Color[] movableStudents) {
         boolean[] diningRoomTableFreeSeatAvailable = new boolean[5];
-        Map<GameCommandValues, Object> moveStudentsInfo = new HashMap<>();
+        Map<GameValues, Object> moveStudentsInfo = new HashMap<>();
 
         // For each color checks if the correspondent DiningRoomTable has free seat(s)
         for (Color color : Color.values())
             if (player.getSchoolBoard().getDiningRoom().getStudentCounters(color) < 10)
                 diningRoomTableFreeSeatAvailable[color.ordinal()] = true;
 
-        moveStudentsInfo.put(GameCommandValues.COLORARRAY, movableStudents);
-        moveStudentsInfo.put(GameCommandValues.BOOLARRAY, diningRoomTableFreeSeatAvailable);
+        moveStudentsInfo.put(GameValues.COLORARRAY, movableStudents);
+        moveStudentsInfo.put(GameValues.BOOLARRAY, diningRoomTableFreeSeatAvailable);
         return moveStudentsInfo;
     }
 

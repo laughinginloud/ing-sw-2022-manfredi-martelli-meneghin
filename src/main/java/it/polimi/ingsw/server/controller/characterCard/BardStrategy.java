@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -40,22 +42,22 @@ public class BardStrategy extends CharacterCardStrategy {
             int maxNumOfMovements = 2;
 
             // Create a Map and save in it the maxNumOfMovement in order to send it to the player
-            Map<GameCommandValues, Object> movementMap = new HashMap<>();
-            movementMap.put(GameCommandValues.MAXMOVEMENTBARD, maxNumOfMovements);
+            Map<GameValues, Object> movementMap = new HashMap<>();
+            movementMap.put(GameValues.MAXMOVEMENTBARD, maxNumOfMovements);
 
             // The server asks the player how many students he would like to move using the Bard's cardEffect
-            GameCommand request  = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, movementMap);
+            GameCommand request  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, movementMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
                 // Gets the number of students that the player wants to move, from the Map received from the client
                 // TODO: [ClientImplementation] Int movementBard chosen from the client has to be between 1 and maxNumOfMovements
-                int chosenNumOfMovement = (int) chosenField.get(GameCommandValues.MOVEMENTBARD);
+                int chosenNumOfMovement = (int) chosenField.get(GameValues.MOVEMENTBARD);
 
                 // For chosenNumOfMovement times asks the player which students he would like to move, waits for response and notifies all the players after the movement
                 for (int i = 0; i < chosenNumOfMovement; i++)
@@ -94,26 +96,26 @@ public class BardStrategy extends CharacterCardStrategy {
         Color[] swappableStudents = getSwappableStudents(curPlayer, entranceStudents);
 
         // Create a Map where save the fields that will be sent to the player as RequestAction's payload
-        Map<GameCommandValues, Object> bardMap = new HashMap<>();
-        bardMap.put(GameCommandValues.BARDSWAPPABLESTUDENTS, swappableStudents);
+        Map<GameValues, Object> bardMap = new HashMap<>();
+        bardMap.put(GameValues.BARDSWAPPABLESTUDENTS, swappableStudents);
 
         // Add to the Map that will be sent to the player the SwapMap related to the swappableStudents
         Map<Color, Boolean[]> bardPossibleMovementMap = setBardPossibleMovements(curPlayer, swappableStudents);
-        bardMap.put(GameCommandValues.BARDSWAPMAP, bardPossibleMovementMap);
+        bardMap.put(GameValues.BARDSWAPMAP, bardPossibleMovementMap);
 
         // The server asks the player which students would like to move (one from the Card, one from the Entrance)
-        GameCommand movementRequest  = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, bardMap);
+        GameCommand movementRequest  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, bardMap);
         GameCommand movementResponse = playerView.sendRequest(movementRequest);
 
         // If the response is of the right kind
         if (movementResponse instanceof GameCommandChosenCharacterCardFields c) {
             // The player responds with the information requested by the server
             @SuppressWarnings("unchecked")
-            Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+            Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
             // Gets the index of the swappableStudent and the diningRoomTable's student color of the player wants to swap the swappableStudent with
-            int   swappableStudentIndex    = (int)   chosenField.get(GameCommandValues.ENTRANCESTUDENTINDEX);
-            Color diningRoomTableStudent   = (Color) chosenField.get(GameCommandValues.DININGROOMTABLECOLOR);
+            int   swappableStudentIndex    = (int)   chosenField.get(GameValues.ENTRANCESTUDENTINDEX);
+            Color diningRoomTableStudent   = (Color) chosenField.get(GameValues.DININGROOMTABLECOLOR);
 
             // Retrieve the entranceStudentIndex corresponding to student indicated with the swappableStudentIndex
             int entranceStudentIndex = getEntranceStudentIndex(entranceStudents, swappableStudents, swappableStudentIndex);
@@ -157,8 +159,8 @@ public class BardStrategy extends CharacterCardStrategy {
                 updatedSchoolBoards[i] = players[i].getSchoolBoard();
 
             // Save into the afterEffectUpdate the updated fields that will be broadcast to the players
-            afterEffectUpdate.put(GameCommandValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
-            afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGPT);
+            afterEffectUpdate.put(GameValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
+            afterEffectUpdate.put(GameValues.GLOBALPROFESSORTABLE, updatedGPT);
         }
 
         // If the response is of the wrong kind, send an Illegal Command message and restart the method

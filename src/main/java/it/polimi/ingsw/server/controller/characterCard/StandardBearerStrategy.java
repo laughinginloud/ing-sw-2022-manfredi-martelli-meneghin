@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.state.GameStateComputeIsland;
@@ -41,21 +43,21 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
             Island[] availableIslands = model.getIslands();
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
-            Map<GameCommandValues, Object> standardBearerMap = new HashMap<>();
-            standardBearerMap.put(GameCommandValues.ISLANDARRAY, availableIslands);
+            Map<GameValues, Object> standardBearerMap = new HashMap<>();
+            standardBearerMap.put(GameValues.ISLANDARRAY, availableIslands);
 
             // The server asks the player on which Island he would like to calculate the influence
-            GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, standardBearerMap);
+            GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, standardBearerMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenFields = (Map<GameValues, Object>) c.executeCommand();
 
                 // Gets the index of Island that the player wants to compute, from the Map received from the client
-                int island_index = (int) chosenFields.get(GameCommandValues.ISLANDINDEX);
+                int island_index = (int) chosenFields.get(GameValues.ISLANDINDEX);
 
                 // The server activates the same routine as in GameStateComputeIsland (also with the possibility of ending the game)
                 GameStateComputeIsland computeIsland = new GameStateComputeIsland(island_index);

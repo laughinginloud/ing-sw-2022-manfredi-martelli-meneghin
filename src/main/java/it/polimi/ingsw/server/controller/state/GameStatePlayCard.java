@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.AssistantCard;
@@ -34,7 +36,7 @@ public class GameStatePlayCard implements GameStatePlanPhase {
             try {
                 // Requests to the current player to play a card between the playable AssistantCard he has in his deck
                 VirtualView playerView = data.getPlayerView(player);
-                GameCommand request = new GameCommandRequestAction(GameCommandActions.PLAYASSISTANTCARD, playableAssistantCards);
+                GameCommand request = new GameCommandRequestAction(GameActions.PLAYASSISTANTCARD, playableAssistantCards);
                 GameCommand response = playerView.sendRequest(request);
 
                 if (response instanceof GameCommandPlayAssistantCard c) {
@@ -114,8 +116,8 @@ public class GameStatePlayCard implements GameStatePlanPhase {
             player.setLastPlayedCard(chosenCard);
 
             // Creates updateInfo and adds to it the updated playerArray, containing the new value of lastPlayerCard
-            Map<GameCommandValues, Object> updateInfo = new HashMap<>();
-            updateInfo.put(GameCommandValues.PLAYERARRAY, data.getGameModel().getPlayer());
+            Map<GameValues, Object> updateInfo = new HashMap<>();
+            updateInfo.put(GameValues.PLAYERARRAY, data.getGameModel().getPlayer());
 
             // Notifies all the players about the lastPlayedCard now on the board of the current player
             for (Player playerToUpdate : data.getGameModel().getPlayer()) {

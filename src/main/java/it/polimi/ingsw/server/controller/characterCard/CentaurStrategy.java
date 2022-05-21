@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
 import it.polimi.ingsw.common.model.CharacterCard;
 
 /**
@@ -31,6 +31,6 @@ public class CentaurStrategy extends CharacterCardStrategy {
         // Confirm Message operation successful
         String centaurConfirmString = "The card effect has been correctly applied!" +
                                       " Towers won't be counted for the influence calculation until the end of turn";
-        afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, centaurConfirmString);
+        afterEffectUpdate.put(GameValues.CONFIRMATIONSTRING, centaurConfirmString);
     }
 }

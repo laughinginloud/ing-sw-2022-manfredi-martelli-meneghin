@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.utils.Tuple;
@@ -34,13 +36,13 @@ public class GameStateChooseCloud implements GameStateActionPhase {
             ControllerData data       = ControllerData.getInstance();
             Player         player     = data.getCurrentPlayer();
             VirtualView    playerView = data.getPlayerView(player);
-            Map<GameCommandValues, Object> chooseCloudInfo = new HashMap<>();
+            Map<GameValues, Object> chooseCloudInfo = new HashMap<>();
             boolean expertMode = data.getExpertMode();
             boolean canPlayCharacterCard = false;
 
             // Gets all the cloud still filled by students
             CloudTile[] availableCloud = getAvailableClouds();
-            chooseCloudInfo.put(GameCommandValues.CLOUDARRAY, availableCloud);
+            chooseCloudInfo.put(GameValues.CLOUDARRAY, availableCloud);
 
             // If there are not cloudTile filled by at least one student, end GameStateChooseCloud
             if (availableCloud == null)
@@ -53,7 +55,7 @@ public class GameStateChooseCloud implements GameStateActionPhase {
 
                 // If there are CharacterCard playable by the current player, adds them to the moveStudentsInfo
                 if (playableCharacterCard != null) {
-                    chooseCloudInfo.put(GameCommandValues.CHARACTERCARDARRAY, playableCharacterCard);
+                    chooseCloudInfo.put(GameValues.CHARACTERCARDARRAY, playableCharacterCard);
 
                     //Set the flag to true to change the GameCommandRequestAction's type during its initialization
                     canPlayCharacterCard = true;
@@ -63,8 +65,8 @@ public class GameStateChooseCloud implements GameStateActionPhase {
             // Send a RequestAction to the current player, asking him to choose a CloudTile between the provided ones
             // If the player is allowed to, send also the CharacterCard he could play
             GameCommand request    = canPlayCharacterCard ?
-                new GameCommandRequestAction(GameCommandActions.CHOOSECLOUDORPLAYCARD, chooseCloudInfo) :
-                new GameCommandRequestAction(GameCommandActions.CHOOSECLOUD, availableCloud);
+                new GameCommandRequestAction(GameActions.CHOOSECLOUDORPLAYCARD, chooseCloudInfo) :
+                new GameCommandRequestAction(GameActions.CHOOSECLOUD, availableCloud);
             GameCommand response   = playerView.sendRequest(request);
 
             // If the response is of the right type, try to execute
@@ -75,9 +77,9 @@ public class GameStateChooseCloud implements GameStateActionPhase {
                     for (Color student : students)
                         player.getSchoolBoard().getEntrance().appendStudent(student);
 
-                    Map<GameCommandValues, Object> map = new HashMap<>();
-                    map.put(GameCommandValues.ENTRANCE, new Tuple<>(player.getPlayerID(), player.getSchoolBoard().getEntrance()));
-                    map.put(GameCommandValues.CLOUDARRAY, data.getGameModel().getCloudTile());
+                    Map<GameValues, Object> map = new HashMap<>();
+                    map.put(GameValues.ENTRANCE, new Tuple<>(player.getPlayerID(), player.getSchoolBoard().getEntrance()));
+                    map.put(GameValues.CLOUDARRAY, data.getGameModel().getCloudTile());
 
                     for (Player playerToUpdate : data.getGameModel().getPlayer())
                         data.getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(map));

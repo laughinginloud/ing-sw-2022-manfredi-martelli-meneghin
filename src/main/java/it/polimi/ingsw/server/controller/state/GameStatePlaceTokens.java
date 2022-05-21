@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class GameStatePlaceTokens implements GameStateSetup {
 
         try {
             // Get all the Object/Fields have to be sent to each player's Client
-            Map<GameCommandValues, Object> placedTokens = packPlacedTokens();
+            Map<GameValues, Object> placedTokens = packPlacedTokens();
 
             // Send those Object/Fields via a SendMessage message, through the Network
             for (Player player : ControllerData.getInstance().getGameModel().getPlayer()) {
@@ -107,8 +107,8 @@ public class GameStatePlaceTokens implements GameStateSetup {
     /**
      * Get all the Tokens that have to be sent to each Client and save them in a Map
      */
-    private Map<GameCommandValues, Object> packPlacedTokens() {
-        Map<GameCommandValues, Object> placedTokens = new HashMap<>();
+    private Map<GameValues, Object> packPlacedTokens() {
+        Map<GameValues, Object> placedTokens = new HashMap<>();
 
         /* TODO: [ClientCache] Caricare tutte le informazioni in una mappa, facendo attenzione ai puntatori disaccoppiati (player in team) */
         // Get all the objects/fields each player's Client need to know
@@ -116,7 +116,7 @@ public class GameStatePlaceTokens implements GameStateSetup {
         // ...
 
         // Add to placedTokens Map all the object/fields that will be sent to the client
-        placedTokens.put(GameCommandValues.MODEL, placedModel);
+        placedTokens.put(GameValues.MODEL, placedModel);
         // ...
 
         return placedTokens;

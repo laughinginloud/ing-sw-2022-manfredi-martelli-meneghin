@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.CharacterCard;
@@ -40,21 +42,21 @@ public class HerbalistStrategy extends CharacterCardStrategy {
             Island[] availableIslands = model.getIslands();
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
-            Map<GameCommandValues, Object> herbalistMap = new HashMap<>();
-            herbalistMap.put(GameCommandValues.ISLANDARRAY, availableIslands);
+            Map<GameValues, Object> herbalistMap = new HashMap<>();
+            herbalistMap.put(GameValues.ISLANDARRAY, availableIslands);
 
             // The server asks the player on which Island he would like to put the noEntryTile
-            GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, herbalistMap);
+            GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, herbalistMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
                 // Gets the value of the chosenField from the Map
-                Island chosenIsland = (Island) chosenField.get(GameCommandValues.ISLANDINDEX);
+                Island chosenIsland = (Island) chosenField.get(GameValues.ISLANDINDEX);
 
                 // The server places the token on the selected island (noEntryTile++)
                 int currentNoEntryTileCount = chosenIsland.getNoEntryTileCount();
@@ -62,8 +64,8 @@ public class HerbalistStrategy extends CharacterCardStrategy {
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
                 // CharacterCardsArray and IslandsArray and put them in the map that will be broadcast
-                afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, model.getCharacterCards());
-                afterEffectUpdate.put(GameCommandValues.ISLANDARRAY,        model.getIslands());
+                afterEffectUpdate.put(GameValues.CHARACTERCARDARRAY, model.getCharacterCards());
+                afterEffectUpdate.put(GameValues.ISLANDARRAY,        model.getIslands());
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

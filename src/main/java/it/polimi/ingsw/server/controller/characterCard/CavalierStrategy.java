@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.CharacterCard;
 import it.polimi.ingsw.common.model.Player;
 
@@ -34,6 +34,6 @@ public class CavalierStrategy extends CharacterCardStrategy {
         String cavalierConfirmString = "The card effect has been correctly applied! " +
                                         currentPlayer.getUsername() +
                                        " will have two more influence on each island until the end of turn";
-        afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, cavalierConfirmString);
+        afterEffectUpdate.put(GameValues.CONFIRMATIONSTRING, cavalierConfirmString);
     }
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -43,23 +45,23 @@ public class MonkStrategy extends CharacterCardStrategy {
             Island[] availableIslands = model.getIslands();
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
-            Map<GameCommandValues, Object> monkMap = new HashMap<>();
-            monkMap.put(GameCommandValues.CARDSTUDENTS, availableStudents);
-            monkMap.put(GameCommandValues.ISLANDARRAY, availableIslands);
+            Map<GameValues, Object> monkMap = new HashMap<>();
+            monkMap.put(GameValues.CARDSTUDENTS, availableStudents);
+            monkMap.put(GameValues.ISLANDARRAY, availableIslands);
 
             // The server asks the player which student he wants to move and the island he wants to move the student to
-            GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, monkMap);
+            GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, monkMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenFields = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenFields = (Map<GameValues, Object>) c.executeCommand();
 
                 // A cast for the information requested by the server (student and island index)
-                int student_index = (int) chosenFields.get(GameCommandValues.STUDENTINDEX);
-                int  island_index = (int) chosenFields.get(GameCommandValues.ISLANDINDEX);
+                int student_index = (int) chosenFields.get(GameValues.STUDENTINDEX);
+                int  island_index = (int) chosenFields.get(GameValues.ISLANDINDEX);
 
                 // The server moves the student from the CharacterCard to the selected island
                 Color movedStudent = enhancedCard.retrieveStudent(student_index);
@@ -78,8 +80,8 @@ public class MonkStrategy extends CharacterCardStrategy {
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
                 // CharacterCardsArray and IslandsArray and put them in the map that will be broadcast
-                afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, model.getCharacterCards());
-                afterEffectUpdate.put(GameCommandValues.ISLANDARRAY,        model.getIslands());
+                afterEffectUpdate.put(GameValues.CHARACTERCARDARRAY, model.getCharacterCards());
+                afterEffectUpdate.put(GameValues.ISLANDARRAY,        model.getIslands());
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

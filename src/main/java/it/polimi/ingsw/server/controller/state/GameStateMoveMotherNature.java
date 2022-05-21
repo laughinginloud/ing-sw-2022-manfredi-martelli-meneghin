@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
@@ -31,13 +33,13 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
         try {
             Player      player     = ControllerData.getInstance().getCurrentPlayer();
             VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
-            Map<GameCommandValues, Object> moveMNInfo = new HashMap<>();
+            Map<GameValues, Object> moveMNInfo = new HashMap<>();
             boolean expertMode = ControllerData.getInstance().getExpertMode();
             boolean canPlayCharacterCard = false;
 
             // Calculates the max motherNature movement and store it on the Map moveMNInfo
             int motherNatureMovement = player.getLastPlayedCard().movementPoints() + (ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0);
-            moveMNInfo.put(GameCommandValues.MOTHERNATUREMOVEMENT, motherNatureMovement);
+            moveMNInfo.put(GameValues.MOTHERNATUREMOVEMENT, motherNatureMovement);
 
             // If the player hasn't played a card yet
             if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
@@ -46,7 +48,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
 
                 // If there are CharacterCard playable by the current player, adds them to the moveStudentsInfo
                 if (playableCharacterCard != null) {
-                    moveMNInfo.put(GameCommandValues.CHARACTERCARDARRAY, playableCharacterCard);
+                    moveMNInfo.put(GameValues.CHARACTERCARDARRAY, playableCharacterCard);
 
                     //Set the flag to true to change the GameCommandRequestAction's type during its initialization
                     canPlayCharacterCard = true;
@@ -56,8 +58,8 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
             // Create a command representing the request of MotherNature's movement and send it to the player
             // If the player is allowed to, send also the CharacterCard he could play
             GameCommand request    = canPlayCharacterCard ?
-                new GameCommandRequestAction(GameCommandActions.MOVEMOTHERNATUREORPLAYCARD, moveMNInfo):
-                new GameCommandRequestAction(GameCommandActions.MOVEMOTHERNATURE, moveMNInfo);
+                new GameCommandRequestAction(GameActions.MOVEMOTHERNATUREORPLAYCARD, moveMNInfo):
+                new GameCommandRequestAction(GameActions.MOVEMOTHERNATURE, moveMNInfo);
             GameCommand response   = playerView.sendRequest(request);
 
             // If the response is of the right kind, try to execute the movement
@@ -129,8 +131,8 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
         int updatedMotherNaturePosition = ControllerData.getInstance().getGameModel().getMotherNaturePosition();
 
         // Creates a map and saves in it the current MotherNaturePosition on islandArray
-        Map<GameCommandValues, Object> updateInfo = new HashMap<>();
-        updateInfo.put(GameCommandValues.MOTHERNATURE, updatedMotherNaturePosition);
+        Map<GameValues, Object> updateInfo = new HashMap<>();
+        updateInfo.put(GameValues.MOTHERNATURE, updatedMotherNaturePosition);
 
         try {
             // Notify to all the player the new MotherNaturePosition

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -39,21 +41,21 @@ public class ThiefStrategy extends CharacterCardStrategy {
             Color[] reducibleColors = getReducibleColors(model, data);
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
-            Map<GameCommandValues, Object> jesterMap = new HashMap<>();
-            jesterMap.put(GameCommandValues.REDUCIBLECOLOR, reducibleColors);
+            Map<GameValues, Object> jesterMap = new HashMap<>();
+            jesterMap.put(GameValues.REDUCIBLECOLOR, reducibleColors);
 
             // The server asks the player which students would like to move (one from the Card, one from the Entrance)
-            GameCommand request  = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, jesterMap);
+            GameCommand request  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, jesterMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
                 // Gets the color of the students the player wants to reduce from all the players' diningRooms
-                Color colorToReduce = (Color) chosenField.get(GameCommandValues.REDUCECOLOR);
+                Color colorToReduce = (Color) chosenField.get(GameValues.REDUCECOLOR);
 
                 // The server reduces 3 (or all) students of the specified color from each SchoolBoard and add them to the Bag
                 Bag      bag        = model.getBag();
@@ -83,7 +85,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
                     updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
                 // Save into the afterEffectUpdate the updated field that will be broadcast to the players
-                afterEffectUpdate.put(GameCommandValues.DININGROOM, updatedDiningRooms);
+                afterEffectUpdate.put(GameValues.DININGROOM, updatedDiningRooms);
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

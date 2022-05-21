@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.CharacterCard;
 import it.polimi.ingsw.common.model.Player;
 
@@ -34,6 +34,6 @@ public class MagicianStrategy extends CharacterCardStrategy {
         String magicianConfirmString = "The card effect has been correctly applied! " +
                                        currentPlayer.getUsername() +
                                        " can move Mother Nature of two additional tiles this turn";
-        afterEffectUpdate.put(GameCommandValues.CONFIRMATIONSTRING, magicianConfirmString);
+        afterEffectUpdate.put(GameValues.CONFIRMATIONSTRING, magicianConfirmString);
     }
 }

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
 import it.polimi.ingsw.common.model.Color;
 import it.polimi.ingsw.common.model.GlobalProfessorTable;
 import it.polimi.ingsw.common.model.Player;
@@ -245,8 +245,8 @@ public class GameStateEndGame implements GameState {
     private void sendWinner(ControllerData data, Player winner) {
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                Map<GameCommandValues, Object> winnerMap = new HashMap<>();
-                winnerMap.put(GameCommandValues.WINNER, winner.getUsername());
+                Map<GameValues, Object> winnerMap = new HashMap<>();
+                winnerMap.put(GameValues.WINNER, winner.getUsername());
                 v.sendMessage(new GameCommandSendInfo(winnerMap));
             });
     }
@@ -259,8 +259,8 @@ public class GameStateEndGame implements GameState {
 
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                Map<GameCommandValues, Object> winnerMap = new HashMap<>();
-                winnerMap.put(GameCommandValues.WINNINGTEAM, teamMembers);
+                Map<GameValues, Object> winnerMap = new HashMap<>();
+                winnerMap.put(GameValues.WINNINGTEAM, teamMembers);
                 v.sendMessage(new GameCommandSendInfo(winnerMap));
             });
     }
@@ -273,8 +273,8 @@ public class GameStateEndGame implements GameState {
 
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                Map<GameCommandValues, Object> drawerMap = new HashMap<>();
-                drawerMap.put(GameCommandValues.DRAWERS, drawers);
+                Map<GameValues, Object> drawerMap = new HashMap<>();
+                drawerMap.put(GameValues.DRAWERS, drawers);
                 v.sendMessage(new GameCommandSendInfo(drawerMap));
             });
     }

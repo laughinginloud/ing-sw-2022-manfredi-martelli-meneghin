@@ -1,9 +1,11 @@
 package it.polimi.ingsw.server.controller.command;
 
-public abstract class GameCommandRequestValue implements GameCommand {
-    protected GameCommandValues value;
+import it.polimi.ingsw.common.GameValues;
 
-    public GameCommandRequestValue(GameCommandValues value) {
+public abstract class GameCommandRequestValue implements GameCommand {
+    protected GameValues value;
+
+    public GameCommandRequestValue(GameValues value) {
         this.value = value;
     }
 }

@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.*;
@@ -61,18 +61,18 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
         // Updates all the players about the variation on IslandArray caused by the execution of controlIsland or conquerIsland
         try {
-            Map<GameCommandValues, Object> controlAndConquerInfo = new HashMap<>();
+            Map<GameValues, Object> controlAndConquerInfo = new HashMap<>();
             GameCommand controlAndConquerUpdate;
 
             // If there aren't enough towers to fill the recolored islands, saves into the map the num of remainingTower, the conquered Island
             if (notEnoughTowerTrigger) {
-                controlAndConquerInfo.put(GameCommandValues.REMAININGTOWER, remainingTower);
-                controlAndConquerInfo.put(GameCommandValues.ISLANDNUM,      islandIndex);
+                controlAndConquerInfo.put(GameValues.REMAININGTOWER, remainingTower);
+                controlAndConquerInfo.put(GameValues.ISLANDNUM,      islandIndex);
             }
 
             // Then save anyway the update IslandArray and PlayerArray into the map
-            controlAndConquerInfo.put(GameCommandValues.ISLANDARRAY, model.getIslands());
-            controlAndConquerInfo.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
+            controlAndConquerInfo.put(GameValues.ISLANDARRAY, model.getIslands());
+            controlAndConquerInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
             controlAndConquerUpdate = new GameCommandSendInfo(controlAndConquerInfo);
 
             // Updates all the players
@@ -278,15 +278,15 @@ public class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private GameCommand createMap(ControllerData data, GameModel model) {
-        Map<GameCommandValues, Object> map = new HashMap<>();
-        map.put(GameCommandValues.ISLANDARRAY, model.getIslands());
-        map.put(GameCommandValues.PLAYERARRAY, model.getPlayer());
+        Map<GameValues, Object> map = new HashMap<>();
+        map.put(GameValues.ISLANDARRAY, model.getIslands());
+        map.put(GameValues.PLAYERARRAY, model.getPlayer());
         return new GameCommandSendInfo(map);
     }
 
     private GameCommand createLightMap(GameModel model) {
-        Map<GameCommandValues, Object> map = new HashMap<>();
-        map.put(GameCommandValues.ISLANDARRAY, model.getIslands());
+        Map<GameValues, Object> map = new HashMap<>();
+        map.put(GameValues.ISLANDARRAY, model.getIslands());
         return new GameCommandSendInfo(map);
     }
 

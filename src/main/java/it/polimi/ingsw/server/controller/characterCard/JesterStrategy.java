@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -37,22 +39,22 @@ public class JesterStrategy extends CharacterCardStrategy {
             int maxNumOfMovements = 3;
 
             // Create a Map and save in it the maxNumOfMovement in order to send it to the player
-            Map<GameCommandValues, Object> movementMap = new HashMap<>();
-            movementMap.put(GameCommandValues.MAXMOVEMENTJESTER, maxNumOfMovements);
+            Map<GameValues, Object> movementMap = new HashMap<>();
+            movementMap.put(GameValues.MAXMOVEMENTJESTER, maxNumOfMovements);
 
             // The server asks the player how many students he would like to move using the Jester's cardEffect
-            GameCommand request  = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, movementMap);
+            GameCommand request  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, movementMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
                 // Gets the number of students that the player wants to move, from the Map received from the client
                 // TODO: [ClientImplementation] Int movementJester chosen from the client has to be between 1 and maxNumOfMovements
-                int chosenNumOfMovement = (int) chosenField.get(GameCommandValues.MOVEMENTJESTER);
+                int chosenNumOfMovement = (int) chosenField.get(GameValues.MOVEMENTJESTER);
 
                 // For chosenNumOfMovement times asks the player which student he would like to move, waits for response and notifies all the players after the movement
                 for (int i = 0; i < chosenNumOfMovement; i++)
@@ -92,23 +94,23 @@ public class JesterStrategy extends CharacterCardStrategy {
         Color[] characterCardStudents = enhancedCard.getStudents();
 
         // Create a Map and save the field that will be sent to the player as RequestAction's payload
-        Map<GameCommandValues, Object> jesterMap = new HashMap<>();
-        jesterMap.put(GameCommandValues.ENTRANCESTUDENTS, entranceStudents);
-        jesterMap.put(GameCommandValues.CARDSTUDENTS, characterCardStudents);
+        Map<GameValues, Object> jesterMap = new HashMap<>();
+        jesterMap.put(GameValues.ENTRANCESTUDENTS, entranceStudents);
+        jesterMap.put(GameValues.CARDSTUDENTS, characterCardStudents);
 
         // The server asks the player which students would like to move (one from the Card, one from the Entrance)
-        GameCommand movementRequest  = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, jesterMap);
+        GameCommand movementRequest  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, jesterMap);
         GameCommand movementResponse = playerView.sendRequest(movementRequest);
 
         // If the response is of the right kind
         if (movementResponse instanceof GameCommandChosenCharacterCardFields c) {
             // The player responds with the information requested by the server
             @SuppressWarnings("unchecked")
-            Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+            Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
             // Gets the indexes of the entranceStudent and the cardStudent the player wants swap
-            int entranceStudentIndex = (int) chosenField.get(GameCommandValues.ENTRANCESTUDENTINDEX);
-            int cardStudentIndex     = (int) chosenField.get(GameCommandValues.CARDSTUDENTINDEX);
+            int entranceStudentIndex = (int) chosenField.get(GameValues.ENTRANCESTUDENTINDEX);
+            int cardStudentIndex     = (int) chosenField.get(GameValues.CARDSTUDENTINDEX);
 
             // The server exchanges the students (using a temporary object) from the Entrance and the card
             Color tmpEntranceStudent = curPlayer.getSchoolBoard().getEntrance().retrieveStudent(entranceStudentIndex);
@@ -125,8 +127,8 @@ public class JesterStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedEntrances[i] = players[i].getSchoolBoard().getEntrance();
 
-            afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
-            afterEffectUpdate.put(GameCommandValues.ENTRANCEARRAY,      updatedEntrances);
+            afterEffectUpdate.put(GameValues.CHARACTERCARDARRAY, updatedCharacterCards);
+            afterEffectUpdate.put(GameValues.ENTRANCEARRAY,      updatedEntrances);
         }
 
         // If the response is of the wrong kind, send an Illegal Command message and restart the method

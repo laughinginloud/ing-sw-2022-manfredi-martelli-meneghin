@@ -4,7 +4,7 @@ import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
-import it.polimi.ingsw.server.controller.command.GameCommandValues;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public abstract class CharacterCardStrategy {
     protected CharacterCard card;
 
     // The map that will be updated by the concrete strategies with the data they modified
-    protected Map<GameCommandValues, Object> afterEffectUpdate = new HashMap<>();
+    protected Map<GameValues, Object> afterEffectUpdate = new HashMap<>();
 
     /**
      * Factory method: Associates the strategy to the CharacterCard

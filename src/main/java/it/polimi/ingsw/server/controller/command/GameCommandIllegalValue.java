@@ -1,11 +1,13 @@
 package it.polimi.ingsw.server.controller.command;
 
+import it.polimi.ingsw.common.GameValues;
+
 public class GameCommandIllegalValue implements GameCommand {
-    GameCommandValues value = null;
+    GameValues value = null;
 
     public GameCommandIllegalValue() {}
 
-    public GameCommandIllegalValue(GameCommandValues value) {
+    public GameCommandIllegalValue(GameValues value) {
         this.value = value;
     }
 

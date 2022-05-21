@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -44,21 +46,21 @@ public class PrincessStrategy extends CharacterCardStrategy {
             Color[] movableStudents = getMovableStudents(currentPlayer, characterCardStudents);
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
-            Map<GameCommandValues, Object> princessMap = new HashMap<>();
-            princessMap.put(GameCommandValues.CARDSTUDENTS, characterCardStudents);
+            Map<GameValues, Object> princessMap = new HashMap<>();
+            princessMap.put(GameValues.CARDSTUDENTS, characterCardStudents);
 
             // The server asks the player which students would like to move from the entrance to its DiningRoom
-            GameCommand request = new GameCommandRequestAction(GameCommandActions.CHARACTERCARDEFFECT, princessMap);
+            GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, princessMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
                 @SuppressWarnings("unchecked")
-                Map<GameCommandValues, Object> chosenField = (Map<GameCommandValues, Object>) c.executeCommand();
+                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
                 // Gets the index of students that the player wants to move, from the Map received from the client
-                int movableStudentIndex = (int) chosenField.get(GameCommandValues.STUDENTINDEX);
+                int movableStudentIndex = (int) chosenField.get(GameValues.STUDENTINDEX);
 
                 // Retrieve the characterCardStudentIndex corresponding to student indicated with the movableStudentIndex
                 int characterCardStudentIndex = getCharacterCardStudentIndex(characterCardStudents, movableStudents, movableStudentIndex);
@@ -103,9 +105,9 @@ public class PrincessStrategy extends CharacterCardStrategy {
                     updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
                 // Save into the afterEffectUpdate the updated fields that will be broadcast to the players
-                afterEffectUpdate.put(GameCommandValues.CHARACTERCARDARRAY, updatedCharacterCards);
-                afterEffectUpdate.put(GameCommandValues.DININGROOMARRAY, updatedDiningRooms);
-                afterEffectUpdate.put(GameCommandValues.GLOBALPROFESSORTABLE, updatedGPT );
+                afterEffectUpdate.put(GameValues.CHARACTERCARDARRAY, updatedCharacterCards);
+                afterEffectUpdate.put(GameValues.DININGROOMARRAY, updatedDiningRooms);
+                afterEffectUpdate.put(GameValues.GLOBALPROFESSORTABLE, updatedGPT );
             }
 
             // If the response is of the wrong kind, send an Illegal Command message and restart the method

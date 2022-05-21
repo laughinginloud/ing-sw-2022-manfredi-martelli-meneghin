@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
@@ -40,7 +42,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
             boolean canPlayCharacterCard = false;
 
             // Creates a map where to save the fields that will be sent to the current player
-            Map<GameCommandValues, Object> characterCardInfo = new HashMap<>();
+            Map<GameValues, Object> characterCardInfo = new HashMap<>();
 
             // If the player hasn't player a card yet and the game is in ExpertMode
             if (expertMode && !data.checkPlayedCard()) {
@@ -49,7 +51,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
                 // If there are CharacterCard playable by the current player, add them to the moveStudentsInfo
                 if (playableCharacterCard != null) {
-                    characterCardInfo.put(GameCommandValues.CHARACTERCARDARRAY, playableCharacterCard);
+                    characterCardInfo.put(GameValues.CHARACTERCARDARRAY, playableCharacterCard);
 
                     //Set the flag to true to change the GameCommandRequestAction's type during its initialization
                     canPlayCharacterCard = true;
@@ -58,7 +60,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
 
                 // If a CharacterCard can be played by the current player
                 if (canPlayCharacterCard) {
-                    GameCommand request = new GameCommandRequestAction(GameCommandActions.ENDTURN, characterCardInfo);
+                    GameCommand request = new GameCommandRequestAction(GameActions.ENDTURN, characterCardInfo);
                     GameCommand response = curPlayerView.sendRequest(request);
 
                     // If the player decide to play a characterCard
