@@ -5,6 +5,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
+import it.polimi.ingsw.server.controller.state.GameState;
 import it.polimi.ingsw.server.controller.state.GameStateThread;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 import it.polimi.ingsw.common.viewRecord.*;
@@ -141,13 +142,85 @@ public class GameController {
         }
     }
 
-    public static void signalPlayerDisconnected(VirtualView player) {
-        //TODO: salvare il gioco interrompendo il DFA
-        GameSave.saveGame(/*TODO*/ null);
-        gameStateThread.interrupt();
-        //TODO: mandare a tutti il messaggio di fine partita
+    /**
+     * Signal that a player has been disconnected
+     * @param playerView The VirtualView associated with the player
+     */
+    public static synchronized void signalPlayerDisconnected(VirtualView playerView) {
+        // If a game is in progess it needs to be saved
+        if (activeGame) {
+            Player[]      players  = data.getGameModel().getPlayer();
+            StringBuilder fileName = new StringBuilder(players[0].getUsername());
+            for (int i = 1; i < players.length; i++)
+                fileName.append("-").append(players[i].getUsername());
+
+            try {
+                GameSave.saveGame(fileName.toString()); //TODO: check correctness of the DFA's interruption
+            }
+
+            //Should never happen as permissions have already been checked
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            gameStateThread.interrupt();
+
+            // Signal every player that the game has been ended and close the relative socket
+            for (Player player : players) {
+                VirtualView view = data.getPlayerView(player);
+                if (view != playerView)
+                    view.sendMessage(new GameCommandInterruptGame());
+
+                view.close();
+            }
+
+            // Reset the data
+            ControllerData.nukeInstance();
+            data       = ControllerData.getInstance();
+            activeGame = false;
+            rulesSet   = false;
+        }
+
+        else {
+            if (data.getPlayersOrder(0).equals(data.getViewPlayer(playerView))) {
+                // Signal every player that the game has been ended and close the relative socket
+                for (Player player : data.getGameModel().getPlayer()) {
+                    VirtualView view = data.getPlayerView(player);
+                    if (view != playerView)
+                        view.sendMessage(new GameCommandInterruptGame());
+
+                    view.close();
+                }
+
+                // Reset the data
+                ControllerData.nukeInstance();
+                data     = ControllerData.getInstance();
+                rulesSet = false;
+            }
+
+            else {
+                Player player = data.getPlayerViewMap().removeRight(playerView);
+
+                // Get the removed player's index
+                int playerIndex = 0;
+                for (int i = 0; i < data.getNumOfPlayers(); ++i)
+                    if (data.getPlayersOrder(i).equals(player)) {
+                        playerIndex = i;
+                        break;
+                    }
+
+                // Move all the other players upwards
+                for (int i = playerIndex; i < data.getNumOfPlayers() - 1; ++i)
+                    data.getPlayersOrder()[i] = data.getPlayersOrder(i + 1);
+
+                data.getPlayersOrder()[data.getNumOfPlayers() - 1] = null;
+            }
+        }
     }
 
+    /**
+     * Signal to the game's controller that the game has ended
+     */
     public static synchronized void signalEndGame() {
         activeGame = false;
         ControllerData.nukeInstance();
@@ -268,5 +341,9 @@ public class GameController {
             case MOTHERNATURE -> ControllerData.getInstance().getGameModel().getMotherNaturePosition();
             default           -> throw new IllegalArgumentException();
         };
+    }
+
+    public static GameState saveGameState() {
+        return gameStateThread.saveGameState();
     }
 }
