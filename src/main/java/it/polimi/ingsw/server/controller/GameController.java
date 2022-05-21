@@ -13,7 +13,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.SocketException;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Main server class
@@ -75,7 +78,18 @@ public class GameController {
 
             else
                 try {
-                    String username  = (String) view.sendRequest(new GameCommandRequestValueClient(GameValues.USERNAME)).executeCommand();
+                    Set<String> usernameSet =
+                        // Morph the array of players to a stream to ease operations
+                        Arrays.stream(data.getPlayersOrder())
+                            // Morph the stream into a stream containing the usernames
+                            .map(Player::getUsername)
+                            // Normalize the usernames to avoid being case-sensitive
+                            .map(String::toLowerCase)
+                            // Collect the results into a set
+                            .collect(Collectors.toSet());
+
+                    // Send the player a request for the username, signaling which ones were already picked
+                    String username = (String) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAME, usernameSet)).executeCommand();
 
                     if (!rulesSet) {
                         Optional<File> savedGame = GameSave.findSavedGame(username);
@@ -84,8 +98,17 @@ public class GameController {
                             File save = savedGame.get();
 
                             // Ask the player whether he wants to load the saved game
-                            if ((boolean) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand())
-                                GameSave.loadGame(save);
+                            if ((boolean) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand()) {
+                                try {
+                                    GameSave.loadGame(save);
+                                    save.delete();
+                                }
+
+                                // Should never happen, since the permissions have already been checked
+                                catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
                             // Ask the new rules
                             // Returns false if there was a connection error: in that case do not delete the save and go to the next iteration
@@ -144,7 +167,16 @@ public class GameController {
         Player[] players = data.getPlayersOrder();
         int numOfPlayers = data.getNumOfPlayers();
 
-        Wizard  wizard   = (Wizard) view.sendRequest(new GameCommandRequestValueClient(GameValues.WIZARD /*TODO: aggiungere wizard disponibili*/)).executeCommand();
+        // Get a set of all the wizards and remove the ones that were already picked
+        Set<Wizard> wizardSet = Wizard.set();
+        Arrays.stream(players).forEach(player -> wizardSet.remove(player.getPlayerWizard()));
+
+        // If there is one wizard left, the player gets that by default, otherwise they get to choose between the ones remaining
+        Wizard wizard = (Wizard)
+            (wizardSet.size() == 1 ?
+                wizardSet.toArray()[0] :
+                view.sendRequest(new GameCommandRequestAction(GameActions.WIZARD, wizardSet.toArray())).executeCommand());
+
         boolean teamMode = numOfPlayers == 4;
 
         for (int i = 0; i < numOfPlayers; ++i)
@@ -216,7 +248,7 @@ public class GameController {
      */
     private static boolean askRules(VirtualView view) {
         try {
-            GameRules rules = (GameRules) view.sendRequest(new GameCommandRequestValueClient(GameValues.RULES)).executeCommand();
+            GameRules rules = (GameRules) view.sendRequest(new GameCommandRequestAction(GameActions.RULES, null)).executeCommand();
 
             data.setNumOfPlayers(rules.numOfPlayers());
             if (rules.expertMode())
