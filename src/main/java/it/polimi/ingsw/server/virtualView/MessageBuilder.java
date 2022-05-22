@@ -34,7 +34,7 @@ class MessageBuilder {
         if (command instanceof GameCommandRequestAction c)
             return new Message(MessageType.REQUESTACTION, c.executeCommand());
 
-        //TODO: request cloud
+        //TODO: ping
 
         if (command instanceof GameCommandEndGame c)
             return new Message(c.isDraw() ? MessageType.GAMEDRAW : MessageType.GAMEWINNER, c.executeCommand()); //TODO: ripulire per team?
@@ -50,6 +50,20 @@ class MessageBuilder {
             return null;
 
         return null; //TODO
+
+        /*TODO: Gestire il ritorno di GameCommandResponseAction:
+
+            GameActions.LoadGameChoice -> questa viene trasformata in una semplice GameCommandResponseAction che è già gestita
+                                          correttamente all'interno di GameController
+
+            GameActions.InsertedUsername -> GameCommandUsernameAndMagicAge
+
+            GameActions.MoveStudentInfo -> GameCommandMoveStudent(MoveStudentInfo)
+
+            GameActions.StudentsOfSelectedCloud -> GameCommandChooseCloud(con info relative)
+
+            GameActions.ChosenCharacter -> GameCommandPlayCharacterCard
+         */
     }
 }
 
@@ -61,6 +75,4 @@ Controller e View comunicano tramite command
 VirtualView si occupa di chiamare MessageBuilder, che crea una stringa contenente un JSON che contiene il messaggio
 Il messaggio è di tipo Message, record con due campi: MessageType, enumeratore con i tipi di messaggio, e value, object generico (NB: se null semplicemente non viene inviato)
 Build riceve un comando, guarda il suo tipo concreto e quindi agisce di conseguenza, trasformando nel JSON
-
-TODO: cambiare nome in CommandToMessage?
  */
