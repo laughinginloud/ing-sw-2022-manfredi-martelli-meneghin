@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -43,6 +44,7 @@ public class BardStrategy extends CharacterCardStrategy {
 
             // Create a Map and save in it the maxNumOfMovement in order to send it to the player
             Map<GameValues, Object> movementMap = new HashMap<>();
+            movementMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.BARDFIRST);
             movementMap.put(GameValues.MAXMOVEMENTBARD, maxNumOfMovements);
 
             // The server asks the player how many students he would like to move using the Bard's cardEffect
@@ -97,6 +99,7 @@ public class BardStrategy extends CharacterCardStrategy {
 
         // Create a Map where save the fields that will be sent to the player as RequestAction's payload
         Map<GameValues, Object> bardMap = new HashMap<>();
+        bardMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.BARDSECOND);
         bardMap.put(GameValues.BARDSWAPPABLESTUDENTS, swappableStudents);
 
         // Add to the Map that will be sent to the player the SwapMap related to the swappableStudents

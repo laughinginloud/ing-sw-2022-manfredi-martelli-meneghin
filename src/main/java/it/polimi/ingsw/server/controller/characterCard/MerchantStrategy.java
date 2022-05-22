@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.CharacterCard;
@@ -41,6 +42,7 @@ public class MerchantStrategy extends CharacterCardStrategy {
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
             Map<GameValues, Object> merchantMap = new HashMap<>();
+            merchantMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.MERCHANTFIRST);
             merchantMap.put(GameValues.COLORARRAY, availableColors);
 
             // The server asks the player which color he wants to inhibit calculating the influences during this turn

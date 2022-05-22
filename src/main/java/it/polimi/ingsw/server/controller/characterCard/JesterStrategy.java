@@ -2,7 +2,9 @@ package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
@@ -40,6 +42,7 @@ public class JesterStrategy extends CharacterCardStrategy {
 
             // Create a Map and save in it the maxNumOfMovement in order to send it to the player
             Map<GameValues, Object> movementMap = new HashMap<>();
+            movementMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.JESTERFIRST);
             movementMap.put(GameValues.MAXMOVEMENTJESTER, maxNumOfMovements);
 
             // The server asks the player how many students he would like to move using the Jester's cardEffect
@@ -95,6 +98,7 @@ public class JesterStrategy extends CharacterCardStrategy {
 
         // Create a Map and save the field that will be sent to the player as RequestAction's payload
         Map<GameValues, Object> jesterMap = new HashMap<>();
+        jesterMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.JESTERSECOND);
         jesterMap.put(GameValues.ENTRANCESTUDENTS, entranceStudents);
         jesterMap.put(GameValues.CARDSTUDENTS, characterCardStudents);
 

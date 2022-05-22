@@ -7,14 +7,17 @@ public enum GameValues {
     CHARACTERCARDARRAY,
     MODEL,
 
+    // A Character correspondent to a CharacterCard
+    CHARACTERVALUE,
+
     // An array of color (students or professor)
-    COLORARRAY, //TODO: utilizzato per scelte giocatori, da gestire in client
+    COLORARRAY,
 
     // An array of boolean of various lenght
-    BOOLARRAY, //TODO: utilizzato per scelte giocatori, da gestire in client
+    BOOLARRAY,
 
     // An integer representing this turn MotherNature's movement-range
-    MAXMOTHERNATUREMOVEMENT, //TODO: implementare come ritorno in client
+    MAXMOTHERNATUREMOVEMENT,
 
     // Position of MotherNature
     MOTHERNATURE,

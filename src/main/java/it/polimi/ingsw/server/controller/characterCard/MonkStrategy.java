@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -46,6 +47,7 @@ public class MonkStrategy extends CharacterCardStrategy {
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
             Map<GameValues, Object> monkMap = new HashMap<>();
+            monkMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.MONKFIRST);
             monkMap.put(GameValues.CARDSTUDENTS, availableStudents);
             monkMap.put(GameValues.ISLANDARRAY, availableIslands);
 

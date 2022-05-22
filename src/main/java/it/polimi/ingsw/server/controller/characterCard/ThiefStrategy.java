@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -41,11 +42,12 @@ public class ThiefStrategy extends CharacterCardStrategy {
             Color[] reducibleColors = getReducibleColors(model, data);
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
-            Map<GameValues, Object> jesterMap = new HashMap<>();
-            jesterMap.put(GameValues.REDUCIBLECOLOR, reducibleColors);
+            Map<GameValues, Object> thiefMap = new HashMap<>();
+            thiefMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.THIEFFIRST);
+            thiefMap.put(GameValues.REDUCIBLECOLOR, reducibleColors);
 
             // The server asks the player which students would like to move (one from the Card, one from the Entrance)
-            GameCommand request  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, jesterMap);
+            GameCommand request  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, thiefMap);
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind
