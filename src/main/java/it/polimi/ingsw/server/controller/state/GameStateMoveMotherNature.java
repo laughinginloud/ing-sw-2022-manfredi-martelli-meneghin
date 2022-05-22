@@ -39,7 +39,7 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
 
             // Calculates the max motherNature movement and store it on the Map moveMNInfo
             int motherNatureMovement = player.getLastPlayedCard().movementPoints() + (ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0);
-            moveMNInfo.put(GameValues.MOTHERNATUREMOVEMENT, motherNatureMovement);
+            moveMNInfo.put(GameValues.MAXMOTHERNATUREMOVEMENT, motherNatureMovement);
 
             // If the player hasn't played a card yet
             if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
