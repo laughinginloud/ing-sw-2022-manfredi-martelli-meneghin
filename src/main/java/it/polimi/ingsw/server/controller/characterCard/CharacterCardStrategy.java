@@ -56,7 +56,8 @@ public abstract class CharacterCardStrategy {
         // This method makes the player 'spend' his coins
         moveCoins(currentPlayer, card.getCost());
 
-        // TODO: SendInfo
+        // This method updates the players' about coin fields' changes
+        updatePlayersAboutCoin(data);
 
         // This method activates the card effect
         this.activateEffect();
@@ -64,7 +65,7 @@ public abstract class CharacterCardStrategy {
         // Sets that a flag which indicates that a CharacterCard has been played this turn
         data.setPlayedCard();
 
-        updatePlayers(); //TODO
+        updatePlayers();
     }
 
     /**
@@ -104,6 +105,28 @@ public abstract class CharacterCardStrategy {
      * Activates the effect of the CharacterCard
      */
     abstract public void activateEffect();
+
+    /**
+     * Sends to the players the updated values of currentPlayerCoins, characterCard's hasCoin, globalCoinPool
+     * @param data The controllerData of the current Game
+     */
+    private void updatePlayersAboutCoin(ControllerData data){
+        GameModel model  = data.getGameModel();
+        Player[] players = model.getPlayer();
+
+        // Saves into a map the fields that have been modified in order to update the players
+        Map<GameValues, Object> updateCoinsInfo = new HashMap<>();
+        updateCoinsInfo.put(GameValues.PLAYERARRAY,        players);
+        updateCoinsInfo.put(GameValues.COINPOOL,           model.getCoinPool());
+        updateCoinsInfo.put(GameValues.CHARACTERCARDARRAY, model.getCharacterCards());
+
+        // Creates a gameCommand containing the updateCoinsInfo Map and sends it to all the player via message
+        GameCommand sendInfo = new GameCommandSendInfo(updateCoinsInfo);
+        for (Player player :  players) {
+            VirtualView playerView = data.getPlayerView(player);
+            playerView.sendMessage(sendInfo);
+        }
+    }
 
     /**
      * Send the updated data contained in the afterEffectUpdate map to every player
