@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
 import it.polimi.ingsw.server.controller.state.GameState;
@@ -90,7 +91,11 @@ public class GameController {
                             .collect(Collectors.toSet());
 
                     // Send the player a request for the username, signaling which ones were already picked
-                    String username = (String) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAME, usernameSet)).executeCommand();
+                    UsernameAndMagicAge usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAME, usernameSet)).executeCommand();
+                    String              username            = usernameAndMagicAge.username();
+                    int                 magicAge            = usernameAndMagicAge.magicAge();
+
+                    //TODO: [MagicAge] Implementare l'utilizzo della MagicAge per determinare l'ordine dei player
 
                     if (!rulesSet) {
                         Optional<File> savedGame = GameSave.findSavedGame(username);
@@ -99,7 +104,7 @@ public class GameController {
                             File save = savedGame.get();
 
                             // Ask the player whether he wants to load the saved game
-                            if ((boolean) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand()) {
+                            if (((Tuple<GameActions, Boolean>) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand()).right()) {
                                 try {
                                     GameSave.loadGame(save);
                                     save.delete();
