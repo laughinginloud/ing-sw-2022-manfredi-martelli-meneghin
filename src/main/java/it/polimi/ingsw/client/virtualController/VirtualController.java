@@ -200,7 +200,7 @@ public class VirtualController extends Thread implements Closeable {
                         if (selectedItem instanceof Integer selectedStudentIndex)
                             onlyMoveStudent(receivedMap, selectedStudentIndex);
 
-                        // If the player decided to play a CharacterCard, starts the playCharacterCard routine
+                        // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
                         if (selectedItem instanceof CharacterCard selectedCharacterCard)
                             sendCharacterCardChoice(selectedCharacterCard);
                     }
@@ -221,7 +221,7 @@ public class VirtualController extends Thread implements Closeable {
                         if (selectedItem instanceof Integer selectedMovement)
                             onlyMoveMotherNature(selectedMovement);
 
-                        // If the player decided to play a CharacterCard, starts the playCharacterCard routine
+                        // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
                         if (selectedItem instanceof CharacterCard selectedCharacterCard)
                             sendCharacterCardChoice(selectedCharacterCard);
                     }
@@ -242,13 +242,33 @@ public class VirtualController extends Thread implements Closeable {
                         if (selectedItem instanceof CloudTile selectedCloud)
                             onlyChooseCloud(selectedCloud);
 
-                        // If the player decided to play a CharacterCard, starts the playCharacterCard routine
+                        // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
                         if (selectedItem instanceof CharacterCard selectedCharacterCard)
                             sendCharacterCardChoice(selectedCharacterCard);
                     }
 
                     case ENDTURN -> {
-                        //Gestire il fatto che la persona possa decidere di non utilizzare la CharacterCard (dunque prevedere un bottone che permetta di dire "non voglio usarla")
+                        // Asks the player whether he wants to end his turn or to play a characterCard. If he wants to end his turn:
+                        if (view.askEndOfTurn()) {
+                            Tuple<GameActions, UsernameAndMagicAge> endTurnResponse = new Tuple<>(GameActions.ENDTHISTURN, null);
+                            sendMessage(new Message(MessageType.RESPONSEACTION, endTurnResponse));
+                        }
+
+                        // If the player wants to play a CharacterCard
+                        else {
+                            @SuppressWarnings("unchecked")
+                            // Stores the Map received from the Server via message
+                            Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+
+                            // Gets from the Map the playable CharacterCards
+                            CharacterCard[] playableCharacterCards = (CharacterCard[]) receivedMap.get(GameValues.CHARACTERCARDARRAY);
+
+                            // Asks the player which characterCards he wants to play
+                            CharacterCard selectedCharacterCard = view.requestPlayCharacterCard(playableCharacterCards);
+
+                            //Then sends the chosen characterCard to the controller
+                            sendCharacterCardChoice(selectedCharacterCard);
+                        }
                     }
 
                     case CHARACTERCARDEFFECT -> {

@@ -49,7 +49,7 @@ public interface View {
     /**
      * Asks the player whether he wants to end his turn or he wants to play a CharacterCard
      * It's possible only when the player hasn't already played a characterCard
-     * @return A boolean representing the decision of the player
+     * @return A boolean representing the decision of the player (true -> ends the Turn, false -> plays the CC)
      */
     boolean askEndOfTurn();
 
@@ -77,10 +77,10 @@ public interface View {
 
     /**
      * Asks the player which characterCards he would like to play between the CharacterCard provided
-     * @param characterCards An array of characterCards that are currently playable
+     * @param playableCharacterCards An array of characterCards that are currently playable
      * @return The characterCard selected by the player
      */
-    CharacterCard requestPlayCharacterCard(CharacterCard[] characterCards);
+    CharacterCard requestPlayCharacterCard(CharacterCard[] playableCharacterCards);
 
     /**
      * Asks the player to choose one student from the entrance, that he will move to another place

@@ -62,6 +62,8 @@ class MessageBuilder {
 
             GameActions.StudentsOfSelectedCloud -> GameCommandChooseCloud(con info relative)
 
+            GameActions.EndHisTurn -> GameCommandEndTurn
+
             GameActions.ChosenCharacter -> GameCommandPlayCharacterCard
          */
     }

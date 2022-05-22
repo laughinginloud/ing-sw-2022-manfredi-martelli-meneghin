@@ -1,8 +1,11 @@
 package it.polimi.ingsw.common;
 
 public enum GameActions {
-    // Array of characterCard playable by the current player
+    // Contains an array of characterCard playable by the current player
     ENDTURN,
+
+    // A signal sent by the client if the player decide to end his turn instead of play a characterCard
+    ENDTHISTURN,
 
     // Contains the cloudTiles that can be chosen by the player, at the end of his ActonPhase
     CHOOSECLOUD,
