@@ -117,11 +117,8 @@ public class BardStrategy extends CharacterCardStrategy {
             Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
             // Gets the index of the swappableStudent and the diningRoomTable's student color of the player wants to swap the swappableStudent with
-            int   swappableStudentIndex    = (int)   chosenField.get(GameValues.ENTRANCESTUDENTINDEX);
+            int   entranceStudentIndex    = (int)   chosenField.get(GameValues.ENTRANCESTUDENTINDEX);
             Color diningRoomTableStudent   = (Color) chosenField.get(GameValues.DININGROOMTABLECOLOR);
-
-            // Retrieve the entranceStudentIndex corresponding to student indicated with the swappableStudentIndex
-            int entranceStudentIndex = getEntranceStudentIndex(entranceStudents, swappableStudents, swappableStudentIndex);
 
             // The server exchanges the students across Entrance and DiningRoom (using a tmp student)
             DiningRoom diningRoom = curPlayer.getSchoolBoard().getDiningRoom();
@@ -203,8 +200,8 @@ public class BardStrategy extends CharacterCardStrategy {
             if (diningRoom.getStudentCounters(color) == 10)
                 addable = false;
 
-            // If the student is swappable at least with a single DiningRoomTable, add it to the swappableStudents list
-            if (addable)
+            // If the student is swappable at least with a single DiningRoomTable, it is not already present on the list, then add it to the swappableStudents list
+            if (addable && !swappableStudentsList.contains(color))
                 swappableStudentsList.add(color);
         }
 

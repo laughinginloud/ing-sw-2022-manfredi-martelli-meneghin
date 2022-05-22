@@ -110,9 +110,6 @@ public class VirtualController extends Thread implements Closeable {
                 // Manages the received RequestAction depending on the GameCommandAction
                 switch(dataValue.left()) {
                     case USERNAMEANDMAGICAGE -> {
-                        //TODO: Set<string> in recezione, capire come gestire l'inserimento dello username
-                        //Risposta avviene per mezzo di una tupla
-
                         Set<String> forbiddenUsernames = (Set<String>) dataValue.right();
                         UsernameAndMagicAge usernameAndAgeInsertion;
 
@@ -359,31 +356,20 @@ public class VirtualController extends Thread implements Closeable {
                                 Color[] swappableStudents = (Color[]) characterCardEffectMap.get(GameValues.BARDSWAPPABLESTUDENTS);
 
                                 // Asks the player which available students from the Entrance he wants to swap with a DiningRoomStudent
-                                int   entranceStudentIndex = view.chooseStudentFromEntrance(swappableStudents);
+                                int entranceStudentIndex = view.chooseStudentFromEntrance(swappableStudents);
+
                                 //TODO: [FixVirtualController] - Sistemare accesso al model
-                                Color selectedColor        = Color.RED; // Devo ricavare il vero colore dello studente selezionato dalla Entrance
+                                // Devo ricavare il vero colore dello studente selezionato dalla Entrance
+                                Color selectedStudentColor = Color.RED;
 
-                                // Gets from the message the BardSwapMap in order to make "clickable" only allowed diningRoom's students
-                                @SuppressWarnings("unchecked")
-                                Map<Color, Boolean[]> possibleMovementMap = (Map<Color, Boolean[]>) characterCardEffectMap.get(GameValues.BARDSWAPMAP);
-
-                                // Gets the color of the diningRoomTable where the students can be moved
-                                List<Color> compatibleDiningRoomList = new ArrayList<>();
-                                Boolean[] diningRoomFlag = possibleMovementMap.get(selectedColor);
-                                for (Color color : Color.values())
-                                    if (diningRoomFlag[color.ordinal()])
-                                        compatibleDiningRoomList.add(color);
-
-                                // Transform the list into an array of compatible diningRooms' colors
-                                Color[] compatibleDiningRoom = new Color[compatibleDiningRoomList.size()];
-                                for (int i = 0; i < compatibleDiningRoomList.size(); i++)
-                                    compatibleDiningRoom[i] = compatibleDiningRoomList.get(i);
+                                // Gets the color of the compatible DiningRooms, according to the Info received via message from the Server
+                                Color[] compatibleDiningRoom = getCompatibleDiningRooms(characterCardEffectMap, selectedStudentColor);
 
                                 // Asks the player from which DiningRoom he wants to take the students to swap the entrance's student with
                                 Color selectedDiningRoom = view.requestChooseDiningRoom(compatibleDiningRoom);
 
                                 // Returns the entranceStudentIndex and the chosen DiningRoomTableColor
-                                // TODO: Returns + modificare BardStrategy affichè riceva direttamente l'entranceStudentIndex
+                                // TODO: Returns + modificare BardStrategy affinchè riceva direttamente l'entranceStudentIndex
                             }
 
                             case PRINCESSFIRST -> {
@@ -532,5 +518,25 @@ public class VirtualController extends Thread implements Closeable {
         Tuple<GameActions, Character> playCharacterResponse = new Tuple<>(GameActions.CHOSENCHARACTER, selectedCharacter);
 
         sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+    }
+
+    private Color[] getCompatibleDiningRooms(Map<GameValues, Object> characterCardEffectMap, Color selectedColor) {
+        // Gets from the message the BardSwapMap in order to make "clickable" only allowed diningRoom's students
+        @SuppressWarnings("unchecked")
+        Map<Color, Boolean[]> possibleMovementMap = (Map<Color, Boolean[]>) characterCardEffectMap.get(GameValues.BARDSWAPMAP);
+
+        // Gets the color of the diningRoomTable where the students can be moved
+        List<Color> compatibleDiningRoomList = new ArrayList<>();
+        Boolean[] diningRoomFlag = possibleMovementMap.get(selectedColor);
+        for (Color color : Color.values())
+            if (diningRoomFlag[color.ordinal()])
+                compatibleDiningRoomList.add(color);
+
+        // Transform the list into an array of compatible diningRooms' colors
+        Color[] compatibleDiningRoom = new Color[compatibleDiningRoomList.size()];
+        for (int i = 0; i < compatibleDiningRoomList.size(); i++)
+            compatibleDiningRoom[i] = compatibleDiningRoomList.get(i);
+
+        return compatibleDiningRoom;
     }
 }
