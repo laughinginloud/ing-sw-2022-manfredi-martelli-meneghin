@@ -145,6 +145,52 @@ public interface View {
     Object requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards);
 
     /**
+     * Asks the player how many students he wants to move
+     * @param maxNumOfStudentMovable The maximum number of student the player can decide to move
+     * @return An int representing the player's choice
+     */
+    int requestHowManyStudentsToMove(int maxNumOfStudentMovable);
+
+    /**
+     * Asks the player to choose a color between the provided ones
+     * @param availableColors The color that can be chosen by the player
+     * @return The color chosen by the player
+     */
+    Color requestChooseColor(Color[] availableColors);
+
+    /**
+     * Asks the player to choose a student from a specific CharacterCard, between the students provided
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     * @param characterCardPosition The position in the characterCardArray of the characterCard that is being played
+     * @param availableColors The colors correspondent to the students that can be chosen between the characterCard's students
+     * @return An int representing the position of the chosen students on the characterCardStudents
+     */
+    int chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors);
+
+    /**
+     * Asks the player to choose a student from his Entrance.
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     * @param availableColors The colors correspondent to the students that can be moved/picked from the Entrance
+     * @return An int representing the position of the chosen students on the player's Entrance
+     */
+    int chooseStudentFromEntrance(Color[] availableColors);
+
+    /**
+     * Asks the player to choose an Island. It sets to "clickable" only the island present in the "availableIslands" array
+     * @param availableIslands An array of Island representing the Island that can be chosen by the player
+     * @return An int representing the index of the Island chosen by the player
+     */
+    int requestChooseIsland(Island[] availableIslands);
+
+    /**
+     * Asks the player to choose a diningRoomTable from the provided ones. It links the diningRoomTable with theirs color, then
+     * make "clickable" only the diningRoomTable that have the same color of the provided "compatibleDiningRoomTable" colors' array
+     * @param compatibleDiningRoomTable The color of the diningRoomTables that can be chosen by the player
+     * @return The color of the chosen DiningRoomTable
+     */
+    Color requestChooseDiningRoom(Color[] compatibleDiningRoomTable);
+
+    /**
      * Notify the player that there's already a game in progress, then he will be disconnected from the server
      */
     void notifyGameInProgress();

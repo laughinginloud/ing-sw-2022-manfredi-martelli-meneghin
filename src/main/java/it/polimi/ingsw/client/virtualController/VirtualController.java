@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
@@ -21,6 +22,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -143,7 +146,6 @@ public class VirtualController extends Thread implements Closeable {
                         // Send the player's choice to the server, via message
                         sendMessage(new Message(MessageType.RESPONSEACTION, playAssistantResponse));
                     }
-
 
                     case MOVESTUDENT -> {
                         @SuppressWarnings("unchecked")
@@ -272,7 +274,142 @@ public class VirtualController extends Thread implements Closeable {
                     }
 
                     case CHARACTERCARDEFFECT -> {
-                        //Gestire i vari casi a seconda del valore ritornato dalla funzione
+                        @SuppressWarnings("unchecked")
+                        Map<GameValues, Object> characterCardEffectMap = (Map<GameValues, Object>) dataValue.right();
+                        PlayCharacterAction     characterAction        = (PlayCharacterAction)     characterCardEffectMap.get(GameValues.CHARACTERVALUE);
+
+                        // Manages the received action "characterAction" depending on the character and on the phase
+                        // of the character's activateEffect phase
+                        switch(characterAction) {
+                            case MONKFIRST -> {
+                                Color[]  characterCardStudents = (Color[])  characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                                Island[] islands               = (Island[]) characterCardEffectMap.get(GameValues.ISLANDARRAY);
+                                int      position              = (int)      characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+
+                                // Asks the player to select the students he wants to move from the CharacterCard
+                                int selectedStudentIndex = view.chooseStudentFromCharacterCard(position, characterCardStudents);
+
+                                // Asks the player to select the Island where he wants to move the selectedPlayer
+                                int selectedIslandIndex  = view.requestChooseIsland(islands);
+
+                                // Returns the selectedStudentIndex and the selectedIslandIndex
+                                // TODO:
+                            }
+
+                            case STANDARDBEARERFIRST, HERBALISTFIRST -> {
+                                Island[] islands = (Island[]) characterCardEffectMap.get(GameValues.ISLANDARRAY);
+
+                                // Asks the player to select the Island where he wants to calculate "influence" or where he
+                                // wants to put the noEntryTile, depending on the characterCard that is being played
+                                int selectedIslandIndex  = view.requestChooseIsland(islands);
+
+                                // Returns the selectedStudentIndex
+                                // TODO:
+                            }
+
+                            case JESTERFIRST -> {
+                                // Gets how many students the player can decide to move
+                                int maxMovementJester = (int) characterCardEffectMap.get(GameValues.MAXMOVEMENTJESTER);
+
+                                // Asks the player how many students he would like to move using the characterCard 'Jester'
+                                int selectedNumOfMovements = view.requestHowManyStudentsToMove(maxMovementJester);
+
+                                // Returns the selected numOfMovements
+                                //TODO:
+                            }
+
+                            case JESTERSECOND -> {
+                                // Gets from the message the students present on the Entrance and on the CharacterCard, and the characterCardPosition
+                                Color[]  entranceStudents      = (Color[])  characterCardEffectMap.get(GameValues.ENTRANCESTUDENTS);
+                                Color[]  characterCardStudents = (Color[])  characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                                int      position              = (int)      characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+
+                                // Asks the player to select the students he wants to move from the CharacterCard
+                                int characterCardStudentIndex = view.chooseStudentFromCharacterCard(position,characterCardStudents);
+                                int entranceStudentIndex      = view.chooseStudentFromEntrance(entranceStudents);
+
+                                // Returns the entranceStudentIndex and the characterCardStudentIndex
+                                // TODO:
+                            }
+
+                            case MERCHANTFIRST -> {
+                                // Gets from the message the color that can be selected by the player using the characterCard 'MERCHANT'
+                                Color[] colors = (Color[]) characterCardEffectMap.get(GameValues.COLORARRAY);
+
+                                // Asks the player which color he wants to select in order to inhibit it during the calculus
+                                // of the influence during its turn
+                                Color selectedColor = view.requestChooseColor(colors);
+
+                                // Returns the selected color!
+                                //TODO:
+                            }
+
+                            case BARDFIRST -> {
+                                //Gets how many students the player can decide to move using the characterCard 'Bard'
+                                int maxMovementBard = (int) characterCardEffectMap.get(GameValues.MAXMOVEMENTBARD);
+
+                                // Asks the player how many students he would like to move using the characterCard 'Jester'
+                                int selectedNumOfMovements = view.requestHowManyStudentsToMove(maxMovementBard);
+
+                                // Returns the selectedNumOfMovements
+                                //TODO:
+                            }
+
+                            case BARDSECOND -> {
+                                Color[] swappableStudents = (Color[]) characterCardEffectMap.get(GameValues.BARDSWAPPABLESTUDENTS);
+
+                                // Asks the player which available students from the Entrance he wants to swap with a DiningRoomStudent
+                                int   entranceStudentIndex = view.chooseStudentFromEntrance(swappableStudents);
+                                //TODO: [FixVirtualController] - Sistemare accesso al model
+                                Color selectedColor        = Color.RED; // Devo ricavare il vero colore dello studente selezionato dalla Entrance
+
+                                // Gets from the message the BardSwapMap in order to make "clickable" only allowed diningRoom's students
+                                @SuppressWarnings("unchecked")
+                                Map<Color, Boolean[]> possibleMovementMap = (Map<Color, Boolean[]>) characterCardEffectMap.get(GameValues.BARDSWAPMAP);
+
+                                // Gets the color of the diningRoomTable where the students can be moved
+                                List<Color> compatibleDiningRoomList = new ArrayList<>();
+                                Boolean[] diningRoomFlag = possibleMovementMap.get(selectedColor);
+                                for (Color color : Color.values())
+                                    if (diningRoomFlag[color.ordinal()])
+                                        compatibleDiningRoomList.add(color);
+
+                                // Transform the list into an array of compatible diningRooms' colors
+                                Color[] compatibleDiningRoom = new Color[compatibleDiningRoomList.size()];
+                                for (int i = 0; i < compatibleDiningRoomList.size(); i++)
+                                    compatibleDiningRoom[i] = compatibleDiningRoomList.get(i);
+
+                                // Asks the player from which DiningRoom he wants to take the students to swap the entrance's student with
+                                Color selectedDiningRoom = view.requestChooseDiningRoom(compatibleDiningRoom);
+
+                                // Returns the entranceStudentIndex and the chosen DiningRoomTableColor
+                                // TODO: Returns + modificare BardStrategy affichè riceva direttamente l'entranceStudentIndex
+                            }
+
+                            case PRINCESSFIRST -> {
+                                // Gets from the message the movableStudents present on the CharacterCard and the characterCardPosition
+                                Color[] movableCCStudents = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                                int     position          = (int)     characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+
+                                // Asks the player to select the students he wants to move from the CharacterCard
+                                int selectedStudentIndex = view.chooseStudentFromCharacterCard(position,movableCCStudents);
+
+                                // Returns the index of the selectedStudent from the characterCard's students
+                                //TODO:
+                            }
+
+                            case THIEFFIRST -> {
+                                // Gets from the message the color that can be selected by the player using the characterCard 'THIEF'
+                                Color[] reducibleStudents = (Color[]) characterCardEffectMap.get(GameValues.REDUCIBLECOLOR);
+
+                                // Asks the player which color he wants to select in order to remove/reduce students of
+                                // the same color from the players diningRoomTables
+                                Color selectedColor = view.requestChooseColor(reducibleStudents);
+
+                                // Returns the selected color!
+                                //TODO:
+                            }
+                        }
                     }
                 }
             }
@@ -396,13 +533,4 @@ public class VirtualController extends Thread implements Closeable {
 
         sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
     }
-
-
-
-
-    /* Funzione che gestisce lo scambio di informazioni derivato dall'utilizzo delle CharacterCards ??
-    private void playCharacterCard(CharacterCard selectedCharacterCard) {
-        sendCharacterCardChoice(selectedCharacterCard);
-    }
-    */
 }

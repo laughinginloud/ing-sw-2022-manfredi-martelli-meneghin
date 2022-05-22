@@ -1,14 +1,14 @@
 package it.polimi.ingsw.common;
 
 public enum PlayCharacterAction {
-    BARDFIRST,
-    BARDSECOND,
+    MONKFIRST,
+    STANDARDBEARERFIRST,
     HERBALISTFIRST,
     JESTERFIRST,
     JESTERSECOND,
     MERCHANTFIRST,
-    MONKFIRST,
+    BARDFIRST,
+    BARDSECOND,
     PRINCESSFIRST,
-    STANDARDBEARERFIRST,
     THIEFFIRST,
 }
