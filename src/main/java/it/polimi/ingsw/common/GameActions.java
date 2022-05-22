@@ -7,6 +7,9 @@ public enum GameActions {
     // Contains the cloudTiles that can be chosen by the player, at the end of his ActonPhase
     CHOOSECLOUD,
 
+    // A cloudTile representing the cloudTile chosen by the player during GameStateChooseCloud
+    STUDENTSOFSELECTEDCLOUD,
+
     // CHOOSECLOUD + Array of characterCard playable by the current player
     CHOOSECLOUDORPLAYCARD,
 
@@ -16,14 +19,26 @@ public enum GameActions {
     // MOVESTUDENT + Array of characterCard playable by the current player
     MOVESTUDENTORPLAYCARD,
 
+    // Information about the movement of the student
+    MOVESTUDENTINFO,
+
     // Contains the maximum range that motherNature can be moved in
     MOVEMOTHERNATURE,
 
     // MOVEMOTHERNATURE + Array of characterCard playable by the current player
     MOVEMOTHERNATUREORPLAYCARD,
 
+    // The mother nature movement selected by the player
+    CHOSENMOTHERNATUREMOVEMENT,
+
     // Array of assistantCard playable by the current player
     PLAYASSISTANTCARD,
+
+    // The AssistantCard chosen by the player during his PlanPhase turn
+    CHOSENASSISTANTCARD,
+
+    // Character of the characterCard that has been played by the player
+    CHOSENCHARACTER,
 
     // Fields related to the characterCard utilization
     CHARACTERCARDEFFECT,
@@ -31,6 +46,17 @@ public enum GameActions {
     // Request whether a game should be loaded
     LOADGAME,
 
+    // A boolean representing the player's choice to resume or not resume an old game
+    LOADGAMECHOICE,
+
+    // Used to ask to the player his username
+    USERNAME,
+
+    // The username inserted by the player
+    INSERTEDUSERNAME,
+
     // Setup phase requests
-    RULES, USERNAME, WIZARD,
+    RULES,
+
+    WIZARD,
 }

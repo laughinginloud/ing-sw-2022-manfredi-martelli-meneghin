@@ -67,11 +67,80 @@ public interface View {
     Wizard requestWizard(Wizard[] availableWizards);
 
     /**
-     * Asks the player the which characterCards he would like to play between the CharacterCard provided
+     * Asks the player which assistantCard he wants to play between the provided assistantCards
+     * @param assistantCards An array of AssistantCards that are currently playable
+     * @return The assistantCard chosen by the player
+     */
+    AssistantCard requestPlayAssistantCard(AssistantCard[] assistantCards);
+
+    /**
+     * Asks the player which characterCards he would like to play between the CharacterCard provided
      * @param characterCards An array of characterCards that are currently playable
      * @return The characterCard selected by the player
      */
     CharacterCard requestPlayCharacterCard(CharacterCard[] characterCards);
+
+    /**
+     * Asks the player to choose one student from the entrance, that he will move to another place
+     * @param entranceStudents The students currently on the entrance that are movable
+     * @return An int representing the StudentIndex of the selected student
+     */
+    int requestStudentEntranceSelection(Color[] entranceStudents);
+
+    /**
+     * Show to the player the entranceStudents and the playableCharacterCards, waiting for a selection
+     * @param entranceStudents An array of students containing the entrance's students
+     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
+     * @return An object representing the selected item: it could be the chosen CharacterCard (CharacterCard)
+     * or the chosen entrance's student index (Integer)
+     */
+    Object requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards);
+        // Devo rendere clickabili tutti gli entranceStudents e le playableCharacterCards, a seconda di quello che il player
+        // seleziona, decido quale valore ritornare
+
+    /**
+     * Asks the player to move the selected student from his entrance to an Island or to a table of his diningRoom
+     * @param selectedStudentIndex The index of the entrance's player selected by the player
+     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still have free seats (where the player can move the student)
+     * @return A record MoveStudentInfo containing toDiningRoom (which indicates if the player moved the student to the diningRoom),
+     *         the optional numIsland of the Island where he moved the student to and the entrance's student index of the student move by the player
+     */
+    MoveStudentInfo movementStudentEntrance(int selectedStudentIndex, Boolean[] diningRoomFreeTables);
+
+    /**
+     * Asks the player how far he wants to move MotherNature
+     * @param maximumMovement The maximumMovement that the player can decide to make MotherNature do
+     * @return In int representing the movement selected by the player (the return value must be 0 < value <= maximumMovement)
+     */
+    int requestMotherNatureMovement(int maximumMovement);
+
+    /**
+     * Shows to the player the Islands where motherNature could be moved and the CharacterCards that can be played
+     * @param maximumMovement An int representing the maximumMovement that can be done by motherNature during this turn
+     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
+     * @return An object representing the selected item: it could be the chosen CharacterCard (CharacterCard)
+     *         or the chosen motherNature movement (Integer)
+     */
+    Object requestMoveMotherNatureOrPlayCC(int maximumMovement, CharacterCard[] playableCharacterCards);
+        // Devo rendere clickabili tutte le isole raggiungibili con maximumMovement e le playableCharacterCards,
+        // A seconda di quello che il player seleziona, decido quale valore ritornare
+
+    /**
+     * Asks the player to choose a CloudTile from the availableClouds
+     * @param availableClouds An array of CloudTile representing the available CloudTiles
+     * @return The selected CloudTile
+     */
+    CloudTile requestCloudTileSelection(CloudTile[] availableClouds);
+
+
+    /**
+     * Shows to the player the CloudTiles that can be selected and the CharacterCard that can be played
+     * @param availableClouds An array of CloudTiles containing the CloudTiles that have students on them
+     * @param playableCharacterCards An array of CharacterCard containing the playableCharacterCards
+     * @return An object representing the selected item: it could be the chosen CharacterCard (CharacterCard)
+     *         or the chosen CloudTile (CloudTile)
+     */
+    Object requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards);
 
     /**
      * Notify the player that there's already a game in progress, then he will be disconnected from the server

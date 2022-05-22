@@ -14,7 +14,7 @@ public enum GameValues {
     BOOLARRAY, //TODO: utilizzato per scelte giocatori, da gestire in client
 
     // An integer representing this turn MotherNature's movement-range
-    MOTHERNATUREMOVEMENT, //TODO: implementare come ritorno in client
+    MAXMOTHERNATUREMOVEMENT, //TODO: implementare come ritorno in client
 
     // Position of MotherNature
     MOTHERNATURE,
@@ -54,9 +54,6 @@ public enum GameValues {
 
     // An array of players that "drawn" the Game
     DRAWERS,
-
-    // CharacterCard that has been played by the player (response Client -> Server)
-    PLAYEDCHARACTERCARD,
 
     // An integer that indicates the index of the student the client selected - CharacterCard 'MONK', 'PRINCESS',
     STUDENTINDEX,
