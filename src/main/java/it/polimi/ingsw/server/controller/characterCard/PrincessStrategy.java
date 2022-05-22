@@ -4,6 +4,7 @@ import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
@@ -44,12 +45,16 @@ public class PrincessStrategy extends CharacterCardStrategy {
 
             // Gets the students currently present on the CharacterCard, then select the student that can be moved to a DiningRoomTable
             Color[] characterCardStudents = enhancedCard.getStudents();
-            Color[] movableStudents = getMovableStudents(currentPlayer, characterCardStudents);
+            Color[] movableStudents       = getMovableStudents(currentPlayer, characterCardStudents);
+
+            // Gets the position of the characterCard in the model's characterCardArray
+            int position = CharacterCardManager.getCharacterCardPosition(Character.PRINCESS);
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
             Map<GameValues, Object> princessMap = new HashMap<>();
-            princessMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.PRINCESSFIRST);
-            princessMap.put(GameValues.CARDSTUDENTS, characterCardStudents);
+            princessMap.put(GameValues.CHARACTERVALUE,        PlayCharacterAction.PRINCESSFIRST);
+            princessMap.put(GameValues.CARDSTUDENTS,          characterCardStudents);
+            princessMap.put(GameValues.CHARACTERCARDPOSITION, position);
 
             // The server asks the player which students would like to move from the entrance to its DiningRoom
             GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, princessMap);

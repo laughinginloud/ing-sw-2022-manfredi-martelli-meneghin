@@ -96,11 +96,15 @@ public class JesterStrategy extends CharacterCardStrategy {
         Color[] entranceStudents      = curPlayer.getSchoolBoard().getEntrance().getStudents();
         Color[] characterCardStudents = enhancedCard.getStudents();
 
+        // Gets the position of the characterCard in the model's characterCardArray
+        int position = CharacterCardManager.getCharacterCardPosition(Character.JESTER);
+
         // Create a Map and save the field that will be sent to the player as RequestAction's payload
         Map<GameValues, Object> jesterMap = new HashMap<>();
-        jesterMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.JESTERSECOND);
-        jesterMap.put(GameValues.ENTRANCESTUDENTS, entranceStudents);
-        jesterMap.put(GameValues.CARDSTUDENTS, characterCardStudents);
+        jesterMap.put(GameValues.CHARACTERVALUE,        PlayCharacterAction.JESTERSECOND);
+        jesterMap.put(GameValues.ENTRANCESTUDENTS,      entranceStudents);
+        jesterMap.put(GameValues.CARDSTUDENTS,          characterCardStudents);
+        jesterMap.put(GameValues.CHARACTERCARDPOSITION, position);
 
         // The server asks the player which students would like to move (one from the Card, one from the Entrance)
         GameCommand movementRequest  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, jesterMap);

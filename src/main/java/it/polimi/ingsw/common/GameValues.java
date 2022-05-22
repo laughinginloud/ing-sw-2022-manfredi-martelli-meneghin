@@ -7,6 +7,9 @@ public enum GameValues {
     CHARACTERCARDARRAY,
     MODEL,
 
+    // The position of the characterCard into the model's characterCardArray
+    CHARACTERCARDPOSITION,
+
     // A Character correspondent to a CharacterCard
     CHARACTERVALUE,
 

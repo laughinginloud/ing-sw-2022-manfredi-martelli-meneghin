@@ -135,4 +135,21 @@ public class CharacterCardManager {
         else
             return chosenCardStrategy;
     }
+
+    /**
+     * Find the position of the CharacterCard into the model's characterCardArray
+     * @param character The character of which is searched the position
+     * @return The position of the provided CharacterCard into the model's characterCardArray
+     */
+    public static int getCharacterCardPosition(Character character) {
+        GameModel model = ControllerData.getInstance().getGameModel();
+        CharacterCard[] characterCards = model.getCharacterCards();
+        int position = 0;
+
+        for (int i = 0; i < characterCards.length; i++)
+            if (character == characterCards[i].getCharacter())
+                position = i;
+
+        return position;
+    }
 }

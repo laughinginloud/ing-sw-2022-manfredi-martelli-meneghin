@@ -4,6 +4,7 @@ import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
@@ -45,11 +46,15 @@ public class MonkStrategy extends CharacterCardStrategy {
             Color[] availableStudents = getAvailableStudents(enhancedCard.getStudents(), 4);
             Island[] availableIslands = model.getIslands();
 
+            // Gets the position of the characterCard in the model's characterCardArray
+            int position = CharacterCardManager.getCharacterCardPosition(Character.MONK);
+
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
             Map<GameValues, Object> monkMap = new HashMap<>();
             monkMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.MONKFIRST);
             monkMap.put(GameValues.CARDSTUDENTS, availableStudents);
             monkMap.put(GameValues.ISLANDARRAY, availableIslands);
+            monkMap.put(GameValues.CHARACTERCARDPOSITION, position);
 
             // The server asks the player which student he wants to move and the island he wants to move the student to
             GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, monkMap);

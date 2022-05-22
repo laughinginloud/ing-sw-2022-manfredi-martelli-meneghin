@@ -242,7 +242,7 @@ public class BardStrategy extends CharacterCardStrategy {
                     compatibleDiningTable[compareColor.ordinal()] = true;
 
             // Add an entry in the map with the swappableStudent as a key and the compatibleDiningTable flags array as value
-            swapMap.put(student, compatibleDiningTable);
+            swapMap.putIfAbsent(student, compatibleDiningTable);
         }
 
         return swapMap;
