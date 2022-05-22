@@ -13,6 +13,7 @@ import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
+import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 
 import java.io.Closeable;
 import java.io.DataInputStream;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.Map;
+import java.util.Set;
 
 public class VirtualController extends Thread implements Closeable {
     private static final Gson messageBuilder = new GsonBuilder().setPrettyPrinting().create();
@@ -104,9 +106,19 @@ public class VirtualController extends Thread implements Closeable {
 
                 // Manages the received RequestAction depending on the GameCommandAction
                 switch(dataValue.left()) {
-                    case USERNAME -> {
+                    case USERNAMEANDMAGICAGE -> {
                         //TODO: Set<string> in recezione, capire come gestire l'inserimento dello username
                         //Risposta avviene per mezzo di una tupla
+
+                        Set<String> forbiddenUsernames = (Set<String>) dataValue.right();
+                        UsernameAndMagicAge usernameAndAgeInsertion;
+
+                        do {
+                            usernameAndAgeInsertion = view.requestUsernameAndMagicAge();
+                        } while (forbiddenUsernames.contains(usernameAndAgeInsertion.username()));
+
+                        Tuple<GameActions, UsernameAndMagicAge> usernameAndMagicAgeResponse = new Tuple<>(GameActions.INSERTEDUSERNAMEANDAGE, usernameAndAgeInsertion);
+                        sendMessage(new Message(MessageType.RESPONSEACTION, usernameAndMagicAgeResponse));
                     }
 
                     // When the server asks the player if he wants to resume an old game (if it exists)

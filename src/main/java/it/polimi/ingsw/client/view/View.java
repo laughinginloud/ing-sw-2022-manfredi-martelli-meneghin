@@ -34,12 +34,6 @@ public interface View {
     boolean askReplayMatch();
 
     /**
-     * Asks the player his username and from how many years he knows "magic"
-     * @return A record PlayerInfo containing the player's username and player's magicAge
-     */
-    PlayerInfo askPlayerInfo();
-
-    /**
      * Asks the current player which is address he wants to connect to
      * @return A record ConnectionInfo containing serverAddress and serverPort chosen by the player
      */
@@ -65,6 +59,14 @@ public interface View {
      * @return The wizard chosen by the player
      */
     Wizard requestWizard(Wizard[] availableWizards);
+
+    /**
+     * Asks the player to provide his username and from how many years he know Magic
+     * @return A record UsernameAndMagicAge representing the username inserted by the client's user and his magic age
+     */
+    UsernameAndMagicAge requestUsernameAndMagicAge();
+        //It must refresh the "insertUsername" page of the GUI and the CLI
+
 
     /**
      * Asks the player which assistantCard he wants to play between the provided assistantCards
@@ -146,11 +148,6 @@ public interface View {
      * Notify the player that there's already a game in progress, then he will be disconnected from the server
      */
     void notifyGameInProgress();
-
-    /**
-     * Notify to player that the username inserted is currently used by another player. Disconnects him, telling him to try the connection again
-     */
-    void notifyUsernameAlreadyChosen ();
 
     /**
      * Notify to player he has to wait for a "waitingReason"

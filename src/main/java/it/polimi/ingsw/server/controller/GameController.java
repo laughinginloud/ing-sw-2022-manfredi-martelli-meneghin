@@ -91,7 +91,7 @@ public class GameController {
                             .collect(Collectors.toSet());
 
                     // Send the player a request for the username, signaling which ones were already picked
-                    UsernameAndMagicAge usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAME, usernameSet)).executeCommand();
+                    UsernameAndMagicAge usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, usernameSet)).executeCommand();
                     String              username            = usernameAndMagicAge.username();
                     int                 magicAge            = usernameAndMagicAge.magicAge();
 

@@ -56,7 +56,7 @@ class MessageBuilder {
             GameActions.LoadGameChoice -> questa viene trasformata in una semplice GameCommandResponseAction che è già gestita
                                           correttamente all'interno di GameController
 
-            GameActions.InsertedUsername -> GameCommandUsernameAndMagicAge
+            GameActions.InsertedUsernameAndAge -> GameCommandUsernameAndMagicAge
 
             GameActions.MoveStudentInfo -> GameCommandMoveStudent(MoveStudentInfo)
 

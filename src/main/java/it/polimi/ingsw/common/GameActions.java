@@ -50,10 +50,10 @@ public enum GameActions {
     LOADGAMECHOICE,
 
     // Used to ask to the player his username
-    USERNAME,
+    USERNAMEANDMAGICAGE,
 
     // The username inserted by the player
-    INSERTEDUSERNAME,
+    INSERTEDUSERNAMEANDAGE,
 
     // Setup phase requests
     RULES,
