@@ -67,10 +67,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
                 Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
                 // Gets the index of students that the player wants to move, from the Map received from the client
-                int movableStudentIndex = (int) chosenField.get(GameValues.STUDENTINDEX);
-
-                // Retrieve the characterCardStudentIndex corresponding to student indicated with the movableStudentIndex
-                int characterCardStudentIndex = getCharacterCardStudentIndex(characterCardStudents, movableStudents, movableStudentIndex);
+                int characterCardStudentIndex = (int) chosenField.get(GameValues.STUDENTINDEX);
 
                 // The server moves the student from the CharacterCard to the SchoolBoard
                 Color movedStudent = enhancedCard.retrieveStudent(characterCardStudentIndex);

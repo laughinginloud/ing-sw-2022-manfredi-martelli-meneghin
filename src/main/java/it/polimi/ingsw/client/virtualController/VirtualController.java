@@ -278,12 +278,13 @@ public class VirtualController extends Thread implements Closeable {
                         // of the character's activateEffect phase
                         switch(characterAction) {
                             case MONKFIRST -> {
-                                Color[]  characterCardStudents = (Color[])  characterCardEffectMap.get(GameValues.CARDSTUDENTS);
-                                Island[] islands               = (Island[]) characterCardEffectMap.get(GameValues.ISLANDARRAY);
-                                int      position              = (int)      characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                                Color[]  characterCardStudents  = (Color[])  characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                                Island[] islands                = (Island[]) characterCardEffectMap.get(GameValues.ISLANDARRAY);
+                                int      characterCardPosition  = (int)      characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                                int      numOfAvailableStudents =            characterCardStudents.length;
 
                                 // Asks the player to select the students he wants to move from the CharacterCard
-                                int selectedStudentIndex = view.chooseStudentFromCharacterCard(position, characterCardStudents);
+                                int selectedStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition, characterCardStudents, numOfAvailableStudents);
 
                                 // Asks the player to select the Island where he wants to move the selectedPlayer
                                 int selectedIslandIndex  = view.requestChooseIsland(islands);
@@ -316,12 +317,13 @@ public class VirtualController extends Thread implements Closeable {
 
                             case JESTERSECOND -> {
                                 // Gets from the message the students present on the Entrance and on the CharacterCard, and the characterCardPosition
-                                Color[]  entranceStudents      = (Color[])  characterCardEffectMap.get(GameValues.ENTRANCESTUDENTS);
-                                Color[]  characterCardStudents = (Color[])  characterCardEffectMap.get(GameValues.CARDSTUDENTS);
-                                int      position              = (int)      characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                                Color[]  entranceStudents         = (Color[])  characterCardEffectMap.get(GameValues.ENTRANCESTUDENTS);
+                                Color[]  characterCardStudents    = (Color[])  characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                                int      characterCardPosition    = (int)      characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                                int      numOfCCAvailableStudents =            characterCardStudents.length;
 
                                 // Asks the player to select the students he wants to move from the CharacterCard
-                                int characterCardStudentIndex = view.chooseStudentFromCharacterCard(position,characterCardStudents);
+                                int characterCardStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition,characterCardStudents, numOfCCAvailableStudents);
                                 int entranceStudentIndex      = view.chooseStudentFromEntrance(entranceStudents);
 
                                 // Returns the entranceStudentIndex and the characterCardStudentIndex
@@ -373,11 +375,12 @@ public class VirtualController extends Thread implements Closeable {
 
                             case PRINCESSFIRST -> {
                                 // Gets from the message the movableStudents present on the CharacterCard and the characterCardPosition
-                                Color[] movableCCStudents = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
-                                int     position          = (int)     characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                                Color[] movableCCStudents      = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                                int     characterCardPosition  = (int)     characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                                int     numOfAvailableStudents =           movableCCStudents.length;
 
                                 // Asks the player to select the students he wants to move from the CharacterCard
-                                int selectedStudentIndex = view.chooseStudentFromCharacterCard(position,movableCCStudents);
+                                int selectedStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition, movableCCStudents, numOfAvailableStudents);
 
                                 // Returns the index of the selectedStudent from the characterCard's students
                                 //TODO:

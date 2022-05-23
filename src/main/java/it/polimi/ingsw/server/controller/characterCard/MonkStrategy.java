@@ -43,8 +43,8 @@ public class MonkStrategy extends CharacterCardStrategy {
             CharacterCardStudent enhancedCard = (CharacterCardStudent) card;
 
             // The server select the students that can be moved and the Island (the not-Null students)
-            Color[] availableStudents = getAvailableStudents(enhancedCard.getStudents(), 4);
-            Island[] availableIslands = model.getIslands();
+            Color[]  availableStudents = getAvailableStudents(enhancedCard.getStudents(), 4);
+            Island[] availableIslands  = model.getIslands();
 
             // Gets the position of the characterCard in the model's characterCardArray
             int position = CharacterCardManager.getCharacterCardPosition(Character.MONK);
@@ -71,7 +71,7 @@ public class MonkStrategy extends CharacterCardStrategy {
                 int  island_index = (int) chosenFields.get(GameValues.ISLANDINDEX);
 
                 // The server moves the student from the CharacterCard to the selected island
-                Color movedStudent = enhancedCard.retrieveStudent(student_index);
+                Color movedStudent  = enhancedCard.retrieveStudent(student_index);
                 Island targetIsland = model.getIsland(island_index);
                 targetIsland.setStudentCounters(movedStudent, targetIsland.getStudentCounters(movedStudent) + 1);
 
