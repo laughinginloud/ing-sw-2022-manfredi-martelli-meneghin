@@ -68,7 +68,7 @@ public class VirtualView extends Thread implements AutoCloseable {
      */
     public void sendMessage(GameCommand command) {
         try {
-            String message = MessageBuilder.commandToMessage(command);
+            String message = MessageBuilder.commandToJson(command);
             outputStream.writeUTF(message);
         }
 
@@ -96,7 +96,7 @@ public class VirtualView extends Thread implements AutoCloseable {
                     msg = null;
 
                 else
-                    return MessageBuilder.messageToCommand(jsonBuilder.toJson(msg));
+                    return MessageBuilder.messageToCommand(msg);
             }
 
             catch (NotPongException e) {
@@ -130,7 +130,7 @@ public class VirtualView extends Thread implements AutoCloseable {
                     sendPing();
 
                 else if (!msg.equals(PONG_MESSAGE))
-                    MessageBuilder.messageToCommand(jsonBuilder.toJson(msg)).executeCommand(); //TODO: gestione delle richieste
+                    MessageBuilder.messageToCommand(msg).executeCommand(); //TODO: gestione delle richieste
             }
 
             catch (NotPongException e) {
@@ -180,7 +180,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             endThread();
 
         else if (!pong.equals(PONG_MESSAGE))
-            throw new NotPongException(MessageBuilder.messageToCommand(jsonBuilder.toJson(pong)));
+            throw new NotPongException(MessageBuilder.messageToCommand(pong));
     }
 
     private void endThread() {
