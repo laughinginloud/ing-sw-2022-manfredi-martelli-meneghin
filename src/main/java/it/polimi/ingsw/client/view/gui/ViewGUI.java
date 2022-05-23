@@ -284,6 +284,20 @@ public class ViewGUI extends Application implements View {
      *
      * @param characterCardPosition The position in the characterCardArray of the characterCard that is being played
      * @param availableColors       The colors correspondent to the students that can be chosen between the characterCard's students
+     * @param numOfAvailableStudent The number of students available on the characterCard (it could be useful)
+     * @return An int representing the position of the chosen students on the characterCardStudents
+     */
+    @Override
+    public int chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
+        return 0;
+    }
+
+    /**
+     * Asks the player to choose a student from a specific CharacterCard, between the students provided
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
+     * @param characterCardPosition The position in the characterCardArray of the characterCard that is being played
+     * @param availableColors       The colors correspondent to the students that can be chosen between the characterCard's students
      * @return An int representing the position of the chosen students on the characterCardStudents
      */
     @Override
