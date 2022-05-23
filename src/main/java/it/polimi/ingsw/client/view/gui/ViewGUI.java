@@ -300,7 +300,6 @@ public class ViewGUI extends Application implements View {
      * @param availableColors       The colors correspondent to the students that can be chosen between the characterCard's students
      * @return An int representing the position of the chosen students on the characterCardStudents
      */
-    @Override
     public int chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors) {
         return 0;
     }
