@@ -1,5 +1,9 @@
 package it.polimi.ingsw.server.controller.save;
 
+/**
+ * Enum that represents the serialized saved data
+ * @author Mattia Martelli
+ */
 enum SaveData {
-    GameModel, ControllerData
+    ControllerData, GameState
 }
