@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.Address;
+import it.polimi.ingsw.client.view.MenuItem;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.viewRecord.ConnectionInfo;
@@ -407,6 +408,11 @@ public class ViewGUI extends Application implements View {
     @Override
     public void notifyEndOfTurn() {
 
+    }
+
+    @Override
+    public MenuItem menu() {
+        return null;
     }
 
     // Exit = Close the application without saving the progress
