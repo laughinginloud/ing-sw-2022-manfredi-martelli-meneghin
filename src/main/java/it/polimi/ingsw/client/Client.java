@@ -15,6 +15,7 @@ import java.net.SocketException;
 public class Client {
     private static GameModel model;
 
+    /*
     public static void main(String[] args) {
         /*
         View view = args.length != 0 && args[0].equals("console") ? new ViewCLI() : new ViewGUI();
@@ -29,6 +30,7 @@ public class Client {
             }
         } while (!breakLoop);
     }
+    */
 
     public static void setModel(GameModel model) {
         Client.model = model;
@@ -38,6 +40,7 @@ public class Client {
         return model;
     }
 
+    /*
     private static void startGame(View view) {
         try (VirtualController controller = new VirtualController(view.getAddress(), view)) {
             controller.start();
@@ -53,6 +56,6 @@ public class Client {
         }
 
         //View signal end
-         */
     }
+    */
 }
