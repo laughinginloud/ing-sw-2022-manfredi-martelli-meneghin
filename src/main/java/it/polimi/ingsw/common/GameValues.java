@@ -20,7 +20,7 @@ public enum GameValues {
     BOOLARRAY,
 
     // An integer representing this turn MotherNature's movement-range
-    MAXMOTHERNATUREMOVEMENT,
+    MNPOSSIBLEMOVEMENTS,
 
     // Position of MotherNature
     MOTHERNATURE,

@@ -2,16 +2,17 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.server.controller.command.*;
-import it.polimi.ingsw.common.model.Character;
-import it.polimi.ingsw.common.model.CharacterCard;
-import it.polimi.ingsw.common.model.Player;
+import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,15 +32,21 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
 
     public void executeState() {
         try {
-            Player      player     = ControllerData.getInstance().getCurrentPlayer();
-            VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
-            Map<GameValues, Object> moveMNInfo = new HashMap<>();
-            boolean expertMode = ControllerData.getInstance().getExpertMode();
-            boolean canPlayCharacterCard = false;
+            ControllerData data                 = ControllerData.getInstance();
+            Player         player               = data.getCurrentPlayer();
+            VirtualView    playerView           = data.getPlayerViewMap().getRight(player);
+            boolean        expertMode           = data.getExpertMode();
+            boolean        canPlayCharacterCard = false;
 
             // Calculates the max motherNature movement and store it on the Map moveMNInfo
             int motherNatureMovement = player.getLastPlayedCard().movementPoints() + (ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0);
-            moveMNInfo.put(GameValues.MAXMOTHERNATUREMOVEMENT, motherNatureMovement);
+
+            int      currentMotherNaturePosition = data.getGameModel().getMotherNaturePosition();
+            Island[] reachableIsland             = getReachableIslands(motherNatureMovement, currentMotherNaturePosition);
+
+            // Creates a Map where to store the info in order to let the player play his turn, then saves the reachableIsland in it
+            Map<GameValues, Object> moveMNInfo = new HashMap<>();
+            moveMNInfo.put(GameValues.MNPOSSIBLEMOVEMENTS, motherNatureMovement);
 
             // If the player hasn't played a card yet
             if (expertMode && !ControllerData.getInstance().checkPlayedCard()) {
@@ -144,5 +151,20 @@ public class GameStateMoveMotherNature implements GameStateActionPhase {
             // Fatal error: print the stack trace to help debug
             e.printStackTrace();
         }
+    }
+
+    private Island[] getReachableIslands(int motherNatureMovement, int motherNaturePosition) {
+        Island[]     islands             = ControllerData.getInstance().getGameModel().getIslands();
+        int          numOfIsland         = islands.length;
+        List<Island> reachableIslandList = new ArrayList<>();
+
+        for (int i = 1; i < motherNatureMovement && i < numOfIsland - 1; i++)
+            reachableIslandList.add(islands[motherNaturePosition + i]);
+
+        Island[] reachableIslands = new Island[reachableIslandList.size()];
+        for (int i = 0; i < reachableIslandList.size(); i++)
+            reachableIslands[i] = reachableIslandList.get(i);
+
+        return reachableIslands;
     }
 }

@@ -163,10 +163,10 @@ public class VirtualController extends Thread implements Closeable {
                         Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
 
                         // Gets from the Map the maximum possible movement of mother nature
-                        int maximumMovement = (int) receivedMap.get(GameValues.MAXMOTHERNATUREMOVEMENT);
+                        Island[] possibleMovement = (Island[]) receivedMap.get(GameValues.MNPOSSIBLEMOVEMENTS);
 
                         // Asks the player in which Island he wants to move MotherNature to, according to the maxMotherNatureMovement
-                        int selectedMovement = view.requestMotherNatureMovement(maximumMovement);
+                        int selectedMovement = view.requestMotherNatureMovement(possibleMovement);
                         onlyMoveMotherNature(selectedMovement);
                     }
 
@@ -198,7 +198,6 @@ public class VirtualController extends Thread implements Closeable {
                         // If the player decided to move a student recall the normal-moveStudent method
                         if (selectedItem instanceof Integer selectedStudentIndex)
                             onlyMoveStudent(receivedMap, selectedStudentIndex);
-
                         // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
                         if (selectedItem instanceof CharacterCard selectedCharacterCard)
                             sendCharacterCardChoice(selectedCharacterCard);
@@ -210,15 +209,15 @@ public class VirtualController extends Thread implements Closeable {
                         Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
 
                         // Gets from the Map the maximum possible movement of motherNature  and the playable CharacterCards
-                        int             maximumMovement        = (int)             receivedMap.get(GameValues.MAXMOTHERNATUREMOVEMENT);
+                        Island[]        possibleMovement       = (Island[])        receivedMap.get(GameValues.MNPOSSIBLEMOVEMENTS);
                         CharacterCard[] playableCharacterCards = (CharacterCard[]) receivedMap.get(GameValues.CHARACTERCARDARRAY);
 
                         // Lets the player select a CharacterCard or the Island where he wants to move motherNature
-                        Object selectedItem = view.requestMoveMotherNatureOrPlayCC(maximumMovement, playableCharacterCards);
+                        Object selectedItem = view.requestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
 
                         // If the player decided to move motherNature recall the normal-moveMotherNature method
-                        if (selectedItem instanceof Integer selectedMovement)
-                            onlyMoveMotherNature(selectedMovement);
+                        if (selectedItem instanceof Integer selectedIslandIndex)
+                            onlyMoveMotherNature(selectedIslandIndex);
 
                         // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
                         if (selectedItem instanceof CharacterCard selectedCharacterCard)
@@ -369,7 +368,7 @@ public class VirtualController extends Thread implements Closeable {
                                 Color selectedDiningRoom = view.requestChooseDiningRoom(compatibleDiningRoom);
 
                                 // Returns the entranceStudentIndex and the chosen DiningRoomTableColor
-                                // TODO: Returns + modificare BardStrategy affinchè riceva direttamente l'entranceStudentIndex
+                                // TODO:
                             }
 
                             case PRINCESSFIRST -> {
@@ -488,10 +487,10 @@ public class VirtualController extends Thread implements Closeable {
 
     /**
      * Send to the controller the mother nature movement selected by the player
-     * @param selectedMovement The motherNature movement selected by the player
+     * @param selectedIslandIndex The Island where the player wants to move motherNature to
      */
-    private void onlyMoveMotherNature(int selectedMovement) {
-        Tuple<GameActions, Integer> moveMotherNatureResponse = new Tuple<>(GameActions.CHOSENMOTHERNATUREMOVEMENT, selectedMovement);
+    private void onlyMoveMotherNature(int selectedIslandIndex) {
+        Tuple<GameActions, Integer> moveMotherNatureResponse = new Tuple<>(GameActions.CHOSENMOTHERNATUREMOVEMENT, selectedIslandIndex);
         sendMessage(new Message(MessageType.RESPONSEACTION, moveMotherNatureResponse));
     }
 

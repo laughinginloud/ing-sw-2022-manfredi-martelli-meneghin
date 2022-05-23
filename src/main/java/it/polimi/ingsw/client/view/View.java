@@ -111,21 +111,22 @@ public interface View {
 
     /**
      * Asks the player how far he wants to move MotherNature
-     * @param maximumMovement The maximumMovement that the player can decide to make MotherNature do
-     * @return In int representing the movement selected by the player (the return value must be 0 < value <= maximumMovement)
+     * It sets to clickable only the Islands that can be selected by the player, according to the provided Islands' array
+     * @param possibleMovement An array containing the Islands that can be moved by the player
+     * @return In int representing the Index of the Island selected by the player
      */
-    int requestMotherNatureMovement(int maximumMovement);
+    int requestMotherNatureMovement(Island[] possibleMovement);
 
     /**
      * Shows to the player the Islands where motherNature could be moved and the CharacterCards that can be played
-     * @param maximumMovement An int representing the maximumMovement that can be done by motherNature during this turn
+     * It sets to clickable only the Islands that can be selected by the player, according to the provided Islands' array and
+     * only the playable CharacterCards
+     * @param possibleMovement An array containing the Islands that can be moved by the player
      * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
      * @return An object representing the selected item: it could be the chosen CharacterCard (CharacterCard)
-     *         or the chosen motherNature movement (Integer)
+     *         or the Index of the chosenIsland
      */
-    Object requestMoveMotherNatureOrPlayCC(int maximumMovement, CharacterCard[] playableCharacterCards);
-        // Devo rendere clickabili tutte le isole raggiungibili con maximumMovement e le playableCharacterCards,
-        // A seconda di quello che il player seleziona, decido quale valore ritornare
+    Object requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards);
 
     /**
      * Asks the player to choose a CloudTile from the availableClouds
