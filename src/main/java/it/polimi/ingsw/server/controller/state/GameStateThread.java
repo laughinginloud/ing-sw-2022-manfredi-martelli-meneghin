@@ -21,4 +21,5 @@ public class GameStateThread extends Thread {
     public synchronized GameState saveGameState() {
         interrupt();
         return state;
+    }
 }
