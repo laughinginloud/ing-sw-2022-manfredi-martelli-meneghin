@@ -2,6 +2,7 @@ module it.polimi.ingsw.client.view.gui.sceneHandlers{
     requires javafx.controls;
     requires javafx.fxml;
     requires com.google.gson;
+    requires org.jline;
 
 
     opens it.polimi.ingsw.client.view.gui.sceneHandlers to javafx.fxml;
