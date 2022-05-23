@@ -62,4 +62,7 @@ public enum GameActions {
     RULES,
 
     WIZARD,
+
+    // A map(GameValues, Object) containing all the fields' values chosen by the player
+    CHOSENFIELDSMAP,
 }

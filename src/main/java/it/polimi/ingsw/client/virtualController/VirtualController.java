@@ -22,10 +22,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class VirtualController extends Thread implements Closeable {
     private static final Gson messageBuilder = new GsonBuilder().setPrettyPrinting().create();
@@ -289,8 +286,14 @@ public class VirtualController extends Thread implements Closeable {
                                 // Asks the player to select the Island where he wants to move the selectedPlayer
                                 int selectedIslandIndex  = view.requestChooseIsland(islands);
 
+                                // Saves into a map the studentIndex and the islandIndex
+                                Map<GameValues, Object> monkFirstMap = new HashMap<>();
+                                monkFirstMap.put(GameValues.STUDENTINDEX, selectedStudentIndex);
+                                monkFirstMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
+
                                 // Returns the selectedStudentIndex and the selectedIslandIndex
-                                // TODO:
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, monkFirstMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case STANDARDBEARERFIRST, HERBALISTFIRST -> {
@@ -300,8 +303,13 @@ public class VirtualController extends Thread implements Closeable {
                                 // wants to put the noEntryTile, depending on the characterCard that is being played
                                 int selectedIslandIndex  = view.requestChooseIsland(islands);
 
-                                // Returns the selectedStudentIndex
-                                // TODO:
+                                // Saves into a map the islandIndex
+                                Map<GameValues, Object> stdHerbMap = new HashMap<>();
+                                stdHerbMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
+
+                                // Returns the selectedStudentIndex and the selectedIslandIndex
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, stdHerbMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case JESTERFIRST -> {
@@ -311,8 +319,13 @@ public class VirtualController extends Thread implements Closeable {
                                 // Asks the player how many students he would like to move using the characterCard 'Jester'
                                 int selectedNumOfMovements = view.requestHowManyStudentsToMove(maxMovementJester);
 
-                                // Returns the selected numOfMovements
-                                //TODO:
+                                // Saves into a map the number correspondent to the chosen MovementJester
+                                Map<GameValues, Object> jesterFirstMap = new HashMap<>();
+                                jesterFirstMap.put(GameValues.MOVEMENTJESTER, selectedNumOfMovements);
+
+                                // Returns the selected numOfMovements that will be done using the Jester effect
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, jesterFirstMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case JESTERSECOND -> {
@@ -326,8 +339,14 @@ public class VirtualController extends Thread implements Closeable {
                                 int characterCardStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition,characterCardStudents, numOfCCAvailableStudents);
                                 int entranceStudentIndex      = view.chooseStudentFromEntrance(entranceStudents);
 
-                                // Returns the entranceStudentIndex and the characterCardStudentIndex
-                                // TODO:
+                                // Saves into a map the entranceStudentIndex and the characterCardStudentIndex
+                                Map<GameValues, Object> jesterSecondMap = new HashMap<>();
+                                jesterSecondMap.put(GameValues.CARDSTUDENTINDEX, characterCardStudentIndex);
+                                jesterSecondMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
+
+                                // Returns the Map where has been saved the entranceStudentIndex and the characterCardStudentIndex
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, jesterSecondMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case MERCHANTFIRST -> {
@@ -338,8 +357,13 @@ public class VirtualController extends Thread implements Closeable {
                                 // of the influence during its turn
                                 Color selectedColor = view.requestChooseColor(colors);
 
-                                // Returns the selected color!
-                                //TODO:
+                                // Saves into a map the selectedColor in order to send it to the Controller
+                                Map<GameValues, Object> merchantMap = new HashMap<>();
+                                merchantMap.put(GameValues.MERCHANTCOLOR, selectedColor);
+
+                                // Returns the Map containing the color selected by the students
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, merchantMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case BARDFIRST -> {
@@ -349,8 +373,13 @@ public class VirtualController extends Thread implements Closeable {
                                 // Asks the player how many students he would like to move using the characterCard 'Jester'
                                 int selectedNumOfMovements = view.requestHowManyStudentsToMove(maxMovementBard);
 
-                                // Returns the selectedNumOfMovements
-                                //TODO:
+                                // Saves into a map the number correspondent to the chosen MovementBard
+                                Map<GameValues, Object> bardFirstMap = new HashMap<>();
+                                bardFirstMap.put(GameValues.MOVEMENTBARD, selectedNumOfMovements);
+
+                                // Returns the selected numOfMovements that will be done using the Bard effect
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, bardFirstMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case BARDSECOND -> {
@@ -369,8 +398,14 @@ public class VirtualController extends Thread implements Closeable {
                                 // Asks the player from which DiningRoom he wants to take the students to swap the entrance's student with
                                 Color selectedDiningRoom = view.requestChooseDiningRoom(compatibleDiningRoom);
 
-                                // Returns the entranceStudentIndex and the chosen DiningRoomTableColor
-                                // TODO:
+                                // Saves into a map the entranceStudentIndex and the chosen DiningRoomTableColor
+                                Map<GameValues, Object> bardSecondMap = new HashMap<>();
+                                bardSecondMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
+                                bardSecondMap.put(GameValues.DININGROOMTABLECOLOR, selectedDiningRoom);
+
+                                // Returns the Map where has been saved the entranceStudentIndex and the chosen DiningRoomTableColor
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, bardSecondMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case PRINCESSFIRST -> {
@@ -382,8 +417,13 @@ public class VirtualController extends Thread implements Closeable {
                                 // Asks the player to select the students he wants to move from the CharacterCard
                                 int selectedStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition, movableCCStudents, numOfAvailableStudents);
 
-                                // Returns the index of the selectedStudent from the characterCard's students
-                                //TODO:
+                                // Saves into a map the studentIndex of the selectedStudent from the characterCard's students
+                                Map<GameValues, Object> princessMap = new HashMap<>();
+                                princessMap.put(GameValues.STUDENTINDEX, selectedStudentIndex);
+
+                                // Returns the Map containing the selectedStudentIndex
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, princessMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
 
                             case THIEFFIRST -> {
@@ -394,8 +434,13 @@ public class VirtualController extends Thread implements Closeable {
                                 // the same color from the players diningRoomTables
                                 Color selectedColor = view.requestChooseColor(reducibleStudents);
 
-                                // Returns the selected color!
-                                //TODO:
+                                // Saves into a map the selectedColor
+                                Map<GameValues, Object> thiefMap = new HashMap<>();
+                                thiefMap.put(GameValues.REDUCECOLOR, selectedColor);
+
+                                // Returns the Map containing the selectedColor
+                                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, thiefMap);
+                                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
                             }
                         }
                     }
@@ -486,6 +531,7 @@ public class VirtualController extends Thread implements Closeable {
 
         // Send the player's movement to the server, via a ResponseAction, labeled with a GameAction "MoveStudentInfo"
         sendMessage(new Message(MessageType.RESPONSEACTION, moveStudentResponse));
+
     }
 
     /**
