@@ -5,14 +5,32 @@ import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.common.message.*;
 import it.polimi.ingsw.server.controller.command.*;
 
-class MessageBuilder {
-    private static final Gson stringBuilder = new GsonBuilder().setPrettyPrinting().create();
+/**
+ * Class that contains useful methods to work with messages (class instances and JSON) and commands
+ * @author Mattia Martelli, Sebastiano Meneghin
+ */
+final class MessageBuilder {
+    // The constructor is private to emulate a static class (along with the class itself being final)
+    private MessageBuilder() {}
 
-    public static String commandToMessage(GameCommand command) {
-        return stringBuilder.toJson(commandSwitch(command));
+    // The builder object that morphs between JSON and objects
+    private static final Gson jsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+
+    /**
+     * Get the message (in JSON form) corresponding to the specified command
+     * @param command The command that will be translated
+     * @return A string containing the JSON of the corresponding message
+     */
+    public static String commandToJson(GameCommand command) {
+        return jsonBuilder.toJson(commandToMessage(command));
     }
 
-    private static Message commandSwitch(GameCommand command) {
+    /**
+     * Get the message (in object form) corresponding to the specified command
+     * @param command The command that will be translated
+     * @return The message corresponding to the provided command
+     */
+    public static Message commandToMessage(GameCommand command) {
         if (command instanceof GameCommandGameStart)
             return new Message(MessageType.GAMESTART, null);
 
@@ -45,7 +63,12 @@ class MessageBuilder {
         throw new IllegalStateException("No suitable constructor for the provided command");
     }
 
-    public static GameCommand messageToCommand(String message) {
+    /**
+     * Get the command corresponding to the specified message (in object form)
+     * @param message The message that will be translated
+     * @return The command corresponding to the provided message
+     */
+    public static GameCommand messageToCommand(Message message) {
         if (message == null)
             return null;
 
@@ -66,6 +89,33 @@ class MessageBuilder {
 
             GameActions.ChosenCharacter -> GameCommandPlayCharacterCard
          */
+    }
+
+    /**
+     * Get the command corresponding to the specified message (in JSON form)
+     * @param message The message that will be translated
+     * @return The command corresponding to the provided message
+     */
+    public static GameCommand jsonToCommand(String message) {
+        return messageToCommand(jsonToMessage(message));
+    }
+
+    /**
+     * Translate a message from an object to its JSON counterpart
+     * @param message The object to be translated
+     * @return A string containing the translation
+     */
+    public static String messageToJson(Message message) {
+        return jsonBuilder.toJson(message);
+    }
+
+    /**
+     * Translate a message from a JSON to its object counterpart
+     * @param json The JSON to be translated
+     * @return An object representing the translation
+     */
+    public static Message jsonToMessage(String json) {
+        return jsonBuilder.fromJson(json, Message.class);
     }
 }
 
