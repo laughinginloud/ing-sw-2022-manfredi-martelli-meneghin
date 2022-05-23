@@ -1503,27 +1503,27 @@
                      <children>
                         <ImageView fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/professors/teacher_green.png" />
+                              <Image url="@../images/professors/professor_green.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/professors/teacher_red.png" />
+                              <Image url="@../images/professors/professor_red.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/professors/teacher_yellow.png" />
+                              <Image url="@../images/professors/professor_yellow.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/professors/teacher_pink.png" />
+                              <Image url="@../images/professors/professor_pink.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/professors/teacher_blue.png" />
+                              <Image url="@../images/professors/professor_blue.png" />
                            </image>
                         </ImageView>
                      </children>
