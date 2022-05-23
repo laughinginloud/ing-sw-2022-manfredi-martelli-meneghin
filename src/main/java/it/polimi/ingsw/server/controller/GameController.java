@@ -15,9 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.SocketException;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +23,9 @@ import java.util.stream.Collectors;
  * @author Mattia Martelli
  */
 public class GameController {
+    // Priority queue used to decide the initial order
+    private static PriorityQueue<UsernameAndMagicAge> playerAgeQueue;
+
     private static ControllerData  data;
 
     private static boolean         activeGame;
@@ -46,6 +47,8 @@ public class GameController {
         data       = ControllerData.getInstance();
         activeGame = false;
         rulesSet   = false;
+
+        playerAgeQueue = new PriorityQueue<>(Comparator.comparingInt(UsernameAndMagicAge::magicAge).reversed());
 
         ServerSocket serverSocket;
 
@@ -92,13 +95,9 @@ public class GameController {
 
                     // Send the player a request for the username, signaling which ones were already picked
                     UsernameAndMagicAge usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, usernameSet)).executeCommand();
-                    String              username            = usernameAndMagicAge.username();
-                    int                 magicAge            = usernameAndMagicAge.magicAge();
-
-                    //TODO: [MagicAge] Implementare l'utilizzo della MagicAge per determinare l'ordine dei player
 
                     if (!rulesSet) {
-                        Optional<File> savedGame = GameSave.findSavedGame(username);
+                        Optional<File> savedGame = GameSave.findSavedGame(usernameAndMagicAge.username());
 
                         if (savedGame.isPresent()) {
                             File save = savedGame.get();
@@ -134,7 +133,22 @@ public class GameController {
                         rulesSet = true;
                     }
 
-                    if (addPlayer(view, username)) {
+                    if (addPlayer(view, usernameAndMagicAge.username())) {
+                        List<Player> players = new ArrayList<>(List.of(data.getPlayersOrder()));
+
+                        // Morph the playerAgeQueue into an array of players, by finding the corresponding player for each username
+                        data.setPlayersOrder(playerAgeQueue.stream().map(uM -> {
+                            for (Player player : players)
+                                if (player.getUsername().equals(uM.username())) {
+                                    players.remove(player);
+                                    return player;
+                                }
+
+                            // Should never be reached, as it would mean that the data has been wrongly created
+                            throw new IllegalStateException();
+                        }).toArray(Player[]::new));
+
+                        playerAgeQueue.clear();
                         activeGame = true;
                         data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandGameStart()));
                         (gameStateThread = new GameStateThread()).start();
@@ -219,6 +233,8 @@ public class GameController {
                     data.getPlayersOrder()[i] = data.getPlayersOrder(i + 1);
 
                 data.getPlayersOrder()[data.getNumOfPlayers() - 1] = null;
+
+                playerAgeQueue.removeIf(uM -> uM.username().equals(player.getUsername()));
             }
         }
     }
