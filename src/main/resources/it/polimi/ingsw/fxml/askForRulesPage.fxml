@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="askForRules_pane" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.GameSceneHandler">
+   <children>
+      <ImageView fx:id="askForRules_imgView" fitHeight="568.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/home_page.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="askForRules_label" layoutX="257.0" layoutY="276.0" text="Enter the desired game rules" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Spinner fx:id="numOfPlayers_spinner" layoutX="449.0" layoutY="330.0" prefHeight="26.0" prefWidth="63.0" />
+      <Label fx:id="numOfPlayers_label" layoutX="250.0" layoutY="330.0" text="Number of players:" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="expertMode_label" layoutX="297.0" layoutY="379.0" text="Expert Mode:" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="experMode_checkBox" layoutX="468.0" layoutY="380.0" mnemonicParsing="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
+   </children>
+</AnchorPane>
