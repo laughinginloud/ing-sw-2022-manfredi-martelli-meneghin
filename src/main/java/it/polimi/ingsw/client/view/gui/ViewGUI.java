@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
@@ -28,12 +29,13 @@ public class ViewGUI extends Application implements View {
     public void start(Stage stage) throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ViewGUI.class.getResource("/it/polimi/ingsw/fxml/gamePage.fxml"));
-            Scene serverInfoScene = new Scene(fxmlLoader.load(), 1920, 1080);
+            Scene serverInfoScene = new Scene(fxmlLoader.load(), 1920, 1080, Color.BLACK);
 
             Image icon = new Image("cranio.png");
             stage.getIcons().add(icon);
             stage.setTitle("Eriantys pre alpha 3.0");
 
+            stage.setResizable(false);
             stage.setScene(serverInfoScene);
             stage.show();
 
