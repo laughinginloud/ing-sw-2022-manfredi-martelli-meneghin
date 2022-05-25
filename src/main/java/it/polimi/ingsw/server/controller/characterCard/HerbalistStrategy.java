@@ -3,7 +3,6 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
-import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.CharacterCard;

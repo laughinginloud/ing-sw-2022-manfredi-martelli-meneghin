@@ -25,7 +25,7 @@ public class Isomorphism<Left, Right> {
     }
 
     /**
-     * Adds the specified values to the isomorphism, if eiether values are not already present
+     * Adds the specified values to the isomorphism, if either values are not already present
      * @param left The value of the domain
      * @param right The value of the codomain
      * @return A boolean representing whether the insertion was successful
@@ -60,7 +60,7 @@ public class Isomorphism<Left, Right> {
     }
 
     /**
-     * Returns wheter or not the specified domain value exists in the isomorphism
+     * Returns whether or not the specified domain value exists in the isomorphism
      * @param left The value to search
      * @return A boolean representing the result of the search
      */
@@ -69,7 +69,7 @@ public class Isomorphism<Left, Right> {
     }
 
     /**
-     * Returns wheter or not the specified codomain value exists in the isomorphism
+     * Returns whether or not the specified codomain value exists in the isomorphism
      * @param right The value to search
      * @return A boolean representing the result of the search
      */
@@ -97,7 +97,7 @@ public class Isomorphism<Left, Right> {
      * Traverse the isomorphism, appending the intermediate results to a list
      * @param action The action to apply to each element of the isomorphism
      * @return A list containing the intermediate results
-     * @param <T> The tipe of the result
+     * @param <T> The type of the result
      */
     public <T> List<T> traverse(BiFunction<? super Left, ? super Right, T> action) {
         List<T> result = new ArrayList<>();

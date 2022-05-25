@@ -56,7 +56,7 @@ class CloudTileTest {
             throw new AssertionError("Retrieved students differ from the ones currently on the tile");
 
         if (Arrays.equals(firstRetrieve, secondRetrieve))
-            throw new AssertionError("Cloud tile not emptyied after retrieval");
+            throw new AssertionError("Cloud tile not emptied after retrieval");
 
         if (!Arrays.equals(secondRetrieve, new Color[4]))
             throw new AssertionError("Cloud tile filled with garbage data after retrieval");

@@ -16,7 +16,7 @@ public enum GameValues {
     // An array of color (students or professor)
     COLORARRAY,
 
-    // An array of boolean of various lenght
+    // An array of boolean of various length
     BOOLARRAY,
 
     // An integer representing this turn MotherNature's movement-range
@@ -104,7 +104,7 @@ public enum GameValues {
     // The color of the diningRoomTable containing the student that the player want to swap the swappableStudent with - CharacterCard 'BARD'
     DININGROOMTABLECOLOR,
 
-    // The color to inhibite selected by the player - CharacterCard 'MERCHANT'
+    // The color to inhibit selected by the player - CharacterCard 'MERCHANT'
     MERCHANTCOLOR,
 
     // An array of color that represent the color of the diningRoomTable from where students can be reduced - CharacterCard 'THIEF'

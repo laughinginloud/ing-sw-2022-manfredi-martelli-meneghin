@@ -7,8 +7,6 @@ import it.polimi.ingsw.common.model.DiningRoom;
 import it.polimi.ingsw.common.model.Island;
 import it.polimi.ingsw.common.model.Player;
 
-import java.util.Optional;
-
 public class GameCommandMoveStudent implements GameCommand{
     private final int     movedStudentIndex;
     private final boolean toDiningRoom;

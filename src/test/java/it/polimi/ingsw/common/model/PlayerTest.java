@@ -87,7 +87,7 @@ class PlayerTest {
     @Test
     void getSchoolBoardTest() {
         if (playerTest.getSchoolBoard() != schoolBoardTest)
-            throw new AssertionError("Returned wrong schoolboard");
+            throw new AssertionError("Returned wrong schoolBoard");
     }
 
     /**

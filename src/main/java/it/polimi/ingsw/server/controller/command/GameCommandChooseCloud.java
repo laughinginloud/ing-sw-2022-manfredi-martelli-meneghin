@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server.controller.command;
 
-import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.common.model.Color;
-
-import java.util.Arrays;
 
 /**
  * Command used by the client to reply after ActionPhase's CloudTile choice of the current player

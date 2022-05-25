@@ -9,7 +9,6 @@ public class GameCommandRequestValueClient extends GameCommandRequestValue {
     }
 
     public Object executeCommand() {
-        //TODO: da implementare lato client, una volta implementata la view
         return value;
     }
 }

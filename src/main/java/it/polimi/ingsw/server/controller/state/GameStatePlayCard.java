@@ -96,7 +96,7 @@ public class GameStatePlayCard implements GameStatePlanPhase {
     }
 
     /**
-     * Does everything is needed when a player draws an AssistantCard from his deck
+     * It does everything is needed when a player draws an AssistantCard from his deck
      * @param player The Player who just chose an AssistantCard
      * @param chosenCard The AssistantCard that has been chosen
      */

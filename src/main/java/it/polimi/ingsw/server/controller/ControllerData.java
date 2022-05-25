@@ -338,7 +338,7 @@ public class ControllerData {
         for (int i = 0; i < data.numOfPlayers; ++i)
             instance.playersOrder[i] = findPlayer(players, data.playersOrder[i]);
 
-        // Find the orignal copy of the current player and put it into the corresponding spot in the instance
+        // Find the original copy of the current player and put it into the corresponding spot in the instance
         instance.currentPlayer = findPlayer(players, data.getCurrentPlayer());
     }
 

@@ -60,7 +60,7 @@ public interface View {
     Wizard requestWizard(Wizard[] availableWizards);
 
     /**
-     * Asks the player to provide his username and from how many years he know Magic
+     * Asks the player to provide his username and from how many years he knows Magic
      * @return A record UsernameAndMagicAge representing the username inserted by the client's user and his magic age
      */
     UsernameAndMagicAge requestUsernameAndMagicAge();

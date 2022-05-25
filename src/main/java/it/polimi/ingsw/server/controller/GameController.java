@@ -38,7 +38,7 @@ public class GameController {
      */
     public static void main(String[] args) {
         // Check whether the current file position allows read and write
-        // If it's not possibile then the program cannot save or read saves
+        // If it's not possible then the program cannot save or read saves
         if (!GameSave.checkFolderPermissions()) {
             System.out.println("Current folder is read only. Please move the executable or check the permissions.");
             return;
@@ -75,7 +75,7 @@ public class GameController {
                 return;
             }
 
-            // If a game is already in progess, notify the player and then close its connection
+            // If a game is already in progress, notify the player and then close its connection
             if (activeGame) {
                 view.sendMessage(new GameCommandGameProgress());
                 view.close();

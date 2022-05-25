@@ -277,7 +277,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         ControllerData.getInstance().setWinTrigger(true);
     }
 
-    private GameCommand createMap(ControllerData data, GameModel model) {
+    private GameCommand createMap(GameModel model) {
         Map<GameValues, Object> map = new HashMap<>();
         map.put(GameValues.ISLANDARRAY, model.getIslands());
         map.put(GameValues.PLAYERARRAY, model.getPlayer());

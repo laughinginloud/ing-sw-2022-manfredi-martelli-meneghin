@@ -63,7 +63,7 @@ public class BardStrategy extends CharacterCardStrategy {
 
                 // For chosenNumOfMovement times asks the player which students he would like to move, waits for response and notifies all the players after the movement
                 for (int i = 0; i < chosenNumOfMovement; i++)
-                    changeStudent(data, model, curPlayer, playerView);
+                    changeStudent(model, curPlayer, playerView);
 
             }
 
@@ -88,7 +88,7 @@ public class BardStrategy extends CharacterCardStrategy {
         }
     }
 
-    private void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
+    private void changeStudent(GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
         Player[] players = model.getPlayer();
 
         // Gets the students present in the current player's Entrance
@@ -174,7 +174,7 @@ public class BardStrategy extends CharacterCardStrategy {
                 ex.printStackTrace();
             }
 
-            changeStudent(data, model, curPlayer, playerView);
+            changeStudent(model, curPlayer, playerView);
         }
     }
 

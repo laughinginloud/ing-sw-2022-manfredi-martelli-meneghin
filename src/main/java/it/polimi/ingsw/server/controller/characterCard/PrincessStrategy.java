@@ -53,7 +53,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
             Map<GameValues, Object> princessMap = new HashMap<>();
             princessMap.put(GameValues.CHARACTERVALUE,        PlayCharacterAction.PRINCESSFIRST);
-            princessMap.put(GameValues.CARDSTUDENTS,          characterCardStudents);
+            princessMap.put(GameValues.CARDSTUDENTS,          movableStudents);
             princessMap.put(GameValues.CHARACTERCARDPOSITION, position);
 
             // The server asks the player which students would like to move from the entrance to its DiningRoom

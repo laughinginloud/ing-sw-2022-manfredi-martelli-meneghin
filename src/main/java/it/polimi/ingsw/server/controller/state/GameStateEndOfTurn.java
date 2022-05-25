@@ -85,7 +85,7 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
                     }
 
                     // If the player decide to end his turn
-                    else if (response instanceof GameCommandEndTurn c) {
+                    else if (response instanceof GameCommandEndTurn) {
                         // Reset then all the characterCard flags that has been enabled during this turn and end the player's turn
                         resetCharacterCardFlags();
                     }

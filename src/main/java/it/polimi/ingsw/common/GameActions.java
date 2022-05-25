@@ -52,7 +52,7 @@ public enum GameActions {
     // A boolean representing the player's choice to resume or not resume an old game
     LOADGAMECHOICE,
 
-    // Used to ask to the player his username
+    // Used to ask the player his username
     USERNAMEANDMAGICAGE,
 
     // The username inserted by the player

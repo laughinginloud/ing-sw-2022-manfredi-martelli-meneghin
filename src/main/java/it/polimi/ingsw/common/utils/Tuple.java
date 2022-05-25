@@ -12,7 +12,7 @@ import java.util.function.Function;
  */
 public record Tuple<Left, Right>(Left left, Right right) {
     /**
-     * Swap the lements of the tuple
+     * Swap the elements of the tuple
      * @return A new tuple with the elements swapped
      */
     public Tuple<Right, Left> swap() {
