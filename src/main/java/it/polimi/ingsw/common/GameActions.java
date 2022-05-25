@@ -10,7 +10,7 @@ public enum GameActions {
     // Contains the cloudTiles that can be chosen by the player, at the end of his ActonPhase
     CHOOSECLOUD,
 
-    // A cloudTile representing the cloudTile chosen by the player during GameStateChooseCloud
+    // A cloudTile representing the students on the cloudTile chosen by the player during GameStateChooseCloud
     STUDENTSOFSELECTEDCLOUD,
 
     // CHOOSECLOUD + Array of characterCard playable by the current player
@@ -65,4 +65,10 @@ public enum GameActions {
 
     // A map(GameValues, Object) containing all the fields' values chosen by the player
     CHOSENFIELDSMAP,
+
+    // A record "GameRules" containing the rules chosen by the player (numOfPlayer and expertMode)
+    CHOSENRULES,
+
+    // The wizard chosen by the player from the availableWizard
+    CHOSENWIZARD,
 }

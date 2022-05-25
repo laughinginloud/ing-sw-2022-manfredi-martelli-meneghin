@@ -17,6 +17,6 @@ public enum MessageType {
     // Messages to signal the start of a game and the fact that a game is already in progress
     GAMESTART, GAMEPROGRESS,
 
-    // Message sent by the client to inform the server about a network error
+    // Message sent by the server to inform the client about a network error
     GAMEINTERRUPT,
 }

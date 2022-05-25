@@ -41,10 +41,9 @@ public interface View {
 
     /**
      * Asks the num of the players the first person connected would like to play with and whether he likes to play the game in expertMode
-     * @param possibleNum The possible number of player that a Game could contain
      * @return A record GameRules containing the selected numOfPlayer and a boolean representing the player's choice about expertMode
      */
-    GameRules askRules(int[] possibleNum);
+    GameRules askRules();
 
     /**
      * Asks the player whether he wants to end his turn or he wants to play a CharacterCard

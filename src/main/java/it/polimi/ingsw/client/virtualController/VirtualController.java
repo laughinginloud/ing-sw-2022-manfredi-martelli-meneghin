@@ -13,6 +13,7 @@ import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
 import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 
@@ -118,6 +119,27 @@ public class VirtualController extends Thread implements Closeable {
                         sendMessage(new Message(MessageType.RESPONSEACTION, usernameAndMagicAgeResponse));
                     }
 
+                    case RULES -> {
+                        // Asks the player which rules he would like to play with, then saves the record GameRules in a tuple
+                        GameRules rulesChoice = view.askRules();
+                        Tuple<GameActions, GameRules> askRulesResponse = new Tuple<>(GameActions.CHOSENRULES, rulesChoice);
+
+                        // Sends the player's choice to the server, via message
+                        sendMessage(new Message(MessageType.RESPONSEACTION, askRulesResponse));
+                    }
+
+                    case WIZARD -> {
+                        // Gets the availableWizards sent by the server
+                        Wizard[] availableWizards = (Wizard[]) dataValue.right();
+
+                        // Asks the player which wizard he wants to play, then saves it in a Tuple(GameActions, Wizard)
+                        Wizard wizardChoice = view.requestWizard(availableWizards);
+                        Tuple<GameActions, Wizard> askWizardResponse = new Tuple<>(GameActions.CHOSENWIZARD, wizardChoice);
+
+                        // Send the player's choice to the server, via message
+                        sendMessage(new Message(MessageType.RESPONSEACTION, askWizardResponse));
+                    }
+
                     // When the server asks the player if he wants to resume an old game (if it exists)
                     case LOADGAME -> {
                         // Call the specific View's method and store the player's decision
@@ -126,7 +148,6 @@ public class VirtualController extends Thread implements Closeable {
 
                         // Send the player's choice to the server, via message
                         sendMessage(new Message(MessageType.RESPONSEACTION, loadGameResponse));
-
                     }
 
                     case PLAYASSISTANTCARD -> {
@@ -513,6 +534,8 @@ public class VirtualController extends Thread implements Closeable {
             }
             //ENDTODO
         }
+
+        //TODO: notify the model changes with "updateModel" of the Class View
     }
 
     /**
