@@ -1348,7 +1348,7 @@
                         <Image url="@../images/coin.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="coinCount_img" layoutX="75.0" layoutY="863.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13">
+                  <Text fx:id="coinCount_text" layoutX="75.0" layoutY="863.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13">
                      <font>
                         <Font size="24.0" />
                      </font>
