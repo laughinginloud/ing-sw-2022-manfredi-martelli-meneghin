@@ -1,4 +1,4 @@
-module it.polimi.ingsw.client.view.gui.sceneHandlers{
+module it.polimi.ingsw.client.view.gui{
     requires javafx.controls;
     requires javafx.fxml;
     requires com.google.gson;
