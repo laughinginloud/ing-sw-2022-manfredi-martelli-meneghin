@@ -72,7 +72,6 @@ public class GameStateChooseCloud implements GameStateActionPhase {
             // If the response is of the right type, try to execute
             if (response instanceof GameCommandChooseCloud c) {
                 try {
-                    c.checkLegalValue();
                     Color[] students = (Color[]) c.executeCommand();
                     for (Color student : students)
                         player.getSchoolBoard().getEntrance().appendStudent(student);

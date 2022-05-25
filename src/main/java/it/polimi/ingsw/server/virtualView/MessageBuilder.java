@@ -2,8 +2,18 @@ package it.polimi.ingsw.server.virtualView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.*;
+import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.Tuple;
+import it.polimi.ingsw.common.viewRecord.GameRules;
+import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
+import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import it.polimi.ingsw.server.controller.command.*;
+
+import java.util.Map;
 
 /**
  * Class that contains useful methods to work with messages (class instances and JSON) and commands
@@ -72,23 +82,48 @@ final class MessageBuilder {
         if (message == null)
             return null;
 
-        return null; //TODO
+        switch(message.type()) {
+            case SENDINFO -> {
+                //TODO: It shouldn't be necessary
+                return null;
+            }
 
-        /*TODO: Gestire il ritorno di GameCommandResponseAction:
+            case REQUESTVALUE -> {
+                //TODO: It shouldn't be necessary
+                int filler = 0;
+                return null;
+            }
 
-            GameActions.LoadGameChoice -> questa viene trasformata in una semplice GameCommandResponseAction che è già gestita
-                                          correttamente all'interno di GameController
+            case RESPONSEACTION -> {
+                Tuple<GameActions, Object> tupleReceived = (Tuple<GameActions, Object>) message.value();
 
-            GameActions.InsertedUsernameAndAge -> GameCommandUsernameAndMagicAge
+                switch(tupleReceived.left()) {
+                    case CHOSENRULES                -> { return new GameCommandResponseRules(            (GameRules) tupleReceived.right()); }
 
-            GameActions.MoveStudentInfo -> GameCommandMoveStudent(MoveStudentInfo)
+                    case CHOSENWIZARD               -> { return new GameCommandResponseWizard(           (Wizard) tupleReceived.right()); }
 
-            GameActions.StudentsOfSelectedCloud -> GameCommandChooseCloud(con info relative)
+                    case ENDTHISTURN                -> { return new GameCommandEndTurn(); }
 
-            GameActions.EndHisTurn -> GameCommandEndTurn
+                    case CHOSENCHARACTER            -> { return new GameCommandPlayCharacterCard(        (Character) tupleReceived.right()); }
 
-            GameActions.ChosenCharacter -> GameCommandPlayCharacterCard
-         */
+                    case CHOSENFIELDSMAP            -> { return new GameCommandChosenCharacterCardFields((Map<GameValues, Object>) tupleReceived.right()); }
+
+                    case LOADGAMECHOICE             -> { return new GameCommandResponseAction(           (Boolean) tupleReceived.right()); }
+
+                    case CHOSENASSISTANTCARD        -> { return new GameCommandPlayAssistantCard(        (AssistantCard) tupleReceived.right()); }
+
+                    case INSERTEDUSERNAMEANDAGE     -> { return new GameCommandUsernameAndMagicAge(      (UsernameAndMagicAge) tupleReceived.right()); }
+
+                    case STUDENTSOFSELECTEDCLOUD    -> { return new GameCommandChooseCloud(              (Color[]) tupleReceived.right()); }
+
+                    case MOVESTUDENTINFO            -> { return new GameCommandMoveStudent(              (MoveStudentInfo) tupleReceived.right()); }
+
+                    case CHOSENMOTHERNATUREMOVEMENT -> { return new GameCommandMoveMotherNature(         (Integer) tupleReceived.right()); }
+                }
+            }
+        }
+
+        return null;
     }
 
     /**

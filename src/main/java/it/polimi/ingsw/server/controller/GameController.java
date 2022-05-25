@@ -103,7 +103,7 @@ public class GameController {
                             File save = savedGame.get();
 
                             // Ask the player whether he wants to load the saved game
-                            if (((Tuple<GameActions, Boolean>) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand()).right()) {
+                            if ((Boolean) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand()) {
                                 try {
                                     GameSave.loadGame(save);
                                     save.delete();
@@ -166,7 +166,7 @@ public class GameController {
      * @param playerView The VirtualView associated with the player
      */
     public static synchronized void signalPlayerDisconnected(VirtualView playerView) {
-        // If a game is in progess it needs to be saved
+        // If a game is in progress it needs to be saved
         if (activeGame) {
             Player[]      players  = data.getGameModel().getPlayer();
             StringBuilder fileName = new StringBuilder(players[0].getUsername());

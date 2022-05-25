@@ -10,18 +10,11 @@ import java.util.Arrays;
  * @author Mattia Martelli
  */
 public class GameCommandChooseCloud implements GameCommand {
-    private final int cloudIndex;
+    private final Color[] studentsOnCloud;
 
-    public GameCommandChooseCloud(int cloudIndex) {
-        this.cloudIndex = cloudIndex;
+    public GameCommandChooseCloud(Color[] studentsOnCloud) {
+        this.studentsOnCloud = studentsOnCloud;
     }
 
-    public Object executeCommand() {
-        return ControllerData.getInstance().getGameModel().getCloudTile(cloudIndex).retrieveStudents();
-    }
-
-    public void checkLegalValue() throws IllegalArgumentException {
-        if (Arrays.equals(ControllerData.getInstance().getGameModel().getCloudTile(cloudIndex).getStudents(), new Color[4]))
-            throw new IllegalArgumentException();
-    }
+    public Object executeCommand() { return studentsOnCloud; }
 }

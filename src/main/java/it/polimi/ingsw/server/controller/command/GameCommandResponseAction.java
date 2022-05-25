@@ -4,9 +4,9 @@ import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.utils.Tuple;
 
 public class GameCommandResponseAction implements GameCommand {
-    Tuple<GameActions, Object> valueResponse;
+    private final Object response;
 
-    public GameCommandResponseAction(GameActions value, Object response) { this.valueResponse = new Tuple<>(value, response); }
+    public GameCommandResponseAction(Object response) { this.response = response; }
 
-    public Object executeCommand(){ return valueResponse; }
+    public Object executeCommand(){ return response; }
 }

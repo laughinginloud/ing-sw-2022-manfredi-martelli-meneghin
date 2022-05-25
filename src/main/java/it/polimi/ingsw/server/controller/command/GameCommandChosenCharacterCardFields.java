@@ -9,7 +9,7 @@ import java.util.Map;
  * value chosen by the player in order the use selected characterCard's effect
  * @author Sebastiano Meneghin
  */
-public class GameCommandChosenCharacterCardFields implements GameCommand{
+public class GameCommandChosenCharacterCardFields implements GameCommand {
     Map<GameValues, Object> chosenData;
 
     public GameCommandChosenCharacterCardFields(Map<GameValues, Object> chosenData) { this.chosenData = chosenData; }
