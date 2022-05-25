@@ -33,7 +33,7 @@
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl0_towerCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl0_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -117,7 +117,7 @@
                                     <Image url="@../images/towers/grey_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl1_towerCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl1_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -201,7 +201,7 @@
                                     <Image url="@../images/towers/white_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl2_towerCount_img" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl2_towerCount_img" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -285,7 +285,7 @@
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl3_towerCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl3_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -369,7 +369,7 @@
                                     <Image url="@../images/towers/grey_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl4_towerCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl4_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -453,7 +453,7 @@
                                     <Image url="@../images/towers/white_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl5_towersCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl5_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -537,7 +537,7 @@
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl6_towersCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl6_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -621,7 +621,7 @@
                                     <Image url="@../images/towers/grey_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl7_towersCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl7_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -705,7 +705,7 @@
                                     <Image url="@../images/towers/white_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl8_towersCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl8_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -789,7 +789,7 @@
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl9_towersCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl9_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -873,7 +873,7 @@
                                     <Image url="@../images/towers/grey_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl10_towersCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl10_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -957,7 +957,7 @@
                                     <Image url="@../images/towers/white_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl11_towersCount_text" fill="RED" layoutX="139.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl11_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -1185,7 +1185,7 @@
                         <Image url="@../images/characterCards/0_MONK.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="CC0_hasCoin_img" fitHeight="38.0" fitWidth="33.0" layoutX="33.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="CC0_hasCoin_img" fitHeight="23.0" fitWidth="23.0" layoutX="39.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/coin.png" />
                      </image>
@@ -1239,7 +1239,7 @@
                         <Image url="@../images/characterCards/6_JESTER.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="CC1_hasCoin_img" fitHeight="38.0" fitWidth="33.0" layoutX="36.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="CC1_hasCoin_img" fitHeight="23.0" fitWidth="23.0" layoutX="39.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/coin.png" />
                      </image>
@@ -1293,7 +1293,7 @@
                         <Image url="@../images/characterCards/11_THIEF.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="CC2_hasCoin_img" fitHeight="38.0" fitWidth="33.0" layoutX="37.0" layoutY="555.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="CC2_hasCoin_img" fitHeight="23.0" fitWidth="23.0" layoutX="39.0" layoutY="562.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/coin.png" />
                      </image>
@@ -1343,7 +1343,7 @@
                      </children>
                   </GridPane>
                   <Rectangle fx:id="coin_background_img" arcHeight="5.0" arcWidth="5.0" fill="#d5a88f" height="52.0" layoutY="830.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
-                  <ImageView fx:id="coinCount_img" fitHeight="49.0" fitWidth="43.0" layoutX="15.0" layoutY="832.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="coinCount_img" fitHeight="49.0" fitWidth="43.0" layoutX="15.0" layoutY="834.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/coin.png" />
                      </image>
@@ -1445,7 +1445,7 @@
                   </ImageView>
                   <AnchorPane fx:id="towerArea_pane" prefHeight="242.0" prefWidth="475.0">
                      <children>
-                        <GridPane fx:id="towers_gridPane" layoutX="121.0" layoutY="53.0" prefHeight="134.0" prefWidth="241.0">
+                        <GridPane fx:id="towers_gridPane" layoutX="109.0" layoutY="42.0" prefHeight="161.0" prefWidth="261.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -1457,42 +1457,42 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ImageView fx:id="tower0_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tower1_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tower2_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tower3_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tower4_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tower5_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tower6_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tower7_img" fitHeight="96.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <ImageView fx:id="tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
@@ -1503,29 +1503,29 @@
                   </AnchorPane>
                   <AnchorPane fx:id="diningRoom_pane" layoutX="8.0" layoutY="233.0" prefHeight="675.0" prefWidth="466.0">
                      <children>
-                        <AnchorPane fx:id="globalProfessorTable_pane" prefHeight="108.0" prefWidth="468.0">
+                        <AnchorPane fx:id="globalProfessorTable_pane" layoutY="8.0" prefHeight="91.0" prefWidth="468.0">
                            <children>
-                              <ImageView fx:id="greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/professors/professor_green.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/professors/professor_red.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/professors/professor_yellow.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/professors/professor_pink.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/professors/professor_blue.png" />
                                  </image>
