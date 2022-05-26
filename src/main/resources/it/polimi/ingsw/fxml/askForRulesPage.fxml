@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="askForRules_pane" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.GameSceneHandler">
+<AnchorPane fx:id="askForRules_pane" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.AskForRulesHandler">
    <children>
       <ImageView fx:id="askForRules_imgView" fitHeight="568.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
