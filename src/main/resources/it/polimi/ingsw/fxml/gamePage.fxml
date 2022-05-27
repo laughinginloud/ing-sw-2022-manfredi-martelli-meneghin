@@ -33,7 +33,7 @@
                                     <Image url="@../images/towers/black_tower.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="isl0_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                              <Text fx:id="isl0_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -1503,7 +1503,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="diningRoom_pane" layoutX="8.0" layoutY="233.0" prefHeight="675.0" prefWidth="466.0">
                      <children>
-                        <AnchorPane fx:id="globalProfessorTable_pane" layoutY="8.0" prefHeight="91.0" prefWidth="468.0">
+                        <AnchorPane fx:id="professorTable_pane" layoutY="8.0" prefHeight="91.0" prefWidth="468.0">
                            <children>
                               <ImageView fx:id="greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
