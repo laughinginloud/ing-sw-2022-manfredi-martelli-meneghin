@@ -21,4 +21,7 @@ public class GameSceneHandler {
         stage.setScene(scene);
         stage.show();
     }
+
+    // Example of access to the nodes using the filter function
+    // pane.getchildren().stream().filter( x -> x instanceOf ...).
 }
