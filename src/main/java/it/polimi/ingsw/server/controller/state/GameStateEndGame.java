@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.utils.Ordering;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.common.model.Color;
@@ -9,16 +10,15 @@ import it.polimi.ingsw.common.model.Player;
 
 import java.util.*;
 
+import static it.polimi.ingsw.common.utils.Ordering.compare;
+
 /**
  * State representing the end of the game
  * @author Mattia Martelli
  */
 public class GameStateEndGame implements GameState {
-    // Quick definition of an enum used as the result of a compare
-    private enum Ordering { LT, GT, EQ }
-
-    private Player       winner = null;
-    private List<Player> team   = null;
+    private Player       winner     = null;
+    private List<Player> winnerList = null;
 
     public GameStateEndGame() {}
 
@@ -26,8 +26,8 @@ public class GameStateEndGame implements GameState {
         this.winner = winner;
     }
 
-    public GameStateEndGame(List<Player> team) {
-        this.team = team;
+    public GameStateEndGame(List<Player> winnerList) {
+        this.winnerList = winnerList;
     }
 
     public GameState nextState() {
@@ -42,13 +42,13 @@ public class GameStateEndGame implements GameState {
             sendWinner(data, winner);
 
         // If the winning team was decided when the state was called, send it to everyone
-        else if (team != null)
-            sendTeam(data, team);
+        else if (winnerList != null)
+            sendTeam(data, winnerList);
 
         // Otherwise, decide the winner
         else {
-            Player[] players = data.getGameModel().getPlayer();
-                     team    = new ArrayList<>();
+            Player[] players    = data.getGameModel().getPlayer();
+                     winnerList = new ArrayList<>();
 
             if (players.length == 4)
                 fourPlayerWinner(data, players);
@@ -68,16 +68,16 @@ public class GameStateEndGame implements GameState {
         switch (compare(players[0].getSchoolBoard().getTowerCount(), players[1].getSchoolBoard().getTowerCount())) {
             // Team A wins the game by having fewer towers on their board
             case LT -> {
-                team.add(players[0]);
-                team.add(players[2]);
-                sendTeam(data, team);
+                winnerList.add(players[0]);
+                winnerList.add(players[2]);
+                sendTeam(data, winnerList);
             }
 
             // Team B wins the game by having fewer towers on their board
             case GT -> {
-                team.add(players[1]);
-                team.add(players[3]);
-                sendTeam(data, team);
+                winnerList.add(players[1]);
+                winnerList.add(players[3]);
+                sendTeam(data, winnerList);
             }
 
             // Both teams have the same number of towers left, so I check the professors
@@ -85,16 +85,16 @@ public class GameStateEndGame implements GameState {
                 switch (compareProfessorsTeam(data.getGameModel().getGlobalProfessorTable(), players)) {
                     // Team A wins the game by controlling more professors
                     case GT -> {
-                        team.add(players[0]);
-                        team.add(players[2]);
-                        sendTeam(data, team);
+                        winnerList.add(players[0]);
+                        winnerList.add(players[2]);
+                        sendTeam(data, winnerList);
                     }
 
                     // Team B wins the game by controlling more professors
                     case LT -> {
-                        team.add(players[1]);
-                        team.add(players[3]);
-                        sendTeam(data, team);
+                        winnerList.add(players[1]);
+                        winnerList.add(players[3]);
+                        sendTeam(data, winnerList);
                     }
 
                     // Both teams control the same number of professors, so the game ends in a draw
@@ -110,90 +110,69 @@ public class GameStateEndGame implements GameState {
      * @param players An array containing the players
      */
     private void twoThreePlayerWinner(ControllerData data, Player[] players) {
+        // Start by assuming that the first player is the winner
+        // We will check whether it's true by comparing it with the second (and third, if it exists)
         winner = players[0];
 
+        // Also assume that the game hasn't ended in a draw, as it has been assumed that the first player has won it
         boolean draw = false;
 
-        for (int i = 1; i < players.length; ++i) {
-            if (draw) {
-                // If it currently is a draw, compare players[i] with the head of the "team" list, as all players in the list are equal
-                switch (compare(players[i].getSchoolBoard().getTowerCount(), team.get(0).getSchoolBoard().getTowerCount())) {
-                    // If players[i] has fewer towers, he is the new winner
-                    case LT -> {
-                        draw = false;
-                        winner = players[i];
-                    }
-
-                    // If both have the same number of towers, compare the number professors controlled
-                    case EQ -> {
-                        switch (compareProfessors(data.getGameModel().getGlobalProfessorTable(), players[i], team.get(0))) {
-                            // If players[i] controls more professors, he is the new winner
-                            case GT -> {
-                                draw = false;
-                                winner = players[i];
-                            }
-
-                            // If they both control the same number of professors, the game's a draw, so add players[i] to the list of "drawers"
-                            case EQ -> team.add(players[i]);
-
-                            // If players[i] controls fewer professors, the results are unchanged
-                            case LT -> {}
-                        }
-                    }
-
-                    // If players[i] has more towers, the results are unchanged
-                    case GT -> {}
-                }
-            }
-
-            else {
-                // If it currently is not a draw, compare players[i] with the current winner
-                switch (compare(players[i].getSchoolBoard().getTowerCount(), winner.getSchoolBoard().getTowerCount())) {
-                    // If players[i] has fewer towers, he is the new winner
-                    case LT -> winner = players[i];
-
-                    // If both have the same number of towers, compare the number professors controlled
-                    case EQ -> {
-                        switch (compareProfessors(data.getGameModel().getGlobalProfessorTable(), players[i], winner)) {
-                            // If players[i] controls more professors, he is the new winner
-                            case GT -> winner = players[i];
-
-                            // If they both control the same number of professors, the game's a draw, so add players[i] to the list of "drawers"
-                            case EQ -> {
-                                team.add(winner);
-                                team.add(players[i]);
-                                draw = true;
-                            }
-
-                            // If players[i] controls fewer professors, the results are unchanged
-                            case LT -> {}
-                        }
-                    }
-
-                    // If players[i] has more towers, the results are unchanged
-                    case GT -> {}
-                }
-            }
-        }
+        // Iterate on the remaining player(s)
+        for (int i = 1; i < players.length; ++i)
+            draw = winSwitch(
+                players[i],
+                // If it is currently a draw, the winner is a generic element of the list, as they all share the same values
+                draw ? winnerList.get(0) : winner,
+                data.getGameModel().getGlobalProfessorTable(),
+                draw);
 
         if (draw)
-            sendDraw(data, team);
+            sendDraw(data, winnerList);
 
         else
             sendWinner(data, winner);
     }
 
     /**
-     * Function that compares two integers returning a result relative to the first (e.g. LT <=> a < b)
-     * @param a The first integer
-     * @param b The second integer
-     * @return The result of the compare
+     * Compare the provided player with the current winner, modifying the state accordingly
+     * @return <code>true</code> if the game is now a draw, <code>false</code> otherwise
      */
-    private Ordering compare(int a, int b) {
-        return
-            a < b ? Ordering.LT :
-                a > b ? Ordering.GT :
-                    Ordering.EQ;
+    private boolean winSwitch(Player player, Player curWinner, GlobalProfessorTable gpt, boolean draw) {
+        // Compare the tower counts of the current player and the current winner and return a bool representing the draw's state
+        return switch (compare(player.getSchoolBoard().getTowerCount(), curWinner.getSchoolBoard().getTowerCount())) {
+            // If the player has fewer towers, he is the new winner
+            case LT -> {
+                winner = player;
+                yield false;
+            }
+
+            // If both have the same number of towers, compare the number of professors controlled
+            case EQ ->
+                switch (compareProfessors(gpt, player, curWinner)) {
+                    // If players[i] controls more professors, he is the new winner
+                    case GT -> {
+                        winner = player;
+                        yield false;
+                    }
+
+                    // If they both control the same number of professors, the game's a draw, so add the player to the list of "drawers"
+                    case EQ -> {
+                        // If the game wasn't a draw I need to add the previous winner to the list
+                        if (!draw)
+                            winnerList.add(winner);
+
+                        winnerList.add(player);
+
+                        yield true;
+                    }
+
+                    // If the player controls fewer professors, the results are unchanged
+                    case LT -> draw;
+                };
+
+            // If the player has more towers, the results are unchanged
+            case GT -> draw;
+        };
     }
 
     /**
@@ -227,16 +206,16 @@ public class GameStateEndGame implements GameState {
      * @return The player that controls more professors, using an Ordering
      */
     private Ordering compareProfessors(GlobalProfessorTable gpt, Player a, Player b) {
-        int aR = 0,
-            bR = 0;
+        int resA = 0,
+            resB = 0;
 
         for (Color color : Color.values())
             if (gpt.getProfessorLocation(color) == a)
-                aR++;
+                resA++;
             else if (gpt.getProfessorLocation(color) == b)
-                bR++;
+                resB++;
 
-        return compare(aR, bR);
+        return compare(resA, resB);
     }
 
     /**
@@ -245,7 +224,7 @@ public class GameStateEndGame implements GameState {
     private void sendWinner(ControllerData data, Player winner) {
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                Map<GameValues, Object> winnerMap = new HashMap<>();
+                Map<GameValues, Object> winnerMap = new EnumMap<>(GameValues.class);
                 winnerMap.put(GameValues.WINNER, winner.getUsername());
                 v.sendMessage(new GameCommandSendInfo(winnerMap));
             });
@@ -259,7 +238,7 @@ public class GameStateEndGame implements GameState {
 
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                Map<GameValues, Object> winnerMap = new HashMap<>();
+                Map<GameValues, Object> winnerMap = new EnumMap<>(GameValues.class);
                 winnerMap.put(GameValues.WINNINGTEAM, teamMembers);
                 v.sendMessage(new GameCommandSendInfo(winnerMap));
             });
@@ -273,7 +252,7 @@ public class GameStateEndGame implements GameState {
 
         data.getPlayerViewMap()
             .forEach((p, v) -> {
-                Map<GameValues, Object> drawerMap = new HashMap<>();
+                Map<GameValues, Object> drawerMap = new EnumMap<>(GameValues.class);
                 drawerMap.put(GameValues.DRAWERS, drawers);
                 v.sendMessage(new GameCommandSendInfo(drawerMap));
             });
