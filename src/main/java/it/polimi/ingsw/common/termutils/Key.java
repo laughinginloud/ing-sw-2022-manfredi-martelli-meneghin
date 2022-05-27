@@ -9,7 +9,7 @@ import java.io.InputStream;
  */
 public enum Key {
     TAB,
-    RETURN,
+    ENTER,
 
     // Both esc key and escape sequence
     ESCAPE,
@@ -28,11 +28,11 @@ public enum Key {
     public static Key parseKey(InputStream inputStream) throws IOException {
         return switch (inputStream.read()) {
             case 9  -> TAB;
-            case 13 -> RETURN;
+            case 13 -> ENTER;
 
             case 27 -> {
                 if (inputStream.available() == 0)
-                    yield  ESCAPE;
+                    yield ESCAPE;
 
                 if (inputStream.read() != 79)
                     yield GENERIC;
