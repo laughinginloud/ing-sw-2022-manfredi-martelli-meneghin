@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view.cli;
 
+import java.util.List;
+
 /**
  * Enum containing all the ANSI color constants
  * @author Mattia Martelli
@@ -68,6 +70,30 @@ enum TermColor {
      */
     public static String colorString(String string, TermColor color) {
         return color + string + DEFAULT;
+    }
+
+    /**
+     * Return a string colored with the provided list of enum constant
+     * @param string The string to color
+     * @param colors The colors to use
+     * @return A string containing the colored string
+     */
+    public static String colorString(String string, List<TermColor> colors) {
+        StringBuilder sr = new StringBuilder();
+        colors.forEach(c -> sr.append(c.escape));
+        sr.append(string);
+        sr.append(DEFAULT);
+        return sr.toString();
+    }
+
+    /**
+     * Return a string colored with the provided array of enum constant
+     * @param string The string to color
+     * @param colors The colors to use
+     * @return A string containing the colored string
+     */
+    public static String colorString(String string, TermColor[] colors) {
+        return colorString(string, List.of(colors));
     }
 
     /**
