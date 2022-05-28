@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 

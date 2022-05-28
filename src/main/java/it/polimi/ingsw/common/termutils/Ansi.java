@@ -5,6 +5,7 @@ import it.polimi.ingsw.common.model.Color;
 import java.util.List;
 
 import static it.polimi.ingsw.common.termutils.Ansi.Escapes.CSI;
+import static it.polimi.ingsw.common.termutils.Ansi.Escapes.SGR;
 
 /**
  * Enum containing all the ANSI color constants
@@ -15,56 +16,56 @@ public enum Ansi {
     // region Enum constants
 
     // Dark foreground colors
-    BLACK   (CSI + "30m"),
-    RED     (CSI + "31m"),
-    GREEN   (CSI + "32m"),
-    YELLOW  (CSI + "33m"),
-    BLUE    (CSI + "34m"),
-    MAGENTA (CSI + "35m"),
-    CYAN    (CSI + "36m"),
-    GRAY    (CSI + "90m"),
+    BLACK   (SGR("30")),
+    RED     (SGR("31")),
+    GREEN   (SGR("32")),
+    YELLOW  (SGR("33")),
+    BLUE    (SGR("34")),
+    MAGENTA (SGR("35")),
+    CYAN    (SGR("36")),
+    GRAY    (SGR("90")),
 
     // Light foreground colors
-    WHITE          (CSI + "97m"),
-    BRIGHT_RED     (CSI + "91m"),
-    BRIGHT_GREEN   (CSI + "92m"),
-    BRIGHT_YELLOW  (CSI + "93m"),
-    BRIGHT_BLUE    (CSI + "94m"),
-    BRIGHT_MAGENTA (CSI + "95m"),
-    BRIGHT_CYAN    (CSI + "96m"),
-    BRIGHT_GRAY    (CSI + "37m"),
+    WHITE          (SGR("97")),
+    BRIGHT_RED     (SGR("91")),
+    BRIGHT_GREEN   (SGR("92")),
+    BRIGHT_YELLOW  (SGR("93")),
+    BRIGHT_BLUE    (SGR("94")),
+    BRIGHT_MAGENTA (SGR("95")),
+    BRIGHT_CYAN    (SGR("96")),
+    BRIGHT_GRAY    (SGR("37")),
 
     // Dark background colors
-    BACKGROUND_BLACK   (CSI + "40m"),
-    BACKGROUND_RED     (CSI + "41m"),
-    BACKGROUND_GREEN   (CSI + "42m"),
-    BACKGROUND_YELLOW  (CSI + "43m"),
-    BACKGROUND_BLUE    (CSI + "44m"),
-    BACKGROUND_MAGENTA (CSI + "45m"),
-    BACKGROUND_CYAN    (CSI + "46m"),
-    BACKGROUND_GRAY    (CSI + "100m"),
+    BACKGROUND_BLACK   (SGR("40")),
+    BACKGROUND_RED     (SGR("41")),
+    BACKGROUND_GREEN   (SGR("42")),
+    BACKGROUND_YELLOW  (SGR("43")),
+    BACKGROUND_BLUE    (SGR("44")),
+    BACKGROUND_MAGENTA (SGR("45")),
+    BACKGROUND_CYAN    (SGR("46")),
+    BACKGROUND_GRAY    (SGR("100")),
 
     // Light background colors
-    BACKGROUND_WHITE          (CSI + "107m"),
-    BACKGROUND_BRIGHT_RED     (CSI + "101m"),
-    BACKGROUND_BRIGHT_GREEN   (CSI + "102m"),
-    BACKGROUND_BRIGHT_YELLOW  (CSI + "103m"),
-    BACKGROUND_BRIGHT_BLUE    (CSI + "104m"),
-    BACKGROUND_BRIGHT_MAGENTA (CSI + "105m"),
-    BACKGROUND_BRIGHT_CYAN    (CSI + "106m"),
-    BACKGROUND_BRIGHT_GRAY    (CSI + "47m"),
+    BACKGROUND_WHITE          (SGR("107")),
+    BACKGROUND_BRIGHT_RED     (SGR("101")),
+    BACKGROUND_BRIGHT_GREEN   (SGR("102")),
+    BACKGROUND_BRIGHT_YELLOW  (SGR("103")),
+    BACKGROUND_BRIGHT_BLUE    (SGR("104")),
+    BACKGROUND_BRIGHT_MAGENTA (SGR("105")),
+    BACKGROUND_BRIGHT_CYAN    (SGR("106")),
+    BACKGROUND_BRIGHT_GRAY    (SGR("47")),
 
     // Cursor related
     CURSOR_HIDE (CSI + "?25l"),
     CURSOR_SHOW (CSI + "?25h"),
 
     // Miscellaneous
-    BOLD            (CSI + "1m"),
-    UNDERLINE       (CSI + "4m"),
-    NO_UNDERLINE    (CSI + "24m"),
-    REVERSE_TEXT    (CSI + "7m"),
-    NO_REVERSE_TEXT (CSI + "27m"),
-    DEFAULT         (CSI + "0m");
+    BOLD            (SGR("1")),
+    UNDERLINE       (SGR("4")),
+    NO_UNDERLINE    (SGR("24")),
+    REVERSE_TEXT    (SGR("7")),
+    NO_REVERSE_TEXT (SGR("27")),
+    DEFAULT         (SGR("0"));
 
     // endregion
 
@@ -149,6 +150,10 @@ public enum Ansi {
         public static final String CSI = "\u009B";
         public static final String DCS = "\u0090";
         public static final String OSC = "\u009D";
+
+        public static String SGR(String code) {
+            return CSI + code + "m";
+        }
     }
 
     //endregion

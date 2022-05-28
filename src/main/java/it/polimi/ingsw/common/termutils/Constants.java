@@ -15,9 +15,9 @@ public /*static*/ final class Constants {
     // region Logos
 
     /**
-     * Eriantys logo in list form
+     * Eriantys logo in immutable list form
      */
-    public static final List<String> logoList = List.copyOf(mkLogoList()); // NB: copyOf is used to make the list immutable
+    public static final List<String> logoList = List.copyOf(mkLogoList());
 
     /**
      * Eriantys logo in string form
