@@ -45,8 +45,6 @@ public abstract class ViewCLI implements View {
     }
 
     public Address getAddress() throws IOException {
-        List<String> logo = Constants.logoList;
-
         // Both tuples contain a string representing a candidate for the value
         // and a bool representing whether that value is acceptable
         Tuple<String, Boolean> ip   = new Tuple<>(null, false);
@@ -55,7 +53,7 @@ public abstract class ViewCLI implements View {
         do {
             //Update the console with the logo
             display.clear();
-            display.updateAnsi(logo, (terminal.getWidth() + 1) * logo.size());
+            display.updateAnsi(Constants.logoList, (terminal.getWidth() + 1) * Constants.logoList.size());
 
             // Print the request for the IP
             // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
