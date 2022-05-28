@@ -144,7 +144,7 @@ public enum Ansi {
 
     // region Escapes
 
-    static class Escapes {
+    public static class Escapes {
         public static final String ESC = "\u001B";
         public static final String CSI = "\u009B";
         public static final String DCS = "\u0090";

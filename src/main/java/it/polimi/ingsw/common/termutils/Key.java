@@ -16,6 +16,9 @@ public enum Key {
 
     UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW,
 
+    // Used to jump directly to menu options
+    ONE, TWO, THREE, FOUR,
+
     // Used as a generic key that does not need to be evaluated
     GENERIC;
 
@@ -46,6 +49,11 @@ public enum Key {
                     default -> GENERIC;
                 };
             }
+
+            case 49 -> ONE;
+            case 50 -> TWO;
+            case 51 -> THREE;
+            case 52 -> FOUR;
 
             default -> GENERIC;
         };
