@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.MenuItem;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Color;
 import it.polimi.ingsw.common.viewRecord.ConnectionInfo;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
@@ -15,7 +16,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
@@ -29,7 +29,7 @@ public class ViewGUI extends Application implements View {
     public void start(Stage stage) throws Exception {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ViewGUI.class.getResource("/it/polimi/ingsw/fxml/gamePage.fxml"));
-            Scene serverInfoScene = new Scene(fxmlLoader.load(), 1920, 1080, Color.BLACK);
+            Scene serverInfoScene = new Scene(fxmlLoader.load(), 1920, 1080, javafx.scene.paint.Color.BLACK);
 
             Image icon = new Image("cranio.png");
             stage.getIcons().add(icon);
