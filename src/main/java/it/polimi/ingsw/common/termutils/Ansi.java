@@ -57,8 +57,8 @@ public enum Ansi {
     BACKGROUND_BRIGHT_GRAY    (SGR("47")),
 
     // Cursor related
-    CURSOR_HIDE (CSI + "?25l"),
-    CURSOR_SHOW (CSI + "?25h"),
+    HIDE_CURSOR (CSI + "?25l"),
+    SHOW_CURSOR (CSI + "?25h"),
 
     // Miscellaneous
     BOLD            (SGR("1")),
@@ -158,7 +158,7 @@ public enum Ansi {
 
     // endregion
 
-    // region Contruction related methods
+    // region Contructor
 
     private final String escape;
 
@@ -168,19 +168,45 @@ public enum Ansi {
 
     // endregion
 
-    // region Escapes
+    // region Escapes and Direction
 
+    /**
+     * ANSI commands introducers
+     */
     public static class Escapes {
+        /**
+         * Escape sequence introducer
+         */
         public static final String ESC = "\u001B";
+
+        /**
+         * Control Sequence Introducer
+         */
         public static final String CSI = "\u009B";
+
+        /**
+         * Device Control String Introducer
+         */
         public static final String DCS = "\u0090";
+
+        /**
+         * Operating System Command introducer
+         */
         public static final String OSC = "\u009D";
 
+        /**
+         * Return a Select Graphic Rendition command
+         * @param code The code of the command
+         * @return A string containing the command
+         */
         public static String SGR(String code) {
             return CSI + code + "m";
         }
     }
 
+    /**
+     * Used for moving the cursor
+     */
     public enum Direction {
         UP, DOWN, LEFT, RIGHT;
     }
