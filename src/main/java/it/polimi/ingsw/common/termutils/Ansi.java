@@ -2,6 +2,7 @@ package it.polimi.ingsw.common.termutils;
 
 import it.polimi.ingsw.common.model.Color;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import static it.polimi.ingsw.common.termutils.Ansi.Escapes.CSI;
@@ -131,6 +132,30 @@ public enum Ansi {
         };
     }
 
+    /**
+     * Move the cursor in one of the four cardinal directions, returning the ANSI code to do so
+     * @param direction The direction of the movement
+     * @param numOfCells The number of cells the movement will cover
+     * @return A string containing the ANSI code
+     */
+    public static String moveCursor(Direction direction, int numOfCells) {
+        return CSI + numOfCells + switch (direction) {
+            case UP    -> "A";
+            case DOWN  -> "B";
+            case RIGHT -> "C";
+            case LEFT  -> "D";
+        };
+    }
+
+    /**
+     * Move the cursor in one of the four cardinal directions
+     * @param direction The direction of the movement
+     * @param numOfCells The number of cells the movement will cover
+     */
+    public static void moveCursor(PrintWriter writer, Direction direction, int numOfCells) {
+        writer.print(moveCursor(direction, numOfCells));
+    }
+
     // endregion
 
     // region Contruction related methods
@@ -154,6 +179,10 @@ public enum Ansi {
         public static String SGR(String code) {
             return CSI + code + "m";
         }
+    }
+
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT;
     }
 
     //endregion
