@@ -21,9 +21,7 @@ public record Address(String ipAddress, int port) {
      * @return The sanitized string
      */
     public static String sanitizeIP(String ip) {
-        return ip.trim()
-                 .toLowerCase(Locale.getDefault())
-                 .replaceAll("(\\r|\\n|\\r\\n|\\s)+", "");
+        return ip.toLowerCase().replaceAll("(\\r|\\n|\\r\\n|\\s)+", "");
     }
 
     /**
