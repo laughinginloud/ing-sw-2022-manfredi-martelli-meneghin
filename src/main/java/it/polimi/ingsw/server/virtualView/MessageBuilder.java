@@ -98,27 +98,27 @@ final class MessageBuilder {
                 Tuple<GameActions, Object> tupleReceived = (Tuple<GameActions, Object>) message.value();
 
                 switch(tupleReceived.left()) {
-                    case CHOSENRULES                -> { return new GameCommandResponseRules(            (GameRules) tupleReceived.right()); }
+                    case CHOSENRULES                -> { return new GameCommandResponseRules(             (GameRules)               tupleReceived.right()); }
 
-                    case CHOSENWIZARD               -> { return new GameCommandResponseWizard(           (Wizard) tupleReceived.right()); }
+                    case CHOSENWIZARD               -> { return new GameCommandResponseWizard(            (Wizard)                  tupleReceived.right()); }
 
-                    case ENDTHISTURN                -> { return new GameCommandEndTurn(); }
+                    case ENDTHISTURN                -> { return new GameCommandEndTurn(                                                                  ); }
 
-                    case CHOSENCHARACTER            -> { return new GameCommandPlayCharacterCard(        (Character) tupleReceived.right()); }
+                    case CHOSENCHARACTER            -> { return new GameCommandPlayCharacterCard(         (Character)               tupleReceived.right()); }
 
-                    case CHOSENFIELDSMAP            -> { return new GameCommandChosenCharacterCardFields((Map<GameValues, Object>) tupleReceived.right()); }
+                    case CHOSENFIELDSMAP            -> { return new GameCommandChosenCharacterCardFields( (Map<GameValues, Object>) tupleReceived.right()); }
 
-                    case LOADGAMECHOICE             -> { return new GameCommandResponseAction(           (Boolean) tupleReceived.right()); }
+                    case LOADGAMECHOICE             -> { return new GameCommandResponseAction(            (Boolean)                 tupleReceived.right()); }
 
-                    case CHOSENASSISTANTCARD        -> { return new GameCommandPlayAssistantCard(        (AssistantCard) tupleReceived.right()); }
+                    case CHOSENASSISTANTCARD        -> { return new GameCommandPlayAssistantCard(         (AssistantCard)           tupleReceived.right()); }
 
-                    case INSERTEDUSERNAMEANDAGE     -> { return new GameCommandUsernameAndMagicAge(      (UsernameAndMagicAge) tupleReceived.right()); }
+                    case INSERTEDUSERNAMEANDAGE     -> { return new GameCommandUsernameAndMagicAge(       (UsernameAndMagicAge)     tupleReceived.right()); }
 
-                    case STUDENTSOFSELECTEDCLOUD    -> { return new GameCommandChooseCloud(              (Color[]) tupleReceived.right()); }
+                    case STUDENTSOFSELECTEDCLOUD    -> { return new GameCommandChooseCloud(               (Color[])                 tupleReceived.right()); }
 
-                    case MOVESTUDENTINFO            -> { return new GameCommandMoveStudent(              (MoveStudentInfo) tupleReceived.right()); }
+                    case MOVESTUDENTINFO            -> { return new GameCommandMoveStudent(               (MoveStudentInfo)         tupleReceived.right()); }
 
-                    case CHOSENMOTHERNATUREMOVEMENT -> { return new GameCommandMoveMotherNature(         (Integer) tupleReceived.right()); }
+                    case CHOSENMOTHERNATUREMOVEMENT -> { return new GameCommandMoveMotherNature(          (Integer)                 tupleReceived.right()); }
                 }
             }
         }
