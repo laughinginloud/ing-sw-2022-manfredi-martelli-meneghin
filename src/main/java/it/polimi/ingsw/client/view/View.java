@@ -36,9 +36,9 @@ public interface View {
 
     /**
      * Asks the current player which is address he wants to connect to
-     * @return A record ConnectionInfo containing serverAddress and serverPort chosen by the player
+     * @return A record Address containing serverAddress and serverPort chosen by the player
      */
-    ConnectionInfo askConnectionInfo();
+    Address askConnectionInfo();
 
     /**
      * Asks the num of the players the first person connected would like to play with and whether he likes to play the game in expertMode
