@@ -542,7 +542,7 @@ public class VirtualController extends Thread implements Closeable {
         }
     }
 
-    private void messageAfterUserInteraction (Object infoToSend) {
+    public void messageAfterUserInteraction (Object infoToSend) {
         switch(this.vcState) {
             case REQ_USER_AGE                   -> {
                 UsernameAndMagicAge usernameAndAgeInsertion = (UsernameAndMagicAge) infoToSend;

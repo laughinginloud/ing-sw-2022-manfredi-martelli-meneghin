@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.Optional;
+import java.util.Set;
 
 public class ViewGUI extends Application implements View {
     VirtualController virtualController = null;
@@ -76,6 +77,14 @@ public class ViewGUI extends Application implements View {
     }
 
     /**
+     * Asks the player whether he wants to resume an old game or he doesn't want to.
+     */
+    @Override
+    public void askReloadGame() {
+
+    }
+
+    /**
      * Asks the player whether he wants to have another game with the same rules and the same player
      *
      * @return The player's choice about the ReplayMatch request
@@ -93,6 +102,205 @@ public class ViewGUI extends Application implements View {
     @Override
     public ConnectionInfo askConnectionInfo() {
         return null;
+    }
+
+    /**
+     * Asks the num of the players the first person connected would like to play with and whether he likes to play the game in expertMode
+     */
+    @Override
+    public void askRules() {
+
+    }
+
+    /**
+     * Asks the player whether he wants to end his turn or he wants to play a CharacterCard
+     * It's possible only when the player hasn't already played a characterCard
+     */
+    @Override
+    public void askEndOfTurn() {
+
+    }
+
+    /**
+     * Asks the player which deck (wizard) he wants to play with
+     *
+     * @param availableWizards An array of Wizard that haven't been already chosen by other players
+     */
+    @Override
+    public void requestWizard(Wizard[] availableWizards) {
+
+    }
+
+    /**
+     * Asks the player to provide his username and from how many years he knows Magic
+     *
+     * @param forbiddenUsernames A Set(String) containing all the username already used by the other player
+     */
+    @Override
+    public void requestUsernameAndMagicAge(Set<String> forbiddenUsernames) {
+
+    }
+
+    /**
+     * Asks the player which assistantCard he wants to play between the provided assistantCards
+     *
+     * @param assistantCards An array of AssistantCards that are currently playable
+     */
+    @Override
+    public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
+
+    }
+
+    /**
+     * Asks the player which characterCards he would like to play between the CharacterCard provided
+     *
+     * @param playableCharacterCards An array of characterCards that are currently playable
+     */
+    @Override
+    public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
+
+    }
+
+    /**
+     * Asks the player to choose one student from the entrance, that he will move to another place
+     *
+     * @param entranceStudents The students currently on the entrance that are movable
+     */
+    @Override
+    public void requestStudentEntranceSelection(Color[] entranceStudents) {
+
+    }
+
+    /**
+     * Show to the player the entranceStudents and the playableCharacterCards, waiting for a selection
+     *
+     * @param entranceStudents       An array of students containing the entrance's students
+     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
+     */
+    @Override
+    public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
+
+    }
+
+    /**
+     * Asks the player to move the selected student from his entrance to an Island or to a table of his diningRoom
+     *
+     * @param selectedStudentIndex The index of the entrance's player selected by the player
+     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still have free seats (where the player can move the student)
+     */
+    @Override
+    public void movementStudentEntrance(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
+
+    }
+
+    /**
+     * Asks the player how far he wants to move MotherNature
+     * It sets to clickable only the Islands that can be selected by the player, according to the provided Islands' array
+     *
+     * @param possibleMovement An array containing the Islands that can be moved by the player
+     */
+    @Override
+    public void requestMotherNatureMovement(Island[] possibleMovement) {
+
+    }
+
+    /**
+     * Shows to the player the Islands where motherNature could be moved and the CharacterCards that can be played
+     * It sets to clickable only the Islands that can be selected by the player, according to the provided Islands' array and
+     * only the playable CharacterCards
+     *
+     * @param possibleMovement       An array containing the Islands that can be moved by the player
+     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
+     */
+    @Override
+    public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
+
+    }
+
+    /**
+     * Asks the player to choose a CloudTile from the availableClouds
+     *
+     * @param availableClouds An array of CloudTile representing the available CloudTiles
+     */
+    @Override
+    public void requestCloudTileSelection(CloudTile[] availableClouds) {
+
+    }
+
+    /**
+     * Shows to the player the CloudTiles that can be selected and the CharacterCard that can be played
+     *
+     * @param availableClouds        An array of CloudTiles containing the CloudTiles that have students on them
+     * @param playableCharacterCards An array of CharacterCard containing the playableCharacterCards
+     */
+    @Override
+    public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
+
+    }
+
+    /**
+     * Asks the player how many students he wants to move
+     *
+     * @param maxNumOfStudentMovable The maximum number of student the player can decide to move
+     */
+    @Override
+    public void requestHowManyStudentsToMove(int maxNumOfStudentMovable) {
+
+    }
+
+    /**
+     * Asks the player to choose a color between the provided ones
+     *
+     * @param availableColors The color that can be chosen by the player
+     */
+    @Override
+    public void requestChooseColor(Color[] availableColors) {
+
+    }
+
+    /**
+     * Asks the player to choose a student from a specific CharacterCard, between the students provided
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
+     * @param characterCardPosition The position in the characterCardArray of the characterCard that is being played
+     * @param availableColors       The colors correspondent to the students that can be chosen between the characterCard's students
+     * @param numOfAvailableStudent The number of students available on the characterCard (it could be useful)
+     */
+    @Override
+    public void chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
+
+    }
+
+    /**
+     * Asks the player to choose a student from his Entrance.
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
+     * @param availableColors The colors correspondent to the students that can be moved/picked from the Entrance
+     */
+    @Override
+    public void chooseStudentFromEntrance(Color[] availableColors) {
+
+    }
+
+    /**
+     * Asks the player to choose an Island. It sets to "clickable" only the island present in the "availableIslands" array
+     *
+     * @param availableIslands An array of Island representing the Island that can be chosen by the player
+     */
+    @Override
+    public void requestChooseIsland(Island[] availableIslands) {
+
+    }
+
+    /**
+     * Asks the player to choose a diningRoomTable from the provided ones. It links the diningRoomTable with theirs color, then
+     * make "clickable" only the diningRoomTable that have the same color of the provided "compatibleDiningRoomTable" colors' array
+     *
+     * @param compatibleDiningRoomTable The color of the diningRoomTables that can be chosen by the player
+     */
+    @Override
+    public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
+
     }
 
     /**
@@ -202,9 +410,7 @@ public class ViewGUI extends Application implements View {
      *                   to make some actions during the game (es. play a CharacterCard, move a Students, etc...)
      */
     @Override
-    public void viewToVirtualControllerBroker(Object infoToSend) {
-
-    }
+    public void viewToVirtualControllerBroker(Object infoToSend) { this.virtualController.messageAfterUserInteraction(infoToSend); }
 
     /**
      * Sets the virtualController of this class to a specific virtualController received with the method
