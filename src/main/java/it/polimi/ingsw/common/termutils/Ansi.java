@@ -9,7 +9,7 @@ import static it.polimi.ingsw.common.termutils.Ansi.Escapes.CSI;
 import static it.polimi.ingsw.common.termutils.Ansi.Escapes.SGR;
 
 /**
- * Enum containing all the ANSI color constants
+ * Enum containing some ANSI commands
  * @author Mattia Martelli
  */
 public enum Ansi {
@@ -121,14 +121,18 @@ public enum Ansi {
 
     /**
      * Return the ANSI color associated with the provided student color
+     * @param color The student to convert
+     * @param background If it's <code>true</code> then the result will be the background version, otherwise
+     *                   it will be the foreground one
+     * @return The enum constant associated
      */
-    public static Ansi getStudentColor(Color color) {
+    public static Ansi getStudentColor(Color color, boolean background) {
         return switch (color) {
-            case RED    -> BRIGHT_RED;
-            case YELLOW -> BRIGHT_YELLOW;
-            case GREEN  -> BRIGHT_GREEN;
-            case PINK   -> BRIGHT_MAGENTA;
-            case BLUE   -> BRIGHT_BLUE;
+            case RED    -> background ? BACKGROUND_BRIGHT_RED     : BRIGHT_RED;
+            case YELLOW -> background ? BACKGROUND_BRIGHT_YELLOW  : BRIGHT_YELLOW;
+            case GREEN  -> background ? BACKGROUND_BRIGHT_GREEN   : BRIGHT_GREEN;
+            case PINK   -> background ? BACKGROUND_BRIGHT_MAGENTA : BRIGHT_MAGENTA;
+            case BLUE   -> background ? BACKGROUND_BRIGHT_BLUE    : BRIGHT_BLUE;
         };
     }
 
