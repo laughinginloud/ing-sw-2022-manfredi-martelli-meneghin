@@ -34,6 +34,10 @@ public class VirtualController extends Thread implements Closeable {
 
     private final View             view;
 
+    private       VCStates                vcState;
+    private       Map<GameValues, Object> savedReceivedMap = null;
+    private       Map<GameValues, Object> savedToSendMap   = null;
+
     public VirtualController(Address address, View view) throws IOException {
         socket       = new Socket(address.ipAddress(), address.port());
         inputStream  = new DataInputStream(socket.getInputStream());
@@ -183,17 +187,15 @@ public class VirtualController extends Thread implements Closeable {
         // Gets the entrance's students and the info about DiningRoomTableFreeSeats from the message received from the server
         Boolean[] diningRoomTableFreeSeats = (Boolean[]) receivedMap.get(GameValues.BOOLARRAY);
 
-        // Asks where he wants to move the selected student to (islands or diningRoom) and stores it in a Tuple
-        MoveStudentInfo                     moveStudentInfo      = view.movementStudentEntrance(selectedStudentIndex, diningRoomTableFreeSeats);
-        Tuple<GameActions, MoveStudentInfo> moveStudentResponse  = new Tuple<>(GameActions.MOVESTUDENTINFO, moveStudentInfo);
+        // Saves the Virtual Controller State
+        this.vcState = VCStates.REQ_MOVE_STUD_SECOND;
 
-        // Send the player's movement to the server, via a ResponseAction, labeled with a GameAction "MoveStudentInfo"
-        sendMessage(new Message(MessageType.RESPONSEACTION, moveStudentResponse));
-
+        // Asks where he wants to move the selected student to (islands or diningRoom)
+        view.movementStudentEntrance(selectedStudentIndex, diningRoomTableFreeSeats);
     }
 
     /**
-     * Send to the controller the mother nature movement selected by the player
+     * Sends to the controller the mother nature movement selected by the player
      * @param selectedIslandIndex The Island where the player wants to move motherNature to
      */
     private void onlyMoveMotherNature(int selectedIslandIndex) {
@@ -202,7 +204,7 @@ public class VirtualController extends Thread implements Closeable {
     }
 
     /**
-     * Send to the Controller the students retrieved by the cloud chosen by the player after he received "ChooseCloud" message
+     * Sends to the Controller the students retrieved by the cloud chosen by the player after he received "ChooseCloud" message
      * @param selectedCloud The cloudTile selected by the player
      */
     private void onlyChooseCloud(CloudTile selectedCloud) {
@@ -246,62 +248,56 @@ public class VirtualController extends Thread implements Closeable {
         return compatibleDiningRoom;
     }
 
+
     private void switchRequestAction(Tuple<GameActions, Object> dataValue) {
         // Manages the received RequestAction depending on the GameCommandAction
         switch(dataValue.left()) {
             case USERNAMEANDMAGICAGE -> {
                 Set<String> forbiddenUsernames = (Set<String>) dataValue.right();
-                UsernameAndMagicAge usernameAndAgeInsertion;
 
-                do {
-                    usernameAndAgeInsertion = view.requestUsernameAndMagicAge();
-                } while (forbiddenUsernames.contains(usernameAndAgeInsertion.username()));
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_USER_AGE;
 
-                Tuple<GameActions, UsernameAndMagicAge> usernameAndMagicAgeResponse = new Tuple<>(GameActions.INSERTEDUSERNAMEANDAGE, usernameAndAgeInsertion);
-                sendMessage(new Message(MessageType.RESPONSEACTION, usernameAndMagicAgeResponse));
+                // Sends a request to the View
+                view.requestUsernameAndMagicAge(forbiddenUsernames);
             }
 
             case RULES -> {
-                // Asks the player which rules he would like to play with, then saves the record GameRules in a tuple
-                GameRules rulesChoice = view.askRules();
-                Tuple<GameActions, GameRules> askRulesResponse = new Tuple<>(GameActions.CHOSENRULES, rulesChoice);
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_RULES;
 
-                // Sends the player's choice to the server, via message
-                sendMessage(new Message(MessageType.RESPONSEACTION, askRulesResponse));
+                // Asks the player which rules he would like to play with, then saves the record GameRules in a tuple
+                view.askRules();
             }
 
             case WIZARD -> {
                 // Gets the availableWizards sent by the server
                 Wizard[] availableWizards = (Wizard[]) dataValue.right();
 
-                // Asks the player which wizard he wants to play, then saves it in a Tuple(GameActions, Wizard)
-                Wizard wizardChoice = view.requestWizard(availableWizards);
-                Tuple<GameActions, Wizard> askWizardResponse = new Tuple<>(GameActions.CHOSENWIZARD, wizardChoice);
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_WIZARD;
 
-                // Send the player's choice to the server, via message
-                sendMessage(new Message(MessageType.RESPONSEACTION, askWizardResponse));
+                // Asks the player which wizard he wants to play, then saves it in a Tuple(GameActions, Wizard)
+                view.requestWizard(availableWizards);
             }
 
-            // When the server asks the player if he wants to resume an old game (if it exists)
             case LOADGAME -> {
-                // Call the specific View's method and store the player's decision
-                Boolean loadGameChoice = view.askResumeGame();
-                Tuple<GameActions, Boolean> loadGameResponse = new Tuple<>(GameActions.LOADGAMECHOICE, loadGameChoice);
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_LOAD;
 
-                // Send the player's choice to the server, via message
-                sendMessage(new Message(MessageType.RESPONSEACTION, loadGameResponse));
+                // Call the specific View's method and store the player's decision
+                view.askReloadGame();
             }
 
             case PLAYASSISTANTCARD -> {
                 // Gets the playable AssistantCard sent by the server
                 AssistantCard[] playableAssistantCard = (AssistantCard[]) dataValue.right();
 
-                // Asks the player which AssistantCard he wants to play and stores it in a Tuple
-                AssistantCard chosenAssistantCard = view.requestPlayAssistantCard(playableAssistantCard);
-                Tuple<GameActions, AssistantCard> playAssistantResponse = new Tuple<>(GameActions.CHOSENASSISTANTCARD, chosenAssistantCard);
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_PLAY_ASS;
 
-                // Send the player's choice to the server, via message
-                sendMessage(new Message(MessageType.RESPONSEACTION, playAssistantResponse));
+                // Asks the player which AssistantCard he wants to play
+                view.requestPlayAssistantCard(playableAssistantCard);
             }
 
             case MOVESTUDENT -> {
@@ -312,9 +308,13 @@ public class VirtualController extends Thread implements Closeable {
                 // Gets from the Map the entrance's students
                 Color[] entranceStudents = (Color[]) receivedMap.get(GameValues.COLORARRAY);
 
+                // Saves the receivedMap in this instance's supportMap in order to use it after the interaction with the user
+                // and the Virtual Controller state
+                savedReceivedMap = new HashMap<>(receivedMap);
+                this.vcState = VCStates.REQ_MOVE_STUD_FIRST;
+
                 // Asks the player which student he would like to move
-                int selectedStudentIndex = view.requestStudentEntranceSelection(entranceStudents);
-                onlyMoveStudent(receivedMap, selectedStudentIndex);
+                view.requestStudentEntranceSelection(entranceStudents);
             }
 
             case MOVEMOTHERNATURE -> {
@@ -325,9 +325,11 @@ public class VirtualController extends Thread implements Closeable {
                 // Gets from the Map the maximum possible movement of mother nature
                 Island[] possibleMovement = (Island[]) receivedMap.get(GameValues.MNPOSSIBLEMOVEMENTS);
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_MOVE_MN;
+
                 // Asks the player in which Island he wants to move MotherNature to, according to the maxMotherNatureMovement
-                int selectedMovement = view.requestMotherNatureMovement(possibleMovement);
-                onlyMoveMotherNature(selectedMovement);
+                view.requestMotherNatureMovement(possibleMovement);
             }
 
             case CHOOSECLOUD -> {
@@ -338,9 +340,11 @@ public class VirtualController extends Thread implements Closeable {
                 // Gets from the Map the availableClouds
                 CloudTile[] availableClouds = (CloudTile[]) receivedMap.get(GameValues.CLOUDARRAY);
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_CHOOSE_CLOUD;
+
                 // Asks the player from which CloudTile he wants to draw students during his turn
-                CloudTile selectedCloud = view.requestCloudTileSelection(availableClouds);
-                onlyChooseCloud(selectedCloud);
+                view.requestCloudTileSelection(availableClouds);
             }
 
             case MOVESTUDENTORPLAYCARD -> {
@@ -352,15 +356,13 @@ public class VirtualController extends Thread implements Closeable {
                 Color[] entranceStudents = (Color[]) receivedMap.get(GameValues.COLORARRAY);
                 CharacterCard[] playableCharacterCards = (CharacterCard[]) receivedMap.get(GameValues.CHARACTERCARDARRAY);
 
-                // Lets the player select a CharacterCard or a student from the entrance
-                Object selectedItem = view.requestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
+                // Saves the receivedMap in this instance's supportMap in order to use it after the interaction with the user
+                // and the Virtual Controller state
+                savedReceivedMap = new HashMap<>(receivedMap);
+                this.vcState = VCStates.REQ_MOVE_STUD_OR_PLAY;
 
-                // If the player decided to move a student recall the normal-moveStudent method
-                if (selectedItem instanceof Integer selectedStudentIndex)
-                    onlyMoveStudent(receivedMap, selectedStudentIndex);
-                // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
-                if (selectedItem instanceof CharacterCard selectedCharacterCard)
-                    sendCharacterCardChoice(selectedCharacterCard);
+                // Lets the player select a CharacterCard or a student from the entrance
+                view.requestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
             }
 
             case MOVEMOTHERNATUREORPLAYCARD -> {
@@ -372,16 +374,11 @@ public class VirtualController extends Thread implements Closeable {
                 Island[] possibleMovement = (Island[]) receivedMap.get(GameValues.MNPOSSIBLEMOVEMENTS);
                 CharacterCard[] playableCharacterCards = (CharacterCard[]) receivedMap.get(GameValues.CHARACTERCARDARRAY);
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_MOVE_MN_OR_PLAY;
+
                 // Lets the player select a CharacterCard or the Island where he wants to move motherNature
-                Object selectedItem = view.requestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
-
-                // If the player decided to move motherNature recall the normal-moveMotherNature method
-                if (selectedItem instanceof Integer selectedIslandIndex)
-                    onlyMoveMotherNature(selectedIslandIndex);
-
-                // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
-                if (selectedItem instanceof CharacterCard selectedCharacterCard)
-                    sendCharacterCardChoice(selectedCharacterCard);
+                view.requestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
             }
 
             case CHOOSECLOUDORPLAYCARD -> {
@@ -393,188 +390,126 @@ public class VirtualController extends Thread implements Closeable {
                 CloudTile[] availableClouds = (CloudTile[]) receivedMap.get(GameValues.CLOUDARRAY);
                 CharacterCard[] playableCharacterCards = (CharacterCard[]) receivedMap.get(GameValues.CHARACTERCARDARRAY);
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_CHOOSE_CLOUD_OR_PLAY;
+
                 // Lets the player select a CharacterCard or the CloudTile from which he wants to draw the students
-                Object selectedItem = view.requestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
-
-                // If the player choose a CloudTile recall the normal-chooseCloudTile method
-                if (selectedItem instanceof CloudTile selectedCloud)
-                    onlyChooseCloud(selectedCloud);
-
-                // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
-                if (selectedItem instanceof CharacterCard selectedCharacterCard)
-                    sendCharacterCardChoice(selectedCharacterCard);
+                view.requestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
             }
 
             case ENDTURN -> {
-                // Asks the player whether he wants to end his turn or to play a characterCard. If he wants to end his turn:
-                if (view.askEndOfTurn()) {
-                    Tuple<GameActions, UsernameAndMagicAge> endTurnResponse = new Tuple<>(GameActions.ENDTHISTURN, null);
-                    sendMessage(new Message(MessageType.RESPONSEACTION, endTurnResponse));
-                }
+                @SuppressWarnings("unchecked")
+                // Stores the Map received from the Server via message
+                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
 
-                // If the player wants to play a CharacterCard
-                else {
-                    @SuppressWarnings("unchecked")
-                    // Stores the Map received from the Server via message
-                    Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                // Saves the receivedMap in this instance's supportMap in order to use it after the interaction with the user
+                // and the Virtual Controller state
+                savedReceivedMap = new HashMap<>(receivedMap);
+                this.vcState = VCStates.REQ_END_TURN_ASK;
 
-                    // Gets from the Map the playable CharacterCards
-                    CharacterCard[] playableCharacterCards = (CharacterCard[]) receivedMap.get(GameValues.CHARACTERCARDARRAY);
-
-                    // Asks the player which characterCards he wants to play
-                    CharacterCard selectedCharacterCard = view.requestPlayCharacterCard(playableCharacterCards);
-
-                    //Then sends the chosen characterCard to the controller
-                    sendCharacterCardChoice(selectedCharacterCard);
-                }
+                // Asks the player whether he wants to end his turn or to play a characterCard
+                view.askEndOfTurn();
             }
 
             case CHARACTERCARDEFFECT -> {
                 @SuppressWarnings("unchecked")
                 Map<GameValues, Object> characterCardEffectMap = (Map<GameValues, Object>) dataValue.right();
-                PlayCharacterAction characterAction = (PlayCharacterAction) characterCardEffectMap.get(GameValues.CHARACTERVALUE);
+                PlayCharacterAction     characterAction        = (PlayCharacterAction)     characterCardEffectMap.get(GameValues.CHARACTERVALUE);
 
                 switchReqActCharEffect(characterCardEffectMap, characterAction);
             }
         }
     }
 
+
     private void switchReqActCharEffect(Map<GameValues, Object> characterCardEffectMap, PlayCharacterAction characterAction) {
         // Manages the received action "characterAction" depending on the character and on the phase
         // of the character's activateEffect phase
         switch (characterAction) {
             case MONKFIRST -> {
-                Color[] characterCardStudents = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
-                Island[] islands = (Island[]) characterCardEffectMap.get(GameValues.ISLANDARRAY);
-                int characterCardPosition = (int) characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
-                int numOfAvailableStudents = characterCardStudents.length;
+                Color[]  characterCardStudents  = (Color[])  characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                int      characterCardPosition  = (int)      characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                int      numOfAvailableStudents =            characterCardStudents.length;
+
+                // Saves the characterCardEffectMap in this instance's supportMap in order to use it after the interaction with the user
+                // and saves the Virtual Controller state
+                savedReceivedMap = new HashMap<>(characterCardEffectMap);
+                this.vcState     = VCStates.REQ_MONK_FIRST__STUDENT;
 
                 // Asks the player to select the students he wants to move from the CharacterCard
-                int selectedStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition, characterCardStudents, numOfAvailableStudents);
-
-                // Asks the player to select the Island where he wants to move the selectedPlayer
-                int selectedIslandIndex = view.requestChooseIsland(islands);
-
-                // Saves into a map the studentIndex and the islandIndex
-                Map<GameValues, Object> monkFirstMap = new HashMap<>();
-                monkFirstMap.put(GameValues.STUDENTINDEX, selectedStudentIndex);
-                monkFirstMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
-
-                // Returns the selectedStudentIndex and the selectedIslandIndex
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, monkFirstMap);
-                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+                view.chooseStudentFromCharacterCard(characterCardPosition, characterCardStudents, numOfAvailableStudents);
             }
 
             case STANDARDBEARERFIRST, HERBALISTFIRST -> {
                 Island[] islands = (Island[]) characterCardEffectMap.get(GameValues.ISLANDARRAY);
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_BEARER_FIRST_OR_HERB_FIRST;
+
                 // Asks the player to select the Island where he wants to calculate "influence" or where he
                 // wants to put the noEntryTile, depending on the characterCard that is being played
-                int selectedIslandIndex = view.requestChooseIsland(islands);
-
-                // Saves into a map the islandIndex
-                Map<GameValues, Object> stdHerbMap = new HashMap<>();
-                stdHerbMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
-
-                // Returns the selectedStudentIndex and the selectedIslandIndex
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, stdHerbMap);
-                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+                view.requestChooseIsland(islands);
             }
 
             case JESTERFIRST -> {
                 // Gets how many students the player can decide to move
                 int maxMovementJester = (int) characterCardEffectMap.get(GameValues.MAXMOVEMENTJESTER);
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_JEST_FIRST;
+
                 // Asks the player how many students he would like to move using the characterCard 'Jester'
-                int selectedNumOfMovements = view.requestHowManyStudentsToMove(maxMovementJester);
-
-                // Saves into a map the number correspondent to the chosen MovementJester
-                Map<GameValues, Object> jesterFirstMap = new HashMap<>();
-                jesterFirstMap.put(GameValues.MOVEMENTJESTER, selectedNumOfMovements);
-
-                // Returns the selected numOfMovements that will be done using the Jester effect
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, jesterFirstMap);
-                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+                view.requestHowManyStudentsToMove(maxMovementJester);
             }
 
             case JESTERSECOND -> {
-                // Gets from the message the students present on the Entrance and on the CharacterCard, and the characterCardPosition
-                Color[] entranceStudents = (Color[]) characterCardEffectMap.get(GameValues.ENTRANCESTUDENTS);
-                Color[] characterCardStudents = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
-                int characterCardPosition = (int) characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
-                int numOfCCAvailableStudents = characterCardStudents.length;
+                // Gets from the receivedMessageInfo the students present on the CharacterCard and the characterCardPosition
+                Color[] characterCardStudents    = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                int     characterCardPosition    = (int)     characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                int     numOfCCAvailableStudents =           characterCardStudents.length;
+
+                // Saves the characterCardEffectMap in this instance's supportMap in order to use it after the interaction with the user
+                // and saves the Virtual Controller state
+                savedReceivedMap = new HashMap<>(characterCardEffectMap);
+                this.vcState     = VCStates.REQ_JEST_SECOND__CARD;
 
                 // Asks the player to select the students he wants to move from the CharacterCard
-                int characterCardStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition, characterCardStudents, numOfCCAvailableStudents);
-                int entranceStudentIndex = view.chooseStudentFromEntrance(entranceStudents);
-
-                // Saves into a map the entranceStudentIndex and the characterCardStudentIndex
-                Map<GameValues, Object> jesterSecondMap = new HashMap<>();
-                jesterSecondMap.put(GameValues.CARDSTUDENTINDEX, characterCardStudentIndex);
-                jesterSecondMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
-
-                // Returns the Map where has been saved the entranceStudentIndex and the characterCardStudentIndex
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, jesterSecondMap);
-                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+                view.chooseStudentFromCharacterCard(characterCardPosition, characterCardStudents, numOfCCAvailableStudents);
             }
 
             case MERCHANTFIRST -> {
                 // Gets from the message the color that can be selected by the player using the characterCard 'MERCHANT'
                 Color[] colors = (Color[]) characterCardEffectMap.get(GameValues.COLORARRAY);
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_MERCH_FIRST;
+
                 // Asks the player which color he wants to select in order to inhibit it during the calculus
                 // of the influence during its turn
-                Color selectedColor = view.requestChooseColor(colors);
-
-                // Saves into a map the selectedColor in order to send it to the Controller
-                Map<GameValues, Object> merchantMap = new HashMap<>();
-                merchantMap.put(GameValues.MERCHANTCOLOR, selectedColor);
-
-                // Returns the Map containing the color selected by the students
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, merchantMap);
-                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+                view.requestChooseColor(colors);
             }
 
             case BARDFIRST -> {
                 //Gets how many students the player can decide to move using the characterCard 'Bard'
                 int maxMovementBard = (int) characterCardEffectMap.get(GameValues.MAXMOVEMENTBARD);
 
-                // Asks the player how many students he would like to move using the characterCard 'Jester'
-                int selectedNumOfMovements = view.requestHowManyStudentsToMove(maxMovementBard);
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_MERCH_FIRST;
 
-                // Saves into a map the number correspondent to the chosen MovementBard
-                Map<GameValues, Object> bardFirstMap = new HashMap<>();
-                bardFirstMap.put(GameValues.MOVEMENTBARD, selectedNumOfMovements);
-
-                // Returns the selected numOfMovements that will be done using the Bard effect
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, bardFirstMap);
-                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+                // Asks the player how many students he would like to move using the characterCard 'Bard'
+                view.requestHowManyStudentsToMove(maxMovementBard);
             }
 
             case BARDSECOND -> {
                 Color[] swappableStudents = (Color[]) characterCardEffectMap.get(GameValues.BARDSWAPPABLESTUDENTS);
 
+                // Saves the characterCardEffectMap in this instance's supportMap in order to use it after the interaction with the user
+                // and saves the Virtual Controller state
+                savedReceivedMap = new HashMap<>(characterCardEffectMap);
+                this.vcState     = VCStates.REQ_BARD_SECOND_STUDENT;
+
                 // Asks the player which available students from the Entrance he wants to swap with a DiningRoomStudent
-                int entranceStudentIndex = view.chooseStudentFromEntrance(swappableStudents);
-
-                //TODO: [FixVirtualController] - Sistemare accesso al model
-                // Devo ricavare il vero colore dello studente selezionato dalla Entrance
-                Color selectedStudentColor = Color.RED;
-
-                // Gets the color of the compatible DiningRooms, according to the Info received via message from the Server
-                Color[] compatibleDiningRoom = getCompatibleDiningRooms(characterCardEffectMap, selectedStudentColor);
-
-                // Asks the player from which DiningRoom he wants to take the students to swap the entrance's student with
-                Color selectedDiningRoom = view.requestChooseDiningRoom(compatibleDiningRoom);
-
-                // Saves into a map the entranceStudentIndex and the chosen DiningRoomTableColor
-                Map<GameValues, Object> bardSecondMap = new HashMap<>();
-                bardSecondMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
-                bardSecondMap.put(GameValues.DININGROOMTABLECOLOR, selectedDiningRoom);
-
-                // Returns the Map where has been saved the entranceStudentIndex and the chosen DiningRoomTableColor
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, bardSecondMap);
-                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+                view.chooseStudentFromEntrance(swappableStudents);
             }
 
             case PRINCESSFIRST -> {
@@ -583,8 +518,396 @@ public class VirtualController extends Thread implements Closeable {
                 int characterCardPosition = (int) characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
                 int numOfAvailableStudents = movableCCStudents.length;
 
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_PRINCESS_FIRST;
+
                 // Asks the player to select the students he wants to move from the CharacterCard
-                int selectedStudentIndex = view.chooseStudentFromCharacterCard(characterCardPosition, movableCCStudents, numOfAvailableStudents);
+                view.chooseStudentFromCharacterCard(characterCardPosition, movableCCStudents, numOfAvailableStudents);
+            }
+
+            case THIEFFIRST -> {
+                // Gets from the message the color that can be selected by the player using the characterCard 'THIEF'
+                Color[] reducibleStudents = (Color[]) characterCardEffectMap.get(GameValues.REDUCIBLECOLOR);
+
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_THIEF_FIRST;
+
+                // Asks the player which color he wants to select in order to remove/reduce students of
+                // the same color from the players diningRoomTables
+                view.requestChooseColor(reducibleStudents);
+            }
+        }
+    }
+
+    private void messageAfterUserInteraction (Object infoToSend) {
+        switch(this.vcState) {
+            case REQ_USER_AGE                   -> {
+                UsernameAndMagicAge usernameAndAgeInsertion = (UsernameAndMagicAge) infoToSend;
+                Tuple<GameActions, UsernameAndMagicAge> usernameAndMagicAgeResponse = new Tuple<>(GameActions.INSERTEDUSERNAMEANDAGE, usernameAndAgeInsertion);
+                sendMessage(new Message(MessageType.RESPONSEACTION, usernameAndMagicAgeResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_RULES                      -> {
+                // Saves the record GameRules, containing the rules he would like to play with in a tuple
+                GameRules rulesChoice = (GameRules) infoToSend;
+                Tuple<GameActions, GameRules> askRulesResponse = new Tuple<>(GameActions.CHOSENRULES, rulesChoice);
+
+                // Sends the player's choice to the server, via message
+                sendMessage(new Message(MessageType.RESPONSEACTION, askRulesResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_WIZARD                     -> {
+                // Saves in a Tuple(GameActions, Wizard) which wizard the player wants to play
+                Wizard wizardChoice = (Wizard) infoToSend;
+                Tuple<GameActions, Wizard> askWizardResponse = new Tuple<>(GameActions.CHOSENWIZARD, wizardChoice);
+
+                // Send the player's choice to the server, via message
+                sendMessage(new Message(MessageType.RESPONSEACTION, askWizardResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_LOAD                       -> {
+                // Saves the player specific decision to reload a game or not, in a Tuple
+                Boolean loadGameChoice = (Boolean) infoToSend;
+                Tuple<GameActions, Boolean> loadGameResponse = new Tuple<>(GameActions.LOADGAMECHOICE, loadGameChoice);
+
+                // Send the player's choice to the server, via message
+                sendMessage(new Message(MessageType.RESPONSEACTION, loadGameResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_PLAY_ASS                   -> {
+                // Saves the AssistantCard the player played in a Tuple
+                AssistantCard chosenAssistantCard = (AssistantCard) infoToSend;
+                Tuple<GameActions, AssistantCard> playAssistantResponse = new Tuple<>(GameActions.CHOSENASSISTANTCARD, chosenAssistantCard);
+
+                // Send the player's choice to the server, via message
+                sendMessage(new Message(MessageType.RESPONSEACTION, playAssistantResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_MOVE_STUD_FIRST            -> {
+                // Gets the index of the student played by the player
+                int selectedStudentIndex = (int) infoToSend;
+
+                // Continues the method, using the savedReceivedMap as parameter, in order to access
+                // to other fields sent beforehand by the Server, necessary for the student movement
+                onlyMoveStudent(savedReceivedMap, selectedStudentIndex);
+            }
+
+            case REQ_MOVE_STUD_SECOND           -> {
+                // Saves in a Tuple the MoveStudentInfo (where does the player wants to move the student, diningRoom or Island (and its number))
+                MoveStudentInfo                     moveStudentInfo      = (MoveStudentInfo) infoToSend;
+                Tuple<GameActions, MoveStudentInfo> moveStudentResponse  = new Tuple<>(GameActions.MOVESTUDENTINFO, moveStudentInfo);
+
+                // Send the player's movement to the server, via a ResponseAction, labeled with a GameAction "MoveStudentInfo"
+                sendMessage(new Message(MessageType.RESPONSEACTION, moveStudentResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_MOVE_MN                    -> {
+                // Saves in which Island the player wanted to move MotherNature
+                int selectedMovement = (int) infoToSend;
+                onlyMoveMotherNature(selectedMovement);
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_CHOOSE_CLOUD               -> {
+                // Saves the CloudTile the player selected between the provided ones
+                CloudTile selectedCloud = (CloudTile) infoToSend;
+                onlyChooseCloud(selectedCloud);
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_MOVE_STUD_OR_PLAY          -> {
+                // Gets the item selected by the player: it could be a studentIndex or a characterCard
+                Object selectedItem = infoToSend;
+
+                // If the player decided to move a student recall the normal-moveStudent method
+                if (selectedItem instanceof Integer selectedStudentIndex)
+                    onlyMoveStudent(savedReceivedMap, selectedStudentIndex);
+
+                // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
+                if (selectedItem instanceof CharacterCard selectedCharacterCard) {
+                    sendCharacterCardChoice(selectedCharacterCard);
+
+                    // Resets the vcState
+                    this.vcState = null;
+                }
+            }
+
+            case REQ_MOVE_MN_OR_PLAY            -> {
+                // Gets the item selected by the player: it could be a studentIndex or a characterCard
+                Object selectedItem = infoToSend;
+
+                // If the player decided to move motherNature recall the normal-moveMotherNature method
+                if (selectedItem instanceof Integer selectedIslandIndex)
+                    onlyMoveMotherNature(selectedIslandIndex);
+
+                // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
+                if (selectedItem instanceof CharacterCard selectedCharacterCard)
+                    sendCharacterCardChoice(selectedCharacterCard);
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_CHOOSE_CLOUD_OR_PLAY       -> {
+                // Lets the player select a CharacterCard or the CloudTile from which he wants to draw the students
+                Object selectedItem = infoToSend;
+
+                // If the player choose a CloudTile recall the normal-chooseCloudTile method
+                if (selectedItem instanceof CloudTile selectedCloud)
+                    onlyChooseCloud(selectedCloud);
+
+                // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller
+                if (selectedItem instanceof CharacterCard selectedCharacterCard)
+                    sendCharacterCardChoice(selectedCharacterCard);
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_END_TURN_ASK               -> {
+                Boolean endMyTurn = (Boolean) infoToSend;
+
+                // If the player wants to end his own turn
+                if (endMyTurn) {
+                    Tuple<GameActions, UsernameAndMagicAge> endTurnResponse = new Tuple<>(GameActions.ENDTHISTURN, null);
+                    sendMessage(new Message(MessageType.RESPONSEACTION, endTurnResponse));
+
+                    // Resets the vcState
+                    this.vcState = null;
+                }
+
+                // If the player wants to play a CharacterCard
+                else {
+                    // Gets from the Map the playable CharacterCards
+                    CharacterCard[] playableCharacterCards = (CharacterCard[]) savedReceivedMap.get(GameValues.CHARACTERCARDARRAY);
+
+                    // Saves the Virtual Controller state
+                    this.vcState = VCStates.REQ_END_TURN_PLAY;
+
+                    // Asks the player which characterCards he wants to play
+                    view.requestPlayCharacterCard(playableCharacterCards);
+                }
+            }
+
+            case REQ_END_TURN_PLAY              -> {
+                // Saves which characterCards has been played by the player
+                CharacterCard selectedCharacterCard = (CharacterCard) infoToSend;
+
+                //Then sends the chosen characterCard to the controller
+                sendCharacterCardChoice(selectedCharacterCard);
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_MONK_FIRST__STUDENT        -> {
+                // Gets the student that the player wants to move from the characterCard
+                int selectedStudentIndex = (int) infoToSend;
+
+                // Saves the user choice in the savedToSendMap
+                savedToSendMap = new HashMap<>();
+                savedToSendMap.put(GameValues.STUDENTINDEX, selectedStudentIndex);
+
+                // Gets from the savedReceivedMap the available Island received beforehand from the server
+                Island[] islands = (Island[]) savedReceivedMap.get(GameValues.ISLANDARRAY);
+
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_MONK_FIRST__ISLAND;
+
+                // Asks the player to select the Island where he wants to move the selectedStudent
+                view.requestChooseIsland(islands);
+            }
+
+            case REQ_MONK_FIRST__ISLAND         -> {
+                // Gets the index of the Island where the player wants to move the student from the characterCard
+                int selectedIslandIndex = (int) infoToSend;
+                savedToSendMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
+
+                // Returns the selectedStudentIndex and the selectedIslandIndex
+                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
+                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
+                // that don't need this support-map
+                savedToSendMap = null;
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_BEARER_FIRST_OR_HERB_FIRST -> {
+               // Gets which is the islandIndex selected by the player to calculate the "influence" or to put
+                // a noEntryTile on
+                int selectedIslandIndex = (int) infoToSend;
+
+                // Saves into a map the islandIndex
+                Map<GameValues, Object> stdHerbMap = new HashMap<>();
+                stdHerbMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
+
+                // Returns the selectedIslandIndex
+                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, stdHerbMap);
+                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_JEST_FIRST                 -> {
+                // Gets the number of students the player wanted to move using the characterCard 'Jester'
+                int selectedNumOfMovements = (int) infoToSend;
+
+                // Saves into a map the number correspondent to the chosen MovementJester
+                Map<GameValues, Object> jesterFirstMap = new HashMap<>();
+                jesterFirstMap.put(GameValues.MOVEMENTJESTER, selectedNumOfMovements);
+
+                // Returns the selected numOfMovements that will be done using the Jester effect
+                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, jesterFirstMap);
+                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_JEST_SECOND__CARD          -> {
+                // Gets the student that the player wants to move from the characterCard to the Entrance
+                int characterCardStudentIndex = (int) infoToSend;
+
+                // Saves the student selected by the player from the CharacterCard in the savedToSendMap
+                savedToSendMap = new HashMap<>();
+                savedToSendMap.put(GameValues.CARDSTUDENTINDEX, characterCardStudentIndex);
+
+                // Gets from the savedReceivedMap the movable entranceStudents received beforehand from the server
+                Color[] entranceStudents = (Color[]) savedReceivedMap.get(GameValues.ENTRANCESTUDENTS);
+
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_JEST_SECOND__ENTRANCE;
+
+                // Asks the player to select the students he wants to move from the CharacterCard
+                view.chooseStudentFromEntrance(entranceStudents);
+            }
+
+            case REQ_JEST_SECOND__ENTRANCE      -> {
+                // Gets the index of the student selected by the player from the Entrance
+                int entranceStudentIndex = (int) infoToSend;
+
+                // Saves into a map the entranceStudentIndex of the selected Student
+                savedToSendMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
+
+                // Returns the Map where has been saved the entranceStudentIndex and the characterCardStudentIndex
+                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
+                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
+                // that don't need this support-map
+                savedToSendMap = null;
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_MERCH_FIRST                -> {
+               // Gets the color selected by the player that won't be considered during the influence's calculus
+                Color selectedColor = (Color) infoToSend;
+
+                // Saves into a map the selectedColor in order to send it to the Controller
+                Map<GameValues, Object> merchantMap = new HashMap<>();
+                merchantMap.put(GameValues.MERCHANTCOLOR, selectedColor);
+
+                // Returns the Map containing the color selected by the students
+                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, merchantMap);
+                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_BARD_FIRST                 -> {
+                // Asks the player how many students he would like to move using the characterCard 'Bard'
+                // Gets the number of students the player wanted to move using the characterCard 'Jester'
+                int selectedNumOfMovements = (int) infoToSend;
+
+                // Saves into a map the number correspondent to the chosen MovementBard
+                Map<GameValues, Object> bardFirstMap = new HashMap<>();
+                bardFirstMap.put(GameValues.MOVEMENTBARD, selectedNumOfMovements);
+
+                // Returns the selected numOfMovements that will be done using the Bard effect
+                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, bardFirstMap);
+                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_BARD_SECOND_STUDENT        -> {
+                // Asks the player which available students from the Entrance he wants to swap with a DiningRoomStudent
+                int entranceStudentIndex = (int) infoToSend;
+
+                // Saves into a map the entranceStudentIndex
+                savedToSendMap = new HashMap<>();
+                savedToSendMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
+
+
+
+                //TODO: [FixVirtualController] - Accedere al giocatore CORRENTE e non a uno casuale!
+                Color selectedStudentColor = Client.getModel().getPlayer(0).getSchoolBoard().getEntrance().getStudents()[entranceStudentIndex];
+
+
+
+                // Gets the color of the compatible DiningRooms, according to the Info received via message from the Server
+                Color[] compatibleDiningRoom = getCompatibleDiningRooms(savedReceivedMap, selectedStudentColor);
+
+                // Saves the Virtual Controller state
+                this.vcState = VCStates.REQ_BARD_SECOND_DINING;
+
+                // Asks the player from which DiningRoomTable he wants to take the students to swap the entrance's student with
+                view.requestChooseDiningRoom(compatibleDiningRoom);
+            }
+
+            case REQ_BARD_SECOND_DINING -> {
+                // Gets the color of the DiningRoomTable from which the player wants to take the student to swap with
+                // the entrance's student selected previously
+                Color selectedDiningRoomTable = (Color) infoToSend;
+
+                // Saves into a map the color of the selected DiningRoomTable
+                savedToSendMap.put(GameValues.DININGROOMTABLECOLOR, selectedDiningRoomTable);
+
+                // Returns the Map where has been saved the entranceStudentIndex and the chosen DiningRoomTableColor
+                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
+                sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
+                // that don't need this support-map
+                savedToSendMap = null;
+
+                // Resets the vcState
+                this.vcState = null;
+            }
+
+            case REQ_PRINCESS_FIRST             -> {
+                // Gets the student selected by the player, chosen from the CharacterCard's students
+                int selectedStudentIndex = (int) infoToSend;
 
                 // Saves into a map the studentIndex of the selectedStudent from the characterCard's students
                 Map<GameValues, Object> princessMap = new HashMap<>();
@@ -593,15 +916,19 @@ public class VirtualController extends Thread implements Closeable {
                 // Returns the Map containing the selectedStudentIndex
                 Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, princessMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
+                // that don't need this support-map
+                savedToSendMap = null;
+
+                // Resets the vcState
+                this.vcState = null;
             }
 
-            case THIEFFIRST -> {
-                // Gets from the message the color that can be selected by the player using the characterCard 'THIEF'
-                Color[] reducibleStudents = (Color[]) characterCardEffectMap.get(GameValues.REDUCIBLECOLOR);
-
-                // Asks the player which color he wants to select in order to remove/reduce students of
-                // the same color from the players diningRoomTables
-                Color selectedColor = view.requestChooseColor(reducibleStudents);
+            case REQ_THIEF_FIRST                -> {
+                // Gets the color that has been selected by the player in order to remove/reduce the students
+                // of the same color present in the players' diningRooms
+                Color selectedColor = (Color) infoToSend;
 
                 // Saves into a map the selectedColor
                 Map<GameValues, Object> thiefMap = new HashMap<>();
@@ -610,7 +937,17 @@ public class VirtualController extends Thread implements Closeable {
                 // Returns the Map containing the selectedColor
                 Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, thiefMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
+
+                // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
+                // that don't need this support-map
+                savedToSendMap = null;
+
+                // Resets the vcState
+                this.vcState = null;
             }
         }
+
+        // Resets the vcState and the savedReceivedMap after having sent the message
+        this.savedReceivedMap = null;
     }
 }
