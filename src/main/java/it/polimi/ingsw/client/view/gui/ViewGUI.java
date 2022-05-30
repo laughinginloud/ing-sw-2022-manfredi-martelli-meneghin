@@ -3,12 +3,10 @@ package it.polimi.ingsw.client.view.gui;
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.MenuItem;
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
 import it.polimi.ingsw.common.viewRecord.ConnectionInfo;
-import it.polimi.ingsw.common.viewRecord.GameRules;
-import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
-import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,6 +18,7 @@ import javafx.stage.Stage;
 import java.util.Optional;
 
 public class ViewGUI extends Application implements View {
+    VirtualController virtualController = null;
 
     /**
      * @param stage
@@ -196,4 +195,20 @@ public class ViewGUI extends Application implements View {
             stage.close();
         }
     }
+
+    /**
+     * Implementation of infoToSend of the abstract interface "View": uses the method "messageAfterUserInteraction" of VirtualController
+     * @param infoToSend An object containing the information that the client has to provide to the server in order
+     *                   to make some actions during the game (es. play a CharacterCard, move a Students, etc...)
+     */
+    @Override
+    public void viewToVirtualControllerBroker(Object infoToSend) {
+
+    }
+
+    /**
+     * Sets the virtualController of this class to a specific virtualController received with the method
+     * @param virtualController The VirtualController that this.virtualController has to be set to
+     */
+    public void setVirtualController(VirtualController virtualController) { this.virtualController = virtualController; }
 }

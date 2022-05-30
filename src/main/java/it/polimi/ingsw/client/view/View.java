@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Address;
+import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.viewRecord.*;
 
@@ -211,8 +212,18 @@ public interface View {
      */
     void notifyEndOfTurn();
 
+    /**
+     * Forward the infoToSend to the Virtual Controller, contacting it through the method "messageAfterUserInteraction"
+     * @param infoToSend An object containing the information that the client has to provide to the server in order
+     *                   to make some actions during the game (es. play a CharacterCard, move a Students, etc...)
+     */
+    void viewToVirtualControllerBroker(Object infoToSend);
 
-
+    /**
+     * Sets the virtualController of this class to a specific virtualController received with the method
+     * @param virtualController The VirtualController that this.virtualController has to be set to
+     */
+    void setVirtualController(VirtualController virtualController);
 
     MenuItem menu();
 }

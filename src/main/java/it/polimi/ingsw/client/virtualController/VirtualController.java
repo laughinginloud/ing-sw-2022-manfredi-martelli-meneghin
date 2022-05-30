@@ -44,6 +44,9 @@ public class VirtualController extends Thread implements Closeable {
         outputStream = new DataOutputStream(socket.getOutputStream());
 
         this.view    = view;
+
+        // Sets himself as the VirtualController linked to the View that just invoked this method
+        view.setVirtualController(this);
     }
 
     public void close() {
