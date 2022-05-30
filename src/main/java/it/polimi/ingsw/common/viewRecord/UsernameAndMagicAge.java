@@ -13,6 +13,6 @@ public record UsernameAndMagicAge(String username, int magicAge) {
      * @return The sanitized string
      */
     public static String sanitizeUsername(String username){
-        return username.toLowerCase();
+        return username.toLowerCase().trim();
     }
 }
