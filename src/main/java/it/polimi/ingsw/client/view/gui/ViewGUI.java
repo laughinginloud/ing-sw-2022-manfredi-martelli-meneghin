@@ -8,10 +8,6 @@ import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIHandler;
 import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
-import it.polimi.ingsw.common.viewRecord.GameRules;
-import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
-import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
-import it.polimi.ingsw.common.viewRecord.ConnectionInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,53 +21,57 @@ import java.util.Set;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * View implementation for the GUI (Graphic User Interface)
+ * ViewGUI implements Application to execute the program with the Java Application Thread
+ * @author Giovanni Manfredi & Sebastiano Meneghin
+ */
 public class ViewGUI extends Application implements View {
+
     VirtualController virtualController = null;
     private GameModel model;
     private Scene     currentScene;
     private Stage     stage;
 
-    // Saves in two different maps the Scene and the Handler for each Page of the GUI
+    // The different scenes are saved in a map, using the page (an enum for the scene) as key
     private final HashMap<Pages,Scene>       nameMapScene   = new HashMap<>();
+
+    // The different scenesHandlers are saved in a map, using the page (an enum for the scene) as key
     private final HashMap<Pages, GUIHandler> nameMapHandler = new HashMap<>();
 
     private Address connectionAddress;
 
+    /**
+     * Main of the ViewGUI application
+     * @param args arguments to be passed
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
     /**
-     * @param stage
-     * @throws Exception
+     * Start method which overrides the one inherited with Application
+     * @param stage the stage opened
      */
     @Override
     public void start(Stage stage) {
+        // Adds the scenes and the sceneHandlers to their respective HashMap
         setupScenes();
+        // Saves the stage in the ViewGUI
         this.stage = stage;
+        // Sets the title, the icon, the trigger on closing the scene and shows the scene
         initialize();
     }
 
-    public void initialize() {
-        stage.setTitle("Eriantys pre alpha 4.0");
-        stage.setScene(currentScene);
-        stage.getIcons().add(new Image("cranio.png"));
-
-        // Event on close request -> exit
-        stage.setOnCloseRequest(event -> {
-            event.consume();
-            exit(stage);
-        });
-
-        stage.show();
-    }
-
     /**
-     * Creates all the Scenes, fill the scenesMap and the handlersMap, then sets the currentScene to the firstScene
+     * Creates all the Scenes, fills the scenesMap and the handlersMap, then sets the currentScene
+     * to the firstScene
      */
     public void setupScenes() {
         try {
+            // An array of all pages
             Pages[] pages = Pages.values();
+            // For each page, it loads the scene and its respective handler (or controller)
             for (Pages page : pages) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(Pages.getPathOf(page)));
                 nameMapScene.put(page, new Scene(loader.load()));
@@ -89,17 +89,42 @@ public class ViewGUI extends Application implements View {
         currentScene = nameMapScene.get(Pages.SERVER_INFO);
     }
 
+    /**
+     *  Sets the title, the scene, the icon, the trigger on close request
+     */
+    public void initialize() {
+        stage.setTitle("Eriantys pre alpha 4.0");
+        stage.setScene(currentScene);
+        stage.getIcons().add(new Image("cranio.png"));
 
-    // Exit
+        // Event on close request -> exit
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            exit(stage);
+        });
+
+        stage.show();
+    }
+
+    /**
+     * Sets an alert if the close button is pressed, and if confirmed closes the stage (and the game)
+     * @param stage the stage to be closed
+     */
     public void exit(Stage stage){
+        // Sets a particular alert passing the parameters to the function getAlert present in GUIAlert class
         Alert alert = GUIAlert.getAlert(GUIAlert.EXIT, null);
 
+        // alert.showAndWait is the function that allows the alert to trigger
         if(alert.showAndWait().get() == ButtonType.OK){
             System.out.println("You successfully exited the game!");
             stage.close();
         }
     }
 
+    /**
+     * Chages the scene from a scene to the specified one, also sets the gui contained in that handler
+     * @param page the page to switch the scene to
+     */
     public void changeScene(Pages page){
         this.currentScene = nameMapScene.get(page);
         nameMapHandler.get(page).setGUI(this);
@@ -446,6 +471,7 @@ public class ViewGUI extends Application implements View {
     public MenuItem menu() {
         return null;
     }
+
     /**
      * Implementation of infoToSend of the abstract interface "View": uses the method "messageAfterUserInteraction" of VirtualController
      * @param infoToSend An object containing the information that the client has to provide to the server in order
