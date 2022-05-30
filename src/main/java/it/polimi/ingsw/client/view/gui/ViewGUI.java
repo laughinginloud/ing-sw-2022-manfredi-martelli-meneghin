@@ -3,9 +3,14 @@ package it.polimi.ingsw.client.view.gui;
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.MenuItem;
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIAlert;
+import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIHandler;
 import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
+import it.polimi.ingsw.common.viewRecord.GameRules;
+import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
+import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import it.polimi.ingsw.common.viewRecord.ConnectionInfo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,41 +22,89 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 public class ViewGUI extends Application implements View {
     VirtualController virtualController = null;
+    private GameModel model;
+    private Scene     currentScene;
+    private Stage     stage;
+
+    // Saves in two different maps the Scene and the Handler for each Page of the GUI
+    private final HashMap<Pages,Scene>       nameMapScene   = new HashMap<>();
+    private final HashMap<Pages, GUIHandler> nameMapHandler = new HashMap<>();
+
+    private Address connectionAddress;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     /**
      * @param stage
      * @throws Exception
      */
     @Override
-    public void start(Stage stage) throws Exception {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(ViewGUI.class.getResource("/it/polimi/ingsw/fxml/gamePage.fxml"));
-            Scene serverInfoScene = new Scene(fxmlLoader.load(), 1920, 1080, javafx.scene.paint.Color.BLACK);
-
-            Image icon = new Image("cranio.png");
-            stage.getIcons().add(icon);
-            stage.setTitle("Eriantys pre alpha 3.0");
-
-            stage.setResizable(false);
-            stage.setScene(serverInfoScene);
-            stage.show();
-
-            // Event on close request -> exit
-            // TODO Manage the difference between "exiting and closing the game"
-            stage.setOnCloseRequest(event -> {
-                event.consume();
-                exit(stage);
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void start(Stage stage) {
+        setupScenes();
+        this.stage = stage;
+        initialize();
     }
 
     public void initialize() {
+        stage.setTitle("Eriantys pre alpha 4.0");
+        stage.setScene(currentScene);
+        stage.getIcons().add(new Image("cranio.png"));
 
+        // Event on close request -> exit
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            exit(stage);
+        });
+
+        stage.show();
+    }
+
+    /**
+     * Creates all the Scenes, fill the scenesMap and the handlersMap, then sets the currentScene to the firstScene
+     */
+    public void setupScenes() {
+        try {
+            Pages[] pages = Pages.values();
+            for (Pages page : pages) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(Pages.getPathOf(page)));
+                nameMapScene.put(page, new Scene(loader.load()));
+                GUIHandler handler = loader.getController();
+                handler.setGUI(this);
+                nameMapHandler.put(page, handler);
+            }
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Sets the current scene to the first scene, named "Server Info"
+        currentScene = nameMapScene.get(Pages.SERVER_INFO);
+    }
+
+
+    // Exit
+    public void exit(Stage stage){
+        Alert alert = GUIAlert.getAlert(GUIAlert.EXIT, null);
+
+        if(alert.showAndWait().get() == ButtonType.OK){
+            System.out.println("You successfully exited the game!");
+            stage.close();
+        }
+    }
+
+    public void changeScene(Pages page){
+        this.currentScene = nameMapScene.get(page);
+        nameMapHandler.get(page).setGUI(this);
+        stage.setScene(currentScene);
+        //stage.show();
     }
 
     public void setUpBoard() {
@@ -59,7 +112,11 @@ public class ViewGUI extends Application implements View {
     }
 
     public Address getAddress() {
-        return null;
+        return connectionAddress;
+    }
+
+    public void setAddress(Address connectionAddress) {
+        this.connectionAddress = connectionAddress;
     }
 
     public void signalConnectionError() {
@@ -97,10 +154,10 @@ public class ViewGUI extends Application implements View {
     /**
      * Asks the current player which is address he wants to connect to
      *
-     * @return A record ConnectionInfo containing serverAddress and serverPort chosen by the player
+     * @return A record Address containing serverAddress and serverPort chosen by the player
      */
     @Override
-    public ConnectionInfo askConnectionInfo() {
+    public Address askConnectionInfo() {
         return null;
     }
 
@@ -389,21 +446,6 @@ public class ViewGUI extends Application implements View {
     public MenuItem menu() {
         return null;
     }
-
-    // Exit = Close the application without saving the progress
-    public void exit(Stage stage){
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exiting the game");
-        alert.setHeaderText("You're about to exit the game!");
-        alert.setContentText("Your progress won't be saved. Do you want to exit anyways?");
-
-        if(alert.showAndWait().get() == ButtonType.OK){
-            System.out.println("You successfully exited the game!");
-            stage.close();
-        }
-    }
-
     /**
      * Implementation of infoToSend of the abstract interface "View": uses the method "messageAfterUserInteraction" of VirtualController
      * @param infoToSend An object containing the information that the client has to provide to the server in order
