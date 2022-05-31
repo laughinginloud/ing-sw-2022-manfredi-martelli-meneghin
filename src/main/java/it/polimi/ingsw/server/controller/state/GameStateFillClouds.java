@@ -14,8 +14,10 @@ import java.util.Map;
  * Class containing the cloud filling procedure of the bigger PlanPhase
  * @author Sebastiano Meneghin
  */
-public class GameStateFillClouds implements GameStatePlanPhase {
-    public GameState nextState() { return new GameStatePlayCard(); }
+public final class GameStateFillClouds implements GameStatePlanPhase {
+    public GameState nextState() {
+        return new GameStatePlayCard();
+    }
 
     public void executeState() {
         try {

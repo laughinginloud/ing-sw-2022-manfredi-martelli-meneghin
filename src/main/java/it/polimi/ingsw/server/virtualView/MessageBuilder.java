@@ -7,6 +7,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.*;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.Constants;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
@@ -24,7 +25,7 @@ final class MessageBuilder {
     private MessageBuilder() {}
 
     // The builder object that morphs between JSON and objects
-    private static final Gson jsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson jsonBuilder = Constants.jsonBuilder;
 
     /**
      * Get the message (in JSON form) corresponding to the specified command
@@ -50,22 +51,14 @@ final class MessageBuilder {
         if (command instanceof GameCommandRequestValueClient c)
             return new Message(MessageType.REQUESTVALUE, c.executeCommand());
 
-        if (command instanceof GameCommandIllegalCommand c)
-            return new Message(MessageType.ILLEGALMESSAGE, c.executeCommand());
-
-        if (command instanceof GameCommandIllegalValue c)
-            return new Message(MessageType.ILLEGALVALUE, c.executeCommand());
-
         if (command instanceof GameCommandSendInfo c)
             return new Message(MessageType.SENDINFO, c.executeCommand());
 
         if (command instanceof GameCommandRequestAction c)
             return new Message(MessageType.REQUESTACTION, c.executeCommand());
 
-        //TODO: ping
-
         if (command instanceof GameCommandEndGame c)
-            return new Message(c.isDraw() ? MessageType.GAMEDRAW : MessageType.GAMEWINNER, c.executeCommand()); //TODO: ripulire per team?
+            return new Message(c.isDraw() ? MessageType.GAMEDRAW : c.isTeam() ? MessageType.GAMEWINNERTEAM : MessageType.GAMEWINNER, c.executeCommand());
 
         if (command instanceof GameCommandInterruptGame)
             return new Message(MessageType.GAMEINTERRUPT, null);

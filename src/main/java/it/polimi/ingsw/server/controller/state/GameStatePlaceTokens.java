@@ -14,7 +14,7 @@ import java.util.Map;
  * State representing the placement of the tokens on the board, following the model's initialization
  * @author Mattia Martelli
  */
-public class GameStatePlaceTokens implements GameStateSetup {
+public final class GameStatePlaceTokens implements GameStateSetup {
     public GameState nextState() {
         return ControllerData.getInstance().getExpertMode() ? new GameStateExpertInitialization() : new GameStateFillClouds();
     }

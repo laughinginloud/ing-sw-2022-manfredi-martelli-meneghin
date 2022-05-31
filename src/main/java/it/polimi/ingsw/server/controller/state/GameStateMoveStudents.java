@@ -16,7 +16,7 @@ import java.util.*;
  * State representing the student movements made by each player at the beginning of his ActionPhase
  * @author Sebastiano Meneghin
  */
-public class GameStateMoveStudents implements GameStateActionPhase {
+public final class GameStateMoveStudents implements GameStateActionPhase {
     public GameState nextState() {
         return
             // Check if the game has been won already

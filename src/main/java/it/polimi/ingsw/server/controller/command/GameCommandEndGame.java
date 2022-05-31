@@ -1,23 +1,24 @@
 package it.polimi.ingsw.server.controller.command;
 
+import it.polimi.ingsw.common.model.Player;
+
 import java.util.List;
 
 /**
- * Class that could be useful in the Client
+ * Command representing the end of a game, containing the result
+ * @author Mattia Martelli
  */
 public class GameCommandEndGame implements GameCommand {
-    private String       winner = null;
-    private List<String> team   = null;
+    private Player       winner = null;
+    private List<Player> team   = null;
 
     private boolean      draw   = false;
 
-    public GameCommandEndGame() {}
-
-    public GameCommandEndGame(String winner) {
+    public GameCommandEndGame(Player winner) {
         this.winner = winner;
     }
 
-    public GameCommandEndGame(List<String> team, boolean draw) {
+    public GameCommandEndGame(List<Player> team, boolean draw) {
         this.team = team;
         this.draw = draw;
     }
@@ -26,13 +27,14 @@ public class GameCommandEndGame implements GameCommand {
         if (winner != null)
             return winner;
 
-        if (team != null)
-            return team;
-
-        return null;
+        return team;
     }
 
     public boolean isDraw() {
-        return winner == null && team == null;
+        return draw;
+    }
+
+    public boolean isTeam() {
+        return winner == null;
     }
 }

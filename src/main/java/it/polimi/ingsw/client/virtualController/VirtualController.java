@@ -11,6 +11,7 @@ import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.Constants;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.viewRecord.GameRules;
@@ -26,7 +27,7 @@ import java.net.SocketTimeoutException;
 import java.util.*;
 
 public class VirtualController extends Thread implements Closeable {
-    private static final Gson messageBuilder = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson messageBuilder = Constants.jsonBuilder;
 
     private final Socket           socket;
     private final DataInputStream  inputStream;
@@ -98,24 +99,20 @@ public class VirtualController extends Thread implements Closeable {
                 map.forEach((v, o) -> modifyModelInfo(Client.getModel(), v, o));
             }
 
-            case ILLEGALMESSAGE -> view.signalConnectionError(); //FIXME: cambiare in illegalmessage, tanto server rimanda comando
-
-            case ILLEGALVALUE   -> view.signalConnectionError(); //FIXME: cambiare in illegalvalue, tanto server rimanda comando
-
             case REQUESTACTION  -> {
                 @SuppressWarnings("unchecked")
                 Tuple<GameActions, Object> dataValue = (Tuple<GameActions, Object>) message.value();
                 switchRequestAction(dataValue);
             }
 
-            case GAMEWINNER     -> view.signalConnectionError(); //TODO: cambiare in signalwinner //FIXME: correggere sendinfo dei winner/s/cassetti
+            case GAMEWINNER     -> view.signalWinner((Player)       message.value());
+            case GAMEWINNERTEAM -> view.signalWinner((List<Player>) message.value());
+            case GAMEDRAW       -> view.signalDraw  ((List<Player>) message.value());
 
-            case GAMEDRAW       -> view.signalConnectionError(); //TODO: cambiare in signaldraw
-
-            case GAMESTART      -> view.setUpBoard(); //TODO: cambiare in startgame
+            case GAMESTART      -> view.notifyGameStart();
 
             case GAMEPROGRESS   -> {
-                view.signalConnectionError(); //TODO: cambiare in signalgameprogress
+                view.notifyGameInProgress();
                 close();
             }
         }

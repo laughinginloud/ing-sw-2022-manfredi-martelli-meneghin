@@ -18,7 +18,7 @@ import java.util.Map;
  * State representing the end of a player ActionPhase's turn
  * @author Sebastiano Meneghin
  */
-public class GameStateEndOfTurn implements GameStateActionPhase {
+public final class GameStateEndOfTurn implements GameStateActionPhase {
     public GameState nextState() {
         return
             // Check if the game has been won already
@@ -90,19 +90,9 @@ public class GameStateEndOfTurn implements GameStateActionPhase {
                         resetCharacterCardFlags();
                     }
 
-                    // If the response is of the wrong kind, send an Illegal Command message and try this state again
-                    else {
-                        try {
-                            curPlayerView.sendMessage(new GameCommandIllegalCommand());
-                        }
-
-                        catch (Exception e) {
-                            // Fatal error: print the stack trace to help debug
-                            e.printStackTrace();
-                        }
-
-                        executeState();
-                    }
+                    // If the response is of the wrong kind throw an exception to help debug
+                    else
+                        throw new IllegalStateException("Wrong command received: " + response);
                 }
             }
         }

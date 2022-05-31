@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.save;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw.common.utils.Constants;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.GameController;
 
@@ -20,7 +21,7 @@ import java.util.Optional;
  * @author Mattia Martelli
  */
 public class GameSave {
-    private static final Gson saveBuilder = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson saveBuilder = Constants.jsonBuilder;
 
     private static final File SAVE_FOLDER = new File("./saves/");
 

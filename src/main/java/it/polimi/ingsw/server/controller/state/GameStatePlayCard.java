@@ -15,8 +15,10 @@ import java.util.*;
  * Class controlling the PlayCardPhase of the PlanPhase of every round
  * @author Sebastiano Meneghin
  */
-public class GameStatePlayCard implements GameStatePlanPhase {
-    public GameState nextState() { return new GameStateSelectTurnOrder(); }
+public final class GameStatePlayCard implements GameStatePlanPhase {
+    public GameState nextState() {
+        return new GameStateSelectTurnOrder();
+    }
 
     @Override
     public void executeState() {
