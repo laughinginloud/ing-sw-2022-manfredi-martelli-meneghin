@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.view.cli.ViewCLI;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.viewRecord.*;
 

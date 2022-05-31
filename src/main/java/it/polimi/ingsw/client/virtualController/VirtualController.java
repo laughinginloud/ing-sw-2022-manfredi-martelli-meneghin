@@ -96,8 +96,6 @@ public class VirtualController extends Thread implements Closeable {
                 }
 
                 map.forEach((v, o) -> modifyModelInfo(Client.getModel(), v, o));
-
-                view.setUpBoard(); //TODO: cambiare in notifymodelchanges
             }
 
             case ILLEGALMESSAGE -> view.signalConnectionError(); //FIXME: cambiare in illegalmessage, tanto server rimanda comando
@@ -135,12 +133,12 @@ public class VirtualController extends Thread implements Closeable {
 
             case MOTHERNATURE -> model.setMotherNaturePosition((int) object);
 
-            case ENTRANCE -> {/*TODO: gestire anche player (indice?)*/
+            case ENTRANCE -> {
                 Tuple<Integer, Entrance> tuple = (Tuple<Integer, Entrance>) object;
                 model.getPlayer(tuple.left()).getSchoolBoard().setEntrance(tuple.right());
             }
 
-            case ENTRANCEARRAY -> {/*TODO: entrance ordinate per player*/
+            case ENTRANCEARRAY -> {
                 Entrance[] entrances = (Entrance[]) object;
                 for (int i = 0; i < entrances.length; ++i)
                     model.getPlayer(i).getSchoolBoard().setEntrance(entrances[i]);
@@ -177,7 +175,8 @@ public class VirtualController extends Thread implements Closeable {
             //ENDTODO
         }
 
-        //TODO: notify the model changes with "updateModel" of the Class View
+        // Notify the model changes with "updateModel" of the Class View
+        view.updateModel(model);
     }
 
     /**
