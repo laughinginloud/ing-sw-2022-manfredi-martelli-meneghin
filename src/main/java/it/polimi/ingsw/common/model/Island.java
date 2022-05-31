@@ -15,7 +15,7 @@ public class Island {
     private       int           multiplicity;
     private       TowerColor    towerColor;
     private       Integer       noEntryTileCount;
-    private final List<Integer> backgroundID;
+    private       Integer       backgroundID;
 
     // endregion
 
@@ -25,13 +25,12 @@ public class Island {
      * Constructor of the class 'Island'
      */
     public Island() {
-        studentCounters = new int[Color.values().length];
+        studentCounters  = new int[Color.values().length];
         setStudentCounters(0);
-        setMultiplicity(0);
+        setMultiplicity(   0);
         noEntryTileCount = null;
-        //A merged island will consist of a maximum of 11 sub-islands, according to winning rules
-        backgroundID = new ArrayList<>();
-        towerColor = null;
+        backgroundID     = null;
+        towerColor       = null;
     }
 
     // endregion
@@ -67,16 +66,7 @@ public class Island {
      * Gets all the backgroundIDs assigned to the island, without deleting them
      * @return An int array of island's backgroundIDs
      */
-    public int[] getBackgroundID() {
-        int[] temp = null;
-        if (backgroundID.size() > 0){
-            temp = new int[backgroundID.size()];
-            for (int i = 0; i < backgroundID.size(); i++)
-                temp[i] = backgroundID.get(i);
-        }
-
-        return temp;
-    }
+    public int getBackgroundID() { return this.backgroundID; }
 
     // endregion
 
@@ -139,29 +129,17 @@ public class Island {
 
     // region Others
 
+    // TODO: Test it
     /**
      * Adds a backgroundID to the end of the backgroundID's list, modifying its length
-     * @param id The backgroundID to add (positive integer between 0 and 3)
+     * @param backgroundID The backgroundID to add (positive integer between 0 and 3)
      * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void addBackgroundID(int id) throws IllegalArgumentException {
-        if (id < 0 || id > 3)
+    public void setBackgroundID(int backgroundID) throws IllegalArgumentException {
+        if (backgroundID < 0 || backgroundID > 3)
             throw new IllegalArgumentException("Island.backgroundID accepted value is between 0 and 3");
 
-        backgroundID.add(id);
-    }
-
-    /**
-     * Adds every backgroundID of the array ids to the end of backgroundID's list, modifying its length
-     * @param ids Array of backgroundID to add (not null)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
-     */
-    public void addBackgroundID(int[] ids) throws IllegalArgumentException {
-        if (ids == null)
-            throw new IllegalArgumentException("addBackgroundID does not accept null arrays! Insert a not null int[]");
-
-        for (int id : ids)
-            addBackgroundID(id);
+        this.backgroundID = backgroundID;
     }
 
     // endregion

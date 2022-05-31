@@ -22,13 +22,11 @@ public class IslandTest {
     private              Field         noEntryTileCountField;
     private        final int           noEntryTileCountTest = 1;
     private              Field         backgroundIDField;
-    private static       List<Integer> backgroundIDTest;
+    private static       Integer       backgroundIDTest;
 
     @BeforeAll
     static void dataInitialization() {
-        backgroundIDTest = new ArrayList<>();
-        for (int i = 0; i < multiplicityTest; i++)
-            backgroundIDTest.add(i % 4);
+        backgroundIDTest = 1;
     }
 
     //Consider initial settings present in the constructor method
@@ -54,7 +52,8 @@ public class IslandTest {
 
         //Use reflection to reset the following private fields
         studentCountersField.set(islandTest, new int[Color.values().length]);
-        backgroundIDField.set(islandTest, new ArrayList<Integer>());
+        backgroundIDField.set(islandTest, null);
+        backgroundIDField.set(islandTest, null);
     }
 
     /**
@@ -159,43 +158,5 @@ public class IslandTest {
 
         if (!(noEntryTileCountField.get(islandTest)).equals(noEntryTileCountTest))
             throw new AssertionError("Setter of noEntryTileCount returned wrong value");
-    }
-
-    /**
-     * Test for the getter of the field "backgroundID"
-     */
-    @Test
-    void getBackgroundIDTest() throws IllegalAccessException {
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < multiplicityTest; i++)
-            temp.add(backgroundIDTest.get(i));
-
-        backgroundIDField.set(islandTest, temp);
-
-        for (int i = 0; i < multiplicityTest; i++)
-            if (backgroundIDTest.get(i) != islandTest.getBackgroundID()[i])
-                throw new AssertionError("Getter of backgroundID returned wrong value");
-    }
-
-    /**
-     * Test for both the setter of the field "backgroundID"
-     */
-    @Test
-    void addBackgroundIDTest() throws IllegalAccessException {
-        //Add multiple backgroundIDs to the backgroundID's list
-        for (int i = 0; i < multiplicityTest; i++)
-            islandTest.addBackgroundID(backgroundIDTest.get(i));
-
-        @SuppressWarnings("unchecked")
-        List<Integer> backgroundIDValue = (ArrayList<Integer>) backgroundIDField.get(islandTest);
-
-        //Check at the end
-        for (int i = 0; i < multiplicityTest; i++)
-            if (!Objects.equals(backgroundIDTest.get(i), backgroundIDValue.get(i)))
-                throw new AssertionError("Adder of backgroundID added value in wrong position");
-
-        //Problem with different lengths
-        if (backgroundIDValue.size() != backgroundIDTest.size())
-            throw new AssertionError("Adder of backgroundID added too many/not enough elements");
     }
 }

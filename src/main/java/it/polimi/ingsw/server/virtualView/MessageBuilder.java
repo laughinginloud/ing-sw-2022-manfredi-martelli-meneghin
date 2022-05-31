@@ -84,12 +84,12 @@ final class MessageBuilder {
 
         switch(message.type()) {
             case SENDINFO -> {
-                //TODO: It shouldn't be necessary
+                //It shouldn't be necessary
                 return null;
             }
 
             case REQUESTVALUE -> {
-                //TODO: It shouldn't be necessary
+                //It shouldn't be necessary
                 int filler = 0;
                 return null;
             }

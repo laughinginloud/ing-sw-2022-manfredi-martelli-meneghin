@@ -250,7 +250,7 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
     private void mergeIslandsData(Island finalIsland, Island oldIsland) {
         finalIsland.setMultiplicity(finalIsland.getMultiplicity() + oldIsland.getMultiplicity());
-        finalIsland.addBackgroundID(oldIsland.getBackgroundID());
+        finalIsland.setBackgroundID(oldIsland.getBackgroundID());
         finalIsland.setNoEntryTileCount(finalIsland.getNoEntryTileCount() + oldIsland.getNoEntryTileCount());
         for (Color color : Color.values())
             finalIsland.setStudentCounters(color, finalIsland.getStudentCounters(color) + oldIsland.getStudentCounters(color));

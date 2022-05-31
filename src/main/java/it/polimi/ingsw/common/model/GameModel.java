@@ -82,7 +82,7 @@ public class GameModel {
         int seed = (int) (Math.random() * 3);
         for (int i = 0; i < islands.length; ++i) {
             islands[i] = new Island();
-            islands[i].addBackgroundID(seed++ % 4);
+            islands[i].setBackgroundID(seed++ % 3);
         }
     }
 
