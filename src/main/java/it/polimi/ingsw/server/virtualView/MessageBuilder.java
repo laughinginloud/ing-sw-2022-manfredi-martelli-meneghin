@@ -7,6 +7,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.*;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.Constants;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
@@ -24,7 +25,7 @@ final class MessageBuilder {
     private MessageBuilder() {}
 
     // The builder object that morphs between JSON and objects
-    private static final Gson jsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson jsonBuilder = Constants.jsonBuilder;
 
     /**
      * Get the message (in JSON form) corresponding to the specified command

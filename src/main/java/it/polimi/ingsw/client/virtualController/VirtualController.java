@@ -11,6 +11,7 @@ import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.Constants;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.viewRecord.GameRules;
@@ -26,7 +27,7 @@ import java.net.SocketTimeoutException;
 import java.util.*;
 
 public class VirtualController extends Thread implements Closeable {
-    private static final Gson messageBuilder = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson messageBuilder = Constants.jsonBuilder;
 
     private final Socket           socket;
     private final DataInputStream  inputStream;
