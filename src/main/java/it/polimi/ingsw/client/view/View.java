@@ -1,19 +1,19 @@
 package it.polimi.ingsw.client.view;
 
-import it.polimi.ingsw.client.Address;
-import it.polimi.ingsw.client.virtualController.VirtualController;
+import it.polimi.ingsw.client.view.cli.ViewCLI;
+import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.viewRecord.*;
 
 import java.util.Optional;
 import java.util.Set;
 
-public interface View {
-    void initialize(); //TODO: decidere se collassare nel costruttore
+public sealed interface View permits ViewCLI, ViewGUI {
+    void launchUI();
 
     void setUpBoard();
 
-    Address getAddress();
+    void requestAddress();
 
     void signalConnectionError();
 
@@ -224,6 +224,4 @@ public interface View {
      * @param virtualController The VirtualController that this.virtualController has to be set to
      */
     void setVirtualController(VirtualController virtualController);
-
-    MenuItem menu();
 }
