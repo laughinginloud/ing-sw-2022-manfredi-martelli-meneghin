@@ -57,11 +57,12 @@ public class BardStrategy extends CharacterCardStrategy {
                 @SuppressWarnings("unchecked")
                 Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
-                // Gets the number of students that the player wants to move, from the Map received from the client
-                // TODO: [ClientImplementation] Int movementBard chosen from the client has to be between 1 and maxNumOfMovements
+                // Gets the number of students that the player wants to move, from the Map received
+                // from the client (it has to be between 1 and maxNumOfMovements)
                 int chosenNumOfMovement = (int) chosenField.get(GameValues.MOVEMENTBARD);
 
-                // For chosenNumOfMovement times asks the player which students he would like to move, waits for response and notifies all the players after the movement
+                // For chosenNumOfMovement times asks the player which students he would like to move,
+                // waits for response and then notifies all the players after the movement
                 for (int i = 0; i < chosenNumOfMovement; i++)
                     changeStudent(model, curPlayer, playerView);
 
@@ -102,6 +103,10 @@ public class BardStrategy extends CharacterCardStrategy {
         bardMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.BARDSECOND);
         bardMap.put(GameValues.BARDSWAPPABLESTUDENTS, swappableStudents);
 
+        // Add the Entrance from which the students will be selected
+        Entrance entranceToMoveFrom = curPlayer.getSchoolBoard().getEntrance();
+        bardMap.put(GameValues.ENTRANCE, entranceToMoveFrom);
+
         // Add to the Map that will be sent to the player the SwapMap related to the swappableStudents
         Map<Color, Boolean[]> bardPossibleMovementMap = setBardPossibleMovements(curPlayer, swappableStudents);
         bardMap.put(GameValues.BARDSWAPMAP, bardPossibleMovementMap);
@@ -109,6 +114,7 @@ public class BardStrategy extends CharacterCardStrategy {
         // The server asks the player which students would like to move (one from the Card, one from the Entrance)
         GameCommand movementRequest  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, bardMap);
         GameCommand movementResponse = playerView.sendRequest(movementRequest);
+
 
         // If the response is of the right kind
         if (movementResponse instanceof GameCommandChosenCharacterCardFields c) {
