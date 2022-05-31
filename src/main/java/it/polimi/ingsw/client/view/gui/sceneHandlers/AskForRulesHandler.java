@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.common.viewRecord.GameRules;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -54,12 +55,7 @@ public class AskForRulesHandler implements GUIHandler, Initializable {
         int readNumOfPlayers = numOfPlayers_spinner.getValue();
         boolean readExpertMode = expertMode_checkBox.isSelected();
 
-        // gui.sendInformationToVirtualControllerGameRulse(readNumOfPlayers, readExpertMode)
-
-        // ******************************************
-        // Code used only for testing the application
-        gui.changeScene(Pages.WIZARD_CHOICE);
-        // ******************************************
+        gui.forwardViewToVirtualController(new GameRules(readNumOfPlayers, readExpertMode));
     }
 
     /**
@@ -86,6 +82,5 @@ public class AskForRulesHandler implements GUIHandler, Initializable {
     @Override
     public void setGUI(ViewGUI gui) {
         this.gui = gui;
-        // TODO: Check if the setGUI method is complete
     }
 }
