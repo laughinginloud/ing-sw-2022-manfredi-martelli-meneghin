@@ -8,6 +8,11 @@ import javafx.scene.layout.AnchorPane;
 
 public class WaitingRoomHandler implements GUIHandler {
 
+    private ViewGUI gui;
+
+    // TODO JavaDocs + Regions
+    // TODO Implementation
+
     @FXML
     private AnchorPane waitingRoom_pane;
 
@@ -25,6 +30,6 @@ public class WaitingRoomHandler implements GUIHandler {
      */
     @Override
     public void setGUI(ViewGUI gui) {
-        //TODO: [GUI implementation]
+        this.gui = gui;
     }
 }

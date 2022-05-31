@@ -100,6 +100,7 @@ public class ServerInfoHandler implements GUIHandler {
 
         else {
             try{
+                // TODO fix with the new implemtantion of signal in Client.java
                 gui.setVirtualController(new VirtualController(new Address(readIP, portInt), gui));
             }
             catch (IOException e){

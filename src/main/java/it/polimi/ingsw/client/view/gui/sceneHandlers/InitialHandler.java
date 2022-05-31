@@ -22,6 +22,8 @@ public class InitialHandler implements GUIHandler{
 
     // endregion FXML_Ids
 
+    // TODO [InitialScene] Implementation
+
     /**
      *
      * @param gui

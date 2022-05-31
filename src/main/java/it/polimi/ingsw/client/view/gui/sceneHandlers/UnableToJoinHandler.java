@@ -9,6 +9,11 @@ import javafx.scene.text.Text;
 
 public class UnableToJoinHandler implements GUIHandler {
 
+    private ViewGUI gui;
+
+    // TODO JavaDocs + Regions
+    // TODO Implementation
+
     @FXML
     private AnchorPane unableToJoin_pane;
 
@@ -26,6 +31,6 @@ public class UnableToJoinHandler implements GUIHandler {
      */
     @Override
     public void setGUI(ViewGUI gui) {
-        //TODO: [GUI implementation]
+        this.gui = gui;
     }
 }

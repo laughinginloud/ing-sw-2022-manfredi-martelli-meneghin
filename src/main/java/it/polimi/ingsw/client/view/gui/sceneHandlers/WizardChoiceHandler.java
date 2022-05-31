@@ -10,6 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 public class WizardChoiceHandler implements GUIHandler {
+    private ViewGUI gui;
+
+    // TODO JavaDocs + Regions
+    // TODO Implementation
 
     @FXML
     private AnchorPane wizardChoice_pane;
@@ -63,6 +67,6 @@ public class WizardChoiceHandler implements GUIHandler {
      */
     @Override
     public void setGUI(ViewGUI gui) {
-        //TODO: [GUI implementation]
+        this.gui = gui;
     }
 }

@@ -32,7 +32,7 @@ public class GameChoiceHandler implements GUIHandler {
      * Signals to the Server the will of the player of starting a new game
      */
     public void loadNewGame(){
-
+        // TODO [GameChoice] - implementation
     }
 
     /**
@@ -40,7 +40,7 @@ public class GameChoiceHandler implements GUIHandler {
      * Signals to the Server the will of the player of continuing an old game
      */
     public void loadOldGame(){
-
+        // TODO [GameChoice] - implementation
     }
 
     /**
@@ -50,6 +50,5 @@ public class GameChoiceHandler implements GUIHandler {
     @Override
     public void setGUI(ViewGUI gui) {
         this.gui = gui;
-        // TODO: Check if the setGUI method is complete
     }
 }

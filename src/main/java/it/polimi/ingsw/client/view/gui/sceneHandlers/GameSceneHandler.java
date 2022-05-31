@@ -16,6 +16,9 @@ import java.io.IOException;
 
 public class GameSceneHandler implements GUIHandler {
     //TODO see if it's possible to center correctly the scene when launched
+
+    // TODO regions and JavaDocs
+    // TODO Ids of panes
     private ViewGUI gui;
 
     @FXML
@@ -75,13 +78,14 @@ public class GameSceneHandler implements GUIHandler {
     @FXML
     private AnchorPane cloudTile0_pane;
 
+    // TODO Full implementation
+
     /**
      * @param gui
      */
     @Override
     public void setGUI(ViewGUI gui) {
         this.gui = gui;
-        //TODO: [GUI implementation]
     }
 
     // Example of access to the nodes using the filter function

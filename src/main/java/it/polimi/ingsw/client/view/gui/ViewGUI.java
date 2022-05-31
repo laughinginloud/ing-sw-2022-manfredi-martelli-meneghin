@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.Address;
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.ClientInfoHandler;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIAlert;
@@ -28,6 +29,7 @@ import java.util.*;
  */
 public final class ViewGUI extends Application implements View {
 
+    // TODO [Readability]: divide the region "ViewImplementations" into subregions
     // region Fields
 
     VirtualController virtualController = null;
@@ -142,6 +144,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void playExitMenu() {
+        // TODO [InitialPage] - Start the scene
 
     }
 
@@ -151,7 +154,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalConnectionError() {
-
+        // TODO [Connection] - Understand how this method should work
     }
 
     /**
@@ -160,7 +163,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void updateModel(GameModel model) {
-
+        // TODO [Game]
     }
 
     /**
@@ -201,7 +204,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askEndOfTurn() {
-
+        // TODO [Game]
     }
 
     /**
@@ -224,7 +227,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestWizard(Wizard[] availableWizards) {
-
+        // TODO [WizardChoice]
     }
 
     /**
@@ -234,7 +237,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
-
+        // TODO [Game]
     }
 
     /**
@@ -244,7 +247,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-
+        // TODO [Game]
     }
 
     /**
@@ -254,7 +257,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestStudentEntranceSelection(Color[] entranceStudents) {
-
+        // TODO [Game]
     }
 
     /**
@@ -267,7 +270,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
-
+        // TODO [Game]
     }
 
     /**
@@ -280,7 +283,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
-
+        // TODO [Game]
     }
 
     /**
@@ -292,7 +295,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMotherNatureMovement(Island[] possibleMovement) {
-
+        // TODO [Game]
     }
 
     /**
@@ -306,7 +309,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
-
+        // TODO [Game]
     }
 
     /**
@@ -316,7 +319,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestCloudTileSelection(CloudTile[] availableClouds) {
-
+        // TODO [Game]
     }
 
     /**
@@ -328,7 +331,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
-
+        // TODO [Game]
     }
 
     /**
@@ -338,7 +341,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestHowManyStudentsToMove(int maxNumOfStudentMovable) {
-
+        // TODO [Game]
     }
 
     /**
@@ -348,7 +351,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseColor(Color[] availableColors) {
-
+        // TODO [Game]
     }
 
     /**
@@ -363,7 +366,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
-
+        // TODO [Game]
     }
 
     /**
@@ -375,7 +378,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromEntrance(Color[] availableColors) {
-
+        // TODO [Game]
     }
 
     /**
@@ -386,7 +389,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseIsland(Island[] availableIslands) {
-
+        // TODO [Game]
     }
 
     /**
@@ -398,7 +401,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
-
+        // TODO [Game]
     }
 
     /**
@@ -407,7 +410,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyGameInProgress() {
-
+        // TODO [Connection]
     }
 
     /**
@@ -416,7 +419,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyGameStart() {
-
+        // TODO [Connection]
     }
 
     /**
@@ -426,7 +429,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyPlayerDisconnection(Optional<String> disconnectionReason) {
-
+        // TODO [Connection]
     }
 
     /**
@@ -436,7 +439,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyCharacterCardPlayability() {
-
+        // TODO [Game]
     }
 
     /**
@@ -444,7 +447,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyStartGameTurn() {
-
+        // TODO [Game]
     }
 
     /**
@@ -452,7 +455,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyWaitGameTurn() {
-
+        // TODO [Game]
     }
 
     /**
@@ -460,7 +463,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyEndOfTurn() {
-
+        // TODO [Game]
     }
 
     /**
@@ -493,7 +496,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalWinner(Player winner) {
-
+        // TODO [EndGame]
     }
 
     /**
@@ -503,7 +506,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalWinner(List<Player> team) {
-
+        // TODO [EndGame]
     }
 
     /**
@@ -513,7 +516,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalDraw(List<Player> drawers) {
-
+        // TODO [EndGame]
     }
 
     // endregion ViewImplementation
