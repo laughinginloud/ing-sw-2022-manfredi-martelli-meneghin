@@ -131,6 +131,6 @@ public class JesterStrategy extends CharacterCardStrategy {
 
         // If the response is of the wrong kind throw an exception to help debug
         else
-            throw new IllegalStateException("Wrong command received: " + response);
+            throw new IllegalStateException("Wrong command received: " + movementResponse);
     }
 }
