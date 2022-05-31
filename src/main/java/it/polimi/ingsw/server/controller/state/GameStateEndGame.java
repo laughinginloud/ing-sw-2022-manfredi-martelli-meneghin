@@ -1,9 +1,8 @@
 package it.polimi.ingsw.server.controller.state;
 
-import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.utils.Ordering;
 import it.polimi.ingsw.server.controller.ControllerData;
-import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
+import it.polimi.ingsw.server.controller.command.GameCommandEndGame;
 import it.polimi.ingsw.common.model.Color;
 import it.polimi.ingsw.common.model.GlobalProfessorTable;
 import it.polimi.ingsw.common.model.Player;
@@ -222,39 +221,20 @@ public final class GameStateEndGame implements GameState {
      * Send the winner to every player
      */
     private void sendWinner(ControllerData data, Player winner) {
-        data.getPlayerViewMap()
-            .forEach((p, v) -> {
-                Map<GameValues, Object> winnerMap = new EnumMap<>(GameValues.class);
-                winnerMap.put(GameValues.WINNER, winner.getUsername());
-                v.sendMessage(new GameCommandSendInfo(winnerMap));
-            });
+        data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandEndGame(winner)));
     }
 
     /**
      * Send the winning team to every player
      */
     private void sendTeam(ControllerData data, List<Player> team) {
-        List<String> teamMembers = team.stream().map(Player::getUsername).toList();
-
-        data.getPlayerViewMap()
-            .forEach((p, v) -> {
-                Map<GameValues, Object> winnerMap = new EnumMap<>(GameValues.class);
-                winnerMap.put(GameValues.WINNINGTEAM, teamMembers);
-                v.sendMessage(new GameCommandSendInfo(winnerMap));
-            });
+        data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandEndGame(team, false)));
     }
 
     /**
      * Send the result of the draw to every player
      */
     private void sendDraw(ControllerData data, List<Player> players) {
-        List<String> drawers = players.stream().map(Player::getUsername).toList();
-
-        data.getPlayerViewMap()
-            .forEach((p, v) -> {
-                Map<GameValues, Object> drawerMap = new EnumMap<>(GameValues.class);
-                drawerMap.put(GameValues.DRAWERS, drawers);
-                v.sendMessage(new GameCommandSendInfo(drawerMap));
-            });
+        data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandEndGame(players, true)));
     }
 }

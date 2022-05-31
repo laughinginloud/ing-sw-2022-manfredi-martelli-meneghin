@@ -66,7 +66,7 @@ final class MessageBuilder {
         //TODO: ping
 
         if (command instanceof GameCommandEndGame c)
-            return new Message(c.isDraw() ? MessageType.GAMEDRAW : MessageType.GAMEWINNER, c.executeCommand()); //TODO: ripulire per team?
+            return new Message(c.isDraw() ? MessageType.GAMEDRAW : c.isTeam() ? MessageType.GAMEWINNERTEAM : MessageType.GAMEWINNER, c.executeCommand());
 
         if (command instanceof GameCommandInterruptGame)
             return new Message(MessageType.GAMEINTERRUPT, null);

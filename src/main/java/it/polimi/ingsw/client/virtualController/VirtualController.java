@@ -109,11 +109,11 @@ public class VirtualController extends Thread implements Closeable {
                 switchRequestAction(dataValue);
             }
 
-            case GAMEWINNER     -> view.signalConnectionError(); //TODO: cambiare in signalwinner //FIXME: correggere sendinfo dei winner/s/cassetti
+            case GAMEWINNER     -> view.signalWinner((Player)       message.value());
+            case GAMEWINNERTEAM -> view.signalWinner((List<Player>) message.value());
+            case GAMEDRAW       -> view.signalDraw  ((List<Player>) message.value());
 
-            case GAMEDRAW       -> view.signalConnectionError(); //TODO: cambiare in signaldraw
-
-            case GAMESTART      -> view.setUpBoard(); //TODO: cambiare in startgame
+            case GAMESTART      -> view.notifyGameStart();
 
             case GAMEPROGRESS   -> {
                 view.signalConnectionError(); //TODO: cambiare in signalgameprogress

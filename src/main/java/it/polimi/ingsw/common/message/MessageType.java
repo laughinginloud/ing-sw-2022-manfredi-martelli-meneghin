@@ -9,7 +9,7 @@ public enum MessageType {
     RESPONSEACTION,
 
     // End game results
-    GAMEWINNER, GAMEDRAW,
+    GAMEWINNER, GAMEWINNERTEAM, GAMEDRAW,
 
     // Ping messages
     PING, PONG,

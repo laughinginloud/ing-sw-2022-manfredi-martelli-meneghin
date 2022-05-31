@@ -225,4 +225,10 @@ public sealed interface View permits ViewCLI, ViewGUI {
      * @param virtualController The VirtualController that this.virtualController has to be set to
      */
     void setVirtualController(VirtualController virtualController);
+
+    void signalWinner(Player winner);
+
+    void signalWinner(List<Player> team);
+
+    void signalDraw(List<Player> drawers);
 }
