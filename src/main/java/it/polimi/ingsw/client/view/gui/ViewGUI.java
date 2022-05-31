@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.gui.sceneHandlers.ClientInfoHandler;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIAlert;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIHandler;
 import it.polimi.ingsw.client.virtualController.VirtualController;
@@ -44,7 +45,7 @@ public final class ViewGUI extends Application implements View {
 
     // endregion Fields
 
-    // region startMethods
+    // region StartMethods
 
     /**
      * Starts the Java Application thread and the GUI Window
@@ -104,14 +105,14 @@ public final class ViewGUI extends Application implements View {
         }
     }
 
-    // endregion startMethods
+    // endregion StartMethods
 
     //********************************************************************************************************
 
     // region Testing
 
     /**
-     * Chages the scene from a scene to the specified one, also sets the gui contained in that handler
+     * Changes the scene from a scene to the specified one, also sets the gui contained in that handler
      * @param page the page to switch the scene to
      */
     public void changeScene(Pages page){
@@ -137,7 +138,16 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     *
+     * Print the initial menu of the application
+     */
+    @Override
+    public void playExitMenu() {
+
+    }
+
+    /**
+     * Signals the player that the connection to the server
+     * is unavailable and that the application will be closed
      */
     @Override
     public void signalConnectionError() {
@@ -146,7 +156,6 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Updates the model, in order to show the latest model condition
-     *
      * @param model The updated model present on the server's model
      */
     @Override
@@ -159,7 +168,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askAddress() {
-
+        this.currentScene = nameMapScene.get(Pages.SERVER_INFO);
+        nameMapHandler.get(Pages.SERVER_INFO).setGUI(this);
+        stage.setScene(currentScene);
+        stage.show();
     }
 
     /**
@@ -195,7 +207,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestUsernameAndMagicAge(Set<String> forbiddenUsernames) {
-
+        this.currentScene = nameMapScene.get(Pages.CLIENT_INFO);
+        nameMapHandler.get(Pages.CLIENT_INFO).setGUI(this);
+        ((ClientInfoHandler) nameMapHandler.get(Pages.CLIENT_INFO)).setForbiddenUsernames(forbiddenUsernames);
+        stage.setScene(currentScene);
     }
 
     /**
@@ -336,8 +351,10 @@ public final class ViewGUI extends Application implements View {
      * Requests the player to choose a student from a specific CharacterCard, between the students provided
      * It sets to "clickable" only the students colored as the students contained in "availableColors"
      *
-     * @param characterCardPosition The position in the characterCardArray of the characterCard that is being played
-     * @param availableColors       The colors correspondent to the students that can be chosen between the characterCard's students
+     * @param characterCardPosition The position in the characterCardArray of the
+     *                              characterCard that is being played
+     * @param availableColors       The colors correspondent to the students that
+     *                              can be chosen between the characterCard's students
      * @param numOfAvailableStudent The number of students available on the characterCard (it could be useful)
      */
     @Override
@@ -349,7 +366,8 @@ public final class ViewGUI extends Application implements View {
      * Requests the player to choose a student from his Entrance.
      * It sets to "clickable" only the students colored as the students contained in "availableColors"
      *
-     * @param availableColors The colors correspondent to the students that can be moved/picked from the Entrance
+     * @param availableColors The colors correspondent to the students that can be
+     *                        moved/picked from the Entrance
      */
     @Override
     public void chooseStudentFromEntrance(Color[] availableColors) {
@@ -357,7 +375,8 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Requests the player to choose an Island. It sets to "clickable" only the island present in the "availableIslands" array
+     * Requests the player to choose an Island. It sets to "clickable"
+     * only the island present in the "availableIslands" array
      *
      * @param availableIslands An array of Island representing the Island that can be chosen by the player
      */
@@ -367,8 +386,9 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Requests the player to choose a diningRoomTable from the provided ones. It links the diningRoomTable with theirs color, then
-     * make "clickable" only the diningRoomTable that have the same color of the provided "compatibleDiningRoomTable" colors' array
+     * Requests the player to choose a diningRoomTable from the provided ones.
+     * It links the diningRoomTable with theirs color, then make "clickable" only the diningRoomTable
+     * that have the same color of the provided "compatibleDiningRoomTable" colors' array
      *
      * @param compatibleDiningRoomTable The color of the diningRoomTables that can be chosen by the player
      */
@@ -378,7 +398,8 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notifies the player that there's already a game in progress, then he will be disconnected from the server
+     * Notifies the player that there's already a game in progress,
+     * then he will be disconnected from the server
      */
     @Override
     public void notifyGameInProgress() {
@@ -439,14 +460,16 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Forwards the infoToSend to the Virtual Controller, contacting it through the method "messageAfterUserInteraction"
+     * Forwards the infoToSend to the Virtual Controller,
+     * contacting it through the method "messageAfterUserInteraction"
      *
-     * @param infoToSend An object containing the information that the client has to provide to the server in order
-     *                   to make some actions during the game (es. play a CharacterCard, move a Students, etc...)
+     * @param infoToSend An object containing the information that the client has to provide to the server
+     *                   in order to make some actions during the game (es. play a CharacterCard,
+     *                   move a Students, etc...)
      */
     @Override
     public void forwardViewToVirtualController(Object infoToSend) {
-
+        virtualController.messageAfterUserInteraction(infoToSend);
     }
 
     /**
@@ -456,7 +479,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void setVirtualController(VirtualController virtualController) {
-
+        this.virtualController = virtualController;
     }
 
     /**
