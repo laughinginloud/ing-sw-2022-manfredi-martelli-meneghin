@@ -99,10 +99,6 @@ public class VirtualController extends Thread implements Closeable {
                 map.forEach((v, o) -> modifyModelInfo(Client.getModel(), v, o));
             }
 
-            case ILLEGALMESSAGE -> view.signalConnectionError(); //FIXME: cambiare in illegalmessage, tanto server rimanda comando
-
-            case ILLEGALVALUE   -> view.signalConnectionError(); //FIXME: cambiare in illegalvalue, tanto server rimanda comando
-
             case REQUESTACTION  -> {
                 @SuppressWarnings("unchecked")
                 Tuple<GameActions, Object> dataValue = (Tuple<GameActions, Object>) message.value();

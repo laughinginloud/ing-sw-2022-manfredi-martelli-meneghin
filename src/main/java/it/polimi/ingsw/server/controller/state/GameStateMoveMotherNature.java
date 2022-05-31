@@ -113,19 +113,9 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
                 executeState();
             }
 
-            // If the response is of the wrong kind, send an Illegal Command message and try this state again
-            else {
-                try {
-                    playerView.sendMessage(new GameCommandIllegalCommand());
-                }
-
-                catch (Exception e) {
-                    // Fatal error: print the stack trace to help debug
-                    e.printStackTrace();
-                }
-
-                executeState();
-            }
+            // If the response is of the wrong kind throw an exception to help debug
+            else
+                throw new IllegalStateException("Wrong command received: " + response);
         }
 
         catch (Exception e) {

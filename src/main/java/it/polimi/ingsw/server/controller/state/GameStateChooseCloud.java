@@ -85,24 +85,15 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                 }
 
                 catch (IllegalArgumentException e) {
-                    try {
-                        playerView.sendMessage(new GameCommandIllegalValue());
-                    }
-
-                    catch (Exception ex) {
-                        // Fatal error: print the stack trace to help debug
-                        ex.printStackTrace();
-                    }
-
-                    executeState();
+                    e.printStackTrace();
                 }
             }
 
             // If the player decided to play a CharacterCard
             else if (response instanceof GameCommandPlayCharacterCard c) {
-                // If the player already used a CharacterCard during this turn, throws an exception
+                // If the player already used a CharacterCard during this turn, throws an exception to help debug
                 if(data.checkPlayedCard())
-                    throw new IllegalStateException("CharacterCard has been already used by the current player!");
+                    throw new IllegalStateException("Character card already used");
 
                 // Executes the command received
                 Character chosenCharacter = (Character) c.executeCommand();
@@ -119,19 +110,9 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                     executeState();
             }
 
-            // If the response is of the wrong kind, send an Illegal Command message and try this state again
-            else {
-                try {
-                    playerView.sendMessage(new GameCommandIllegalCommand());
-                }
-
-                catch (Exception e) {
-                    // Fatal error: print the stack trace to help debug
-                    e.printStackTrace();
-                }
-
-                executeState();
-            }
+            // If the response is of the wrong kind throw an exception to help debug
+            else
+                throw new IllegalStateException("Wrong command received: " + response);
         }
 
         catch (Exception e) {

@@ -51,19 +51,11 @@ final class MessageBuilder {
         if (command instanceof GameCommandRequestValueClient c)
             return new Message(MessageType.REQUESTVALUE, c.executeCommand());
 
-        if (command instanceof GameCommandIllegalCommand c)
-            return new Message(MessageType.ILLEGALMESSAGE, c.executeCommand());
-
-        if (command instanceof GameCommandIllegalValue c)
-            return new Message(MessageType.ILLEGALVALUE, c.executeCommand());
-
         if (command instanceof GameCommandSendInfo c)
             return new Message(MessageType.SENDINFO, c.executeCommand());
 
         if (command instanceof GameCommandRequestAction c)
             return new Message(MessageType.REQUESTACTION, c.executeCommand());
-
-        //TODO: ping
 
         if (command instanceof GameCommandEndGame c)
             return new Message(c.isDraw() ? MessageType.GAMEDRAW : c.isTeam() ? MessageType.GAMEWINNERTEAM : MessageType.GAMEWINNER, c.executeCommand());
