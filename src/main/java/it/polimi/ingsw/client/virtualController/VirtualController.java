@@ -120,47 +120,47 @@ public class VirtualController extends Thread implements Closeable {
 
     private void modifyModelInfo(GameModel model, GameValues value, Object object) {
         switch (value) {
-            case ISLANDARRAY -> model.setIsland((Island[]) object);
+            case COINPOOL             -> model.setCoinPool((int) object);
 
-            case PLAYERARRAY -> model.setPlayer((Player[]) object);
+            case ISLANDARRAY          -> model.setIsland((Island[]) object);
 
-            case CLOUDARRAY  -> model.setCloudTile((CloudTile[]) object); //Utilizzo: scelta tra nuvole, sostituzione dati model
+            case PLAYERARRAY          -> model.setPlayer((Player[]) object);
 
-            case CHARACTERCARDARRAY -> model.setCharacterCard((CharacterCard[]) object); //Utilizzo: scelta, sostuzione
+            case CLOUDARRAY           -> model.setCloudTile((CloudTile[]) object); //Utilizzo: scelta tra nuvole, sostituzione dati model
 
-            case MOTHERNATURE -> model.setMotherNaturePosition((int) object);
+            case CHARACTERCARDARRAY   -> model.setCharacterCard((CharacterCard[]) object); //Utilizzo: scelta, sostuzione
 
-            case ENTRANCE -> {
+            case MOTHERNATURE         -> model.setMotherNaturePosition((int) object);
+
+            case GLOBALPROFESSORTABLE -> model.setGlobalProfessorTable((GlobalProfessorTable) object);
+
+            case ENTRANCE             -> {
                 Tuple<Integer, Entrance> tuple = (Tuple<Integer, Entrance>) object;
                 model.getPlayer(tuple.left()).getSchoolBoard().setEntrance(tuple.right());
             }
 
-            case ENTRANCEARRAY -> {
+            case ENTRANCEARRAY        -> {
                 Entrance[] entrances = (Entrance[]) object;
                 for (int i = 0; i < entrances.length; ++i)
                     model.getPlayer(i).getSchoolBoard().setEntrance(entrances[i]);
             }
 
-            case DININGROOM -> {
+            case DININGROOM           -> {
                 Tuple<Integer, DiningRoom> tuple = (Tuple<Integer, DiningRoom>) object;
                 model.getPlayer(tuple.left()).getSchoolBoard().setDiningRoom(tuple.right());
             }
 
-            case DININGROOMARRAY -> {
+            case DININGROOMARRAY      -> {
                 DiningRoom[] diningRooms = (DiningRoom[]) object;
                 for (int i = 0; i < diningRooms.length; ++i)
                     model.getPlayer(i).getSchoolBoard().setDiningRoom(diningRooms[i]);
             }
 
-            case SCHOOLBOARDARRAY -> {
+            case SCHOOLBOARDARRAY     -> {
                 SchoolBoard[] schoolBoards = (SchoolBoard[]) object;
                 for (int i = 0; i < schoolBoards.length; ++i)
                     model.getPlayer(i).setSchoolBoard(schoolBoards[i]);
             }
-
-            case GLOBALPROFESSORTABLE -> model.setGlobalProfessorTable((GlobalProfessorTable) object);
-
-            case COINPOOL -> model.setCoinPool((int) object);
         }
 
         // Notify the model changes with "updateModel" of the Class View
@@ -225,7 +225,7 @@ public class VirtualController extends Thread implements Closeable {
 
         // Gets the color of the diningRoomTable where the students can be moved
         List<Color> compatibleDiningRoomList = new ArrayList<>();
-        Boolean[] diningRoomFlag = possibleMovementMap.get(selectedColor);
+        Boolean[]   diningRoomFlag           = possibleMovementMap.get(selectedColor);
         for (Color color : Color.values())
             if (diningRoomFlag[color.ordinal()])
                 compatibleDiningRoomList.add(color);
@@ -242,7 +242,7 @@ public class VirtualController extends Thread implements Closeable {
     private void switchRequestAction(Tuple<GameActions, Object> dataValue) {
         // Manages the received RequestAction depending on the GameCommandAction
         switch(dataValue.left()) {
-            case USERNAMEANDMAGICAGE -> {
+            case USERNAMEANDMAGICAGE        -> {
                 Set<String> forbiddenUsernames = (Set<String>) dataValue.right();
 
                 // Saves the Virtual Controller state
@@ -252,7 +252,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestUsernameAndMagicAge(forbiddenUsernames);
             }
 
-            case RULES -> {
+            case RULES                      -> {
                 // Saves the Virtual Controller state
                 this.vcState = VCStates.REQ_RULES;
 
@@ -260,7 +260,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.askRules();
             }
 
-            case WIZARD -> {
+            case WIZARD                     -> {
                 // Gets the availableWizards sent by the server
                 Wizard[] availableWizards = (Wizard[]) dataValue.right();
 
@@ -271,7 +271,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestWizard(availableWizards);
             }
 
-            case LOADGAME -> {
+            case LOADGAME                   -> {
                 // Saves the Virtual Controller state
                 this.vcState = VCStates.REQ_LOAD;
 
@@ -279,7 +279,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.askReloadGame();
             }
 
-            case PLAYASSISTANTCARD -> {
+            case PLAYASSISTANTCARD          -> {
                 // Gets the playable AssistantCard sent by the server
                 AssistantCard[] playableAssistantCard = (AssistantCard[]) dataValue.right();
 
@@ -290,7 +290,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestPlayAssistantCard(playableAssistantCard);
             }
 
-            case MOVESTUDENT -> {
+            case MOVESTUDENT                -> {
                 @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
                 Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
@@ -307,7 +307,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestStudentEntranceSelection(entranceStudents);
             }
 
-            case MOVEMOTHERNATURE -> {
+            case MOVEMOTHERNATURE           -> {
                 @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
                 Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
@@ -322,7 +322,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestMotherNatureMovement(possibleMovement);
             }
 
-            case CHOOSECLOUD -> {
+            case CHOOSECLOUD                -> {
                 @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
                 Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
@@ -337,7 +337,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestCloudTileSelection(availableClouds);
             }
 
-            case MOVESTUDENTORPLAYCARD -> {
+            case MOVESTUDENTORPLAYCARD      -> {
                 @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
                 Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
@@ -371,7 +371,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
             }
 
-            case CHOOSECLOUDORPLAYCARD -> {
+            case CHOOSECLOUDORPLAYCARD      -> {
                 @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
                 Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
@@ -387,7 +387,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
             }
 
-            case ENDTURN -> {
+            case ENDTURN                    -> {
                 @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
                 Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
@@ -401,7 +401,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.askEndOfTurn();
             }
 
-            case CHARACTERCARDEFFECT -> {
+            case CHARACTERCARDEFFECT        -> {
                 @SuppressWarnings("unchecked")
                 Map<GameValues, Object> characterCardEffectMap = (Map<GameValues, Object>) dataValue.right();
                 PlayCharacterAction     characterAction        = (PlayCharacterAction)     characterCardEffectMap.get(GameValues.CHARACTERVALUE);
@@ -484,7 +484,7 @@ public class VirtualController extends Thread implements Closeable {
                 int maxMovementBard = (int) characterCardEffectMap.get(GameValues.MAXMOVEMENTBARD);
 
                 // Saves the Virtual Controller state
-                this.vcState = VCStates.REQ_MERCH_FIRST;
+                this.vcState = VCStates.REQ_BARD_FIRST;
 
                 // Asks the player how many students he would like to move using the characterCard 'Bard'
                 view.requestHowManyStudentsToMove(maxMovementBard);
@@ -504,8 +504,8 @@ public class VirtualController extends Thread implements Closeable {
 
             case PRINCESSFIRST -> {
                 // Gets from the message the movableStudents present on the CharacterCard and the characterCardPosition
-                Color[] movableCCStudents = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
-                int characterCardPosition = (int) characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
+                Color[] movableCCStudents  = (Color[]) characterCardEffectMap.get(GameValues.CARDSTUDENTS);
+                int characterCardPosition  = (int)     characterCardEffectMap.get(GameValues.CHARACTERCARDPOSITION);
                 int numOfAvailableStudents = movableCCStudents.length;
 
                 // Saves the Virtual Controller state
@@ -532,7 +532,7 @@ public class VirtualController extends Thread implements Closeable {
     public void messageAfterUserInteraction (Object infoToSend) {
         switch(this.vcState) {
             case REQ_USER_AGE                   -> {
-                UsernameAndMagicAge usernameAndAgeInsertion = (UsernameAndMagicAge) infoToSend;
+                UsernameAndMagicAge                     usernameAndAgeInsertion     = (UsernameAndMagicAge) infoToSend;
                 Tuple<GameActions, UsernameAndMagicAge> usernameAndMagicAgeResponse = new Tuple<>(GameActions.INSERTEDUSERNAMEANDAGE, usernameAndAgeInsertion);
                 sendMessage(new Message(MessageType.RESPONSEACTION, usernameAndMagicAgeResponse));
 
@@ -542,7 +542,7 @@ public class VirtualController extends Thread implements Closeable {
 
             case REQ_RULES                      -> {
                 // Saves the record GameRules, containing the rules he would like to play with in a tuple
-                GameRules rulesChoice = (GameRules) infoToSend;
+                GameRules                     rulesChoice      = (GameRules) infoToSend;
                 Tuple<GameActions, GameRules> askRulesResponse = new Tuple<>(GameActions.CHOSENRULES, rulesChoice);
 
                 // Sends the player's choice to the server, via message
@@ -554,7 +554,7 @@ public class VirtualController extends Thread implements Closeable {
 
             case REQ_WIZARD                     -> {
                 // Saves in a Tuple(GameActions, Wizard) which wizard the player wants to play
-                Wizard wizardChoice = (Wizard) infoToSend;
+                Wizard                     wizardChoice      = (Wizard) infoToSend;
                 Tuple<GameActions, Wizard> askWizardResponse = new Tuple<>(GameActions.CHOSENWIZARD, wizardChoice);
 
                 // Send the player's choice to the server, via message
@@ -566,7 +566,7 @@ public class VirtualController extends Thread implements Closeable {
 
             case REQ_LOAD                       -> {
                 // Saves the player specific decision to reload a game or not, in a Tuple
-                Boolean loadGameChoice = (Boolean) infoToSend;
+                Boolean                     loadGameChoice   = (Boolean) infoToSend;
                 Tuple<GameActions, Boolean> loadGameResponse = new Tuple<>(GameActions.LOADGAMECHOICE, loadGameChoice);
 
                 // Send the player's choice to the server, via message
@@ -578,7 +578,7 @@ public class VirtualController extends Thread implements Closeable {
 
             case REQ_PLAY_ASS                   -> {
                 // Saves the AssistantCard the player played in a Tuple
-                AssistantCard chosenAssistantCard = (AssistantCard) infoToSend;
+                AssistantCard                     chosenAssistantCard   = (AssistantCard) infoToSend;
                 Tuple<GameActions, AssistantCard> playAssistantResponse = new Tuple<>(GameActions.CHOSENASSISTANTCARD, chosenAssistantCard);
 
                 // Send the player's choice to the server, via message
@@ -860,8 +860,8 @@ public class VirtualController extends Thread implements Closeable {
 
                 // Gets the Entrance of the player (sent by the Server) and then find which is the color of
                 // the student that has been selected by the player, according to its entranceIndex
-                Entrance entranceToMoveFrom = (Entrance) savedReceivedMap.get(GameValues.ENTRANCE);
-                Color selectedStudentColor = entranceToMoveFrom.getStudents()[entranceStudentIndex];
+                Entrance entranceToMoveFrom   = (Entrance) savedReceivedMap.get(GameValues.ENTRANCE);
+                Color    selectedStudentColor = entranceToMoveFrom.getStudents()[entranceStudentIndex];
 
                 // Gets the color of the compatible DiningRooms, according to the Info received via message from the Server
                 Color[] compatibleDiningRoom = getCompatibleDiningRooms(savedReceivedMap, selectedStudentColor);
@@ -873,7 +873,7 @@ public class VirtualController extends Thread implements Closeable {
                 view.requestChooseDiningRoom(compatibleDiningRoom);
             }
 
-            case REQ_BARD_SECOND_DINING -> {
+            case REQ_BARD_SECOND_DINING         -> {
                 // Gets the color of the DiningRoomTable from which the player wants to take the student to swap with
                 // the entrance's student selected previously
                 Color selectedDiningRoomTable = (Color) infoToSend;
