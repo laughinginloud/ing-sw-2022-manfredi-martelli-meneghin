@@ -180,7 +180,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askRules() {
-
+        this.currentScene = nameMapScene.get(Pages.ASK_RULES);
+        nameMapHandler.get(Pages.ASK_RULES).setGUI(this);
+        stage.setScene(currentScene);
     }
 
     /**
@@ -188,7 +190,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askReloadGame() {
-
+        this.currentScene = nameMapScene.get(Pages.GAME_CHOICE);
+        nameMapHandler.get(Pages.GAME_CHOICE).setGUI(this);
+        stage.setScene(currentScene);
     }
 
     /**
