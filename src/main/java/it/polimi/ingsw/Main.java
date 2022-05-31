@@ -1,7 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.common.termutils.Constants;
+import it.polimi.ingsw.common.termutils.TermConstants;
 import it.polimi.ingsw.common.termutils.Key;
 import it.polimi.ingsw.common.termutils.Ansi;
 import it.polimi.ingsw.server.controller.GameController;
@@ -16,6 +16,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static it.polimi.ingsw.common.termutils.Ansi.hideCursor;
+import static it.polimi.ingsw.common.termutils.Ansi.showCursor;
 
 /**
  * Entry point of the app and main mode menu
@@ -118,16 +121,14 @@ public class Main {
             InputStream inputStream = terminal.input();
             PrintWriter writer      = terminal.writer();
 
-            // Variable that represents the currently selected menu item, starting from 0
-            int selection = 0;
+            // Variable that represents the currently selected menu item
+            Selection selection = Selection.SERVER;
 
             // Used to generate the menu
             List<String> mainMenu    = new ArrayList<>();
             List<String> menuOptions = new ArrayList<>();
 
-            // Hide the cursor
-            // NB: not all terminal emulators support it, but the majority do
-            writer.print(Ansi.CURSOR_HIDE);
+            hideCursor(writer);
 
             // Main menu loop
             MENU: while (true) {
@@ -137,7 +138,7 @@ public class Main {
                 menuOptions.clear();
 
                 // Add the top text to the menu
-                mainMenu.addAll(Constants.logoList);
+                mainMenu.addAll(TermConstants.logoList);
                 mainMenu.add("Welcome! Please select the desired mode: ");
                 mainMenu.add("");
 
@@ -148,7 +149,7 @@ public class Main {
                 menuOptions.add("> Exit");
 
                 // Color the one currently selected
-                menuOptions.set(selection, Ansi.colorString(menuOptions.get(selection), Ansi.CYAN));
+                colorSelected(menuOptions, selection);
 
                 // Fuse the entire menu
                 mainMenu.addAll(menuOptions);
@@ -166,37 +167,37 @@ public class Main {
                     switch (Key.parseKey(inputStream)) {
                         // Tab, down arrow or right arrow: go to next menu item
                         case TAB, DOWN_ARROW, RIGHT_ARROW -> {
-                            selection = (selection + 1) % 4;
+                            selection = selection.nextItem();
                             continue MENU;
                         }
 
                         // Up arrow or left arrow: go to the previous menu item
                         case UP_ARROW, LEFT_ARROW -> {
-                            selection = (selection + 3) % 4;
+                            selection = selection.prevItem();
                             continue MENU;
                         }
 
                         // Number one: jump to server option
                         case ONE -> {
-                            selection = 0;
+                            selection = Selection.SERVER;
                             continue MENU;
                         }
 
                         // Number two: jump to CLI option
                         case TWO -> {
-                            selection = 1;
+                            selection = Selection.CLI;
                             continue MENU;
                         }
 
                         // Number three: jump to GUI option
                         case THREE -> {
-                            selection = 2;
+                            selection = Selection.GUI;
                             continue MENU;
                         }
 
                         // Number four: jump to exit option
                         case FOUR -> {
-                            selection = 3;
+                            selection = Selection.EXIT;
                             continue MENU;
                         }
 
@@ -204,25 +205,25 @@ public class Main {
                         case ENTER -> {
                             switch (selection) {
                                 // Option 1: start the server
-                                case 0 -> {
-                                    writer.print(Ansi.CURSOR_SHOW);
+                                case SERVER -> {
+                                    showCursor(writer);
                                     GameController.main();
                                 }
 
                                 // Option 2: start the client in CLI mode
-                                case 1 -> {
-                                    writer.print(Ansi.CURSOR_SHOW);
+                                case CLI -> {
+                                    showCursor(writer);
                                     Client.main(terminal, display, inputStream, attributes);
                                 }
 
                                 // Option 3: start the client in GUI mode
-                                case 2 -> {
-                                    writer.print(Ansi.CURSOR_SHOW);
+                                case GUI -> {
+                                    showCursor(writer);
                                     Client.main(true);
                                 }
 
                                 // Option 4: exit without doing anything
-                                case 3 -> {
+                                case EXIT -> {
                                     // Before closing the program restore the terminal to its original state
                                     terminal.setAttributes(attributes);
                                     terminal.puts(InfoCmp.Capability.exit_ca_mode);
@@ -258,7 +259,47 @@ public class Main {
     }
 
     /**
+     * Color the selected option of the menu
+     * @param menuOptions A list containing the options
+     * @param selection The item selected
+     */
+    private static void colorSelected(List<String> menuOptions, Selection selection) {
+        menuOptions.set(selection.ordinal(), Ansi.colorString(menuOptions.get(selection.ordinal()), Ansi.CYAN));
+    }
+
+    /**
      * Exception used to signal that the game has not started
      */
     private static class GameNotStarted extends Exception {}
+
+    /**
+     * Enum to represent the currently selected item
+     */
+    private enum Selection {
+        SERVER, CLI, GUI, EXIT;
+
+        /**
+         * Get the next item
+         */
+        public Selection nextItem() {
+            return switch (this) {
+                case SERVER -> CLI;
+                case CLI    -> GUI;
+                case GUI    -> EXIT;
+                case EXIT   -> SERVER;
+            };
+        }
+
+        /**
+         * Get the previous item
+         */
+        public Selection prevItem() {
+            return switch (this) {
+                case SERVER -> EXIT;
+                case CLI    -> SERVER;
+                case GUI    -> CLI;
+                case EXIT   -> GUI;
+            };
+        }
+    }
 }

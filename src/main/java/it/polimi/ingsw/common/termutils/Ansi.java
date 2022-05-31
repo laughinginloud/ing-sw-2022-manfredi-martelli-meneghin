@@ -1,6 +1,7 @@
 package it.polimi.ingsw.common.termutils;
 
 import it.polimi.ingsw.common.model.Color;
+import it.polimi.ingsw.common.model.TowerColor;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -137,6 +138,22 @@ public enum Ansi {
     }
 
     /**
+     * Return the ANSI color associated with the provided tower color
+     * @param color The tower to convert
+     * @param background If it's <code>true</code> then the result will be the background version, otherwise
+     *                   it will be the foreground one
+     * @return The enum constant associated
+     */
+    public static Ansi getTowerColor(TowerColor color, boolean background) {
+        return switch (color) {
+            case BLACK -> background ? BACKGROUND_GRAY        : GRAY;
+            case WHITE -> background ? BACKGROUND_WHITE       : WHITE;
+            case GREY  -> background ? BACKGROUND_BRIGHT_GRAY : BRIGHT_GRAY;
+            case null  -> DEFAULT;
+        };
+    }
+
+    /**
      * Move the cursor in one of the four cardinal directions, returning the ANSI code to do so
      * @param direction The direction of the movement
      * @param numOfCells The number of cells the movement will cover
@@ -158,6 +175,22 @@ public enum Ansi {
      */
     public static void moveCursor(PrintWriter writer, Direction direction, int numOfCells) {
         writer.print(moveCursor(direction, numOfCells));
+    }
+
+    /**
+     * Hide the cursor for the specified writer, if the terminal emulator supports it
+     * @param writer The writer for which to hide the cursor
+     */
+    public static void hideCursor(PrintWriter writer) {
+        writer.print(HIDE_CURSOR);
+    }
+
+    /**
+     * Show the cursor for the specified writer
+     * @param writer The writer for which to show the cursor
+     */
+    public static void showCursor(PrintWriter writer) {
+        writer.print(SHOW_CURSOR);
     }
 
     // endregion
