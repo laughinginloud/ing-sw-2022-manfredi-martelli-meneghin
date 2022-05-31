@@ -26,7 +26,7 @@ import java.util.*;
  * ViewGUI implements Application to execute the program with the Java Application Thread
  * @author Giovanni Manfredi & Sebastiano Meneghin
  */
-public class ViewGUI extends Application implements View {
+public final class ViewGUI extends Application implements View {
 
     VirtualController virtualController = null;
     private GameModel model;

@@ -7,8 +7,9 @@ import org.jline.terminal.TerminalBuilder;
 
 import java.io.PrintWriter;
 
-public abstract class ViewCLI implements View {
-    Terminal terminal;
+import static it.polimi.ingsw.common.termutils.Ansi.*;
+
+public final class ViewCLI implements View {
 
     PrintWriter writer;
 
