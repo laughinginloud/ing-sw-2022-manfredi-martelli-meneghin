@@ -10,8 +10,10 @@ import java.util.Map;
  * Class representing the players' turn order selection made before the end of the PlanPhase
  * @author Sebastiano Meneghin
  */
-public class GameStateSelectTurnOrder implements GameStatePlanPhase {
-    public GameState nextState() { return new GameStateMoveStudents(); }
+public final class GameStateSelectTurnOrder implements GameStatePlanPhase {
+    public GameState nextState() {
+        return new GameStateMoveStudents();
+    }
 
     @Override
     public void executeState() {

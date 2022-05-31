@@ -20,7 +20,7 @@ import java.util.Map;
  * State representing the retrieval of students from an island
  * @author Mattia Martelli
  */
-public class GameStateChooseCloud implements GameStateActionPhase {
+public final class GameStateChooseCloud implements GameStateActionPhase {
     public GameState nextState() {
         return
             // Check if the game has been won already

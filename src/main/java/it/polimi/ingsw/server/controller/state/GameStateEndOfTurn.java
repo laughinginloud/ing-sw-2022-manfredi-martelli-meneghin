@@ -18,7 +18,7 @@ import java.util.Map;
  * State representing the end of a player ActionPhase's turn
  * @author Sebastiano Meneghin
  */
-public class GameStateEndOfTurn implements GameStateActionPhase {
+public final class GameStateEndOfTurn implements GameStateActionPhase {
     public GameState nextState() {
         return
             // Check if the game has been won already

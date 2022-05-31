@@ -13,7 +13,7 @@ import java.util.Map;
  * Class containing the initialization procedure of ExpertMode feature
  * @author Sebastiano Meneghin
  */
-public class GameStateExpertInitialization implements GameStateSetup {
+public final class GameStateExpertInitialization implements GameStateSetup {
     public GameState nextState() {
         return new GameStateFillClouds();
     }

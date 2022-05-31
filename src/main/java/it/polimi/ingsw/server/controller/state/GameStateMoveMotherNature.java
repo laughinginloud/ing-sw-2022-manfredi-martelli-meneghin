@@ -19,7 +19,7 @@ import java.util.Map;
  * State representing the request and subsequent movement of the Mother Nature pawn
  * @author Mattia Martelli
  */
-public class GameStateMoveMotherNature implements GameStateActionPhase {
+public final class GameStateMoveMotherNature implements GameStateActionPhase {
     public GameState nextState() {
         return
             // Check if the game has been won already

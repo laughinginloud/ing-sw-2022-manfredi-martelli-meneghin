@@ -16,7 +16,7 @@ import static it.polimi.ingsw.common.utils.Ordering.compare;
  * State representing the end of the game
  * @author Mattia Martelli
  */
-public class GameStateEndGame implements GameState {
+public final class GameStateEndGame implements GameState {
     private Player       winner     = null;
     private List<Player> winnerList = null;
 

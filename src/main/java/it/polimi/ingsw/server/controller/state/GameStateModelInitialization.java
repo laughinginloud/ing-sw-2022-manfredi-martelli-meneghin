@@ -10,7 +10,7 @@ import it.polimi.ingsw.common.model.PlayerTeamExpert;
  * State representing the initial model initialization
  * @author Mattia Martelli
  */
-public class GameStateModelInitialization implements GameStateSetup {
+public final class GameStateModelInitialization implements GameStateSetup {
     public GameState nextState() {
         return new GameStatePlaceTokens();
     }
