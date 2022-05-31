@@ -22,6 +22,11 @@ public sealed interface View permits ViewCLI, ViewGUI {
     void launchUI();
 
     /**
+     * Print the initial menu of the application
+     */
+    void playExitMenu();
+
+    /**
      * Signals the player that the connection to the server
      * is unavailable and that the application will be closed
      */
