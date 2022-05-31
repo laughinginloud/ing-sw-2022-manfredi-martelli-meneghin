@@ -13,7 +13,7 @@ import java.util.*;
  * State representing the operations on the islands: control, conquest and unification
  * @author Mattia Martelli
  */
-public class GameStateComputeIsland implements GameStateActionPhase {
+public final class GameStateComputeIsland implements GameStateActionPhase {
     private       Player  winner;
     private final int     islandIndex;
 
