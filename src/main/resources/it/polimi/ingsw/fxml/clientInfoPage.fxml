@@ -35,7 +35,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button fx:id="clientInfo_submit" layoutX="362.0" layoutY="446.0" mnemonicParsing="false" text="Submit">
+      <Button fx:id="clientInfo_submit" layoutX="362.0" layoutY="446.0" mnemonicParsing="false" onAction="#submitClientInfo" text="Submit">
          <font>
             <Font size="18.0" />
          </font>

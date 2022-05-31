@@ -20,7 +20,7 @@
                <children>
                   <AnchorPane fx:id="wizard0_pane" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="wizard0_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="wizard0_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" onMouseClicked="#testMethod" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/wizards/1_NATURE.jpg" />
                            </image>
