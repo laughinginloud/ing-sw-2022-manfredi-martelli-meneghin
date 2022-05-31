@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.virtualController;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
@@ -44,6 +43,8 @@ public class VirtualController extends Thread implements Closeable {
         inputStream  = new DataInputStream(socket.getInputStream());
         outputStream = new DataOutputStream(socket.getOutputStream());
 
+        socket.setSoTimeout(5000);
+
         this.view    = view;
 
         // Sets himself as the VirtualController linked to the View that just invoked this method
@@ -66,10 +67,10 @@ public class VirtualController extends Thread implements Closeable {
                 messageInterpreter(messageBuilder.fromJson(inputStream.readUTF(), Message.class));
             }
 
-            catch (SocketTimeoutException ignored) {/*FIXME: pensare a ping*/}
-
-            catch (Exception e) {
+            // If the input stream timeouts, it means that the server is offline, as I should receive at least a ping
+            catch (Exception ignored) {
                 view.signalConnectionError();
+                close();
             }
         }
     }
