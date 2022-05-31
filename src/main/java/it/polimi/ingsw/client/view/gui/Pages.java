@@ -1,6 +1,9 @@
 package it.polimi.ingsw.client.view.gui;
 
 public enum Pages {
+
+    INITIAL_PAGE,
+
     SERVER_INFO,
 
     UNABLE_JOIN,
@@ -26,6 +29,8 @@ public enum Pages {
 
         // Saves the correct page's path into the variable "path"
         switch(page) {
+            case INITIAL_PAGE  -> path = "/it/polimi/ingsw/fxml/initialPage.fxml";
+
             case SERVER_INFO   -> path = "/it/polimi/ingsw/fxml/serverInfoPage.fxml";
 
             case UNABLE_JOIN   -> path = "/it/polimi/ingsw/fxml/unableToJoinPage.fxml";

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="initial_pane" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.InitialHandler">
+    <children>
+        <ImageView fx:id="initial_imgView" fitHeight="568.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/home_page.jpg" />
+            </image>
+        </ImageView>
+        <Button fx:id="play_button" layoutX="346.0" layoutY="327.0" mnemonicParsing="false" text="Play">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
