@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server.virtualView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.server.controller.GameController;
@@ -20,9 +18,6 @@ public class VirtualView extends Thread implements AutoCloseable {
     // A couple of useful constants, representing the "ping" and "pong" messages
     private static final Message PING_MESSAGE = new Message(MessageType.PING, null);
     private static final Message PONG_MESSAGE = new Message(MessageType.PONG, null);
-
-    // The JSON builder that will be used, with a general configuration
-    private static final Gson    jsonBuilder  = new GsonBuilder().setPrettyPrinting().create();
 
 
     // Fields that hold the communication data
@@ -87,7 +82,7 @@ public class VirtualView extends Thread implements AutoCloseable {
 
         while (true) {
             try {
-                msg = jsonBuilder.fromJson(inputStream.readUTF(), Message.class);
+                msg = MessageBuilder.jsonToMessage(inputStream.readUTF());
 
                 if (msg == null)
                     sendPing();
@@ -124,7 +119,7 @@ public class VirtualView extends Thread implements AutoCloseable {
     public void run() {
         while (!interrupted()) {
             try {
-                Message msg = jsonBuilder.fromJson(inputStream.readUTF(), Message.class); //TODO: isAvailable
+                Message msg = MessageBuilder.jsonToMessage(inputStream.readUTF());
 
                 if (msg == null)
                     sendPing();
@@ -168,8 +163,8 @@ public class VirtualView extends Thread implements AutoCloseable {
         Message pong = null;
 
         try {
-            outputStream.writeUTF(jsonBuilder.toJson(PING_MESSAGE));
-            pong = jsonBuilder.fromJson(inputStream.readUTF(), Message.class);
+            outputStream.writeUTF(MessageBuilder.messageToJson(PING_MESSAGE));
+            pong = MessageBuilder.jsonToMessage(inputStream.readUTF());
         }
 
         catch (Exception e) {
