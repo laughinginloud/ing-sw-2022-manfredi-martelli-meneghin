@@ -30,12 +30,6 @@ public sealed interface View permits ViewCLI, ViewGUI {
     void askReloadGame();
 
     /**
-     * Asks the player whether he wants to have another game with the same rules and the same player
-     * @return The player's choice about the ReplayMatch request
-     */
-    boolean askReplayMatch();
-
-    /**
      * Asks the current player which is address he wants to connect to
      * @return A record Address containing serverAddress and serverPort chosen by the player
      */

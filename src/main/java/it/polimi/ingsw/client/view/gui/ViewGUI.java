@@ -167,16 +167,6 @@ public class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player whether he wants to have another game with the same rules and the same player
-     *
-     * @return The player's choice about the ReplayMatch request
-     */
-    @Override
-    public boolean askReplayMatch() {
-        return false;
-    }
-
-    /**
      * Asks the current player which is address he wants to connect to
      *
      * @return A record Address containing serverAddress and serverPort chosen by the player
