@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.Address;
-import it.polimi.ingsw.client.view.MenuItem;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIAlert;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIHandler;
@@ -28,6 +27,8 @@ import java.util.*;
  */
 public final class ViewGUI extends Application implements View {
 
+    // region Fields
+
     VirtualController virtualController = null;
     private GameModel model;
     private Scene     currentScene;
@@ -41,26 +42,30 @@ public final class ViewGUI extends Application implements View {
 
     private Address connectionAddress;
 
-    /**
-     * Main of the ViewGUI application
-     * @param args arguments to be passed
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+    // endregion Fields
+
+    // region startMethods
 
     /**
-     * Start method which overrides the one inherited with Application
-     * @param stage the stage opened
+     * Starts the Java Application thread and the GUI Window
+     * @param stage the stage
+     * @throws Exception
      */
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws Exception {
         // Adds the scenes and the sceneHandlers to their respective HashMap
         setupScenes();
-        // Saves the stage in the ViewGUI
-        this.stage = stage;
-        // Sets the title, the icon, the trigger on closing the scene and shows the scene
-        initialize();
+
+        // Sets the title, the scene, the icon, the trigger on close request
+        stage.setTitle("Eriantys pre alpha 4.0");
+        stage.setScene(currentScene);
+        stage.getIcons().add(new Image("cranio.png"));
+
+        // Event on close request -> exit
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            exit(stage);
+        });
     }
 
     /**
@@ -79,31 +84,9 @@ public final class ViewGUI extends Application implements View {
                 handler.setGUI(this);
                 nameMapHandler.put(page, handler);
             }
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Sets the current scene to the first scene, named "Server Info"
-        currentScene = nameMapScene.get(Pages.SERVER_INFO);
-    }
-
-    /**
-     *  Sets the title, the scene, the icon, the trigger on close request
-     */
-    public void initialize() {
-        stage.setTitle("Eriantys pre alpha 4.0");
-        stage.setScene(currentScene);
-        stage.getIcons().add(new Image("cranio.png"));
-
-        // Event on close request -> exit
-        stage.setOnCloseRequest(event -> {
-            event.consume();
-            exit(stage);
-        });
-
-        stage.show();
     }
 
     /**
@@ -121,6 +104,12 @@ public final class ViewGUI extends Application implements View {
         }
     }
 
+    // endregion startMethods
+
+    //********************************************************************************************************
+
+    // region Testing
+
     /**
      * Chages the scene from a scene to the specified one, also sets the gui contained in that handler
      * @param page the page to switch the scene to
@@ -132,18 +121,25 @@ public final class ViewGUI extends Application implements View {
         //stage.show();
     }
 
-    public void setUpBoard() {
+    // endregion Testing
 
+    //********************************************************************************************************
+
+
+    // region ViewImplementation
+
+    /**
+     * Launches the UI (CLI or GUI) of the program
+     */
+    @Override
+    public void launchUI() {
+        launch();
     }
 
-    public Address getAddress() {
-        return connectionAddress;
-    }
-
-    public void setAddress(Address connectionAddress) {
-        this.connectionAddress = connectionAddress;
-    }
-
+    /**
+     *
+     */
+    @Override
     public void signalConnectionError() {
 
     }
@@ -159,38 +155,27 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
+     * Asks the player the address (ip, port) of the server he wants to connect to
+     */
+    @Override
+    public void askAddress() {
+
+    }
+
+    /**
+     * Asks the num of the players the first person connected would like to play with and whether
+     * he likes to play the game in expertMode
+     */
+    @Override
+    public void askRules() {
+
+    }
+
+    /**
      * Asks the player whether he wants to resume an old game or he doesn't want to.
      */
     @Override
     public void askReloadGame() {
-
-    }
-
-    /**
-     * Asks the player whether he wants to have another game with the same rules and the same player
-     *
-     * @return The player's choice about the ReplayMatch request
-     */
-    @Override
-    public boolean askReplayMatch() {
-        return false;
-    }
-
-    /**
-     * Asks the current player which is address he wants to connect to
-     *
-     * @return A record Address containing serverAddress and serverPort chosen by the player
-     */
-    @Override
-    public Address askConnectionInfo() {
-        return null;
-    }
-
-    /**
-     * Asks the num of the players the first person connected would like to play with and whether he likes to play the game in expertMode
-     */
-    @Override
-    public void askRules() {
 
     }
 
@@ -204,17 +189,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player which deck (wizard) he wants to play with
-     *
-     * @param availableWizards An array of Wizard that haven't been already chosen by other players
-     */
-    @Override
-    public void requestWizard(Wizard[] availableWizards) {
-
-    }
-
-    /**
-     * Asks the player to provide his username and from how many years he knows Magic
+     * Requests the player to provide his username and from how many years he knows Magic
      *
      * @param forbiddenUsernames A Set(String) containing all the username already used by the other player
      */
@@ -224,7 +199,17 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player which assistantCard he wants to play between the provided assistantCards
+     * Requests the player which deck (wizard) he wants to play with
+     *
+     * @param availableWizards An array of Wizard that haven't been already chosen by other players
+     */
+    @Override
+    public void requestWizard(Wizard[] availableWizards) {
+
+    }
+
+    /**
+     * Requests the player which assistantCard he wants to play between the provided assistantCards
      *
      * @param assistantCards An array of AssistantCards that are currently playable
      */
@@ -234,7 +219,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player which characterCards he would like to play between the CharacterCard provided
+     * Requests the player which characterCards he would like to play between the CharacterCard provided
      *
      * @param playableCharacterCards An array of characterCards that are currently playable
      */
@@ -244,7 +229,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose one student from the entrance, that he will move to another place
+     * Requests the player to choose one student from the entrance, that he will move to another place
      *
      * @param entranceStudents The students currently on the entrance that are movable
      */
@@ -254,7 +239,9 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Show to the player the entranceStudents and the playableCharacterCards, waiting for a selection
+     * Shows to the player the entranceStudents and the playableCharacterCards, waiting for a selection.
+     * It sets clickable all and only entranceStudents and playableCharactercards and based on
+     * the click, I'll decide the return
      *
      * @param entranceStudents       An array of students containing the entrance's students
      * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
@@ -265,19 +252,22 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to move the selected student from his entrance to an Island or to a table of his diningRoom
+     * Requests the player to move the selected student from his entrance to an Island or to a table
+     * of his diningRoom
      *
      * @param selectedStudentIndex The index of the entrance's player selected by the player
-     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still have free seats (where the player can move the student)
+     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still
+     *                             have free seats (where the player can move the student)
      */
     @Override
-    public void movementStudentEntrance(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
+    public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
 
     }
 
     /**
-     * Asks the player how far he wants to move MotherNature
-     * It sets to clickable only the Islands that can be selected by the player, according to the provided Islands' array
+     * Requests the player how far he wants to move MotherNature
+     * It sets to clickable only the Islands that can be selected by the player, according to the
+     * provided Islands' array
      *
      * @param possibleMovement An array containing the Islands that can be moved by the player
      */
@@ -287,9 +277,10 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Shows to the player the Islands where motherNature could be moved and the CharacterCards that can be played
-     * It sets to clickable only the Islands that can be selected by the player, according to the provided Islands' array and
-     * only the playable CharacterCards
+     * Requests the player to move motherNature among the possible islands.
+     * Shows to the player the Islands where motherNature could be moved and the CharacterCards
+     * that can be played. It sets to clickable only the Islands that can be selected by the player,
+     * according to the provided Islands' array and only the playable CharacterCards
      *
      * @param possibleMovement       An array containing the Islands that can be moved by the player
      * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
@@ -300,7 +291,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose a CloudTile from the availableClouds
+     * Requests the player to choose a CloudTile from the availableClouds
      *
      * @param availableClouds An array of CloudTile representing the available CloudTiles
      */
@@ -310,6 +301,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
+     * Requests the player to choose between selecting a CloudTile or playing a CharacterCard.
      * Shows to the player the CloudTiles that can be selected and the CharacterCard that can be played
      *
      * @param availableClouds        An array of CloudTiles containing the CloudTiles that have students on them
@@ -321,7 +313,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player how many students he wants to move
+     * Requests the player how many students he wants to move
      *
      * @param maxNumOfStudentMovable The maximum number of student the player can decide to move
      */
@@ -331,7 +323,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose a color between the provided ones
+     * Requests the player to choose a color between the provided ones
      *
      * @param availableColors The color that can be chosen by the player
      */
@@ -341,7 +333,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose a student from a specific CharacterCard, between the students provided
+     * Requests the player to choose a student from a specific CharacterCard, between the students provided
      * It sets to "clickable" only the students colored as the students contained in "availableColors"
      *
      * @param characterCardPosition The position in the characterCardArray of the characterCard that is being played
@@ -354,7 +346,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose a student from his Entrance.
+     * Requests the player to choose a student from his Entrance.
      * It sets to "clickable" only the students colored as the students contained in "availableColors"
      *
      * @param availableColors The colors correspondent to the students that can be moved/picked from the Entrance
@@ -365,7 +357,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose an Island. It sets to "clickable" only the island present in the "availableIslands" array
+     * Requests the player to choose an Island. It sets to "clickable" only the island present in the "availableIslands" array
      *
      * @param availableIslands An array of Island representing the Island that can be chosen by the player
      */
@@ -375,7 +367,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose a diningRoomTable from the provided ones. It links the diningRoomTable with theirs color, then
+     * Requests the player to choose a diningRoomTable from the provided ones. It links the diningRoomTable with theirs color, then
      * make "clickable" only the diningRoomTable that have the same color of the provided "compatibleDiningRoomTable" colors' array
      *
      * @param compatibleDiningRoomTable The color of the diningRoomTables that can be chosen by the player
@@ -386,19 +378,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player to choose a student from a specific CharacterCard, between the students provided
-     * It sets to "clickable" only the students colored as the students contained in "availableColors"
-     *
-     * @param characterCardPosition The position in the characterCardArray of the characterCard that is being played
-     * @param availableColors       The colors correspondent to the students that can be chosen between the characterCard's students
-     * @return An int representing the position of the chosen students on the characterCardStudents
-     */
-    public int chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors) {
-        return 0;
-    }
-
-    /**
-     * Notify the player that there's already a game in progress, then he will be disconnected from the server
+     * Notifies the player that there's already a game in progress, then he will be disconnected from the server
      */
     @Override
     public void notifyGameInProgress() {
@@ -406,17 +386,8 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notify to player he has to wait for a "waitingReason"
-     *
-     * @param waitingReason A string representing the reason why the player has to wait (for a parametric use of the function)
-     */
-    @Override
-    public void notifyWait(String waitingReason) {
-
-    }
-
-    /**
-     * Notify the player that the Game (new or old) is starting, meaning that all the players required by this game's rules are satisfied
+     * Notifies the player that the Game (new or old) is starting, meaning that all the players required
+     * by this game's rules are satisfied
      */
     @Override
     public void notifyGameStart() {
@@ -424,7 +395,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notify the player he will be instantly disconnected from the server (then from the Game)
+     * Notifies the player that he will be instantly disconnected from the server (then from the Game)
      *
      * @param disconnectionReason An Optional(String) containing the reason for the disconnection
      */
@@ -434,9 +405,9 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notify the view about the chance to play the CharacterCard, if during the States where the CharacterCard are usable
-     * there is at least a CharacterCard that is playable according to player's coins and characterCard's tokens. This will
-     * "enable" the playCharacterCard button.
+     * Notifies the view about the chance to play the CharacterCard, if during the States where
+     * the CharacterCard are usable there is at least a CharacterCard that is playable according
+     * to player's coins and characterCard's tokens. This will "enable" the playCharacterCard button.
      */
     @Override
     public void notifyCharacterCardPlayability() {
@@ -444,7 +415,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notify the player about the beginning of his turn
+     * Notifies the player about the beginning of his turn
      */
     @Override
     public void notifyStartGameTurn() {
@@ -452,7 +423,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notify the player he has to wait another player's turn
+     * Notifies the player he has to wait another player's turn
      */
     @Override
     public void notifyWaitGameTurn() {
@@ -460,29 +431,64 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notify the player his turn has ended
+     * Notifies the player his turn has ended
      */
     @Override
     public void notifyEndOfTurn() {
 
     }
 
-    @Override
-    public MenuItem menu() {
-        return null;
-    }
-
     /**
-     * Implementation of infoToSend of the abstract interface "View": uses the method "messageAfterUserInteraction" of VirtualController
+     * Forwards the infoToSend to the Virtual Controller, contacting it through the method "messageAfterUserInteraction"
+     *
      * @param infoToSend An object containing the information that the client has to provide to the server in order
      *                   to make some actions during the game (es. play a CharacterCard, move a Students, etc...)
      */
     @Override
-    public void viewToVirtualControllerBroker(Object infoToSend) { this.virtualController.messageAfterUserInteraction(infoToSend); }
+    public void forwardViewToVirtualController(Object infoToSend) {
+
+    }
 
     /**
      * Sets the virtualController of this class to a specific virtualController received with the method
+     *
      * @param virtualController The VirtualController that this.virtualController has to be set to
      */
-    public void setVirtualController(VirtualController virtualController) { this.virtualController = virtualController; }
+    @Override
+    public void setVirtualController(VirtualController virtualController) {
+
+    }
+
+    /**
+     * Signals the player the winner
+     *
+     * @param winner the winning player
+     */
+    @Override
+    public void signalWinner(Player winner) {
+
+    }
+
+    /**
+     * Signals the player the winning team
+     *
+     * @param team the winning team
+     */
+    @Override
+    public void signalWinner(List<Player> team) {
+
+    }
+
+    /**
+     * Signals the player who ended in a draw
+     *
+     * @param drawers the player who ended in a draw
+     */
+    @Override
+    public void signalDraw(List<Player> drawers) {
+
+    }
+
+    // endregion ViewImplementation
+
 }
