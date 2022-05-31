@@ -14,8 +14,6 @@ import java.util.*;
  * @author Mattia Martelli
  */
 public class GameStateComputeIsland implements GameStateActionPhase {
-    private       boolean notEnoughTowerTrigger;
-    private       Integer remainingTower;
     private       Player  winner;
     private final int     islandIndex;
 
@@ -25,8 +23,6 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
     public GameStateComputeIsland(int islandIndex) {
         this.islandIndex      = islandIndex;
-        notEnoughTowerTrigger = false;
-        remainingTower        = null;
         winner                = null;
     }
 
@@ -63,12 +59,6 @@ public class GameStateComputeIsland implements GameStateActionPhase {
         try {
             Map<GameValues, Object> controlAndConquerInfo = new HashMap<>();
             GameCommand controlAndConquerUpdate;
-
-            // If there aren't enough towers to fill the recolored islands, saves into the map the num of remainingTower, the conquered Island
-            if (notEnoughTowerTrigger) {
-                controlAndConquerInfo.put(GameValues.REMAININGTOWER, remainingTower);
-                controlAndConquerInfo.put(GameValues.ISLANDNUM,      islandIndex);
-            }
 
             // Then save anyway the update IslandArray and PlayerArray into the map
             controlAndConquerInfo.put(GameValues.ISLANDARRAY, model.getIslands());
@@ -134,12 +124,6 @@ public class GameStateComputeIsland implements GameStateActionPhase {
 
         if (maxPlayerBoard != curPlayerBoard) {
             boolean notEnoughTower = maxPlayer.getSchoolBoard().getTowerCount() < island.getMultiplicity();
-
-            // If the current player has not enough towers to replace all the towers previous present on the conquered island
-            if (notEnoughTower) {
-                notEnoughTowerTrigger = true;
-                remainingTower = maxPlayerBoard.getTowerCount();
-            }
 
             island.setTowerColor(maxPlayerBoard.getTowerColor());
             maxPlayerBoard.decreaseTowerCount(notEnoughTower ? maxPlayer.getSchoolBoard().getTowerCount() : island.getMultiplicity());

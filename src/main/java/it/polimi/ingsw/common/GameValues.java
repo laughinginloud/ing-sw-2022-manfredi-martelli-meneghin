@@ -46,12 +46,6 @@ public enum GameValues {
     // The value of the global CoinPool, present only in ExpertMode
     COINPOOL,
 
-    // Num of remaining tower that can be placed on a conquered island too big to be completely filled
-    REMAININGTOWER,
-
-    // Num of the Island can't be completely filled
-    ISLANDNUM,
-
     // The player who won the Game
     WINNER,
 
