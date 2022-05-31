@@ -181,7 +181,7 @@ public class VirtualController extends Thread implements Closeable {
         this.vcState = VCStates.REQ_MOVE_STUD_SECOND;
 
         // Asks where he wants to move the selected student to (islands or diningRoom)
-        view.movementStudentEntrance(selectedStudentIndex, diningRoomTableFreeSeats);
+        view.requestStudentEntranceMovement(selectedStudentIndex, diningRoomTableFreeSeats);
     }
 
     /**
