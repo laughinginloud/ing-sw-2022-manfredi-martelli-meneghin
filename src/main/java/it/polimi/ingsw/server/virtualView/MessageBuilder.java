@@ -48,6 +48,9 @@ final class MessageBuilder {
         if (command instanceof GameCommandGameProgress)
             return new Message(MessageType.GAMEPROGRESS, null);
 
+        if (command instanceof GameCommandRequestValue c)
+            return new Message(MessageType.REQUESTVALUE, c.executeCommand());
+
         if (command instanceof GameCommandSendInfo c)
             return new Message(MessageType.SENDINFO, c.executeCommand());
 
