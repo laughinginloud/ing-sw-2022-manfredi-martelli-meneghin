@@ -116,7 +116,7 @@ public class VirtualController extends Thread implements Closeable {
             case GAMESTART      -> view.notifyGameStart();
 
             case GAMEPROGRESS   -> {
-                view.signalConnectionError(); //TODO: cambiare in signalgameprogress
+                view.notifyGameInProgress();
                 close();
             }
         }
@@ -165,15 +165,6 @@ public class VirtualController extends Thread implements Closeable {
             case GLOBALPROFESSORTABLE -> model.setGlobalProfessorTable((GlobalProfessorTable) object);
 
             case COINPOOL -> model.setCoinPool((int) object);
-
-            //TODO: hmm
-            // Decidere come gestire i casi fisicamente impossibili
-            case REMAININGTOWER -> {
-            }
-
-            case ISLANDNUM -> {
-            }
-            //ENDTODO
         }
 
         // Notify the model changes with "updateModel" of the Class View
