@@ -435,7 +435,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyGameInProgress() {
-        // TODO [Connection]
+        this.currentScene = nameMapScene.get(Pages.UNABLE_JOIN);
+        nameMapHandler.get(Pages.UNABLE_JOIN).setGUI(this);
+        stage.setScene(currentScene);
     }
 
     /**
