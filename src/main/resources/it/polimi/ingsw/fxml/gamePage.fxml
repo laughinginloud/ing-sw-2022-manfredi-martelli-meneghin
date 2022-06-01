@@ -1806,7 +1806,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                      <children>
-                        <ImageView fx:id="E_student0" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="E_student0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/students/student_blue.png" />
                            </image>
