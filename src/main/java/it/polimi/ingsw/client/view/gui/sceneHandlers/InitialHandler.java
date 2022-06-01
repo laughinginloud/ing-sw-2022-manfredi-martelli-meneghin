@@ -9,6 +9,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Handler (or Controller) of the scene Initial (initialPage.fxml)
+ * The client is shown a landing page with few informations (authors and logos)
+ * and a play button. If the button is pressed the application starts notifying
+ * the Client.java otherwise if the window is closed the application is closed
+ * @author Giovanni Manfredi
+ */
 public class InitialHandler implements GUIHandler{
     private ViewGUI gui;
 

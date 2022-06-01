@@ -29,7 +29,7 @@ import java.util.*;
  * @author Giovanni Manfredi & Sebastiano Meneghin
  */
 public final class ViewGUI extends Application implements View {
-    
+
     // region Fields
 
     VirtualController virtualController = null;
@@ -38,7 +38,8 @@ public final class ViewGUI extends Application implements View {
     private Stage     stage;
     private Address   connectionAddress;
 
-    // The different scenes and scenesHandlers are saved in two maps, using the page (an enum for the scene) as key
+    // The different scenes and scenesHandlers are saved in two maps,
+    // using the page (an enum for the scene) as key
     private final HashMap<Pages,Scene>       nameMapScene   = new HashMap<>();
     private final HashMap<Pages, GUIHandler> nameMapHandler = new HashMap<>();
 
@@ -101,7 +102,8 @@ public final class ViewGUI extends Application implements View {
         if(alert.showAndWait().get() == ButtonType.OK){
             // If the client is still waiting to know if the player wants to start or close the game
             // this signal closes the Client.java
-            Client.signalPlayExit(false);
+            if (currentScene == nameMapScene.get(Pages.INITIAL_PAGE))
+                Client.signalPlayExit(false);
 
             System.out.println("You successfully exited the game!");
 
