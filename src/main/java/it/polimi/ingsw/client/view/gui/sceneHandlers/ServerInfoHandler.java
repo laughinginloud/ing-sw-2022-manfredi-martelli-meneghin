@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.Address;
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.client.virtualController.VirtualController;
@@ -99,13 +100,7 @@ public class ServerInfoHandler implements GUIHandler {
         }
 
         else {
-            try{
-                // TODO fix with the new implemtantion of signal in Client.java
-                gui.setVirtualController(new VirtualController(new Address(readIP, portInt), gui));
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
+            Client.signalAddress(new Address(readIP, portInt));
         }
     }
 
