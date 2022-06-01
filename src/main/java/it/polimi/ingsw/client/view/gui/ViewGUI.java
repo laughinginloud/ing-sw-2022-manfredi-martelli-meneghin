@@ -160,7 +160,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalConnectionError() {
-        // TODO [Connection] - Understand how this method should work
+        this.currentScene = nameMapScene.get(Pages.CONNECTION_ERROR);
+        nameMapHandler.get(Pages.CONNECTION_ERROR).setGUI(this);
+        stage.setScene(currentScene);
     }
 
     /**
