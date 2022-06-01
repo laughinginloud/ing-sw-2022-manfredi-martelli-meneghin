@@ -7,12 +7,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+/**
+ * Handler (or Controller) of the scene UnableToJoin (unableToJoinPage.fxml)
+ * The client is informed that the game is still in progress and
+ * he won't be able to join. It also suggests him to close the application
+ * and try again.
+ * @author Giovanni Manfredi
+ */
 public class UnableToJoinHandler implements GUIHandler {
 
     private ViewGUI gui;
 
-    // TODO JavaDocs + Regions
-    // TODO Implementation
+    // region FXML_Ids
 
     @FXML
     private AnchorPane unableToJoin_pane;
@@ -26,8 +32,11 @@ public class UnableToJoinHandler implements GUIHandler {
     @FXML
     private Label unableToJoin_text;
 
+    // endregion FXML_Ids
+
     /**
-     * @param gui
+     * Sets the ViewGUI at which the ServerInfoHandler is related
+     * @param gui the ViewGUI instance
      */
     @Override
     public void setGUI(ViewGUI gui) {

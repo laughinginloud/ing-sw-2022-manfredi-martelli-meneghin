@@ -18,7 +18,8 @@ import java.util.Set;
 /**
  * Handler (or Controller) of the scene ClientInfo (clientInfoPage.fxml)
  * The client is asked for a username (different from the forbiddenAddress)
- * and for how many years has he know magic (MagicAge)
+ * and for how many years has he know magic (MagicAge) and sends it to the
+ * VirtualController
  * @author Giovanni Manfredi
  */
 public class ClientInfoHandler implements GUIHandler {

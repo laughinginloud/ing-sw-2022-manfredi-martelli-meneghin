@@ -8,6 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Handler (or Controller) of the scene GameChoice (gameChoicePage.fxml)
+ * The client is asked whether he wants to play a new game or continue
+ * the saved game. The information is then sent to the VirtualController
+ * @author Giovanni Manfredi & Sebastiano Meneghin
+ */
 public class GameChoiceHandler implements GUIHandler {
 
     private ViewGUI gui;

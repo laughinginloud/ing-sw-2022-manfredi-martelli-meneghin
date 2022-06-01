@@ -15,6 +15,13 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Handler (or Controller) of the scene AskForRules (askForRulesPage.fxml)
+ * The client is asked for the rules of the game the player wants to play with
+ * (2 to 4 player, ExpertMode true or false) and sends the information to
+ * the VirtualController
+ * @author Giovanni Manfredi
+ */
 public class AskForRulesHandler implements GUIHandler, Initializable {
 
     private ViewGUI gui;
