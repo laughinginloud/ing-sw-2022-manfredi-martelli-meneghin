@@ -53,7 +53,7 @@ public class InitialHandler implements GUIHandler{
      * Signals to the client that the player wants to play a new game
      */
     public void pressPlayButton() {
-        Platform.runLater(() -> gui.askAddress());
+        gui.askAddress();
     }
 
 
