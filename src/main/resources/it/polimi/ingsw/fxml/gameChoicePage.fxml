@@ -13,12 +13,12 @@
             <Image url="@../images/home_page.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="continue_button" layoutX="354.0" layoutY="277.0" mnemonicParsing="false" text="Continue">
+      <Button fx:id="continue_button" layoutX="354.0" layoutY="277.0" mnemonicParsing="false" onAction="#loadOldGame" text="Continue">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="newGame_button" layoutX="346.0" layoutY="327.0" mnemonicParsing="false" text="New Game">
+      <Button fx:id="newGame_button" layoutX="346.0" layoutY="327.0" mnemonicParsing="false" onAction="#loadNewGame" text="New Game">
          <font>
             <Font size="18.0" />
          </font>

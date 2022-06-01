@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.common.viewRecord.GameRules;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -28,19 +29,19 @@ public class GameChoiceHandler implements GUIHandler {
     // endregion FXML_Ids
 
     /**
-     * Method called on the click of "newGame_button"
-     * Signals to the Server the will of the player of starting a new game
-     */
-    public void loadNewGame(){
-        // TODO [GameChoice] - implementation
-    }
-
-    /**
      * Method called on the click of "continueGame_button"
      * Signals to the Server the will of the player of continuing an old game
      */
     public void loadOldGame(){
-        // TODO [GameChoice] - implementation
+        gui.forwardViewToVirtualController(true);
+    }
+
+    /**
+     * Method called on the click of "newGame_button"
+     * Signals to the Server the will of the player of starting a new game
+     */
+    public void loadNewGame(){
+        gui.forwardViewToVirtualController(false);
     }
 
     /**

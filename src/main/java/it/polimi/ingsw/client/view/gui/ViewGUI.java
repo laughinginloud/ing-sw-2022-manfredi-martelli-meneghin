@@ -6,6 +6,7 @@ import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.ClientInfoHandler;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIAlert;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIHandler;
+import it.polimi.ingsw.client.view.gui.sceneHandlers.WizardChoiceHandler;
 import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
@@ -36,14 +37,11 @@ public final class ViewGUI extends Application implements View {
     private GameModel model;
     private Scene     currentScene;
     private Stage     stage;
+    private Address   connectionAddress;
 
-    // The different scenes are saved in a map, using the page (an enum for the scene) as key
+    // The different scenes and scenesHandlers are saved in two maps, using the page (an enum for the scene) as key
     private final HashMap<Pages,Scene>       nameMapScene   = new HashMap<>();
-
-    // The different scenesHandlers are saved in a map, using the page (an enum for the scene) as key
     private final HashMap<Pages, GUIHandler> nameMapHandler = new HashMap<>();
-
-    private Address connectionAddress;
 
     // endregion Fields
 
@@ -144,8 +142,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void playExitMenu() {
-        // TODO [InitialPage] - Start the scene
-
+        this.currentScene = nameMapScene.get(Pages.INITIAL_PAGE);
+        nameMapHandler.get(Pages.INITIAL_PAGE).setGUI(this);
+        stage.setScene(currentScene);
+        stage.show();
     }
 
     /**
@@ -174,7 +174,6 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(Pages.SERVER_INFO);
         nameMapHandler.get(Pages.SERVER_INFO).setGUI(this);
         stage.setScene(currentScene);
-        stage.show();
     }
 
     /**
@@ -193,6 +192,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askReloadGame() {
+
         this.currentScene = nameMapScene.get(Pages.GAME_CHOICE);
         nameMapHandler.get(Pages.GAME_CHOICE).setGUI(this);
         stage.setScene(currentScene);
@@ -227,7 +227,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestWizard(Wizard[] availableWizards) {
-        // TODO [WizardChoice]
+        this.currentScene = nameMapScene.get(Pages.WIZARD_CHOICE);
+        nameMapHandler.get(Pages.WIZARD_CHOICE).setGUI(this);
+        ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
+        stage.setScene(currentScene);
     }
 
     /**
