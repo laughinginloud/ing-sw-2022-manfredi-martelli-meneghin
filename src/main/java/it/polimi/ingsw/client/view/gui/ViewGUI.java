@@ -248,6 +248,7 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(Pages.WIZARD_CHOICE);
         nameMapHandler.get(Pages.WIZARD_CHOICE).setGUI(this);
         ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
+        ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClickableElements();
         stage.setScene(currentScene);
     }
 

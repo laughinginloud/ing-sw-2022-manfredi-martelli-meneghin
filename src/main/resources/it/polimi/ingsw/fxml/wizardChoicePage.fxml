@@ -20,9 +20,9 @@
                <children>
                   <AnchorPane fx:id="wizard0_pane" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="wizard0_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" onMouseClicked="#testMethod" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="wizard0_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/wizards/1_NATURE.jpg" />
+                              <Image url="@../images/wizards/0_NATURE.jpg" />
                            </image>
                         </ImageView>
                      </children>
@@ -31,7 +31,7 @@
                      <children>
                         <ImageView fx:id="wizard1_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/wizards/2_DESERT.jpg" />
+                              <Image url="@../images/wizards/1_DESERT.jpg" />
                            </image>
                         </ImageView>
                      </children>
@@ -40,7 +40,7 @@
                      <children>
                         <ImageView fx:id="wizard2_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/wizards/3_CLOUD.jpg" />
+                              <Image url="@../images/wizards/2_CLOUD.jpg" />
                            </image>
                         </ImageView>
                      </children>
@@ -49,7 +49,7 @@
                      <children>
                         <ImageView fx:id="wizard3_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/wizards/4_SNOW.jpg" />
+                              <Image url="@../images/wizards/3_SNOW.jpg" />
                            </image>
                         </ImageView>
                      </children>
