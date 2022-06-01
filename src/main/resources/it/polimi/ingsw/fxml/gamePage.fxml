@@ -25,7 +25,7 @@
                            <children>
                               <ImageView fx:id="isl0_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island0.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl0_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -109,7 +109,7 @@
                            <children>
                               <ImageView fx:id="isl1_img" fitHeight="243.0" fitWidth="237.0" layoutX="-22.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island3.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl1_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -193,7 +193,7 @@
                            <children>
                               <ImageView fx:id="isl2_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl2_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -277,7 +277,7 @@
                            <children>
                               <ImageView fx:id="isl3_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island0.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl3_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -361,7 +361,7 @@
                            <children>
                               <ImageView fx:id="isl4_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island3.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl4_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -445,7 +445,7 @@
                            <children>
                               <ImageView fx:id="isl5_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl5_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -529,7 +529,7 @@
                            <children>
                               <ImageView fx:id="isl6_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island0.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl6_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -613,7 +613,7 @@
                            <children>
                               <ImageView fx:id="isl7_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island3.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl7_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -697,7 +697,7 @@
                            <children>
                               <ImageView fx:id="isl8_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl8_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -781,7 +781,7 @@
                            <children>
                               <ImageView fx:id="isl9_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island0.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl9_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -865,7 +865,7 @@
                            <children>
                               <ImageView fx:id="isl10_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island3.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl10_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
@@ -949,7 +949,7 @@
                            <children>
                               <ImageView fx:id="isl11_img" fitHeight="237.0" fitWidth="240.0" layoutX="-22.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl11_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
