@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,7 +53,7 @@ public class InitialHandler implements GUIHandler{
      * Signals to the client that the player wants to play a new game
      */
     public void pressPlayButton() {
-        Client.signalPlayExit(true);
+        Platform.runLater(() -> gui.askAddress());
     }
 
 

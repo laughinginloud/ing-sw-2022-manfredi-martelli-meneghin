@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.Address;
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.ClientInfoHandler;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIAlert;
@@ -50,23 +49,24 @@ public final class ViewGUI extends Application implements View {
     /**
      * Starts the Java Application thread and the GUI Window
      * @param stage the stage
-     * @throws Exception
      */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         // Adds the scenes and the sceneHandlers to their respective HashMap
         setupScenes();
+        this.stage = stage;
 
-        // Sets the title, the scene, the icon, the trigger on close request
+        // Sets the title, the scene, the icon
         stage.setTitle("Eriantys pre alpha 4.0");
-        stage.setScene(currentScene);
-        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("it/polimi/ingsw/images/cranio.png").toString(), true));
+        stage.getIcons().add(new Image("cranio.png"));
 
-        // Event on close request -> exit
+        // Sets the trigger on close request. Event on close request -> exit
         stage.setOnCloseRequest(event -> {
             event.consume();
             exit(stage);
         });
+
+        playExitMenu();
     }
 
     /**
@@ -79,8 +79,16 @@ public final class ViewGUI extends Application implements View {
             Pages[] pages = Pages.values();
             // For each page, it loads the scene and its respective handler (or controller)
             for (Pages page : pages) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(Pages.getPathOf(page)));
-                nameMapScene.put(page, new Scene(loader.load()));
+                FXMLLoader loader;
+                if (page.equals(Pages.GAME) || page.equals(Pages.SCHOOL_BOARDS)){
+                    loader = new FXMLLoader(getClass().getResource(Pages.getPathOf(page)));
+                    nameMapScene.put(page, new Scene(loader.load(), 1920, 1080, javafx.scene.paint.Color.BLACK));
+                }
+                else {
+                    loader = new FXMLLoader(getClass().getResource(Pages.getPathOf(page)));
+                    nameMapScene.put(page, new Scene(loader.load(), 800, 568, javafx.scene.paint.Color.BLACK));
+                }
+
                 GUIHandler handler = loader.getController();
                 handler.setGUI(this);
                 nameMapHandler.put(page, handler);
@@ -98,17 +106,11 @@ public final class ViewGUI extends Application implements View {
         // Sets a particular alert passing the parameters to the function getAlert present in GUIAlert class
         Alert alert = GUIAlert.getAlert(GUIAlert.EXIT, null);
 
+        Optional<ButtonType> choice = alert.showAndWait();
+
         // alert.showAndWait is the function that allows the alert to trigger
-        if(alert.showAndWait().get() == ButtonType.OK){
-            // If the client is still waiting to know if the player wants to start or close the game
-            // this signal closes the Client.java
-            if (currentScene == nameMapScene.get(Pages.INITIAL_PAGE))
-                Client.signalPlayExit(false);
-
-            System.out.println("You successfully exited the game!");
-
+        if (choice.isPresent() && choice.get() == ButtonType.OK)
             stage.close();
-        }
     }
 
     // endregion StartMethods
@@ -132,7 +134,6 @@ public final class ViewGUI extends Application implements View {
 
     //********************************************************************************************************
 
-
     // region ViewImplementation
 
     // region MiscellanousMethods
@@ -152,6 +153,7 @@ public final class ViewGUI extends Application implements View {
     public void playExitMenu() {
         this.currentScene = nameMapScene.get(Pages.INITIAL_PAGE);
         nameMapHandler.get(Pages.INITIAL_PAGE).setGUI(this);
+        stage.setResizable(false);
         stage.setScene(currentScene);
         stage.show();
     }
@@ -162,6 +164,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalConnectionError() {
+        virtualController = null;
+        model = null;
+
         this.currentScene = nameMapScene.get(Pages.CONNECTION_ERROR);
         nameMapHandler.get(Pages.CONNECTION_ERROR).setGUI(this);
         stage.setScene(currentScene);
@@ -185,9 +190,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askAddress() {
-        this.currentScene = nameMapScene.get(Pages.SERVER_INFO);
+        currentScene = nameMapScene.get(Pages.SERVER_INFO);
         nameMapHandler.get(Pages.SERVER_INFO).setGUI(this);
         stage.setScene(currentScene);
+        stage.show();
     }
 
     /**
@@ -509,16 +515,6 @@ public final class ViewGUI extends Application implements View {
         virtualController.messageAfterUserInteraction(infoToSend);
     }
 
-    /**
-     * Sets the virtualController of this class to a specific virtualController received with the method
-     *
-     * @param virtualController The VirtualController that this.virtualController has to be set to
-     */
-    @Override
-    public void setVirtualController(VirtualController virtualController) {
-        this.virtualController = virtualController;
-    }
-
     // region SignalEndGame
 
     /**
@@ -553,6 +549,34 @@ public final class ViewGUI extends Application implements View {
 
     // endregion SignalEndGame
 
+    // region Setter
+
+    /**
+     * Sets the virtualController of this class to a specific virtualController received with the method
+     *
+     * @param virtualController The VirtualController that this.virtualController has to be set to
+     */
+    @Override
+    public void setVirtualController(VirtualController virtualController) {
+        this.virtualController = virtualController;
+    }
+
+    /**
+     * Set the current Game Model to the one specified
+     * @param model A pointer to the model
+     */
+    @Override
+    public void setModel(GameModel model) {
+        this.model = model;
+    }
+
+    // endregion Setter
+
     // endregion ViewImplementation
+
+    @Override
+    public GameModel getModel() {
+        return model;
+    }
 
 }

@@ -145,11 +145,13 @@ public enum Ansi {
      * @return The enum constant associated
      */
     public static Ansi getTowerColor(TowerColor color, boolean background) {
+        if (color == null)
+            return null;
+
         return switch (color) {
             case BLACK -> background ? BACKGROUND_GRAY        : GRAY;
             case WHITE -> background ? BACKGROUND_WHITE       : WHITE;
             case GREY  -> background ? BACKGROUND_BRIGHT_GRAY : BRIGHT_GRAY;
-            case null  -> DEFAULT;
         };
     }
 

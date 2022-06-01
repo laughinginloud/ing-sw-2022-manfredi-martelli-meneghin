@@ -93,11 +93,11 @@ public class VirtualController extends Thread implements Closeable {
                 Map<GameValues, Object> map = (Map<GameValues, Object>) message.value();
 
                 if (map.containsKey(GameValues.MODEL)) {
-                    Client.setModel((GameModel) map.get(GameValues.MODEL));
+                    view.setModel((GameModel) map.get(GameValues.MODEL));
                     map.remove(GameValues.MODEL);
                 }
 
-                map.forEach((v, o) -> modifyModelInfo(Client.getModel(), v, o));
+                map.forEach((v, o) -> modifyModelInfo(view.getModel(), v, o));
             }
 
             case REQUESTACTION  -> {

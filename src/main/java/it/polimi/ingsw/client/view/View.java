@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.view.cli.ViewCLI;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
-import it.polimi.ingsw.common.viewRecord.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +36,9 @@ public sealed interface View permits ViewCLI, ViewGUI {
      * @param model The updated model present on the server's model
      */
     void updateModel(GameModel model);
+
+    //TODO
+    void setModel(GameModel model);
 
     // region AskPlayer
 
@@ -275,6 +277,8 @@ public sealed interface View permits ViewCLI, ViewGUI {
      */
     void signalDraw(List<Player> drawers);
 
-    // endregion SignalEndGame
+    GameModel getModel();
 
+
+    // endregion SignalEndGame
 }

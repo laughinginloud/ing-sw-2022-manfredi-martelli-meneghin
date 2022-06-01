@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.common.termutils.TermConstants;
 import it.polimi.ingsw.common.termutils.Key;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static it.polimi.ingsw.common.termutils.Ansi.hideCursor;
 import static it.polimi.ingsw.common.termutils.Ansi.showCursor;
@@ -53,7 +55,21 @@ public class Main {
         // There's at least one arg, so start with the first
         switch (args[0].trim().toLowerCase()) {
             // Simply start the server
-            case "server" -> GameController.main();
+            case "server" -> {
+                if (args.length == 1)
+                    GameController.main();
+
+                else {
+                    Optional<Integer> port = parsePort(args[1].trim());
+
+                    if (port.isEmpty()) {
+                        System.out.println("Illegal port number: " + args[1]);
+                        throw new GameNotStarted();
+                    }
+
+                    GameController.main(port.get());
+                }
+            }
 
             // The client needs a second parameter to signal the UI
             case "client" -> {
@@ -149,7 +165,7 @@ public class Main {
                 menuOptions.add("> Exit");
 
                 // Color the one currently selected
-                colorSelected(menuOptions, selection);
+                menuOptions.set(selection.ordinal(), Ansi.colorString(mainMenu.get(selection.ordinal()), Ansi.CYAN));
 
                 // Fuse the entire menu
                 mainMenu.addAll(menuOptions);
@@ -207,6 +223,9 @@ public class Main {
                                 // Option 1: start the server
                                 case SERVER -> {
                                     showCursor(writer);
+                                    display.clear();
+                                    display.updateAnsi(new ArrayList<>(), 0);
+                                    writer.print("Server started");
                                     GameController.main();
                                 }
 
@@ -259,12 +278,21 @@ public class Main {
     }
 
     /**
-     * Color the selected option of the menu
-     * @param menuOptions A list containing the options
-     * @param selection The item selected
+     * Parse and check whether the provided string represents a valid port number
+     * @param s The string to try and parse
+     * @return An optional containing the desired port, if valid
      */
-    private static void colorSelected(List<String> menuOptions, Selection selection) {
-        menuOptions.set(selection.ordinal(), Ansi.colorString(menuOptions.get(selection.ordinal()), Ansi.CYAN));
+    private static Optional<Integer> parsePort(String s) {
+        try {
+            if (!Address.checkPort(s))
+                return Optional.empty();
+
+            return Optional.of(Integer.parseInt(s));
+        }
+
+        catch (NumberFormatException ignored) {
+            return Optional.empty();
+        }
     }
 
     /**

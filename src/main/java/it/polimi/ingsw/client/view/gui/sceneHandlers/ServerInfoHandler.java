@@ -101,7 +101,13 @@ public class ServerInfoHandler implements GUIHandler {
         }
 
         else {
-            Client.signalAddress(new Address(readIP, portInt));
+            try (VirtualController virtualController = new VirtualController(new Address(readIP, portInt), gui)) {
+                gui.setVirtualController(virtualController);
+            }
+
+            catch (IOException e) {
+                gui.signalConnectionError();
+            }
         }
     }
 

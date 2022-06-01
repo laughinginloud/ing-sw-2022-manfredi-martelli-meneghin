@@ -2,41 +2,119 @@ package it.polimi.ingsw.client.view.cli;
 
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.virtualController.VirtualController;
+import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.termutils.Ansi;
+import it.polimi.ingsw.common.termutils.TermConstants;
+import it.polimi.ingsw.common.utils.Tuple;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.terminal.Attributes;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+import org.jline.utils.Display;
+import org.jline.utils.InfoCmp;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 
+//TODO: gestire jline.UserInterruptException come chiamata a close
+
 public final class ViewCLI implements View {
 
-    PrintWriter writer;
+    // region Terminal related fields
 
-    public void initialize() {
+    private final Attributes  savedAttributes;
+    private final Terminal    terminal;
+    private final Display     display;
+    private final PrintWriter writer;
+    private final LineReader  reader;
+    private final InputStream keyStream;
+
+    // endregion
+
+    // region Constructors
+
+    public ViewCLI() throws IOException {
+        terminal = TerminalBuilder.builder()
+            .name("Eriantys")
+            .encoding("UTF-8")
+            .nativeSignals(true)
+            .type("screen")
+            .jna(true)
+            .build();
+
+        display = new Display(terminal, true);
+        display.resize(terminal.getHeight(), terminal.getWidth());
+
+        reader = LineReaderBuilder.builder().terminal(terminal).build();
+        writer = terminal.writer();
+
+        savedAttributes = terminal.enterRawMode();
+        terminal.puts(InfoCmp.Capability.enter_ca_mode);
+
+        keyStream = terminal.input();
+    }
+
+    public ViewCLI(Terminal terminal, Display display, InputStream keyStream, Attributes savedAttributes) {
+        this.terminal        = terminal;
+        this.display         = display;
+        this.keyStream       = keyStream;
+        this.savedAttributes = savedAttributes;
+
+        reader = LineReaderBuilder.builder().terminal(terminal).build();
+        writer = terminal.writer();
+    }
+
+    // endregion
+
+    public void launchUI() {
+        //TODO: decidere cosa fare di questa funzione
+        /*
         try {
             terminal = TerminalBuilder.builder()
                 .name("Eriantys")
                 .encoding("UTF-8")
                 .nativeSignals(true)
-                .type("ansi")
+                .type("screen")
                 .jna(true)
                 .build();
 
-            writer = terminal.writer();
-            writer.println(
-                """
-                 _____      _             _
-                | ____|_ __(_) __ _ _ __ | |_ _   _ ___
-                |  _| | '__| |/ _` | '_ \\| __| | | / __|
-                | |___| |  | | (_| | | | | |_| |_| \\__ \\
-                |_____|_|  |_|\\__,_|_| |_|\\__|\\__, |___/
-                                              |___/
-                """);
-            writer.flush();
+            display = new Display(terminal, true);
+            display.resize(terminal.getHeight(), terminal.getWidth());
+
+            reader  = LineReaderBuilder.builder().terminal(terminal).build();
+            writer  = terminal.writer();
+
+            savedAttributes = terminal.enterRawMode();
+            terminal.puts(InfoCmp.Capability.enter_ca_mode);
         }
 
         catch (Exception e) {
+            e.printStackTrace();
+        }
+         */
+    }
+
+    public void playExitMenu() {
+        reader.readLine();
+    }
+
+    public void close() {
+        terminal.setAttributes(savedAttributes);
+        terminal.puts(InfoCmp.Capability.exit_ca_mode);
+
+        try {
+            terminal.close();
+        }
+
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -45,7 +123,7 @@ public final class ViewCLI implements View {
 
     }
 
-    public Address getAddress() throws IOException {
+    public Address requestAddress() throws IOException {
         // Both tuples contain a string representing a candidate for the value
         // and a bool representing whether that value is acceptable
         Tuple<String, Boolean> ip   = new Tuple<>(null, false);
@@ -54,7 +132,7 @@ public final class ViewCLI implements View {
         do {
             //Update the console with the logo
             display.clear();
-            display.updateAnsi(Constants.logoList, (terminal.getWidth() + 1) * Constants.logoList.size());
+            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
 
             // Print the request for the IP
             // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
@@ -66,15 +144,15 @@ public final class ViewCLI implements View {
             // Check if there is an illegal candidate for the value
             if (ip.right()) {
                 // Print the candidate on a red background with an error message
-                writer.print(Ansi.colorString(ip.left() + " is not a valid IP address", Ansi.BACKGROUND_RED));
+                writer.print(colorString(ip.left() + " is not a valid IP address", Ansi.BACKGROUND_RED));
 
                 // Reset the tuple
                 ip = new Tuple<>(null, false);
 
                 // Wait for a generic key, hiding the cursor
-                writer.print(Ansi.CURSOR_HIDE);
+                hideCursor(writer);
                 keyStream.read();
-                writer.print(Ansi.CURSOR_SHOW);
+                showCursor(writer);
 
                 continue;
             }
@@ -92,11 +170,13 @@ public final class ViewCLI implements View {
 
                 // Otherwise, the candidate is correct, so update the tuple accordingly
                 ip = new Tuple<>(readIP, false);
+                moveCursor(writer, Ansi.Direction.UP, 5);
+                continue;
             }
 
             // Otherwise, there already is a correct candidate, so print it
             else
-                writer.println(ip.left());
+                writer.println(colorString(ip.left(), Ansi.GREEN));
 
             // Print the request for the port number
             // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
@@ -107,15 +187,15 @@ public final class ViewCLI implements View {
             // Check if there is an illegal candidate for the value
             if (port.right()) {
                 // Print the candidate on a red background with an error message
-                writer.print(Ansi.colorString(port.left() + " is not a valid port number", Ansi.BACKGROUND_RED));
+                writer.print(colorString(port.left() + " is not a valid port number", Ansi.BACKGROUND_RED));
 
                 // Reset the tuple
                 port = new Tuple<>(null, false);
 
                 // Wait for a generic key, hiding the cursor
-                writer.print(Ansi.CURSOR_HIDE);
+                hideCursor(writer);
                 keyStream.read();
-                writer.print(Ansi.CURSOR_SHOW);
+                showCursor(writer);
 
                 continue;
             }
@@ -139,6 +219,151 @@ public final class ViewCLI implements View {
     }
 
     public void signalConnectionError() {
+
+    }
+
+    public void updateModel(GameModel model) {
+
+    }
+
+    @Override
+    public void setModel(GameModel model) {
+
+    }
+
+    public GameModel getModel() {
+        return null;
+    }
+
+    public void askAddress() {
+
+    }
+
+    public void askRules() {
+
+    }
+
+    public void askReloadGame() {
+
+    }
+
+    public void askEndOfTurn() {
+
+    }
+
+    public void requestUsernameAndMagicAge(Set<String> forbiddenUsernames) {
+
+    }
+
+    public void requestWizard(Wizard[] availableWizards) {
+
+    }
+
+    public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
+
+    }
+
+    public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
+
+    }
+
+    public void requestStudentEntranceSelection(Color[] entranceStudents) {
+
+    }
+
+    public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
+
+    }
+
+    public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
+
+    }
+
+    public void requestMotherNatureMovement(Island[] possibleMovement) {
+
+    }
+
+    public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
+
+    }
+
+    public void requestCloudTileSelection(CloudTile[] availableClouds) {
+
+    }
+
+    public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
+
+    }
+
+    public void requestHowManyStudentsToMove(int maxNumOfStudentMovable) {
+
+    }
+
+    public void requestChooseColor(Color[] availableColors) {
+
+    }
+
+    public void chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
+
+    }
+
+    public void chooseStudentFromEntrance(Color[] availableColors) {
+
+    }
+
+    public void requestChooseIsland(Island[] availableIslands) {
+
+    }
+
+    public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
+
+    }
+
+    public void notifyGameInProgress() {
+
+    }
+
+    public void notifyGameStart() {
+
+    }
+
+    public void notifyPlayerDisconnection(Optional<String> disconnectionReason) {
+
+    }
+
+    public void notifyCharacterCardPlayability() {
+
+    }
+
+    public void notifyStartGameTurn() {
+
+    }
+
+    public void notifyWaitGameTurn() {
+
+    }
+
+    public void notifyEndOfTurn() {
+
+    }
+
+    public void forwardViewToVirtualController(Object infoToSend) {
+
+    }
+
+    public void setVirtualController(VirtualController virtualController) {
+
+    }
+
+    public void signalWinner(Player winner) {
+
+    }
+
+    public void signalWinner(List<Player> team) {
+
+    }
+
+    public void signalDraw(List<Player> drawers) {
 
     }
 }
