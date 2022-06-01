@@ -29,8 +29,7 @@ import java.util.*;
  * @author Giovanni Manfredi & Sebastiano Meneghin
  */
 public final class ViewGUI extends Application implements View {
-
-    // TODO [Readability]: divide the region "ViewImplementations" into subregions
+    
     // region Fields
 
     VirtualController virtualController = null;
@@ -100,7 +99,12 @@ public final class ViewGUI extends Application implements View {
 
         // alert.showAndWait is the function that allows the alert to trigger
         if(alert.showAndWait().get() == ButtonType.OK){
+            // If the client is still waiting to know if the player wants to start or close the game
+            // this signal closes the Client.java
+            Client.signalPlayExit(false);
+
             System.out.println("You successfully exited the game!");
+
             stage.close();
         }
     }
@@ -128,6 +132,8 @@ public final class ViewGUI extends Application implements View {
 
 
     // region ViewImplementation
+
+    // region MiscellanousMethods
 
     /**
      * Launches the UI (CLI or GUI) of the program
@@ -165,6 +171,10 @@ public final class ViewGUI extends Application implements View {
     public void updateModel(GameModel model) {
         // TODO [Game]
     }
+
+    // endregion MiscellanousMethods
+
+    // region AskPlayer
 
     /**
      * Asks the player the address (ip, port) of the server he wants to connect to
@@ -206,6 +216,10 @@ public final class ViewGUI extends Application implements View {
     public void askEndOfTurn() {
         // TODO [Game]
     }
+
+    // endregion AskPlayer
+
+    // region Requests
 
     /**
      * Requests the player to provide his username and from how many years he knows Magic
@@ -407,6 +421,10 @@ public final class ViewGUI extends Application implements View {
         // TODO [Game]
     }
 
+    // endregion Requests
+
+    // region Notifications
+
     /**
      * Notifies the player that there's already a game in progress,
      * then he will be disconnected from the server
@@ -469,6 +487,8 @@ public final class ViewGUI extends Application implements View {
         // TODO [Game]
     }
 
+    // endregion Notifications
+
     /**
      * Forwards the infoToSend to the Virtual Controller,
      * contacting it through the method "messageAfterUserInteraction"
@@ -491,6 +511,8 @@ public final class ViewGUI extends Application implements View {
     public void setVirtualController(VirtualController virtualController) {
         this.virtualController = virtualController;
     }
+
+    // region SignalEndGame
 
     /**
      * Signals the player the winner
@@ -521,6 +543,8 @@ public final class ViewGUI extends Application implements View {
     public void signalDraw(List<Player> drawers) {
         // TODO [EndGame]
     }
+
+    // endregion SignalEndGame
 
     // endregion ViewImplementation
 
