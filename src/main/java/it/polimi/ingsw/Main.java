@@ -121,7 +121,7 @@ public class Main {
                 .name("Eriantys")
                 .encoding("UTF-8")
                 .nativeSignals(true)
-                .type("screen")
+                //.type("screen")
                 .jna(true)
                 .build();
 
@@ -165,7 +165,7 @@ public class Main {
                 menuOptions.add("> Exit");
 
                 // Color the one currently selected
-                menuOptions.set(selection.ordinal(), Ansi.colorString(mainMenu.get(selection.ordinal()), Ansi.CYAN));
+                menuOptions.set(selection.ordinal(), Ansi.colorString(menuOptions.get(selection.ordinal()), Ansi.CYAN));
 
                 // Fuse the entire menu
                 mainMenu.addAll(menuOptions);
