@@ -1,27 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="initial_pane" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="800.0"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.InitialHandler">
+
+<AnchorPane fx:id="initial_pane" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.InitialHandler">
     <children>
         <ImageView fx:id="initial_imgView" fitHeight="568.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/home_page.jpg" />
             </image>
         </ImageView>
-        <Button fx:id="play_button" layoutX="346.0" layoutY="327.0" mnemonicParsing="false" text="Play">
+        <Button fx:id="play_button" layoutX="369.0" layoutY="325.0" mnemonicParsing="false" onAction="#pressPlayButton" text="Play">
             <font>
-                <Font size="24.0" />
+                <Font size="20.0" />
             </font>
         </Button>
+      <Label fx:id="welcome_label" layoutX="191.0" layoutY="267.0" text="Welcome to the magical world of Eriantys!" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="cranio_img" fitHeight="117.0" fitWidth="90.0" layoutX="15.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cranio.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="542.0" layoutY="387.0" prefHeight="93.0" prefWidth="251.0">
+         <children>
+            <Rectangle fx:id="polimi_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="82.0" layoutX="10.0" layoutY="7.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="239.0" />
+            <ImageView fx:id="polimi_img" fitHeight="69.0" fitWidth="220.0" layoutX="19.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/polimi.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label fx:id="love_label" layoutX="87.0" layoutY="502.0" prefHeight="23.0" prefWidth="630.0" text="Made with Love &lt;3 by Giovanni Manfredi, Mattia Martelli and Sebastiano Meneghin" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
