@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -30,7 +31,19 @@ public class ConnectionErrorHandler implements GUIHandler {
     @FXML
     private Label connectionError_text;
 
+    @FXML
+    private Button return_button;
+
     // endregion FXML_Ids
+
+    /**
+     * Method called on the click of "return_button"
+     * Returns to "initialPage" with virtualController and
+     * model set to null
+     */
+    public void pressReturnButton() {
+        gui.playExitMenu();
+    }
 
     /**
      * Sets the ViewGUI at which the ServerInfoHandler is related
