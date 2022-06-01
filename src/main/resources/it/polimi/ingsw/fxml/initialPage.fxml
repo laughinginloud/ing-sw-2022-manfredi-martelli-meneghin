@@ -40,7 +40,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Label fx:id="love_label" layoutX="87.0" layoutY="502.0" prefHeight="23.0" prefWidth="630.0" text="Made with Love &lt;3 by Giovanni Manfredi, Mattia Martelli and Sebastiano Meneghin" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="love_label" alignment="CENTER" layoutX="21.0" layoutY="502.0" prefHeight="23.0" prefWidth="762.0" text="Made with Love &lt;3 by Giovanni Manfredi, Mattia Martelli and Sebastiano Meneghin" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>

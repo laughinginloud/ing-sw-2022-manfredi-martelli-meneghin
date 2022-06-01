@@ -57,8 +57,8 @@ public final class ViewGUI extends Application implements View {
         this.stage = stage;
 
         // Sets the title, the scene, the icon
-        stage.setTitle("Eriantys pre alpha 4.0");
-        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("it/polimi/ingsw/images/cranio.png").toString(), true));
+        stage.setTitle("Eriantys pre alpha 5.0");
+        stage.getIcons().add(new Image(getClass().getClassLoader().getResource("it/polimi/ingsw/images/cranio.png").toString(), false));
 
         // Sets the trigger on close request. Event on close request -> exit
         stage.setOnCloseRequest(event -> {
@@ -86,7 +86,7 @@ public final class ViewGUI extends Application implements View {
                 }
                 else {
                     loader = new FXMLLoader(getClass().getResource(Pages.getPathOf(page)));
-                    nameMapScene.put(page, new Scene(loader.load(), 800, 568, javafx.scene.paint.Color.BLACK));
+                    nameMapScene.put(page, new Scene(loader.load(), javafx.scene.paint.Color.BLACK));
                 }
 
                 GUIHandler handler = loader.getController();
