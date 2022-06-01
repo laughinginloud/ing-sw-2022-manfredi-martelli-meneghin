@@ -34,9 +34,17 @@ public class GameController {
     private static GameStateThread gameStateThread;
 
     /**
-     * The server executable's entry point
+     * Start the server with the default port
      */
-    public static void main(String[] args) {
+    public static void main() {
+        main(6556);
+    }
+
+    /**
+     * Start the server with a specified port
+     * @param port The port the server will listen to
+     */
+    public static void main(int port) {
         // Check whether the current file position allows read and write
         // If it's not possible then the program cannot save or read saves
         if (!GameSave.checkFolderPermissions()) {
@@ -53,7 +61,7 @@ public class GameController {
         ServerSocket serverSocket;
 
         try {
-            serverSocket = new ServerSocket(6554);
+            serverSocket = new ServerSocket(port);
         }
 
         // If the socket cannot be opened there's no point in going forward
