@@ -26,7 +26,7 @@ public class PlayerTeamExpertTest {
 
         teamMemberField = playerTeamExpertTest.getClass().getDeclaredField("teamMember");
         teamMemberField.setAccessible(true);
-        teamMemberField.set(playerTeamExpertTest, teamMemberTest);
+        teamMemberField.set(playerTeamExpertTest, teamMemberTest.getPlayerID());
     }
 
     /**
@@ -61,19 +61,19 @@ public class PlayerTeamExpertTest {
     }
 
     /**
-     *
+     * Test for teamMember's setter
      */
     @Test
     void setTeamMemberTest() throws IllegalAccessException {
-        Player localTest = new Player(0, null, null, null);
+        Player localTest = new Player(1, null, null, null);
         playerTeamExpertTest.setTeamMember(localTest.getPlayerID());
 
-        Player fieldValue = (Player) teamMemberField.get(playerTeamExpertTest);
+        Integer fieldValue = (Integer) teamMemberField.get(playerTeamExpertTest);
 
-        if (fieldValue.equals(teamMemberTest))
+        if (fieldValue.equals(teamMemberTest.getPlayerID()))
             throw new AssertionError("Setter did not set value");
 
-        if (!fieldValue.equals(localTest))
+        if (!fieldValue.equals(localTest.getPlayerID()))
             throw new AssertionError("Setter set wrong value");
     }
 }
