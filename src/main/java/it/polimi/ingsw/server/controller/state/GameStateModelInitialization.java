@@ -34,10 +34,10 @@ public final class GameStateModelInitialization implements GameStateSetup {
     private void setMembers(Player[] players) {
         for (int i = 0; i < 4; ++i) {
             if (players[i] instanceof PlayerTeam p)
-                p.setTeamMember(players[(i + 2) % 4]);
+                p.setTeamMember(players[(i + 2) % 4].getPlayerID());
 
             else if (players[i] instanceof PlayerTeamExpert p)
-                p.setTeamMember(players[(i + 2) % 4]);
+                p.setTeamMember(players[(i + 2) % 4].getPlayerID());
 
             else
                 throw new IllegalStateException("The players were not correctly created: use PlayerTeam or PlayerTeamExpert when there are four players");

@@ -91,18 +91,28 @@ public class GameController {
 
             else
                 try {
-                    Set<String> usernameSet =
-                        // Morph the array of players to a stream to ease operations
-                        Arrays.stream(data.getPlayersOrder())
-                            // Morph the stream into a stream containing the usernames
-                            .map(Player::getUsername)
-                            // Normalize the usernames to avoid being case-sensitive
-                            .map(String::toLowerCase)
-                            // Collect the results into a set
-                            .collect(Collectors.toSet());
+                    UsernameAndMagicAge usernameAndMagicAge;
 
-                    // Send the player a request for the username, signaling which ones were already picked
-                    UsernameAndMagicAge usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, usernameSet)).executeCommand();
+                    if (rulesSet) {
+                        Set<String> usernameSet =
+                            // Morph the array of players to a stream to ease operations
+                            Arrays.stream(data.getPlayersOrder())
+                                // Morph the stream into a stream containing the usernames
+                                .map(p -> p == null ? "" : p.getUsername())
+                                // Normalize the usernames to avoid being case-sensitive
+                                .map(String::toLowerCase)
+                                // Collect the results into a set
+                                .collect(Collectors.toSet());
+
+                        // Send the player a request for the username, signaling which ones were already picked
+                        usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, usernameSet)).executeCommand();
+                    }
+
+                    else {
+
+                        // Send the player a request for the username, signaling which ones were already picked
+                        usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, new HashSet<>())).executeCommand();
+                    }
 
                     if (!rulesSet) {
                         Optional<File> savedGame = GameSave.findSavedGame(usernameAndMagicAge.username());
@@ -328,14 +338,14 @@ public class GameController {
     private static void linkTeams(Player[] players, int index) {
         if (players[index] instanceof PlayerTeamExpert p) {
             PlayerTeamExpert teamMember = (PlayerTeamExpert) players[index - 2];
-            p.setTeamMember(teamMember);
-            teamMember.setTeamMember(p);
+            p.setTeamMember(teamMember.getPlayerID());
+            teamMember.setTeamMember(p.getPlayerID());
         }
 
         else if (players[index] instanceof PlayerTeam p) {
             PlayerTeam teamMember = (PlayerTeam) players[index - 2];
-            p.setTeamMember(teamMember);
-            teamMember.setTeamMember(p);
+            p.setTeamMember(teamMember.getPlayerID());
+            teamMember.setTeamMember(p.getPlayerID());
         }
 
         else
@@ -353,6 +363,7 @@ public class GameController {
             GameRules rules = (GameRules) view.sendRequest(new GameCommandRequestAction(GameActions.RULES, null)).executeCommand();
 
             data.setNumOfPlayers(rules.numOfPlayers());
+            data.setPlayersOrder(new Player[rules.numOfPlayers()]);
             if (rules.expertMode())
                 data.setExpertMode();
 

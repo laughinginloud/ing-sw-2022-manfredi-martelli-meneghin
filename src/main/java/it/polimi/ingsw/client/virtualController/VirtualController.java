@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.virtualController;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.client.Address;
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
@@ -10,7 +9,7 @@ import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
-import it.polimi.ingsw.common.utils.Constants;
+import it.polimi.ingsw.common.json.Constants;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.viewRecord.GameRules;
@@ -22,7 +21,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.*;
 
 public class VirtualController extends Thread implements Closeable {
@@ -127,7 +125,14 @@ public class VirtualController extends Thread implements Closeable {
 
             case ISLANDARRAY          -> model.setIsland((Island[]) object);
 
-            case PLAYERARRAY          -> model.setPlayer((Player[]) object);
+            case PLAYERARRAY          -> {
+                model.setPlayer((Player[]) object);
+
+                GlobalProfessorTable gpt = model.getGlobalProfessorTable();
+
+                for (Color color : Color.values())
+                    gpt.setProfessorLocation(color, model.getPlayer(gpt.getProfessorLocation(color).getPlayerID()));
+            }
 
             case CLOUDARRAY           -> model.setCloudTile((CloudTile[]) object); //Utilizzo: scelta tra nuvole, sostituzione dati model
 
@@ -135,7 +140,14 @@ public class VirtualController extends Thread implements Closeable {
 
             case MOTHERNATURE         -> model.setMotherNaturePosition((int) object);
 
-            case GLOBALPROFESSORTABLE -> model.setGlobalProfessorTable((GlobalProfessorTable) object);
+            case GLOBALPROFESSORTABLE -> {
+                GlobalProfessorTable gpt = (GlobalProfessorTable) object;
+
+                for (Color color : Color.values())
+                    gpt.setProfessorLocation(color, model.getPlayer(gpt.getProfessorLocation(color).getPlayerID()));
+
+                model.setGlobalProfessorTable(gpt);
+            }
 
             case ENTRANCE             -> {
                 Tuple<Integer, Entrance> tuple = (Tuple<Integer, Entrance>) object;
