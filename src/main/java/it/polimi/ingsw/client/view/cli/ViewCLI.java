@@ -203,11 +203,9 @@ public final class ViewCLI implements View {
             // Otherwise, read the port and try to parse it
             String readPort = reader.readLine();
             try {
-                int portInt = Integer.parseInt(readPort);
-
                 // Filter for well known ports, that will not be accepted
-                if ((portInt > 1023 && portInt < 65536))
-                    return new Address(ip.left(), portInt);
+                if (Address.checkPort(port.left()))
+                    return new Address(ip.left(), Address.parsePort(port.left()));
             }
 
             // If the port cannot be parsed, simply ignore the exception
@@ -232,6 +230,11 @@ public final class ViewCLI implements View {
     }
 
     public GameModel getModel() {
+        return null;
+    }
+
+    @Override
+    public Player getLocalPlayer() {
         return null;
     }
 
@@ -349,6 +352,11 @@ public final class ViewCLI implements View {
 
     public void forwardViewToVirtualController(Object infoToSend) {
 
+    }
+
+    @Override
+    public void setUsernameVirtualController(String readUsername) {
+        
     }
 
     public void setVirtualController(VirtualController virtualController) {

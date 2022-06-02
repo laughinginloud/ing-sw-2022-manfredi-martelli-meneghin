@@ -1,17 +1,14 @@
 package it.polimi.ingsw.server.controller.save;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import it.polimi.ingsw.common.utils.Constants;
+import it.polimi.ingsw.common.json.Constants;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.GameController;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.attribute.FileAttribute;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

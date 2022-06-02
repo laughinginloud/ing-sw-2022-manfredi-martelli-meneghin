@@ -1,13 +1,12 @@
 package it.polimi.ingsw.server.virtualView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.*;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
-import it.polimi.ingsw.common.utils.Constants;
+import it.polimi.ingsw.common.json.Constants;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
