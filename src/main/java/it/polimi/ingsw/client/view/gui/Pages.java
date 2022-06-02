@@ -20,7 +20,7 @@ public enum Pages {
 
     WIZARD_CHOICE,
 
-    GAME,
+    GAME_SCENE,
 
     SCHOOL_BOARDS,
 
@@ -49,7 +49,7 @@ public enum Pages {
 
             case WIZARD_CHOICE    -> path = "/it/polimi/ingsw/fxml/wizardChoicePage.fxml";
 
-            case GAME             -> path = "/it/polimi/ingsw/fxml/gameScenePage.fxml";
+            case GAME_SCENE       -> path = "/it/polimi/ingsw/fxml/gameScenePage.fxml";
 
             case SCHOOL_BOARDS    -> path = "/it/polimi/ingsw/fxml/playersSchoolBoardPage.fxml";
 

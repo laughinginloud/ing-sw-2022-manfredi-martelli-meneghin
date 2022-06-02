@@ -80,7 +80,7 @@ public final class ViewGUI extends Application implements View {
             // For each page, it loads the scene and its respective handler (or controller)
             for (Pages page : pages) {
                 FXMLLoader loader;
-                if (page.equals(Pages.GAME) || page.equals(Pages.SCHOOL_BOARDS)){
+                if (page.equals(Pages.GAME_SCENE) || page.equals(Pages.SCHOOL_BOARDS)){
                     loader = new FXMLLoader(getClass().getResource(Pages.getPathOf(page)));
                     nameMapScene.put(page, new Scene(loader.load(), 1920, 1080, javafx.scene.paint.Color.BLACK));
                 }
@@ -136,7 +136,7 @@ public final class ViewGUI extends Application implements View {
 
     // region ViewImplementation
 
-    // region MiscellanousMethods
+    // region MiscellaneousMethods
 
     /**
      * Launches the UI (CLI or GUI) of the program
@@ -181,7 +181,7 @@ public final class ViewGUI extends Application implements View {
         // TODO [Game]
     }
 
-    // endregion MiscellanousMethods
+    // endregion MiscellaneousMethods
 
     // region AskPlayer
 

@@ -6,8 +6,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * Helper class with useful methods to switch between model elements and corresponding id
+ * GS = Game Scene; PSB = PlayersSchoolBoard
+ * @author Sebastiano Meneghin
+ */
 public class IDHelper {
 
+    /**
+     * GS Method that given the Color and the position of a student in the dining room, returns
+     * the corresponding id
+     * @param gs the GameSceneHandler
+     * @param color the student's color
+     * @param studentDRPosition the student position
+     * @return the corresponding id
+     */
     public static ImageView gsFindStudentDiningRoomID (GameSceneHandler gs, Color color, int studentDRPosition) {
         ImageView studentDiningRoomID = null;
         switch (color) {
@@ -96,6 +109,12 @@ public class IDHelper {
         return studentDiningRoomID;
     }
 
+    /**
+     * GS Method that given the position of a student in the dining room, returns the corresponding id
+     * @param gs the GameSceneHandler
+     * @param studentEntrancePosition the student position
+     * @return the corresponding id
+     */
     public static ImageView gsFindStudentEntranceID (GameSceneHandler gs, int studentEntrancePosition) {
         ImageView studentEntranceID = null;
         switch (studentEntrancePosition) {
@@ -114,6 +133,12 @@ public class IDHelper {
         return studentEntranceID;
     }
 
+    /**
+     * GS Method that given the position of an island, returns the corresponding id
+     * @param gs the GameSceneHandler
+     * @param islandPosition the island position
+     * @return the corresponding id
+     */
     public static ImageView gsFindIslandID (GameSceneHandler gs, int islandPosition) {
         ImageView islandID = null;
         switch (islandPosition) {
