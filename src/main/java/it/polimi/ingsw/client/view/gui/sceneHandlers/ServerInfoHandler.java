@@ -61,9 +61,9 @@ public class ServerInfoHandler implements GUIHandler {
      * the information to the VirtualController
      */
     public void submitServerInfo() {
-        // Reads an IP, sanitizing it in the process as the unsanitized version is currently useless
-        String readIP     = Address.sanitizeIP(serverIP_field.getText());
         Alert submitAgain = null;
+        // Reads an IP, sanitizing it in the process as the un-sanitized version is currently useless
+        String readIP     = Address.sanitizeIP(serverIP_field.getText());
 
         // If the IP is incorrect, give an alert and then end the function
         if (!Address.checkIP(readIP))
@@ -76,10 +76,10 @@ public class ServerInfoHandler implements GUIHandler {
         if (submitAgain == null && readPort != null) {
             // Otherwise, read the port and try to parse it
             try {
-                portInt = Integer.parseInt(readPort);
+                portInt = Address.parsePort(readPort);
 
                 // Filters for well known ports, that will not be accepted
-                if (!(portInt > 1023 && portInt < 65536)) {
+                if (!(Address.checkPort(portInt))) {
                     submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_PORT, readPort);
                 }
             }
@@ -92,11 +92,11 @@ public class ServerInfoHandler implements GUIHandler {
         else if (readPort == null)
             submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_PORT, null);
 
-        if(submitAgain != null) {
-            // Clears fields
-            serverIP_field.setText("");
-            serverPort_field.setText("");
+        // Clear fields
+        serverIP_field.setText("");
+        serverPort_field.setText("");
 
+        if(submitAgain != null) {
             submitAgain.showAndWait();
         }
 

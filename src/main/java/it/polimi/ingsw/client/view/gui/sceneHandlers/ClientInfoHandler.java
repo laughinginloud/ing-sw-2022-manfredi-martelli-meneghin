@@ -63,9 +63,7 @@ public class ClientInfoHandler implements GUIHandler {
 
         // Reads the username entered sanitizing it and raising an alert if it's incorrect
         String readUsername = UsernameAndMagicAge.sanitizeUsername(username_field.getText());
-        if (readUsername == null || (readUsername.length() <= 0 || readUsername.length() >= 20 ) ||
-            forbiddenUsernames.contains(readUsername)) {
-
+        if (!UsernameAndMagicAge.checkUsername(readUsername, forbiddenUsernames)) {
             submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_USERNAME, readUsername);
         }
 
@@ -75,10 +73,10 @@ public class ClientInfoHandler implements GUIHandler {
         if (submitAgain == null && readMagicAge != null){
             // Otherwise, read the magicAge and try to parse it
             try {
-                magicAgeInt = Integer.parseInt(readMagicAge);
+                magicAgeInt = UsernameAndMagicAge.parseMagicAge(readMagicAge);
 
                 // Filter for negative numbers (years), that will not be accepted
-                if (magicAgeInt < 0) {
+                if (!UsernameAndMagicAge.checkMagicAge(magicAgeInt)) {
                     submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGICAGE, readMagicAge);
                 }
             }
@@ -92,16 +90,17 @@ public class ClientInfoHandler implements GUIHandler {
             submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGICAGE, null);
         }
 
-        if(submitAgain != null) {
-            // Clear fields
-            username_field.setText("");
-            magicAge_field.setText("");
+        // Clear fields
+        username_field.setText("");
+        magicAge_field.setText("");
 
+        if(submitAgain != null) {
             submitAgain.showAndWait();
         }
 
         else {
             gui.forwardViewToVirtualController(new UsernameAndMagicAge(readUsername, magicAgeInt));
+            gui.setUsernameVirtualController(readUsername);
         }
     }
 
