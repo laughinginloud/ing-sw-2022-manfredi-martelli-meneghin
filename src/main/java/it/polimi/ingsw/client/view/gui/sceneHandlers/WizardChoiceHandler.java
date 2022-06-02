@@ -63,6 +63,7 @@ public class WizardChoiceHandler implements GUIHandler {
     @FXML
     private Label wizardChoice_titleLabel;
 
+    // TODO: Remove the follwing test method!
     // IT'S ONLY A TEST METHOD, IT WILL BE REMOVED
     public void testMethod(){
         // How to de-saturate a card "Not playable"
@@ -145,7 +146,7 @@ public class WizardChoiceHandler implements GUIHandler {
      * @param wizard The wizard we want to find the image of
      * @return A string representing the path to the wizard's image
      */
-    public String fromWizardEnumToPath (Wizard wizard) {
+    public String fromWizardEnumToFXMLPath (Wizard wizard) {
         String wizardPath = "";
 
         switch (wizard) {
