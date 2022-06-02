@@ -42,76 +42,44 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="p0_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
+                                          <ImageView fx:id="p0_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p0_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p0_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p0_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p0_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p0_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p0_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p0_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                        </children>
                                     </GridPane>
-                                    <AnchorPane fx:id="p0_addInfo_pane" layoutX="364.0" prefHeight="170.0" prefWidth="112.0">
+                                    <AnchorPane fx:id="p0_addInfo_pane" layoutX="364.0" prefHeight="241.0" prefWidth="112.0">
                                        <children>
                                           <Rectangle fx:id="p0_addInfo_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="241.0" layoutX="-1.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="113.0" />
-                                          <ImageView fx:id="p0_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/assistantCards/assistantCard1.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p0_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/coin.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Text fx:id="p0_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                                          <ImageView fx:id="p0_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Text fx:id="p0_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="12.0" />
                                              </font>
                                           </Text>
                                           <Text fx:id="p0_lastCardPlayed_text" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last card played:" textAlignment="CENTER" wrappingWidth="111.82617584081754">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font size="11.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="p0_coinsCount_text" layoutX="62.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Text>
+                                          <AnchorPane fx:id="p0_coin_pane" layoutY="178.0" prefHeight="62.0" prefWidth="112.0">
+                                             <children>
+                                                <Text fx:id="p0_coinsCount_text" layoutX="72.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Text>
+                                                <ImageView fx:id="p0_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/coin.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -120,27 +88,27 @@
                                  <children>
                                     <AnchorPane fx:id="p0_professorTable_pane" prefHeight="108.0" prefWidth="468.0">
                                        <children>
-                                          <ImageView fx:id="p0_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_blue.png" />
                                              </image>
@@ -194,7 +162,7 @@
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
@@ -421,11 +389,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p0_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p0_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="p0_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
                                     <ImageView fx:id="p0_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/students/student_red.png" />
@@ -545,14 +509,9 @@
                                                 <Image url="@../images/assistantCards/assistantCard1.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/coin.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Text fx:id="p1_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                                          <Text fx:id="p1_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="15.0" />
                                              </font>
                                           </Text>
                                           <Text fx:id="p1_lastCardPlayed_text" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last card played:" textAlignment="CENTER" wrappingWidth="111.82617584081754">
@@ -560,11 +519,20 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="p1_coinsCount_text" layoutX="62.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Text>
+                                          <AnchorPane fx:id="p1_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0">
+                                             <children>
+                                                <ImageView fx:id="p1_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/coin.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Text fx:id="p1_coinsCount_text" strokeType="OUTSIDE" strokeWidth="0.0" text="1" x="72.0" y="41.0">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -998,14 +966,9 @@
                                                 <Image url="@../images/assistantCards/assistantCard1.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/coin.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Text fx:id="p2_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                                          <Text fx:id="p2_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="15.0" />
                                              </font>
                                           </Text>
                                           <Text fx:id="p2_lastCardPlayed_text" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last card played:" textAlignment="CENTER" wrappingWidth="111.82617584081754">
@@ -1013,11 +976,20 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="p2_coinsCount_text" layoutX="62.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Text>
+                                          <AnchorPane fx:id="p2_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0">
+                                             <children>
+                                                <ImageView fx:id="p2_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/coin.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Text fx:id="p2_coinsCount_text" strokeType="OUTSIDE" strokeWidth="0.0" text="1" x="72.0" y="41.0">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -1451,14 +1423,9 @@
                                                 <Image url="@../images/assistantCards/assistantCard1.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/coin.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Text fx:id="p3_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                                          <Text fx:id="p3_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
-                                                <Font size="24.0" />
+                                                <Font size="15.0" />
                                              </font>
                                           </Text>
                                           <Text fx:id="p3_lastCardPlayed_text" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last card played:" textAlignment="CENTER" wrappingWidth="111.82617584081754">
@@ -1466,11 +1433,20 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <Text fx:id="p3_coinsCount_text" layoutX="62.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Text>
+                                          <AnchorPane fx:id="p3_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0">
+                                             <children>
+                                                <ImageView fx:id="p3_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/coin.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Text fx:id="p3_coinsCount_text" strokeType="OUTSIDE" strokeWidth="0.0" text="1" x="72.0" y="41.0">
+                                                   <font>
+                                                      <Font size="24.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                                  </children>
