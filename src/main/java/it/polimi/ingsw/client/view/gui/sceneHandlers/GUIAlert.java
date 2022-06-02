@@ -55,13 +55,13 @@ public enum GUIAlert {
             case INVALID_USERNAME -> {
                 title       = "Invalid username";
                 headerText  = "You have entered and invalid Username: " + dynamicString;
-                contentText = "Re-enter a valid username";
+                contentText = "Re-enter a valid username\n" + "NB! A valid username is between 1 and 10 characters";
                 alertType   = Alert.AlertType.WARNING;
             }
             case INVALID_MAGICAGE -> {
                 title       = "Invalid magicAge";
                 headerText  = "You have entered and invalid number of years: " + dynamicString;
-                contentText = "Re-enter a valid number of years";
+                contentText = "Re-enter a valid number of years\n" + "NB! A valid number of years is positive";
                 alertType   = Alert.AlertType.WARNING;
             }
         }

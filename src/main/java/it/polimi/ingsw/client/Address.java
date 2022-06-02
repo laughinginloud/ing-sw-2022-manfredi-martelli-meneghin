@@ -52,7 +52,7 @@ public record Address(String ipAddress, int port) {
     }
 
     /**
-     * Check whether the provided port number is registered or dynamic
+     * Check whether the provided port number (as a string) is registered or dynamic
      * @param port A string containing the port number
      * @return <code>true</code> if the integer contains a valid port number, <code>false</code> otherwise
      * @throws NumberFormatException If the provided string does not contain a valid integer
