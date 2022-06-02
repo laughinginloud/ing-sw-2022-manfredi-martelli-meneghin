@@ -37,9 +37,6 @@ public sealed interface View permits ViewCLI, ViewGUI {
      */
     void updateModel(GameModel model);
 
-    //TODO
-    void setModel(GameModel model);
-
     // region AskPlayer
 
     /**
@@ -242,6 +239,8 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     // endregion Notifications
 
+    // region VirtualControllerInteraction
+
     /**
      * Forwards the infoToSend to the Virtual Controller,
      * contacting it through the method "messageAfterUserInteraction"
@@ -252,10 +251,13 @@ public sealed interface View permits ViewCLI, ViewGUI {
     void forwardViewToVirtualController(Object infoToSend);
 
     /**
-     * Sets the virtualController of this class to a specific virtualController received with the method
-     * @param virtualController The VirtualController that this.virtualController has to be set to
+     * Sets the username in the VirtualController after getting it from the player.
+     * This will come in handy when the View needs to identify self-player infos in the model
+     * @param readUsername the username of the player
      */
-    void setVirtualController(VirtualController virtualController);
+    void setUsernameVirtualController(String readUsername);
+
+    // endregion VirtualControllerInteraction
 
     // region SignalEndGame
 
@@ -277,8 +279,31 @@ public sealed interface View permits ViewCLI, ViewGUI {
      */
     void signalDraw(List<Player> drawers);
 
+    // endregion SignalEndGame
+
+    // region Getter
+
+    /**
+     * Gets the model saved in the View
+     * @return the model saved
+     */
     GameModel getModel();
 
+    // endregion Getter
 
-    // endregion SignalEndGame
+    // region Setter
+
+    /**
+     * Sets the current Game Model to the one specified
+     * @param model A reference to the model
+     */
+    void setModel(GameModel model);
+
+    /**
+     * Sets the virtualController of this class to a specific virtualController received with the method
+     * @param virtualController The VirtualController that this.virtualController has to be set to
+     */
+    void setVirtualController(VirtualController virtualController);
+
+    // endregion Setter
 }

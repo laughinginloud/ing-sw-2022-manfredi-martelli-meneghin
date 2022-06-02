@@ -100,6 +100,7 @@ public class ClientInfoHandler implements GUIHandler {
 
         else {
             gui.forwardViewToVirtualController(new UsernameAndMagicAge(readUsername, magicAgeInt));
+            gui.setUsernameVirtualController(readUsername);
         }
     }
 

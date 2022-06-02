@@ -38,6 +38,8 @@ public class VirtualController extends Thread implements Closeable {
     private       Map<GameValues, Object> savedReceivedMap = null;
     private       Map<GameValues, Object> savedToSendMap   = null;
 
+    private       String                  username;
+
     public VirtualController(Address address, View view) throws IOException {
         socket       = new Socket(address.ipAddress(), address.port());
         inputStream  = new DataInputStream(socket.getInputStream());
@@ -938,5 +940,21 @@ public class VirtualController extends Thread implements Closeable {
 
         // Resets the vcState and the savedReceivedMap after having sent the message
         this.savedReceivedMap = null;
+    }
+
+    /**
+     * Gets the username of the local player (client)
+     * @return the username of the local player
+     */
+    public String getUsername() {
+        return this.username;
+    }
+
+    /**
+     * Sets the username of the local player (client
+     * @param username the username to be set
+     */
+    public void setUsername (String username) {
+        this.username = username;
     }
 }

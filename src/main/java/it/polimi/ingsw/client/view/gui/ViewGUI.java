@@ -2,10 +2,7 @@ package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.client.view.gui.sceneHandlers.ClientInfoHandler;
-import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIAlert;
-import it.polimi.ingsw.client.view.gui.sceneHandlers.GUIHandler;
-import it.polimi.ingsw.client.view.gui.sceneHandlers.WizardChoiceHandler;
+import it.polimi.ingsw.client.view.gui.sceneHandlers.*;
 import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
@@ -502,6 +499,8 @@ public final class ViewGUI extends Application implements View {
 
     // endregion Notifications
 
+    // region VirtualControllerInteraction
+
     /**
      * Forwards the infoToSend to the Virtual Controller,
      * contacting it through the method "messageAfterUserInteraction"
@@ -514,6 +513,18 @@ public final class ViewGUI extends Application implements View {
     public void forwardViewToVirtualController(Object infoToSend) {
         virtualController.messageAfterUserInteraction(infoToSend);
     }
+
+    /**
+     * Sets the username in the VirtualController after getting it from the player.
+     * This will come in handy when the View needs to identify self-player infos in the model
+     * @param readUsername the username of the player
+     */
+    @Override
+    public void setUsernameVirtualController(String readUsername) {
+        this.virtualController.setUsername(readUsername);
+    }
+
+    // endregion VirtualControllerInteraction
 
     // region SignalEndGame
 
@@ -549,6 +560,20 @@ public final class ViewGUI extends Application implements View {
 
     // endregion SignalEndGame
 
+    // region Getter
+
+    /**
+     * Gets the model saved in the View
+     * @return the model saved
+     */
+    @Override
+    public GameModel getModel() {
+        return model;
+    }
+
+
+    // endregion Getter
+
     // region Setter
 
     /**
@@ -562,8 +587,8 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Set the current Game Model to the one specified
-     * @param model A pointer to the model
+     * Sets the current Game Model to the one specified
+     * @param model A reference to the model
      */
     @Override
     public void setModel(GameModel model) {
@@ -573,10 +598,5 @@ public final class ViewGUI extends Application implements View {
     // endregion Setter
 
     // endregion ViewImplementation
-
-    @Override
-    public GameModel getModel() {
-        return model;
-    }
 
 }
