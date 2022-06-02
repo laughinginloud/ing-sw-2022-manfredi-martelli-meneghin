@@ -5,6 +5,7 @@ import it.polimi.ingsw.common.model.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
@@ -45,6 +46,12 @@ public class IDHelper {
 
     // region IslandAnchorPaneID
 
+    /**
+     * Gets the AnchorPane (ID) of a specific Island
+     * @param gs The gameSceneHandler
+     * @param islandID An ImageView correspondent to the islandID of the specified island
+     * @return The AnchorPane correspondent to the desired tower
+     */
     public static AnchorPane gsFindIslandAnchorPaneID (GameSceneHandler gs, ImageView islandID) {
         AnchorPane islandAnchorPaneID = null;
 
@@ -67,6 +74,12 @@ public class IDHelper {
         return islandAnchorPaneID;
     }
 
+    /**
+     * Gets the AnchorPane (ID) of a specific Island
+     * @param gs The gameSceneHandler
+     * @param islandPosition An int representing the islandNumber of the specified island
+     * @return The AnchorPane correspondent to the desired tower
+     */
     public static AnchorPane gsFindIslandAnchorPaneID (GameSceneHandler gs, int islandPosition) {
         ImageView islandID = gsFindIslandID(gs, islandPosition);
         return gsFindIslandAnchorPaneID(gs, islandID);
@@ -432,10 +445,10 @@ public class IDHelper {
     // region IslandTowerCounterID
 
     /**
-     * Gets the ImageView (ID) of the towerCounter on a specific Island
+     * Gets the Text (ID) of the towerCounter on a specific Island
      * @param gs The gameSceneHandler
      * @param islandID An ImageView correspondent to the islandID of the island where the towerCounter is located
-     * @return The ImageView (ID) correspondent to the desired towerCounter
+     * @return The Text (ID) correspondent to the desired towerCounter
      */
     public static Text gsFindTowerCountOnIslandID (GameSceneHandler gs, ImageView islandID) {
         Text towerCountOnIslandID = null;
@@ -460,10 +473,10 @@ public class IDHelper {
     }
 
     /**
-     * Gets the ImageView (ID) of the towerCounter on a specific Island
+     * Gets the Text (ID) of the towerCounter on a specific Island
      * @param gs The gameSceneHandler
      * @param islandPosition An int representing the islandNumber of the island where the towerCounter is located
-     * @return The ImageView (ID) correspondent to the desired towerCounter
+     * @return The Text (ID) correspondent to the desired towerCounter
      */
     public static Text gsFindTowerCountOnIslandID (GameSceneHandler gs, int islandPosition) {
         ImageView islandID = gsFindIslandID(gs, islandPosition);
@@ -566,6 +579,13 @@ public class IDHelper {
 
     // region IslandMotherNatureID
 
+    /**
+     * Gets the ImageView (ID) of MotherNature on a specific Island
+     * @param gs The gameSceneHandler
+     * @param islandID An ImageView correspondent to the islandID of the island from which we need
+     *                 to retrive the MotherNature ImageView
+     * @return The ImageView of motherNature on the desired island
+     */
     public static ImageView gsFindMotherNatureOnIslandID (GameSceneHandler gs, ImageView islandID) {
         ImageView motherNatureOnIslandID = null;
 
@@ -588,6 +608,13 @@ public class IDHelper {
         return motherNatureOnIslandID;
     }
 
+    /**
+     * Gets the ImageView (ID) of MotherNature on a specific Island
+     * @param gs The gameSceneHandler
+     * @param islandPosition An int representing the islandNumber of the island from which we need
+     *                       to retrive the MotherNature ImageView
+     * @return The ImageView of motherNature on the desired island
+     */
     public static ImageView gsFindMotherNatureOnIslandID (GameSceneHandler gs, int islandPosition) {
         ImageView islandID = gsFindIslandID(gs, islandPosition);
         return gsFindMotherNatureOnIslandID(gs, islandID);
@@ -864,7 +891,41 @@ public class IDHelper {
 
     // region CharacterCardStudentID
 
-    // region CharacterCardStudentPaneID
+    // region CharacterCardStudentRectangleID
+
+    /**
+     *
+     * @param gs
+     * @param characterCardImageID
+     * @return
+     */
+    public static Rectangle gsFindCharacterCardRectangleStudentID (GameSceneHandler gs, ImageView characterCardImageID) {
+        Rectangle characterCardRectangleID = null;
+
+        switch (characterCardImageID.getId()) {
+            case "characterCard0_img" -> characterCardRectangleID = gs.CC0_elem_background;
+            case "characterCard1_img" -> characterCardRectangleID = gs.CC1_elem_background;
+            case "characterCard2_img" -> characterCardRectangleID = gs.CC2_elem_background;
+            default                   -> throw new IllegalStateException("The characterCardImageID you have inserted is not contemplated. You've inserted: " + characterCardImageID.getId());
+        }
+
+        return characterCardRectangleID;
+    }
+
+    /**
+     *
+     * @param gs
+     * @param characterCardPosition
+     * @return
+     */
+    public static Rectangle gsFindCharacterCardRectangleStudentID (GameSceneHandler gs, int characterCardPosition) {
+        ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
+        return gsFindCharacterCardRectangleStudentID(gs, characterCardImageID);
+    }
+
+    // endregion CharacterCardStudentRectangleID
+
+    // region CharacterCardStudentGridPaneID
 
     /**
      * Gets the GridPane (ID) of the characterCardPane of a specific characterCard on the characterCards_pane
@@ -896,7 +957,7 @@ public class IDHelper {
         return gsFindCharacterCardPaneStudentID(gs, characterCardImageID);
     }
 
-    // endregion CharacterCardStudentPaneID
+    // endregion CharacterCardStudentGridPaneID
 
     // region CharacterCardStudentSingleID
 
@@ -973,6 +1034,12 @@ public class IDHelper {
 
     // region CloudID
 
+    /**
+     * Gets the ImageView (ID) of a specific CloudTile
+     * @param gs The gameSceneHandler
+     * @param cloudPosition An int representing the cloudNumber of the specified cloud
+     * @return The ImageView correspondent to the desired CloudTile
+     */
     public static ImageView gsFindCloudImageID (GameSceneHandler gs, int cloudPosition) {
         ImageView cloudImageID = null;
 
@@ -987,11 +1054,23 @@ public class IDHelper {
         return cloudImageID;
     }
 
+    /**
+     * Gets the AnchorPane (ID) of a specific CloudTile
+     * @param gs The gameSceneHandler
+     * @param cloudPosition An int representing the cloudNumber of the specified cloud
+     * @return The AnchorPane correspondent to the desired CloudTile's anchorPane
+     */
     public static AnchorPane gsFindCloudAnchorPaneID (GameSceneHandler gs, int cloudPosition) {
         ImageView cloudImageID = gsFindCloudImageID (gs, cloudPosition);
         return gsFindCloudAnchorPaneID(gs, cloudImageID);
     }
 
+    /**
+     * Gets the AnchorPane (ID) of a specific CloudTile
+     * @param gs The gameSceneHandler
+     * @param cloudImageID An ImageView correspondent to the cloudTileID of the specified cloud
+     * @return The AnchorPane correspondent to the desired CloudTile's anchorPane
+     */
     public static AnchorPane gsFindCloudAnchorPaneID (GameSceneHandler gs, ImageView cloudImageID) {
         AnchorPane cloudAnchorPaneID = null;
 
@@ -1008,6 +1087,14 @@ public class IDHelper {
 
     // region CloudStudentID
 
+    /**
+     * Gets the ImageView (ID) of the tower on a specific Island
+     * @param gs The gameSceneHandler
+     * @param cloudImageID An ImageView correspondent to the cloudTileID of the specified cloud
+     * @param studentPositionOnCloud An int representing the studentPosition of the specific students on
+     *                               the specified cloud
+     * @return The ImageView correspondent to the desired student on the CloudTile
+     */
     public static ImageView gsFindCloudStudentID (GameSceneHandler gs, ImageView cloudImageID, int studentPositionOnCloud) {
         ImageView cloudStudentID = null;
 
@@ -1056,6 +1143,15 @@ public class IDHelper {
         return cloudStudentID;
     }
 
+    /**
+     * Gets the ImageView (ID) of the
+     * tower on a specific Island
+     * @param gs The gameSceneHandler
+     * @param cloudPosition An int representing the cloudNumber of the specified cloud
+     * @param studentPositionOnCloud An int representing the studentPosition of the specific students on
+     *                               the specified cloud
+     * @return The ImageView correspondent to the desired student on the CloudTile
+     */
     public static ImageView gsFindCloudStudentID (GameSceneHandler gs, int cloudPosition, int studentPositionOnCloud) {
         ImageView cloudImageID = gsFindCloudImageID (gs, cloudPosition);
         return gsFindCloudStudentID(gs, cloudImageID, studentPositionOnCloud);
