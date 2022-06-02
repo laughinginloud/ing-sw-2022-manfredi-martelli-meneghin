@@ -176,6 +176,8 @@ public final class ViewGUI extends Application implements View {
     @Override
     public void updateModel(GameModel model) {
         // TODO [Game]
+        ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer());
+        ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model);
     }
 
     // endregion MiscellaneousMethods

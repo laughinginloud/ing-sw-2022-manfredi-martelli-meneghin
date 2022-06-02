@@ -1,16 +1,25 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
+import it.polimi.ingsw.client.view.gui.IDHelper;
+import it.polimi.ingsw.client.view.gui.ImageTypes;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Handler (or Controller) of the scene GameScene (gameScenePage.fxml)
@@ -1309,6 +1318,507 @@ public class GameSceneHandler implements GUIHandler {
     // endregion FXML_Ids
 
     // TODO Full implementation
+
+    // region GSUpdateModel
+
+    /**
+     * Updates the GameScene according to the updated model
+     * @param model the model to update
+     * @param player the localPlayer
+     */
+    public void gsUpdateModel(GameModel model, Player player) {
+        // updates the islands
+        gsUpdateIslands(model.getIslands(), model.getMotherNaturePosition());
+
+        // updates the cloudTiles
+        gsUpdateCloudTiles(model.getCloudTile(), model.getPlayersCount());
+
+        // updates the AssistantCards deck
+        gsUpdateAssistantDeck(player.getAssistantDeck(), player.getPlayerWizard());
+
+        // updates the SchoolBoard
+        gsUpdateSchoolBoard(model, player);
+
+        // if the game is in expertMode updates the expertMode elements, hides them otherwise
+        if (model.getExpertMode()) {
+            gsUpdateExpertModeElements(model, player);
+        }
+        else {
+            characterCards_pane.setVisible(false);
+        }
+    }
+
+    // region GSUpdateSky
+
+    /**
+     * Updates the Islands according to the array of islands given
+     * @param islands the array of islands to update
+     * @param motherNaturePosition the position of motherNature
+     */
+    public void gsUpdateIslands(Island[] islands, int motherNaturePosition){
+        // Tower img
+        ImageView  islandTower;
+        TowerColor islandTowerColor;
+        String     islandTowerPath;
+        // TowerCounter
+        Text       islandsTowersText;
+        int        islandTowersCount;
+        // Student img
+        ImageView  islandStudent;
+        // StudentCounter
+        Text       islandStudentText;
+        int        islandStudentCount;
+        // MotherNature
+        ImageView  islandMotherNature;
+        // NoEntryTile
+        ImageView  islandNoEntryTile;
+        // NoEntryTilesCount
+        Text       islandNoEntryTilesCountText;
+        int        islandNoEntryTilesCount;
+
+        // For each island present in the islands array
+        for (int i = 0; i < islands.length; i++) {
+            // Getting the ids and the data from the model
+            islandTower       = IDHelper.gsFindTowerOnIslandID(this, i);
+            islandsTowersText = IDHelper.gsFindTowerCountOnIslandID(this, i);
+            islandTowerColor  = islands[i].getTowerColor();
+            islandTowersCount = islands[i].getMultiplicity();
+            if (islandTowerColor != null){
+                // Set the tower img
+                islandTowerPath = ImageTypes.fromTowerColorToHandlerPath(islands[i].getTowerColor());
+                islandTower.setImage(new Image(getClass().getClassLoader().getResource(islandTowerPath).toString(), true));
+                islandTower.setVisible(true);
+                // Set the towersCount
+                islandsTowersText.setText(String.valueOf(islandTowersCount));
+                islandsTowersText.setVisible(true);
+            }
+            else {
+                // If the island does not exist, the islandTower and its count is hidden
+                islandTower.setVisible(false);
+                islandsTowersText.setVisible(false);
+            }
+
+            // For each student on the island
+            for (Color student : Color.values()) {
+                // Set Student img and the studentsCount
+                islandStudent      = IDHelper.gsFindStudentOnIslandID(this, i, student);
+                islandStudentText  = IDHelper.gsFindStudentCounterOnIslandID(this, i, student);
+                islandStudentCount = islands[i].getStudentCounters(student);
+                if (islandStudentCount > 0) {
+                    islandStudent.setVisible(true);
+                    islandStudentText.setText(String.valueOf(islandStudentCount));
+                    islandStudentText.setVisible(true);
+                }
+                else {
+                    islandStudent.setVisible(false);
+                    islandStudentText.setVisible(false);
+                }
+            }
+
+            // Set MotherNature img
+            islandMotherNature = IDHelper.gsFindMotherNatureOnIslandID(this, i);
+            islandMotherNature.setVisible(i == motherNaturePosition);
+
+            // Set NoEntryTile img and NoEntryTilesCount
+            islandNoEntryTile = IDHelper.gsFindNoEntryTileImgOnIslandID(this, i);
+            islandNoEntryTilesCountText = IDHelper.gsFindNoEntryTileCountOnIslandID(this, i);
+            islandNoEntryTilesCount  = islands[i].getNoEntryTileCount();
+            if (islandNoEntryTilesCount > 0) {
+                islandNoEntryTile.setVisible(true);
+                islandNoEntryTilesCountText.setText(String.valueOf(islandNoEntryTilesCount));
+                islandNoEntryTilesCountText.setVisible(true);
+            }
+            else {
+                islandNoEntryTile.setVisible(false);
+                islandNoEntryTilesCountText.setVisible(false);
+            }
+        }
+
+        AnchorPane islandPane;
+        // For each island absent in the islands array
+        for (int i = islands.length; i < 12; i++) {
+            islandPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
+            islandPane.setVisible(false);
+        }
+    }
+
+    /**
+     * Updates the CloudTiles according to the array of cloudTiles given
+     * @param cloudTiles the array of cloudTiles to update
+     * @param numOfPlayers the number of players in the game
+     */
+    public void gsUpdateCloudTiles(CloudTile[] cloudTiles, int numOfPlayers) {
+        ImageView cloudTileStudent;
+        Color     cloudTileStudentColor;
+        String    cloudTileStudentPath;
+        int       cloudTileMaxNumOfStudents = 0;
+        // For each cloudTile (one per player)
+        for (int i = 0; i < numOfPlayers; i++) {
+
+            // The number of students on the cloudTiles depends on the number of players
+            switch (numOfPlayers) {
+                case 2, 4 -> cloudTileMaxNumOfStudents = 3;
+                case 3    -> cloudTileMaxNumOfStudents = 4;
+                default   -> throw new IllegalStateException("The number of players must be between 2 and 4. Here the players are " + numOfPlayers);
+            }
+
+            // For each student on the cloudTile
+            for (int j = 0; j < cloudTileMaxNumOfStudents; j++) {
+                // Gets the id and the path of the image
+                cloudTileStudent      = IDHelper.gsFindCloudStudentID(this, i, j);
+                cloudTileStudentColor = cloudTiles[i].getStudents()[i];
+
+                // For each student present on the island
+                if (cloudTileStudentColor != null){
+                    // Sets the image to the specified studentColor
+                    cloudTileStudentPath = ImageTypes.fromStudentColorToHandlerPath(cloudTileStudentColor);
+                    cloudTileStudent.setImage(new Image(getClass().getClassLoader().getResource(cloudTileStudentPath).toString(), true));
+                    cloudTileStudent.setVisible(true);
+                }
+                else {
+                    // For each student non-present hide the student
+                    cloudTileStudent.setVisible(false);
+                }
+            }
+        }
+
+        AnchorPane cloudAnchorPaneID;
+        // For each not iterated cloud hide it from the board
+        for (int i = numOfPlayers; i < 4; i++) {
+            cloudAnchorPaneID = IDHelper.gsFindCloudAnchorPaneID(this, i);
+            cloudAnchorPaneID.setVisible(false);
+        }
+    }
+
+    // endregion GSUpdateSky
+
+    /**
+     * Updates the assistantCard deck of the player by "flipping" cards if not present
+     * @param assistantDeck the deck of assistantCards to update
+     * @param wizard the wizard associated with the player
+     */
+    public void gsUpdateAssistantDeck(AssistantCard[] assistantDeck, Wizard wizard) {
+        // A deck with all the possible assistantCards
+        AssistantCard[] fullDeck = new AssistantCard[10];
+
+        // Initializing the full deck
+        for (int i = 0; i < 10; ++i) {
+            fullDeck[i] = new AssistantCard(i + 1, (i / 2) + 1);
+        }
+
+        // Changing the assistantCard deck of the player into a Set
+        Set<AssistantCard> availableAssistantCardsSet = new HashSet<>();
+        Collections.addAll(availableAssistantCardsSet, assistantDeck);
+
+        ImageView assistantCardID;
+        String    assistantCardWizardPath;
+        // For each assistantCard in a fullDeck (i.e. for each card existent)
+        for (AssistantCard assistantCard : fullDeck) {
+            // If the card isn't in the availableDeck -> Flip the card
+            if (!availableAssistantCardsSet.contains(assistantCard)){
+                // Gets the ID of the assistantCard from the assistantCard enum
+                assistantCardID         = IDHelper.gsFindAssistantCardID(this, assistantCard);
+
+                // Finds the handlerPath of the corresponding image that I need to put (wizard)
+                assistantCardWizardPath = ImageTypes.fromWizardEnumToHandlerPath(wizard);
+
+                // Sets the image using the path just found
+                assistantCardID.setImage(new Image(getClass().getClassLoader().getResource(assistantCardWizardPath).toString(), true));
+            }
+        }
+    }
+
+    // region GSUpdateSchoolBoard
+
+    /**
+     * Updates the SchoolBoard according to the updated model
+     * @param model the model to update
+     * @param player the localPlayer
+     */
+    public void gsUpdateSchoolBoard(GameModel model, Player player) {
+        SchoolBoard schoolBoard = player.getSchoolBoard();
+        // Updates the towers of the player
+        gsUpdateTowers(schoolBoard.getTowerColor(), schoolBoard.getTowerCount(), model.getPlayersCount());
+        // Updates the diningRoom
+        gsUpdateDiningRoom(model, player);
+        // Updates the entrance
+        gsUpdateEntrance(schoolBoard.getEntrance());
+    }
+
+    /**
+     * Updates the towers of the player
+     * @param towerColor the color of the towers (BLACK, GREY, WHITE)
+     * @param towerCount the number of towers present
+     * @param numOfPlayers the number of players in the game
+     */
+    public void gsUpdateTowers(TowerColor towerColor, int towerCount, int numOfPlayers) {
+        ImageView schoolBoardTowerID;
+        String    towerPath;
+        // Adding the towers
+        for (int i = 0; i < towerCount; i++) {
+            //Update towers (by adding them if not present) by setting the correct directory for each ImageView
+            schoolBoardTowerID = IDHelper.gsFindSchoolBoardTowerID(this, i);
+            towerPath          = ImageTypes.fromTowerColorToHandlerPath(towerColor);
+            schoolBoardTowerID.setImage(new Image(getClass().getClassLoader().getResource(towerPath).toString(), true));
+        }
+
+        // The maximum number of towers varies depending on the number of players
+        int       maxNumOfTowers;
+        switch (numOfPlayers) {
+            case 2, 4 -> maxNumOfTowers = 8;
+            case 3    -> maxNumOfTowers = 6;
+            default   -> throw new IllegalStateException("The number of players must be between 2 and 4. Here the players are " + numOfPlayers);
+        }
+        // Remove the towers between towerCount and maxNumOfTowers
+        for (int i = towerCount; i < 8; i++) {
+            schoolBoardTowerID = IDHelper.gsFindSchoolBoardTowerID(this, i);
+            schoolBoardTowerID.setVisible(false);
+        }
+    }
+
+    // region GSUpdateDiningRoom
+
+    /**
+     * Updates the DiningRoom according to the updated model
+     * @param model the model to update
+     * @param player the localPlayer
+     */
+    public void gsUpdateDiningRoom(GameModel model, Player player) {
+        DiningRoom diningRoom = player.getSchoolBoard().getDiningRoom();
+        // Updates the professorsDiningRoom
+        gsUpdateDiningRoomProfessors(model.getGlobalProfessorTable(), player);
+        // Updates the studentsDiningRoom
+        gsUpdateDiningRoomStudents(diningRoom);
+    }
+
+    /**
+     * Updates the ProfessorDiningRoom according to the updated model
+     * @param gpt the globalProfessorTable to update
+     * @param player the localPlayer
+     */
+    public void gsUpdateDiningRoomProfessors(GlobalProfessorTable gpt, Player player) {
+        ImageView gptImageView;
+        // For each color (professor) checks if the localPlayer is or not the controller
+        for (Color color : Color.values()) {
+            gptImageView = IDHelper.gsFindProfessorOnProfTableID(this, color);
+            gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
+        }
+    }
+
+    /**
+     * Updates the StudentsDiningRoom according to the updated diningRoom
+     * @param diningRoom the diningRoom to update
+     */
+    public void gsUpdateDiningRoomStudents(DiningRoom diningRoom) {
+        ImageView diningRoomStudent;
+
+        // For each table (color)
+        for (Color color : Color.values()) {
+            // "Adds" the Students
+            for (int i = 0; i < diningRoom.getStudentCounters(color); i++) {
+                // Gets the ID of the student in the position i in the diningRoom
+                diningRoomStudent     = IDHelper.gsFindStudentDiningRoomID(this, color, i);
+
+                // Sets the image to visible ("adding it")
+                diningRoomStudent.setVisible(true);
+            }
+
+            // "Removes" the students
+            for (int i = diningRoom.getStudentCounters(color); i < 10; i++) {
+                // Gets the ID of the student in the position i in the diningRoom
+                diningRoomStudent     = IDHelper.gsFindStudentDiningRoomID(this, color, i);
+
+                // Sets the image to not visible ("removing it")
+                diningRoomStudent.setVisible(false);
+            }
+        }
+    }
+
+    // endregion GSUpdateDiningRoom
+
+    /**
+     * Updates the entrance according to the updated entrance
+     * @param entrance the entrance to update
+     */
+    public void gsUpdateEntrance(Entrance entrance) {
+        Color     entranceStudentColor;
+        ImageView entranceStudent;
+        String    entranceStudentPath;
+
+        // For each student in the entrance
+        for (int i = 0; i < entrance.getStudents().length; i++) {
+
+            // If the student exists
+            if (entrance.getStudents()[i] != null) {
+
+                // Gets the Color of the student in the position i
+                entranceStudentColor = entrance.getStudents()[i];
+
+                // Gets the ID of the student in the position i in the entrance
+                entranceStudent      = IDHelper.gsFindStudentEntranceID(this, i);
+
+                // Finds the handlerPath of the corresponding image that I need to put in the entrance
+                entranceStudentPath  = ImageTypes.fromStudentColorToHandlerPath(entranceStudentColor);
+
+                // Sets the image using the path just found
+                entranceStudent.setImage(new Image(getClass().getClassLoader().getResource(entranceStudentPath).toString(), true));
+            }
+
+            else {
+                // Gets the ID of the student in the position i in the entrance
+                entranceStudent     = IDHelper.gsFindStudentEntranceID(this, i);
+
+                // Removes the image present
+                entranceStudent.setImage(null);
+            }
+        }
+    }
+
+    // endregion GSUpdateSchoolBoard
+
+    // region GSUpdateExpertMode
+
+    /**
+     * Updates the ExpertModeElements according to the updated model
+     * @param model the model to update
+     * @param player the localPlayer
+     */
+    public void gsUpdateExpertModeElements(GameModel model, Player player) {
+        gsUpdateCharacterCards(model.getCharacterCards());
+        gsUpdatePlayerCoins(player);
+    }
+
+    // region GSUpdateCharacterCards
+
+    /**
+     *
+     * @param characterCards
+     */
+    public void gsUpdateCharacterCards(CharacterCard[] characterCards) {
+
+        characterCards_pane.setVisible(true);
+
+        for (int i = 0; i < characterCards.length; i++) {
+            if (characterCards[i] instanceof CharacterCardNoEntry c) {
+                gsUpdateCharacterCardNoEntry(c, i);
+            }
+            else if (characterCards[i] instanceof CharacterCardStudent c) {
+                gsUpdateCharacterCardStudent(c, i);
+            }
+            else {
+                gsUpdateCharacterCard(characterCards[i], i);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param characterCardNoEntry
+     * @param index
+     */
+    public void gsUpdateCharacterCardNoEntry(CharacterCardNoEntry characterCardNoEntry, int index) {
+
+        gsUpdateCharacterCardImage(characterCardNoEntry, index);
+
+        Rectangle CC_noEntryTile_background;
+        CC_noEntryTile_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
+        CC_noEntryTile_background.setVisible(true);
+
+        ImageView CC_noEntryTile;
+        String    CC_noEntryTile_ImgPath = ImageTypes.fromImageTypesToHandlerPath(ImageTypes.NOENTRYTILE_IMG);
+        for (int i = 0; i < characterCardNoEntry.getNoEntryCount(); i++) {
+            CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_noEntryTile.setImage(new Image(getClass().getClassLoader().getResource(CC_noEntryTile_ImgPath).toString(), true));
+            CC_noEntryTile.setVisible(true);
+        }
+
+        for (int i = characterCardNoEntry.getNoEntryCount(); i < 6; i++) {
+            CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_noEntryTile.setVisible(false);
+        }
+    }
+
+    /**
+     *
+     * @param characterCardStudent
+     * @param index
+     */
+    public void gsUpdateCharacterCardStudent(CharacterCardStudent characterCardStudent, int index) {
+
+        gsUpdateCharacterCardImage(characterCardStudent, index);
+
+        Rectangle CC_students_background;
+        CC_students_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
+        CC_students_background.setVisible(true);
+
+        ImageView CC_student;
+        Color     CC_student_Color;
+        String    CC_student_ImgPath;
+        for (int i = 0; i < characterCardStudent.getStudents().length; i++) {
+            CC_student         = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_student_Color   = characterCardStudent.getStudents()[i];
+            CC_student_ImgPath = ImageTypes.fromStudentColorToHandlerPath(CC_student_Color);
+            CC_student.setImage(new Image(getClass().getClassLoader().getResource(CC_student_ImgPath).toString(), true));
+            CC_student.setVisible(true);
+        }
+
+        for (int i = characterCardStudent.getStudents().length; i < 6; i++) {
+            CC_student = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_student.setVisible(false);
+        }
+    }
+
+    /**
+     *
+     * @param characterCard
+     * @param index
+     */
+    public void gsUpdateCharacterCard(CharacterCard characterCard, int index) {
+
+        gsUpdateCharacterCardImage(characterCard, index);
+
+        Rectangle CC_students_background;
+        CC_students_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
+        CC_students_background.setVisible(false);
+    }
+
+    /**
+     *
+     * @param characterCard
+     * @param index
+     */
+    public void gsUpdateCharacterCardImage(CharacterCard characterCard, int index) {
+        ImageView CC_ImgView;
+        String    CC_ImgPath;
+        Character character = characterCard.getCharacter();
+
+        CC_ImgView = IDHelper.gsFindCharacterCardImageID(this, index);
+        CC_ImgPath = ImageTypes.fromCharacterEnumToFXMLPath(character);
+        CC_ImgView.setImage(new Image(getClass().getClassLoader().getResource(CC_ImgPath).toString(), true));
+        CC_ImgView.setVisible(true);
+    }
+
+    // endregion GSUpdateCharacterCards
+
+    /**
+     *
+     * @param player
+     */
+    public void gsUpdatePlayerCoins(Player player){
+        int coinCount = 1;
+        if (player instanceof PlayerExpert p){
+            coinCount = p.getCoinCount();
+        }
+        else if (player instanceof PlayerTeamExpert p){
+            coinCount = p.getCoinCount();
+        }
+        coinCount_text.setText(String.valueOf(coinCount));
+        coinCount_text.setVisible(true);
+    }
+
+    // endregion GSUpdateExpertMode
+
+    // endregion GSUpdateModel
 
     /**
      * Sets the ViewGUI at which the ServerInfoHandler is related
