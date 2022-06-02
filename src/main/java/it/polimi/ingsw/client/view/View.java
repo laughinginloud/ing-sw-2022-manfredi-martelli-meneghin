@@ -289,6 +289,13 @@ public sealed interface View permits ViewCLI, ViewGUI {
      */
     GameModel getModel();
 
+    /**
+     * Gets the localPlayer by comparing the Username present in the VirtualController
+     * with the players present in the GameModel
+     * @return the localPlayer (null if not present)
+     */
+    Player getLocalPlayer();
+
     // endregion Getter
 
     // region Setter

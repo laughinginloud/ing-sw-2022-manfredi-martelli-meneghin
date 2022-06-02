@@ -571,6 +571,26 @@ public final class ViewGUI extends Application implements View {
         return model;
     }
 
+    /**
+     * Gets the localPlayer by comparing the Username present in the VirtualController
+     * with the players present in the GameModel
+     * @return the localPlayer (null if not present)
+     */
+    @Override
+    public Player getLocalPlayer() {
+        String localUsername = virtualController.getUsername();
+        Player localPlayer = null;
+
+        // Forall players in model, checks if the localUsername is equal to the one present in the model
+        for (Player player : model.getPlayer()) {
+            if (localUsername.equals(player.getUsername())){
+                localPlayer = player;
+                break;
+            }
+        }
+        return localPlayer;
+    }
+
 
     // endregion Getter
 
@@ -598,5 +618,4 @@ public final class ViewGUI extends Application implements View {
     // endregion Setter
 
     // endregion ViewImplementation
-
 }
