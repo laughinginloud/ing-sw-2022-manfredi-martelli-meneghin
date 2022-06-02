@@ -112,7 +112,7 @@
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl1_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true"/>
-                              <Text fx:id="isl1_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
+                              <Text fx:id="isl1_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -192,7 +192,7 @@
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl2_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true"/>
-                              <Text fx:id="isl2_towerCount_img" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
+                              <Text fx:id="isl2_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -272,7 +272,7 @@
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl3_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true"/>
-                              <Text fx:id="isl3_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
+                              <Text fx:id="isl3_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -352,7 +352,7 @@
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl4_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true"/>
-                              <Text fx:id="isl4_towerCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
+                              <Text fx:id="isl4_towersCount_text" fill="RED" layoutX="134.0" layoutY="40.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="1" visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -767,7 +767,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
-                              <ImageView fx:id="isl9_redStudent_img" fitHeight="38.0" fitWidth="40.0" layoutX="40.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                              <ImageView fx:id="isl9_redStud_img" fitHeight="38.0" fitWidth="40.0" layoutX="40.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                  <image>
                                     <Image url="@../images/students/student_red.png" />
                                  </image>
