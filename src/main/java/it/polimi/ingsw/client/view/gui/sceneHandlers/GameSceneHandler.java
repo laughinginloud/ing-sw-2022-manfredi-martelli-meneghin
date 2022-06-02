@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -812,6 +815,25 @@ public class GameSceneHandler implements GUIHandler {
     // endregion CloudTile3
 
     // endregion CloudTiles
+
+    // region Input
+
+    @FXML
+    private AnchorPane input_pane;
+
+    @FXML
+    private Rectangle input_background;
+
+    @FXML
+    private Label input_label;
+
+    @FXML
+    private Spinner<Integer> input_spinner;
+
+    @FXML
+    private Button input_button;
+
+    // endregion Input
 
     // endregion Sky
 
