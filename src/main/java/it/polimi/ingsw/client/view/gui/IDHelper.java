@@ -2,8 +2,9 @@ package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GameSceneHandler;
 import it.polimi.ingsw.common.model.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 /**
@@ -619,7 +620,253 @@ public class IDHelper {
      * @return The ImageView correspondent to the desired tower
      *
      */
-    public static ImageView gsFindSchoolBoardTower (GameSceneHandler gs, int towerPosition) { return null; }
+    public static ImageView gsFindSchoolBoardTowerID (GameSceneHandler gs, int towerPosition) {
+        ImageView schoolBoardTowerID = null;
 
-    // CharacterCard
+        switch (towerPosition) {
+            case 0 -> schoolBoardTowerID = gs.tower0_img;
+            case 1 -> schoolBoardTowerID = gs.tower1_img;
+            case 2 -> schoolBoardTowerID = gs.tower2_img;
+            case 3 -> schoolBoardTowerID = gs.tower3_img;
+            case 4 -> schoolBoardTowerID = gs.tower4_img;
+            case 5 -> schoolBoardTowerID = gs.tower5_img;
+            case 6 -> schoolBoardTowerID = gs.tower6_img;
+            case 7 -> schoolBoardTowerID = gs.tower7_img;
+        }
+
+        return schoolBoardTowerID;
+    }
+
+    /**
+     * Gets the ImageView (ID) of a specific Professor on the player's GlobalProfessorTable
+     * @param gs The gameSceneHandler
+     * @param color The color of the professor we want to find the ImageView of
+     * @return The ImageView correspondent to the desired professor
+     */
+    public static ImageView gsFindProfessorOnProfTableID (GameSceneHandler gs, Color color) {
+        ImageView professorOnProfTableID = null;
+
+        switch (color) {
+            case GREEN  -> professorOnProfTableID = gs.greenProfessor_img;
+            case RED    -> professorOnProfTableID = gs.redProfessor_img;
+            case YELLOW -> professorOnProfTableID = gs.yellowProfessor_img;
+            case PINK   -> professorOnProfTableID = gs.pinkProfessor_img;
+            case BLUE   -> professorOnProfTableID = gs.blueProfessor_img;
+        }
+
+        return professorOnProfTableID;
+    }
+
+    /**
+     * Gets the ImageView (ID) of a specific characterCard on the characterCards_pane
+     * @param gs The gameSceneHandler
+     * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
+     * @return The ImageView correspondent to the desired characterCard
+     */
+    public static ImageView gsFindCharacterCardImageID (GameSceneHandler gs, int characterCardPosition) {
+        ImageView characterCardImageID = null;
+
+        switch (characterCardPosition) {
+            case 0 -> characterCardImageID = gs.characterCard0_img;
+            case 1 -> characterCardImageID = gs.characterCard1_img;
+            case 2 -> characterCardImageID = gs.characterCard2_img;
+        }
+
+        return characterCardImageID;
+    }
+
+    /**
+     * Gets the ImageView (ID) of the characterCardCoin  of a specific characterCard on the characterCards_pane
+     * @param gs The gameSceneHandler
+     * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
+     * @return The ImageView correspondent to the desired characterCardCoin
+     */
+    public static ImageView gsFindCharacterCardCoinID (GameSceneHandler gs, ImageView characterCardImageID) {
+        ImageView characterCardCoinID = null;
+
+        switch (characterCardImageID.getId()) {
+            case "characterCard0_img" -> characterCardCoinID = gs.CC0_hasCoin_img;
+            case "characterCard1_img" -> characterCardCoinID = gs.CC1_hasCoin_img;
+            case "characterCard2_img" -> characterCardCoinID = gs.CC2_hasCoin_img;
+        }
+
+        return characterCardCoinID;
+    }
+
+    /**
+     * Gets the ImageView (ID) of the characterCardCoin  of a specific characterCard on the characterCards_pane
+     * @param gs The gameSceneHandler
+     * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
+     * @return The ImageView correspondent to the desired characterCardCoin
+     */
+    public static ImageView gsFindCharacterCardCoinID (GameSceneHandler gs, int characterCardPosition) {
+        ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
+        return gsFindCharacterCardCoinID(gs, characterCardImageID);
+    }
+
+    /**
+     * Gets the ImageView (ID) of a characterCardStudent of a specific characterCard on the characterCards_pane
+     * @param gs The gameSceneHandler
+     * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
+     * @param studentPosOnCC An int representing the position of the student on the characterCard gridPane
+     * @return The ImageView correspondent to the desired characterCardStudent
+     */
+    public static ImageView gsFindCharacterCardStudentID (GameSceneHandler gs, ImageView characterCardImageID, int studentPosOnCC) {
+        ImageView characterCardStudentID = null;
+
+        switch (characterCardImageID.getId()) {
+
+            case "characterCard0_img" -> {
+                switch (studentPosOnCC) {
+                    case 0 -> characterCardStudentID = gs.CC0_elem0_img;
+                    case 1 -> characterCardStudentID = gs.CC0_elem1_img;
+                    case 2 -> characterCardStudentID = gs.CC0_elem2_img;
+                    case 3 -> characterCardStudentID = gs.CC0_elem3_img;
+                    case 4 -> characterCardStudentID = gs.CC0_elem4_img;
+                    case 5 -> characterCardStudentID = gs.CC0_elem5_img;
+                }
+            }
+
+            case "characterCard1_img" -> {
+                switch (studentPosOnCC) {
+                    case 0 -> characterCardStudentID = gs.CC1_elem0_img;
+                    case 1 -> characterCardStudentID = gs.CC1_elem1_img;
+                    case 2 -> characterCardStudentID = gs.CC1_elem2_img;
+                    case 3 -> characterCardStudentID = gs.CC1_elem3_img;
+                    case 4 -> characterCardStudentID = gs.CC1_elem4_img;
+                    case 5 -> characterCardStudentID = gs.CC1_elem5_img;
+                }
+            }
+
+            case "characterCard2_img" -> {
+                switch (studentPosOnCC) {
+                    case 0 -> characterCardStudentID = gs.CC2_elem0_img;
+                    case 1 -> characterCardStudentID = gs.CC2_elem1_img;
+                    case 2 -> characterCardStudentID = gs.CC2_elem2_img;
+                    case 3 -> characterCardStudentID = gs.CC2_elem3_img;
+                    case 4 -> characterCardStudentID = gs.CC2_elem4_img;
+                    case 5 -> characterCardStudentID = gs.CC2_elem5_img;
+                }
+            }
+        }
+
+        return characterCardStudentID;
+    }
+
+    /**
+     * Gets the ImageView (ID) of a characterCardStudent of a specific characterCard on the characterCards_pane
+     * @param gs The gameSceneHandler
+     * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
+     * @param studentPosOnCC An int representing the position of the student on the characterCard gridPane
+     * @return The ImageView correspondent to the desired characterCardStudent
+     */
+    public static ImageView gsFindCharacterCardStudentID (GameSceneHandler gs, int characterCardPosition, int studentPosOnCC) {
+        ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
+        return gsFindCharacterCardStudentID(gs, characterCardImageID, studentPosOnCC);
+
+    }
+
+    /**
+     * Gets the GridPane (ID) of the characterCardPane of a specific characterCard on the characterCards_pane
+     * @param gs The gameSceneHandler
+     * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
+     * @return The GridPane correspondent to the desired characterCardPane
+     */
+    public static GridPane gsFindCharacterCardPaneStudentID (GameSceneHandler gs, ImageView characterCardImageID) {
+        GridPane characterCardPaneID = null;
+
+        switch (characterCardImageID.getId()) {
+            case "characterCard0_img" -> characterCardPaneID = gs.CC0_gridPane;
+            case "characterCard1_img" -> characterCardPaneID = gs.CC1_gridPane;
+            case "characterCard2_img" -> characterCardPaneID = gs.CC2_gridPane;
+        }
+
+        return characterCardPaneID;
+    }
+
+    /**
+     * Gets the GridPane (ID) of the characterCardPane of a specific characterCard on the characterCards_pane
+     * @param gs The gameSceneHandler
+     * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
+     * @return The GridPane correspondent to the desired characterCardPane
+     */
+    public static GridPane gsFindCharacterCardPaneStudentID (GameSceneHandler gs, int characterCardPosition) {
+        ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
+        return gsFindCharacterCardPaneStudentID(gs, characterCardImageID);
+    }
+
+    public static ImageView gsFindMotherNatureOnIslandID (GameSceneHandler gs, ImageView islandID) {
+        ImageView motherNatureOnIslandID = null;
+
+        switch(islandID.getId()) {
+            case "isl0_img"   -> motherNatureOnIslandID = gs.isl0_motherNature_img;
+            case "isl1_img"   -> motherNatureOnIslandID = gs.isl1_motherNature_img;
+            case "isl2_img"   -> motherNatureOnIslandID = gs.isl2_motherNature_img;
+            case "isl3_img"   -> motherNatureOnIslandID = gs.isl3_motherNature_img;
+            case "isl4_img"   -> motherNatureOnIslandID = gs.isl4_motherNature_img;
+            case "isl5_img"   -> motherNatureOnIslandID = gs.isl5_motherNature_img;
+            case "isl6_img"   -> motherNatureOnIslandID = gs.isl6_motherNature_img;
+            case "isl7_img"   -> motherNatureOnIslandID = gs.isl7_motherNature_img;
+            case "isl8_img"   -> motherNatureOnIslandID = gs.isl8_motherNature_img;
+            case "isl9_img"   -> motherNatureOnIslandID = gs.isl9_motherNature_img;
+            case "isl10_img"  -> motherNatureOnIslandID = gs.isl10_motherNature_img;
+            case "isl11_img"  -> motherNatureOnIslandID = gs.isl11_motherNature_img;
+            default -> throw new IllegalStateException("The islandID you have inserted is not contemplated. What you've inserted: " + islandID.getId());
+        }
+
+        return motherNatureOnIslandID;
+    }
+
+    public static ImageView gsFindMotherNatureOnIslandID (GameSceneHandler gs, int islandPosition) {
+        ImageView islandID = gsFindIslandID(gs, islandPosition);
+        return gsFindMotherNatureOnIslandID(gs, islandID);
+    }
+
+    public static AnchorPane gsFindIslandAnchorPaneID (GameSceneHandler gs, int islandPosition) {
+        AnchorPane islandAnchorPaneID = null;
+        switch (islandPosition) {
+            case 0  -> islandAnchorPaneID = gs.isl0_pane;
+            case 1  -> islandAnchorPaneID = gs.isl1_pane;
+            case 2  -> islandAnchorPaneID = gs.isl2_pane;
+            case 3  -> islandAnchorPaneID = gs.isl3_pane;
+            case 4  -> islandAnchorPaneID = gs.isl4_pane;
+            case 5  -> islandAnchorPaneID = gs.isl5_pane;
+            case 6  -> islandAnchorPaneID = gs.isl6_pane;
+            case 7  -> islandAnchorPaneID = gs.isl7_pane;
+            case 8  -> islandAnchorPaneID = gs.isl8_pane;
+            case 9  -> islandAnchorPaneID = gs.isl9_pane;
+            case 10 -> islandAnchorPaneID = gs.isl10_pane;
+            case 11 -> islandAnchorPaneID = gs.isl11_pane;
+            default -> throw new IllegalStateException("The islandPosition must be between 0 and 11, has been inserted: " + islandPosition);
+        }
+
+        return islandAnchorPaneID;
+
+    }
+
+    public static AnchorPane gsFindIslandAnchorPaneID (GameSceneHandler gs, ImageView islandID) {
+        AnchorPane islandAnchorPaneID = null;
+
+        switch(islandID.getId()) {
+            case "isl0_img"   -> islandAnchorPaneID = gs.isl0_pane;
+            case "isl1_img"   -> islandAnchorPaneID = gs.isl1_pane;
+            case "isl2_img"   -> islandAnchorPaneID = gs.isl2_pane;
+            case "isl3_img"   -> islandAnchorPaneID = gs.isl3_pane;
+            case "isl4_img"   -> islandAnchorPaneID = gs.isl4_pane;
+            case "isl5_img"   -> islandAnchorPaneID = gs.isl5_pane;
+            case "isl6_img"   -> islandAnchorPaneID = gs.isl6_pane;
+            case "isl7_img"   -> islandAnchorPaneID = gs.isl7_pane;
+            case "isl8_img"   -> islandAnchorPaneID = gs.isl8_pane;
+            case "isl9_img"   -> islandAnchorPaneID = gs.isl9_pane;
+            case "isl10_img"  -> islandAnchorPaneID = gs.isl10_pane;
+            case "isl11_img"  -> islandAnchorPaneID = gs.isl11_pane;
+            default -> throw new IllegalStateException("The islandID you have inserted is not contemplated. What you've inserted: " + islandID.getId());
+        }
+
+        return islandAnchorPaneID;
+    }
+
+
+    // Nuvole
+    // Nuvole Anchor Pane
 }
