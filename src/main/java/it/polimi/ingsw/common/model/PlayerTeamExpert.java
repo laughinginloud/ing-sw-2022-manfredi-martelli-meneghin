@@ -5,8 +5,8 @@ package it.polimi.ingsw.common.model;
  * @author Mattia Martelli
  */
 public class PlayerTeamExpert extends Player {
-    private Player teamMember;
-    private int    coinCount;
+    private Integer teamMember;
+    private int     coinCount;
 
     /**
      * Constructor of the class 'PlayerTeamExpert'
@@ -23,7 +23,7 @@ public class PlayerTeamExpert extends Player {
      * Gets the team member of the player
      * @return A reference to the team member
      */
-    public Player getTeamMember() {
+    public Integer getTeamMember() {
         return teamMember;
     }
 
@@ -32,10 +32,7 @@ public class PlayerTeamExpert extends Player {
      * @param teamMember A pointer to the Player representing the team member
      * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setTeamMember(Player teamMember) throws IllegalArgumentException {
-        if (teamMember == null)
-            throw new IllegalArgumentException("teamMember is null");
-
+    public void setTeamMember(int teamMember) throws IllegalArgumentException {
         this.teamMember = teamMember;
     }
 
