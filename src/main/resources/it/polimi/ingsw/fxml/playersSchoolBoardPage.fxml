@@ -66,7 +66,7 @@
                                                 <Font size="11.0" />
                                              </font>
                                           </Text>
-                                          <AnchorPane fx:id="p0_coin_pane" layoutY="178.0" prefHeight="62.0" prefWidth="112.0">
+                                          <AnchorPane fx:id="p0_coin_pane" layoutY="178.0" prefHeight="62.0" prefWidth="112.0" visible="false">
                                              <children>
                                                 <Text fx:id="p0_coinsCount_text" layoutX="72.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
                                                    <font>
@@ -117,47 +117,47 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p0_greenDiningRoom_pane" layoutX="38.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p0_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
@@ -171,52 +171,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p0_redDiningRoom_pane" layoutX="116.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p0_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
@@ -225,52 +225,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p0_yellowDiningRoom_pane" layoutX="192.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p0_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
@@ -279,52 +279,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p0_pinkDiningRoom_pane" layoutX="269.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p0_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
@@ -333,52 +333,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p0_blueDiningRoom_pane" layoutX="345.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p0_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p0_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p0_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
@@ -389,47 +389,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p0_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p0_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
-                                    <ImageView fx:id="p0_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p0_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p0_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p0_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_yellow.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p0_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p0_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p0_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p0_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="p0_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -459,56 +427,20 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="p1_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p1_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p1_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p1_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p1_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p1_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p1_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p1_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
+                                          <ImageView fx:id="p1_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
                                        </children>
                                     </GridPane>
                                     <AnchorPane fx:id="p1_addInfo_pane" layoutX="364.0" prefHeight="170.0" prefWidth="112.0">
                                        <children>
                                           <Rectangle fx:id="p1_addInfo_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="241.0" layoutX="-1.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="113.0" />
-                                          <ImageView fx:id="p1_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/assistantCards/assistantCard1.png" />
-                                             </image>
-                                          </ImageView>
+                                          <ImageView fx:id="p1_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true"/>
                                           <Text fx:id="p1_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
                                                 <Font size="15.0" />
@@ -519,7 +451,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <AnchorPane fx:id="p1_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0">
+                                          <AnchorPane fx:id="p1_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0" visible="false">
                                              <children>
                                                 <ImageView fx:id="p1_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -541,27 +473,27 @@
                                  <children>
                                     <AnchorPane fx:id="p1_professorTable_pane" prefHeight="108.0" prefWidth="468.0">
                                        <children>
-                                          <ImageView fx:id="p1_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_blue.png" />
                                              </image>
@@ -570,52 +502,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p1_greenDiningRoom_pane" layoutX="38.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p1_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
@@ -624,52 +556,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p1_redDiningRoom_pane" layoutX="116.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p1_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
@@ -678,52 +610,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p1_yellowDiningRoom_pane" layoutX="192.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p1_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
@@ -732,52 +664,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p1_pinkDiningRoom_pane" layoutX="269.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p1_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
@@ -786,52 +718,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p1_blueDiningRoom_pane" layoutX="345.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p1_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p1_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p1_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
@@ -842,51 +774,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p1_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p1_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_yellow.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p1_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="p1_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -916,56 +812,20 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="p2_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p2_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p2_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p2_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p2_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p2_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p2_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p2_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
+                                          <ImageView fx:id="p2_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
                                        </children>
                                     </GridPane>
                                     <AnchorPane fx:id="p2_addInfo_pane" layoutX="364.0" prefHeight="170.0" prefWidth="112.0">
                                        <children>
                                           <Rectangle fx:id="p2_addInfo_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="241.0" layoutX="-1.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="113.0" />
-                                          <ImageView fx:id="p2_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/assistantCards/assistantCard1.png" />
-                                             </image>
-                                          </ImageView>
+                                          <ImageView fx:id="p2_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true"/>
                                           <Text fx:id="p2_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
                                                 <Font size="15.0" />
@@ -976,7 +836,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <AnchorPane fx:id="p2_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0">
+                                          <AnchorPane fx:id="p2_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0" visible="false">
                                              <children>
                                                 <ImageView fx:id="p2_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -998,27 +858,27 @@
                                  <children>
                                     <AnchorPane fx:id="p2_professorTable_pane" prefHeight="108.0" prefWidth="468.0">
                                        <children>
-                                          <ImageView fx:id="p2_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_blue.png" />
                                              </image>
@@ -1027,52 +887,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p2_greenDiningRoom_pane" layoutX="38.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p2_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
@@ -1081,52 +941,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p2_redDiningRoom_pane" layoutX="116.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p2_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
@@ -1135,52 +995,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p2_yellowDiningRoom_pane" layoutX="192.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p2_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
@@ -1189,52 +1049,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p2_pinkDiningRoom_pane" layoutX="269.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p2_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
@@ -1243,52 +1103,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p2_blueDiningRoom_pane" layoutX="345.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p2_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p2_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p2_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
@@ -1299,51 +1159,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p2_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p2_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_yellow.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p2_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="p2_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -1373,56 +1197,20 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="p3_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p3_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p3_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p3_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p3_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p3_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p3_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="p3_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../images/towers/black_tower.png" />
-                                             </image>
-                                          </ImageView>
+                                          <ImageView fx:id="p3_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
                                        </children>
                                     </GridPane>
                                     <AnchorPane fx:id="p3_addInfo_pane" layoutX="364.0" prefHeight="170.0" prefWidth="112.0">
                                        <children>
                                           <Rectangle fx:id="p3_addInfo_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="241.0" layoutX="-1.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="113.0" />
-                                          <ImageView fx:id="p3_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/assistantCards/assistantCard1.png" />
-                                             </image>
-                                          </ImageView>
+                                          <ImageView fx:id="p3_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true"/>
                                           <Text fx:id="p3_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
                                                 <Font size="15.0" />
@@ -1433,7 +1221,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Text>
-                                          <AnchorPane fx:id="p3_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0">
+                                          <AnchorPane fx:id="p3_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0" visible="false">
                                              <children>
                                                 <ImageView fx:id="p3_coin_img" fitHeight="53.0" fitWidth="53.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -1455,27 +1243,27 @@
                                  <children>
                                     <AnchorPane fx:id="p3_professorTable_pane" prefHeight="108.0" prefWidth="468.0">
                                        <children>
-                                          <ImageView fx:id="p3_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="54.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="131.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="207.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="284.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueProfessor_img" fitHeight="62.0" fitWidth="51.0" layoutX="360.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/professors/professor_blue.png" />
                                              </image>
@@ -1484,52 +1272,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p3_greenDiningRoom_pane" layoutX="38.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p3_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_greenStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_green.png" />
                                              </image>
@@ -1538,52 +1326,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p3_redDiningRoom_pane" layoutX="116.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p3_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_redStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_red.png" />
                                              </image>
@@ -1592,52 +1380,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p3_yellowDiningRoom_pane" layoutX="192.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p3_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_yellowStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_yellow.png" />
                                              </image>
@@ -1646,52 +1434,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p3_pinkDiningRoom_pane" layoutX="269.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p3_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_pinkStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_pink.png" />
                                              </image>
@@ -1700,52 +1488,52 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="p3_blueDiningRoom_pane" layoutX="345.0" layoutY="118.0" prefHeight="546.0" prefWidth="82.0">
                                        <children>
-                                          <ImageView fx:id="p3_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="p3_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="p3_blueStudent9_img" fitHeight="38.0" fitWidth="40.0" layoutX="22.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                              <image>
                                                 <Image url="@../images/students/student_blue.png" />
                                              </image>
@@ -1756,51 +1544,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p3_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p3_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_yellow.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_blue.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_green.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_red.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fx:id="p3_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/students/student_pink.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="p3_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
                                  </children>
                               </AnchorPane>
                            </children>
