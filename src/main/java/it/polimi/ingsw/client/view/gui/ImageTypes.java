@@ -135,7 +135,7 @@ public enum ImageTypes {
      * @param handlerPath The handlerPath we want to translate into a FXMLPath
      * @return A String representing the FXMLPath correspondent to the handlerPath
      */
-    public String fromHandlerPathToFXMLPath (String handlerPath) {
+    public static String fromHandlerPathToFXMLPath (String handlerPath) {
         String fxmlPath = "";
 
         switch(handlerPath) {
@@ -224,7 +224,7 @@ public enum ImageTypes {
      * @param fxmlPath The fxmlPath we want to translate into a HandlerPath
      * @return A String representing the HandlerPath correspondent to the fxmlPath
      */
-    public String fromFXMLPathToHandlerPath (String fxmlPath) {
+    public static String fromFXMLPathToHandlerPath (String fxmlPath) {
         String handlerPath = "";
 
         switch(fxmlPath) {
@@ -316,7 +316,7 @@ public enum ImageTypes {
      * @param imageType An enumeration constant of ImageType we want the associated HandlerPath of
      * @return A string representing the HandlerPath associated to the imageType
      */
-    public String fromImageTypesToHandlerPath (ImageTypes imageType) {
+    public static String fromImageTypesToHandlerPath (ImageTypes imageType) {
         String handlerPath = "";
         switch (imageType) {
 
@@ -404,14 +404,14 @@ public enum ImageTypes {
      * @param imageTypes An enumeration constant of ImageType we want the associated FXMLPath of
      * @return A string representing the FXMLPath associated to the imageType
      */
-    public String fromImageTypesToFXMLPath (ImageTypes imageTypes) { return fromHandlerPathToFXMLPath(fromImageTypesToHandlerPath(imageTypes)); }
+    public static String fromImageTypesToFXMLPath (ImageTypes imageTypes) { return fromHandlerPathToFXMLPath(fromImageTypesToHandlerPath(imageTypes)); }
 
     /**
      * Gets the ImageTypes associated to a specific HandlerPath
      * @param handlerPath A String representing the HandlerPath we want the associated ImageType of
      * @return The ImageType associated to the provided HandlerPath
      */
-    public ImageTypes fromHandlerPathToImageTypes (String handlerPath) {
+    public static ImageTypes fromHandlerPathToImageTypes (String handlerPath) {
         ImageTypes imageType = null;
         switch (handlerPath) {
 
@@ -502,7 +502,7 @@ public enum ImageTypes {
      * @param fxmlPath A String representing the fxmlPath we want the associated ImageType of
      * @return The ImageType associated to the provided fxmlPath
      */
-    public ImageTypes fromFXMLPathToImageTypes (String fxmlPath) { return fromHandlerPathToImageTypes(fromFXMLPathToHandlerPath(fxmlPath)); }
+    public static ImageTypes fromFXMLPathToImageTypes (String fxmlPath) { return fromHandlerPathToImageTypes(fromFXMLPathToHandlerPath(fxmlPath)); }
 
     // endregion ImageTypesTranslator
 
@@ -513,7 +513,7 @@ public enum ImageTypes {
      * @param color A Color representing the StudentColor we want the associated ImageType of
      * @return The ImageType associated to the provided StudentColor
      */
-    public ImageTypes fromStudentColorToImageTypes (Color color) {
+    public static ImageTypes fromStudentColorToImageTypes (Color color) {
         ImageTypes imageTypes = null;
         switch (color){
             case GREEN  -> imageTypes = ImageTypes.STUDENT_GREEN_IMG;
@@ -526,16 +526,16 @@ public enum ImageTypes {
         return imageTypes;
     }
 
-    public String fromStudentColorToHandlerPath (Color color) { return fromImageTypesToHandlerPath(fromStudentColorToImageTypes(color)); }
+    public static String fromStudentColorToHandlerPath (Color color) { return fromImageTypesToHandlerPath(fromStudentColorToImageTypes(color)); }
 
-    public String fromStudentColorToFXMLPath (Color color) { return fromImageTypesToFXMLPath(fromStudentColorToImageTypes(color)); }
+    public static String fromStudentColorToFXMLPath (Color color) { return fromImageTypesToFXMLPath(fromStudentColorToImageTypes(color)); }
 
     /**
      * Gets the StudentColor associated to a specific ImageType
      * @param imageType The ImageType we want the associated StudentColor of
      * @return A Color representing the StudentColor associated to the provided ImageType
      */
-    public Color fromImageTypesToStudentColor (ImageTypes imageType) {
+    public static Color fromImageTypesToStudentColor (ImageTypes imageType) {
         Color studentColor = null;
         switch (imageType) {
             case STUDENT_GREEN_IMG -> studentColor = Color.GREEN;
@@ -549,9 +549,9 @@ public enum ImageTypes {
         return studentColor;
     }
 
-    public Color fromHandlerPathToStudentColor (String handlerPath) { return fromImageTypesToStudentColor(fromHandlerPathToImageTypes(handlerPath)); }
+    public static Color fromHandlerPathToStudentColor (String handlerPath) { return fromImageTypesToStudentColor(fromHandlerPathToImageTypes(handlerPath)); }
 
-    public Color fromFXMLPathToStudentColor (String fxmlPath) { return fromImageTypesToStudentColor(fromFXMLPathToImageTypes(fxmlPath)); }
+    public static Color fromFXMLPathToStudentColor (String fxmlPath) { return fromImageTypesToStudentColor(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion StudentColorTranslator
 
@@ -562,7 +562,7 @@ public enum ImageTypes {
      * @param color A Color representing the ProfessorColor we want the associated ImageType of
      * @return The ImageType associated to the provided ProfessorColor
      */
-    public ImageTypes fromProfessorColorToImageTypes (Color color) {
+    public static ImageTypes fromProfessorColorToImageTypes (Color color) {
         ImageTypes imageType = null;
         switch (color){
             case GREEN  -> imageType = ImageTypes.PROFESSOR_GREEN_IMG;
@@ -575,16 +575,16 @@ public enum ImageTypes {
         return imageType;
     }
 
-    public String fromProfessorColorToHandlerPath (Color color) { return fromImageTypesToHandlerPath(fromProfessorColorToImageTypes(color)); }
+    public static String fromProfessorColorToHandlerPath (Color color) { return fromImageTypesToHandlerPath(fromProfessorColorToImageTypes(color)); }
 
-    public String fromProfessorColorToFXMLPath (Color color) { return fromImageTypesToFXMLPath(fromProfessorColorToImageTypes(color)); }
+    public static String fromProfessorColorToFXMLPath (Color color) { return fromImageTypesToFXMLPath(fromProfessorColorToImageTypes(color)); }
 
     /**
      * Gets the ProfessorColor associated to a specific ImageType
      * @param imageType The ImageType we want the associated ProfessorColor of
      * @return A Color representing the ProfessorColor associated to the provided ImageType
      */
-    public Color fromImageTypesToProfessorColor (ImageTypes imageType) {
+    public static Color fromImageTypesToProfessorColor (ImageTypes imageType) {
         Color professorColor = null;
         switch (imageType) {
             case PROFESSOR_GREEN_IMG  -> professorColor = Color.GREEN;
@@ -598,9 +598,9 @@ public enum ImageTypes {
         return professorColor;
     }
 
-    public Color fromHandlerPathToProfessorColor (String handlerPath) { return fromImageTypesToProfessorColor(fromHandlerPathToImageTypes(handlerPath)); }
+    public static Color fromHandlerPathToProfessorColor (String handlerPath) { return fromImageTypesToProfessorColor(fromHandlerPathToImageTypes(handlerPath)); }
 
-    public Color fromFXMLPathToProfessorColor (String fxmlPath) { return fromImageTypesToProfessorColor(fromFXMLPathToImageTypes(fxmlPath)); }
+    public static Color fromFXMLPathToProfessorColor (String fxmlPath) { return fromImageTypesToProfessorColor(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion ProfessorColorTranslator
 
@@ -611,7 +611,7 @@ public enum ImageTypes {
      * @param towerColor A TowerColor representing the TowerColor we want the associated ImageType of
      * @return The ImageType associated to the provided TowerColor
      */
-    public ImageTypes fromTowerColorToImageTypes (TowerColor towerColor) {
+    public static ImageTypes fromTowerColorToImageTypes (TowerColor towerColor) {
         ImageTypes imageType = null;
         switch (towerColor){
             case WHITE -> imageType = ImageTypes.TOWER_WHITE_IMG;
@@ -622,16 +622,16 @@ public enum ImageTypes {
         return imageType;
     }
 
-    public String fromTowerColorToHandlerPath (TowerColor towerColor) { return fromImageTypesToHandlerPath(fromTowerColorToImageTypes(towerColor)); }
+    public static String fromTowerColorToHandlerPath (TowerColor towerColor) { return fromImageTypesToHandlerPath(fromTowerColorToImageTypes(towerColor)); }
 
-    public String fromTowerColorToFXMLPath (TowerColor towerColor) { return fromImageTypesToFXMLPath(fromTowerColorToImageTypes(towerColor)); }
+    public static String fromTowerColorToFXMLPath (TowerColor towerColor) { return fromImageTypesToFXMLPath(fromTowerColorToImageTypes(towerColor)); }
 
     /**
      * Gets the TowerColor associated to a specific ImageType
      * @param imageType The ImageType we want the associated TowerColor of
      * @return A TowerColor representing the TowerColor associated to the provided ImageType
      */
-    public TowerColor fromImageTypesToTowerColor (ImageTypes imageType) {
+    public static TowerColor fromImageTypesToTowerColor (ImageTypes imageType) {
         TowerColor towerColor = null;
         switch (imageType) {
             case TOWER_WHITE_IMG -> towerColor = TowerColor.WHITE;
@@ -643,9 +643,9 @@ public enum ImageTypes {
         return towerColor;
     }
 
-    public TowerColor fromHandlerPathToTowerColor (String handlerPath) { return fromImageTypesToTowerColor(fromHandlerPathToImageTypes(handlerPath)); }
+    public static TowerColor fromHandlerPathToTowerColor (String handlerPath) { return fromImageTypesToTowerColor(fromHandlerPathToImageTypes(handlerPath)); }
 
-    public TowerColor fromFXMLPathToTowerColor (String fxmlPath) { return fromImageTypesToTowerColor(fromFXMLPathToImageTypes(fxmlPath)); }
+    public static TowerColor fromFXMLPathToTowerColor (String fxmlPath) { return fromImageTypesToTowerColor(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion TowerColorTranslator
 
@@ -656,7 +656,7 @@ public enum ImageTypes {
      * @param assistantCardNumber An int representing the cardValue of the AssistantCard we want the associated ImageType of
      * @return The ImageType associated to the provided AssistantCard
      */
-    public ImageTypes fromAssistantCardNumberToImageTypes (int assistantCardNumber) {
+    public static ImageTypes fromAssistantCardNumberToImageTypes (int assistantCardNumber) {
         ImageTypes imageType = null;
         switch (assistantCardNumber) {
             case 1  -> imageType = ImageTypes.ASS_1_IMG;
@@ -675,16 +675,16 @@ public enum ImageTypes {
         return imageType;
     }
 
-    public String fromAssistantCardNumberToHandlerPath (int assistantCardNumber) { return fromImageTypesToHandlerPath(fromAssistantCardNumberToImageTypes(assistantCardNumber)); }
+    public static String fromAssistantCardNumberToHandlerPath (int assistantCardNumber) { return fromImageTypesToHandlerPath(fromAssistantCardNumberToImageTypes(assistantCardNumber)); }
 
-    public String fromAssistantCardNumberToFXMLPath (int assistantCardNumber) { return fromImageTypesToFXMLPath(fromAssistantCardNumberToImageTypes(assistantCardNumber)); }
+    public static String fromAssistantCardNumberToFXMLPath (int assistantCardNumber) { return fromImageTypesToFXMLPath(fromAssistantCardNumberToImageTypes(assistantCardNumber)); }
 
     /**
      * Gets the number of the AssistantCard associated to a specific ImageType
      * @param imageType The ImageType we want the associated AssistantCard of
      * @return An int representing the number of the AssistantCard associated to the provided ImageType
      */
-    public int fromImageTypesToAssistantCardNumber (ImageTypes imageType) {
+    public static int fromImageTypesToAssistantCardNumber (ImageTypes imageType) {
         int assistantCardNumber;
         switch (imageType) {
             case ASS_1_IMG  -> assistantCardNumber = 1;
@@ -703,9 +703,9 @@ public enum ImageTypes {
         return assistantCardNumber;
     }
 
-    public int fromHandlerPathToAssistantCardNumber (String handlerPath) { return fromImageTypesToAssistantCardNumber(fromHandlerPathToImageTypes(handlerPath)); }
+    public static int fromHandlerPathToAssistantCardNumber (String handlerPath) { return fromImageTypesToAssistantCardNumber(fromHandlerPathToImageTypes(handlerPath)); }
 
-    public int fromFXMLPathToAssistantCardNumber (String fxmlPath) { return fromImageTypesToAssistantCardNumber(fromFXMLPathToImageTypes(fxmlPath)); }
+    public static int fromFXMLPathToAssistantCardNumber (String fxmlPath) { return fromImageTypesToAssistantCardNumber(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion AssistantCardTranslator
 
@@ -716,7 +716,7 @@ public enum ImageTypes {
      * @param character The character Enumeration constant of the CharacterCard we want the associated ImageType of
      * @return The ImageType associated to the provided CharacterCard
      */
-    public ImageTypes fromCharacterEnumToImageTypes (Character character) {
+    public static ImageTypes fromCharacterEnumToImageTypes (Character character) {
         ImageTypes imageType = null;
         switch (character) {
             case MONK            -> imageType = ImageTypes.MONK_IMG;
@@ -737,16 +737,16 @@ public enum ImageTypes {
         return imageType;
     }
 
-    public String fromCharacterEnumToHandlerPath (Character character) { return fromImageTypesToHandlerPath(fromCharacterEnumToImageTypes(character)); }
+    public static String fromCharacterEnumToHandlerPath (Character character) { return fromImageTypesToHandlerPath(fromCharacterEnumToImageTypes(character)); }
 
-    public String fromCharacterEnumToFXMLPath (Character character) { return fromImageTypesToFXMLPath(fromCharacterEnumToImageTypes(character)); }
+    public static String fromCharacterEnumToFXMLPath (Character character) { return fromImageTypesToFXMLPath(fromCharacterEnumToImageTypes(character)); }
 
     /**
      * Gets the Character of the CharacterCard associated to a specific ImageType
      * @param imageType The ImageType we want the associated CharacterCard of
      * @return The Character of the CharacterCard associated to the provided ImageType
      */
-    public Character fromImageTypesToCharacterEnum (ImageTypes imageType) {
+    public static Character fromImageTypesToCharacterEnum (ImageTypes imageType) {
         Character character;
         switch (imageType) {
             case MONK_IMG      -> character = Character.MONK;
@@ -767,9 +767,9 @@ public enum ImageTypes {
         return character;
     }
 
-    public Character fromHandlerPathToCharacterEnum (String handlerPath) { return fromImageTypesToCharacterEnum(fromHandlerPathToImageTypes(handlerPath)); }
+    public static Character fromHandlerPathToCharacterEnum (String handlerPath) { return fromImageTypesToCharacterEnum(fromHandlerPathToImageTypes(handlerPath)); }
 
-    public Character fromFXMLPathToCharacterEnum (String fxmlPath) { return fromImageTypesToCharacterEnum(fromFXMLPathToImageTypes(fxmlPath)); }
+    public static Character fromFXMLPathToCharacterEnum (String fxmlPath) { return fromImageTypesToCharacterEnum(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion CharacterEnumTranslator
 
@@ -780,7 +780,7 @@ public enum ImageTypes {
      * @param wizard The Wizard we want the associated ImageType of
      * @return The ImageType associated to the provided Wizard
      */
-    public ImageTypes fromWizardEnumToImageTypes (Wizard wizard) {
+    public static ImageTypes fromWizardEnumToImageTypes (Wizard wizard) {
         ImageTypes imageType = null;
         switch (wizard) {
             case NATURE -> imageType = ImageTypes.WIZARD_NATURE_IMG;
@@ -793,16 +793,16 @@ public enum ImageTypes {
         return imageType;
     }
 
-    public String fromWizardEnumToHandlerPath (Wizard wizard) { return fromImageTypesToHandlerPath(fromWizardEnumToImageTypes(wizard)); }
+    public static String fromWizardEnumToHandlerPath (Wizard wizard) { return fromImageTypesToHandlerPath(fromWizardEnumToImageTypes(wizard)); }
 
-    public String fromWizardEnumToFXMLPath (Wizard wizard) { return fromImageTypesToFXMLPath(fromWizardEnumToImageTypes(wizard)); }
+    public static String fromWizardEnumToFXMLPath (Wizard wizard) { return fromImageTypesToFXMLPath(fromWizardEnumToImageTypes(wizard)); }
 
     /**
      * Gets the Wizard associated to a specific ImageType
      * @param imageType The ImageType we want the associated Wizard of
      * @return The Wizard associated to the provided ImageType
      */
-    public Wizard fromImageTypesToWizardEnum (ImageTypes imageType) {
+    public static Wizard fromImageTypesToWizardEnum (ImageTypes imageType) {
         Wizard wizard;
         switch (imageType) {
             case WIZARD_NATURE_IMG -> wizard = Wizard.NATURE;
@@ -815,9 +815,9 @@ public enum ImageTypes {
         return wizard;
     }
 
-    public Wizard fromHandlerPathToWizardEnum (String handlerPath) { return fromImageTypesToWizardEnum(fromHandlerPathToImageTypes(handlerPath)); }
+    public static Wizard fromHandlerPathToWizardEnum (String handlerPath) { return fromImageTypesToWizardEnum(fromHandlerPathToImageTypes(handlerPath)); }
 
-    public Wizard fromFXMLPathToWizardEnum (String fxmlPath) { return fromImageTypesToWizardEnum(fromFXMLPathToImageTypes(fxmlPath)); }
+    public static Wizard fromFXMLPathToWizardEnum (String fxmlPath) { return fromImageTypesToWizardEnum(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion WizardEnumTranslator
 
@@ -828,7 +828,7 @@ public enum ImageTypes {
      * @param islandIDNumber The IslandBackGroundNumber we want the associated ImageType of
      * @return The ImageType associated to the provided IslandBackGroundNumber
      */
-    public ImageTypes fromIslandBackGroundNumberToImageTypes (int islandIDNumber) {
+    public static ImageTypes fromIslandBackGroundNumberToImageTypes (int islandIDNumber) {
         ImageTypes imageType = null;
         switch (islandIDNumber) {
             case 0  -> imageType = ImageTypes.ISLAND_0_IMG;
@@ -840,16 +840,16 @@ public enum ImageTypes {
         return imageType;
     }
 
-    public String fromIslandBackGroundNumberToHandlerPath (int islandBackGroundNumber) { return fromImageTypesToHandlerPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber)); }
+    public static String fromIslandBackGroundNumberToHandlerPath (int islandBackGroundNumber) { return fromImageTypesToHandlerPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber)); }
 
-    public String fromIslandBackGroundNumberToFXMLPath (int islandBackGroundNumber) { return fromImageTypesToFXMLPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber)); }
+    public static String fromIslandBackGroundNumberToFXMLPath (int islandBackGroundNumber) { return fromImageTypesToFXMLPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber)); }
 
     /**
      * Gets the IslandBackGroundNumber associated to a specific ImageType
      * @param imageType The ImageType we want the associated IslandBackGroundNumber of
      * @return An int representing the IslandBackGroundNumber associated to the provided ImageType
      */
-    public int fromImageTypesToIslandBackGroundNumber (ImageTypes imageType) {
+    public static int fromImageTypesToIslandBackGroundNumber (ImageTypes imageType) {
         int islandBackGroundNumber;
         switch (imageType) {
             case ISLAND_0_IMG -> islandBackGroundNumber = 0;
@@ -861,9 +861,9 @@ public enum ImageTypes {
         return islandBackGroundNumber;
     }
 
-    public int fromHandlerPathToIslandBackGroundNumber (String handlerPath) { return fromImageTypesToIslandBackGroundNumber(fromHandlerPathToImageTypes(handlerPath)); }
+    public static int fromHandlerPathToIslandBackGroundNumber (String handlerPath) { return fromImageTypesToIslandBackGroundNumber(fromHandlerPathToImageTypes(handlerPath)); }
 
-    public int fromFXMLPathToIslandBackGroundNumber (String fxmlPath) { return fromImageTypesToIslandBackGroundNumber(fromFXMLPathToImageTypes(fxmlPath)); }
+    public static int fromFXMLPathToIslandBackGroundNumber (String fxmlPath) { return fromImageTypesToIslandBackGroundNumber(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion IslandBackgroundTranslator
 
