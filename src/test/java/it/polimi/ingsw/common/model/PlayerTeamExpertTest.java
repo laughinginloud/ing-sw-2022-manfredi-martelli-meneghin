@@ -56,7 +56,7 @@ public class PlayerTeamExpertTest {
      */
     @Test
     void getTeamMemberTest() {
-        if (playerTeamExpertTest.getTeamMember() != teamMemberTest)
+        if (playerTeamExpertTest.getTeamMember() != teamMemberTest.getPlayerID())
             throw new AssertionError("Returned wrong team member");
     }
 
@@ -66,7 +66,7 @@ public class PlayerTeamExpertTest {
     @Test
     void setTeamMemberTest() throws IllegalAccessException {
         Player localTest = new Player(0, null, null, null);
-        playerTeamExpertTest.setTeamMember(localTest);
+        playerTeamExpertTest.setTeamMember(localTest.getPlayerID());
 
         Player fieldValue = (Player) teamMemberField.get(playerTeamExpertTest);
 
