@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
- * Handler (or Controller) of the scene GameScene (gamePage.fxml)
+ * Handler (or Controller) of the scene GameScene (gameScenePage.fxml)
  * The game's main scene
  * @author Giovanni Manfredi
  */
