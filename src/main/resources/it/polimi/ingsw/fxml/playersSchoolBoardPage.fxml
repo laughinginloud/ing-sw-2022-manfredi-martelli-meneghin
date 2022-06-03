@@ -443,12 +443,12 @@
                                           <ImageView fx:id="p1_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                                           <Text fx:id="p1_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
-                                                <Font size="15.0" />
+                                                <Font size="12.0" />
                                              </font>
                                           </Text>
                                           <Text fx:id="p1_lastCardPlayed_text" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last card played:" textAlignment="CENTER" wrappingWidth="111.82617584081754">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font size="11.0" />
                                              </font>
                                           </Text>
                                           <AnchorPane fx:id="p1_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0" visible="false">
@@ -828,12 +828,12 @@
                                           <ImageView fx:id="p2_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                                           <Text fx:id="p2_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
-                                                <Font size="15.0" />
+                                                <Font size="12.0" />
                                              </font>
                                           </Text>
                                           <Text fx:id="p2_lastCardPlayed_text" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last card played:" textAlignment="CENTER" wrappingWidth="111.82617584081754">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font size="11.0" />
                                              </font>
                                           </Text>
                                           <AnchorPane fx:id="p2_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0" visible="false">
@@ -1213,12 +1213,12 @@
                                           <ImageView fx:id="p3_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                                           <Text fx:id="p3_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
-                                                <Font size="15.0" />
+                                                <Font size="12.0" />
                                              </font>
                                           </Text>
                                           <Text fx:id="p3_lastCardPlayed_text" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last card played:" textAlignment="CENTER" wrappingWidth="111.82617584081754">
                                              <font>
-                                                <Font size="14.0" />
+                                                <Font size="11.0" />
                                              </font>
                                           </Text>
                                           <AnchorPane fx:id="p3_coin_pane" layoutX="4.0" layoutY="181.0" prefHeight="62.0" prefWidth="112.0" visible="false">
