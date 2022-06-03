@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.view.gui.IDHelper;
 import it.polimi.ingsw.client.view.gui.ImageTypes;
+import it.polimi.ingsw.client.view.gui.PathHelper;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
@@ -1385,7 +1386,7 @@ public class GameSceneHandler implements GUIHandler {
             islandTowersCount = islands[i].getMultiplicity();
             if (islandTowerColor != null){
                 // Set the tower img
-                islandTowerPath = ImageTypes.fromTowerColorToHandlerPath(islands[i].getTowerColor());
+                islandTowerPath = PathHelper.fromTowerColorToHandlerPath(islands[i].getTowerColor());
                 islandTower.setImage(new Image(getClass().getClassLoader().getResource(islandTowerPath).toString(), true));
                 islandTower.setVisible(true);
                 // Set the towersCount
@@ -1471,7 +1472,7 @@ public class GameSceneHandler implements GUIHandler {
                 // For each student present on the island
                 if (cloudTileStudentColor != null){
                     // Sets the image to the specified studentColor
-                    cloudTileStudentPath = ImageTypes.fromStudentColorToHandlerPath(cloudTileStudentColor);
+                    cloudTileStudentPath = PathHelper.fromStudentColorToHandlerPath(cloudTileStudentColor);
                     cloudTileStudent.setImage(new Image(getClass().getClassLoader().getResource(cloudTileStudentPath).toString(), true));
                     cloudTileStudent.setVisible(true);
                 }
@@ -1520,7 +1521,7 @@ public class GameSceneHandler implements GUIHandler {
                 assistantCardID         = IDHelper.gsFindAssistantCardID(this, assistantCard);
 
                 // Finds the handlerPath of the corresponding image that I need to put (wizard)
-                assistantCardWizardPath = ImageTypes.fromWizardEnumToHandlerPath(wizard);
+                assistantCardWizardPath = PathHelper.fromWizardEnumToHandlerPath(wizard);
 
                 // Sets the image using the path just found
                 assistantCardID.setImage(new Image(getClass().getClassLoader().getResource(assistantCardWizardPath).toString(), true));
@@ -1558,7 +1559,7 @@ public class GameSceneHandler implements GUIHandler {
         for (int i = 0; i < towerCount; i++) {
             //Update towers (by adding them if not present) by setting the correct directory for each ImageView
             schoolBoardTowerID = IDHelper.gsFindSchoolBoardTowerID(this, i);
-            towerPath          = ImageTypes.fromTowerColorToHandlerPath(towerColor);
+            towerPath          = PathHelper.fromTowerColorToHandlerPath(towerColor);
             schoolBoardTowerID.setImage(new Image(getClass().getClassLoader().getResource(towerPath).toString(), true));
         }
 
@@ -1658,7 +1659,7 @@ public class GameSceneHandler implements GUIHandler {
                 entranceStudent      = IDHelper.gsFindStudentEntranceID(this, i);
 
                 // Finds the handlerPath of the corresponding image that I need to put in the entrance
-                entranceStudentPath  = ImageTypes.fromStudentColorToHandlerPath(entranceStudentColor);
+                entranceStudentPath  = PathHelper.fromStudentColorToHandlerPath(entranceStudentColor);
 
                 // Sets the image using the path just found
                 entranceStudent.setImage(new Image(getClass().getClassLoader().getResource(entranceStudentPath).toString(), true));
@@ -1725,7 +1726,7 @@ public class GameSceneHandler implements GUIHandler {
         CC_noEntryTile_background.setVisible(true);
 
         ImageView CC_noEntryTile;
-        String    CC_noEntryTile_ImgPath = ImageTypes.fromImageTypesToHandlerPath(ImageTypes.NOENTRYTILE_IMG);
+        String    CC_noEntryTile_ImgPath = PathHelper.fromImageTypesToHandlerPath(ImageTypes.NOENTRYTILE_IMG);
         for (int i = 0; i < characterCardNoEntry.getNoEntryCount(); i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
             CC_noEntryTile.setImage(new Image(getClass().getClassLoader().getResource(CC_noEntryTile_ImgPath).toString(), true));
@@ -1757,7 +1758,7 @@ public class GameSceneHandler implements GUIHandler {
         for (int i = 0; i < characterCardStudent.getStudents().length; i++) {
             CC_student         = IDHelper.gsFindCharacterCardStudentID(this, index, i);
             CC_student_Color   = characterCardStudent.getStudents()[i];
-            CC_student_ImgPath = ImageTypes.fromStudentColorToHandlerPath(CC_student_Color);
+            CC_student_ImgPath = PathHelper.fromStudentColorToHandlerPath(CC_student_Color);
             CC_student.setImage(new Image(getClass().getClassLoader().getResource(CC_student_ImgPath).toString(), true));
             CC_student.setVisible(true);
         }
@@ -1793,7 +1794,7 @@ public class GameSceneHandler implements GUIHandler {
         Character character = characterCard.getCharacter();
 
         CC_ImgView = IDHelper.gsFindCharacterCardImageID(this, index);
-        CC_ImgPath = ImageTypes.fromCharacterEnumToFXMLPath(character);
+        CC_ImgPath = PathHelper.fromCharacterEnumToFXMLPath(character);
         CC_ImgView.setImage(new Image(getClass().getClassLoader().getResource(CC_ImgPath).toString(), true));
         CC_ImgView.setVisible(true);
     }
