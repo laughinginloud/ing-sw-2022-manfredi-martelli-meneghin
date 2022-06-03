@@ -389,15 +389,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p0_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p0_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p0_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p0_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p0_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -427,20 +427,20 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="p1_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p1_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p1_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p1_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p1_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p1_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p1_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p1_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p1_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p1_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p1_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p1_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p1_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p1_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p1_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p1_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                        </children>
                                     </GridPane>
                                     <AnchorPane fx:id="p1_addInfo_pane" layoutX="364.0" prefHeight="170.0" prefWidth="112.0">
                                        <children>
                                           <Rectangle fx:id="p1_addInfo_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="241.0" layoutX="-1.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="113.0" />
-                                          <ImageView fx:id="p1_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true"/>
+                                          <ImageView fx:id="p1_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                                           <Text fx:id="p1_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
                                                 <Font size="15.0" />
@@ -774,15 +774,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p1_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p1_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p1_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p1_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p1_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -812,20 +812,20 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="p2_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p2_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p2_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p2_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p2_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p2_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p2_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p2_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p2_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p2_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p2_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p2_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p2_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p2_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p2_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p2_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                        </children>
                                     </GridPane>
                                     <AnchorPane fx:id="p2_addInfo_pane" layoutX="364.0" prefHeight="170.0" prefWidth="112.0">
                                        <children>
                                           <Rectangle fx:id="p2_addInfo_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="241.0" layoutX="-1.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="113.0" />
-                                          <ImageView fx:id="p2_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true"/>
+                                          <ImageView fx:id="p2_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                                           <Text fx:id="p2_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
                                                 <Font size="15.0" />
@@ -1159,15 +1159,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p2_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p2_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p2_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p2_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p2_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -1197,20 +1197,20 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <ImageView fx:id="p3_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p3_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p3_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p3_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p3_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p3_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p3_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                                          <ImageView fx:id="p3_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                                          <ImageView fx:id="p3_tower0_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p3_tower1_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p3_tower2_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p3_tower3_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p3_tower4_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p3_tower5_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p3_tower6_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                          <ImageView fx:id="p3_tower7_img" fitHeight="74.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                        </children>
                                     </GridPane>
                                     <AnchorPane fx:id="p3_addInfo_pane" layoutX="364.0" prefHeight="170.0" prefWidth="112.0">
                                        <children>
                                           <Rectangle fx:id="p3_addInfo_background" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="241.0" layoutX="-1.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="113.0" />
-                                          <ImageView fx:id="p3_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true"/>
+                                          <ImageView fx:id="p3_lastAssistant" fitHeight="123.0" fitWidth="88.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                                           <Text fx:id="p3_username_text" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="100">
                                              <font>
                                                 <Font size="15.0" />
@@ -1544,15 +1544,15 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p3_entrance_pane" layoutX="7.0" layoutY="907.0" prefHeight="174.0" prefWidth="469.0">
                                  <children>
-                                    <ImageView fx:id="p3_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true"/>
-                                    <ImageView fx:id="p3_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true"/>
+                                    <ImageView fx:id="p3_entranceStudent0_img" fitHeight="38.0" fitWidth="40.0" layoutX="61.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent1_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent2_img" fitHeight="38.0" fitWidth="40.0" layoutX="138.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent3_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent4_img" fitHeight="38.0" fitWidth="40.0" layoutX="215.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent5_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent6_img" fitHeight="38.0" fitWidth="40.0" layoutX="292.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent7_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="p3_entranceStudent8_img" fitHeight="38.0" fitWidth="40.0" layoutX="368.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                            </children>
