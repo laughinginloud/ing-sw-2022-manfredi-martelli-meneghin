@@ -1,7 +1,11 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
+import it.polimi.ingsw.client.view.gui.IDHelper;
+import it.polimi.ingsw.client.view.gui.PathHelper;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.common.model.*;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -1380,6 +1384,240 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     // TODO FXML ids
     // TODO Implementations
 
+
+    // region PSBUpdateModel
+
+    /**
+     * Updates the PlayersSchoolBoard according to the updated model
+     * @param model the model to update
+     */
+    public void psbUpdateModel(GameModel model) {
+        Player[] players = model.getPlayer();
+        // For each player present
+        for (int i = 0; i < model.getPlayersCount(); i++) {
+            // Updates the SchoolBoard of the specified player
+            psbUpdateSchoolBoard(model, players[i], i);
+
+            // Updates the AdditionalInfos of the specified player
+            psbUpdateAdditionalInfo(players[i], i, model.getExpertMode());
+        }
+    }
+
+    // region PSBUpdateSchoolBoard
+
+    /**
+     * Updates the SchoolBoard in the PlayerSchoolBoard according to the updated model
+     * @param model the model to update
+     * @param player the player to update
+     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     */
+    public void psbUpdateSchoolBoard(GameModel model, Player player, int playerIndex) {
+        SchoolBoard schoolBoard = player.getSchoolBoard();
+        // Updates the towers of the player
+        psbUpdateTowers(schoolBoard.getTowerColor(), schoolBoard.getTowerCount(), model.getPlayersCount(), playerIndex);
+        // Updates the diningRoom
+        psbUpdateDiningRoom(player.getSchoolBoard().getDiningRoom(), player, model.getGlobalProfessorTable(), playerIndex);
+        // Updates the entrance
+        psbUpdateEntrance(schoolBoard.getEntrance(), playerIndex);
+    }
+
+    /**
+     * Updates the towers in the PlayerSchoolBoard of the player (SchoolBoard)
+     * @param towerColor the color of the towers (BLACK, GREY, WHITE)
+     * @param towerCount the number of towers present
+     * @param numOfPlayers the number of players in the game
+     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     */
+    public void psbUpdateTowers(TowerColor towerColor, int towerCount, int numOfPlayers, int playerIndex) {
+        ImageView schoolBoardTowerID;
+        String    towerPath;
+        // Adding the towers
+        for (int i = 0; i < towerCount; i++) {
+            //Update towers (by adding them if not present) by setting the correct directory for each ImageView
+            // TODO psbMethod modify
+            schoolBoardTowerID = IDHelper.psbFindSchoolBoardTowerID(this, playerIndex, i);
+            towerPath          = PathHelper.fromTowerColorToHandlerPath(towerColor);
+            schoolBoardTowerID.setImage(new Image(getClass().getClassLoader().getResource(towerPath).toString(), true));
+        }
+
+        // The maximum number of towers varies depending on the number of players
+        int       maxNumOfTowers;
+        switch (numOfPlayers) {
+            case 2, 4 -> maxNumOfTowers = 8;
+            case 3    -> maxNumOfTowers = 6;
+            default   -> throw new IllegalStateException("The number of players must be between 2 and 4. Here the players are " + numOfPlayers);
+        }
+        // Remove the towers between towerCount and maxNumOfTowers
+        for (int i = towerCount; i < maxNumOfTowers; i++) {
+            // TODO psbMethod modify
+            schoolBoardTowerID = IDHelper.psbFindSchoolBoardTowerID(this, playerIndex, i);
+            schoolBoardTowerID.setImage(null);
+        }
+    }
+
+    // region PSBUpdateDiningRoom
+
+    /**
+     * Updates the DiningRoom in the PlayerSchoolBoard according to the updated model
+     * @param diningRoom the diningRoom to update
+     * @param player the player to update
+     * @param gpt the globalProfessorTable to update
+     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     */
+    public void psbUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt, int playerIndex) {
+        // Updates the professorsDiningRoom
+        psbUpdateDiningRoomProfessors(gpt, player, playerIndex);
+        // Updates the studentsDiningRoom
+        psbUpdateDiningRoomStudents(diningRoom, playerIndex);
+    }
+
+    /**
+     * Updates the ProfessorDiningRoom in the PlayerSchoolBoard according to the updated model
+     * @param gpt the globalProfessorTable to update
+     * @param player the player to update
+     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     */
+    public void psbUpdateDiningRoomProfessors(GlobalProfessorTable gpt, Player player, int playerIndex) {
+        ImageView gptImageView;
+        // For each color (professor) checks if the localPlayer is or not the controller
+        for (Color color : Color.values()) {
+            // TODO psbMethod modify
+            gptImageView = IDHelper.psbFindProfessorOnProfTableID(this, playerIndex, color);
+            gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
+        }
+    }
+
+    /**
+     * Updates the StudentsDiningRoom in the PlayerSchoolBoard according to the updated diningRoom
+     * @param diningRoom the diningRoom to update
+     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     */
+    public void psbUpdateDiningRoomStudents(DiningRoom diningRoom, int playerIndex) {
+        ImageView diningRoomStudent;
+
+        // For each table (color)
+        for (Color color : Color.values()) {
+            // "Adds" the Students
+            for (int i = 0; i < diningRoom.getStudentCounters(color); i++) {
+                // Gets the ID of the student in the position i in the diningRoom
+                // TODO psbMethod modify
+                diningRoomStudent     = IDHelper.psbFindStudentDiningRoomID(this, playerIndex, color, i);
+
+                // Sets the image to visible ("adding it")
+                diningRoomStudent.setVisible(true);
+            }
+
+            // "Removes" the students
+            for (int i = diningRoom.getStudentCounters(color); i < 10; i++) {
+                // Gets the ID of the student in the position i in the diningRoom
+                // TODO psbMethod modify
+                diningRoomStudent     = IDHelper.psbFindStudentDiningRoomID(this, playerIndex, color, i);
+
+                // Sets the image to not visible ("removing it")
+                diningRoomStudent.setVisible(false);
+            }
+        }
+    }
+
+    // endregion PSBUpdateDiningRoom
+
+    /**
+     * Updates the Entrance in the PlayersSchoolBoard according to the updated entrance
+     * @param entrance the entrance to update
+     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     */
+    public void psbUpdateEntrance(Entrance entrance, int playerIndex) {
+        Color     entranceStudentColor;
+        ImageView entranceStudent;
+        String    entranceStudentPath;
+
+        // For each student in the entrance
+        for (int i = 0; i < entrance.getStudents().length; i++) {
+
+            // If the student exists
+            if (entrance.getStudents()[i] != null) {
+
+                // Gets the Color of the student in the position i
+                entranceStudentColor = entrance.getStudents()[i];
+
+                // Gets the ID of the student in the position i in the entrance
+                // TODO psbMethod modify
+                entranceStudent      = IDHelper.psbFindStudentEntranceID(this, playerIndex, i);
+
+                // Finds the handlerPath of the corresponding image that I need to put in the entrance
+                entranceStudentPath  = PathHelper.fromStudentColorToHandlerPath(entranceStudentColor);
+
+                // Sets the image using the path just found
+                entranceStudent.setImage(new Image(getClass().getClassLoader().getResource(entranceStudentPath).toString(), true));
+            }
+
+            else {
+                // Gets the ID of the student in the position i in the entrance
+                // TODO psbMethod modify
+                entranceStudent     = IDHelper.psbFindStudentEntranceID(this, playerIndex, i);
+
+                // Removes the image present
+                entranceStudent.setImage(null);
+            }
+        }
+    }
+
+    // endregion PSBUpdateSchoolBoard
+
+    // region PSBUpdateAdditionalInfo
+
+
+    /**
+     * Updates the AdditionalInfos of a player according to the updated player and the specified index
+     * @param player the player to update
+     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     */
+    public void psbUpdateAdditionalInfo(Player player, int playerIndex, boolean isExpertMode) {
+        psbUpdateUsername(player.getUsername(), playerIndex);
+        psbUpdateLastAssistantCard(player.getLastPlayedCard(), playerIndex);
+
+        AnchorPane expertMode_pane = IDHelper.psbFindPlayerAdditionalInfoPaneID(this, playerIndex);
+        if (isExpertMode) {
+            expertMode_pane.setVisible(true);
+            psbUpdateCoinCount(player, playerIndex);
+        }
+        else {
+            expertMode_pane.setVisible(false);
+        }
+    }
+
+    public void psbUpdateUsername(String username, int playerIndex) {
+        Text usernameText;
+        usernameText = IDHelper.psbFindPlayerUsernameID(this, playerIndex);
+        if (!usernameText.getText().equals(username))
+            usernameText.setText(username);
+    }
+
+    public void psbUpdateLastAssistantCard(AssistantCard lastAssistantCard, int playerIndex) {
+        ImageView assistantCardImg;
+        String assistantCardPath;
+        assistantCardImg = IDHelper.psbFindPlayerLastPlayerCardID(this, playerIndex);
+        assistantCardPath = PathHelper.fromAssistantCardNumberToHandlerPath(lastAssistantCard.cardValue());
+        assistantCardImg.setImage(new Image(getClass().getClassLoader().getResource(assistantCardPath).toString(), true));
+    }
+
+    public void psbUpdateCoinCount(Player player, int playerIndex) {
+        Text coinCountText;
+        String coinCountString = "";
+        coinCountText = IDHelper.psbFindPlayerCoinCountID(this, playerIndex);
+        if (player instanceof PlayerExpert p) {
+            coinCountString = String.valueOf(p.getCoinCount());
+        }
+        else if (player instanceof PlayerTeamExpert p) {
+            coinCountString = String.valueOf(p.getCoinCount());
+        }
+
+        coinCountText.setText(coinCountString);
+    }
+
+    // endregion PSBUpdateAdditionalInfo
+
+    // endregion PSBUpdateModel
 
     /**
      * Sets the ViewGUI at which the ServerInfoHandler is related
