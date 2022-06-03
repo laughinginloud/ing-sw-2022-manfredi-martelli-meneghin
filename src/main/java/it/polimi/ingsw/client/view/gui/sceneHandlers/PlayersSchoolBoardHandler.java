@@ -1381,7 +1381,6 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     // endregion FXML_Ids
 
     // TODO JavaDocs + Regions
-    // TODO FXML ids
     // TODO Implementations
 
 
@@ -1400,6 +1399,15 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
 
             // Updates the AdditionalInfos of the specified player
             psbUpdateAdditionalInfo(players[i], i, model.getExpertMode());
+        }
+
+        AnchorPane playerBoard;
+        // For each player absent
+        for (int i = model.getPlayersCount(); i < 4; i++) {
+            playerBoard = IDHelper.psbFindPlayerPaneID(this, i);
+
+            // Hide his board
+            playerBoard.setVisible(false);
         }
     }
 
@@ -1434,8 +1442,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
         // Adding the towers
         for (int i = 0; i < towerCount; i++) {
             //Update towers (by adding them if not present) by setting the correct directory for each ImageView
-            // TODO psbMethod modify
-            schoolBoardTowerID = IDHelper.psbFindSchoolBoardTowerID(this, playerIndex, i);
+            schoolBoardTowerID = IDHelper.psbFindTowerSingleImageID(this, playerIndex, i);
             towerPath          = PathHelper.fromTowerColorToHandlerPath(towerColor);
             schoolBoardTowerID.setImage(new Image(getClass().getClassLoader().getResource(towerPath).toString(), true));
         }
@@ -1449,8 +1456,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
         }
         // Remove the towers between towerCount and maxNumOfTowers
         for (int i = towerCount; i < maxNumOfTowers; i++) {
-            // TODO psbMethod modify
-            schoolBoardTowerID = IDHelper.psbFindSchoolBoardTowerID(this, playerIndex, i);
+            schoolBoardTowerID = IDHelper.psbFindTowerSingleImageID(this, playerIndex, i);
             schoolBoardTowerID.setImage(null);
         }
     }
@@ -1481,8 +1487,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
         ImageView gptImageView;
         // For each color (professor) checks if the localPlayer is or not the controller
         for (Color color : Color.values()) {
-            // TODO psbMethod modify
-            gptImageView = IDHelper.psbFindProfessorOnProfTableID(this, playerIndex, color);
+            gptImageView = IDHelper.psbFindProfessorSingleImageID(this, playerIndex, color);
             gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
         }
     }
@@ -1500,8 +1505,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
             // "Adds" the Students
             for (int i = 0; i < diningRoom.getStudentCounters(color); i++) {
                 // Gets the ID of the student in the position i in the diningRoom
-                // TODO psbMethod modify
-                diningRoomStudent     = IDHelper.psbFindStudentDiningRoomID(this, playerIndex, color, i);
+                diningRoomStudent     = IDHelper.psbFindDiningRoomStudentSingleImageID(this, playerIndex, color, i);
 
                 // Sets the image to visible ("adding it")
                 diningRoomStudent.setVisible(true);
@@ -1510,8 +1514,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
             // "Removes" the students
             for (int i = diningRoom.getStudentCounters(color); i < 10; i++) {
                 // Gets the ID of the student in the position i in the diningRoom
-                // TODO psbMethod modify
-                diningRoomStudent     = IDHelper.psbFindStudentDiningRoomID(this, playerIndex, color, i);
+                diningRoomStudent     = IDHelper.psbFindDiningRoomStudentSingleImageID(this, playerIndex, color, i);
 
                 // Sets the image to not visible ("removing it")
                 diningRoomStudent.setVisible(false);
@@ -1541,8 +1544,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
                 entranceStudentColor = entrance.getStudents()[i];
 
                 // Gets the ID of the student in the position i in the entrance
-                // TODO psbMethod modify
-                entranceStudent      = IDHelper.psbFindStudentEntranceID(this, playerIndex, i);
+                entranceStudent      = IDHelper.psbFindEntranceStudentImageID(this, playerIndex, i);
 
                 // Finds the handlerPath of the corresponding image that I need to put in the entrance
                 entranceStudentPath  = PathHelper.fromStudentColorToHandlerPath(entranceStudentColor);
@@ -1553,8 +1555,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
 
             else {
                 // Gets the ID of the student in the position i in the entrance
-                // TODO psbMethod modify
-                entranceStudent     = IDHelper.psbFindStudentEntranceID(this, playerIndex, i);
+                entranceStudent     = IDHelper.psbFindEntranceStudentImageID(this, playerIndex, i);
 
                 // Removes the image present
                 entranceStudent.setImage(null);
