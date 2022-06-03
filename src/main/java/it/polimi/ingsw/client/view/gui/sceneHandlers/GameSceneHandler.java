@@ -1352,7 +1352,7 @@ public class GameSceneHandler implements GUIHandler {
     // region GSUpdateSky
 
     /**
-     * Updates the Islands according to the array of islands given
+     * Updates the Islands in the GameScene according to the array of islands given
      * @param islands the array of islands to update
      * @param motherNaturePosition the position of motherNature
      */
@@ -1444,7 +1444,7 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     * Updates the CloudTiles according to the array of cloudTiles given
+     * Updates the CloudTiles in the GameScene according to the array of cloudTiles given
      * @param cloudTiles the array of cloudTiles to update
      * @param numOfPlayers the number of players in the game
      */
@@ -1494,7 +1494,7 @@ public class GameSceneHandler implements GUIHandler {
     // endregion GSUpdateSky
 
     /**
-     * Updates the assistantCard deck of the player by "flipping" cards if not present
+     * Updates the assistantCard deck in the GameScene of the player by "flipping" cards if not present
      * @param assistantDeck the deck of assistantCards to update
      * @param wizard the wizard associated with the player
      */
@@ -1532,7 +1532,7 @@ public class GameSceneHandler implements GUIHandler {
     // region GSUpdateSchoolBoard
 
     /**
-     * Updates the SchoolBoard according to the updated model
+     * Updates the SchoolBoard in the GameScene according to the updated model
      * @param model the model to update
      * @param player the localPlayer
      */
@@ -1541,13 +1541,13 @@ public class GameSceneHandler implements GUIHandler {
         // Updates the towers of the player
         gsUpdateTowers(schoolBoard.getTowerColor(), schoolBoard.getTowerCount(), model.getPlayersCount());
         // Updates the diningRoom
-        gsUpdateDiningRoom(model, player);
+        gsUpdateDiningRoom(player.getSchoolBoard().getDiningRoom(), player, model.getGlobalProfessorTable());
         // Updates the entrance
         gsUpdateEntrance(schoolBoard.getEntrance());
     }
 
     /**
-     * Updates the towers of the player
+     * Updates the towers in the GameScene of the player (SchoolBoard)
      * @param towerColor the color of the towers (BLACK, GREY, WHITE)
      * @param towerCount the number of towers present
      * @param numOfPlayers the number of players in the game
@@ -1571,7 +1571,7 @@ public class GameSceneHandler implements GUIHandler {
             default   -> throw new IllegalStateException("The number of players must be between 2 and 4. Here the players are " + numOfPlayers);
         }
         // Remove the towers between towerCount and maxNumOfTowers
-        for (int i = towerCount; i < 8; i++) {
+        for (int i = towerCount; i < maxNumOfTowers; i++) {
             schoolBoardTowerID = IDHelper.gsFindSchoolBoardTowerID(this, i);
             schoolBoardTowerID.setVisible(false);
         }
@@ -1580,20 +1580,20 @@ public class GameSceneHandler implements GUIHandler {
     // region GSUpdateDiningRoom
 
     /**
-     * Updates the DiningRoom according to the updated model
-     * @param model the model to update
+     * Updates the DiningRoom in the GameScene according to the updated model
+     * @param diningRoom the diningRoom to update
      * @param player the localPlayer
+     * @param gpt the globalProfessorTable to update
      */
-    public void gsUpdateDiningRoom(GameModel model, Player player) {
-        DiningRoom diningRoom = player.getSchoolBoard().getDiningRoom();
+    public void gsUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt) {
         // Updates the professorsDiningRoom
-        gsUpdateDiningRoomProfessors(model.getGlobalProfessorTable(), player);
+        gsUpdateDiningRoomProfessors(gpt, player);
         // Updates the studentsDiningRoom
         gsUpdateDiningRoomStudents(diningRoom);
     }
 
     /**
-     * Updates the ProfessorDiningRoom according to the updated model
+     * Updates the ProfessorDiningRoom in the GameScene according to the updated model
      * @param gpt the globalProfessorTable to update
      * @param player the localPlayer
      */
@@ -1607,7 +1607,7 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     * Updates the StudentsDiningRoom according to the updated diningRoom
+     * Updates the StudentsDiningRoom in the GameScene according to the updated diningRoom
      * @param diningRoom the diningRoom to update
      */
     public void gsUpdateDiningRoomStudents(DiningRoom diningRoom) {
@@ -1638,7 +1638,7 @@ public class GameSceneHandler implements GUIHandler {
     // endregion GSUpdateDiningRoom
 
     /**
-     * Updates the entrance according to the updated entrance
+     * Updates the Entrance in the GameScene according to the updated entrance
      * @param entrance the entrance to update
      */
     public void gsUpdateEntrance(Entrance entrance) {
@@ -1680,25 +1680,28 @@ public class GameSceneHandler implements GUIHandler {
     // region GSUpdateExpertMode
 
     /**
-     * Updates the ExpertModeElements according to the updated model
+     * Updates the ExpertModeElements in the GameScene according to the updated model
      * @param model the model to update
      * @param player the localPlayer
      */
     public void gsUpdateExpertModeElements(GameModel model, Player player) {
+        // Updates the CharacterCards
         gsUpdateCharacterCards(model.getCharacterCards());
+        // Updates the player's coinsCount
         gsUpdatePlayerCoins(player);
     }
 
     // region GSUpdateCharacterCards
 
     /**
-     *
-     * @param characterCards
+     * Updates the CharacterCards in the GameScene according to the updated array
+     * @param characterCards the characterCard array to update
      */
     public void gsUpdateCharacterCards(CharacterCard[] characterCards) {
-
+        // Shows the ExpertMode pane
         characterCards_pane.setVisible(true);
 
+        // Based on the type of CharacterCard calls different methods
         for (int i = 0; i < characterCards.length; i++) {
             if (characterCards[i] instanceof CharacterCardNoEntry c) {
                 gsUpdateCharacterCardNoEntry(c, i);
@@ -1713,26 +1716,29 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     *
-     * @param characterCardNoEntry
-     * @param index
+     * Updates the CharacterCardNoEntry in the GameScene according to the updated card
+     * @param characterCardNoEntry the updated card
+     * @param index the index of the card in the GameScene
      */
     public void gsUpdateCharacterCardNoEntry(CharacterCardNoEntry characterCardNoEntry, int index) {
-
+        // Updates the CharacterCardImage
         gsUpdateCharacterCardImage(characterCardNoEntry, index);
 
+        // Shows the Rectangle that holds the noEntryTiles
         Rectangle CC_noEntryTile_background;
         CC_noEntryTile_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
         CC_noEntryTile_background.setVisible(true);
 
         ImageView CC_noEntryTile;
         String    CC_noEntryTile_ImgPath = PathHelper.fromImageTypesToHandlerPath(ImageTypes.NOENTRYTILE_IMG);
+        // For each noEntryTile present, sets the image
         for (int i = 0; i < characterCardNoEntry.getNoEntryCount(); i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
             CC_noEntryTile.setImage(new Image(getClass().getClassLoader().getResource(CC_noEntryTile_ImgPath).toString(), true));
             CC_noEntryTile.setVisible(true);
         }
 
+        // For each noEntryTile absent, sets visibility to false
         for (int i = characterCardNoEntry.getNoEntryCount(); i < 6; i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
             CC_noEntryTile.setVisible(false);
@@ -1740,14 +1746,15 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     *
-     * @param characterCardStudent
-     * @param index
+     * Updates the CharacterCardStudent in the GameScene according to the updated card
+     * @param characterCardStudent the updated card
+     * @param index the index of the card in the GameScene
      */
     public void gsUpdateCharacterCardStudent(CharacterCardStudent characterCardStudent, int index) {
-
+        // Updates the CharacterCardImage
         gsUpdateCharacterCardImage(characterCardStudent, index);
 
+        // Shows the Rectangle that holds the students
         Rectangle CC_students_background;
         CC_students_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
         CC_students_background.setVisible(true);
@@ -1755,6 +1762,7 @@ public class GameSceneHandler implements GUIHandler {
         ImageView CC_student;
         Color     CC_student_Color;
         String    CC_student_ImgPath;
+        // For each student present, sets the image depending on the studentColor
         for (int i = 0; i < characterCardStudent.getStudents().length; i++) {
             CC_student         = IDHelper.gsFindCharacterCardStudentID(this, index, i);
             CC_student_Color   = characterCardStudent.getStudents()[i];
@@ -1763,6 +1771,7 @@ public class GameSceneHandler implements GUIHandler {
             CC_student.setVisible(true);
         }
 
+        // For each student absent, sets visibility to false
         for (int i = characterCardStudent.getStudents().length; i < 6; i++) {
             CC_student = IDHelper.gsFindCharacterCardStudentID(this, index, i);
             CC_student.setVisible(false);
@@ -1770,50 +1779,66 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     *
-     * @param characterCard
-     * @param index
+     * Updates the CharacterCard in the GameScene according to the updated card
+     * @param characterCard the updated card
+     * @param index the index of the card in the GameScene
      */
     public void gsUpdateCharacterCard(CharacterCard characterCard, int index) {
-
+        // Updates the CharacterCardImage
         gsUpdateCharacterCardImage(characterCard, index);
 
+        // Hides the Rectangle that holds different elements
         Rectangle CC_students_background;
         CC_students_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
         CC_students_background.setVisible(false);
     }
 
     /**
-     *
-     * @param characterCard
-     * @param index
+     * Updates the CharacterCard image in the GameScene according to the updated card and index
+     * @param characterCard the updated card
+     * @param index the index of the card in the GameScene
      */
     public void gsUpdateCharacterCardImage(CharacterCard characterCard, int index) {
         ImageView CC_ImgView;
         String    CC_ImgPath;
+
+        // Gets the character corresponding to the card
         Character character = characterCard.getCharacter();
 
+        // Gets the ID of the card
         CC_ImgView = IDHelper.gsFindCharacterCardImageID(this, index);
+
+        // Gets the path of the image
         CC_ImgPath = PathHelper.fromCharacterEnumToFXMLPath(character);
+
+        // Sets the image
         CC_ImgView.setImage(new Image(getClass().getClassLoader().getResource(CC_ImgPath).toString(), true));
+
+        // Makes it visible
         CC_ImgView.setVisible(true);
     }
 
     // endregion GSUpdateCharacterCards
 
     /**
-     *
-     * @param player
+     * Updates the CoinCount of the localPlayer in the GameScene according to the updated localPlayer
+     * @param player the updated localPlayer
      */
     public void gsUpdatePlayerCoins(Player player){
         int coinCount = 1;
+
+        // The player could be different instances, so I call the method on both
         if (player instanceof PlayerExpert p){
             coinCount = p.getCoinCount();
         }
         else if (player instanceof PlayerTeamExpert p){
             coinCount = p.getCoinCount();
         }
+
+        // Sets the CoinCount in the GameScene
         coinCount_text.setText(String.valueOf(coinCount));
+
+        // Makes the CoinCount visible
         coinCount_text.setVisible(true);
     }
 
