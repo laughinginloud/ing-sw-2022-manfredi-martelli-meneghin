@@ -1169,11 +1169,7 @@ public class IDHelper {
     // region PlayersSchoolBoardID
 
 
-    //P0_h0_pane per i pannelli dei player
-    //p0_coin_pane per i pannelli contenenti le monete
     //p0_towers_pane
-
-
     //lastPlayedCards (sia giocatore, sia tramite DiningRoom)
     //towers (sia giocatore, sia tramite DiningRoom)
     //usernames (sia giocatore, sia diningRoom)
@@ -1189,10 +1185,11 @@ public class IDHelper {
         AnchorPane playerPaneID = null;
 
         switch (playerIndex) {
-            case 0 -> playerPaneID = psb.p0_h0_pane;
-            case 1 -> playerPaneID = psb.p1_h1_pane;
-            case 2 -> playerPaneID = psb.p2_h2_pane;
-            case 3 -> playerPaneID = psb.p3_h3_pane;
+            case 0  -> playerPaneID = psb.p0_h0_pane;
+            case 1  -> playerPaneID = psb.p1_h1_pane;
+            case 2  -> playerPaneID = psb.p2_h2_pane;
+            case 3  -> playerPaneID = psb.p3_h3_pane;
+            default -> throw new IllegalStateException("The playerIndex must be between 0 and 3. You've inserted: " + playerIndex);
         }
 
         return playerPaneID;
@@ -1296,7 +1293,7 @@ public class IDHelper {
 
     // region LastPlayerCardID
 
-    public static ImageView psbFindPlayerLastPlayerCardID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+    public static ImageView psbFindPlayerLastPlayedCardID(PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
         ImageView playerLastPlayedCardID = null;
 
         switch (playerPaneID.getId()) {
@@ -1310,9 +1307,9 @@ public class IDHelper {
         return playerLastPlayedCardID;
     }
 
-    public static ImageView psbFindPlayerLastPlayerCardID (PlayersSchoolBoardHandler psb, int playerIndex) {
+    public static ImageView psbFindPlayerLastPlayedCardID(PlayersSchoolBoardHandler psb, int playerIndex) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
-        return psbFindPlayerLastPlayerCardID(psb, playerPaneID);
+        return psbFindPlayerLastPlayedCardID(psb, playerPaneID);
     }
 
     // endregion LastPlayerCardID
@@ -1342,47 +1339,730 @@ public class IDHelper {
 
     // endregion AdditionalInfo
 
+    // region TowerID
 
+    // region TowerPaneID
 
+    public static AnchorPane psbFindTowerPaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        AnchorPane towerPaneID = null;
 
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> towerPaneID = psb.p0_towers_pane;
+            case "p1_h1_pane" -> towerPaneID = psb.p1_towers_pane;
+            case "p2_h2_pane" -> towerPaneID = psb.p2_towers_pane;
+            case "p3_h3_pane" -> towerPaneID = psb.p3_towers_pane;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
 
+        return towerPaneID;
+    }
 
+    public static AnchorPane psbFindTowerPaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindTowerPaneID(psb, playerPaneID);
+    }
 
+    // endregion TowerPaneID
 
+    // region TowerSingleImageID
 
+    public static ImageView psbFindTowerSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, int towerPosition) {
+        ImageView towerSingleImageID = null;
 
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> {
+                switch (towerPosition) {
+                    case 0 -> towerSingleImageID = psb.p0_tower0_img;
+                    case 1 -> towerSingleImageID = psb.p0_tower1_img;
+                    case 2 -> towerSingleImageID = psb.p0_tower2_img;
+                    case 3 -> towerSingleImageID = psb.p0_tower3_img;
+                    case 4 -> towerSingleImageID = psb.p0_tower4_img;
+                    case 5 -> towerSingleImageID = psb.p0_tower5_img;
+                    case 6 -> towerSingleImageID = psb.p0_tower6_img;
+                    case 7 -> towerSingleImageID = psb.p0_tower7_img;
+                    default -> throw new IllegalStateException("The towerPosition must be between 0 and 7. You've inserted: " + towerPosition);
+                }
+            }
 
+            case "p1_h1_pane" -> {
+                switch (towerPosition) {
+                    case 0 -> towerSingleImageID = psb.p1_tower0_img;
+                    case 1 -> towerSingleImageID = psb.p1_tower1_img;
+                    case 2 -> towerSingleImageID = psb.p1_tower2_img;
+                    case 3 -> towerSingleImageID = psb.p1_tower3_img;
+                    case 4 -> towerSingleImageID = psb.p1_tower4_img;
+                    case 5 -> towerSingleImageID = psb.p1_tower5_img;
+                    case 6 -> towerSingleImageID = psb.p1_tower6_img;
+                    case 7 -> towerSingleImageID = psb.p1_tower7_img;
+                    default -> throw new IllegalStateException("The towerPosition must be between 0 and 7. You've inserted: " + towerPosition);
+                }
+            }
 
+            case "p2_h2_pane" -> {
+                switch (towerPosition) {
+                    case 0 -> towerSingleImageID = psb.p2_tower0_img;
+                    case 1 -> towerSingleImageID = psb.p2_tower1_img;
+                    case 2 -> towerSingleImageID = psb.p2_tower2_img;
+                    case 3 -> towerSingleImageID = psb.p2_tower3_img;
+                    case 4 -> towerSingleImageID = psb.p2_tower4_img;
+                    case 5 -> towerSingleImageID = psb.p2_tower5_img;
+                    case 6 -> towerSingleImageID = psb.p2_tower6_img;
+                    case 7 -> towerSingleImageID = psb.p2_tower7_img;
+                    default -> throw new IllegalStateException("The towerPosition must be between 0 and 7. You've inserted: " + towerPosition);
+                }
+            }
 
+            case "p3_h3_pane" -> {
+                switch (towerPosition) {
+                    case 0 -> towerSingleImageID = psb.p3_tower0_img;
+                    case 1 -> towerSingleImageID = psb.p3_tower1_img;
+                    case 2 -> towerSingleImageID = psb.p3_tower2_img;
+                    case 3 -> towerSingleImageID = psb.p3_tower3_img;
+                    case 4 -> towerSingleImageID = psb.p3_tower4_img;
+                    case 5 -> towerSingleImageID = psb.p3_tower5_img;
+                    case 6 -> towerSingleImageID = psb.p3_tower6_img;
+                    case 7 -> towerSingleImageID = psb.p3_tower7_img;
+                    default -> throw new IllegalStateException("The towerPosition must be between 0 and 7. You've inserted: " + towerPosition);
+                }
+            }
 
+            default -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
 
+        return towerSingleImageID;
+    }
 
+    public static ImageView psbFindTowerSingleImageID (PlayersSchoolBoardHandler psb, int playerIndex, int towerPosition) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindTowerSingleImageID(psb, playerPaneID, towerPosition);
+    }
 
+    // endregion TowerSingleImageID
 
+    // endregion TowerID
 
+    // region DiningRoomID
 
+    // region DiningRoomPaneID
 
+    public static AnchorPane psbFindDiningRoomPaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        AnchorPane diningRoomPaneID = null;
 
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> diningRoomPaneID = psb.p0_diningRoom_pane;
+            case "p1_h1_pane" -> diningRoomPaneID = psb.p1_diningRoom_pane;
+            case "p2_h2_pane" -> diningRoomPaneID = psb.p2_diningRoom_pane;
+            case "p3_h3_pane" -> diningRoomPaneID = psb.p3_diningRoom_pane;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
 
+        return diningRoomPaneID;
+    }
 
+    public static AnchorPane psbFindDiningRoomPaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindDiningRoomPaneID(psb, playerPaneID);
+    }
 
+    // endregion DiningRoomPaneID
 
+    // region DiningRoomProfessorTableID
 
+    // region DiningRoomProfessorTablePaneID
 
+    public static AnchorPane psbFindProfessorTablePaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        AnchorPane professorTablePaneID = null;
 
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> professorTablePaneID = psb.p0_professorTable_pane;
+            case "p1_h1_pane" -> professorTablePaneID = psb.p1_professorTable_pane;
+            case "p2_h2_pane" -> professorTablePaneID = psb.p2_professorTable_pane;
+            case "p3_h3_pane" -> professorTablePaneID = psb.p3_professorTable_pane;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
 
+        return professorTablePaneID;
+    }
 
+    public static AnchorPane psbFindProfessorTablePaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindProfessorTablePaneID(psb, playerPaneID);
+    }
 
+    // endregion DiningRoomProfessorTablePaneID
 
+    // region DiningRoomProfessorSingleImageID
 
+    public static ImageView psbFindProfessorSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, Color professorColor) {
+        ImageView professorSingleImageID = null;
 
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> {
+                switch (professorColor) {
+                    case GREEN  -> professorSingleImageID = psb.p0_greenProfessor_img;
+                    case RED    -> professorSingleImageID = psb.p0_redProfessor_img;
+                    case YELLOW -> professorSingleImageID = psb.p0_yellowProfessor_img;
+                    case PINK   -> professorSingleImageID = psb.p0_pinkProfessor_img;
+                    case BLUE   -> professorSingleImageID = psb.p0_blueProfessor_img;
+                }
+            }
 
+            case "p1_h1_pane" -> {
+                switch (professorColor) {
+                    case GREEN  -> professorSingleImageID = psb.p1_greenProfessor_img;
+                    case RED    -> professorSingleImageID = psb.p1_redProfessor_img;
+                    case YELLOW -> professorSingleImageID = psb.p1_yellowProfessor_img;
+                    case PINK   -> professorSingleImageID = psb.p1_pinkProfessor_img;
+                    case BLUE   -> professorSingleImageID = psb.p1_blueProfessor_img;
+                }
+            }
 
+            case "p2_h2_pane" -> {
+                switch (professorColor) {
+                    case GREEN  -> professorSingleImageID = psb.p2_greenProfessor_img;
+                    case RED    -> professorSingleImageID = psb.p2_redProfessor_img;
+                    case YELLOW -> professorSingleImageID = psb.p2_yellowProfessor_img;
+                    case PINK   -> professorSingleImageID = psb.p2_pinkProfessor_img;
+                    case BLUE   -> professorSingleImageID = psb.p2_blueProfessor_img;
+                }
+            }
 
+            case "p3_h3_pane" -> {
+                switch (professorColor) {
+                    case GREEN  -> professorSingleImageID = psb.p3_greenProfessor_img;
+                    case RED    -> professorSingleImageID = psb.p3_redProfessor_img;
+                    case YELLOW -> professorSingleImageID = psb.p3_yellowProfessor_img;
+                    case PINK   -> professorSingleImageID = psb.p3_pinkProfessor_img;
+                    case BLUE   -> professorSingleImageID = psb.p3_blueProfessor_img;
+                }
+            }
 
+            default -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
 
+        return professorSingleImageID;
+    }
 
+    public static ImageView psbFindProfessorSingleImageID (PlayersSchoolBoardHandler psb, int playerIndex, Color professorColor) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindProfessorSingleImageID(psb, playerPaneID, professorColor);
+    }
 
+    // endregion DiningRoomProfessorSingleImageID
+
+    // endregion DiningRoomProfessorTableID
+
+    // region DiningRoomTablePaneID
+
+    public static AnchorPane psbFindDiningRoomSingleTablePaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, Color tableColor) {
+        AnchorPane diningRoomSingleTablePaneID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> {
+                switch (tableColor) {
+                    case GREEN  -> diningRoomSingleTablePaneID = psb.p0_greenDiningRoom_pane;
+                    case RED    -> diningRoomSingleTablePaneID = psb.p0_redDiningRoom_pane;
+                    case YELLOW -> diningRoomSingleTablePaneID = psb.p0_yellowDiningRoom_pane;
+                    case PINK   -> diningRoomSingleTablePaneID = psb.p0_pinkDiningRoom_pane;
+                    case BLUE   -> diningRoomSingleTablePaneID = psb.p0_blueDiningRoom_pane;
+                }
+            }
+
+            case "p1_h1_pane" -> {
+                switch (tableColor) {
+                    case GREEN  -> diningRoomSingleTablePaneID = psb.p1_greenDiningRoom_pane;
+                    case RED    -> diningRoomSingleTablePaneID = psb.p1_redDiningRoom_pane;
+                    case YELLOW -> diningRoomSingleTablePaneID = psb.p1_yellowDiningRoom_pane;
+                    case PINK   -> diningRoomSingleTablePaneID = psb.p1_pinkDiningRoom_pane;
+                    case BLUE   -> diningRoomSingleTablePaneID = psb.p1_blueDiningRoom_pane;
+                }
+            }
+
+            case "p2_h2_pane" -> {
+                switch (tableColor) {
+                    case GREEN  -> diningRoomSingleTablePaneID = psb.p2_greenDiningRoom_pane;
+                    case RED    -> diningRoomSingleTablePaneID = psb.p2_redDiningRoom_pane;
+                    case YELLOW -> diningRoomSingleTablePaneID = psb.p2_yellowDiningRoom_pane;
+                    case PINK   -> diningRoomSingleTablePaneID = psb.p2_pinkDiningRoom_pane;
+                    case BLUE   -> diningRoomSingleTablePaneID = psb.p2_blueDiningRoom_pane;
+                }
+            }
+
+            case "p3_h3_pane" -> {
+                switch (tableColor) {
+                    case GREEN  -> diningRoomSingleTablePaneID = psb.p3_greenDiningRoom_pane;
+                    case RED    -> diningRoomSingleTablePaneID = psb.p3_redDiningRoom_pane;
+                    case YELLOW -> diningRoomSingleTablePaneID = psb.p3_yellowDiningRoom_pane;
+                    case PINK   -> diningRoomSingleTablePaneID = psb.p3_pinkDiningRoom_pane;
+                    case BLUE   -> diningRoomSingleTablePaneID = psb.p3_blueDiningRoom_pane;
+                }
+            }
+
+            default -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return diningRoomSingleTablePaneID;
+    }
+
+    public static AnchorPane psbFindDiningRoomSingleTablePaneID (PlayersSchoolBoardHandler psb, int playerIndex, Color tableColor) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindDiningRoomSingleTablePaneID(psb, playerPaneID, tableColor);
+    }
+
+    // endregion DiningRoomTablePaneID
+
+    // region DiningRoomStudentSingleImageID
+
+    public static ImageView psbFindDiningRoomStudentSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane singleTablePaneID, int studentPosition) {
+        ImageView studentSingleImageID = null;
+
+        switch (singleTablePaneID.getId()) {
+            case "p0_greenDiningRoom_pane"  -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p0_greenStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p0_greenStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p0_greenStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p0_greenStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p0_greenStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p0_greenStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p0_greenStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p0_greenStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p0_greenStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p0_greenStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p0_redDiningRoom_pane"    -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p0_redStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p0_redStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p0_redStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p0_redStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p0_redStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p0_redStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p0_redStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p0_redStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p0_redStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p0_redStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p0_yellowDiningRoom_pane" -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p0_yellowStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p0_yellowStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p0_yellowStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p0_yellowStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p0_yellowStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p0_yellowStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p0_yellowStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p0_yellowStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p0_yellowStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p0_yellowStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p0_pinkDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p0_pinkStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p0_pinkStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p0_pinkStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p0_pinkStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p0_pinkStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p0_pinkStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p0_pinkStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p0_pinkStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p0_pinkStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p0_pinkStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p0_blueDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p0_blueStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p0_blueStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p0_blueStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p0_blueStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p0_blueStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p0_blueStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p0_blueStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p0_blueStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p0_blueStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p0_blueStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p1_greenDiningRoom_pane"  -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p1_greenStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p1_greenStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p1_greenStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p1_greenStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p1_greenStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p1_greenStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p1_greenStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p1_greenStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p1_greenStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p1_greenStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p1_redDiningRoom_pane"    -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p1_redStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p1_redStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p1_redStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p1_redStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p1_redStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p1_redStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p1_redStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p1_redStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p1_redStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p1_redStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p1_yellowDiningRoom_pane" -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p1_yellowStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p1_yellowStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p1_yellowStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p1_yellowStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p1_yellowStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p1_yellowStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p1_yellowStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p1_yellowStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p1_yellowStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p1_yellowStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p1_pinkDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p1_pinkStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p1_pinkStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p1_pinkStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p1_pinkStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p1_pinkStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p1_pinkStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p1_pinkStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p1_pinkStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p1_pinkStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p1_pinkStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p1_blueDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p1_blueStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p1_blueStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p1_blueStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p1_blueStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p1_blueStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p1_blueStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p1_blueStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p1_blueStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p1_blueStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p1_blueStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p2_greenDiningRoom_pane"  -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p2_greenStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p2_greenStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p2_greenStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p2_greenStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p2_greenStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p2_greenStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p2_greenStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p2_greenStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p2_greenStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p2_greenStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p2_redDiningRoom_pane"    -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p2_redStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p2_redStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p2_redStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p2_redStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p2_redStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p2_redStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p2_redStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p2_redStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p2_redStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p2_redStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p2_yellowDiningRoom_pane" -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p2_yellowStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p2_yellowStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p2_yellowStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p2_yellowStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p2_yellowStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p2_yellowStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p2_yellowStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p2_yellowStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p2_yellowStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p2_yellowStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p2_pinkDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p2_pinkStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p2_pinkStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p2_pinkStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p2_pinkStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p2_pinkStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p2_pinkStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p2_pinkStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p2_pinkStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p2_pinkStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p2_pinkStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p2_blueDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p2_blueStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p2_blueStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p2_blueStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p2_blueStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p2_blueStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p2_blueStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p2_blueStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p2_blueStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p2_blueStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p2_blueStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p3_greenDiningRoom_pane"  -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p3_greenStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p3_greenStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p3_greenStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p3_greenStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p3_greenStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p3_greenStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p3_greenStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p3_greenStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p3_greenStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p3_greenStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p3_redDiningRoom_pane"    -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p3_redStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p3_redStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p3_redStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p3_redStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p3_redStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p3_redStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p3_redStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p3_redStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p3_redStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p3_redStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p3_yellowDiningRoom_pane" -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p3_yellowStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p3_yellowStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p3_yellowStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p3_yellowStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p3_yellowStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p3_yellowStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p3_yellowStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p3_yellowStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p3_yellowStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p3_yellowStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p3_pinkDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p3_pinkStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p3_pinkStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p3_pinkStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p3_pinkStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p3_pinkStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p3_pinkStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p3_pinkStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p3_pinkStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p3_pinkStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p3_pinkStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            case "p3_blueDiningRoom_pane"   -> {
+                switch (studentPosition) {
+                    case 0  -> studentSingleImageID = psb.p3_blueStudent0_img;
+                    case 1  -> studentSingleImageID = psb.p3_blueStudent1_img;
+                    case 2  -> studentSingleImageID = psb.p3_blueStudent2_img;
+                    case 3  -> studentSingleImageID = psb.p3_blueStudent3_img;
+                    case 4  -> studentSingleImageID = psb.p3_blueStudent4_img;
+                    case 5  -> studentSingleImageID = psb.p3_blueStudent5_img;
+                    case 6  -> studentSingleImageID = psb.p3_blueStudent6_img;
+                    case 7  -> studentSingleImageID = psb.p3_blueStudent7_img;
+                    case 8  -> studentSingleImageID = psb.p3_blueStudent8_img;
+                    case 9  -> studentSingleImageID = psb.p3_blueStudent9_img;
+                    default -> throw new IllegalStateException("The studentPosition must be between 0 and 7. You've inserted: " + studentPosition);
+                }
+            }
+
+            default -> throw new IllegalStateException("The singleTablePaneID you have inserted is not contemplated. You've inserted: " + singleTablePaneID.getId());
+        }
+
+        return studentSingleImageID;
+    }
+
+    public static ImageView psbFindDiningRoomStudentSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, Color tableColor, int studentPosition) {
+        AnchorPane singleTablePaneID = psbFindDiningRoomSingleTablePaneID(psb, playerPaneID, tableColor);
+        return psbFindDiningRoomStudentSingleImageID(psb, singleTablePaneID, studentPosition);
+    }
+
+    public static ImageView psbFindDiningRoomStudentSingleImageID (PlayersSchoolBoardHandler psb, int playerIndex, Color tableColor, int studentPosition) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindDiningRoomStudentSingleImageID(psb, playerPaneID, tableColor, studentPosition);
+    }
+
+    // endregion DiningRoomStudentSingleImageID
+
+    // endregion DiningRoomID
+
+    // region EntranceID
+
+    // region EntrancePaneID
+
+    public static AnchorPane psbFindEntrancePaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        AnchorPane entrancePaneID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> entrancePaneID = psb.p0_entrance_pane;
+            case "p1_h1_pane" -> entrancePaneID = psb.p1_entrance_pane;
+            case "p2_h2_pane" -> entrancePaneID = psb.p2_entrance_pane;
+            case "p3_h3_pane" -> entrancePaneID = psb.p3_entrance_pane;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return entrancePaneID;
+    }
+
+    public static AnchorPane psbFindEntrancePaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindEntrancePaneID(psb, playerPaneID);
+    }
+
+    // endregion EntrancePaneID
+
+    // region EntranceStudentImageID
+
+    public static ImageView psbFindEntranceStudentImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, int entranceStudentPos) {
+        ImageView entranceStudentImageID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> {
+                switch (entranceStudentPos) {
+                    case 0 -> entranceStudentImageID = psb.p0_entranceStudent0_img;
+                    case 1 -> entranceStudentImageID = psb.p0_entranceStudent1_img;
+                    case 2 -> entranceStudentImageID = psb.p0_entranceStudent2_img;
+                    case 3 -> entranceStudentImageID = psb.p0_entranceStudent3_img;
+                    case 4 -> entranceStudentImageID = psb.p0_entranceStudent4_img;
+                    case 5 -> entranceStudentImageID = psb.p0_entranceStudent5_img;
+                    case 6 -> entranceStudentImageID = psb.p0_entranceStudent6_img;
+                    case 7 -> entranceStudentImageID = psb.p0_entranceStudent7_img;
+                    case 8 -> entranceStudentImageID = psb.p0_entranceStudent8_img;
+                    default -> throw new IllegalStateException("The entranceStudentPos must be between 0 and 8. You've inserted: " + entranceStudentPos);
+                }
+            }
+
+            case "p1_h1_pane" -> {
+                switch (entranceStudentPos) {
+                    case 0 -> entranceStudentImageID = psb.p1_entranceStudent0_img;
+                    case 1 -> entranceStudentImageID = psb.p1_entranceStudent1_img;
+                    case 2 -> entranceStudentImageID = psb.p1_entranceStudent2_img;
+                    case 3 -> entranceStudentImageID = psb.p1_entranceStudent3_img;
+                    case 4 -> entranceStudentImageID = psb.p1_entranceStudent4_img;
+                    case 5 -> entranceStudentImageID = psb.p1_entranceStudent5_img;
+                    case 6 -> entranceStudentImageID = psb.p1_entranceStudent6_img;
+                    case 7 -> entranceStudentImageID = psb.p1_entranceStudent7_img;
+                    case 8 -> entranceStudentImageID = psb.p1_entranceStudent8_img;
+                    default -> throw new IllegalStateException("The entranceStudentPos must be between 0 and 8. You've inserted: " + entranceStudentPos);
+                }
+            }
+
+            case "p2_h2_pane" -> {
+                switch (entranceStudentPos) {
+                    case 0 -> entranceStudentImageID = psb.p2_entranceStudent0_img;
+                    case 1 -> entranceStudentImageID = psb.p2_entranceStudent1_img;
+                    case 2 -> entranceStudentImageID = psb.p2_entranceStudent2_img;
+                    case 3 -> entranceStudentImageID = psb.p2_entranceStudent3_img;
+                    case 4 -> entranceStudentImageID = psb.p2_entranceStudent4_img;
+                    case 5 -> entranceStudentImageID = psb.p2_entranceStudent5_img;
+                    case 6 -> entranceStudentImageID = psb.p2_entranceStudent6_img;
+                    case 7 -> entranceStudentImageID = psb.p2_entranceStudent7_img;
+                    case 8 -> entranceStudentImageID = psb.p2_entranceStudent8_img;
+                    default -> throw new IllegalStateException("The entranceStudentPos must be between 0 and 8. You've inserted: " + entranceStudentPos);
+                }
+            }
+
+            case "p3_h3_pane" -> {
+                switch (entranceStudentPos) {
+                    case 0 -> entranceStudentImageID = psb.p3_entranceStudent0_img;
+                    case 1 -> entranceStudentImageID = psb.p3_entranceStudent1_img;
+                    case 2 -> entranceStudentImageID = psb.p3_entranceStudent2_img;
+                    case 3 -> entranceStudentImageID = psb.p3_entranceStudent3_img;
+                    case 4 -> entranceStudentImageID = psb.p3_entranceStudent4_img;
+                    case 5 -> entranceStudentImageID = psb.p3_entranceStudent5_img;
+                    case 6 -> entranceStudentImageID = psb.p3_entranceStudent6_img;
+                    case 7 -> entranceStudentImageID = psb.p3_entranceStudent7_img;
+                    case 8 -> entranceStudentImageID = psb.p3_entranceStudent8_img;
+                    default -> throw new IllegalStateException("The entranceStudentPos must be between 0 and 8. You've inserted: " + entranceStudentPos);
+                }
+            }
+
+            default -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return entranceStudentImageID;
+    }
+
+    public static ImageView psbFindEntranceStudentImageID (PlayersSchoolBoardHandler psb, int playerIndex, int entranceStudentPos) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindEntranceStudentImageID(psb, playerPaneID, entranceStudentPos);
+    }
+
+    // endregion EntranceStudentImageID
+
+    // endregion EntranceID
 
     // endregion PlayersSchoolBoardID
+
 }

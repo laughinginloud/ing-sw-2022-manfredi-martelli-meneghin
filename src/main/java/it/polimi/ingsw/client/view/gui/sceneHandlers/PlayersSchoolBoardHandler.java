@@ -1596,7 +1596,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     public void psbUpdateLastAssistantCard(AssistantCard lastAssistantCard, int playerIndex) {
         ImageView assistantCardImg;
         String assistantCardPath;
-        assistantCardImg = IDHelper.psbFindPlayerLastPlayerCardID(this, playerIndex);
+        assistantCardImg = IDHelper.psbFindPlayerLastPlayedCardID(this, playerIndex);
         assistantCardPath = PathHelper.fromAssistantCardNumberToHandlerPath(lastAssistantCard.cardValue());
         assistantCardImg.setImage(new Image(getClass().getClassLoader().getResource(assistantCardPath).toString(), true));
     }
