@@ -1731,20 +1731,20 @@ public class GameSceneHandler implements GUIHandler {
 
         // Shows the Rectangle that holds the noEntryTiles
         Rectangle CC_noEntryTile_background;
-        CC_noEntryTile_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
+        CC_noEntryTile_background = IDHelper.gsFindCharacterCardRectangleElementsID(this, index);
         CC_noEntryTile_background.setVisible(true);
 
         ImageView CC_noEntryTile;
         String    CC_noEntryTile_ImgPath = PathHelper.fromImageTypesToHandlerPath(ImageTypes.NOENTRYTILE_IMG);
         // For each noEntryTile present, sets the image
         for (int i = 0; i < characterCardNoEntry.getNoEntryCount(); i++) {
-            CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_noEntryTile = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_noEntryTile.setImage(new Image(getClass().getClassLoader().getResource(CC_noEntryTile_ImgPath).toString(), true));
         }
 
         // For each noEntryTile absent, remove the img
         for (int i = characterCardNoEntry.getNoEntryCount(); i < 6; i++) {
-            CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_noEntryTile = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_noEntryTile.setImage(null);
         }
     }
@@ -1760,7 +1760,7 @@ public class GameSceneHandler implements GUIHandler {
 
         // Shows the Rectangle that holds the students
         Rectangle CC_students_background;
-        CC_students_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
+        CC_students_background = IDHelper.gsFindCharacterCardRectangleElementsID(this, index);
         CC_students_background.setVisible(true);
 
         ImageView CC_student;
@@ -1768,7 +1768,7 @@ public class GameSceneHandler implements GUIHandler {
         String    CC_student_ImgPath;
         // For each student present, sets the image depending on the studentColor
         for (int i = 0; i < characterCardStudent.getStudents().length; i++) {
-            CC_student         = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_student         = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_student_Color   = characterCardStudent.getStudents()[i];
             CC_student_ImgPath = PathHelper.fromStudentColorToHandlerPath(CC_student_Color);
             CC_student.setImage(new Image(getClass().getClassLoader().getResource(CC_student_ImgPath).toString(), true));
@@ -1776,7 +1776,7 @@ public class GameSceneHandler implements GUIHandler {
 
         // For each student absent, remove the img
         for (int i = characterCardStudent.getStudents().length; i < 6; i++) {
-            CC_student = IDHelper.gsFindCharacterCardStudentID(this, index, i);
+            CC_student = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_student.setImage(null);
         }
     }
@@ -1792,7 +1792,7 @@ public class GameSceneHandler implements GUIHandler {
 
         // Hides the Rectangle that holds different elements
         Rectangle CC_students_background;
-        CC_students_background = IDHelper.gsFindCharacterCardRectangleStudentID(this, index);
+        CC_students_background = IDHelper.gsFindCharacterCardRectangleElementsID(this, index);
         CC_students_background.setVisible(false);
     }
 

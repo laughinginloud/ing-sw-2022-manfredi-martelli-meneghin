@@ -908,7 +908,7 @@ public class IDHelper {
 
     // region CharacterCardStudentID
 
-    // region CharacterCardStudentRectangleID
+    // region CharacterCardElementsRectangleID
 
     /**
      *
@@ -916,7 +916,7 @@ public class IDHelper {
      * @param characterCardImageID
      * @return
      */
-    public static Rectangle gsFindCharacterCardRectangleStudentID (GameSceneHandler gs, ImageView characterCardImageID) {
+    public static Rectangle gsFindCharacterCardRectangleElementsID(GameSceneHandler gs, ImageView characterCardImageID) {
         Rectangle characterCardRectangleID = null;
 
         switch (characterCardImageID.getId()) {
@@ -935,14 +935,14 @@ public class IDHelper {
      * @param characterCardPosition
      * @return
      */
-    public static Rectangle gsFindCharacterCardRectangleStudentID (GameSceneHandler gs, int characterCardPosition) {
+    public static Rectangle gsFindCharacterCardRectangleElementsID(GameSceneHandler gs, int characterCardPosition) {
         ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
-        return gsFindCharacterCardRectangleStudentID(gs, characterCardImageID);
+        return gsFindCharacterCardRectangleElementsID(gs, characterCardImageID);
     }
 
-    // endregion CharacterCardStudentRectangleID
+    // endregion CharacterCardElementsRectangleID
 
-    // region CharacterCardStudentGridPaneID
+    // region CharacterCardElementsGridPaneID
 
     /**
      * Gets the GridPane (ID) of the characterCardPane of a specific characterCard on the characterCards_pane
@@ -950,7 +950,7 @@ public class IDHelper {
      * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
      * @return The GridPane correspondent to the desired characterCardPane
      */
-    public static GridPane gsFindCharacterCardPaneStudentID (GameSceneHandler gs, ImageView characterCardImageID) {
+    public static GridPane gsFindCharacterCardPaneElementsID(GameSceneHandler gs, ImageView characterCardImageID) {
         GridPane characterCardPaneID = null;
 
         switch (characterCardImageID.getId()) {
@@ -969,60 +969,60 @@ public class IDHelper {
      * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
      * @return The GridPane correspondent to the desired characterCardPane
      */
-    public static GridPane gsFindCharacterCardPaneStudentID (GameSceneHandler gs, int characterCardPosition) {
+    public static GridPane gsFindCharacterCardPaneElementsID(GameSceneHandler gs, int characterCardPosition) {
         ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
-        return gsFindCharacterCardPaneStudentID(gs, characterCardImageID);
+        return gsFindCharacterCardPaneElementsID(gs, characterCardImageID);
     }
 
-    // endregion CharacterCardStudentGridPaneID
+    // endregion CharacterCardElementsGridPaneID
 
-    // region CharacterCardStudentSingleID
+    // region CharacterCardElementSingleID
 
     /**
      * Gets the ImageView (ID) of a characterCardStudent of a specific characterCard on the characterCards_pane
      * @param gs The gameSceneHandler
      * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
-     * @param studentPosOnCC An int representing the position of the student on the characterCard gridPane
+     * @param elementPosOnCC An int representing the position of the student on the characterCard gridPane
      * @return The ImageView correspondent to the desired characterCardStudent
      */
-    public static ImageView gsFindCharacterCardStudentID (GameSceneHandler gs, ImageView characterCardImageID, int studentPosOnCC) {
+    public static ImageView gsFindCharacterCardElementID(GameSceneHandler gs, ImageView characterCardImageID, int elementPosOnCC) {
         ImageView characterCardStudentID = null;
 
         switch (characterCardImageID.getId()) {
 
             case "characterCard0_img" -> {
-                switch (studentPosOnCC) {
+                switch (elementPosOnCC) {
                     case 0  -> characterCardStudentID = gs.CC0_elem0_img;
                     case 1  -> characterCardStudentID = gs.CC0_elem1_img;
                     case 2  -> characterCardStudentID = gs.CC0_elem2_img;
                     case 3  -> characterCardStudentID = gs.CC0_elem3_img;
                     case 4  -> characterCardStudentID = gs.CC0_elem4_img;
                     case 5  -> characterCardStudentID = gs.CC0_elem5_img;
-                    default -> throw new IllegalStateException("The studentPosOnCC must be between 0 and 5. You've inserted: " + studentPosOnCC);
+                    default -> throw new IllegalStateException("The elementPosOnCC must be between 0 and 5. You've inserted: " + elementPosOnCC);
                 }
             }
 
             case "characterCard1_img" -> {
-                switch (studentPosOnCC) {
+                switch (elementPosOnCC) {
                     case 0  -> characterCardStudentID = gs.CC1_elem0_img;
                     case 1  -> characterCardStudentID = gs.CC1_elem1_img;
                     case 2  -> characterCardStudentID = gs.CC1_elem2_img;
                     case 3  -> characterCardStudentID = gs.CC1_elem3_img;
                     case 4  -> characterCardStudentID = gs.CC1_elem4_img;
                     case 5  -> characterCardStudentID = gs.CC1_elem5_img;
-                    default -> throw new IllegalStateException("The studentPosOnCC must be between 0 and 5. You've inserted: " + studentPosOnCC);
+                    default -> throw new IllegalStateException("The elementPosOnCC must be between 0 and 5. You've inserted: " + elementPosOnCC);
                 }
             }
 
             case "characterCard2_img" -> {
-                switch (studentPosOnCC) {
+                switch (elementPosOnCC) {
                     case 0  -> characterCardStudentID = gs.CC2_elem0_img;
                     case 1  -> characterCardStudentID = gs.CC2_elem1_img;
                     case 2  -> characterCardStudentID = gs.CC2_elem2_img;
                     case 3  -> characterCardStudentID = gs.CC2_elem3_img;
                     case 4  -> characterCardStudentID = gs.CC2_elem4_img;
                     case 5  -> characterCardStudentID = gs.CC2_elem5_img;
-                    default -> throw new IllegalStateException("The studentPosOnCC must be between 0 and 5. You've inserted: " + studentPosOnCC);
+                    default -> throw new IllegalStateException("The elementPosOnCC must be between 0 and 5. You've inserted: " + elementPosOnCC);
                 }
             }
         }
@@ -1034,16 +1034,16 @@ public class IDHelper {
      * Gets the ImageView (ID) of a characterCardStudent of a specific characterCard on the characterCards_pane
      * @param gs The gameSceneHandler
      * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
-     * @param studentPosOnCC An int representing the position of the student on the characterCard gridPane
+     * @param elementPosOnCC An int representing the position of the student on the characterCard gridPane
      * @return The ImageView correspondent to the desired characterCardStudent
      */
-    public static ImageView gsFindCharacterCardStudentID (GameSceneHandler gs, int characterCardPosition, int studentPosOnCC) {
+    public static ImageView gsFindCharacterCardElementID(GameSceneHandler gs, int characterCardPosition, int elementPosOnCC) {
         ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
-        return gsFindCharacterCardStudentID(gs, characterCardImageID, studentPosOnCC);
+        return gsFindCharacterCardElementID(gs, characterCardImageID, elementPosOnCC);
 
     }
 
-    // endregion CharacterCardStudentSingleID
+    // endregion CharacterCardElementSingleID
 
     // endregion CharacterCardStudentID
 
