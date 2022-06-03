@@ -48,6 +48,8 @@ public /*static*/ final class Constants {
         .registerTypeAdapter(TowerColor.class,           new TowerColorJSONAdapter())
         .registerTypeAdapter(Tuple.class,                new TupleJSONAdapter())
         .registerTypeAdapter(UsernameAndMagicAge.class,  new UsernameAndMagicAgeJSONAdapter())
+        .registerTypeAdapter(Wizard.class,               new WizardJSONAdapter())
+        .registerTypeAdapter(Wizard[].class,             new WizardArrayJSONAdapter())
         // endregion
         .setPrettyPrinting()
         .create();

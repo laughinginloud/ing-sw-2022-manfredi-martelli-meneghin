@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.model.DiningRoom;
 import it.polimi.ingsw.common.model.Entrance;
+import it.polimi.ingsw.common.model.Wizard;
 import it.polimi.ingsw.common.utils.Tuple;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
         .registerTypeAdapter(GameActions.class, new GameActionsJSONAdapter())
         .registerTypeAdapter(DiningRoom.class, new DiningRoomJSONAdapter())
         .registerTypeAdapter(Entrance.class, new EntranceJSONAdapter())
+        .registerTypeAdapter(Wizard[].class, new WizardArrayJSONAdapter())
         .setPrettyPrinting().create();
 
     @Override
