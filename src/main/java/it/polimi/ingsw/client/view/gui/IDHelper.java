@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GameSceneHandler;
+import it.polimi.ingsw.client.view.gui.sceneHandlers.PlayersSchoolBoardHandler;
 import it.polimi.ingsw.common.model.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -14,6 +15,8 @@ import javafx.scene.text.Text;
  * @author Sebastiano Meneghin
  */
 public class IDHelper {
+
+    // region GameSceneID
 
     // region IslandID
 
@@ -1160,4 +1163,226 @@ public class IDHelper {
     // endregion CloudStudentID
 
     // endregion CloudID
+
+    // endregion GameSceneID
+
+    // region PlayersSchoolBoardID
+
+
+    //P0_h0_pane per i pannelli dei player
+    //p0_coin_pane per i pannelli contenenti le monete
+    //p0_towers_pane
+
+
+    //lastPlayedCards (sia giocatore, sia tramite DiningRoom)
+    //towers (sia giocatore, sia tramite DiningRoom)
+    //usernames (sia giocatore, sia diningRoom)
+    //GlobalProfessorTableù
+    //Coin
+    //CoinCounter
+    //DiningRoom's Student
+    //Entrance's Student
+
+    // region PlayerPaneID
+
+    public static AnchorPane psbFindPlayerPaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = null;
+
+        switch (playerIndex) {
+            case 0 -> playerPaneID = psb.p0_h0_pane;
+            case 1 -> playerPaneID = psb.p1_h1_pane;
+            case 2 -> playerPaneID = psb.p2_h2_pane;
+            case 3 -> playerPaneID = psb.p3_h3_pane;
+        }
+
+        return playerPaneID;
+    }
+
+    // endregion PlayerPaneID
+
+    // region AdditionalInfo
+
+    public static AnchorPane psbFindPlayerAdditionalInfoPaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        AnchorPane playerAddInfoPaneID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> playerAddInfoPaneID = psb.p0_addInfo_pane;
+            case "p1_h1_pane" -> playerAddInfoPaneID = psb.p1_addInfo_pane;
+            case "p2_h2_pane" -> playerAddInfoPaneID = psb.p2_addInfo_pane;
+            case "p3_h3_pane" -> playerAddInfoPaneID = psb.p3_addInfo_pane;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return playerAddInfoPaneID;
+    }
+
+    public static AnchorPane psbFindPlayerAdditionalInfoPaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindPlayerAdditionalInfoPaneID(psb, playerPaneID);
+    }
+
+    // region PlayerCoinID
+
+    // region PlayerCoinPaneID
+
+    public static AnchorPane psbFindPlayerCoinPaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        AnchorPane playerCoinPaneID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> playerCoinPaneID = psb.p0_coin_pane;
+            case "p1_h1_pane" -> playerCoinPaneID = psb.p1_coin_pane;
+            case "p2_h2_pane" -> playerCoinPaneID = psb.p2_coin_pane;
+            case "p3_h3_pane" -> playerCoinPaneID = psb.p3_coin_pane;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return playerCoinPaneID;
+    }
+
+    public static AnchorPane psbFindPlayerCoinPaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindPlayerCoinPaneID(psb, playerPaneID);
+    }
+
+    // endregion PlayerCoinPaneID
+
+    // region PlayerCoinImageID
+
+    public static ImageView psbFindPlayerCoinImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        ImageView playerCoinImageID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> playerCoinImageID = psb.p0_coin_img;
+            case "p1_h1_pane" -> playerCoinImageID = psb.p1_coin_img;
+            case "p2_h2_pane" -> playerCoinImageID = psb.p2_coin_img;
+            case "p3_h3_pane" -> playerCoinImageID = psb.p3_coin_img;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return playerCoinImageID;
+    }
+
+    public static ImageView psbFindPlayerCoinImageID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindPlayerCoinImageID(psb, playerPaneID);
+    }
+
+    // endregion PlayerCoinImageID
+
+    // region PlayerCoinCountID
+
+    public static Text psbFindPlayerCoinCountID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        Text playerCoinCountID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> playerCoinCountID = psb.p0_coinsCount_text;
+            case "p1_h1_pane" -> playerCoinCountID = psb.p1_coinsCount_text;
+            case "p2_h2_pane" -> playerCoinCountID = psb.p2_coinsCount_text;
+            case "p3_h3_pane" -> playerCoinCountID = psb.p3_coinsCount_text;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return playerCoinCountID;
+    }
+
+    public static Text psbFindPlayerCoinCountID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindPlayerCoinCountID(psb, playerPaneID);
+    }
+
+    // endregion PlayerCoinCountID
+
+    // endregion PlayerCoinID
+
+    // region LastPlayerCardID
+
+    public static ImageView psbFindPlayerLastPlayerCardID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        ImageView playerLastPlayedCardID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> playerLastPlayedCardID = psb.p0_lastAssistant;
+            case "p1_h1_pane" -> playerLastPlayedCardID = psb.p1_lastAssistant;
+            case "p2_h2_pane" -> playerLastPlayedCardID = psb.p2_lastAssistant;
+            case "p3_h3_pane" -> playerLastPlayedCardID = psb.p3_lastAssistant;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return playerLastPlayedCardID;
+    }
+
+    public static ImageView psbFindPlayerLastPlayerCardID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindPlayerLastPlayerCardID(psb, playerPaneID);
+    }
+
+    // endregion LastPlayerCardID
+
+    // region UsernameID
+
+    public static Text psbFindPlayerUsernameID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
+        Text playerUsernameID = null;
+
+        switch (playerPaneID.getId()) {
+            case "p0_h0_pane" -> playerUsernameID = psb.p0_username_text;
+            case "p1_h1_pane" -> playerUsernameID = psb.p1_username_text;
+            case "p2_h2_pane" -> playerUsernameID = psb.p2_username_text;
+            case "p3_h3_pane" -> playerUsernameID = psb.p3_username_text;
+            default           -> throw new IllegalStateException("The playerPaneID you have inserted is not contemplated. You've inserted: " + playerPaneID.getId());
+        }
+
+        return playerUsernameID;
+    }
+
+    public static Text psbFindPlayerUsernameID (PlayersSchoolBoardHandler psb, int playerIndex) {
+        AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
+        return psbFindPlayerUsernameID(psb, playerPaneID);
+    }
+
+    // endregion UsernameID
+
+    // endregion AdditionalInfo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // endregion PlayersSchoolBoardID
 }
