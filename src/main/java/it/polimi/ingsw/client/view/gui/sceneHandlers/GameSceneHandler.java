@@ -1328,23 +1328,28 @@ public class GameSceneHandler implements GUIHandler {
      * @param player the localPlayer
      */
     public void gsUpdateModel(GameModel model, Player player) {
-        // updates the islands
+        // Updates the islands
         gsUpdateIslands(model.getIslands(), model.getMotherNaturePosition());
 
-        // updates the cloudTiles
+        // Updates the cloudTiles
         gsUpdateCloudTiles(model.getCloudTile(), model.getPlayersCount());
 
-        // updates the AssistantCards deck
+        // Updates the AssistantCards deck
         gsUpdateAssistantDeck(player.getAssistantDeck(), player.getPlayerWizard());
 
-        // updates the SchoolBoard
+        // Updates the SchoolBoard
         gsUpdateSchoolBoard(model, player);
 
-        // if the game is in expertMode updates the expertMode elements, hides them otherwise
+        // If the game is in expertMode
         if (model.getExpertMode()) {
+            // Updates the expertMode elements
             gsUpdateExpertModeElements(model, player);
+
+            // Shows the ExpertMode pane
+            characterCards_pane.setVisible(true);
         }
         else {
+            // Hides the ExpertMode pane
             characterCards_pane.setVisible(false);
         }
     }
@@ -1388,14 +1393,13 @@ public class GameSceneHandler implements GUIHandler {
                 // Set the tower img
                 islandTowerPath = PathHelper.fromTowerColorToHandlerPath(islands[i].getTowerColor());
                 islandTower.setImage(new Image(getClass().getClassLoader().getResource(islandTowerPath).toString(), true));
-                islandTower.setVisible(true);
                 // Set the towersCount
                 islandsTowersText.setText(String.valueOf(islandTowersCount));
                 islandsTowersText.setVisible(true);
             }
             else {
-                // If the island does not exist, the islandTower and its count is hidden
-                islandTower.setVisible(false);
+                // If the island does not exist, the islandTower is removed and its count is hidden
+                islandTower.setImage(null);
                 islandsTowersText.setVisible(false);
             }
 
@@ -1474,11 +1478,10 @@ public class GameSceneHandler implements GUIHandler {
                     // Sets the image to the specified studentColor
                     cloudTileStudentPath = PathHelper.fromStudentColorToHandlerPath(cloudTileStudentColor);
                     cloudTileStudent.setImage(new Image(getClass().getClassLoader().getResource(cloudTileStudentPath).toString(), true));
-                    cloudTileStudent.setVisible(true);
                 }
                 else {
-                    // For each student non-present hide the student
-                    cloudTileStudent.setVisible(false);
+                    // For each student non-present remove the student
+                    cloudTileStudent.setImage(null);
                 }
             }
         }
@@ -1573,7 +1576,7 @@ public class GameSceneHandler implements GUIHandler {
         // Remove the towers between towerCount and maxNumOfTowers
         for (int i = towerCount; i < maxNumOfTowers; i++) {
             schoolBoardTowerID = IDHelper.gsFindSchoolBoardTowerID(this, i);
-            schoolBoardTowerID.setVisible(false);
+            schoolBoardTowerID.setImage(null);
         }
     }
 
@@ -1698,9 +1701,7 @@ public class GameSceneHandler implements GUIHandler {
      * @param characterCards the characterCard array to update
      */
     public void gsUpdateCharacterCards(CharacterCard[] characterCards) {
-        // Shows the ExpertMode pane
-        characterCards_pane.setVisible(true);
-
+        ImageView hasCoin_img;
         // Based on the type of CharacterCard calls different methods
         for (int i = 0; i < characterCards.length; i++) {
             if (characterCards[i] instanceof CharacterCardNoEntry c) {
@@ -1712,6 +1713,10 @@ public class GameSceneHandler implements GUIHandler {
             else {
                 gsUpdateCharacterCard(characterCards[i], i);
             }
+
+            // Update hasCoin
+            hasCoin_img = IDHelper.gsFindCharacterCardCoinID(this, i);
+            hasCoin_img.setVisible(characterCards[i].getHasCoin());
         }
     }
 
@@ -1735,13 +1740,12 @@ public class GameSceneHandler implements GUIHandler {
         for (int i = 0; i < characterCardNoEntry.getNoEntryCount(); i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
             CC_noEntryTile.setImage(new Image(getClass().getClassLoader().getResource(CC_noEntryTile_ImgPath).toString(), true));
-            CC_noEntryTile.setVisible(true);
         }
 
-        // For each noEntryTile absent, sets visibility to false
+        // For each noEntryTile absent, remove the img
         for (int i = characterCardNoEntry.getNoEntryCount(); i < 6; i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardStudentID(this, index, i);
-            CC_noEntryTile.setVisible(false);
+            CC_noEntryTile.setImage(null);
         }
     }
 
@@ -1768,13 +1772,12 @@ public class GameSceneHandler implements GUIHandler {
             CC_student_Color   = characterCardStudent.getStudents()[i];
             CC_student_ImgPath = PathHelper.fromStudentColorToHandlerPath(CC_student_Color);
             CC_student.setImage(new Image(getClass().getClassLoader().getResource(CC_student_ImgPath).toString(), true));
-            CC_student.setVisible(true);
         }
 
-        // For each student absent, sets visibility to false
+        // For each student absent, remove the img
         for (int i = characterCardStudent.getStudents().length; i < 6; i++) {
             CC_student = IDHelper.gsFindCharacterCardStudentID(this, index, i);
-            CC_student.setVisible(false);
+            CC_student.setImage(null);
         }
     }
 
@@ -1813,9 +1816,6 @@ public class GameSceneHandler implements GUIHandler {
 
         // Sets the image
         CC_ImgView.setImage(new Image(getClass().getClassLoader().getResource(CC_ImgPath).toString(), true));
-
-        // Makes it visible
-        CC_ImgView.setVisible(true);
     }
 
     // endregion GSUpdateCharacterCards
