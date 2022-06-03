@@ -653,6 +653,20 @@ public class IDHelper {
         return studentEntranceID;
     }
 
+    public static AnchorPane gsFindDiningRoomTablePaneID (GameSceneHandler gs, Color color) {
+        AnchorPane tablePaneID = null;
+
+        switch (color) {
+            case GREEN  -> tablePaneID = gs.greenDiningRoom_pane;
+            case RED    -> tablePaneID = gs.redDiningRoom_pane;
+            case YELLOW -> tablePaneID = gs.yellowDiningRoom_pane;
+            case PINK   -> tablePaneID = gs.pinkDiningRoom_pane;
+            case BLUE   -> tablePaneID = gs.blueDiningRoom_pane;
+        }
+
+        return tablePaneID;
+    }
+
     /**
      * GS Method that given the Color and the position of a student in the dining room, returns
      * the corresponding id
@@ -1167,17 +1181,6 @@ public class IDHelper {
     // endregion GameSceneID
 
     // region PlayersSchoolBoardID
-
-
-    //p0_towers_pane
-    //lastPlayedCards (sia giocatore, sia tramite DiningRoom)
-    //towers (sia giocatore, sia tramite DiningRoom)
-    //usernames (sia giocatore, sia diningRoom)
-    //GlobalProfessorTableù
-    //Coin
-    //CoinCounter
-    //DiningRoom's Student
-    //Entrance's Student
 
     // region PlayerPaneID
 
