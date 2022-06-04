@@ -1,18 +1,18 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
-import it.polimi.ingsw.client.view.gui.IDHelper;
-import it.polimi.ingsw.client.view.gui.ImageTypes;
-import it.polimi.ingsw.client.view.gui.PathHelper;
-import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.client.view.gui.*;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -1889,6 +1889,39 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion GSUpdateModel
 
+    public void activateClicksCharacterCards(CharacterCard[] playableCharacterCards) {
+
+        Set<CharacterCard> playableCharacterCardsSet = new HashSet<>();
+        Collections.addAll(playableCharacterCardsSet, playableCharacterCards);
+
+        CharacterCard[] characterCardsModel = gui.getModel().getCharacterCards();
+        int             characterCardIndex;
+        ImageView       characterCardImgView;
+
+        for (int i = 0; i < characterCardsModel.length; i++) {
+            if (playableCharacterCardsSet.contains(characterCardsModel[i])) {
+                characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, i);
+
+                // Creates a function that will handle the characterCardClick
+                EventHandler<MouseEvent> clickOnCharacterCardHandler = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        // Invokes the function clickOnCharacterCard
+                        clickOnCharacterCard(mouseEvent);
+
+                        mouseEvent.consume();
+                    }
+                };
+
+                // Then links the created handler to the click of the CCImage
+                characterCardImgView.setOnMouseClicked(clickOnCharacterCardHandler);
+            }
+        }
+
+        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.PLAY_CHARACTERCARD, null);
+
+    }
+
     // region DeactivateClicks
 
     public void deactivateClicks() {
@@ -1964,6 +1997,23 @@ public class GameSceneHandler implements GUIHandler {
 
 
     // endregion DeactivateClicks
+
+    public void gsRequestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
+        activateClicksCharacterCards(playableCharacterCards);
+    }
+
+    public void clickOnCharacterCard(MouseEvent mouseEvent) {
+        deactivateClicksCharacterCards();
+
+        // Gets the characterCard from then mouseEvent
+        ImageView selectedCharacterCardID = (ImageView) mouseEvent.getSource();
+
+        // Gets the index from the selected ImgView, then gets the corresponding CharacterCard
+        int characterCardIndex = InfoHelper.gsFindCharacterCardIndex(selectedCharacterCardID);
+        CharacterCard characterCard = gui.getModel().getCharacterCard(characterCardIndex);
+
+        gui.forwardViewToVirtualController(characterCard);
+    }
 
     /**
      * Sets the ViewGUI at which the GameSceneHandler is related

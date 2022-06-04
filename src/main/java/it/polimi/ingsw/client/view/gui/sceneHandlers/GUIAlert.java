@@ -17,7 +17,10 @@ public enum GUIAlert {
     INVALID_USERNAME,
 
     // Alert showed when the user entered a wrong magicAge (negative)
-    INVALID_MAGICAGE;
+    INVALID_MAGICAGE,
+
+
+    PLAY_CHARACTERCARD;
 
 
     /**
@@ -63,6 +66,13 @@ public enum GUIAlert {
                 headerText  = "You have entered and invalid number of years: " + dynamicString;
                 contentText = "Re-enter a valid number of years\n" + "NB! A valid number of years is positive";
                 alertType   = Alert.AlertType.WARNING;
+            }
+            case PLAY_CHARACTERCARD -> {
+                title       = "Play Character Card";
+                headerText  = "You may now select the CharacterCard you wish to play";
+                contentText = "Remember that you can select only the CharacterCard you can play\n" +
+                              "NB! The cost of the card will be automatically deducted from you pool";
+                alertType   =  Alert.AlertType.INFORMATION;
             }
         }
 

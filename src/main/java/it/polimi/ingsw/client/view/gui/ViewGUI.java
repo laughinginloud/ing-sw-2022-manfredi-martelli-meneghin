@@ -312,6 +312,7 @@ public final class ViewGUI extends Application implements View {
     @Override
     public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
         // TODO [Game]
+        ((GameSceneHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).gsRequestPlayCharacterCard(playableCharacterCards);
     }
 
     /**
