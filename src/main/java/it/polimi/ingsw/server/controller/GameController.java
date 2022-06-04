@@ -375,7 +375,7 @@ public class GameController {
         }
     }
 
-    //TODO
+    // TODO
     public static Object requestValue(GameValues value) {
         return switch (value) {
             case MOTHERNATURE -> ControllerData.getInstance().getGameModel().getMotherNaturePosition();

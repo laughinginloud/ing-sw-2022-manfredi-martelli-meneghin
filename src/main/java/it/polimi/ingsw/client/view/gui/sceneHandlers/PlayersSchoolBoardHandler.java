@@ -1654,7 +1654,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     // endregion PSBUpdateModel
 
     /**
-     * Sets the ViewGUI at which the ServerInfoHandler is related
+     * Sets the ViewGUI at which the PlayerSchoolBoardHandler is related
      * @param gui the ViewGUI instance
      */
     @Override

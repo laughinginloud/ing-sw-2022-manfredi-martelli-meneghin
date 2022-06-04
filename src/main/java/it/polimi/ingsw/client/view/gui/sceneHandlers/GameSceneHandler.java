@@ -1966,7 +1966,7 @@ public class GameSceneHandler implements GUIHandler {
     // endregion DeactivateClicks
 
     /**
-     * Sets the ViewGUI at which the ServerInfoHandler is related
+     * Sets the ViewGUI at which the GameSceneHandler is related
      * @param gui the ViewGUI instance
      */
     @Override

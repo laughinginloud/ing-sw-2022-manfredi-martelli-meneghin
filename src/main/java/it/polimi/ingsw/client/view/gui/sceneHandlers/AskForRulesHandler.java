@@ -83,7 +83,7 @@ public class AskForRulesHandler implements GUIHandler, Initializable {
     }
 
     /**
-     * Sets the ViewGUI at which the ServerInfoHandler is related
+     * Sets the ViewGUI at which the AskForRulesHandler is related
      * @param gui the ViewGUI instance
      */
     @Override

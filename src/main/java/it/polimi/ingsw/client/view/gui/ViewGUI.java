@@ -309,7 +309,7 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Shows to the player the entranceStudents and the playableCharacterCards, waiting for a selection.
-     * It sets clickable all and only entranceStudents and playableCharactercards and based on
+     * It sets clickable all and only entranceStudents and playableCharacterCards and based on
      * the click, I'll decide the return
      *
      * @param entranceStudents       An array of students containing the entrance's students

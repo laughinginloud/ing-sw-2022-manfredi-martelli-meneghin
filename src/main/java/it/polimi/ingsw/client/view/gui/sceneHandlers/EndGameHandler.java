@@ -9,7 +9,8 @@ public class EndGameHandler implements GUIHandler {
     // TODO - regions and JavaDocs
 
     /**
-     * @param gui
+     * Sets the ViewGUI at which the EndGameHandler is related
+     * @param gui the ViewGUI instance
      */
     @Override
     public void setGUI(ViewGUI gui) {

@@ -46,7 +46,7 @@ public class ConnectionErrorHandler implements GUIHandler {
     }
 
     /**
-     * Sets the ViewGUI at which the ServerInfoHandler is related
+     * Sets the ViewGUI at which the ConnectionErrorHandler is related
      * @param gui the ViewGUI instance
      */
     @Override

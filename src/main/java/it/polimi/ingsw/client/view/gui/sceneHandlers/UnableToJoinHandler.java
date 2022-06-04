@@ -35,7 +35,7 @@ public class UnableToJoinHandler implements GUIHandler {
     // endregion FXML_Ids
 
     /**
-     * Sets the ViewGUI at which the ServerInfoHandler is related
+     * Sets the ViewGUI at which the UnableToJoinHandler is related
      * @param gui the ViewGUI instance
      */
     @Override

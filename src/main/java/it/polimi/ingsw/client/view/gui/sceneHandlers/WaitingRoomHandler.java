@@ -13,6 +13,8 @@ public class WaitingRoomHandler implements GUIHandler {
     // TODO JavaDocs + Regions
     // TODO Implementation
 
+    // region FXML_Ids
+
     @FXML
     private AnchorPane waitingRoom_pane;
 
@@ -25,8 +27,11 @@ public class WaitingRoomHandler implements GUIHandler {
     @FXML
     private Label waitingRoom_text;
 
+    // endregion FXML_Ids
+
     /**
-     * @param gui
+     * Sets the ViewGUI at which the WaitingRoomHandler is related
+     * @param gui the ViewGUI instance
      */
     @Override
     public void setGUI(ViewGUI gui) {

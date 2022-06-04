@@ -140,9 +140,9 @@ public class VirtualController extends Thread implements Closeable {
                     gpt.setProfessorLocation(color, model.getPlayer(gpt.getProfessorLocation(color).getPlayerID()));
             }
 
-            case CLOUDARRAY           -> model.setCloudTile((CloudTile[]) object); //Utilizzo: scelta tra nuvole, sostituzione dati model
+            case CLOUDARRAY           -> model.setCloudTile((CloudTile[]) object);
 
-            case CHARACTERCARDARRAY   -> model.setCharacterCard((CharacterCard[]) object); //Utilizzo: scelta, sostuzione
+            case CHARACTERCARDARRAY   -> model.setCharacterCard((CharacterCard[]) object);
 
             case MOTHERNATURE         -> model.setMotherNaturePosition((int) object);
 

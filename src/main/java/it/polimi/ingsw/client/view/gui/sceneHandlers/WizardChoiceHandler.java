@@ -184,7 +184,7 @@ public class WizardChoiceHandler implements GUIHandler {
     }
 
     /**
-     * @param gui
+     * Sets the ViewGUI at which the WizardChoiceHandler is related
      */
     @Override
     public void setGUI(ViewGUI gui) {
