@@ -1866,6 +1866,82 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion GSUpdateModel
 
+    // region DeactivateClicks
+
+    public void deactivateClicks() {
+        deactivateClicksIslands();
+        deactivateClicksCloudTiles();
+        deactivateClicksCharacterCards();
+        deactivateClicksCharacterCardsElements();
+        deactivateClicksDiningRoomTables();
+        deactivateClicksAssistantCards();
+        deactivateClicksEntranceStudents();
+        deactivateClicksInputButton();
+    }
+
+    public void deactivateClicksIslands() {
+        AnchorPane islandPane;
+        for (int i = 0; i < MAX_ISLANDS; i++) {
+            islandPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
+            islandPane.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksCloudTiles() {
+        AnchorPane cloudTilePane;
+        for (int i = 0; i < MAX_CLOUD_TILES; i++) {
+            cloudTilePane = IDHelper.gsFindCloudAnchorPaneID(this, i);
+            cloudTilePane.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksCharacterCards() {
+        ImageView characterCardsImgView;
+        for (int i = 0; i < MAX_CC; i++) {
+            characterCardsImgView = IDHelper.gsFindCharacterCardImageID(this, i);
+            characterCardsImgView.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksCharacterCardsElements() {
+        ImageView characterCardsElementImgView;
+        for (int i = 0; i < MAX_CC_ELEMENTS; i++) {
+            characterCardsElementImgView = IDHelper.gsFindCharacterCardImageID(this, i);
+            characterCardsElementImgView.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksDiningRoomTables() {
+        AnchorPane diningRoomPane;
+        for (Color color : Color.values()) {
+            diningRoomPane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
+            diningRoomPane.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksAssistantCards() {
+        ImageView assistantCardImgView;
+        for (int i = 0; i < MAX_ASSISTANT_CARDS; i++) {
+            assistantCardImgView = IDHelper.gsFindAssistantCardID(this, i);
+            assistantCardImgView.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksEntranceStudents() {
+        ImageView entranceStudentImgView;
+        for (int i = 0; i < MAX_ENTRANCE_STUDENTS; i++) {
+            entranceStudentImgView = IDHelper.gsFindStudentEntranceID(this, i);
+            entranceStudentImgView.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksInputButton() {
+        input_button.setOnMouseClicked(null);
+    }
+
+
+    // endregion DeactivateClicks
+
     /**
      * Sets the ViewGUI at which the ServerInfoHandler is related
      * @param gui the ViewGUI instance
