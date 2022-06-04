@@ -101,8 +101,8 @@ public class ServerInfoHandler implements GUIHandler {
         }
 
         else {
-            try (VirtualController virtualController = new VirtualController(new Address(readIP, portInt), gui)) {
-                gui.setVirtualController(virtualController);
+            try {
+                new VirtualController(new Address(readIP, portInt), gui);
             }
 
             catch (IOException e) {

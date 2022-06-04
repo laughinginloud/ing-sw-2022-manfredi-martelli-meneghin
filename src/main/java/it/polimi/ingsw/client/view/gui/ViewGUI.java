@@ -8,6 +8,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -127,8 +128,10 @@ public final class ViewGUI extends Application implements View {
         Optional<ButtonType> choice = alert.showAndWait();
 
         // alert.showAndWait is the function that allows the alert to trigger
-        if (choice.isPresent() && choice.get() == ButtonType.OK)
+        if (choice.isPresent() && choice.get() == ButtonType.OK) {
             stage.close();
+            virtualController.close();
+        }
     }
 
     // endregion StartMethods
@@ -277,7 +280,8 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(Pages.CLIENT_INFO);
         nameMapHandler.get(Pages.CLIENT_INFO).setGUI(this);
         ((ClientInfoHandler) nameMapHandler.get(Pages.CLIENT_INFO)).setForbiddenUsernames(forbiddenUsernames);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
     }
 
     /**
