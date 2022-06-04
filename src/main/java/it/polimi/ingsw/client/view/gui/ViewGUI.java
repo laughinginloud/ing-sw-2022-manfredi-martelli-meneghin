@@ -209,6 +209,13 @@ public final class ViewGUI extends Application implements View {
     public void updateModel(GameModel model, Set<GameValues> updatedValues) {
         ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer(), updatedValues);
         ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model,updatedValues);
+
+        if (updatedValues.contains(GameValues.MODEL)){
+            this.currentScene = nameMapScene.get(Pages.GAME_SCENE);
+            nameMapHandler.get(Pages.GAME_SCENE).setGUI(this);
+            stage.setScene(currentScene);
+            stage.setFullScreen(true);
+        }
     }
 
     // endregion MiscellaneousMethods
