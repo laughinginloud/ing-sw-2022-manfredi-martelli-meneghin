@@ -1967,6 +1967,22 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+
+
+
+    // region Seba's activateClicksMethods
+
+
+    // endregion Seba's activateClicksMethods
+
+    //  region Giovanni's activateClicksMethods
+
+
+    // endregion Giovanni's activateClicksMethods
+
+
+
+
     // region DeactivateClicks
 
     public void deactivateClicks() {
@@ -2090,4 +2106,21 @@ public class GameSceneHandler implements GUIHandler {
         // Notifies the ViewGUI (and the VirtualController) about the user choice
         gui.forwardViewToVirtualController(selectedAssistantCard);
     }
+
+
+
+
+
+
+
+
+    // region Seba's gsMethodImplementations
+
+
+    // endregion Seba's gsMethodImplementations
+
+    //  region Giovanni's gsMethodImplementations
+
+
+    // endregion Giovanni's gsMethodImplementations
 }

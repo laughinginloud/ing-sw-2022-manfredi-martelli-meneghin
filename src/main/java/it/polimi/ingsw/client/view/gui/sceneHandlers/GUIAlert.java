@@ -25,6 +25,19 @@ public enum GUIAlert {
     PLAY_CHARACTERCARD;
 
 
+
+
+    // region Seba's Enum Constants
+
+
+    // endregion Seba's Enum Constants
+
+    //  region Giovanni's Enum Constants
+
+
+    // endregion Giovanni's Enum Constants
+
+
     /**
      * Creates an Alert according to the GUIAlertType is needed
      * @param guiAlterType The GUIAlertType we want to create
@@ -85,6 +98,16 @@ public enum GUIAlert {
                               "NB! The cost of the card will be automatically deducted from you pool";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
+
+            // region Seba's Cases
+
+
+            // endregion Seba's Cases
+
+            //  region Giovanni's Cases
+
+
+            // endregion Giovanni's Cases
         }
 
         // Creates a new Alter and fill it fields with the chosen text values, depending on the guiAlterType
