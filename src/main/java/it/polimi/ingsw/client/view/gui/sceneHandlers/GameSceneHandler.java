@@ -1345,25 +1345,35 @@ public class GameSceneHandler implements GUIHandler {
      * @param player the localPlayer
      */
     public void gsUpdateModel(GameModel model, Player player, Set<GameValues> updatedValues) {
-        //TODO: Optimize the gsUpdateModel, updating only the updated fields
-        //TODO: Sets this scene to "visible" when MODEL is received as a GameField
+        boolean containsModel = updatedValues.contains(GameValues.MODEL);
 
-        // Updates the islands
-        gsUpdateIslands(model.getIslands(), model.getMotherNaturePosition());
+        if (containsModel || updatedValues.contains(GameValues.ISLANDARRAY) || updatedValues.contains(GameValues.MOTHERNATURE)) {
+            // Updates the islands
+            gsUpdateIslands(model.getIslands(), model.getMotherNaturePosition());
+        }
 
-        // Updates the cloudTiles
-        gsUpdateCloudTiles(model.getCloudTile(), model.getPlayersCount());
+        if (containsModel || updatedValues.contains(GameValues.CLOUDARRAY)) {
+            // Updates the cloudTiles
+            gsUpdateCloudTiles(model.getCloudTile(), model.getPlayersCount());
+        }
 
-        // Updates the AssistantCards deck
-        gsUpdateAssistantDeck(player.getAssistantDeck(), player.getPlayerWizard());
+        if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the AssistantCards deck
+            gsUpdateAssistantDeck(player.getAssistantDeck(), player.getPlayerWizard());
+        }
 
-        // Updates the SchoolBoard
-        gsUpdateSchoolBoard(model, player);
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.ENTRANCE)
+                          || updatedValues.contains(GameValues.ENTRANCEARRAY)    || updatedValues.contains(GameValues.DININGROOM)
+                          || updatedValues.contains(GameValues.DININGROOMARRAY)  || updatedValues.contains(GameValues.PLAYERARRAY)
+                          || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE)                                              ){
+            // Updates the SchoolBoard
+            gsUpdateSchoolBoard(model, player, updatedValues);
+        }
 
         // If the game is in expertMode
         if (model.getExpertMode()) {
             // Updates the expertMode elements
-            gsUpdateExpertModeElements(model, player);
+            gsUpdateExpertModeElements(model, player, updatedValues);
 
             // Shows the ExpertMode pane
             characterCards_pane.setVisible(true);
@@ -1412,7 +1422,8 @@ public class GameSceneHandler implements GUIHandler {
             if (islandTowerColor != null){
                 // Set the tower img
                 islandTowerPath = PathHelper.fromTowerColorToHandlerPath(islands[i].getTowerColor());
-                islandTower.setImage(new Image(getClass().getClassLoader().getResource(islandTowerPath).toString(), true));
+                islandTower.setImage(new Image(getClass().getResourceAsStream(islandTowerPath)));
+
                 // Set the towersCount
                 islandsTowersText.setText(String.valueOf(islandTowersCount));
                 islandsTowersText.setVisible(true);
@@ -1497,7 +1508,7 @@ public class GameSceneHandler implements GUIHandler {
                 if (cloudTileStudentColor != null){
                     // Sets the image to the specified studentColor
                     cloudTileStudentPath = PathHelper.fromStudentColorToHandlerPath(cloudTileStudentColor);
-                    cloudTileStudent.setImage(new Image(getClass().getClassLoader().getResource(cloudTileStudentPath).toString(), true));
+                    cloudTileStudent.setImage(new Image(getClass().getResourceAsStream(cloudTileStudentPath)));
                 }
                 else {
                     // For each student non-present remove the student
@@ -1547,7 +1558,7 @@ public class GameSceneHandler implements GUIHandler {
                 assistantCardWizardPath = PathHelper.fromWizardEnumToHandlerPath(wizard);
 
                 // Sets the image using the path just found
-                assistantCardID.setImage(new Image(getClass().getClassLoader().getResource(assistantCardWizardPath).toString(), true));
+                assistantCardID.setImage(new Image(getClass().getResourceAsStream(assistantCardWizardPath)));
             }
         }
     }
@@ -1559,14 +1570,27 @@ public class GameSceneHandler implements GUIHandler {
      * @param model the model to update
      * @param player the localPlayer
      */
-    public void gsUpdateSchoolBoard(GameModel model, Player player) {
+    public void gsUpdateSchoolBoard(GameModel model, Player player, Set<GameValues> updatedValues) {
         SchoolBoard schoolBoard = player.getSchoolBoard();
-        // Updates the towers of the player
-        gsUpdateTowers(schoolBoard.getTowerColor(), schoolBoard.getTowerCount(), model.getPlayersCount());
-        // Updates the diningRoom
-        gsUpdateDiningRoom(player.getSchoolBoard().getDiningRoom(), player, model.getGlobalProfessorTable());
-        // Updates the entrance
-        gsUpdateEntrance(schoolBoard.getEntrance());
+        boolean containsModel = updatedValues.contains(GameValues.MODEL);
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the towers of the player
+            gsUpdateTowers(schoolBoard.getTowerColor(), schoolBoard.getTowerCount(), model.getPlayersCount());
+        }
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.DININGROOM)
+                          || updatedValues.contains(GameValues.DININGROOMARRAY)  || updatedValues.contains(GameValues.PLAYERARRAY)
+                          || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE)                                              ) {
+            // Updates the diningRoom
+            gsUpdateDiningRoom(player.getSchoolBoard().getDiningRoom(), player, model.getGlobalProfessorTable(), updatedValues);
+        }
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.ENTRANCE)
+                          || updatedValues.contains(GameValues.ENTRANCEARRAY)    || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the entrance
+            gsUpdateEntrance(schoolBoard.getEntrance());
+        }
     }
 
     /**
@@ -1608,11 +1632,19 @@ public class GameSceneHandler implements GUIHandler {
      * @param player the localPlayer
      * @param gpt the globalProfessorTable to update
      */
-    public void gsUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt) {
-        // Updates the professorsDiningRoom
-        gsUpdateDiningRoomProfessors(gpt, player);
-        // Updates the studentsDiningRoom
-        gsUpdateDiningRoomStudents(diningRoom);
+    public void gsUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt, Set<GameValues> updatedValues) {
+        boolean containsModel = updatedValues.contains(GameValues.MODEL);
+
+        if (containsModel || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE)) {
+            // Updates the professorsDiningRoom
+            gsUpdateDiningRoomProfessors(gpt, player);
+        }
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.DININGROOM)
+                          || updatedValues.contains(GameValues.DININGROOMARRAY)  || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the studentsDiningRoom
+            gsUpdateDiningRoomStudents(diningRoom);
+        }
     }
 
     /**
@@ -1707,11 +1739,18 @@ public class GameSceneHandler implements GUIHandler {
      * @param model the model to update
      * @param player the localPlayer
      */
-    public void gsUpdateExpertModeElements(GameModel model, Player player) {
-        // Updates the CharacterCards
-        gsUpdateCharacterCards(model.getCharacterCards());
-        // Updates the player's coinsCount
-        gsUpdatePlayerCoins(player);
+    public void gsUpdateExpertModeElements(GameModel model, Player player, Set<GameValues> updatedValues) {
+        boolean containsModel = updatedValues.contains(GameValues.MODEL);
+
+        if (containsModel || updatedValues.contains(GameValues.CHARACTERCARDARRAY)) {
+            // Updates the CharacterCards
+            gsUpdateCharacterCards(model.getCharacterCards());
+        }
+
+        if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the player's coinsCount
+            gsUpdatePlayerCoins(player);
+        }
     }
 
     // region GSUpdateCharacterCards
@@ -1759,7 +1798,7 @@ public class GameSceneHandler implements GUIHandler {
         // For each noEntryTile present, sets the image
         for (int i = 0; i < characterCardNoEntry.getNoEntryCount(); i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardElementID(this, index, i);
-            CC_noEntryTile.setImage(new Image(getClass().getClassLoader().getResource(CC_noEntryTile_ImgPath).toString(), true));
+            CC_noEntryTile.setImage(new Image(getClass().getResourceAsStream(CC_noEntryTile_ImgPath)));
         }
 
         // For each noEntryTile absent, remove the img
@@ -1791,7 +1830,7 @@ public class GameSceneHandler implements GUIHandler {
             CC_student         = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_student_Color   = characterCardStudent.getStudents()[i];
             CC_student_ImgPath = PathHelper.fromStudentColorToHandlerPath(CC_student_Color);
-            CC_student.setImage(new Image(getClass().getClassLoader().getResource(CC_student_ImgPath).toString(), true));
+            CC_student.setImage(new Image(getClass().getResourceAsStream(CC_student_ImgPath)));
         }
 
         // For each student absent, remove the img
@@ -1835,7 +1874,7 @@ public class GameSceneHandler implements GUIHandler {
         CC_ImgPath = PathHelper.fromCharacterEnumToFXMLPath(character);
 
         // Sets the image
-        CC_ImgView.setImage(new Image(getClass().getClassLoader().getResource(CC_ImgPath).toString(), true));
+        CC_ImgView.setImage(new Image(getClass().getResourceAsStream(CC_ImgPath)));
     }
 
     // endregion GSUpdateCharacterCards
