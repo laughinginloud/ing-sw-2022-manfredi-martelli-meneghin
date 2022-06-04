@@ -32,6 +32,22 @@ public class GameSceneHandler implements GUIHandler {
 
     public ViewGUI gui;
 
+    // region Constants
+
+    private final static int MAX_ISLANDS = 12;
+
+    private final static int MAX_CLOUD_TILES = 4;
+
+    private final static int MAX_ASSISTANT_CARDS = 10;
+
+    private final static int MAX_CC_ELEMENTS = 6;
+
+    private final static int MAX_CC = 3;
+
+    private final static int MAX_ENTRANCE_STUDENTS = 9;
+
+    // endregion Constants
+
     // region FXML_Ids
 
     @FXML
@@ -1445,7 +1461,7 @@ public class GameSceneHandler implements GUIHandler {
 
         AnchorPane islandPane;
         // For each island absent in the islands array
-        for (int i = islands.length; i < 12; i++) {
+        for (int i = islands.length; i < MAX_ISLANDS; i++) {
             islandPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
             islandPane.setVisible(false);
         }
@@ -1492,7 +1508,7 @@ public class GameSceneHandler implements GUIHandler {
 
         AnchorPane cloudAnchorPaneID;
         // For each not iterated cloud hide it from the board
-        for (int i = numOfPlayers; i < 4; i++) {
+        for (int i = numOfPlayers; i < MAX_CLOUD_TILES; i++) {
             cloudAnchorPaneID = IDHelper.gsFindCloudAnchorPaneID(this, i);
             cloudAnchorPaneID.setVisible(false);
         }
@@ -1510,7 +1526,7 @@ public class GameSceneHandler implements GUIHandler {
         AssistantCard[] fullDeck = new AssistantCard[10];
 
         // Initializing the full deck
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < MAX_ASSISTANT_CARDS; ++i) {
             fullDeck[i] = new AssistantCard(i + 1, (i / 2) + 1);
         }
 
@@ -1747,7 +1763,7 @@ public class GameSceneHandler implements GUIHandler {
         }
 
         // For each noEntryTile absent, remove the img
-        for (int i = characterCardNoEntry.getNoEntryCount(); i < 6; i++) {
+        for (int i = characterCardNoEntry.getNoEntryCount(); i < MAX_CC_ELEMENTS; i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_noEntryTile.setImage(null);
         }
@@ -1779,7 +1795,7 @@ public class GameSceneHandler implements GUIHandler {
         }
 
         // For each student absent, remove the img
-        for (int i = characterCardStudent.getStudents().length; i < 6; i++) {
+        for (int i = characterCardStudent.getStudents().length; i < MAX_CC_ELEMENTS; i++) {
             CC_student = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_student.setImage(null);
         }
