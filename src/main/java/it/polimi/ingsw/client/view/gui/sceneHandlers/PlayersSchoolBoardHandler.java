@@ -1395,20 +1395,27 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
      */
     public void psbUpdateModel(GameModel model, Set<GameValues> updatedValues) {
         //TODO: Optimize the psbUpdateModel, updating only the updated fields
-
-        Player[] players = model.getPlayer();
+        boolean containsModel = updatedValues.contains(GameValues.MODEL);
+        Player[] players      = model.getPlayer();
         // For each player present
         for (int i = 0; i < model.getPlayersCount(); i++) {
-            // Updates the SchoolBoard of the specified player
-            psbUpdateSchoolBoard(model, players[i], i);
+            if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)          || updatedValues.contains(GameValues.SCHOOLBOARDARRAY)
+                              || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE) || updatedValues.contains(GameValues.ENTRANCE)
+                              || updatedValues.contains(GameValues.ENTRANCEARRAY)        || updatedValues.contains(GameValues.DININGROOM)
+                              || updatedValues.contains(GameValues.DININGROOMARRAY)                                                            ) {
+                // Updates the SchoolBoard of the specified player
+                psbUpdateSchoolBoard(model, players[i], i, updatedValues);
+            }
 
-            // Updates the AdditionalInfos of the specified player
-            psbUpdateAdditionalInfo(players[i], i, model.getExpertMode());
+            if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)) {
+                // Updates the AdditionalInfos of the specified player
+                psbUpdateAdditionalInfo(players[i], i, model.getExpertMode());
+            }
         }
 
         AnchorPane playerBoard;
         // For each player absent
-        for (int i = model.getPlayersCount(); i < 4; i++) {
+        for (int i = model.getPlayersCount(); i < ViewGUI.MAX_NUM_PLAYERS; i++) {
             playerBoard = IDHelper.psbFindPlayerPaneID(this, i);
 
             // Hide his board
@@ -1424,14 +1431,27 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
      * @param player the player to update
      * @param playerIndex the index of the player in the PlayerSchoolBoard
      */
-    public void psbUpdateSchoolBoard(GameModel model, Player player, int playerIndex) {
+    public void psbUpdateSchoolBoard(GameModel model, Player player, int playerIndex, Set<GameValues> updatedValues) {
+        boolean containsModel   = updatedValues.contains(GameValues.MODEL);
         SchoolBoard schoolBoard = player.getSchoolBoard();
-        // Updates the towers of the player
-        psbUpdateTowers(schoolBoard.getTowerColor(), schoolBoard.getTowerCount(), model.getPlayersCount(), playerIndex);
-        // Updates the diningRoom
-        psbUpdateDiningRoom(player.getSchoolBoard().getDiningRoom(), player, model.getGlobalProfessorTable(), playerIndex);
-        // Updates the entrance
-        psbUpdateEntrance(schoolBoard.getEntrance(), playerIndex);
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the towers of the player
+            psbUpdateTowers(schoolBoard.getTowerColor(), schoolBoard.getTowerCount(), model.getPlayersCount(), playerIndex);
+        }
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.DININGROOM)
+                          || updatedValues.contains(GameValues.DININGROOMARRAY)  || updatedValues.contains(GameValues.PLAYERARRAY)
+                          || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE)                                              ) {
+            // Updates the diningRoom
+            psbUpdateDiningRoom(player.getSchoolBoard().getDiningRoom(), player, model.getGlobalProfessorTable(), playerIndex, updatedValues);
+        }
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.ENTRANCE)
+                          || updatedValues.contains(GameValues.ENTRANCEARRAY)    || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the entrance
+            psbUpdateEntrance(schoolBoard.getEntrance(), playerIndex);
+        }
     }
 
     /**
@@ -1475,11 +1495,19 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
      * @param gpt the globalProfessorTable to update
      * @param playerIndex the index of the player in the PlayerSchoolBoard
      */
-    public void psbUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt, int playerIndex) {
-        // Updates the professorsDiningRoom
-        psbUpdateDiningRoomProfessors(gpt, player, playerIndex);
-        // Updates the studentsDiningRoom
-        psbUpdateDiningRoomStudents(diningRoom, playerIndex);
+    public void psbUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt, int playerIndex, Set<GameValues> updatedValues) {
+        boolean containsModel = updatedValues.contains(GameValues.MODEL);
+
+        if (containsModel || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE)) {
+            // Updates the professorsDiningRoom
+            psbUpdateDiningRoomProfessors(gpt, player, playerIndex);
+        }
+
+        if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.DININGROOM)
+                          || updatedValues.contains(GameValues.DININGROOMARRAY)  || updatedValues.contains(GameValues.PLAYERARRAY)) {
+            // Updates the studentsDiningRoom
+            psbUpdateDiningRoomStudents(diningRoom, playerIndex);
+        }
     }
 
     /**
@@ -1517,7 +1545,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
             }
 
             // "Removes" the students
-            for (int i = diningRoom.getStudentCounters(color); i < 10; i++) {
+            for (int i = diningRoom.getStudentCounters(color); i < ViewGUI.MAX_DINING_ROOM_STUDENTS; i++) {
                 // Gets the ID of the student in the position i in the diningRoom
                 diningRoomStudent     = IDHelper.psbFindDiningRoomStudentSingleImageID(this, playerIndex, color, i);
 
@@ -1602,7 +1630,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     public void psbUpdateLastAssistantCard(AssistantCard lastAssistantCard, int playerIndex) {
         ImageView assistantCardImg;
         String assistantCardPath;
-        assistantCardImg = IDHelper.psbFindPlayerLastPlayedCardID(this, playerIndex);
+        assistantCardImg  = IDHelper.psbFindPlayerLastPlayedCardID(this, playerIndex);
         assistantCardPath = PathHelper.fromAssistantCardNumberToHandlerPath(lastAssistantCard.cardValue());
         assistantCardImg.setImage(new Image(getClass().getClassLoader().getResource(assistantCardPath).toString(), true));
     }
