@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.cli;
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.virtualController.VirtualController;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.termutils.Ansi;
 import it.polimi.ingsw.common.termutils.TermConstants;
@@ -220,7 +221,7 @@ public final class ViewCLI implements View {
 
     }
 
-    public void updateModel(GameModel model) {
+    public void updateModel(GameModel model, Set<GameValues> updatedValues) {
 
     }
 
@@ -356,7 +357,7 @@ public final class ViewCLI implements View {
 
     @Override
     public void setUsernameVirtualController(String readUsername) {
-        
+
     }
 
     public void setVirtualController(VirtualController virtualController) {

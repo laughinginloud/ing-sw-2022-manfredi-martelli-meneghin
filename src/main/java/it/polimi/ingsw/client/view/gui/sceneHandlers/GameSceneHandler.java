@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.view.gui.IDHelper;
 import it.polimi.ingsw.client.view.gui.ImageTypes;
 import it.polimi.ingsw.client.view.gui.PathHelper;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import javafx.fxml.FXML;
@@ -1327,7 +1328,10 @@ public class GameSceneHandler implements GUIHandler {
      * @param model the model to update
      * @param player the localPlayer
      */
-    public void gsUpdateModel(GameModel model, Player player) {
+    public void gsUpdateModel(GameModel model, Player player, Set<GameValues> updatedValues) {
+        //TODO: Optimize the gsUpdateModel, updating only the updated fields
+        //TODO: Sets this scene to "visible" when MODEL is received as a GameField
+
         // Updates the islands
         gsUpdateIslands(model.getIslands(), model.getMotherNaturePosition());
 

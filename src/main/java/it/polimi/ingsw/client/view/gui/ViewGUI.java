@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.*;
 import it.polimi.ingsw.client.virtualController.VirtualController;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
 import javafx.application.Application;
@@ -172,12 +173,12 @@ public final class ViewGUI extends Application implements View {
     /**
      * Updates the model, in order to show the latest model condition
      * @param model The updated model present on the server's model
+     * @param updatedValues The updated fields of the model
      */
     @Override
-    public void updateModel(GameModel model) {
-        // TODO [Game]
-        ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer());
-        ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model);
+    public void updateModel(GameModel model, Set<GameValues> updatedValues) {
+        ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer(), updatedValues);
+        ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model,updatedValues);
     }
 
     // endregion MiscellaneousMethods

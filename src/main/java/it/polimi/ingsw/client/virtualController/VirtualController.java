@@ -95,6 +95,12 @@ public class VirtualController extends Thread implements Closeable {
                 if (map.containsKey(GameValues.MODEL)) {
                     view.setModel((GameModel) map.get(GameValues.MODEL));
                     map.remove(GameValues.MODEL);
+
+                    // Sends to the view the notification about the values of the model that
+                    // has been updated by the SendInfo
+                    Set<GameValues> updatedValues = new HashSet<>();
+                    updatedValues.add(GameValues.MODEL);
+                    view.updateModel(view.getModel(), updatedValues);
                 }
 
                 map.forEach((v, o) -> modifyModelInfo(view.getModel(), v, o));
@@ -178,8 +184,11 @@ public class VirtualController extends Thread implements Closeable {
             }
         }
 
-        // Notify the model changes with "updateModel" of the Class View
-        view.updateModel(model);
+        // Sends to the view the notification about the values of the model that
+        // has been updated by the SendInfo
+        Set<GameValues> updatedValues = new HashSet<>();
+        updatedValues.add(value);
+        view.updateModel(view.getModel(), updatedValues);
     }
 
     /**

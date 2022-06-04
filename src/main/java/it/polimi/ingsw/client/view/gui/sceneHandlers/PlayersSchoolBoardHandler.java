@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 import it.polimi.ingsw.client.view.gui.IDHelper;
 import it.polimi.ingsw.client.view.gui.PathHelper;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -13,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
+import java.util.Set;
 
 public class PlayersSchoolBoardHandler implements GUIHandler {
 
@@ -1390,7 +1393,9 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
      * Updates the PlayersSchoolBoard according to the updated model
      * @param model the model to update
      */
-    public void psbUpdateModel(GameModel model) {
+    public void psbUpdateModel(GameModel model, Set<GameValues> updatedValues) {
+        //TODO: Optimize the psbUpdateModel, updating only the updated fields
+
         Player[] players = model.getPlayer();
         // For each player present
         for (int i = 0; i < model.getPlayersCount(); i++) {

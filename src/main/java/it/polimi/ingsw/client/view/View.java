@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.view.cli.ViewCLI;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.client.virtualController.VirtualController;
+import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 
 import java.util.List;
@@ -34,8 +35,9 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Updates the model, in order to show the latest model condition
      * @param model The updated model present on the server's model
+     * @param updatedValues
      */
-    void updateModel(GameModel model);
+    void updateModel(GameModel model, Set<GameValues> updatedValues);
 
     // region AskPlayer
 
