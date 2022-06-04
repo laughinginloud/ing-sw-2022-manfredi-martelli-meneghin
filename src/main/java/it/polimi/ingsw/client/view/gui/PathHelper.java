@@ -24,79 +24,79 @@ public class PathHelper {
         switch(handlerPath) {
 
             // CharacterCards
-            case "it/polimi/ingsw/images/characterCards/0_MONK.jpg"           -> fxmlPath = "@../images/characterCards/0_MONK.jpg";
-            case "it/polimi/ingsw/images/characterCards/1_FARMER.jpg"         -> fxmlPath = "@../images/characterCards/1_FARMER.jpg";
-            case "it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg" -> fxmlPath = "@../images/characterCards/2_STANDARDBEARER.jpg";
-            case "it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg"       -> fxmlPath = "@../images/characterCards/3_MAGICIAN.jpg";
-            case "it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg"      -> fxmlPath = "@../images/characterCards/4_HERBALIST.jpg";
-            case "it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg"        -> fxmlPath = "@../images/characterCards/5_CENTAUR.jpg";
-            case "it/polimi/ingsw/images/characterCards/6_JESTER.jpg"         -> fxmlPath = "@../images/characterCards/6_JESTER.jpg";
-            case "it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg"       -> fxmlPath = "@../images/characterCards/7_CAVALIER.jpg";
-            case "it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg"       -> fxmlPath = "@../images/characterCards/8_MERCHANT.jpg";
-            case "it/polimi/ingsw/images/characterCards/9_BARD.jpg"           -> fxmlPath = "@../images/characterCards/9_BARD.jpg";
-            case "it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg"      -> fxmlPath = "@../images/characterCards/10_PRINCESS.jpg";
-            case "it/polimi/ingsw/images/characterCards/11_THIEF.jpg"         -> fxmlPath = "@../images/characterCards/11_THIEF.jpg";
+            case "/it/polimi/ingsw/images/characterCards/0_MONK.jpg"           -> fxmlPath = "@../images/characterCards/0_MONK.jpg";
+            case "/it/polimi/ingsw/images/characterCards/1_FARMER.jpg"         -> fxmlPath = "@../images/characterCards/1_FARMER.jpg";
+            case "/it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg" -> fxmlPath = "@../images/characterCards/2_STANDARDBEARER.jpg";
+            case "/it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg"       -> fxmlPath = "@../images/characterCards/3_MAGICIAN.jpg";
+            case "/it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg"      -> fxmlPath = "@../images/characterCards/4_HERBALIST.jpg";
+            case "/it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg"        -> fxmlPath = "@../images/characterCards/5_CENTAUR.jpg";
+            case "/it/polimi/ingsw/images/characterCards/6_JESTER.jpg"         -> fxmlPath = "@../images/characterCards/6_JESTER.jpg";
+            case "/it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg"       -> fxmlPath = "@../images/characterCards/7_CAVALIER.jpg";
+            case "/it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg"       -> fxmlPath = "@../images/characterCards/8_MERCHANT.jpg";
+            case "/it/polimi/ingsw/images/characterCards/9_BARD.jpg"           -> fxmlPath = "@../images/characterCards/9_BARD.jpg";
+            case "/it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg"      -> fxmlPath = "@../images/characterCards/10_PRINCESS.jpg";
+            case "/it/polimi/ingsw/images/characterCards/11_THIEF.jpg"         -> fxmlPath = "@../images/characterCards/11_THIEF.jpg";
 
 
             // AssistantCards
-            case "it/polimi/ingsw/images/assistantCards/assistantCard1.png"       -> fxmlPath = "@../images/assistantCards/assistantCard1.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard2.png"       -> fxmlPath = "@../images/assistantCards/assistantCard2.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard3.png"       -> fxmlPath = "@../images/assistantCards/assistantCard3.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard4.png"       -> fxmlPath = "@../images/assistantCards/assistantCard4.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard5.png"       -> fxmlPath = "@../images/assistantCards/assistantCard5.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard6.png"       -> fxmlPath = "@../images/assistantCards/assistantCard6.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard7.png"       -> fxmlPath = "@../images/assistantCards/assistantCard7.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard8.png"       -> fxmlPath = "@../images/assistantCards/assistantCard8.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard9.png"       -> fxmlPath = "@../images/assistantCards/assistantCard9.png";
-            case "it/polimi/ingsw/images/assistantCards/assistantCard10.png"      -> fxmlPath = "@../images/assistantCards/assistantCard10.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard1.png"       -> fxmlPath = "@../images/assistantCards/assistantCard1.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard2.png"       -> fxmlPath = "@../images/assistantCards/assistantCard2.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard3.png"       -> fxmlPath = "@../images/assistantCards/assistantCard3.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard4.png"       -> fxmlPath = "@../images/assistantCards/assistantCard4.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard5.png"       -> fxmlPath = "@../images/assistantCards/assistantCard5.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard6.png"       -> fxmlPath = "@../images/assistantCards/assistantCard6.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard7.png"       -> fxmlPath = "@../images/assistantCards/assistantCard7.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard8.png"       -> fxmlPath = "@../images/assistantCards/assistantCard8.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard9.png"       -> fxmlPath = "@../images/assistantCards/assistantCard9.png";
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard10.png"      -> fxmlPath = "@../images/assistantCards/assistantCard10.png";
 
 
             // Students
-            case "it/polimi/ingsw/images/students/student_red.png"    -> fxmlPath = "@../images/students/student_red.png";
-            case "it/polimi/ingsw/images/students/student_green.png"  -> fxmlPath = "@../images/students/student_green.png";
-            case "it/polimi/ingsw/images/students/student_yellow.png" -> fxmlPath = "@../images/students/student_yellow.png";
-            case "it/polimi/ingsw/images/students/student_pink.png"   -> fxmlPath = "@../images/students/student_pink.png";
-            case "it/polimi/ingsw/images/students/student_blue.png"   -> fxmlPath = "@../images/students/student_blue.png";
+            case "/it/polimi/ingsw/images/students/student_red.png"    -> fxmlPath = "@../images/students/student_red.png";
+            case "/it/polimi/ingsw/images/students/student_green.png"  -> fxmlPath = "@../images/students/student_green.png";
+            case "/it/polimi/ingsw/images/students/student_yellow.png" -> fxmlPath = "@../images/students/student_yellow.png";
+            case "/it/polimi/ingsw/images/students/student_pink.png"   -> fxmlPath = "@../images/students/student_pink.png";
+            case "/it/polimi/ingsw/images/students/student_blue.png"   -> fxmlPath = "@../images/students/student_blue.png";
 
 
             // Towers
-            case "it/polimi/ingsw/images/towers/black_tower.png"      -> fxmlPath = "@../images/towers/black_tower.png";
-            case "it/polimi/ingsw/images/towers/grey_tower.png"       -> fxmlPath = "@../images/towers/grey_tower.png";
-            case "it/polimi/ingsw/images/towers/white_tower.png"      -> fxmlPath = "@../images/towers/white_tower.png";
+            case "/it/polimi/ingsw/images/towers/black_tower.png"      -> fxmlPath = "@../images/towers/black_tower.png";
+            case "/it/polimi/ingsw/images/towers/grey_tower.png"       -> fxmlPath = "@../images/towers/grey_tower.png";
+            case "/it/polimi/ingsw/images/towers/white_tower.png"      -> fxmlPath = "@../images/towers/white_tower.png";
 
 
             // Wizards
-            case "it/polimi/ingsw/images/wizards/0_NATURE.jpg"      -> fxmlPath = "@../images/wizards/0_NATURE.jpg";
-            case "it/polimi/ingsw/images/wizards/1_DESERT.jpg"      -> fxmlPath = "@../images/wizards/1_DESERT.jpg";
-            case "it/polimi/ingsw/images/wizards/2_CLOUD.jpg"       -> fxmlPath = "@../images/wizards/2_CLOUD.jpg";
-            case "it/polimi/ingsw/images/wizards/3_SNOW.jpg"        -> fxmlPath = "@../images/wizards/3_SNOW.jpg";
+            case "/it/polimi/ingsw/images/wizards/0_NATURE.jpg"      -> fxmlPath = "@../images/wizards/0_NATURE.jpg";
+            case "/it/polimi/ingsw/images/wizards/1_DESERT.jpg"      -> fxmlPath = "@../images/wizards/1_DESERT.jpg";
+            case "/it/polimi/ingsw/images/wizards/2_CLOUD.jpg"       -> fxmlPath = "@../images/wizards/2_CLOUD.jpg";
+            case "/it/polimi/ingsw/images/wizards/3_SNOW.jpg"        -> fxmlPath = "@../images/wizards/3_SNOW.jpg";
 
 
             // Islands
-            case "it/polimi/ingsw/images/islands/island0.png"  -> fxmlPath = "@../images/islands/island0.png";
-            case "it/polimi/ingsw/images/islands/island1.png"  -> fxmlPath = "@../images/islands/island1.png";
-            case "it/polimi/ingsw/images/islands/island2.png"  -> fxmlPath = "@../images/islands/island2.png";
+            case "/it/polimi/ingsw/images/islands/island0.png"  -> fxmlPath = "@../images/islands/island0.png";
+            case "/it/polimi/ingsw/images/islands/island1.png"  -> fxmlPath = "@../images/islands/island1.png";
+            case "/it/polimi/ingsw/images/islands/island2.png"  -> fxmlPath = "@../images/islands/island2.png";
 
 
             // Professors
-            case "it/polimi/ingsw/images/professors/professor_green.png"  -> fxmlPath = "@../images/professors/professor_green.png";
-            case "it/polimi/ingsw/images/professors/professor_red.png"    -> fxmlPath = "@../images/professors/professor_red.png";
-            case "it/polimi/ingsw/images/professors/professor_yellow.png" -> fxmlPath = "@../images/professors/professor_yellow.png";
-            case "it/polimi/ingsw/images/professors/professor_pink.png"   -> fxmlPath = "@../images/professors/professor_pink.png";
-            case "it/polimi/ingsw/images/professors/professor_blue.png"   -> fxmlPath = "@../images/professors/professor_blue.png";
+            case "/it/polimi/ingsw/images/professors/professor_green.png"  -> fxmlPath = "@../images/professors/professor_green.png";
+            case "/it/polimi/ingsw/images/professors/professor_red.png"    -> fxmlPath = "@../images/professors/professor_red.png";
+            case "/it/polimi/ingsw/images/professors/professor_yellow.png" -> fxmlPath = "@../images/professors/professor_yellow.png";
+            case "/it/polimi/ingsw/images/professors/professor_pink.png"   -> fxmlPath = "@../images/professors/professor_pink.png";
+            case "/it/polimi/ingsw/images/professors/professor_blue.png"   -> fxmlPath = "@../images/professors/professor_blue.png";
 
 
             // Miscellaneous
-            case "it/polimi/ingsw/images/cloudTile.png"        -> fxmlPath = "@../images/cloudTile.png";
-            case "it/polimi/ingsw/images/coin.png"             -> fxmlPath = "@../images/coin.png";
-            case "it/polimi/ingsw/images/cranio.png"           -> fxmlPath = "@../images/cranio.png";
-            case "it/polimi/ingsw/images/mother_nature.png"    -> fxmlPath = "@../images/mother_nature.png";
-            case "it/polimi/ingsw/images/noEntryTile.png"      -> fxmlPath = "@../images/noEntryTile.png";
-            case "it/polimi/ingsw/images/players_icon.png"     -> fxmlPath = "@../images/players_icon.png";
-            case "it/polimi/ingsw/images/polimi.png"           -> fxmlPath = "@../images/polimi.png";
-            case "it/polimi/ingsw/images/return.png"           -> fxmlPath = "@../images/return.png";
-            case "it/polimi/ingsw/images/school_board.png"     -> fxmlPath = "@../images/school_board.png";
-            case "it/polimi/ingsw/images/home_page.jpg"        -> fxmlPath = "@../images/home_page.jpg";
+            case "/it/polimi/ingsw/images/cloudTile.png"        -> fxmlPath = "@../images/cloudTile.png";
+            case "/it/polimi/ingsw/images/coin.png"             -> fxmlPath = "@../images/coin.png";
+            case "/it/polimi/ingsw/images/cranio.png"           -> fxmlPath = "@../images/cranio.png";
+            case "/it/polimi/ingsw/images/mother_nature.png"    -> fxmlPath = "@../images/mother_nature.png";
+            case "/it/polimi/ingsw/images/noEntryTile.png"      -> fxmlPath = "@../images/noEntryTile.png";
+            case "/it/polimi/ingsw/images/players_icon.png"     -> fxmlPath = "@../images/players_icon.png";
+            case "/it/polimi/ingsw/images/polimi.png"           -> fxmlPath = "@../images/polimi.png";
+            case "/it/polimi/ingsw/images/return.png"           -> fxmlPath = "@../images/return.png";
+            case "/it/polimi/ingsw/images/school_board.png"     -> fxmlPath = "@../images/school_board.png";
+            case "/it/polimi/ingsw/images/home_page.jpg"        -> fxmlPath = "@../images/home_page.jpg";
         }
 
         return fxmlPath;
@@ -113,79 +113,79 @@ public class PathHelper {
         switch(fxmlPath) {
 
             // CharacterCards
-            case "@../images/characterCards/0_MONK.jpg"           -> handlerPath = "it/polimi/ingsw/images/characterCards/0_MONK.jpg";
-            case "@../images/characterCards/1_FARMER.jpg"         -> handlerPath = "it/polimi/ingsw/images/characterCards/1_FARMER.jpg";
-            case "@../images/characterCards/2_STANDARDBEARER.jpg" -> handlerPath = "it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg";
-            case "@../images/characterCards/3_MAGICIAN.jpg"       -> handlerPath = "it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg";
-            case "@../images/characterCards/4_HERBALIST.jpg"      -> handlerPath = "it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg";
-            case "@../images/characterCards/5_CENTAUR.jpg"        -> handlerPath = "it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg";
-            case "@../images/characterCards/6_JESTER.jpg"         -> handlerPath = "it/polimi/ingsw/images/characterCards/6_JESTER.jpg";
-            case "@../images/characterCards/7_CAVALIER.jpg"       -> handlerPath = "it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg";
-            case "@../images/characterCards/8_MERCHANT.jpg"       -> handlerPath = "it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg";
-            case "@../images/characterCards/9_BARD.jpg"           -> handlerPath = "it/polimi/ingsw/images/characterCards/9_BARD.jpg";
-            case "@../images/characterCards/10_PRINCESS.jpg"      -> handlerPath = "it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg";
-            case "@../images/characterCards/11_THIEF.jpg"         -> handlerPath = "it/polimi/ingsw/images/characterCards/11_THIEF.jpg";
+            case "@../images/characterCards/0_MONK.jpg"           -> handlerPath = "/it/polimi/ingsw/images/characterCards/0_MONK.jpg";
+            case "@../images/characterCards/1_FARMER.jpg"         -> handlerPath = "/it/polimi/ingsw/images/characterCards/1_FARMER.jpg";
+            case "@../images/characterCards/2_STANDARDBEARER.jpg" -> handlerPath = "/it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg";
+            case "@../images/characterCards/3_MAGICIAN.jpg"       -> handlerPath = "/it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg";
+            case "@../images/characterCards/4_HERBALIST.jpg"      -> handlerPath = "/it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg";
+            case "@../images/characterCards/5_CENTAUR.jpg"        -> handlerPath = "/it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg";
+            case "@../images/characterCards/6_JESTER.jpg"         -> handlerPath = "/it/polimi/ingsw/images/characterCards/6_JESTER.jpg";
+            case "@../images/characterCards/7_CAVALIER.jpg"       -> handlerPath = "/it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg";
+            case "@../images/characterCards/8_MERCHANT.jpg"       -> handlerPath = "/it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg";
+            case "@../images/characterCards/9_BARD.jpg"           -> handlerPath = "/it/polimi/ingsw/images/characterCards/9_BARD.jpg";
+            case "@../images/characterCards/10_PRINCESS.jpg"      -> handlerPath = "/it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg";
+            case "@../images/characterCards/11_THIEF.jpg"         -> handlerPath = "/it/polimi/ingsw/images/characterCards/11_THIEF.jpg";
 
 
             // AssistantCards
-            case "@../images/assistantCards/assistantCard1.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard1.png";
-            case "@../images/assistantCards/assistantCard2.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard2.png";
-            case "@../images/assistantCards/assistantCard3.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard3.png";
-            case "@../images/assistantCards/assistantCard4.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard4.png";
-            case "@../images/assistantCards/assistantCard5.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard5.png";
-            case "@../images/assistantCards/assistantCard6.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard6.png";
-            case "@../images/assistantCards/assistantCard7.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard7.png";
-            case "@../images/assistantCards/assistantCard8.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard8.png";
-            case "@../images/assistantCards/assistantCard9.png"       -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard9.png";
-            case "@../images/assistantCards/assistantCard10.png"      -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard10.png";
+            case "@../images/assistantCards/assistantCard1.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard1.png";
+            case "@../images/assistantCards/assistantCard2.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard2.png";
+            case "@../images/assistantCards/assistantCard3.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard3.png";
+            case "@../images/assistantCards/assistantCard4.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard4.png";
+            case "@../images/assistantCards/assistantCard5.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard5.png";
+            case "@../images/assistantCards/assistantCard6.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard6.png";
+            case "@../images/assistantCards/assistantCard7.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard7.png";
+            case "@../images/assistantCards/assistantCard8.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard8.png";
+            case "@../images/assistantCards/assistantCard9.png"       -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard9.png";
+            case "@../images/assistantCards/assistantCard10.png"      -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard10.png";
 
 
             // Students
-            case "@../images/students/student_red.png"    -> handlerPath = "it/polimi/ingsw/images/students/student_red.png";
-            case "@../images/students/student_green.png"  -> handlerPath = "it/polimi/ingsw/images/students/student_green.png";
-            case "@../images/students/student_yellow.png" -> handlerPath = "it/polimi/ingsw/images/students/student_yellow.png";
-            case "@../images/students/student_pink.png"   -> handlerPath = "it/polimi/ingsw/images/students/student_pink.png";
-            case "@../images/students/student_blue.png"   -> handlerPath = "it/polimi/ingsw/images/students/student_blue.png";
+            case "@../images/students/student_red.png"    -> handlerPath = "/it/polimi/ingsw/images/students/student_red.png";
+            case "@../images/students/student_green.png"  -> handlerPath = "/it/polimi/ingsw/images/students/student_green.png";
+            case "@../images/students/student_yellow.png" -> handlerPath = "/it/polimi/ingsw/images/students/student_yellow.png";
+            case "@../images/students/student_pink.png"   -> handlerPath = "/it/polimi/ingsw/images/students/student_pink.png";
+            case "@../images/students/student_blue.png"   -> handlerPath = "/it/polimi/ingsw/images/students/student_blue.png";
 
 
             // Towers
-            case "@../images/towers/black_tower.png"      -> handlerPath = "it/polimi/ingsw/images/towers/black_tower.png";
-            case "@../images/towers/grey_tower.png"       -> handlerPath = "it/polimi/ingsw/images/towers/grey_tower.png";
-            case "@../images/towers/white_tower.png"      -> handlerPath = "it/polimi/ingsw/images/towers/white_tower.png";
+            case "@../images/towers/black_tower.png"      -> handlerPath = "/it/polimi/ingsw/images/towers/black_tower.png";
+            case "@../images/towers/grey_tower.png"       -> handlerPath = "/it/polimi/ingsw/images/towers/grey_tower.png";
+            case "@../images/towers/white_tower.png"      -> handlerPath = "/it/polimi/ingsw/images/towers/white_tower.png";
 
 
             // Wizards
-            case "@../images/wizards/0_NATURE.jpg"      -> handlerPath = "it/polimi/ingsw/images/wizards/0_NATURE.jpg";
-            case "@../images/wizards/1_DESERT.jpg"      -> handlerPath = "it/polimi/ingsw/images/wizards/1_DESERT.jpg";
-            case "@../images/wizards/2_CLOUD.jpg"       -> handlerPath = "it/polimi/ingsw/images/wizards/2_CLOUD.jpg";
-            case "@../images/wizards/3_SNOW.jpg"        -> handlerPath = "it/polimi/ingsw/images/wizards/3_SNOW.jpg";
+            case "@../images/wizards/0_NATURE.jpg"      -> handlerPath = "/it/polimi/ingsw/images/wizards/0_NATURE.jpg";
+            case "@../images/wizards/1_DESERT.jpg"      -> handlerPath = "/it/polimi/ingsw/images/wizards/1_DESERT.jpg";
+            case "@../images/wizards/2_CLOUD.jpg"       -> handlerPath = "/it/polimi/ingsw/images/wizards/2_CLOUD.jpg";
+            case "@../images/wizards/3_SNOW.jpg"        -> handlerPath = "/it/polimi/ingsw/images/wizards/3_SNOW.jpg";
 
 
             // Islands
-            case "@../images/islands/island0.png"  -> handlerPath = "it/polimi/ingsw/images/islands/island0.png";
-            case "@../images/islands/island1.png"  -> handlerPath = "it/polimi/ingsw/images/islands/island1.png";
-            case "@../images/islands/island2.png"  -> handlerPath = "it/polimi/ingsw/images/islands/island2.png";
+            case "@../images/islands/island0.png"  -> handlerPath = "/it/polimi/ingsw/images/islands/island0.png";
+            case "@../images/islands/island1.png"  -> handlerPath = "/it/polimi/ingsw/images/islands/island1.png";
+            case "@../images/islands/island2.png"  -> handlerPath = "/it/polimi/ingsw/images/islands/island2.png";
 
 
             // Professors
-            case "@../images/professors/professor_green.png"  -> handlerPath = "it/polimi/ingsw/images/professors/professor_green.png";
-            case "@../images/professors/professor_red.png"    -> handlerPath = "it/polimi/ingsw/images/professors/professor_red.png";
-            case "@../images/professors/professor_yellow.png" -> handlerPath = "it/polimi/ingsw/images/professors/professor_yellow.png";
-            case "@../images/professors/professor_pink.png"   -> handlerPath = "it/polimi/ingsw/images/professors/professor_pink.png";
-            case "@../images/professors/professor_blue.png"   -> handlerPath = "it/polimi/ingsw/images/professors/professor_blue.png";
+            case "@../images/professors/professor_green.png"  -> handlerPath = "/it/polimi/ingsw/images/professors/professor_green.png";
+            case "@../images/professors/professor_red.png"    -> handlerPath = "/it/polimi/ingsw/images/professors/professor_red.png";
+            case "@../images/professors/professor_yellow.png" -> handlerPath = "/it/polimi/ingsw/images/professors/professor_yellow.png";
+            case "@../images/professors/professor_pink.png"   -> handlerPath = "/it/polimi/ingsw/images/professors/professor_pink.png";
+            case "@../images/professors/professor_blue.png"   -> handlerPath = "/it/polimi/ingsw/images/professors/professor_blue.png";
 
 
             // Miscellaneous
-            case "@../images/cloudTile.png"        -> handlerPath = "it/polimi/ingsw/images/cloudTile.png";
-            case "@../images/coin.png"             -> handlerPath = "it/polimi/ingsw/images/coin.png";
-            case "@../images/cranio.png"           -> handlerPath = "it/polimi/ingsw/images/cranio.png";
-            case "@../images/mother_nature.png"    -> handlerPath = "it/polimi/ingsw/images/mother_nature.png";
-            case "@../images/noEntryTile.png"      -> handlerPath = "it/polimi/ingsw/images/noEntryTile.png";
-            case "@../images/players_icon.png"     -> handlerPath = "it/polimi/ingsw/images/players_icon.png";
-            case "@../images/polimi.png"           -> handlerPath = "it/polimi/ingsw/images/polimi.png";
-            case "@../images/return.png"           -> handlerPath = "it/polimi/ingsw/images/return.png";
-            case "@../images/school_board.png"     -> handlerPath = "it/polimi/ingsw/images/school_board.png";
-            case "@../images/home_page.jpg"        -> handlerPath = "it/polimi/ingsw/images/home_page.jpg";
+            case "@../images/cloudTile.png"        -> handlerPath = "/it/polimi/ingsw/images/cloudTile.png";
+            case "@../images/coin.png"             -> handlerPath = "/it/polimi/ingsw/images/coin.png";
+            case "@../images/cranio.png"           -> handlerPath = "/it/polimi/ingsw/images/cranio.png";
+            case "@../images/mother_nature.png"    -> handlerPath = "/it/polimi/ingsw/images/mother_nature.png";
+            case "@../images/noEntryTile.png"      -> handlerPath = "/it/polimi/ingsw/images/noEntryTile.png";
+            case "@../images/players_icon.png"     -> handlerPath = "/it/polimi/ingsw/images/players_icon.png";
+            case "@../images/polimi.png"           -> handlerPath = "/it/polimi/ingsw/images/polimi.png";
+            case "@../images/return.png"           -> handlerPath = "/it/polimi/ingsw/images/return.png";
+            case "@../images/school_board.png"     -> handlerPath = "/it/polimi/ingsw/images/school_board.png";
+            case "@../images/home_page.jpg"        -> handlerPath = "/it/polimi/ingsw/images/home_page.jpg";
         }
 
         return handlerPath;
@@ -204,79 +204,79 @@ public class PathHelper {
         switch (imageType) {
 
             // CharacterCards
-            case MONK_IMG      -> handlerPath = "it/polimi/ingsw/images/characterCards/0_MONK.jpg";
-            case FARMER_IMG    -> handlerPath = "it/polimi/ingsw/images/characterCards/1_FARMER.jpg";
-            case STBEARER_IMG  -> handlerPath = "it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg";
-            case MAGICIAN_IMG  -> handlerPath = "it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg";
-            case HERBALIST_IMG -> handlerPath = "it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg";
-            case CENTAUR_IMG   -> handlerPath = "it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg";
-            case JESTER_IMG    -> handlerPath = "it/polimi/ingsw/images/characterCards/6_JESTER.jpg";
-            case CAVALIER_IMG  -> handlerPath = "it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg";
-            case MERCHANT_IMG  -> handlerPath = "it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg";
-            case BARD_IMG      -> handlerPath = "it/polimi/ingsw/images/characterCards/9_BARD.jpg";
-            case PRINCESS_IMG  -> handlerPath = "it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg";
-            case THIEF_IMG     -> handlerPath = "it/polimi/ingsw/images/characterCards/11_THIEF.jpg";
+            case MONK_IMG      -> handlerPath = "/it/polimi/ingsw/images/characterCards/0_MONK.jpg";
+            case FARMER_IMG    -> handlerPath = "/it/polimi/ingsw/images/characterCards/1_FARMER.jpg";
+            case STBEARER_IMG  -> handlerPath = "/it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg";
+            case MAGICIAN_IMG  -> handlerPath = "/it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg";
+            case HERBALIST_IMG -> handlerPath = "/it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg";
+            case CENTAUR_IMG   -> handlerPath = "/it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg";
+            case JESTER_IMG    -> handlerPath = "/it/polimi/ingsw/images/characterCards/6_JESTER.jpg";
+            case CAVALIER_IMG  -> handlerPath = "/it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg";
+            case MERCHANT_IMG  -> handlerPath = "/it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg";
+            case BARD_IMG      -> handlerPath = "/it/polimi/ingsw/images/characterCards/9_BARD.jpg";
+            case PRINCESS_IMG  -> handlerPath = "/it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg";
+            case THIEF_IMG     -> handlerPath = "/it/polimi/ingsw/images/characterCards/11_THIEF.jpg";
 
 
             // AssistantCards
-            case ASS_1_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard1.png";
-            case ASS_2_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard2.png";
-            case ASS_3_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard3.png";
-            case ASS_4_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard4.png";
-            case ASS_5_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard5.png";
-            case ASS_6_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard6.png";
-            case ASS_7_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard7.png";
-            case ASS_8_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard8.png";
-            case ASS_9_IMG  -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard9.png";
-            case ASS_10_IMG -> handlerPath = "it/polimi/ingsw/images/assistantCards/assistantCard10.png";
+            case ASS_1_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard1.png";
+            case ASS_2_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard2.png";
+            case ASS_3_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard3.png";
+            case ASS_4_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard4.png";
+            case ASS_5_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard5.png";
+            case ASS_6_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard6.png";
+            case ASS_7_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard7.png";
+            case ASS_8_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard8.png";
+            case ASS_9_IMG  -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard9.png";
+            case ASS_10_IMG -> handlerPath = "/it/polimi/ingsw/images/assistantCards/assistantCard10.png";
 
 
             // Students
-            case STUDENT_GREEN_IMG  -> handlerPath = "it/polimi/ingsw/images/students/student_red.png";
-            case STUDENT_RED_IMG    -> handlerPath = "it/polimi/ingsw/images/students/student_green.png";
-            case STUDENT_YELLOW_IMG -> handlerPath = "it/polimi/ingsw/images/students/student_yellow.png";
-            case STUDENT_PINK_IMG   -> handlerPath = "it/polimi/ingsw/images/students/student_pink.png";
-            case STUDENT_BLUE_IMG   -> handlerPath = "it/polimi/ingsw/images/students/student_blue.png";
+            case STUDENT_GREEN_IMG  -> handlerPath = "/it/polimi/ingsw/images/students/student_red.png";
+            case STUDENT_RED_IMG    -> handlerPath = "/it/polimi/ingsw/images/students/student_green.png";
+            case STUDENT_YELLOW_IMG -> handlerPath = "/it/polimi/ingsw/images/students/student_yellow.png";
+            case STUDENT_PINK_IMG   -> handlerPath = "/it/polimi/ingsw/images/students/student_pink.png";
+            case STUDENT_BLUE_IMG   -> handlerPath = "/it/polimi/ingsw/images/students/student_blue.png";
 
 
             // Towers
-            case TOWER_WHITE_IMG -> handlerPath = "it/polimi/ingsw/images/towers/white_tower.png";
-            case TOWER_BLACK_IMG -> handlerPath = "it/polimi/ingsw/images/towers/black_tower.png";
-            case TOWER_GREY_IMG  -> handlerPath = "it/polimi/ingsw/images/towers/grey_tower.png";
+            case TOWER_WHITE_IMG -> handlerPath = "/it/polimi/ingsw/images/towers/white_tower.png";
+            case TOWER_BLACK_IMG -> handlerPath = "/it/polimi/ingsw/images/towers/black_tower.png";
+            case TOWER_GREY_IMG  -> handlerPath = "/it/polimi/ingsw/images/towers/grey_tower.png";
 
 
             // Wizards
-            case WIZARD_NATURE_IMG -> handlerPath = "it/polimi/ingsw/images/wizards/0_NATURE.jpg";
-            case WIZARD_DESERT_IMG -> handlerPath = "it/polimi/ingsw/images/wizards/1_DESERT.jpg";
-            case WIZARD_CLOUD_IMG  -> handlerPath = "it/polimi/ingsw/images/wizards/2_CLOUD.jpg";
-            case WIZARD_SNOW_IMG   -> handlerPath = "it/polimi/ingsw/images/wizards/3_SNOW.jpg";
+            case WIZARD_NATURE_IMG -> handlerPath = "/it/polimi/ingsw/images/wizards/0_NATURE.jpg";
+            case WIZARD_DESERT_IMG -> handlerPath = "/it/polimi/ingsw/images/wizards/1_DESERT.jpg";
+            case WIZARD_CLOUD_IMG  -> handlerPath = "/it/polimi/ingsw/images/wizards/2_CLOUD.jpg";
+            case WIZARD_SNOW_IMG   -> handlerPath = "/it/polimi/ingsw/images/wizards/3_SNOW.jpg";
 
 
             // Islands
-            case ISLAND_0_IMG -> handlerPath = "it/polimi/ingsw/images/islands/island0.png";
-            case ISLAND_1_IMG -> handlerPath = "it/polimi/ingsw/images/islands/island1.png";
-            case ISLAND_2_IMG -> handlerPath = "it/polimi/ingsw/images/islands/island2.png";
+            case ISLAND_0_IMG -> handlerPath = "/it/polimi/ingsw/images/islands/island0.png";
+            case ISLAND_1_IMG -> handlerPath = "/it/polimi/ingsw/images/islands/island1.png";
+            case ISLAND_2_IMG -> handlerPath = "/it/polimi/ingsw/images/islands/island2.png";
 
 
             // Professors
-            case PROFESSOR_GREEN_IMG  -> handlerPath = "it/polimi/ingsw/images/professors/professor_green.png";
-            case PROFESSOR_RED_IMG    -> handlerPath = "it/polimi/ingsw/images/professors/professor_red.png";
-            case PROFESSOR_YELLOW_IMG -> handlerPath = "it/polimi/ingsw/images/professors/professor_yellow.png";
-            case PROFESSOR_PINK_IMG   -> handlerPath = "it/polimi/ingsw/images/professors/professor_pink.png";
-            case PROFESSOR_BLUE_IMG   -> handlerPath = "it/polimi/ingsw/images/professors/professor_blue.png";
+            case PROFESSOR_GREEN_IMG  -> handlerPath = "/it/polimi/ingsw/images/professors/professor_green.png";
+            case PROFESSOR_RED_IMG    -> handlerPath = "/it/polimi/ingsw/images/professors/professor_red.png";
+            case PROFESSOR_YELLOW_IMG -> handlerPath = "/it/polimi/ingsw/images/professors/professor_yellow.png";
+            case PROFESSOR_PINK_IMG   -> handlerPath = "/it/polimi/ingsw/images/professors/professor_pink.png";
+            case PROFESSOR_BLUE_IMG   -> handlerPath = "/it/polimi/ingsw/images/professors/professor_blue.png";
 
 
             // Miscellaneous
-            case CLOUD_TILE_IMG    -> handlerPath = "it/polimi/ingsw/images/cloudTile.png";
-            case COIN_IMG          -> handlerPath = "it/polimi/ingsw/images/coin.png";
-            case CRANIO_IMG        -> handlerPath = "it/polimi/ingsw/images/cranio.png";
-            case MOTHER_NATURE_IMG -> handlerPath = "it/polimi/ingsw/images/mother_nature.png";
-            case NOENTRYTILE_IMG   -> handlerPath = "it/polimi/ingsw/images/noEntryTile.png";
-            case PLAYERS_ICON_IMG  -> handlerPath = "it/polimi/ingsw/images/players_icon.png";
-            case POLIMI_LOGO_IMG   -> handlerPath = "it/polimi/ingsw/images/polimi.png";
-            case RETURN_IMG        -> handlerPath = "it/polimi/ingsw/images/return.png";
-            case SCHOOL_BOARD_IMG  -> handlerPath = "it/polimi/ingsw/images/school_board.png";
-            case HOME_PAGE_IMG     -> handlerPath = "it/polimi/ingsw/images/home_page.jpg";
+            case CLOUD_TILE_IMG    -> handlerPath = "/it/polimi/ingsw/images/cloudTile.png";
+            case COIN_IMG          -> handlerPath = "/it/polimi/ingsw/images/coin.png";
+            case CRANIO_IMG        -> handlerPath = "/it/polimi/ingsw/images/cranio.png";
+            case MOTHER_NATURE_IMG -> handlerPath = "/it/polimi/ingsw/images/mother_nature.png";
+            case NOENTRYTILE_IMG   -> handlerPath = "/it/polimi/ingsw/images/noEntryTile.png";
+            case PLAYERS_ICON_IMG  -> handlerPath = "/it/polimi/ingsw/images/players_icon.png";
+            case POLIMI_LOGO_IMG   -> handlerPath = "/it/polimi/ingsw/images/polimi.png";
+            case RETURN_IMG        -> handlerPath = "/it/polimi/ingsw/images/return.png";
+            case SCHOOL_BOARD_IMG  -> handlerPath = "/it/polimi/ingsw/images/school_board.png";
+            case HOME_PAGE_IMG     -> handlerPath = "/it/polimi/ingsw/images/home_page.jpg";
         }
 
         return handlerPath;
@@ -299,82 +299,82 @@ public class PathHelper {
         switch (handlerPath) {
 
             // CharacterCards
-            case "it/polimi/ingsw/images/characterCards/0_MONK.jpg"           -> imageType = ImageTypes.MONK_IMG;
-            case "it/polimi/ingsw/images/characterCards/1_FARMER.jpg"         -> imageType = ImageTypes.FARMER_IMG;
-            case "it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg" -> imageType = ImageTypes.STBEARER_IMG;
-            case "it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg"       -> imageType = ImageTypes.MAGICIAN_IMG;
-            case "it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg"      -> imageType = ImageTypes.HERBALIST_IMG;
-            case "it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg"        -> imageType = ImageTypes.CENTAUR_IMG;
-            case "it/polimi/ingsw/images/characterCards/6_JESTER.jpg"         -> imageType = ImageTypes.JESTER_IMG;
-            case "it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg"       -> imageType = ImageTypes.CAVALIER_IMG;
-            case "it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg"       -> imageType = ImageTypes.MERCHANT_IMG;
-            case "it/polimi/ingsw/images/characterCards/9_BARD.jpg"           -> imageType = ImageTypes.BARD_IMG;
-            case "it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg"      -> imageType = ImageTypes.PRINCESS_IMG;
-            case "it/polimi/ingsw/images/characterCards/11_THIEF.jpg"         -> imageType = ImageTypes.THIEF_IMG;
+            case "/it/polimi/ingsw/images/characterCards/0_MONK.jpg"           -> imageType = ImageTypes.MONK_IMG;
+            case "/it/polimi/ingsw/images/characterCards/1_FARMER.jpg"         -> imageType = ImageTypes.FARMER_IMG;
+            case "/it/polimi/ingsw/images/characterCards/2_STANDARDBEARER.jpg" -> imageType = ImageTypes.STBEARER_IMG;
+            case "/it/polimi/ingsw/images/characterCards/3_MAGICIAN.jpg"       -> imageType = ImageTypes.MAGICIAN_IMG;
+            case "/it/polimi/ingsw/images/characterCards/4_HERBALIST.jpg"      -> imageType = ImageTypes.HERBALIST_IMG;
+            case "/it/polimi/ingsw/images/characterCards/5_CENTAUR.jpg"        -> imageType = ImageTypes.CENTAUR_IMG;
+            case "/it/polimi/ingsw/images/characterCards/6_JESTER.jpg"         -> imageType = ImageTypes.JESTER_IMG;
+            case "/it/polimi/ingsw/images/characterCards/7_CAVALIER.jpg"       -> imageType = ImageTypes.CAVALIER_IMG;
+            case "/it/polimi/ingsw/images/characterCards/8_MERCHANT.jpg"       -> imageType = ImageTypes.MERCHANT_IMG;
+            case "/it/polimi/ingsw/images/characterCards/9_BARD.jpg"           -> imageType = ImageTypes.BARD_IMG;
+            case "/it/polimi/ingsw/images/characterCards/10_PRINCESS.jpg"      -> imageType = ImageTypes.PRINCESS_IMG;
+            case "/it/polimi/ingsw/images/characterCards/11_THIEF.jpg"         -> imageType = ImageTypes.THIEF_IMG;
 
 
             // AssistantCards
-            case "it/polimi/ingsw/images/assistantCards/assistantCard1.png"  -> imageType = ImageTypes.ASS_1_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard2.png"  -> imageType = ImageTypes.ASS_2_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard3.png"  -> imageType = ImageTypes.ASS_3_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard4.png"  -> imageType = ImageTypes.ASS_4_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard5.png"  -> imageType = ImageTypes.ASS_5_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard6.png"  -> imageType = ImageTypes.ASS_6_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard7.png"  -> imageType = ImageTypes.ASS_7_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard8.png"  -> imageType = ImageTypes.ASS_8_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard9.png"  -> imageType = ImageTypes.ASS_9_IMG;
-            case "it/polimi/ingsw/images/assistantCards/assistantCard10.png" -> imageType = ImageTypes.ASS_10_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard1.png"  -> imageType = ImageTypes.ASS_1_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard2.png"  -> imageType = ImageTypes.ASS_2_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard3.png"  -> imageType = ImageTypes.ASS_3_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard4.png"  -> imageType = ImageTypes.ASS_4_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard5.png"  -> imageType = ImageTypes.ASS_5_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard6.png"  -> imageType = ImageTypes.ASS_6_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard7.png"  -> imageType = ImageTypes.ASS_7_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard8.png"  -> imageType = ImageTypes.ASS_8_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard9.png"  -> imageType = ImageTypes.ASS_9_IMG;
+            case "/it/polimi/ingsw/images/assistantCards/assistantCard10.png" -> imageType = ImageTypes.ASS_10_IMG;
 
 
             // Students
-            case "it/polimi/ingsw/images/students/student_green.png"  -> imageType = ImageTypes.STUDENT_GREEN_IMG;
-            case "it/polimi/ingsw/images/students/student_red.png"    -> imageType = ImageTypes.STUDENT_RED_IMG;
-            case "it/polimi/ingsw/images/students/student_yellow.png" -> imageType = ImageTypes.STUDENT_YELLOW_IMG;
-            case "it/polimi/ingsw/images/students/student_pink.png"   -> imageType = ImageTypes.STUDENT_PINK_IMG;
-            case "it/polimi/ingsw/images/students/student_blue.png"   -> imageType = ImageTypes.STUDENT_BLUE_IMG;
+            case "/it/polimi/ingsw/images/students/student_green.png"  -> imageType = ImageTypes.STUDENT_GREEN_IMG;
+            case "/it/polimi/ingsw/images/students/student_red.png"    -> imageType = ImageTypes.STUDENT_RED_IMG;
+            case "/it/polimi/ingsw/images/students/student_yellow.png" -> imageType = ImageTypes.STUDENT_YELLOW_IMG;
+            case "/it/polimi/ingsw/images/students/student_pink.png"   -> imageType = ImageTypes.STUDENT_PINK_IMG;
+            case "/it/polimi/ingsw/images/students/student_blue.png"   -> imageType = ImageTypes.STUDENT_BLUE_IMG;
 
 
             // Towers
-            case "it/polimi/ingsw/images/towers/black_tower.png" -> imageType = ImageTypes.TOWER_BLACK_IMG;
-            case "it/polimi/ingsw/images/towers/grey_tower.png"  -> imageType = ImageTypes.TOWER_GREY_IMG;
-            case "it/polimi/ingsw/images/towers/white_tower.png" -> imageType = ImageTypes.TOWER_WHITE_IMG;
+            case "/it/polimi/ingsw/images/towers/black_tower.png" -> imageType = ImageTypes.TOWER_BLACK_IMG;
+            case "/it/polimi/ingsw/images/towers/grey_tower.png"  -> imageType = ImageTypes.TOWER_GREY_IMG;
+            case "/it/polimi/ingsw/images/towers/white_tower.png" -> imageType = ImageTypes.TOWER_WHITE_IMG;
 
 
             // Wizards
-            case "it/polimi/ingsw/images/wizards/0_NATURE.jpg" -> imageType = ImageTypes.WIZARD_NATURE_IMG;
-            case "it/polimi/ingsw/images/wizards/1_DESERT.jpg" -> imageType = ImageTypes.WIZARD_DESERT_IMG;
-            case "it/polimi/ingsw/images/wizards/2_CLOUD.jpg"  -> imageType = ImageTypes.WIZARD_CLOUD_IMG;
-            case "it/polimi/ingsw/images/wizards/3_SNOW.jpg"   -> imageType = ImageTypes.WIZARD_SNOW_IMG;
+            case "/it/polimi/ingsw/images/wizards/0_NATURE.jpg" -> imageType = ImageTypes.WIZARD_NATURE_IMG;
+            case "/it/polimi/ingsw/images/wizards/1_DESERT.jpg" -> imageType = ImageTypes.WIZARD_DESERT_IMG;
+            case "/it/polimi/ingsw/images/wizards/2_CLOUD.jpg"  -> imageType = ImageTypes.WIZARD_CLOUD_IMG;
+            case "/it/polimi/ingsw/images/wizards/3_SNOW.jpg"   -> imageType = ImageTypes.WIZARD_SNOW_IMG;
 
 
 
             // Islands
-            case "it/polimi/ingsw/images/islands/island0.png" -> imageType = ImageTypes.ISLAND_0_IMG;
-            case "it/polimi/ingsw/images/islands/island1.png" -> imageType = ImageTypes.ISLAND_1_IMG;
-            case "it/polimi/ingsw/images/islands/island2.png" -> imageType = ImageTypes.ISLAND_2_IMG;
+            case "/it/polimi/ingsw/images/islands/island0.png" -> imageType = ImageTypes.ISLAND_0_IMG;
+            case "/it/polimi/ingsw/images/islands/island1.png" -> imageType = ImageTypes.ISLAND_1_IMG;
+            case "/it/polimi/ingsw/images/islands/island2.png" -> imageType = ImageTypes.ISLAND_2_IMG;
 
 
 
             // Professors
-            case "it/polimi/ingsw/images/professors/professor_green.png"  -> imageType = ImageTypes.PROFESSOR_GREEN_IMG;
-            case "it/polimi/ingsw/images/professors/professor_red.png"    -> imageType = ImageTypes.PROFESSOR_RED_IMG;
-            case "it/polimi/ingsw/images/professors/professor_yellow.png" -> imageType = ImageTypes.PROFESSOR_YELLOW_IMG;
-            case "it/polimi/ingsw/images/professors/professor_pink.png"   -> imageType = ImageTypes.PROFESSOR_PINK_IMG;
-            case "it/polimi/ingsw/images/professors/professor_blue.png"   -> imageType = ImageTypes.PROFESSOR_BLUE_IMG;
+            case "/it/polimi/ingsw/images/professors/professor_green.png"  -> imageType = ImageTypes.PROFESSOR_GREEN_IMG;
+            case "/it/polimi/ingsw/images/professors/professor_red.png"    -> imageType = ImageTypes.PROFESSOR_RED_IMG;
+            case "/it/polimi/ingsw/images/professors/professor_yellow.png" -> imageType = ImageTypes.PROFESSOR_YELLOW_IMG;
+            case "/it/polimi/ingsw/images/professors/professor_pink.png"   -> imageType = ImageTypes.PROFESSOR_PINK_IMG;
+            case "/it/polimi/ingsw/images/professors/professor_blue.png"   -> imageType = ImageTypes.PROFESSOR_BLUE_IMG;
 
 
 
             // Miscellaneous
-            case "it/polimi/ingsw/images/cloudTile.png"     -> imageType = ImageTypes.CLOUD_TILE_IMG;
-            case "it/polimi/ingsw/images/coin.png"          -> imageType = ImageTypes.COIN_IMG;
-            case "it/polimi/ingsw/images/cranio.png"        -> imageType = ImageTypes.CRANIO_IMG;
-            case "it/polimi/ingsw/images/mother_nature.png" -> imageType = ImageTypes.MOTHER_NATURE_IMG;
-            case "it/polimi/ingsw/images/noEntryTile.png"   -> imageType = ImageTypes.NOENTRYTILE_IMG;
-            case "it/polimi/ingsw/images/players_icon.png"  -> imageType = ImageTypes.PLAYERS_ICON_IMG;
-            case "it/polimi/ingsw/images/polimi.png"        -> imageType = ImageTypes.POLIMI_LOGO_IMG;
-            case "it/polimi/ingsw/images/return.png"        -> imageType = ImageTypes.RETURN_IMG;
-            case "it/polimi/ingsw/images/school_board.png"  -> imageType = ImageTypes.SCHOOL_BOARD_IMG;
-            case "it/polimi/ingsw/images/home_page.jpg"     -> imageType = ImageTypes.HOME_PAGE_IMG;
+            case "/it/polimi/ingsw/images/cloudTile.png"     -> imageType = ImageTypes.CLOUD_TILE_IMG;
+            case "/it/polimi/ingsw/images/coin.png"          -> imageType = ImageTypes.COIN_IMG;
+            case "/it/polimi/ingsw/images/cranio.png"        -> imageType = ImageTypes.CRANIO_IMG;
+            case "/it/polimi/ingsw/images/mother_nature.png" -> imageType = ImageTypes.MOTHER_NATURE_IMG;
+            case "/it/polimi/ingsw/images/noEntryTile.png"   -> imageType = ImageTypes.NOENTRYTILE_IMG;
+            case "/it/polimi/ingsw/images/players_icon.png"  -> imageType = ImageTypes.PLAYERS_ICON_IMG;
+            case "/it/polimi/ingsw/images/polimi.png"        -> imageType = ImageTypes.POLIMI_LOGO_IMG;
+            case "/it/polimi/ingsw/images/return.png"        -> imageType = ImageTypes.RETURN_IMG;
+            case "/it/polimi/ingsw/images/school_board.png"  -> imageType = ImageTypes.SCHOOL_BOARD_IMG;
+            case "/it/polimi/ingsw/images/home_page.jpg"     -> imageType = ImageTypes.HOME_PAGE_IMG;
         }
 
         return imageType;
