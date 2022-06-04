@@ -6,11 +6,14 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
-import it.polimi.ingsw.common.model.AssistantCard;
-import it.polimi.ingsw.common.model.Player;
+import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.utils.Tuple;
+import it.polimi.ingsw.common.viewRecord.GameRules;
+import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
+import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 
 import java.io.IOException;
 
@@ -20,9 +23,30 @@ import java.io.IOException;
  */
 public class MessageJSONAdapter extends TypeAdapter<Message> {
     private static final Gson json = new GsonBuilder()
-        .registerTypeAdapter(Tuple.class, new TupleJSONAdapter())
-        .registerTypeAdapter(AssistantCard[].class, new AssistantDeckJSONAdapter())
-        .registerTypeAdapter(Player.class, new PlayerJSONAdapter())
+        .registerTypeAdapter(AssistantCard.class,        new AssistantCardJSONAdapter())
+        .registerTypeAdapter(AssistantCard[].class,      new AssistantDeckJSONAdapter())
+        .registerTypeAdapter(Bag.class,                  new BagJSONAdapter())
+        .registerTypeAdapter(CharacterCard[].class,      new CharacterCardArrayJSONAdapter())
+        .registerTypeAdapter(CloudTile[].class,          new CloudTileArrayJSONAdapter())
+        .registerTypeAdapter(Color.class,                new ColorJSONAdapter())
+        .registerTypeAdapter(Color[].class,              new ColorArrayJSONAdapter())
+        .registerTypeAdapter(DiningRoom.class,           new DiningRoomJSONAdapter())
+        .registerTypeAdapter(Entrance.class,             new EntranceJSONAdapter())
+        .registerTypeAdapter(GameActions.class,          new GameActionsJSONAdapter())
+        .registerTypeAdapter(GameModel.class,            new GameModelJSONAdapter())
+        .registerTypeAdapter(GameRules.class,            new GameRulesJSONAdapter())
+        .registerTypeAdapter(GlobalProfessorTable.class, new GlobalProfessorTableJSONAdapter())
+        .registerTypeAdapter(Island[].class,             new IslandArrayJSONAdapter())
+        .registerTypeAdapter(Message.class,              new MessageJSONAdapter())
+        .registerTypeAdapter(MoveStudentInfo.class,      new MoveStudentInfoJSONAdapter())
+        .registerTypeAdapter(Player.class,               new PlayerJSONAdapter())
+        .registerTypeAdapter(Player[].class,             new PlayerArrayJSONAdapter())
+        .registerTypeAdapter(SchoolBoard.class,          new SchoolBoardJSONAdapter())
+        .registerTypeAdapter(TowerColor.class,           new TowerColorJSONAdapter())
+        .registerTypeAdapter(Tuple.class,                new TupleJSONAdapter())
+        .registerTypeAdapter(UsernameAndMagicAge.class,  new UsernameAndMagicAgeJSONAdapter())
+        .registerTypeAdapter(Wizard.class,               new WizardJSONAdapter())
+        .registerTypeAdapter(Wizard[].class,             new WizardArrayJSONAdapter())
         .setPrettyPrinting()
         .create();
 
@@ -45,9 +69,6 @@ public class MessageJSONAdapter extends TypeAdapter<Message> {
 
             jsonWriter.endObject();
         }
-
-        else
-            jsonWriter.nullValue();
 
         jsonWriter.endObject();
     }
