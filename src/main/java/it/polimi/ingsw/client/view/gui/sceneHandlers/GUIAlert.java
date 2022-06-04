@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
+import it.polimi.ingsw.common.model.Character;
 import javafx.scene.control.Alert;
 
 public enum GUIAlert {
@@ -21,25 +22,53 @@ public enum GUIAlert {
     // Alert showed when the user has to select an AssistantCard during the PlanPhase
     CHOOSEASSISTANT,
 
+    // Alert showed when the user has to select which CharacterCard he wants to play
     SELECT_CHARACTER_CARD,
 
+    // Alert showed when the user has to select a student from the Entrance
     SELECT_ENTRANCE_STUDENT,
 
+    // Alert showed when the user has to select an Island where to move MotherNature or
+    // to use the effect of a CharacterCard on
+    SELECT_ISLAND,
+
+    // Alert showed when the user has to select a DiningRoomTable where to move the
+    // students or from which reduce the number of students on all the players' diningRooms
+    SELECT_DININGROOM_TABLE,
+
+    // Alert showed when the user has to select a student from a CharacterCard
+    SELECT_CC_STUDENT,
+
+    // Alert showed when the user has to select a Color
+    SELECT_COLOR,
+
+    // Alert showed when the user has to select a CloudTile
+    SELECT_CLOUD,
+
+    // Alert showed when the user has to select between a CharacterCard
+    // and a CloudTile (used only in the expert mode)
+    SELECT_CLOUD_OR_CC,
+
+    // Alert showed when the user has to select how many players he
+    // wants to move during the ActionPhase or using a CharacterCard's effect
+    SELECT_NUM_STUDENTS,
+
+    // Alert showed when the user has to select an element between a
+    // CharacterCard or a student from the Entrance (used only in the expert mode)
+    SELECT_ENTRANCE_STUDENT_OR_CC;
 
 
 
     // region Seba's Enum Constants
 
-
     // endregion Seba's Enum Constants
+
+
 
     //  region Giovanni's Enum Constants
 
-    SELECT_NUM_STUDENTS,
-
-    SELECT_ENTRANCE_STUDENT_OR_CC;
-
     // endregion Giovanni's Enum Constants
+
 
 
     /**
@@ -117,12 +146,48 @@ public enum GUIAlert {
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
-            // region Seba's Cases
+            case SELECT_ISLAND -> {
+                title       = "Select an Island";
+                headerText  = "You may now select the desired island";
+                contentText = "Remember that you won't have have other chances during this ActionTurn!";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
+            case SELECT_DININGROOM_TABLE -> {
+                title       = "Select a DiningRoomTable";
+                headerText  = "You may now select a DiningRoomTable";
+                contentText = "Choosing it you'll decide with which DiningRoomTable interact";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
-            // endregion Seba's Cases
+            case SELECT_CC_STUDENT -> {
+                title       = "Select a Student";
+                headerText  = "You may now select a student from the CharacterCard you played";
+                contentText = "Choose only one student from the student present on the CharacterCard: " + dynamicString;
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
-            //  region Giovanni's Cases
+            case SELECT_COLOR -> {
+                title       = "Select a Color";
+                headerText  = "You may now select a Color";
+                contentText = "Choose it clicking on the Dining Room Table of the desired Color!";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
+
+            case SELECT_CLOUD -> {
+                title       = "Select a CloudTile";
+                headerText  = "You may now select a CloudTile";
+                contentText = "Choose it in order to take the students from its and\n" + "move them on your entrance!";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
+
+            case SELECT_CLOUD_OR_CC -> {
+                title       = "Select a cloudTile or a CharacterCard";
+                headerText  = "You can decide to play a CharacterCard or select a CloudTile";
+                contentText = "Choose one of them clicking on the desired CharacterCard or on the\n" +
+                              "CloudTile with the best students!";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
             case SELECT_NUM_STUDENTS -> {
                 title       = "Select a number of students to move";
@@ -139,7 +204,20 @@ public enum GUIAlert {
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
+
+
+            // region Seba's Cases
+
+            // endregion Seba's Cases
+
+
+
+
+            // region Giovanni's Cases
+
             // endregion Giovanni's Cases
+
+
         }
 
         // Creates a new Alter and fill it fields with the chosen text values, depending on the guiAlterType

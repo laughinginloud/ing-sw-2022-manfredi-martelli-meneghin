@@ -161,7 +161,7 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(Pages.WAITING_ROOM);
         nameMapHandler.get(Pages.WAITING_ROOM).setGUI(this);
 
-        Platform.runLater(() -> stage.setScene(currentScene))
+        Platform.runLater(() -> stage.setScene(currentScene));
     }
 
     // endregion WaitingRoom
@@ -388,7 +388,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestCloudTileSelection(CloudTile[] availableClouds) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestCloudTileSelection(availableClouds);
     }
 
     /**
@@ -400,7 +401,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
     }
 
     /**
@@ -421,7 +423,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseColor(Color[] availableColors) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestChooseColor(availableColors);
     }
 
     /**
@@ -436,7 +439,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsChooseStudentFromCharacterCard(characterCardPosition, availableColors, numOfAvailableStudent);
     }
 
     /**
@@ -460,7 +464,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseIsland(Island[] availableIslands) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestChooseIsland(availableIslands);
     }
 
     /**
@@ -472,7 +477,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestChooseDiningRoom(compatibleDiningRoomTable);
     }
 
     // endregion Requests
