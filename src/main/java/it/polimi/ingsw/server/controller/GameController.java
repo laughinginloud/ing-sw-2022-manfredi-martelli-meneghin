@@ -18,6 +18,8 @@ import java.net.SocketException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// TODO: controllare l'id nel caso di un player che si disconnette ed uno che si connette dopo
+
 /**
  * Main server class
  * @author Mattia Martelli
@@ -109,7 +111,6 @@ public class GameController {
                     }
 
                     else {
-
                         // Send the player a request for the username, signaling which ones were already picked
                         usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, new HashSet<>())).executeCommand();
                     }
@@ -373,14 +374,6 @@ public class GameController {
         catch (SocketException ignored) {
             return false;
         }
-    }
-
-    // TODO
-    public static Object requestValue(GameValues value) {
-        return switch (value) {
-            case MOTHERNATURE -> ControllerData.getInstance().getGameModel().getMotherNaturePosition();
-            default           -> throw new IllegalArgumentException();
-        };
     }
 
     public static GameState saveGameState() {
