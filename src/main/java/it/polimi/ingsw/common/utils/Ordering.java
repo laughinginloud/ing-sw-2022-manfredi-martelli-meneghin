@@ -5,10 +5,23 @@ package it.polimi.ingsw.common.utils;
  * @author Mattia Martelli
  */
 public enum Ordering {
-    LT, GT, EQ;
+    /**
+     * Lower than
+     */
+    LT,
 
     /**
-     * Function that compares two comparable objects, returning a result relative to the first (e.g. LT <=> a < b)
+     * Greater than
+     */
+    GT,
+
+    /**
+     * Equal to
+     */
+    EQ;
+
+    /**
+     * Compares two comparable objects, returning a result relative to the first (e.g. LT <=> a < b)
      * @param a The first object
      * @param b The second object
      * @return The result of the compare

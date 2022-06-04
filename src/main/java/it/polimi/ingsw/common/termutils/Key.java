@@ -19,6 +19,9 @@ public enum Key {
     // Used to jump directly to menu options
     ONE, TWO, THREE, FOUR,
 
+    // Useful letter keys
+    Y, N,
+
     // Used as a generic key that does not need to be evaluated
     GENERIC;
 
@@ -54,6 +57,9 @@ public enum Key {
             case 50 -> TWO;
             case 51 -> THREE;
             case 52 -> FOUR;
+
+            case 121 -> Y;
+            case 110 -> N;
 
             default -> GENERIC;
         };
