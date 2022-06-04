@@ -19,6 +19,8 @@ public enum GUIAlert {
     // Alert showed when the user entered a wrong magicAge (negative)
     INVALID_MAGICAGE,
 
+    // Alert showed when the user has to select an AssistantCard during the PlanPhase
+    CHOOSEASSISTANT,
 
     PLAY_CHARACTERCARD;
 
@@ -26,8 +28,9 @@ public enum GUIAlert {
     /**
      * Creates an Alert according to the GUIAlertType is needed
      * @param guiAlterType The GUIAlertType we want to create
-     * @param dynamicString
-     * @return
+     * @param dynamicString A string representing a dynamicMessage we want to show to the user
+     *                      looking at the Alert
+     * @return The Alert that has been created
      */
     public static Alert getAlert (GUIAlert guiAlterType, String dynamicString) {
         Alert.AlertType alertType   = null;
@@ -67,6 +70,14 @@ public enum GUIAlert {
                 contentText = "Re-enter a valid number of years\n" + "NB! A valid number of years is positive";
                 alertType   = Alert.AlertType.WARNING;
             }
+
+            case CHOOSEASSISTANT -> {
+                title       = "Select Assistant Card";
+                headerText  = "It's time to select the AssistantCard you want to play!" + dynamicString;
+                contentText = "Remember that the lower is the number of the card, the earlier will be your turn";
+                alertType   = Alert.AlertType.INFORMATION;
+            }
+
             case PLAY_CHARACTERCARD -> {
                 title       = "Play Character Card";
                 headerText  = "You may now select the CharacterCard you wish to play";

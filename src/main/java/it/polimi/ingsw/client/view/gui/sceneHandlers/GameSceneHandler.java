@@ -32,6 +32,15 @@ public class GameSceneHandler implements GUIHandler {
 
     public ViewGUI gui;
 
+    /**
+     * Sets the ViewGUI at which the ServerInfoHandler is related
+     * @param gui the ViewGUI instance
+     */
+    @Override
+    public void setGUI(ViewGUI gui) {
+        this.gui = gui;
+    }
+
     // region FXML_Ids
 
     @FXML
@@ -1922,6 +1931,42 @@ public class GameSceneHandler implements GUIHandler {
 
     }
 
+    /**
+     * Associates clickHandler to each available assistantCard
+     * @param playableAssistantCards The available assistantCards that has to been set clickable
+     */
+    public void activateClicksAssistantCards(AssistantCard[] playableAssistantCards) {
+        int localPlayerIndex = gui.getLocalPlayerIndex();
+
+        Set<AssistantCard> playableAssistantCardSet = new HashSet<>();
+        Collections.addAll(playableAssistantCardSet, playableAssistantCards);
+
+        AssistantCard[] assistantCardOnModel     = gui.getModel().getPlayer()[localPlayerIndex].getAssistantDeck();
+        int             assistantCardIndex;
+        ImageView       assistantCardImageView;
+
+        for (int assCardPos = 0; assCardPos < assistantCardOnModel.length; assCardPos++) {
+            if (playableAssistantCardSet.contains(assistantCardOnModel[assCardPos])) {
+                assistantCardImageView = IDHelper.gsFindAssistantCardID(this, assCardPos);
+
+
+                EventHandler<MouseEvent> clickOnAssistantCardHandler = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        // Associates to the click of the mouse the function clickOnAssistantCard
+                        // as response to the user's action
+                        clickOnAssistantCard(mouseEvent);
+
+                        mouseEvent.consume();
+                    }
+                };
+
+                // Then links the created mouseEventHanlder to the click of the ACImage
+                assistantCardImageView.setOnMouseClicked(clickOnAssistantCardHandler);
+            }
+        }
+    }
+
     // region DeactivateClicks
 
     public void deactivateClicks() {
@@ -2016,14 +2061,33 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     * Sets the ViewGUI at which the GameSceneHandler is related
-     * @param gui the ViewGUI instance
+     * Requests the player which assistantCard he wants to play between the provided assistantCards
+     * @param assistantCards An array of AssistantCards that are currently playable
      */
-    @Override
-    public void setGUI(ViewGUI gui) {
-        this.gui = gui;
+    public void gsRequestPlayAssistantCard(AssistantCard[] assistantCards) {
+        activateClicksAssistantCards(assistantCards);
+
+        Alert playAssistantCard = GUIAlert.getAlert(GUIAlert.CHOOSEASSISTANT, "");
+        playAssistantCard.showAndWait();
     }
 
-    // Example of access to the nodes using the filter function
-    // pane.getchildren().stream().filter( x -> x instanceOf ...).
+    /**
+     * Deactivates the clicks of other AssistantCards, then forward to the ViewGUI the user choice
+     * @param mouseEvent The event that happened on the GameScenePane
+     */
+    public void clickOnAssistantCard (MouseEvent mouseEvent) {
+        int localPlayerIndex = gui.getLocalPlayerIndex();
+
+        // Deactivates the click on each AssistantCard, erasing the function associated to their message
+        deactivateClicksAssistantCards();
+
+        // Gets the ImageView of the selected assistantCard, then retrieve is position on the
+        // assistantCardDeck and gets its instance from the model
+        ImageView     selectedAssistantCardID = (ImageView) mouseEvent.getSource();
+        int           selectedAssistantCardIndex = InfoHelper.gsFindAssistantCardIndex(selectedAssistantCardID);
+        AssistantCard selectedAssistantCard      = gui.getModel().getPlayer(localPlayerIndex).getAssistantCard(selectedAssistantCardIndex);
+
+        // Notifies the ViewGUI (and the VirtualController) about the user choice
+        gui.forwardViewToVirtualController(selectedAssistantCard);
+    }
 }

@@ -305,7 +305,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestPlayAssistantCard(assistantCards);
     }
 
     /**
@@ -633,6 +634,26 @@ public final class ViewGUI extends Application implements View {
             }
         }
         return localPlayer;
+    }
+
+    /**
+     * Gets the positional index of the localPlayer in the playersArray of the current Model
+     * @return An int representing the localPlayerIndex
+     */
+    public int getLocalPlayerIndex() {
+        String localUsername    = virtualController.getUsername();
+        int    localPlayerIndex = 0;
+
+        // Forall players in the model, checks if the localUsername is equal to the one present
+        // in the model. In this case, saves the position of the player in the model
+        for (int i = 0; i < model.getPlayersCount(); i++) {
+            if (Objects.equals(localUsername, model.getPlayer(i).getUsername())) {
+                localPlayerIndex = i;
+                break;
+            }
+        }
+
+        return localPlayerIndex;
     }
 
 
