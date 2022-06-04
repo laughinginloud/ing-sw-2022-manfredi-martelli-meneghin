@@ -1898,38 +1898,7 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion GSUpdateModel
 
-    public void activateClicksCharacterCards(CharacterCard[] playableCharacterCards) {
-
-        Set<CharacterCard> playableCharacterCardsSet = new HashSet<>();
-        Collections.addAll(playableCharacterCardsSet, playableCharacterCards);
-
-        CharacterCard[] characterCardsModel = gui.getModel().getCharacterCards();
-        int             characterCardIndex;
-        ImageView       characterCardImgView;
-
-        for (int i = 0; i < characterCardsModel.length; i++) {
-            if (playableCharacterCardsSet.contains(characterCardsModel[i])) {
-                characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, i);
-
-                // Creates a function that will handle the characterCardClick
-                EventHandler<MouseEvent> clickOnCharacterCardHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Invokes the function clickOnCharacterCard
-                        clickOnCharacterCard(mouseEvent);
-
-                        mouseEvent.consume();
-                    }
-                };
-
-                // Then links the created handler to the click of the CCImage
-                characterCardImgView.setOnMouseClicked(clickOnCharacterCardHandler);
-            }
-        }
-
-        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.PLAY_CHARACTERCARD, null);
-
-    }
+    // region ActivateClicks
 
     /**
      * Associates clickHandler to each available assistantCard
@@ -1967,6 +1936,37 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    public void activateClicksCharacterCards(CharacterCard[] playableCharacterCards) {
+
+        Set<CharacterCard> playableCharacterCardsSet = new HashSet<>();
+        Collections.addAll(playableCharacterCardsSet, playableCharacterCards);
+
+        CharacterCard[] characterCardsModel = gui.getModel().getCharacterCards();
+        int             characterCardIndex;
+        ImageView       characterCardImgView;
+
+        for (int i = 0; i < characterCardsModel.length; i++) {
+            if (playableCharacterCardsSet.contains(characterCardsModel[i])) {
+                characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, i);
+
+                // Creates a function that will handle the characterCardClick
+                EventHandler<MouseEvent> clickOnCharacterCardHandler = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        // Invokes the function clickOnCharacterCard
+                        clickOnCharacterCard(mouseEvent);
+
+                        mouseEvent.consume();
+                    }
+                };
+
+                // Then links the created handler to the click of the CCImage
+                characterCardImgView.setOnMouseClicked(clickOnCharacterCardHandler);
+            }
+        }
+    }
+
+    // endregion ActivateClicks
 
 
 
@@ -2059,23 +2059,6 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion DeactivateClicks
 
-    public void gsRequestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        activateClicksCharacterCards(playableCharacterCards);
-    }
-
-    public void clickOnCharacterCard(MouseEvent mouseEvent) {
-        deactivateClicksCharacterCards();
-
-        // Gets the characterCard from then mouseEvent
-        ImageView selectedCharacterCardID = (ImageView) mouseEvent.getSource();
-
-        // Gets the index from the selected ImgView, then gets the corresponding CharacterCard
-        int characterCardIndex = InfoHelper.gsFindCharacterCardIndex(selectedCharacterCardID);
-        CharacterCard characterCard = gui.getModel().getCharacterCard(characterCardIndex);
-
-        gui.forwardViewToVirtualController(characterCard);
-    }
-
     /**
      * Requests the player which assistantCard he wants to play between the provided assistantCards
      * @param assistantCards An array of AssistantCards that are currently playable
@@ -2086,6 +2069,13 @@ public class GameSceneHandler implements GUIHandler {
         Alert playAssistantCard = GUIAlert.getAlert(GUIAlert.CHOOSEASSISTANT, "");
         playAssistantCard.showAndWait();
     }
+
+    public void gsRequestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
+        activateClicksCharacterCards(playableCharacterCards);
+        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_CHARACTER_CARD, null);
+        possiblePlay.showAndWait();
+    }
+
 
     /**
      * Deactivates the clicks of other AssistantCards, then forward to the ViewGUI the user choice
@@ -2105,6 +2095,19 @@ public class GameSceneHandler implements GUIHandler {
 
         // Notifies the ViewGUI (and the VirtualController) about the user choice
         gui.forwardViewToVirtualController(selectedAssistantCard);
+    }
+
+    public void clickOnCharacterCard(MouseEvent mouseEvent) {
+        deactivateClicksCharacterCards();
+
+        // Gets the characterCard from then mouseEvent
+        ImageView selectedCharacterCardID = (ImageView) mouseEvent.getSource();
+
+        // Gets the index from the selected ImgView, then gets the corresponding CharacterCard
+        int characterCardIndex      = InfoHelper.gsFindCharacterCardIndex(selectedCharacterCardID);
+        CharacterCard characterCard = gui.getModel().getCharacterCard(characterCardIndex);
+
+        gui.forwardViewToVirtualController(characterCard);
     }
 
 

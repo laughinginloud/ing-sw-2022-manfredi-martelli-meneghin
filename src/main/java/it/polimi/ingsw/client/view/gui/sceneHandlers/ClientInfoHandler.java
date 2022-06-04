@@ -77,17 +77,17 @@ public class ClientInfoHandler implements GUIHandler {
 
                 // Filter for negative numbers (years), that will not be accepted
                 if (!UsernameAndMagicAge.checkMagicAge(magicAgeInt)) {
-                    submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGICAGE, readMagicAge);
+                    submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGIC_AGE, readMagicAge);
                 }
             }
 
             // If the magicAge cannot be parsed, raise and alert
             catch (NumberFormatException ignored) {
-                submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGICAGE, readMagicAge);
+                submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGIC_AGE, readMagicAge);
             }
         }
         else if (readMagicAge == null) {
-            submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGICAGE, null);
+            submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_MAGIC_AGE, null);
         }
 
         // Clear fields

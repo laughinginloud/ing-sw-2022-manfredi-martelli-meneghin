@@ -23,7 +23,6 @@ public enum GUIAlert {
 
     SELECT_CHARACTER_CARD,
 
-
     SELECT_ENTRANCE_STUDENT;
 
 
@@ -35,6 +34,7 @@ public enum GUIAlert {
     // endregion Seba's Enum Constants
 
     //  region Giovanni's Enum Constants
+
 
 
     // endregion Giovanni's Enum Constants
