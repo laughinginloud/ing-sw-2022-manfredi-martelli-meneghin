@@ -21,8 +21,10 @@ public class WizardChoiceHandler implements GUIHandler {
 
     private Wizard[] availableWizard;
 
-    // TODO JavaDocs + Regions
+    // TODO JavaDocs
     // TODO Implementation
+
+    // region FXML_Ids
 
     @FXML
     private AnchorPane wizardChoice_pane;
@@ -63,6 +65,8 @@ public class WizardChoiceHandler implements GUIHandler {
     @FXML
     private Label wizardChoice_titleLabel;
 
+    // endregion FXML_Ids
+
     // TODO: Remove the follwing test method!
     // IT'S ONLY A TEST METHOD, IT WILL BE REMOVED
     public void testMethod(){
@@ -85,7 +89,7 @@ public class WizardChoiceHandler implements GUIHandler {
      * Sets on the scene the elements that are clickable, i.e. wizard that can
      * be chosen by the player
      */
-    public void setClickableElements() {
+    public void setClicksWizard() {
         Set<Wizard> availableWizardSet = new HashSet<>();
         Collections.addAll(availableWizardSet, availableWizard);
 
@@ -134,11 +138,14 @@ public class WizardChoiceHandler implements GUIHandler {
         ImageView selectedWizardID = (ImageView) mouseEvent.getSource();
 
         // Send to the VirtualController the wizard selected by the player
-        for (Wizard wizard : availableWizard)
+        for (Wizard wizard : availableWizard) {
             if (fromWizardEnumToID(wizard) == selectedWizardID) {
                 gui.forwardViewToVirtualController(wizard);
                 break;
             }
+        }
+
+        gui.switchToWaitingRoomScene();
     }
 
     /**
@@ -185,6 +192,7 @@ public class WizardChoiceHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the WizardChoiceHandler is related
+     * @param gui the ViewGUI instance
      */
     @Override
     public void setGUI(ViewGUI gui) {

@@ -152,6 +152,16 @@ public final class ViewGUI extends Application implements View {
 
     //********************************************************************************************************
 
+    // region WaitingRoom
+
+    public void switchToWaitingRoomScene() {
+        this.currentScene = nameMapScene.get(Pages.WAITING_ROOM);
+        nameMapHandler.get(Pages.WAITING_ROOM).setGUI(this);
+        stage.setScene(currentScene);
+    }
+
+    // endregion WaitingRoom
+
     // region ViewImplementation
 
     // region MiscellaneousMethods
@@ -273,7 +283,7 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(Pages.WIZARD_CHOICE);
         nameMapHandler.get(Pages.WIZARD_CHOICE).setGUI(this);
         ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
-        ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClickableElements();
+        ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClicksWizard();
         stage.setScene(currentScene);
     }
 
