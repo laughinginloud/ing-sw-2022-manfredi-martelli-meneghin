@@ -27,6 +27,26 @@ import java.util.*;
  */
 public final class ViewGUI extends Application implements View {
 
+    // region Constants
+
+    public static final int MAX_NUM_PLAYERS = 4;
+
+    public static final int MAX_ISLANDS = 12;
+
+    public static final int MAX_CLOUD_TILES = 4;
+
+    public static final int MAX_ASSISTANT_CARDS = 10;
+
+    public static final int MAX_CC_ELEMENTS = 6;
+
+    public static final int MAX_CC = 3;
+
+    public static final int MAX_ENTRANCE_STUDENTS = 9;
+
+    public static final int MAX_DINING_ROOM_STUDENTS = 10;
+
+    // endregion Constants
+
     // region Fields
 
     VirtualController virtualController = null;
@@ -212,7 +232,6 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askReloadGame() {
-
         this.currentScene = nameMapScene.get(Pages.GAME_CHOICE);
         nameMapHandler.get(Pages.GAME_CHOICE).setGUI(this);
         stage.setScene(currentScene);

@@ -32,22 +32,6 @@ public class GameSceneHandler implements GUIHandler {
 
     public ViewGUI gui;
 
-    // region Constants
-
-    private final static int MAX_ISLANDS = 12;
-
-    private final static int MAX_CLOUD_TILES = 4;
-
-    private final static int MAX_ASSISTANT_CARDS = 10;
-
-    private final static int MAX_CC_ELEMENTS = 6;
-
-    private final static int MAX_CC = 3;
-
-    private final static int MAX_ENTRANCE_STUDENTS = 9;
-
-    // endregion Constants
-
     // region FXML_Ids
 
     @FXML
@@ -1472,7 +1456,7 @@ public class GameSceneHandler implements GUIHandler {
 
         AnchorPane islandPane;
         // For each island absent in the islands array
-        for (int i = islands.length; i < MAX_ISLANDS; i++) {
+        for (int i = islands.length; i < ViewGUI.MAX_ISLANDS; i++) {
             islandPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
             islandPane.setVisible(false);
         }
@@ -1519,7 +1503,7 @@ public class GameSceneHandler implements GUIHandler {
 
         AnchorPane cloudAnchorPaneID;
         // For each not iterated cloud hide it from the board
-        for (int i = numOfPlayers; i < MAX_CLOUD_TILES; i++) {
+        for (int i = numOfPlayers; i < ViewGUI.MAX_CLOUD_TILES; i++) {
             cloudAnchorPaneID = IDHelper.gsFindCloudAnchorPaneID(this, i);
             cloudAnchorPaneID.setVisible(false);
         }
@@ -1537,7 +1521,7 @@ public class GameSceneHandler implements GUIHandler {
         AssistantCard[] fullDeck = new AssistantCard[10];
 
         // Initializing the full deck
-        for (int i = 0; i < MAX_ASSISTANT_CARDS; ++i) {
+        for (int i = 0; i < ViewGUI.MAX_ASSISTANT_CARDS; ++i) {
             fullDeck[i] = new AssistantCard(i + 1, (i / 2) + 1);
         }
 
@@ -1680,7 +1664,7 @@ public class GameSceneHandler implements GUIHandler {
             }
 
             // "Removes" the students
-            for (int i = diningRoom.getStudentCounters(color); i < 10; i++) {
+            for (int i = diningRoom.getStudentCounters(color); i < ViewGUI.MAX_DINING_ROOM_STUDENTS; i++) {
                 // Gets the ID of the student in the position i in the diningRoom
                 diningRoomStudent     = IDHelper.gsFindStudentDiningRoomID(this, color, i);
 
@@ -1802,7 +1786,7 @@ public class GameSceneHandler implements GUIHandler {
         }
 
         // For each noEntryTile absent, remove the img
-        for (int i = characterCardNoEntry.getNoEntryCount(); i < MAX_CC_ELEMENTS; i++) {
+        for (int i = characterCardNoEntry.getNoEntryCount(); i < ViewGUI.MAX_CC_ELEMENTS; i++) {
             CC_noEntryTile = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_noEntryTile.setImage(null);
         }
@@ -1834,7 +1818,7 @@ public class GameSceneHandler implements GUIHandler {
         }
 
         // For each student absent, remove the img
-        for (int i = characterCardStudent.getStudents().length; i < MAX_CC_ELEMENTS; i++) {
+        for (int i = characterCardStudent.getStudents().length; i < ViewGUI.MAX_CC_ELEMENTS; i++) {
             CC_student = IDHelper.gsFindCharacterCardElementID(this, index, i);
             CC_student.setImage(null);
         }
@@ -1920,7 +1904,7 @@ public class GameSceneHandler implements GUIHandler {
 
     public void deactivateClicksIslands() {
         AnchorPane islandPane;
-        for (int i = 0; i < MAX_ISLANDS; i++) {
+        for (int i = 0; i < ViewGUI.MAX_ISLANDS; i++) {
             islandPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
             islandPane.setOnMouseClicked(null);
         }
@@ -1928,7 +1912,7 @@ public class GameSceneHandler implements GUIHandler {
 
     public void deactivateClicksCloudTiles() {
         AnchorPane cloudTilePane;
-        for (int i = 0; i < MAX_CLOUD_TILES; i++) {
+        for (int i = 0; i < ViewGUI.MAX_CLOUD_TILES; i++) {
             cloudTilePane = IDHelper.gsFindCloudAnchorPaneID(this, i);
             cloudTilePane.setOnMouseClicked(null);
         }
@@ -1936,7 +1920,7 @@ public class GameSceneHandler implements GUIHandler {
 
     public void deactivateClicksCharacterCards() {
         ImageView characterCardsImgView;
-        for (int i = 0; i < MAX_CC; i++) {
+        for (int i = 0; i < ViewGUI.MAX_CC; i++) {
             characterCardsImgView = IDHelper.gsFindCharacterCardImageID(this, i);
             characterCardsImgView.setOnMouseClicked(null);
         }
@@ -1944,7 +1928,7 @@ public class GameSceneHandler implements GUIHandler {
 
     public void deactivateClicksCharacterCardsElements() {
         ImageView characterCardsElementImgView;
-        for (int i = 0; i < MAX_CC_ELEMENTS; i++) {
+        for (int i = 0; i < ViewGUI.MAX_CC_ELEMENTS; i++) {
             characterCardsElementImgView = IDHelper.gsFindCharacterCardImageID(this, i);
             characterCardsElementImgView.setOnMouseClicked(null);
         }
@@ -1960,7 +1944,7 @@ public class GameSceneHandler implements GUIHandler {
 
     public void deactivateClicksAssistantCards() {
         ImageView assistantCardImgView;
-        for (int i = 0; i < MAX_ASSISTANT_CARDS; i++) {
+        for (int i = 0; i < ViewGUI.MAX_ASSISTANT_CARDS; i++) {
             assistantCardImgView = IDHelper.gsFindAssistantCardID(this, i);
             assistantCardImgView.setOnMouseClicked(null);
         }
@@ -1968,7 +1952,7 @@ public class GameSceneHandler implements GUIHandler {
 
     public void deactivateClicksEntranceStudents() {
         ImageView entranceStudentImgView;
-        for (int i = 0; i < MAX_ENTRANCE_STUDENTS; i++) {
+        for (int i = 0; i < ViewGUI.MAX_ENTRANCE_STUDENTS; i++) {
             entranceStudentImgView = IDHelper.gsFindStudentEntranceID(this, i);
             entranceStudentImgView.setOnMouseClicked(null);
         }
