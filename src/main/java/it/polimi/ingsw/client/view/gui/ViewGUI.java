@@ -160,7 +160,8 @@ public final class ViewGUI extends Application implements View {
     public void switchToWaitingRoomScene() {
         this.currentScene = nameMapScene.get(Pages.WAITING_ROOM);
         nameMapHandler.get(Pages.WAITING_ROOM).setGUI(this);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene))
     }
 
     // endregion WaitingRoom
@@ -185,7 +186,8 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(Pages.INITIAL_PAGE);
         nameMapHandler.get(Pages.INITIAL_PAGE).setGUI(this);
         stage.setResizable(false);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
         stage.show();
     }
 
@@ -200,7 +202,8 @@ public final class ViewGUI extends Application implements View {
 
         this.currentScene = nameMapScene.get(Pages.CONNECTION_ERROR);
         nameMapHandler.get(Pages.CONNECTION_ERROR).setGUI(this);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
     }
 
     /**
@@ -216,7 +219,8 @@ public final class ViewGUI extends Application implements View {
         if (updatedValues.contains(GameValues.MODEL)){
             this.currentScene = nameMapScene.get(Pages.GAME_SCENE);
             nameMapHandler.get(Pages.GAME_SCENE).setGUI(this);
-            stage.setScene(currentScene);
+
+            Platform.runLater(() -> stage.setScene(currentScene));
             stage.setFullScreen(true);
         }
     }
@@ -232,7 +236,8 @@ public final class ViewGUI extends Application implements View {
     public void askAddress() {
         currentScene = nameMapScene.get(Pages.SERVER_INFO);
         nameMapHandler.get(Pages.SERVER_INFO).setGUI(this);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
         stage.show();
     }
 
@@ -244,7 +249,8 @@ public final class ViewGUI extends Application implements View {
     public void askRules() {
         this.currentScene = nameMapScene.get(Pages.ASK_RULES);
         nameMapHandler.get(Pages.ASK_RULES).setGUI(this);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
     }
 
     /**
@@ -254,7 +260,8 @@ public final class ViewGUI extends Application implements View {
     public void askReloadGame() {
         this.currentScene = nameMapScene.get(Pages.GAME_CHOICE);
         nameMapHandler.get(Pages.GAME_CHOICE).setGUI(this);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
     }
 
     /**
@@ -295,7 +302,8 @@ public final class ViewGUI extends Application implements View {
         nameMapHandler.get(Pages.WIZARD_CHOICE).setGUI(this);
         ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
         ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClicksWizard();
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
     }
 
     /**
@@ -330,7 +338,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
     }
 
     /**
@@ -478,7 +487,8 @@ public final class ViewGUI extends Application implements View {
     public void notifyGameInProgress() {
         this.currentScene = nameMapScene.get(Pages.UNABLE_JOIN);
         nameMapHandler.get(Pages.UNABLE_JOIN).setGUI(this);
-        stage.setScene(currentScene);
+
+        Platform.runLater(() -> stage.setScene(currentScene));
     }
 
     /**
