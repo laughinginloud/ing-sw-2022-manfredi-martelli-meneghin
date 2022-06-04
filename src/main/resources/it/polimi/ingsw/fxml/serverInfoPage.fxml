@@ -20,7 +20,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="serverIP_field" layoutX="290.0" layoutY="303.0" promptText="127.0.0.1">
+      <TextField fx:id="serverIP_field" layoutX="290.0" layoutY="303.0" promptText="localhost">
          <font>
             <Font size="18.0" />
          </font>
@@ -30,7 +30,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="serverPort_field" layoutX="290.0" layoutY="387.0" promptText="3307">
+      <TextField fx:id="serverPort_field" layoutX="290.0" layoutY="387.0" promptText="6556">
          <font>
             <Font size="18.0" />
          </font>
