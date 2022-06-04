@@ -316,8 +316,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        // TODO [Game]
-        ((GameSceneHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).gsRequestPlayCharacterCard(playableCharacterCards);
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestPlayCharacterCard(playableCharacterCards);
     }
 
     /**
@@ -411,7 +411,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestHowManyStudentsToMove(int maxNumOfStudentMovable) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestHowManyStudentsToMove(maxNumOfStudentMovable);
     }
 
     /**

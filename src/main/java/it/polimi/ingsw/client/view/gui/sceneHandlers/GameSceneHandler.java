@@ -4,12 +4,10 @@ import it.polimi.ingsw.client.view.gui.*;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -1977,6 +1975,31 @@ public class GameSceneHandler implements GUIHandler {
 
     //  region Giovanni's activateClicksMethods
 
+    public void activateClicksInputButton() {
+        // Creates a function that will handle the characterCardClick
+        EventHandler<MouseEvent> clickOnInputButtonHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                // Invokes the function clickOnCharacterCard
+                clickOnInputButton(mouseEvent);
+
+                mouseEvent.consume();
+            }
+        };
+
+        // Then links the created handler to the click of the CCImage
+        input_button.setOnMouseClicked(clickOnInputButtonHandler);
+    }
+
+    public void clickOnInputButton(MouseEvent mouseEvent) {
+        deactivateClicksInputButton();
+
+        int studentsToMove = input_spinner.getValue();
+
+        gui.forwardViewToVirtualController(studentsToMove);
+
+        input_pane.setVisible(false);
+    }
 
     // endregion Giovanni's activateClicksMethods
 
@@ -2124,6 +2147,25 @@ public class GameSceneHandler implements GUIHandler {
 
     //  region Giovanni's gsMethodImplementations
 
+    public void gsRequestHowManyStudentsToMove(int maxNumOfStudentMovable) {
+        showInputPane(maxNumOfStudentMovable);
+        activateClicksInputButton();
+        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_NUM_STUDENTS, null);
+        possiblePlay.showAndWait();
+    }
+
+    public void showInputPane(int maxNum) {
+        // Sets a factory integers between 2 and 4
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, maxNum);
+        // Sets default value
+        valueFactory.setValue(1);
+
+        // Assigns the spinnerFactory to the spinner
+        input_spinner.setValueFactory(valueFactory);
+
+        // Shows the inputPane
+        input_pane.setVisible(true);
+    }
 
     // endregion Giovanni's gsMethodImplementations
 }

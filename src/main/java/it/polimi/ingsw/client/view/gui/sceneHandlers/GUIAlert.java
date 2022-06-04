@@ -23,7 +23,7 @@ public enum GUIAlert {
 
     SELECT_CHARACTER_CARD,
 
-    SELECT_ENTRANCE_STUDENT;
+    SELECT_ENTRANCE_STUDENT,
 
 
 
@@ -35,7 +35,7 @@ public enum GUIAlert {
 
     //  region Giovanni's Enum Constants
 
-
+    SELECT_NUM_STUDENTS;
 
     // endregion Giovanni's Enum Constants
 
@@ -122,6 +122,13 @@ public enum GUIAlert {
 
             //  region Giovanni's Cases
 
+            case SELECT_NUM_STUDENTS -> {
+                title       = "Select a number of students to move";
+                headerText  = "You may now select a number of students you wish to move";
+                contentText = "Use the input panel that just appeared to input you choice\n" +
+                              "NB! You are able to choose from a limited set of students";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
             // endregion Giovanni's Cases
         }
