@@ -271,10 +271,6 @@ public final class ViewCLI implements View {
 
     }
 
-    public void requestStudentEntranceSelection(Color[] entranceStudents) {
-
-    }
-
     public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
 
     }

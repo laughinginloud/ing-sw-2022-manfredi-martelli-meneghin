@@ -321,16 +321,6 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Requests the player to choose one student from the entrance, that he will move to another place
-     *
-     * @param entranceStudents The students currently on the entrance that are movable
-     */
-    @Override
-    public void requestStudentEntranceSelection(Color[] entranceStudents) {
-        // TODO [Game]
-    }
-
-    /**
      * Shows to the player the entranceStudents and the playableCharacterCards, waiting for a selection.
      * It sets clickable all and only entranceStudents and playableCharacterCards and based on
      * the click, I'll decide the return
@@ -383,7 +373,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Requests the player to choose a CloudTile from the availableClouds
+     * Requests the player to S a CloudTile from the availableClouds
      *
      * @param availableClouds An array of CloudTile representing the available CloudTiles
      */
@@ -449,7 +439,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromEntrance(Color[] availableColors) {
-        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsChooseStudentFromEntrance(availableColors);
     }
 
     /**

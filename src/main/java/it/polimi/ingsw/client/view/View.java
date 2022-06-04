@@ -92,12 +92,6 @@ public sealed interface View permits ViewCLI, ViewGUI {
     void requestPlayCharacterCard(CharacterCard[] playableCharacterCards);
 
     /**
-     * Requests the player to choose one student from the entrance, that he will move to another place
-     * @param entranceStudents The students currently on the entrance that are movable
-     */
-    void requestStudentEntranceSelection(Color[] entranceStudents);
-
-    /**
      * Shows to the player the entranceStudents and the playableCharacterCards, waiting for a selection.
      * It sets clickable all and only entranceStudents and playableCharactercards and based on
      * the click, I'll decide the return

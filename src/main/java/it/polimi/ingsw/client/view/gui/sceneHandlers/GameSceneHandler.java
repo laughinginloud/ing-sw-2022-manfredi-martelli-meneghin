@@ -1970,6 +1970,32 @@ public class GameSceneHandler implements GUIHandler {
 
     // region Seba's activateClicksMethods
 
+    public void activateClicksEntranceStudents(Color[] availableColors) {
+        Color[] entranceStudents = gui.getLocalPlayer().getSchoolBoard().getEntrance().getStudents();
+
+        ImageView entranceStudentImageView;
+
+        for (Color color : availableColors) {
+            for (int studentPos = 0; studentPos < entranceStudents.length; studentPos++) {
+                if (color.equals(entranceStudents[studentPos])) {
+                    entranceStudentImageView = IDHelper.gsFindStudentEntranceID(this, studentPos);
+
+                    EventHandler<MouseEvent> clickOnEntranceStudentHandler = new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            // Associates to the click of the mouse the function clickOnEntranceStudent
+                            // as response to the user's action
+                            clickOnEntranceStudent(mouseEvent);
+
+                            mouseEvent.consume();
+                        }
+                    };
+
+                    entranceStudentImageView.setOnMouseClicked(clickOnEntranceStudentHandler);
+                }
+            }
+        }
+    }
 
     // endregion Seba's activateClicksMethods
 
@@ -2127,10 +2153,38 @@ public class GameSceneHandler implements GUIHandler {
         ImageView selectedCharacterCardID = (ImageView) mouseEvent.getSource();
 
         // Gets the index from the selected ImgView, then gets the corresponding CharacterCard
-        int characterCardIndex      = InfoHelper.gsFindCharacterCardIndex(selectedCharacterCardID);
-        CharacterCard characterCard = gui.getModel().getCharacterCard(characterCardIndex);
+        int           characterCardIndex = InfoHelper.gsFindCharacterCardIndex(selectedCharacterCardID);
+        CharacterCard characterCard      = gui.getModel().getCharacterCard(characterCardIndex);
 
         gui.forwardViewToVirtualController(characterCard);
+    }
+
+
+
+
+    // region Seba's gsMethodImplementations
+
+    /**
+     * Requests the player to choose a student from his Entrance.
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
+     * @param availableColors The colors correspondent to the students that can be
+     *                        moved/picked from the Entrance
+     */
+    public void gsChooseStudentFromEntrance(Color[] availableColors) {
+        activateClicksEntranceStudents(availableColors);
+
+        Alert selectEntranceStudent = GUIAlert.getAlert(GUIAlert.SELECT_ENTRANCE_STUDENT, "");
+        selectEntranceStudent.showAndWait();
+    }
+
+    public void clickOnEntranceStudent(MouseEvent mouseEvent) {
+        deactivateClicksEntranceStudents();
+
+        ImageView selectedEntranceStudentID    = (ImageView) mouseEvent.getSource();
+        int       selectedEntranceStudentIndex = InfoHelper.gsFindEntranceStudentIndex(selectedEntranceStudentID);
+
+        gui.forwardViewToVirtualController(selectedEntranceStudentIndex);
     }
 
 
@@ -2140,7 +2194,11 @@ public class GameSceneHandler implements GUIHandler {
 
 
 
-    // region Seba's gsMethodImplementations
+
+
+
+
+
 
 
     // endregion Seba's gsMethodImplementations

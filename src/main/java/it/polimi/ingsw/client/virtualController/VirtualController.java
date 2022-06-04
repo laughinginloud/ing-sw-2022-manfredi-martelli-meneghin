@@ -328,7 +328,7 @@ public class VirtualController extends Thread implements Closeable {
                 this.vcState = VCStates.REQ_MOVE_STUD_FIRST;
 
                 // Asks the player which student he would like to move
-                view.requestStudentEntranceSelection(entranceStudents);
+                view.chooseStudentFromEntrance(entranceStudents);
             }
 
             case MOVEMOTHERNATURE           -> {
