@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
-import it.polimi.ingsw.client.view.gui.Pages;
 import javafx.scene.control.Alert;
 
 public enum GUIAlert {
@@ -17,12 +16,15 @@ public enum GUIAlert {
     INVALID_USERNAME,
 
     // Alert showed when the user entered a wrong magicAge (negative)
-    INVALID_MAGICAGE,
+    INVALID_MAGIC_AGE,
 
     // Alert showed when the user has to select an AssistantCard during the PlanPhase
     CHOOSEASSISTANT,
 
-    PLAY_CHARACTERCARD;
+    SELECT_CHARACTER_CARD,
+
+
+    SELECT_ENTRANCE_STUDENT;
 
 
 
@@ -53,31 +55,36 @@ public enum GUIAlert {
 
         // Sets the Alert fields to specific values depending on the
         switch(guiAlterType) {
+
             case EXIT -> {
                 title       = "Exiting the game";
                 headerText  = "You're about to exit the game!";
                 contentText = "You will close Eriantys. Do you want to exit anyways?";
                 alertType   = Alert.AlertType.CONFIRMATION;
             }
+
             case INVALID_IP -> {
                 title       = "Invalid Server IP Address";
                 headerText  = "You have entered an invalid Server IP Address: " + dynamicString;
                 contentText = "Re-enter a valid Server IP Address\n" + "NB! Valid Server IP Addresses are: localhost or 127.0.0.1";
                 alertType   = Alert.AlertType.WARNING;
             }
+
             case INVALID_PORT -> {
                 title       = "Invalid Port";
                 headerText  = "You have entered an invalid Port: " + dynamicString;
                 contentText = "Re-enter a valid Port\n" + "NB! Default Ports is 3307";
                 alertType   = Alert.AlertType.WARNING;
             }
+
             case INVALID_USERNAME -> {
                 title       = "Invalid username";
                 headerText  = "You have entered and invalid Username: " + dynamicString;
                 contentText = "Re-enter a valid username\n" + "NB! A valid username is between 1 and 10 characters";
                 alertType   = Alert.AlertType.WARNING;
             }
-            case INVALID_MAGICAGE -> {
+
+            case INVALID_MAGIC_AGE -> {
                 title       = "Invalid magicAge";
                 headerText  = "You have entered and invalid number of years: " + dynamicString;
                 contentText = "Re-enter a valid number of years\n" + "NB! A valid number of years is positive";
@@ -91,11 +98,20 @@ public enum GUIAlert {
                 alertType   = Alert.AlertType.INFORMATION;
             }
 
-            case PLAY_CHARACTERCARD -> {
-                title       = "Play Character Card";
+            case SELECT_CHARACTER_CARD -> {
+                title       = "Select a Character Card";
+
                 headerText  = "You may now select the CharacterCard you wish to play";
-                contentText = "Remember that you can select only the CharacterCard you can play\n" +
+                contentText = "Remember that you can select only the CharacterCards you can play\n" +
                               "NB! The cost of the card will be automatically deducted from you pool";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
+
+            case SELECT_ENTRANCE_STUDENT -> {
+                title       = "Select a Student from the Entrance";
+                headerText  = "You may now select a student from the entrance you wish to move";
+                contentText = "Remember that you can select only one student each time\n" +
+                              "NB! You won't be able to undo the action";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
