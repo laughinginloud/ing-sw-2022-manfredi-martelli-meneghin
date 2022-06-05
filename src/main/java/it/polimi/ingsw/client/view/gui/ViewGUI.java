@@ -138,35 +138,20 @@ public final class ViewGUI extends Application implements View {
 
     // endregion StartMethods
 
-    //********************************************************************************************************
-
-    // region Testing
+    // region SwitchScene
 
     /**
      * Changes the scene from a scene to the specified one, also sets the gui contained in that handler
-     * @param page the page to switch the scene to
+     * @param nextPage the page to switch the scene to
      */
-    public void changeScene(Pages page){
-        this.currentScene = nameMapScene.get(page);
-        nameMapHandler.get(page).setGUI(this);
-        stage.setScene(currentScene);
-        //stage.show();
-    }
-
-    // endregion Testing
-
-    //********************************************************************************************************
-
-    // region WaitingRoom
-
-    public void switchToWaitingRoomScene() {
-        this.currentScene = nameMapScene.get(Pages.WAITING_ROOM);
-        nameMapHandler.get(Pages.WAITING_ROOM).setGUI(this);
+    public void switchScene(Pages nextPage) {
+        this.currentScene = nameMapScene.get(nextPage);
+        nameMapHandler.get(nextPage).setGUI(this);
 
         Platform.runLater(() -> stage.setScene(currentScene));
     }
 
-    // endregion WaitingRoom
+    // endregion SwitchScene
 
     // region ViewImplementation
 

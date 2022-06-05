@@ -2640,4 +2640,8 @@ public class GameSceneHandler implements GUIHandler {
     //  region Giovanni's gsMethodImplementations
 
     // endregion Giovanni's gsMethodImplementations
+
+    public void switchToPSBScene() {
+        gui.switchScene(Pages.SCHOOL_BOARDS);
+    }
 }

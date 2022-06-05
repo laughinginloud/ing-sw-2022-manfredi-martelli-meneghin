@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
+import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.common.model.Wizard;
 import javafx.event.EventHandler;
@@ -145,7 +146,7 @@ public class WizardChoiceHandler implements GUIHandler {
             }
         }
 
-        gui.switchToWaitingRoomScene();
+        gui.switchScene(Pages.WAITING_ROOM);
     }
 
     /**

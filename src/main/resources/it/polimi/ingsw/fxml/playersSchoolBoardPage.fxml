@@ -1562,11 +1562,11 @@
                   </AnchorPane>
                </children>
             </HBox>
-            <Rectangle fx:id="return_background" arcHeight="5.0" arcWidth="5.0" fill="#d5a88f" height="115.0" stroke="BLACK" strokeType="INSIDE" width="116.0">
+            <Rectangle fx:id="return_background" arcHeight="5.0" arcWidth="5.0" fill="#d5a88f" height="115.0" onMouseClicked="#switchToGS" stroke="BLACK" strokeType="INSIDE" width="116.0">
                <effect>
                   <DropShadow />
                </effect></Rectangle>
-            <ImageView fx:id="return_img" fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="return_img" fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#switchToGS" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/return.png" />
                </image>

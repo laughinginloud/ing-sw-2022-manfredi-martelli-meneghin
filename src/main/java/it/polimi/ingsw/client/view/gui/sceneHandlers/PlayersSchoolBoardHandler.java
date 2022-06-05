@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.view.gui.IDHelper;
+import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.PathHelper;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.common.GameValues;
@@ -1652,6 +1653,11 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     // endregion PSBUpdateAdditionalInfo
 
     // endregion PSBUpdateModel
+
+    public void switchToGS() {
+        gui.switchScene(Pages.GAME_SCENE);
+    }
+
 
     /**
      * Sets the ViewGUI at which the PlayerSchoolBoardHandler is related

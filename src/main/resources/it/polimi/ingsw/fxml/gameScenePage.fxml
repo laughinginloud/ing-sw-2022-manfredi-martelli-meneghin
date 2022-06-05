@@ -1246,11 +1246,11 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <Rectangle fx:id="playerButton_game" arcHeight="5.0" arcWidth="5.0" fill="#d5a88f" height="184.0" layoutX="1372.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" width="71.0">
+                  <Rectangle fx:id="playerButton_game" arcHeight="5.0" arcWidth="5.0" fill="#d5a88f" height="184.0" layoutX="1372.0" layoutY="9.0" onMouseClicked="#switchToPSBScene" stroke="BLACK" strokeType="INSIDE" width="71.0">
                      <effect>
                         <DropShadow />
                      </effect></Rectangle>
-                  <ImageView fx:id="playersIcon_game" fitHeight="52.0" fitWidth="66.0" layoutX="1376.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="playersIcon_game" fitHeight="52.0" fitWidth="66.0" layoutX="1376.0" layoutY="74.0" onMouseClicked="#switchToPSBScene" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/players_icon.png" />
                      </image>
