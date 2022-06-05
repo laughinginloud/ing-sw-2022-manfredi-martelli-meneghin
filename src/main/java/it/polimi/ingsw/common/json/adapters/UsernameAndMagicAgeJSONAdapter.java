@@ -50,6 +50,8 @@ public class UsernameAndMagicAgeJSONAdapter extends TypeAdapter<UsernameAndMagic
             jsonReader.peek();
         }
 
+        jsonReader.endObject();
+
         return new UsernameAndMagicAge(username, magicAge);
     }
 }
