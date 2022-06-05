@@ -555,19 +555,21 @@ public final class ViewCLI implements View {
 
     @Override
     public void setUsernameVirtualController(String readUsername) {
-        virtualController.setUsername(readUsername);
+
     }
 
     @Override
-    public void setUsernameVirtualController(String readUsername) {
-
-    }
-
-    public void setVirtualController(VirtualController virtualController) {
-
-    }
-
     public void signalWinner(Player winner) {
+
+    }
+
+    @Override
+    public void signalWinner(List<Player> team) {
+
+    }
+
+    @Override
+    public void signalDraw(List<Player> drawers) {
 
     }
 
