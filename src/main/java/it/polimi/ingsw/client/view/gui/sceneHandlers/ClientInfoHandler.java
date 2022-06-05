@@ -63,7 +63,7 @@ public class ClientInfoHandler implements GUIHandler {
 
         // Reads the username entered sanitizing it and raising an alert if it's incorrect
         String readUsername = UsernameAndMagicAge.sanitizeUsername(username_field.getText());
-        if (!UsernameAndMagicAge.checkUsername(readUsername, forbiddenUsernames)) {
+        if (UsernameAndMagicAge.checkUsername(readUsername, forbiddenUsernames) != UsernameAndMagicAge.UsernameResult.OK) {
             submitAgain = GUIAlert.getAlert(GUIAlert.INVALID_USERNAME, readUsername);
         }
 

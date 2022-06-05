@@ -26,10 +26,19 @@ public record UsernameAndMagicAge(String username, int magicAge) {
      * - A string not contained in the set forbiddenUsernames
      * @param username the username to check
      * @param forbiddenUsernames the set of forbidden usernames
-     * @return true if the condition is reached, false otherwise
+     * @return The result of the check
      */
-    public static boolean checkUsername(String username, Set<String> forbiddenUsernames){
-        return username != null && (username.length() > 0 && username.length() <= 10) && !forbiddenUsernames.contains(username);
+    public static UsernameResult checkUsername(String username, Set<String> forbiddenUsernames){
+        if (username == null)
+            return UsernameResult.NULL;
+
+        if (username.length() > 10)
+            return UsernameResult.LONG;
+
+        if (forbiddenUsernames.contains(username))
+            return UsernameResult.CHOSEN;
+
+        return UsernameResult.OK;
     }
 
     /**
@@ -59,5 +68,12 @@ public record UsernameAndMagicAge(String username, int magicAge) {
      */
     public static boolean checkMagicAge(String magicAge) throws NumberFormatException{
         return checkMagicAge(parseMagicAge(magicAge));
+    }
+
+    /**
+     * An enum to represent the result of the username check
+     */
+    public enum UsernameResult {
+        OK, LONG, CHOSEN, NULL;
     }
 }
