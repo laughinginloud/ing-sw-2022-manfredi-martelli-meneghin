@@ -211,12 +211,14 @@ public sealed interface View permits ViewCLI, ViewGUI {
     void notifyPlayerDisconnection();
 
     /**
-     * Notifies the player about the beginning of his turn
+     * Notifies the player about the beginning of another player's turn
+     * @param playingPlayerUsername The username of the currentPlayer, that is the
+     *                              player which is beginning his actionPhase turn
      */
     void notifyStartGameTurn(String playingPlayerUsername);
 
     /**
-     * Notifies the player his turn has ended
+     * Notifies the player that his turn is ended
      */
     void notifyEndOfTurn();
 

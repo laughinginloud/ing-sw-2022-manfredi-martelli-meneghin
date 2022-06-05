@@ -523,7 +523,9 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Notifies the player about the beginning of his turn
+     * Notifies the player about the beginning of another player's turn
+     * @param playingPlayerUsername The username of the currentPlayer, that is the
+     *                              player which is beginning his actionPhase turn
      */
     @Override
     // TODO [Implement -> Game]
