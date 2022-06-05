@@ -16,10 +16,7 @@ import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
 import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 
-import java.io.Closeable;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
@@ -49,6 +46,8 @@ public class VirtualController extends Thread implements Closeable {
 
         // Sets himself as the VirtualController linked to the View that just invoked this method
         view.setVirtualController(this);
+
+        start();
     }
 
     public void close() {
@@ -62,13 +61,18 @@ public class VirtualController extends Thread implements Closeable {
     }
 
     public void run() {
-        while (!interrupted()) {
+        while (!isInterrupted()) {
             try {
                 messageInterpreter(messageBuilder.fromJson(inputStream.readUTF(), Message.class));
             }
 
+            catch (EOFException ignored) {}
+
             // If the input stream timeouts, it means that the server is offline, as I should receive at least a ping
             catch (Exception ignored) {
+                if (isInterrupted())
+                    return;
+
                 view.signalConnectionError();
                 close();
             }

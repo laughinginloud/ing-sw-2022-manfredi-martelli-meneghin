@@ -48,6 +48,9 @@ public class VirtualView extends Thread implements AutoCloseable {
      */
     public void close() {
         try {
+            if (isInterrupted())
+                return;
+
             // Stop the thread and close the socket
             interrupt();
             socket.close();
@@ -80,7 +83,7 @@ public class VirtualView extends Thread implements AutoCloseable {
     public synchronized GameCommand getMessage() throws SocketException {
         Message msg;
 
-        while (true) {
+        while (!isInterrupted()) {
             try {
                 msg = MessageBuilder.jsonToMessage(inputStream.readUTF());
 
@@ -94,8 +97,33 @@ public class VirtualView extends Thread implements AutoCloseable {
                     return MessageBuilder.messageToCommand(msg);
             }
 
-            catch (NotPongException e) {
-                return e.getCommand();
+            catch (EOFException ignored) {
+                try {
+                    sleep(1000);
+                    sendPing();
+                }
+
+                catch (NotPongException e) {
+                    e.getCommand().executeCommand();
+                }
+
+                catch (Exception e) {
+                    endThread();
+                }
+            }
+
+            catch (SocketTimeoutException ignored) {
+                try {
+                    sendPing();
+                }
+
+                catch (NotPongException e) {
+                    return e.getCommand();
+                }
+
+                catch (SocketException ignore) {
+                    endThread();
+                }
             }
 
             catch (Exception ignored) {
@@ -103,6 +131,8 @@ public class VirtualView extends Thread implements AutoCloseable {
                 throw new SocketException(); //TODO: controllare che tutti la gestiscano correttamente
             }
         }
+
+        throw new SocketException();
     }
 
     /**
@@ -117,7 +147,7 @@ public class VirtualView extends Thread implements AutoCloseable {
     }
 
     public void run() {
-        while (!interrupted()) {
+        while (!isInterrupted()) {
             try {
                 Message msg = MessageBuilder.jsonToMessage(inputStream.readUTF());
 
@@ -139,7 +169,7 @@ public class VirtualView extends Thread implements AutoCloseable {
                 }
 
                 catch (SocketException e) {
-                    return;
+                    endThread();
                 }
 
                 catch (NotPongException e) {
@@ -159,7 +189,7 @@ public class VirtualView extends Thread implements AutoCloseable {
      * @throws NotPongException Throws an exception to signal that a command different from a ping response as been received
      * @throws SocketException Throws a socket exception if the connection has been closed
      */
-    private void sendPing() throws NotPongException, SocketException {
+    private synchronized void sendPing() throws NotPongException, SocketException {
         Message pong = null;
 
         try {
