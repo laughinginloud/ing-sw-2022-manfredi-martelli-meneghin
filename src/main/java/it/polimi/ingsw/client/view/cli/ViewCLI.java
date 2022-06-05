@@ -548,8 +548,14 @@ public final class ViewCLI implements View {
 
     }
 
+    @Override
     public void forwardViewToVirtualController(Object infoToSend) {
+        virtualController.messageAfterUserInteraction(infoToSend);
+    }
 
+    @Override
+    public void setUsernameVirtualController(String readUsername) {
+        virtualController.setUsername(readUsername);
     }
 
     @Override
@@ -565,11 +571,23 @@ public final class ViewCLI implements View {
 
     }
 
-    public void signalWinner(List<Player> team) {
-
+    @Override
+    public GameModel getModel() {
+        return model;
     }
 
-    public void signalDraw(List<Player> drawers) {
+    @Override
+    public Player getLocalPlayer() {
+        return Arrays.stream(model.getPlayer()).reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2).get();
+    }
 
+    @Override
+    public void setModel(GameModel model) {
+        this.model = model;
+    }
+
+    @Override
+    public void setVirtualController(VirtualController virtualController) {
+        this.virtualController = virtualController;
     }
 }
