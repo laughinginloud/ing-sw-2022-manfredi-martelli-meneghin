@@ -221,33 +221,239 @@ public final class ViewCLI implements View {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-    }
-
-    public void updateModel(GameModel model, Set<GameValues> updatedValues) {
-
     }
 
     @Override
-    public void setModel(GameModel model) {
-
-    }
-
-    public GameModel getModel() {
-        return null;
-    }
-
-    @Override
-    public Player getLocalPlayer() {
-        return null;
-    }
-
-    public void askAddress() {
-
-    }
-
+    @SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue"})
     public void askRules() {
+        try {
+            Integer numOfPlayers = null;
+            Boolean expertMode   = null;
 
+            int numSel = 0;
+            int expSel = 0;
+
+            int okSel = 0;
+
+            hideCursor(writer);
+
+            // Main menu
+            MENU:
+            while (true) {
+                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                menu.add("");
+                menu.add("Please select the rules of the game");
+                menu.add("");
+                menu.add("How many players will the game have?");
+
+                List<String> numOptions = new ArrayList<>(3);
+                numOptions.add("> 2");
+                numOptions.add("> 3");
+                numOptions.add("> 4");
+
+                numOptions.set(numSel, Ansi.colorString(numOptions.get(numSel), CYAN));
+                menu.addAll(numOptions);
+
+                // If no players have been selected, print the selection
+                if (numOfPlayers == null) {
+                    display.clear();
+                    display.updateAnsi(menu, 0);
+
+                    // Key pressing loop
+                    KEYPRESS:
+                    while (true) {
+                        // If no keys have been pressed just wait for them
+                        if (keyStream.available() == 0)
+                            continue KEYPRESS;
+
+                        // Interpret the availale key
+                        switch (Key.parseKey(keyStream)) {
+                            // Tab, down arrow or right arrow: go to next menu item
+                            case TAB, DOWN_ARROW, RIGHT_ARROW -> {
+                                numSel = (numSel + 1) % 3;
+                                continue MENU;
+                            }
+
+                            // Up arrow or left arrow: go to the previous menu item
+                            case UP_ARROW, LEFT_ARROW -> {
+                                numSel = (numSel + 2) % 3;
+                                continue MENU;
+                            }
+
+                            // Number two: jump to two players
+                            case TWO -> {
+                                numSel = 0;
+                                continue MENU;
+                            }
+
+                            // Number three: jump to three players
+                            case THREE -> {
+                                numSel = 1;
+                                continue MENU;
+                            }
+
+                            // Number three: jump to four players
+                            case FOUR -> {
+                                numSel = 2;
+                                continue MENU;
+                            }
+
+                            // Return: select the item
+                            case ENTER -> {
+                                numOfPlayers = numSel + 2;
+                                continue MENU;
+                            }
+
+                            // Otherwise, just read the next keypress
+                            default -> {
+                                continue KEYPRESS;
+                            }
+                        }
+                    }
+                }
+
+                menu.add("");
+                menu.add("Will the game be played with the expert rules?");
+
+                List<String> expOptions = new ArrayList<>(2);
+                expOptions.add("> Yes");
+                expOptions.add("> No");
+
+                expOptions.set(expSel, Ansi.colorString(expOptions.get(expSel), CYAN));
+
+                menu.addAll(expOptions);
+
+                if (expertMode == null) {
+                    display.clear();
+                    display.updateAnsi(menu, 0);
+
+                    // Key pressing loop
+                    KEYPRESS:
+                    while (true) {
+                        // If no keys have been pressed just wait for them
+                        if (keyStream.available() == 0)
+                            continue KEYPRESS;
+
+                        // Interpret the availale key
+                        switch (Key.parseKey(keyStream)) {
+                            // Tab, down arrow or right arrow: go to next menu item
+                            case TAB, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW -> {
+                                expSel = (expSel + 1) % 2;
+                                continue MENU;
+                            }
+
+                            // Number one or Y key: jump to yes
+                            case ONE, Y -> {
+                                expSel = 0;
+                                continue MENU;
+                            }
+
+                            // Number two or N key: jump to no
+                            case TWO, N -> {
+                                expSel = 1;
+                                continue MENU;
+                            }
+
+                            // Return: select the item
+                            case ENTER -> {
+                                expertMode = expSel == 1;
+                                continue MENU;
+                            }
+
+                            // Otherwise, just read the next keypress
+                            default -> {
+                                continue KEYPRESS;
+                            }
+                        }
+                    }
+                }
+
+                menu.clear();
+                menu.addAll(TermConstants.logoList);
+                menu.add("");
+                menu.add("Selected options:");
+                menu.add("Number of players: " + numOfPlayers);
+                menu.add("Expert rules: " + (expertMode ? "Yes" : "No"));
+                menu.add("");
+                menu.add("Is this okay?");
+
+                if (okSel == 0) {
+                    menu.add(Ansi.colorString("> Yes", CYAN));
+                    menu.add("> No");
+                }
+
+                else {
+                    menu.add("> Yes");
+                    menu.add(Ansi.colorString("> No", CYAN));
+                }
+
+                display.clear();
+                display.updateAnsi(menu, 0);
+
+                // Key pressing loop
+                KEYPRESS:
+                while (true) {
+                    // If no keys have been pressed just wait for them
+                    if (keyStream.available() == 0)
+                        continue KEYPRESS;
+
+                    // Interpret the availale key
+                    switch (Key.parseKey(keyStream)) {
+                        // Tab or an arrow: go to next menu item (which is also the previous, since there are only two)
+                        case TAB, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW -> {
+                            okSel = (okSel + 1) % 2;
+                            continue MENU;
+                        }
+
+                        // Number one or Y key: jump to yes
+                        case ONE, Y -> {
+                            okSel = 0;
+                            continue MENU;
+                        }
+
+                        // Number two or N key: jump to no
+                        case TWO, N -> {
+                            okSel = 1;
+                            continue MENU;
+                        }
+
+                        // Return: select the item
+                        case ENTER -> {
+                            switch (okSel) {
+                                // Selected yes, so forward the rules
+                                case 0 -> {
+                                    forwardViewToVirtualController(new GameRules(numOfPlayers, expertMode));
+                                    showCursor(writer);
+                                    return;
+                                }
+
+                                // Selected no, so reset all options to the default
+                                case 1 -> {
+                                    numSel = 0;
+                                    numOfPlayers = null;
+
+                                    expSel = 0;
+                                    expertMode = null;
+
+                                    okSel = 0;
+
+                                    continue MENU;
+                                }
+                            }
+                        }
+
+                        // Otherwise, just read the next keypress
+                        default -> {
+                            continue KEYPRESS;
+                        }
+                    }
+                }
+            }
+        }
+
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void askReloadGame() {
