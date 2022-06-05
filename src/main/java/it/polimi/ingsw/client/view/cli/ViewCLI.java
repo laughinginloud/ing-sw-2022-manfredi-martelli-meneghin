@@ -6,8 +6,10 @@ import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.termutils.Ansi;
+import it.polimi.ingsw.common.termutils.Key;
 import it.polimi.ingsw.common.termutils.TermConstants;
 import it.polimi.ingsw.common.utils.Tuple;
+import it.polimi.ingsw.common.viewRecord.GameRules;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.Attributes;
@@ -19,9 +21,7 @@ import org.jline.utils.InfoCmp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 
@@ -37,6 +37,11 @@ public final class ViewCLI implements View {
     private final PrintWriter writer;
     private final LineReader  reader;
     private final InputStream keyStream;
+
+    private Address address;
+
+    private VirtualController virtualController;
+    private GameModel model;
 
     // endregion
 
@@ -117,104 +122,105 @@ public final class ViewCLI implements View {
         }
     }
 
-    public void setUpBoard() {
+    public void askAddress() {
+        try {
+            // Both tuples contain a string representing a candidate for the value
+            // and a bool representing whether that value is acceptable
+            Tuple<String, Boolean> ip   = new Tuple<>(null, false);
+            Tuple<String, Boolean> port = new Tuple<>(null, false);
 
-    }
+            do {
+                //Update the console with the logo
+                display.clear();
+                display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
 
-    public Address requestAddress() throws IOException {
-        // Both tuples contain a string representing a candidate for the value
-        // and a bool representing whether that value is acceptable
-        Tuple<String, Boolean> ip   = new Tuple<>(null, false);
-        Tuple<String, Boolean> port = new Tuple<>(null, false);
+                // Print the request for the IP
+                // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
+                writer.println("Welcome to the magical world of Eriantys!");
+                writer.println();
+                writer.print("Please enter the IP address of the server you're trying to connect to:");
+                writer.print(" ");
 
-        do {
-            //Update the console with the logo
-            display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+                // Check if there is an illegal candidate for the value
+                if (ip.right()) {
+                    // Print the candidate on a red background with an error message
+                    writer.print(colorString(ip.left() + " is not a valid IP address", Ansi.BACKGROUND_RED));
 
-            // Print the request for the IP
-            // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
-            writer.println("Welcome to the magical world of Eriantys!");
-            writer.println();
-            writer.print("Please enter the IP address of the server you're trying to connect to:");
-            writer.print(" ");
+                    // Reset the tuple
+                    ip = new Tuple<>(null, false);
 
-            // Check if there is an illegal candidate for the value
-            if (ip.right()) {
-                // Print the candidate on a red background with an error message
-                writer.print(colorString(ip.left() + " is not a valid IP address", Ansi.BACKGROUND_RED));
+                    // Wait for a generic key, hiding the cursor
+                    hideCursor(writer);
+                    keyStream.read();
+                    showCursor(writer);
 
-                // Reset the tuple
-                ip = new Tuple<>(null, false);
-
-                // Wait for a generic key, hiding the cursor
-                hideCursor(writer);
-                keyStream.read();
-                showCursor(writer);
-
-                continue;
-            }
-
-            // Otherwise, check if there is not a candidate
-            else if (ip.left() == null) {
-                // Read an IP, sanitizing it in the process as the unsatized version is currently useless
-                String readIP = Address.sanitizeIP(reader.readLine());
-
-                // If the IP is incorrect, add it to the tuple and print again the menu, to highlight it with an error
-                if (!Address.checkIP(readIP)) {
-                    ip = new Tuple<>(readIP, true);
                     continue;
                 }
 
-                // Otherwise, the candidate is correct, so update the tuple accordingly
-                ip = new Tuple<>(readIP, false);
-                moveCursor(writer, Ansi.Direction.UP, 5);
-                continue;
-            }
+                // Otherwise, check if there is not a candidate
+                else if (ip.left() == null) {
+                    // Read an IP, sanitizing it in the process as the unsatized version is currently useless
+                    String readIP = Address.sanitizeIP(reader.readLine());
 
-            // Otherwise, there already is a correct candidate, so print it
-            else
-                writer.println(colorString(ip.left(), Ansi.GREEN));
+                    // If the IP is incorrect, add it to the tuple and print again the menu, to highlight it with an error
+                    if (!Address.checkIP(readIP)) {
+                        ip = new Tuple<>(readIP, true);
+                        continue;
+                    }
 
-            // Print the request for the port number
-            // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
-            writer.println();
-            writer.print("Please enter the server port:");
-            writer.print(" ");
+                    // Otherwise, the candidate is correct, so update the tuple accordingly
+                    ip = new Tuple<>(readIP, false);
+                    moveCursor(writer, Ansi.Direction.UP, 5);
+                    continue;
+                }
 
-            // Check if there is an illegal candidate for the value
-            if (port.right()) {
-                // Print the candidate on a red background with an error message
-                writer.print(colorString(port.left() + " is not a valid port number", Ansi.BACKGROUND_RED));
+                // Otherwise, there already is a correct candidate, so print it
+                else
+                    writer.println(colorString(ip.left(), Ansi.GREEN));
 
-                // Reset the tuple
-                port = new Tuple<>(null, false);
+                // Print the request for the port number
+                // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
+                writer.println();
+                writer.print("Please enter the server port:");
+                writer.print(" ");
 
-                // Wait for a generic key, hiding the cursor
-                hideCursor(writer);
-                keyStream.read();
-                showCursor(writer);
+                // Check if there is an illegal candidate for the value
+                if (port.right()) {
+                    // Print the candidate on a red background with an error message
+                    writer.print(colorString(port.left() + " is not a valid port number", Ansi.BACKGROUND_RED));
 
-                continue;
-            }
+                    // Reset the tuple
+                    port = new Tuple<>(null, false);
 
-            // Otherwise, read the port and try to parse it
-            String readPort = reader.readLine();
-            try {
-                // Filter for well known ports, that will not be accepted
-                if (Address.checkPort(port.left()))
-                    return new Address(ip.left(), Address.parsePort(port.left()));
-            }
+                    // Wait for a generic key, hiding the cursor
+                    hideCursor(writer);
+                    keyStream.read();
+                    showCursor(writer);
 
-            // If the port cannot be parsed, simply ignore the exception
-            catch (NumberFormatException ignored) {}
+                    continue;
+                }
 
-            // The port number is illegal because of parsing or for beign well known, so update the tuple accordingly
-            port = new Tuple<>(readPort, true);
-        } while (true);
-    }
+                // Otherwise, read the port and try to parse it
+                String readPort = reader.readLine();
+                try {
+                    // Filter for well known ports, that will not be accepted
+                    if (Address.checkPort(port.left())){
+                        address = new Address(ip.left(), Address.parsePort(port.left()));
+                        return;
+                    }
+                }
 
-    public void signalConnectionError() {
+                // If the port cannot be parsed, simply ignore the exception
+                catch (NumberFormatException ignored) {}
+
+                // The port number is illegal because of parsing or for beign well known, so update the tuple accordingly
+                port = new Tuple<>(readPort, true);
+            } while (true);
+        }
+
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
