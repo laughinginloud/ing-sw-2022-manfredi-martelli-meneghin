@@ -1,14 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.EndGameHandler"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane fx:id="endGame_borderPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.EndGameHandler">
+   <center>
+      <AnchorPane fx:id="endGame_pane" prefHeight="1072.0" prefWidth="1622.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="background_img" fitHeight="1079.0" fitWidth="1623.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/end_page.png" />
+               </image>
+               <effect>
+                  <BoxBlur iterations="3" />
+               </effect>
+            </ImageView>
+            <Label fx:id="title_pane" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="99.0" prefHeight="160.0" prefWidth="1622.0" text="End of the Game!" textFill="WHITE">
+               <font>
+                  <Font size="130.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+            <Label fx:id="description_label" alignment="CENTER" layoutX="4.0" layoutY="246.0" prefHeight="99.0" prefWidth="1619.0" text="And the winners are ..." textFill="WHITE">
+               <font>
+                  <Font size="80.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+            <GridPane fx:id="winners_gridPane" alignment="CENTER" layoutY="449.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="393.0" prefWidth="1622.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="333.0" minHeight="10.0" prefHeight="333.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fx:id="wizard0_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/wizards/0_NATURE.jpg" />
+                     </image>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <ImageView fx:id="wizard1_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../images/wizards/1_DESERT.jpg" />
+                     </image>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <ImageView fx:id="wizard2_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../images/wizards/2_CLOUD.jpg" />
+                     </image>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <ImageView fx:id="wizard3_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../images/wizards/3_SNOW.jpg" />
+                     </image>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="user0_label" alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="407.0" text="UsernameWin0" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Label fx:id="user1_label" alignment="CENTER" prefHeight="63.0" prefWidth="418.0" text="UsernameWin1" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Label fx:id="user2_label" alignment="CENTER" prefHeight="63.0" prefWidth="417.0" text="UsernameWin2" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Label fx:id="user3_label" alignment="CENTER" prefHeight="63.0" prefWidth="429.0" text="UsernameWin3" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
