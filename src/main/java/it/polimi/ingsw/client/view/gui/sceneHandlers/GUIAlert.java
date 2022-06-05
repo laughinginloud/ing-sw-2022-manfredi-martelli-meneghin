@@ -56,13 +56,26 @@ public enum GUIAlert {
     // CharacterCard or a student from the Entrance (used only in the expert mode)
     SELECT_ENTRANCE_STUDENT_OR_CC,
 
-
-
-    // region Seba's Enum Constants
-
     // Alert showed when the user has to decide where to move the entranceStudent he selected
     // He can choose to move it on an Island or in one of the compatible DiningRoomTables
     MOVE_ENTRANCE_STUDENT_DR_OR_ISL,
+
+    // Alert showed when the user has to decide on which Island move MotherNature,
+    // according to the movementPoints of the AssistantCard he selected during the planPhase
+    MOVE_MOTHER_NATURE,
+
+    // Alert showed when the user has to select an element between a CharacterCard
+    // or an Island where to move MotherNature (used only in the expert mode)
+    MOVE_MOTHER_NATURE_OR_CC,
+
+    // Alert showed when the user has to decided whether to play a characterCard or
+    // ends his turn
+    ASK_END_OF_TURN;
+
+
+
+
+    // region Seba's Enum Constants
 
     // endregion Seba's Enum Constants
 
@@ -70,9 +83,8 @@ public enum GUIAlert {
 
     //  region Giovanni's Enum Constants
 
-    ASK_END_OF_TURN;
-
     // endregion Giovanni's Enum Constants
+
 
 
 
@@ -203,15 +215,11 @@ public enum GUIAlert {
             }
 
             case SELECT_ENTRANCE_STUDENT_OR_CC -> {
-                title       = "Select a student in the Entrance to move or select a CharacterCard";
-                headerText  = "You may now select a student from the entrance you wish to move or select a CharacterCard";
+                title       = "Select a Student or a CharacterCard";
+                headerText  = "You may now select a student from the Entrance you wish to move or select a CharacterCard";
                 contentText = "After pressing a student in the entrance you won't be able to use a CC util the next phase";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
-
-
-
-            // region Seba's Cases
 
             case MOVE_ENTRANCE_STUDENT_DR_OR_ISL -> {
                 title       = "Decide where to move the selected Student";
@@ -222,12 +230,22 @@ public enum GUIAlert {
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
-            // endregion Seba's Cases
+            case MOVE_MOTHER_NATURE              -> {
+                title       = "Select in Island";
+                headerText  = "You may now decide where you want to more MotherNature ";
+                contentText = "You can move MotherNature as far as the AssistantCards you played in the" +
+                              "PlanPhase allows you to do";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
+            case MOVE_MOTHER_NATURE_OR_CC        -> {
+                title       = "Select an Island or a CharacterCard!";
+                headerText  = "You may now decide if move MotherNature or play before a CharacterCard ";
+                contentText = "You can move MotherNature as far as the AssistantCards you played in the" +
+                              "PlanPhase allows you to do or choose a CharacterCard which is not too expensive!";
+                alertType   =  Alert.AlertType.INFORMATION;
 
-
-
-            // region Giovanni's Cases
+            }
 
             case ASK_END_OF_TURN -> {
                 title       = "Ending the turn";
@@ -235,6 +253,18 @@ public enum GUIAlert {
                 contentText = "If you press OK you will end you turn and pass to the next player. Do you wish to continue?";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
+
+
+
+
+            // region Seba's Cases
+
+            // endregion Seba's Cases
+
+
+
+
+            // region Giovanni's Cases
 
             // endregion Giovanni's Cases
 

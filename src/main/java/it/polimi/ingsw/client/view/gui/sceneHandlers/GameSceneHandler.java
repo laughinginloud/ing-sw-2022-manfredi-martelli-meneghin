@@ -1962,12 +1962,6 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
-    // endregion ActivateClicks
-
-
-
-    // region Seba's activateClicksMethods
-
     public void activateClicksEntranceStudents(Color[] availableColors, boolean otherElementsClickable) {
         Color[] entranceStudents = gui.getLocalPlayer().getSchoolBoard().getEntrance().getStudents();
 
@@ -1995,7 +1989,7 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
-    public void activateClicksIslands(Island[] availableIslands) {
+    public void activateClicksIslands(Island[] availableIslands, boolean otherElementsClickable) {
         Island[] islandFromModel = gui.getModel().getIslands();
         int      islandCount     = islandFromModel.length;
 
@@ -2013,7 +2007,7 @@ public class GameSceneHandler implements GUIHandler {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         // Invokes the function clickOnIsland
-                        clickOnIsland(mouseEvent);
+                        clickOnIsland(mouseEvent, otherElementsClickable);
 
                         mouseEvent.consume();
                     }
@@ -2185,10 +2179,10 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
-
-    // endregion Seba's activateClicksMethods
-
-    //  region Giovanni's activateClicksMethods
+    public void activateClicksIslandsAndCCs(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
+        activateClicksIslands(possibleMovement, true);
+        activateClicksCharacterCards(playableCharacterCards, true);
+    }
 
     public void activateClicksInputButton() {
         // Creates a function that will handle the characterCardClick
@@ -2215,6 +2209,19 @@ public class GameSceneHandler implements GUIHandler {
 
         input_pane.setVisible(false);
     }
+
+    // endregion ActivateClicks
+
+
+
+
+    // region Seba's activateClicksMethods
+
+    // endregion Seba's activateClicksMethods
+
+
+
+    //  region Giovanni's activateClicksMethods
 
     // endregion Giovanni's activateClicksMethods
 
@@ -2351,11 +2358,6 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(characterCard);
     }
 
-
-
-
-    // region Seba's gsMethodImplementations
-
     /**
      * Requests the player to choose a student from his Entrance.
      * It sets to "clickable" only the students colored as the students contained in "availableColors"
@@ -2389,13 +2391,16 @@ public class GameSceneHandler implements GUIHandler {
      * @param availableIslands An array of Island representing the Island that can be chosen by the player
      */
     public void gsRequestChooseIsland(Island[] availableIslands) {
-        activateClicksIslands(availableIslands);
+        activateClicksIslands(availableIslands, false);
 
         Alert selectIsland = GUIAlert.getAlert(GUIAlert.SELECT_ISLAND, "");
         selectIsland.showAndWait();
     }
 
-    public void clickOnIsland(MouseEvent mouseEvent) {
+    public void clickOnIsland(MouseEvent mouseEvent, boolean otherElementsClickable) {
+        // If the player chose the Island when also CharacterCards were clickable, deactivates all of them
+        if (otherElementsClickable) { deactivateClicksCharacterCards(); }
+
         deactivateClicksIslands();
 
         AnchorPane selectedIslandPaneID = (AnchorPane) mouseEvent.getSource();
@@ -2557,27 +2562,35 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(infoFromIslandClick);
     }
 
+    /**
+     * Requests the player how far he wants to move MotherNature
+     * It sets to clickable only the Islands that can be selected by the player, according to the
+     * provided Islands' array
+     *
+     * @param possibleMovement An array containing the Islands that can be moved by the player
+     */
+    public void gsRequestMotherNatureMovement(Island[] possibleMovement) {
+        activateClicksIslands(possibleMovement, false);
 
+        Alert moveMotherNature = GUIAlert.getAlert(GUIAlert.MOVE_MOTHER_NATURE, "");
+        moveMotherNature.showAndWait();
+    }
 
+    /**
+     * Requests the player to move motherNature among the possible islands.
+     * Shows to the player the Islands where motherNature could be moved and the CharacterCards
+     * that can be played. It sets to clickable only the Islands that can be selected by the player,
+     * according to the provided Islands' array and only the playable CharacterCards
+     *
+     * @param possibleMovement       An array containing the Islands that can be moved by the player
+     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
+     */
+    public void gsRequestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
+        activateClicksIslandsAndCCs(possibleMovement, playableCharacterCards);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // endregion Seba's gsMethodImplementations
-
-    //  region Giovanni's gsMethodImplementations
+        Alert moveMotherNatureOrPlayCC = GUIAlert.getAlert(GUIAlert.MOVE_MOTHER_NATURE, "");
+        moveMotherNatureOrPlayCC.showAndWait();
+    }
 
     public void gsRequestHowManyStudentsToMove (int maxNumOfStudentMovable) {
         showInputPane(maxNumOfStudentMovable);
@@ -2612,6 +2625,19 @@ public class GameSceneHandler implements GUIHandler {
             gui.forwardViewToVirtualController(false);
         }
     }
+
+
+
+
+
+    // region Seba's gsMethodImplementations
+
+    // endregion Seba's gsMethodImplementations
+
+
+
+
+    //  region Giovanni's gsMethodImplementations
 
     // endregion Giovanni's gsMethodImplementations
 }

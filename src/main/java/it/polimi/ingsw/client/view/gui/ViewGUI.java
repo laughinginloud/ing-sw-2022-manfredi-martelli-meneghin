@@ -369,6 +369,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMotherNatureMovement(Island[] possibleMovement) {
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestMotherNatureMovement(possibleMovement);
     }
 
     /**
@@ -381,9 +383,9 @@ public final class ViewGUI extends Application implements View {
      * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
      */
     @Override
-    // TODO [Implement -> Game]
     public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
-
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
     }
 
     /**
