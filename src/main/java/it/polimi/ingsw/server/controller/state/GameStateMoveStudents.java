@@ -29,10 +29,10 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
 
     public void executeState() {
         try {
-            ControllerData data       = ControllerData.getInstance();
-            Player         player     = updateCurrentPlayer();
-            VirtualView    playerView = data.getPlayerView(player);
-            boolean        expertMode = data.getExpertMode();
+            ControllerData data          = ControllerData.getInstance();
+            Player         currentPlayer = updateCurrentPlayer();
+            VirtualView    playerView    = data.getPlayerView(currentPlayer);
+            boolean        expertMode    = data.getExpertMode();
 
             // If it's an expertMode game, set the flag hasPlayedCard to "false"
             if (expertMode)
@@ -45,8 +45,19 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 case 3    -> numOfMovements = 4;
             }
 
+            // Notify all the not-current Players about the beginning of the currentPlayer ActionTurn
+            Player[] players = data.getGameModel().getPlayer();
+            for (Player playerToUpdate : players) {
+                if (playerToUpdate.getUsername() != currentPlayer.getUsername()) {
+
+                    VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
+                    GameCommand update             = new GameCommandNotifyBeginningTurn(currentPlayer.getUsername());
+                    playerToUpdateView.sendMessage(update);
+                }
+            }
+
             for (int i = 0; i < numOfMovements && !data.checkWinTrigger(); i++)
-                moveOneStudent(player, playerView);
+                moveOneStudent(currentPlayer, playerView);
         }
 
         catch (Exception e){

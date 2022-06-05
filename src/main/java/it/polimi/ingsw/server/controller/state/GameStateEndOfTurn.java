@@ -95,6 +95,12 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                         throw new IllegalStateException("Wrong command received: " + response);
                 }
             }
+
+            // If the player can't play a CharacterCard, notify him about the end of his actionPhase turn
+            else {
+                GameCommand update = new GameCommandNotifyEndTurn();
+                curPlayerView.sendMessage(update);
+            }
         }
 
         catch (Exception e) {
@@ -125,6 +131,4 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
 
         ControllerData.getInstance().setExcludedColor(null);
     }
-
-
 }
