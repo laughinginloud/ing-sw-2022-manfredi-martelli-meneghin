@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,26 +20,41 @@
          <font>
             <Font size="20.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
       <TextField fx:id="serverIP_field" layoutX="290.0" layoutY="303.0" promptText="localhost">
          <font>
             <Font size="18.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </TextField>
       <Label fx:id="serverPort_label" layoutX="316.0" layoutY="351.0" text="Enter the server port" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
       <TextField fx:id="serverPort_field" layoutX="290.0" layoutY="387.0" promptText="6556">
          <font>
             <Font size="18.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </TextField>
       <Button fx:id="serverInfo_submit" layoutX="362.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#submitServerInfo" text="Submit">
          <font>
             <Font size="18.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Button>
    </children>
 </AnchorPane>

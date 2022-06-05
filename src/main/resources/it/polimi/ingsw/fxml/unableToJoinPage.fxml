@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,11 +18,17 @@
          <font>
             <Font size="24.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
       <Label fx:id="unableToJoin_text" layoutX="258.0" layoutY="331.0" text="Please exit the game and try again" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
    </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,11 +18,17 @@
          <font>
             <Font size="24.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
       <Label fx:id="waitingRoom_text" layoutX="286.0" layoutY="336.0" text="Waiting for players to join ..." textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
    </children>
 </AnchorPane>

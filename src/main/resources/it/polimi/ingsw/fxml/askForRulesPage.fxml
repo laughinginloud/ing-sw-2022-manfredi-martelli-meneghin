@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,27 +21,45 @@
          <font>
             <Font size="24.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
-      <Spinner fx:id="numOfPlayers_spinner" layoutX="449.0" layoutY="330.0" prefHeight="26.0" prefWidth="63.0" />
+      <Spinner fx:id="numOfPlayers_spinner" layoutX="449.0" layoutY="330.0" prefHeight="26.0" prefWidth="63.0">
+         <effect>
+            <DropShadow />
+         </effect></Spinner>
       <Label fx:id="numOfPlayers_label" layoutX="250.0" layoutY="330.0" text="Number of players:" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
       <Label fx:id="expertMode_label" layoutX="297.0" layoutY="379.0" text="Expert Mode:" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
       <CheckBox fx:id="expertMode_checkBox" layoutX="468.0" layoutY="380.0" mnemonicParsing="false">
          <font>
             <Font size="18.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </CheckBox>
-      <Button fx:id="askRules_submit" layoutX="361.0" layoutY="433.0" mnemonicParsing="false" onAction="#submitGameRules" text="Submit">
+      <Button fx:id="askRules_submit" layoutX="361.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#submitGameRules" text="Submit">
          <font>
             <Font size="18.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Button>
    </children>
 </AnchorPane>

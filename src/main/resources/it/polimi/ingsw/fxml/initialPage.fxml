@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,15 +16,21 @@
                 <Image url="@../images/home_page.jpg" />
             </image>
         </ImageView>
-        <Button fx:id="play_button" layoutX="369.0" layoutY="325.0" mnemonicParsing="false" onAction="#pressPlayButton" text="Play">
+        <Button fx:id="play_button" layoutX="369.0" layoutY="325.0" mnemonicParsing="false" onMouseClicked"#pressPlayButton" text="Play">
             <font>
                 <Font size="20.0" />
             </font>
+         <effect>
+            <DropShadow />
+         </effect>
         </Button>
       <Label fx:id="welcome_label" layoutX="191.0" layoutY="267.0" text="Welcome to the magical world of Eriantys!" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
       <ImageView fx:id="cranio_img" fitHeight="117.0" fitWidth="90.0" layoutX="15.0" layoutY="371.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -44,6 +51,9 @@
          <font>
             <Font size="18.0" />
          </font>
+         <effect>
+            <DropShadow />
+         </effect>
       </Label>
     </children>
 </AnchorPane>
