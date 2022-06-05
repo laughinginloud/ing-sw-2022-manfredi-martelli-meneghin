@@ -75,36 +75,33 @@ public final class ViewCLI implements View {
 
     // endregion
 
+    @Override
     public void launchUI() {
-        //TODO: decidere cosa fare di questa funzione
-        /*
         try {
-            terminal = TerminalBuilder.builder()
-                .name("Eriantys")
-                .encoding("UTF-8")
-                .nativeSignals(true)
-                .type("screen")
-                .jna(true)
-                .build();
-
-            display = new Display(terminal, true);
-            display.resize(terminal.getHeight(), terminal.getWidth());
-
-            reader  = LineReaderBuilder.builder().terminal(terminal).build();
-            writer  = terminal.writer();
-
-            savedAttributes = terminal.enterRawMode();
-            terminal.puts(InfoCmp.Capability.enter_ca_mode);
+            askAddress();
+            new VirtualController(address, this);
         }
 
-        catch (Exception e) {
-            e.printStackTrace();
+        // Should never happen
+        catch (IOException e) {
+            throw new RuntimeException(e);
         }
-         */
     }
 
+    @Override
     public void playExitMenu() {
         reader.readLine();
+    }
+
+    @Override
+    public void signalConnectionError() {
+        display.clear();
+
+    }
+
+    @Override
+    public void updateModel(GameModel model, Set<GameValues> updatedValues) {
+
     }
 
     public void close() {
