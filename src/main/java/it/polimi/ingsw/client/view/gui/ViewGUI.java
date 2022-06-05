@@ -130,7 +130,9 @@ public final class ViewGUI extends Application implements View {
         // alert.showAndWait is the function that allows the alert to trigger
         if (choice.isPresent() && choice.get() == ButtonType.OK) {
             stage.close();
-            virtualController.close();
+
+            if (virtualController != null)
+                virtualController.close();
         }
     }
 
