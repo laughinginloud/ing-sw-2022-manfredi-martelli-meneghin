@@ -62,6 +62,13 @@ final class MessageBuilder {
         if (command instanceof GameCommandInterruptGame)
             return new Message(MessageType.GAMEINTERRUPT, null);
 
+        if (command instanceof GameCommandNotifyEndTurn)
+            return new Message(MessageType.CUR_PLAYER_END_TURN, null);
+
+        if (command instanceof GameCommandNotifyBeginningTurn c) {
+            return new Message(MessageType.OTHER_PLAYER_START_TURN, c.executeCommand());
+        }
+
         throw new IllegalStateException("No suitable constructor for the provided command");
     }
 

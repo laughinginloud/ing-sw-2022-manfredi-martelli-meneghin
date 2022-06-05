@@ -87,9 +87,9 @@ public class VirtualController extends Thread implements Closeable {
 
     private void messageInterpreter(Message message) {
         switch (message.type()) {
-            case PING           -> sendMessage(new Message(MessageType.PONG, null));
+            case PING                    -> sendMessage(new Message(MessageType.PONG, null));
 
-            case SENDINFO       -> {
+            case SENDINFO                -> {
                 Map<GameValues, Object> map = (Map<GameValues, Object>) message.value();
 
                 if (map.containsKey(GameValues.MODEL)) {
@@ -106,19 +106,23 @@ public class VirtualController extends Thread implements Closeable {
                 map.forEach((v, o) -> modifyModelInfo(view.getModel(), v, o));
             }
 
-            case REQUESTACTION  -> {
+            case REQUESTACTION           -> {
                 @SuppressWarnings("unchecked")
                 Tuple<GameActions, Object> dataValue = (Tuple<GameActions, Object>) message.value();
                 switchRequestAction(dataValue);
             }
 
-            case GAMEWINNER     -> view.signalWinner((Player)       message.value());
-            case GAMEWINNERTEAM -> view.signalWinner((List<Player>) message.value());
-            case GAMEDRAW       -> view.signalDraw  ((List<Player>) message.value());
+            case GAMEWINNER              -> view.signalWinner((Player)       message.value());
+            case GAMEWINNERTEAM          -> view.signalWinner((List<Player>) message.value());
+            case GAMEDRAW                -> view.signalDraw  ((List<Player>) message.value());
 
-            case GAMESTART      -> view.notifyGameStart();
+            case GAMESTART               -> view.notifyGameStart();
+            case CUR_PLAYER_END_TURN     -> view.notifyEndOfTurn();
+            case OTHER_PLAYER_START_TURN -> view.notifyStartGameTurn((String) message.value());
 
-            case GAMEPROGRESS   -> {
+            case GAMEINTERRUPT           -> view.notifyPlayerDisconnection();
+
+            case GAMEPROGRESS            -> {
                 view.notifyGameInProgress();
                 close();
             }
