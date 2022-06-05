@@ -207,26 +207,13 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Notifies the player that he will be instantly disconnected from the server (then from the Game)
-     * @param disconnectionReason An Optional(String) containing the reason for the disconnection
      */
-    void notifyPlayerDisconnection(Optional<String> disconnectionReason);
-
-    /**
-     * Notifies the view about the chance to play the CharacterCard, if during the States where
-     * the CharacterCard are usable there is at least a CharacterCard that is playable according
-     * to player's coins and characterCard's tokens. This will "enable" the playCharacterCard button.
-     */
-    void notifyCharacterCardPlayability();
+    void notifyPlayerDisconnection();
 
     /**
      * Notifies the player about the beginning of his turn
      */
-    void notifyStartGameTurn();
-
-    /**
-     * Notifies the player he has to wait another player's turn
-     */
-    void notifyWaitGameTurn();
+    void notifyStartGameTurn(String playingPlayerUsername);
 
     /**
      * Notifies the player his turn has ended

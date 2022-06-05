@@ -269,8 +269,9 @@ public final class ViewGUI extends Application implements View {
      * It's possible only when the player hasn't already played a characterCard
      */
     @Override
+    // TODO [Implement -> Game]
     public void askEndOfTurn() {
-        // TODO [Game]
+
     }
 
     // endregion AskPlayer
@@ -351,8 +352,9 @@ public final class ViewGUI extends Application implements View {
      *                             have free seats (where the player can move the student)
      */
     @Override
+    // TODO [Implement -> Game]
     public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
-        // TODO [Game]
+
     }
 
     /**
@@ -363,8 +365,9 @@ public final class ViewGUI extends Application implements View {
      * @param possibleMovement An array containing the Islands that can be moved by the player
      */
     @Override
+    // TODO [Implement -> Game]
     public void requestMotherNatureMovement(Island[] possibleMovement) {
-        // TODO [Game]
+
     }
 
     /**
@@ -377,8 +380,9 @@ public final class ViewGUI extends Application implements View {
      * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
      */
     @Override
+    // TODO [Implement -> Game]
     public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
-        // TODO [Game]
+
     }
 
     /**
@@ -503,51 +507,34 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyGameStart() {
-        // TODO [Connection]
+        boolean uselessFunction = true;
     }
 
     /**
      * Notifies the player that he will be instantly disconnected from the server (then from the Game)
-     *
-     * @param disconnectionReason An Optional(String) containing the reason for the disconnection
      */
     @Override
-    public void notifyPlayerDisconnection(Optional<String> disconnectionReason) {
-        // TODO [Connection]
-    }
+    // TODO [Implement -> Connection]
+    public void notifyPlayerDisconnection() {
 
-    /**
-     * Notifies the view about the chance to play the CharacterCard, if during the States where
-     * the CharacterCard are usable there is at least a CharacterCard that is playable according
-     * to player's coins and characterCard's tokens. This will "enable" the playCharacterCard button.
-     */
-    @Override
-    public void notifyCharacterCardPlayability() {
-        // TODO [Game]
     }
 
     /**
      * Notifies the player about the beginning of his turn
      */
     @Override
-    public void notifyStartGameTurn() {
-        // TODO [Game]
-    }
+    // TODO [Implement -> Game]
+    public void notifyStartGameTurn(String playingPlayerUsername) {
 
-    /**
-     * Notifies the player he has to wait another player's turn
-     */
-    @Override
-    public void notifyWaitGameTurn() {
-        // TODO [Game]
     }
 
     /**
      * Notifies the player his turn has ended
      */
     @Override
+    // TODO [Implement -> Game]
     public void notifyEndOfTurn() {
-        // TODO [Game]
+
     }
 
     // endregion Notifications
@@ -587,8 +574,9 @@ public final class ViewGUI extends Application implements View {
      * @param winner the winning player
      */
     @Override
+    // TODO [Implement -> EndGame]
     public void signalWinner(Player winner) {
-        // TODO [EndGame]
+
     }
 
     /**
@@ -597,8 +585,9 @@ public final class ViewGUI extends Application implements View {
      * @param team the winning team
      */
     @Override
+    // TODO [Implement -> EndGame]
     public void signalWinner(List<Player> team) {
-        // TODO [EndGame]
+
     }
 
     /**
@@ -607,8 +596,9 @@ public final class ViewGUI extends Application implements View {
      * @param drawers the player who ended in a draw
      */
     @Override
+    // TODO [Implement -> EndGame]
     public void signalDraw(List<Player> drawers) {
-        // TODO [EndGame]
+
     }
 
     // endregion SignalEndGame

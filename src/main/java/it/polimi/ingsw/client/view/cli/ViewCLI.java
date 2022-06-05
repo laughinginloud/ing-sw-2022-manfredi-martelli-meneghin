@@ -327,19 +327,11 @@ public final class ViewCLI implements View {
 
     }
 
-    public void notifyPlayerDisconnection(Optional<String> disconnectionReason) {
+    public void notifyPlayerDisconnection() {
 
     }
 
-    public void notifyCharacterCardPlayability() {
-
-    }
-
-    public void notifyStartGameTurn() {
-
-    }
-
-    public void notifyWaitGameTurn() {
+    public void notifyStartGameTurn(String playingPlayerUsername) {
 
     }
 
