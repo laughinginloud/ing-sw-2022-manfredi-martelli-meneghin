@@ -60,6 +60,10 @@ public enum GUIAlert {
 
     // region Seba's Enum Constants
 
+    // Alert showed when the user has to decide where to move the entranceStudent he selected
+    // He can choose to move it on an Island or in one of the compatible DiningRoomTables
+    MOVE_ENTRANCE_STUDENT_DR_OR_ISL,
+
     // endregion Seba's Enum Constants
 
 
@@ -208,6 +212,15 @@ public enum GUIAlert {
 
 
             // region Seba's Cases
+
+            case MOVE_ENTRANCE_STUDENT_DR_OR_ISL -> {
+                title       = "Decide where to move the selected Student";
+                headerText  = "You may now decide where to move the " + dynamicString + " Student you have" +
+                              "selected from the entrance";
+                contentText = "You can move it on an Island or in the " + dynamicString +  " diningRoomTables," +
+                              " if there is still a free seat for the selected student";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
             // endregion Seba's Cases
 

@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.view.gui.*;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,10 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Handler (or Controller) of the scene GameScene (gameScenePage.fxml)
@@ -2023,7 +2021,6 @@ public class GameSceneHandler implements GUIHandler {
 
                 islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);
             }
-
         }
     }
 
@@ -2115,6 +2112,79 @@ public class GameSceneHandler implements GUIHandler {
         activateClicksEntranceStudents(entranceStudents, true);
         activateClicksCharacterCards(playableCharacterCards, true);
     }
+
+    public void activateClicksDiningRoomTablesAndIsland(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
+        // Gets the IslandsArray from the model
+        Island[] availableIslands = gui.getModel().getIslands();
+
+        // Retrieve which are Colors of the DiningRoomTable that have to be set "clickable"
+        List<Color> compatibleTablesList = new ArrayList<>();
+        for (Color color : Color.values())
+            if (diningRoomFreeTables[color.ordinal()])
+                compatibleTablesList.add(color);
+
+        int     compatibleTablesLength = compatibleTablesList.size();
+        Color[] compatibleTables       = new Color[compatibleTablesLength];
+        for (int i = 0; i < compatibleTablesLength; i++)
+            compatibleTables[i] = compatibleTablesList.get(i);
+
+        // Calls the activateClicks method, inserting also the selectedStudentIndex as a parameter
+        // to require the VirtualController method's specification and respond back with the
+        // requested values (the record MoveStudentInfo)
+        activateClicksIslandsDuringEntranceMovement(availableIslands, selectedStudentIndex);
+        activateClicksDiningRoomTablesDuringEntranceMovement(compatibleTables, selectedStudentIndex);
+    }
+
+    public void activateClicksIslandsDuringEntranceMovement(Island[] availableIslands, int selectedStudentIndex) {
+        Island[] islandFromModel = gui.getModel().getIslands();
+        int      islandCount     = islandFromModel.length;
+
+        Set<Island> availableIslandSet = new HashSet<>();
+        Collections.addAll(availableIslandSet, availableIslands);
+
+        AnchorPane islandAnchorPane;
+
+        for (int i = 0; i < islandCount; i++) {
+            if (availableIslandSet.contains(islandFromModel[i])) {
+                islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
+
+                // Creates a function that will handle the islandClick
+                EventHandler<MouseEvent> clickOnIslandHandler = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        // Invokes the function clickOnIsland
+                        clickOnIslandDuringEntranceMovement(mouseEvent, selectedStudentIndex);
+
+                        mouseEvent.consume();
+                    }
+                };
+
+                islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);
+            }
+        }
+    }
+
+    public void activateClicksDiningRoomTablesDuringEntranceMovement(Color[] compatibleTables, int selectedStudentIndex) {
+        AnchorPane diningRoomTablePane;
+
+        for (Color color : compatibleTables) {
+            diningRoomTablePane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
+
+            EventHandler<MouseEvent> clickOnDiningRoomTableHandler = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    // Associates to the click of the mouse the function clickOnDiningRoomTable
+                    // as response to the user's action
+                    clickOnDiningRoomTablesDuringEntranceMovement(mouseEvent, selectedStudentIndex);
+
+                    mouseEvent.consume();
+                }
+            };
+
+            diningRoomTablePane.setOnMouseClicked(clickOnDiningRoomTableHandler);
+        }
+    }
+
 
     // endregion Seba's activateClicksMethods
 
@@ -2443,8 +2513,49 @@ public class GameSceneHandler implements GUIHandler {
         possiblePlay.showAndWait();
     }
 
+    /**
+     * Requests the player to move the selected student from his entrance to an Island or to a table
+     * of his diningRoom
+     *
+     * @param selectedStudentIndex The index of the entrance's player selected by the player
+     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still
+     *                             have free seats (where the player can move the student)
+     */
+    public void gsRequestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
+        activateClicksDiningRoomTablesAndIsland(selectedStudentIndex, diningRoomFreeTables);
 
+        // Gets the color of the student that has been selected from the Entrance
+        Entrance currentPlayerEntrance = gui.getLocalPlayer().getSchoolBoard().getEntrance();
+        Color selectedStudentColor = currentPlayerEntrance.getStudents()[selectedStudentIndex];
 
+        Alert moveSelectedStudent = GUIAlert.getAlert(GUIAlert.MOVE_ENTRANCE_STUDENT_DR_OR_ISL, selectedStudentColor.toString());
+        moveSelectedStudent.showAndWait();
+    }
+
+    public void clickOnIslandDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
+        // Deactivates the click-linked function of both Islands and DiningRoomTables
+        deactivateClicksIslands();
+        deactivateClicksDiningRoomTables();
+
+        AnchorPane selectedIslandPaneID = (AnchorPane) mouseEvent.getSource();
+        int        selectedIslandIndex  = InfoHelper.gsFindIslandIndex(selectedIslandPaneID);
+
+        // Creates a new record "MoveStudentInfo", where to save the number of the island and set
+        // to false the boolean "toDiningRoom" related to the student's movement
+        MoveStudentInfo infoFromIslandClick = new MoveStudentInfo(false, selectedIslandIndex, selectedStudentIndex);
+        gui.forwardViewToVirtualController(infoFromIslandClick);
+    }
+
+    public void clickOnDiningRoomTablesDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
+        // Deactivates the click-linked function of both Islands and DiningRoomTables
+        deactivateClicksIslands();
+        deactivateClicksDiningRoomTables();
+
+        // Creates a new record "MoveStudentInfo", where to save the index of the selected
+        // students and to set "true" the boolean "toDiningRoom"
+        MoveStudentInfo infoFromIslandClick = new MoveStudentInfo(true, null, selectedStudentIndex);
+        gui.forwardViewToVirtualController(infoFromIslandClick);
+    }
 
 
 
@@ -2468,7 +2579,7 @@ public class GameSceneHandler implements GUIHandler {
 
     //  region Giovanni's gsMethodImplementations
 
-    public void gsRequestHowManyStudentsToMove(int maxNumOfStudentMovable) {
+    public void gsRequestHowManyStudentsToMove (int maxNumOfStudentMovable) {
         showInputPane(maxNumOfStudentMovable);
         activateClicksInputButton();
         Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_NUM_STUDENTS, null);

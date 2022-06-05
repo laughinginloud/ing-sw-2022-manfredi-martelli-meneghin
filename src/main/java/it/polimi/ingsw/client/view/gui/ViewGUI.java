@@ -355,9 +355,9 @@ public final class ViewGUI extends Application implements View {
      *                             have free seats (where the player can move the student)
      */
     @Override
-    // TODO [Implement -> Game]
     public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
-
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestStudentEntranceMovement(selectedStudentIndex, diningRoomFreeTables);
     }
 
     /**
@@ -368,9 +368,7 @@ public final class ViewGUI extends Application implements View {
      * @param possibleMovement An array containing the Islands that can be moved by the player
      */
     @Override
-    // TODO [Implement -> Game]
     public void requestMotherNatureMovement(Island[] possibleMovement) {
-
     }
 
     /**
