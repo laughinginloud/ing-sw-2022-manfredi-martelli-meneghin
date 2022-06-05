@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.view.gui.*;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,6 +18,7 @@ import javafx.scene.text.Text;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -2234,7 +2234,7 @@ public class GameSceneHandler implements GUIHandler {
     public void gsRequestPlayAssistantCard(AssistantCard[] assistantCards) {
         activateClicksAssistantCards(assistantCards);
 
-        Alert playAssistantCard = GUIAlert.getAlert(GUIAlert.CHOOSEASSISTANT, "");
+        Alert playAssistantCard = GUIAlert.getAlert(GUIAlert.CHOOSE_ASSISTANT, "");
         playAssistantCard.showAndWait();
     }
 
@@ -2344,7 +2344,7 @@ public class GameSceneHandler implements GUIHandler {
     public void gsRequestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
         activateClicksDiningRoomTables(compatibleDiningRoomTable);
 
-        Alert selectDiningRoomTable = GUIAlert.getAlert(GUIAlert.SELECT_DININGROOM_TABLE, "");
+        Alert selectDiningRoomTable = GUIAlert.getAlert(GUIAlert.SELECT_DINING_ROOM_TABLE, "");
         selectDiningRoomTable.showAndWait();
     }
 
@@ -2486,6 +2486,20 @@ public class GameSceneHandler implements GUIHandler {
 
         // Shows the inputPane
         input_pane.setVisible(true);
+    }
+
+    public void gsAskEndOfTurn() {
+        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.ASK_END_OF_TURN, null);
+
+        Optional<ButtonType> choice = possiblePlay.showAndWait();
+
+        // alert.showAndWait is the function that allows the alert to trigger
+        if (choice.isPresent() && choice.get() == ButtonType.OK) {
+            gui.forwardViewToVirtualController(true);
+        }
+        else {
+            gui.forwardViewToVirtualController(false);
+        }
     }
 
     // endregion Giovanni's gsMethodImplementations

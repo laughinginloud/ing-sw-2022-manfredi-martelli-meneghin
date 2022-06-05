@@ -271,6 +271,9 @@ public final class ViewGUI extends Application implements View {
     @Override
     // TODO [Implement -> Game]
     public void askEndOfTurn() {
+        // TODO [Game]
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsAskEndOfTurn();
 
     }
 

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
-import it.polimi.ingsw.common.model.Character;
 import javafx.scene.control.Alert;
 
 public enum GUIAlert {
@@ -20,7 +19,7 @@ public enum GUIAlert {
     INVALID_MAGIC_AGE,
 
     // Alert showed when the user has to select an AssistantCard during the PlanPhase
-    CHOOSEASSISTANT,
+    CHOOSE_ASSISTANT,
 
     // Alert showed when the user has to select which CharacterCard he wants to play
     SELECT_CHARACTER_CARD,
@@ -34,7 +33,7 @@ public enum GUIAlert {
 
     // Alert showed when the user has to select a DiningRoomTable where to move the
     // students or from which reduce the number of students on all the players' diningRooms
-    SELECT_DININGROOM_TABLE,
+    SELECT_DINING_ROOM_TABLE,
 
     // Alert showed when the user has to select a student from a CharacterCard
     SELECT_CC_STUDENT,
@@ -55,7 +54,7 @@ public enum GUIAlert {
 
     // Alert showed when the user has to select an element between a
     // CharacterCard or a student from the Entrance (used only in the expert mode)
-    SELECT_ENTRANCE_STUDENT_OR_CC;
+    SELECT_ENTRANCE_STUDENT_OR_CC,
 
 
 
@@ -66,6 +65,8 @@ public enum GUIAlert {
 
 
     //  region Giovanni's Enum Constants
+
+    ASK_END_OF_TURN;
 
     // endregion Giovanni's Enum Constants
 
@@ -122,7 +123,7 @@ public enum GUIAlert {
                 alertType   = Alert.AlertType.WARNING;
             }
 
-            case CHOOSEASSISTANT -> {
+            case CHOOSE_ASSISTANT -> {
                 title       = "Select Assistant Card";
                 headerText  = "It's time to select the AssistantCard you want to play!" + dynamicString;
                 contentText = "Remember that the lower is the number of the card, the earlier will be your turn";
@@ -153,7 +154,7 @@ public enum GUIAlert {
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
-            case SELECT_DININGROOM_TABLE -> {
+            case SELECT_DINING_ROOM_TABLE -> {
                 title       = "Select a DiningRoomTable";
                 headerText  = "You may now select a DiningRoomTable";
                 contentText = "Choosing it you'll decide with which DiningRoomTable interact";
@@ -214,6 +215,13 @@ public enum GUIAlert {
 
 
             // region Giovanni's Cases
+
+            case ASK_END_OF_TURN -> {
+                title       = "Ending the turn";
+                headerText  = "You may choose to end the turn now by pressing OK or play a CharacterCard by pressing cancel";
+                contentText = "If you press OK you will end you turn and pass to the next player. Do you wish to continue?";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
             // endregion Giovanni's Cases
 
