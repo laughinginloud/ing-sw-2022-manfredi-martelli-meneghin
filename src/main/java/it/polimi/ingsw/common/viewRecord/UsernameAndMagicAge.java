@@ -29,7 +29,7 @@ public record UsernameAndMagicAge(String username, int magicAge) {
      * @return The result of the check
      */
     public static UsernameResult checkUsername(String username, Set<String> forbiddenUsernames){
-        if (username == null)
+        if (username == null || username.equals(""))
             return UsernameResult.NULL;
 
         if (username.length() > 10)
