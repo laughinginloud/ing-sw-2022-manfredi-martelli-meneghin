@@ -256,9 +256,7 @@ public final class ViewGUI extends Application implements View {
      * It's possible only when the player hasn't already played a characterCard
      */
     @Override
-    // TODO [Implement -> Game]
     public void askEndOfTurn() {
-        // TODO [Game]
         GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
         gs.gsAskEndOfTurn();
 
@@ -506,7 +504,10 @@ public final class ViewGUI extends Application implements View {
     @Override
     // TODO [Implement -> Connection]
     public void notifyPlayerDisconnection() {
+        Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_PLAYER_DISCONNECTION, null);
+        playerDisconnection.showAndWait();
 
+        //TODO: Implementare la pressione del bottone per chiudere la GUI
     }
 
     /**
@@ -515,18 +516,18 @@ public final class ViewGUI extends Application implements View {
      *                              player which is beginning his actionPhase turn
      */
     @Override
-    // TODO [Implement -> Game]
     public void notifyStartGameTurn(String playingPlayerUsername) {
-
+        Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.START_ANOTHER_PLAYER_TURN, playingPlayerUsername);
+        playerDisconnection.showAndWait();
     }
 
     /**
      * Notifies the player his turn has ended
      */
     @Override
-    // TODO [Implement -> Game]
     public void notifyEndOfTurn() {
-
+        Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_END_THIS_PLAYER_TURN, null);
+        playerDisconnection.showAndWait();
     }
 
     // endregion Notifications

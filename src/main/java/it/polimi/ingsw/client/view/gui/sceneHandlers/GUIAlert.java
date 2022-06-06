@@ -70,7 +70,17 @@ public enum GUIAlert {
 
     // Alert showed when the user has to decided whether to play a characterCard or
     // ends his turn
-    ASK_END_OF_TURN;
+    ASK_END_OF_TURN,
+
+    // Alert showed when a player leave the Game or get disconnected from the Server
+    NOTIFY_PLAYER_DISCONNECTION,
+
+    // Alert showed when a player, different by the player is receiving the message, start his turn
+    START_ANOTHER_PLAYER_TURN,
+
+    // Alert showed to the player when his turn is ended (when he can't play a CharacterCard and the he
+    // can't choose between play a CC or end his turn with a specific alert)
+    NOTIFY_END_THIS_PLAYER_TURN;
 
 
 
@@ -223,9 +233,9 @@ public enum GUIAlert {
 
             case MOVE_ENTRANCE_STUDENT_DR_OR_ISL -> {
                 title       = "Decide where to move the selected Student";
-                headerText  = "You may now decide where to move the " + dynamicString + " Student you have" +
+                headerText  = "You may now decide where to move the " + dynamicString + " Student you have\n" +
                               "selected from the entrance";
-                contentText = "You can move it on an Island or in the " + dynamicString +  " diningRoomTables," +
+                contentText = "You can move it on an Island or in the " + dynamicString +  " diningRoomTables,\n" +
                               " if there is still a free seat for the selected student";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
@@ -247,28 +257,34 @@ public enum GUIAlert {
 
             }
 
-            case ASK_END_OF_TURN -> {
+            case ASK_END_OF_TURN                 -> {
                 title       = "Ending the turn";
                 headerText  = "You may choose to end the turn now by pressing OK or play a CharacterCard by pressing cancel";
                 contentText = "If you press OK you will end you turn and pass to the next player. Do you wish to continue?";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
+            case NOTIFY_PLAYER_DISCONNECTION     -> {
+                title       = "A player left the game";
+                headerText  = "You now will disconnected!";
+                contentText = "If you want to resume the game that you were playing, try to reconnect to the Server!\n" +
+                              "If the other participants want too, you'll restart from just this point!";
+                alertType   =  Alert.AlertType.WARNING;
+            }
 
+            case START_ANOTHER_PLAYER_TURN       -> {
+                title       = "It's " + dynamicString + " turn!";
+                headerText  = "Now you won't be able to play, since it's the turn of" + dynamicString + " !";
+                contentText = "Pay attention to the player's moves and plan your best strategy";
+                alertType   =  Alert.AlertType.INFORMATION;
+            }
 
-
-            // region Seba's Cases
-
-            // endregion Seba's Cases
-
-
-
-
-            // region Giovanni's Cases
-
-            // endregion Giovanni's Cases
-
-
+            case NOTIFY_END_THIS_PLAYER_TURN     -> {
+                title       = "End of your turn";
+                headerText  = "This is the end of your own turn!";
+                contentText = "Now I can really see the magician that is in you!";
+                alertType   =  Alert.AlertType.WARNING;
+            }
         }
 
         // Creates a new Alter and fill it fields with the chosen text values, depending on the guiAlterType
