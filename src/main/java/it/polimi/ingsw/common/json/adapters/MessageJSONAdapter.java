@@ -37,7 +37,6 @@ public class MessageJSONAdapter extends TypeAdapter<Message> {
         .registerTypeAdapter(GameRules.class,            new GameRulesJSONAdapter())
         .registerTypeAdapter(GlobalProfessorTable.class, new GlobalProfessorTableJSONAdapter())
         .registerTypeAdapter(Island[].class,             new IslandArrayJSONAdapter())
-        .registerTypeAdapter(Message.class,              new MessageJSONAdapter())
         .registerTypeAdapter(MoveStudentInfo.class,      new MoveStudentInfoJSONAdapter())
         .registerTypeAdapter(Player.class,               new PlayerJSONAdapter())
         .registerTypeAdapter(Player[].class,             new PlayerArrayJSONAdapter())
