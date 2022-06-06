@@ -75,6 +75,9 @@ public class ControllerData {
      * @return An array containing the play order
      */
     public Player[] getPlayersOrder() {
+        if (playersOrder == null)
+            return null;
+
         return Arrays.copyOf(playersOrder, playersOrder.length);
     }
 
