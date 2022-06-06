@@ -52,6 +52,6 @@ public class GameRulesJSONAdapter extends TypeAdapter<GameRules> {
 
         jsonReader.endObject();
 
-        return null;
+        return new GameRules(numOfPlayers, expertMode);
     }
 }
