@@ -51,21 +51,25 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
     public void write(JsonWriter jsonWriter, Tuple tuple) throws IOException {
         jsonWriter.beginObject();
 
-        jsonWriter.name("left");
-        jsonWriter.beginObject();
-        jsonWriter.name("type");
-        jsonWriter.value(tuple.left().getClass().getName());
-        jsonWriter.name("value");
-        jsonWriter.value(json.toJson(tuple.left()));
-        jsonWriter.endObject();
+        if (tuple.left() != null) {
+            jsonWriter.name("left");
+            jsonWriter.beginObject();
+            jsonWriter.name("type");
+            jsonWriter.value(tuple.left().getClass().getName());
+            jsonWriter.name("value");
+            jsonWriter.value(json.toJson(tuple.left()));
+            jsonWriter.endObject();
+        }
 
-        jsonWriter.name("right");
-        jsonWriter.beginObject();
-        jsonWriter.name("type");
-        jsonWriter.value(tuple.right().getClass().getName());
-        jsonWriter.name("value");
-        jsonWriter.value(json.toJson(tuple.right()));
-        jsonWriter.endObject();
+        if (tuple.right() != null) {
+            jsonWriter.name("right");
+            jsonWriter.beginObject();
+            jsonWriter.name("type");
+            jsonWriter.value(tuple.right().getClass().getName());
+            jsonWriter.name("value");
+            jsonWriter.value(json.toJson(tuple.right()));
+            jsonWriter.endObject();
+        }
 
         jsonWriter.endObject();
     }

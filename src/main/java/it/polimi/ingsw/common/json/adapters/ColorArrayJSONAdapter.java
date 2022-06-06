@@ -17,8 +17,6 @@ import java.util.List;
  * @author Mattia Martelli
  */
 public class ColorArrayJSONAdapter extends TypeAdapter<Color[]> {
-    private static final Gson json = new GsonBuilder().registerTypeAdapter(Color.class, new ColorJSONAdapter()).setPrettyPrinting().create();
-
     @Override
     public void write(JsonWriter jsonWriter, Color[] colors) throws IOException {
         jsonWriter.beginObject();
@@ -32,7 +30,7 @@ public class ColorArrayJSONAdapter extends TypeAdapter<Color[]> {
             if (color == null)
                 break;
 
-            jsonWriter.value(json.toJson(color));
+            jsonWriter.value(color.name());
         }
         jsonWriter.endArray();
 
@@ -60,7 +58,7 @@ public class ColorArrayJSONAdapter extends TypeAdapter<Color[]> {
                     case "colors" -> {
                         jsonReader.beginArray();
                         while (jsonReader.hasNext())
-                            colorList.add(json.fromJson(jsonReader.nextString(), Color.class));
+                            colorList.add(Color.valueOf(jsonReader.nextString()));
                         jsonReader.endArray();
                     }
                 }

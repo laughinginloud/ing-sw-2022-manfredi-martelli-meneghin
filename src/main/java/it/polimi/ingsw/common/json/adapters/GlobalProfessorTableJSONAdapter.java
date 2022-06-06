@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
  * @author Mattia Martelli
  */
 public class GlobalProfessorTableJSONAdapter extends TypeAdapter<GlobalProfessorTable> {
-    Gson json = new GsonBuilder().registerTypeAdapter(Player[].class, new PlayerArrayJSONAdapter()).setPrettyPrinting().create();
+    private static final Gson json = new GsonBuilder().registerTypeAdapter(Player[].class, new PlayerArrayJSONAdapter()).setPrettyPrinting().create();
 
     @Override
     public void write(JsonWriter jsonWriter, GlobalProfessorTable globalProfessorTable) throws IOException {

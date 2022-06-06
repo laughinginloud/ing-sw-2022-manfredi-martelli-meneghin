@@ -20,8 +20,10 @@ public class MoveStudentInfoJSONAdapter extends TypeAdapter<MoveStudentInfo> {
         jsonWriter.name("toDiningRoom");
         jsonWriter.value(moveStudentsInfo.toDiningRoom());
 
-        jsonWriter.name("islandNum");
-        jsonWriter.value(moveStudentsInfo.islandNum());
+        if (moveStudentsInfo.islandNum() != null) {
+            jsonWriter.name("islandNum");
+            jsonWriter.value(moveStudentsInfo.islandNum());
+        }
 
         jsonWriter.name("studentIndex");
         jsonWriter.value(moveStudentsInfo.studentIndex());
