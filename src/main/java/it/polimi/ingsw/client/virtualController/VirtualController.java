@@ -84,8 +84,8 @@ public class VirtualController extends Thread implements Closeable {
             outputStream.writeUTF(messageBuilder.toJson(message));
         }
 
-        catch (Exception ignored) {
-            //TODO
+        catch (Exception e) {
+            new RuntimeException(e);
         }
     }
 
@@ -270,7 +270,6 @@ public class VirtualController extends Thread implements Closeable {
         return compatibleDiningRoom;
     }
 
-
     private void switchRequestAction(Tuple<GameActions, Object> dataValue) {
         // Manages the received RequestAction depending on the GameCommandAction
         switch(dataValue.left()) {
@@ -442,7 +441,6 @@ public class VirtualController extends Thread implements Closeable {
             }
         }
     }
-
 
     private void switchReqActCharEffect(Map<GameValues, Object> characterCardEffectMap, PlayCharacterAction characterAction) {
         // Manages the received action "characterAction" depending on the character and on the phase

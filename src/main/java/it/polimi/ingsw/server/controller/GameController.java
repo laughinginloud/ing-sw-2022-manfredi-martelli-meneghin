@@ -110,10 +110,9 @@ public class GameController {
                         usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, usernameSet)).executeCommand();
                     }
 
-                    else {
+                    else
                         // Send the player a request for the username, signaling which ones were already picked
                         usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, new HashSet<>())).executeCommand();
-                    }
 
                     if (!rulesSet) {
                         Optional<File> savedGame = GameSave.findSavedGame(usernameAndMagicAge.username());
