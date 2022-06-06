@@ -64,7 +64,7 @@ public class VirtualView extends Thread implements AutoCloseable {
      * Send a command to the view, without waiting for a response
      * @param command the command to be sent
      */
-    public void sendMessage(GameCommand command) {
+    public synchronized void sendMessage(GameCommand command) {
         try {
             String message = MessageBuilder.commandToJson(command);
             outputStream.writeUTF(message);

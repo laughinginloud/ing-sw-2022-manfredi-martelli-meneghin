@@ -79,7 +79,7 @@ public class VirtualController extends Thread implements Closeable {
         }
     }
 
-    public void sendMessage(Message message) {
+    public synchronized void sendMessage(Message message) {
         try {
             outputStream.writeUTF(messageBuilder.toJson(message));
         }
