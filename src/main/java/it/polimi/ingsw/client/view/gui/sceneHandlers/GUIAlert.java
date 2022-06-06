@@ -121,7 +121,7 @@ public enum GUIAlert {
             case INVALID_PORT -> {
                 title       = "Invalid Port";
                 headerText  = "You have entered an invalid Port: " + dynamicString;
-                contentText = "Re-enter a valid Port\n" + "NB! Default Ports is 3307";
+                contentText = "Re-enter a valid Port\n" + "NB! Default Ports is 6556";
                 alertType   = Alert.AlertType.WARNING;
             }
 
