@@ -185,6 +185,9 @@ public class GameController {
      * @param playerView The VirtualView associated with the player
      */
     public static synchronized void signalPlayerDisconnected(VirtualView playerView) {
+        if (ControllerData.getInstance().getPlayersOrder() == null)
+            return;
+
         // If a game is in progress it needs to be saved
         if (activeGame) {
             Player[]      players  = data.getGameModel().getPlayer();
