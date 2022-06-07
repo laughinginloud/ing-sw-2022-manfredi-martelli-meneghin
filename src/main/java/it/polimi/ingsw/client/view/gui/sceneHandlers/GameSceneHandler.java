@@ -1360,12 +1360,9 @@ public class GameSceneHandler implements GUIHandler {
         }
 
         // If the game is in expertMode
-        if (model.getExpertMode()) {
+        if (model.getExpertMode() && (updatedValues.contains(GameValues.PLAYERARRAY) || updatedValues.contains(GameValues.CHARACTERCARDARRAY))) {
             // Updates the expertMode elements
             gsUpdateExpertModeElements(model, player, updatedValues);
-
-            // Shows the ExpertMode pane
-            characterCards_pane.setVisible(true);
         }
         else {
             // Hides the ExpertMode pane
@@ -1729,14 +1726,14 @@ public class GameSceneHandler implements GUIHandler {
      * @param player the localPlayer
      */
     public void gsUpdateExpertModeElements(GameModel model, Player player, Set<GameValues> updatedValues) {
-        boolean containsModel = updatedValues.contains(GameValues.MODEL);
-
-        if (containsModel || updatedValues.contains(GameValues.CHARACTERCARDARRAY)) {
+        if (updatedValues.contains(GameValues.CHARACTERCARDARRAY)) {
+            // Shows the ExpertMode pane
+            characterCards_pane.setVisible(true);
             // Updates the CharacterCards
             gsUpdateCharacterCards(model.getCharacterCards());
         }
 
-        if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)) {
+        if (updatedValues.contains(GameValues.PLAYERARRAY)) {
             // Updates the player's coinsCount
             gsUpdatePlayerCoins(player);
         }
