@@ -187,7 +187,8 @@ public class GameModel {
         // Checks if the player is not null and if the index is within the accepted range [0, 3]
         if (player == null)
             throw new IllegalArgumentException("setPlayer: The player to be set is null!");
-        else if (index < 0 || index > 3)
+
+        if (index < 0 || index > 3)
             throw new IllegalArgumentException("setPlayer: Index value invalid! Accepted index in the range [0, 3]");
 
         this.players[index] = player;

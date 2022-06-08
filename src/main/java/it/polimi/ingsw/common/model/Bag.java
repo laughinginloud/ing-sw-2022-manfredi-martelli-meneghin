@@ -1,5 +1,7 @@
 package it.polimi.ingsw.common.model;
 
+import java.util.Random;
+
 /**
  * Class representing the bag
  * @author Sebastiano Meneghin
@@ -8,6 +10,8 @@ public class Bag {
     private final int[] studentCounters;
     private       int   numOfStudents;
 
+    private final Random random;
+
     /**
      * Constructor of the class 'Bag'
      */
@@ -15,6 +19,7 @@ public class Bag {
         studentCounters = new int[Color.values().length];
         setStudentCounters(0);
         numOfStudents = 0;
+        random = new Random();
     }
 
     /**
@@ -57,10 +62,10 @@ public class Bag {
      * @return Color of the student selected (not null)
      */
     private Color drawStudents() {
-        int randomColorIndex;
-        do {
-            randomColorIndex = ((int) (Math.random() * 4));
-        } while (studentCounters[randomColorIndex] == 0);
+        int randomColorIndex = random.nextInt(5);
+
+        while (studentCounters[randomColorIndex] == 0)
+            randomColorIndex = (randomColorIndex + 1) % 5;
 
         studentCounters[randomColorIndex]--;
 
