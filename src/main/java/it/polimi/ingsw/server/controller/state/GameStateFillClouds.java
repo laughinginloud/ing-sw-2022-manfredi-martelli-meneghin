@@ -73,7 +73,11 @@ public final class GameStateFillClouds implements GameStatePlanPhase {
                 drawnStudents = Arrays.copyOf(drawnStudents, numOfStudentsToDraw);
             }
 
-            cloudTile.setStudents(drawnStudents);
+            Color[] fixedDrawnStudents = new Color[4];
+
+            System.arraycopy(drawnStudents, 0, fixedDrawnStudents, 0, drawnStudents.length);
+
+            cloudTile.setStudents(fixedDrawnStudents);
         }
 
         catch (EmptyBagException e){

@@ -221,20 +221,20 @@ public final class GameStateEndGame implements GameState {
      * Send the winner to every player
      */
     private void sendWinner(ControllerData data, Player winner) {
-        data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandEndGame(winner)));
+        data.sendMessageToPlayers(new GameCommandEndGame(winner));
     }
 
     /**
      * Send the winning team to every player
      */
     private void sendTeam(ControllerData data, List<Player> team) {
-        data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandEndGame(team, false)));
+        data.sendMessageToPlayers(new GameCommandEndGame(team, false));
     }
 
     /**
      * Send the result of the draw to every player
      */
     private void sendDraw(ControllerData data, List<Player> players) {
-        data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandEndGame(players, true)));
+        data.sendMessageToPlayers(new GameCommandEndGame(players, true));
     }
 }

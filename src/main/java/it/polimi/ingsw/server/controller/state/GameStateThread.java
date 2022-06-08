@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
 public class GameStateThread extends Thread {
-    GameState state;
+    private GameState state;
 
     public GameStateThread() {
         state = new GameStateModelInitialization();

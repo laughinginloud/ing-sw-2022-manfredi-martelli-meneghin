@@ -31,7 +31,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
         try {
             for (Player player : players) {
                 // Get the virtualView of the player we need to send the updated information to
-                VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
+                VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
 
                 int coinPool = model.getCoinPool();
 

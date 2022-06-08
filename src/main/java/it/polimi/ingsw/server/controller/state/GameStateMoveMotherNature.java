@@ -35,7 +35,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
         try {
             ControllerData data                 = ControllerData.getInstance();
             Player         player               = data.getCurrentPlayer();
-            VirtualView    playerView           = data.getPlayerViewMap().getRight(player);
+            VirtualView    playerView           = data.getPlayerView(player);
             boolean        expertMode           = data.getExpertMode();
             boolean        canPlayCharacterCard = false;
 
