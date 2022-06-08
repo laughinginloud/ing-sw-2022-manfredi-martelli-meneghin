@@ -1644,7 +1644,9 @@ public class GameSceneHandler implements GUIHandler {
         // For each color (professor) checks if the localPlayer is or not the controller
         for (Color color : Color.values()) {
             gptImageView = IDHelper.gsFindProfessorOnProfTableID(this, color);
-            gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
+            if (gpt.getProfessorLocation(color) != null){
+                gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
+            }
         }
     }
 
