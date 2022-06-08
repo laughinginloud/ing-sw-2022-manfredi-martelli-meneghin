@@ -819,23 +819,19 @@ public class IDHelper {
      * @return The ImageView correspondent to the desired assistantCard
      */
     public static ImageView gsFindAssistantCardID (GameSceneHandler gs, int assistantCardValue) {
-        ImageView assistantCardID = null;
-
-        switch(assistantCardValue) {
-            case 1  -> assistantCardID =gs.assistant1_game;
-            case 2  -> assistantCardID =gs.assistant2_game;
-            case 3  -> assistantCardID =gs.assistant3_game;
-            case 4  -> assistantCardID =gs.assistant4_game;
-            case 5  -> assistantCardID =gs.assistant5_game;
-            case 6  -> assistantCardID =gs.assistant6_game;
-            case 7  -> assistantCardID =gs.assistant7_game;
-            case 8  -> assistantCardID =gs.assistant8_game;
-            case 9  -> assistantCardID =gs.assistant9_game;
-            case 10 -> assistantCardID =gs.assistant10_game;
+        return switch (assistantCardValue) {
+            case 1  -> gs.assistant1_game;
+            case 2  -> gs.assistant2_game;
+            case 3  -> gs.assistant3_game;
+            case 4  -> gs.assistant4_game;
+            case 5  -> gs.assistant5_game;
+            case 6  -> gs.assistant6_game;
+            case 7  -> gs.assistant7_game;
+            case 8  -> gs.assistant8_game;
+            case 9  -> gs.assistant9_game;
+            case 10 -> gs.assistant10_game;
             default -> throw new IllegalStateException("The assistantCard cardValue must be between 1 and 10. You've inserted: " + assistantCardValue);
-        }
-
-        return assistantCardID;
+        };
     }
 
     /**

@@ -1522,7 +1522,8 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
         // For each color (professor) checks if the localPlayer is or not the controller
         for (Color color : Color.values()) {
             gptImageView = IDHelper.psbFindProfessorSingleImageID(this, playerIndex, color);
-            gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
+            if (gpt.getProfessorLocation(color) != null)
+                gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
         }
     }
 
@@ -1629,6 +1630,9 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     }
 
     public void psbUpdateLastAssistantCard(AssistantCard lastAssistantCard, int playerIndex) {
+        if (lastAssistantCard == null)
+            return;
+
         ImageView assistantCardImg;
         String assistantCardPath;
         assistantCardImg  = IDHelper.psbFindPlayerLastPlayedCardID(this, playerIndex);

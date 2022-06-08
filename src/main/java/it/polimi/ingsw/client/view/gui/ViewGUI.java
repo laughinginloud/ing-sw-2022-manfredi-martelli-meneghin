@@ -207,8 +207,10 @@ public final class ViewGUI extends Application implements View {
             this.currentScene = nameMapScene.get(Pages.GAME_SCENE);
             nameMapHandler.get(Pages.GAME_SCENE).setGUI(this);
 
-            Platform.runLater(() -> stage.setScene(currentScene));
-            stage.setFullScreen(true);
+            Platform.runLater(() -> {
+                stage.setScene(currentScene);
+                //stage.setFullScreen(true);
+            });
         }
     }
 
@@ -303,7 +305,7 @@ public final class ViewGUI extends Application implements View {
     @Override
     public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
         GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestPlayAssistantCard(assistantCards);
+        Platform.runLater(() -> gs.gsRequestPlayAssistantCard(assistantCards));
     }
 
     /**

@@ -68,16 +68,6 @@ public class WizardChoiceHandler implements GUIHandler {
 
     // endregion FXML_Ids
 
-    // TODO: Remove the follwing test method!
-    // IT'S ONLY A TEST METHOD, IT WILL BE REMOVED
-    public void testMethod(){
-        // How to de-saturate a card "Not playable"
-        Effect notAvailableCard = (ColorAdjust) new ColorAdjust(0,-1.0,-0.3,0);
-        wizard0_img.effectProperty().set(notAvailableCard);
-        // How to make it not clickable
-        wizard0_img.setOnMouseClicked(null);
-    }
-
     /**
      * Sets the wizard array called availableWizard
      * @param availableWizard The wizard that can be chosen by the player
@@ -102,9 +92,8 @@ public class WizardChoiceHandler implements GUIHandler {
             // If the wizardCard is not contained in the wizardAvailableSet,
             // makes it un-clickable and "obscures" it
             if (!availableWizardSet.contains(wizard)) {
-
                 // It de-saturates a card "Not playable"
-                Effect notAvailableCard = (ColorAdjust) new ColorAdjust(0,-1.0,-0.3,0);
+                Effect notAvailableCard = new ColorAdjust(0,-1.0,-0.3,0);
                 wizardID.effectProperty().set(notAvailableCard);
 
                 // Makes the notPlayableWizard not clickable
@@ -112,15 +101,14 @@ public class WizardChoiceHandler implements GUIHandler {
             }
 
             else {
-                // Creates a function that will handle the mouseClick
-                EventHandler<MouseEvent> clickOnWizardHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Invokes the function clickOnWizard
-                        clickOnWizard(mouseEvent);
+                wizardID.effectProperty().set(new ColorAdjust(0, 0, 0, 0));
 
-                        mouseEvent.consume();
-                    }
+                // Creates a function that will handle the mouseClick
+                EventHandler<MouseEvent> clickOnWizardHandler = mouseEvent -> {
+                    // Invokes the function clickOnWizard
+                    clickOnWizard(mouseEvent);
+
+                    mouseEvent.consume();
                 };
 
                 // Then links the created handler to the click of the wizardImage
@@ -139,12 +127,11 @@ public class WizardChoiceHandler implements GUIHandler {
         ImageView selectedWizardID = (ImageView) mouseEvent.getSource();
 
         // Send to the VirtualController the wizard selected by the player
-        for (Wizard wizard : availableWizard) {
+        for (Wizard wizard : availableWizard)
             if (fromWizardEnumToID(wizard) == selectedWizardID) {
                 gui.forwardViewToVirtualController(wizard);
                 break;
             }
-        }
 
         gui.switchScene(Pages.WAITING_ROOM);
     }
@@ -155,19 +142,12 @@ public class WizardChoiceHandler implements GUIHandler {
      * @return A string representing the path to the wizard's image
      */
     public String fromWizardEnumToFXMLPath (Wizard wizard) {
-        String wizardPath = "";
-
-        switch (wizard) {
-            case NATURE -> wizardPath = "@../images/wizards/0_NATURE.jpg";
-
-            case DESERT -> wizardPath = "@../images/wizards/1_DESERT.jpg";
-
-            case CLOUD  -> wizardPath = "@../images/wizards/2_CLOUD.jpg";
-
-            case SNOW   -> wizardPath = "@../images/wizards/3_SNOW.jpg";
-        }
-
-        return wizardPath;
+        return switch (wizard) {
+            case NATURE -> "@../images/wizards/0_NATURE.jpg";
+            case DESERT -> "@../images/wizards/1_DESERT.jpg";
+            case CLOUD  -> "@../images/wizards/2_CLOUD.jpg";
+            case SNOW   -> "@../images/wizards/3_SNOW.jpg";
+        };
     }
 
     /**
@@ -176,19 +156,12 @@ public class WizardChoiceHandler implements GUIHandler {
      * @return An ImageView representing the wizard ID
      */
     public ImageView fromWizardEnumToID (Wizard wizard) {
-        ImageView wizardID = new ImageView();
-
-        switch (wizard) {
-            case NATURE -> wizardID = wizard0_img;
-
-            case DESERT -> wizardID = wizard1_img;
-
-            case CLOUD  -> wizardID = wizard2_img;
-
-            case SNOW   -> wizardID = wizard3_img;
-        }
-
-        return wizardID;
+        return switch (wizard) {
+            case NATURE -> wizard0_img;
+            case DESERT -> wizard1_img;
+            case CLOUD  -> wizard2_img;
+            case SNOW   -> wizard3_img;
+        };
     }
 
     /**

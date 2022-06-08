@@ -1912,7 +1912,7 @@ public class GameSceneHandler implements GUIHandler {
 
         for (int assCardPos = 0; assCardPos < assistantCardOnModel.length; assCardPos++) {
             if (playableAssistantCardSet.contains(assistantCardOnModel[assCardPos])) {
-                assistantCardImageView = IDHelper.gsFindAssistantCardID(this, assCardPos);
+                assistantCardImageView = IDHelper.gsFindAssistantCardID(this, assCardPos + 1);
 
 
                 EventHandler<MouseEvent> clickOnAssistantCardHandler = new EventHandler<MouseEvent>() {
@@ -2284,7 +2284,7 @@ public class GameSceneHandler implements GUIHandler {
     public void deactivateClicksAssistantCards() {
         ImageView assistantCardImgView;
         for (int i = 0; i < ViewGUI.MAX_ASSISTANT_CARDS; i++) {
-            assistantCardImgView = IDHelper.gsFindAssistantCardID(this, i);
+            assistantCardImgView = IDHelper.gsFindAssistantCardID(this, i + 1);
             assistantCardImgView.setOnMouseClicked(null);
         }
     }
