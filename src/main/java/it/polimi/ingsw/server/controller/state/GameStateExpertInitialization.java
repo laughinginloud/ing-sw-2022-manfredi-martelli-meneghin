@@ -32,11 +32,13 @@ public final class GameStateExpertInitialization implements GameStateSetup {
                 // Get the virtualView of the player we need to send the updated information to
                 VirtualView playerView = ControllerData.getInstance().getPlayerViewMap().getRight(player);
 
+                int coinPool = model.getCoinPool();
+
                 // Creates the Map to send via GameCommand and adds updated CharacterCards, CoinPool and PlayerCoinCounts
                 Map<GameValues, Object> updatedExpertInfo = new HashMap<>();
-                updatedExpertInfo.put(GameValues.CHARACTERCARDARRAY, characterCards);
-                updatedExpertInfo.put(GameValues.COINPOOL, model.getCoinPool());
-                updatedExpertInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
+                updatedExpertInfo.put(GameValues.CHARACTERCARDARRAY, characterCards   );
+                updatedExpertInfo.put(GameValues.COINPOOL,           coinPool         );
+                updatedExpertInfo.put(GameValues.PLAYERARRAY,        model.getPlayer());
 
                 playerView.sendMessage(new GameCommandSendInfo(updatedExpertInfo));
             }

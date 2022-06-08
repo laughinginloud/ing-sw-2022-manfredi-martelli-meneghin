@@ -151,8 +151,10 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 // a Coin adding a student to a specific DiningRoomTable
                 if (data.getExpertMode())
                     if (checkAndAddCoin(player, movedStudent)) {
+                        int coinPool = model.getCoinPool();
+
                         // Adds globalCoinPool and playerArray values to the updateInfo Map that will be sent to all the players
-                        updateInfo.put(GameValues.COINPOOL, model.getCoinPool());
+                        updateInfo.put(GameValues.COINPOOL,    coinPool);
                         updateInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
                     }
 

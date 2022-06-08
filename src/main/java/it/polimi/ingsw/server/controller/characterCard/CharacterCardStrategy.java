@@ -114,10 +114,12 @@ public abstract class CharacterCardStrategy {
         GameModel model  = data.getGameModel();
         Player[] players = model.getPlayer();
 
+        int coinPool = model.getCoinPool();
+
         // Saves into a map the fields that have been modified in order to update the players
         Map<GameValues, Object> updateCoinsInfo = new HashMap<>();
-        updateCoinsInfo.put(GameValues.PLAYERARRAY,        players);
-        updateCoinsInfo.put(GameValues.COINPOOL,           model.getCoinPool());
+        updateCoinsInfo.put(GameValues.PLAYERARRAY,        players                  );
+        updateCoinsInfo.put(GameValues.COINPOOL,           coinPool                 );
         updateCoinsInfo.put(GameValues.CHARACTERCARDARRAY, model.getCharacterCards());
 
         // Creates a gameCommand containing the updateCoinsInfo Map and sends it to all the player via message
