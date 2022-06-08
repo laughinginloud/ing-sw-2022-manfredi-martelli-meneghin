@@ -151,16 +151,14 @@ public class GameController {
                         rulesSet = true;
                     }
 
-                    if (addPlayer(view, usernameAndMagicAge.username())) {
-                        List<Player> players = new ArrayList<>(List.of(data.getPlayersOrder()));
+                    if (addPlayer(view, usernameAndMagicAge)) {
+                        Player[] players = data.getPlayersOrder();
 
                         // Morph the playerAgeQueue into an array of players, by finding the corresponding player for each username
                         data.setPlayersOrder(playerAgeQueue.stream().map(uM -> {
                             for (Player player : players)
-                                if (player.getUsername().equals(uM.username())) {
-                                    players.remove(player);
+                                if (player.getUsername().equals(uM.username()))
                                     return player;
-                                }
 
                             // Should never be reached, as it would mean that the data has been wrongly created
                             throw new IllegalStateException();
@@ -168,7 +166,7 @@ public class GameController {
 
                         playerAgeQueue.clear();
                         activeGame = true;
-                        data.getPlayerViewMap().forEach((p, v) -> v.sendMessage(new GameCommandGameStart()));
+                        data.sendMessageToPlayers(new GameCommandGameStart());
                         (gameStateThread = new GameStateThread()).start();
                     }
                 }
@@ -236,10 +234,11 @@ public class GameController {
                 ControllerData.nukeInstance();
                 data     = ControllerData.getInstance();
                 rulesSet = false;
+                playerAgeQueue.clear();
             }
 
             else {
-                Player player = data.getPlayerViewMap().removeRight(playerView);
+                Player player = data.removePlayer(playerView);
 
                 // Get the removed player's index
                 int playerIndex = 0;
@@ -274,23 +273,28 @@ public class GameController {
     /**
      * Add a player to the controller's data, linking it with its virtual view
      * @param view The player's virtual view
-     * @param username The player's username
+     * @param usernameAndMagicAge The player's username and magic age
      * @return <code>true</code> if the player was the last needed for the game to start, <code>false</code> otherwise
      * @throws SocketException If the player gets disconnected whilst adding it
      */
-    private static boolean addPlayer(VirtualView view, String username) throws SocketException {
+    private static boolean addPlayer(VirtualView view, UsernameAndMagicAge usernameAndMagicAge) throws SocketException {
         Player[] players = data.getPlayersOrder();
         int numOfPlayers = data.getNumOfPlayers();
 
+        playerAgeQueue.add(usernameAndMagicAge);
+
         // Get a set of all the wizards and remove the ones that were already picked
         Set<Wizard> wizardSet = Wizard.set();
-        Arrays.stream(players).forEach(player -> wizardSet.remove(player.getPlayerWizard()));
+        Arrays.stream(players).forEach(player -> {
+            if (player != null)
+                wizardSet.remove(player.getPlayerWizard());
+        });
 
         // If there is one wizard left, the player gets that by default, otherwise they get to choose between the ones remaining
         Wizard wizard = (Wizard)
             (wizardSet.size() == 1 ?
-                wizardSet.toArray()[0] :
-                view.sendRequest(new GameCommandRequestAction(GameActions.WIZARD, wizardSet.toArray())).executeCommand());
+                wizardSet.toArray(Wizard[]::new)[0] :
+                view.sendRequest(new GameCommandRequestAction(GameActions.WIZARD, wizardSet.toArray(Wizard[]::new))).executeCommand());
 
         boolean teamMode = numOfPlayers == 4;
 
@@ -301,7 +305,7 @@ public class GameController {
                         data.getExpertMode(),
                         teamMode,
                         i,
-                        username,
+                        usernameAndMagicAge.username(),
                         wizard,
                         // If there are three players, each one gets 6 towers, else if there are two players, each one takes 8 towers,
                         // otherwise, there are four players and the first member of each team gets 8 towers, whilst its teammate gets 0
@@ -314,7 +318,7 @@ public class GameController {
                     linkTeams(players, i);
 
                 // Add the newly created player to the isomorphism (Player, View)
-                data.getPlayerViewMap().put(players[i], view);
+                data.addViewPlayer(players[i], view);
 
                 return i + 1 == numOfPlayers;
             }
