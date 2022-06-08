@@ -159,6 +159,10 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
                 jsonWriter.endArray();
             }
 
+            case DININGROOMTABLECOLOR,
+                 MERCHANTCOLOR,
+                 REDUCECOLOR -> jsonWriter.value(((Color) value).name());
+
             default -> jsonWriter.value(json.toJson(value));
         };
     }
