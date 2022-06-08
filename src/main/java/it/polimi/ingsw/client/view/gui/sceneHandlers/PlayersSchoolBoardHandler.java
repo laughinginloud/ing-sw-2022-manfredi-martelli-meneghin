@@ -1470,7 +1470,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
             //Update towers (by adding them if not present) by setting the correct directory for each ImageView
             schoolBoardTowerID = IDHelper.psbFindTowerSingleImageID(this, playerIndex, i);
             towerPath          = PathHelper.fromTowerColorToHandlerPath(towerColor);
-            schoolBoardTowerID.setImage(new Image(getClass().getClassLoader().getResource(towerPath).toString(), true));
+            schoolBoardTowerID.setImage(new Image(getClass().getResourceAsStream(towerPath)));
         }
 
         // The maximum number of towers varies depending on the number of players
@@ -1584,7 +1584,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
                 entranceStudentPath  = PathHelper.fromStudentColorToHandlerPath(entranceStudentColor);
 
                 // Sets the image using the path just found
-                entranceStudent.setImage(new Image(getClass().getClassLoader().getResource(entranceStudentPath).toString(), true));
+                entranceStudent.setImage(new Image(getClass().getResourceAsStream(entranceStudentPath)));
             }
 
             else {
@@ -1633,7 +1633,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
         String assistantCardPath;
         assistantCardImg  = IDHelper.psbFindPlayerLastPlayedCardID(this, playerIndex);
         assistantCardPath = PathHelper.fromAssistantCardNumberToHandlerPath(lastAssistantCard.cardValue());
-        assistantCardImg.setImage(new Image(getClass().getClassLoader().getResource(assistantCardPath).toString(), true));
+        assistantCardImg.setImage(new Image(getClass().getResourceAsStream(assistantCardPath)));
     }
 
     public void psbUpdateCoinCount(Player player, int playerIndex) {
