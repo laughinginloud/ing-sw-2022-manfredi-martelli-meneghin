@@ -6,6 +6,9 @@ import it.polimi.ingsw.common.model.AssistantCard;
 import it.polimi.ingsw.common.model.Color;
 import it.polimi.ingsw.common.model.GameModel;
 import it.polimi.ingsw.common.model.Player;
+import it.polimi.ingsw.server.controller.command.GameCommand;
+import it.polimi.ingsw.server.controller.command.GameCommandEndGame;
+import it.polimi.ingsw.server.controller.state.GameState;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.Arrays;
@@ -65,7 +68,7 @@ public class ControllerData {
      */
     public Map<Player, AssistantCard> getPlayerAssistantCardMap() {
         if (this.playerAssistantCardMap == null)
-            return null;
+            return new HashMap<>();
 
         return new HashMap<>(this.playerAssistantCardMap);
     }
@@ -75,10 +78,7 @@ public class ControllerData {
      * @return An array containing the play order
      */
     public Player[] getPlayersOrder() {
-        if (playersOrder == null)
-            return null;
-
-        return Arrays.copyOf(playersOrder, playersOrder.length);
+        return playersOrder;
     }
 
     /**
@@ -134,12 +134,9 @@ public class ControllerData {
      * Returns the entire player view map
      * @return A pointer to the map
      */
-    public Isomorphism<Player, VirtualView> getPlayerViewMap() {
-        if (playerViewMap == null)
-            playerViewMap = new Isomorphism<>();
-
-        return playerViewMap;
-    }
+    //public Isomorphism<Player, VirtualView> getPlayerViewMap() {
+    //    return playerViewMap;
+    //}
 
     /**
      * Get the player associated with the provided view
@@ -211,7 +208,7 @@ public class ControllerData {
      * @param playersOrder An array containing the play order
      */
     public void setPlayersOrder(Player[] playersOrder) {
-        this.playersOrder = Arrays.copyOf(playersOrder, playersOrder.length);
+        this.playersOrder = playersOrder;
     }
 
     /**
@@ -302,7 +299,10 @@ public class ControllerData {
      * @return The ControllerData instance
      */
     public static ControllerData getInstance() {
-        return instance != null ? instance : new ControllerData();
+        if (instance == null)
+            instance = new ControllerData();
+
+        return instance;
     }
 
     /**
@@ -405,4 +405,20 @@ public class ControllerData {
     public Color getExcludedColor() {
         return excludedColor;
     }
+
+    public void addViewPlayer(Player player, VirtualView view) {
+        if (playerViewMap == null)
+            playerViewMap = new Isomorphism<>(numOfPlayers);
+
+        playerViewMap.put(player, view);
+    }
+
+    public void sendMessageToPlayers(GameCommand gameCommand) {
+        playerViewMap.forEach((p, v) -> v.sendMessage(gameCommand));
+    }
+
+    public Player removePlayer(VirtualView virtualView) {
+        return playerViewMap.removeRight(virtualView);
+    }
+
 }
