@@ -57,8 +57,9 @@ public class HerbalistStrategy extends CharacterCardStrategy {
                 @SuppressWarnings("unchecked")
                 Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
 
-                // Gets the value of the chosenField from the Map
-                Island chosenIsland = (Island) chosenField.get(GameValues.ISLANDINDEX);
+                // Gets the value of the chosenField from the Map and retrieve the selected island from its index
+                int    chosenIslandIndex = (int) chosenField.get(GameValues.ISLANDINDEX);
+                Island chosenIsland      = model.getIsland(chosenIslandIndex);
 
                 // The server places the token on the selected island (noEntryTile++)
                 int currentNoEntryTileCount = chosenIsland.getNoEntryTileCount();
