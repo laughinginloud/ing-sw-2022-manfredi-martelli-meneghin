@@ -1441,18 +1441,19 @@ public class GameSceneHandler implements GUIHandler {
             islandMotherNature = IDHelper.gsFindMotherNatureOnIslandID(this, i);
             islandMotherNature.setVisible(i == motherNaturePosition);
 
-            // Set NoEntryTile img and NoEntryTilesCount
-            islandNoEntryTile = IDHelper.gsFindNoEntryTileImgOnIslandID(this, i);
-            islandNoEntryTilesCountText = IDHelper.gsFindNoEntryTileCountOnIslandID(this, i);
-            islandNoEntryTilesCount  = islands[i].getNoEntryTileCount();
-            if (islandNoEntryTilesCount > 0) {
-                islandNoEntryTile.setVisible(true);
-                islandNoEntryTilesCountText.setText(String.valueOf(islandNoEntryTilesCount));
-                islandNoEntryTilesCountText.setVisible(true);
-            }
-            else {
-                islandNoEntryTile.setVisible(false);
-                islandNoEntryTilesCountText.setVisible(false);
+            if (islands[i].getNoEntryTileCount() != null) {
+                // Set NoEntryTile img and NoEntryTilesCount
+                islandNoEntryTile = IDHelper.gsFindNoEntryTileImgOnIslandID(this, i);
+                islandNoEntryTilesCountText = IDHelper.gsFindNoEntryTileCountOnIslandID(this, i);
+                islandNoEntryTilesCount = islands[i].getNoEntryTileCount();
+                if (islandNoEntryTilesCount > 0) {
+                    islandNoEntryTile.setVisible(true);
+                    islandNoEntryTilesCountText.setText(String.valueOf(islandNoEntryTilesCount));
+                    islandNoEntryTilesCountText.setVisible(true);
+                } else {
+                    islandNoEntryTile.setVisible(false);
+                    islandNoEntryTilesCountText.setVisible(false);
+                }
             }
         }
 
