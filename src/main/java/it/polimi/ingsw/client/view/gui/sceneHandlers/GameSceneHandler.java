@@ -1594,7 +1594,7 @@ public class GameSceneHandler implements GUIHandler {
             //Update towers (by adding them if not present) by setting the correct directory for each ImageView
             schoolBoardTowerID = IDHelper.gsFindSchoolBoardTowerID(this, i);
             towerPath          = PathHelper.fromTowerColorToHandlerPath(towerColor);
-            schoolBoardTowerID.setImage(new Image(getClass().getClassLoader().getResource(towerPath).toString(), true));
+            schoolBoardTowerID.setImage(new Image(getClass().getResourceAsStream(towerPath)));
         }
 
         // The maximum number of towers varies depending on the number of players
@@ -1704,7 +1704,7 @@ public class GameSceneHandler implements GUIHandler {
                 entranceStudentPath  = PathHelper.fromStudentColorToHandlerPath(entranceStudentColor);
 
                 // Sets the image using the path just found
-                entranceStudent.setImage(new Image(getClass().getClassLoader().getResource(entranceStudentPath).toString(), true));
+                entranceStudent.setImage(new Image(getClass().getResourceAsStream(entranceStudentPath)));
             }
 
             else {
