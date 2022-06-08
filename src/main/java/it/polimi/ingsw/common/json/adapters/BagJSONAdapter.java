@@ -15,20 +15,20 @@ import java.io.IOException;
 public class BagJSONAdapter extends TypeAdapter<Bag> {
     @Override
     public void write(JsonWriter jsonWriter, Bag bag) throws IOException {
-            int[] studentCounters = new int[Color.values().length];
+        int[] studentCounters = new int[Color.values().length];
 
-            for (Color color : Color.values())
-                studentCounters[color.ordinal()] = bag.getStudentCounters(color);
+        for (Color color : Color.values())
+            studentCounters[color.ordinal()] = bag.getStudentCounters(color);
 
-            jsonWriter.beginObject();
+        jsonWriter.beginObject();
 
-            jsonWriter.name("studentCounters");
-            jsonWriter.beginArray();
-            for (int e : studentCounters)
-                jsonWriter.value(e);
-            jsonWriter.endArray();
+        jsonWriter.name("studentCounters");
+        jsonWriter.beginArray();
+        for (int e : studentCounters)
+            jsonWriter.value(e);
+        jsonWriter.endArray();
 
-            jsonWriter.endObject();
+        jsonWriter.endObject();
     }
 
     @Override

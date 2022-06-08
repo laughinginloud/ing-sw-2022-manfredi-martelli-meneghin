@@ -15,16 +15,15 @@ public class GameValuesJSONAdapter extends TypeAdapter<GameValues> {
     @Override
     public void write(JsonWriter jsonWriter, GameValues gameValues) throws IOException {
         jsonWriter.beginObject();
+        jsonWriter.name("value");
         jsonWriter.value(gameValues.name());
         jsonWriter.endObject();
     }
 
     @Override
     public GameValues read(JsonReader jsonReader) throws IOException {
-        GameValues gameValues;
-
         jsonReader.beginObject();
-        gameValues = GameValues.valueOf(jsonReader.nextString());
+        GameValues gameValues = GameValues.valueOf(jsonReader.nextString());
         jsonReader.endObject();
 
         return gameValues;
