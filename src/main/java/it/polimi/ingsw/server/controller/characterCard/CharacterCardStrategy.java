@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller.characterCard;
 
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
@@ -19,7 +20,7 @@ public abstract class CharacterCardStrategy {
     protected CharacterCard card;
 
     // The map that will be updated by the concrete strategies with the data they modified
-    protected Map<GameValues, Object> afterEffectUpdate = new HashMap<>();
+    protected InfoMap afterEffectUpdate = new InfoMap();
 
     /**
      * Factory method: Associates the strategy to the CharacterCard
@@ -117,7 +118,7 @@ public abstract class CharacterCardStrategy {
         int coinPool = model.getCoinPool();
 
         // Saves into a map the fields that have been modified in order to update the players
-        Map<GameValues, Object> updateCoinsInfo = new HashMap<>();
+        InfoMap updateCoinsInfo = new InfoMap();
         updateCoinsInfo.put(GameValues.PLAYERARRAY,        players                  );
         updateCoinsInfo.put(GameValues.COINPOOL,           coinPool                 );
         updateCoinsInfo.put(GameValues.CHARACTERCARDARRAY, model.getCharacterCards());

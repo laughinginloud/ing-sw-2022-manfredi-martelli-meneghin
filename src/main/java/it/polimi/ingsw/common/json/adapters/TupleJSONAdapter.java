@@ -7,6 +7,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.utils.Tuple;
@@ -34,7 +36,9 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
         .registerTypeAdapter(GameActions.class,          new GameActionsJSONAdapter())
         .registerTypeAdapter(GameModel.class,            new GameModelJSONAdapter())
         .registerTypeAdapter(GameRules.class,            new GameRulesJSONAdapter())
+        .registerTypeAdapter(GameValues.class,           new GameValuesJSONAdapter())
         .registerTypeAdapter(GlobalProfessorTable.class, new GlobalProfessorTableJSONAdapter())
+        .registerTypeAdapter(InfoMap.class,              new InfoMapJSONAdapter())
         .registerTypeAdapter(Island[].class,             new IslandArrayJSONAdapter())
         .registerTypeAdapter(Message.class,              new MessageJSONAdapter())
         .registerTypeAdapter(MoveStudentInfo.class,      new MoveStudentInfoJSONAdapter())

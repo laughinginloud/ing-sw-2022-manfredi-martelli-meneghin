@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
@@ -128,7 +129,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
         int updatedMotherNaturePosition = ControllerData.getInstance().getGameModel().getMotherNaturePosition();
 
         // Creates a map and saves in it the current MotherNaturePosition on islandArray
-        Map<GameValues, Object> updateInfo = new HashMap<>();
+        InfoMap updateInfo = new InfoMap();
         updateInfo.put(GameValues.MOTHERNATURE, updatedMotherNaturePosition);
 
         try {

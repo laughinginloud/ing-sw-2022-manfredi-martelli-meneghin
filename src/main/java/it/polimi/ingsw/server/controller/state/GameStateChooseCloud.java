@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.utils.Tuple;
@@ -76,7 +77,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                     for (Color student : students)
                         player.getSchoolBoard().getEntrance().appendStudent(student);
 
-                    Map<GameValues, Object> map = new HashMap<>();
+                    InfoMap map = new InfoMap();
                     map.put(GameValues.ENTRANCE, new Tuple<>(player.getPlayerID(), player.getSchoolBoard().getEntrance()));
                     map.put(GameValues.CLOUDARRAY, data.getGameModel().getCloudTile());
 

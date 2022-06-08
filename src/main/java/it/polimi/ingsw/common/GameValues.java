@@ -25,7 +25,7 @@ public enum GameValues {
     // USED IN MAP
     CHARACTERCARDPOSITION,
 
-    // A enumeration constant of Character correspondent to the character on a CharacterCard
+    // An enumeration constant of Character correspondent to the character on a CharacterCard
     // USED IN MAP
     CHARACTERVALUE,
 
@@ -45,7 +45,9 @@ public enum GameValues {
     // USED IN MAP
     MOTHERNATURE,
 
-    // An Entrance of a specified player
+    // A tuple containing:
+    //  - left: a player's ID
+    //  - right: the entrance of the player
     // USED IN MAP
     ENTRANCE,
 
@@ -53,7 +55,9 @@ public enum GameValues {
     // USED IN MAP
     ENTRANCEARRAY,
 
-    // A DiningRoom of a specified player
+    // A tuple containing:
+    //  - left: a player's ID
+    //  - right: the dining room of the player
     // USED IN MAP
     DININGROOM,
 
@@ -86,7 +90,7 @@ public enum GameValues {
     // USED IN MAP
     MAXMOVEMENTJESTER,
 
-    // An integer representing the number of students that will be moved by the player using the characterCard Jester
+    // An int representing the number of students that will be moved by the player using the characterCard Jester
     // USED IN MAP
     MOVEMENTJESTER,
 
@@ -106,7 +110,7 @@ public enum GameValues {
     // USED IN MAP
     CARDSTUDENTINDEX,
 
-    // An integer representing the max number of students that can be moved using the characterCard Bard
+    // An int representing the max number of students that can be moved using the characterCard Bard
     // USED IN MAP
     MAXMOVEMENTBARD,
 

@@ -94,7 +94,7 @@ public class VirtualController extends Thread implements Closeable {
             case PING                    -> sendMessage(new Message(MessageType.PONG, null));
 
             case SENDINFO                -> {
-                Map<GameValues, Object> map = (Map<GameValues, Object>) message.value();
+                InfoMap map = (InfoMap) message.value();
 
                 if (map.containsKey(GameValues.MODEL)) {
                     view.setModel((GameModel) map.get(GameValues.MODEL));

@@ -7,6 +7,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
@@ -35,7 +37,9 @@ public class MessageJSONAdapter extends TypeAdapter<Message> {
         .registerTypeAdapter(GameActions.class,          new GameActionsJSONAdapter())
         .registerTypeAdapter(GameModel.class,            new GameModelJSONAdapter())
         .registerTypeAdapter(GameRules.class,            new GameRulesJSONAdapter())
+        .registerTypeAdapter(GameValues.class,           new GameValuesJSONAdapter())
         .registerTypeAdapter(GlobalProfessorTable.class, new GlobalProfessorTableJSONAdapter())
+        .registerTypeAdapter(InfoMap.class,              new InfoMapJSONAdapter())
         .registerTypeAdapter(Island[].class,             new IslandArrayJSONAdapter())
         .registerTypeAdapter(MoveStudentInfo.class,      new MoveStudentInfoJSONAdapter())
         .registerTypeAdapter(Player.class,               new PlayerJSONAdapter())

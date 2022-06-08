@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.AssistantCard;
@@ -77,10 +78,9 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
         if (!alreadyPlayedCards.isEmpty()) {
 
             // Find the AssistantCards in the current player deck which hasn't already been used by other players during this turn
-            for (AssistantCard assistantCard : availableCards) {
+            for (AssistantCard assistantCard : availableCards)
                 if (!alreadyPlayedCards.containsValue(assistantCard))
                     playableCards.add(assistantCard);
-            }
 
             // If playableCards is empty, the current player has only already played cards in his deck, so he can play them
             if (playableCards.isEmpty())
@@ -118,7 +118,7 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
             player.setLastPlayedCard(chosenCard);
 
             // Creates updateInfo and adds to it the updated playerArray, containing the new value of lastPlayerCard
-            Map<GameValues, Object> updateInfo = new HashMap<>();
+            InfoMap updateInfo = new InfoMap();
             updateInfo.put(GameValues.PLAYERARRAY, data.getGameModel().getPlayer());
 
             // Notifies all the players about the lastPlayedCard now on the board of the current player

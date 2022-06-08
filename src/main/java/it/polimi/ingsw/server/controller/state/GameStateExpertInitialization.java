@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
@@ -35,7 +36,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
                 int coinPool = model.getCoinPool();
 
                 // Creates the Map to send via GameCommand and adds updated CharacterCards, CoinPool and PlayerCoinCounts
-                Map<GameValues, Object> updatedExpertInfo = new HashMap<>();
+                InfoMap updatedExpertInfo = new InfoMap();
                 updatedExpertInfo.put(GameValues.CHARACTERCARDARRAY, characterCards   );
                 updatedExpertInfo.put(GameValues.COINPOOL,           coinPool         );
                 updatedExpertInfo.put(GameValues.PLAYERARRAY,        model.getPlayer());

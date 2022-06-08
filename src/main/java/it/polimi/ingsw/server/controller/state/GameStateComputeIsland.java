@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
@@ -57,7 +58,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
         // Updates all the players about the variation on IslandArray caused by the execution of controlIsland or conquerIsland
         try {
-            Map<GameValues, Object> controlAndConquerInfo = new HashMap<>();
+            InfoMap controlAndConquerInfo = new InfoMap();
             GameCommand controlAndConquerUpdate;
 
             // Then save anyway the update IslandArray and PlayerArray into the map
@@ -262,14 +263,14 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private GameCommand createMap(GameModel model) {
-        Map<GameValues, Object> map = new HashMap<>();
+        InfoMap map = new InfoMap();
         map.put(GameValues.ISLANDARRAY, model.getIslands());
         map.put(GameValues.PLAYERARRAY, model.getPlayer());
         return new GameCommandSendInfo(map);
     }
 
     private GameCommand createLightMap(GameModel model) {
-        Map<GameValues, Object> map = new HashMap<>();
+        InfoMap map = new InfoMap();
         map.put(GameValues.ISLANDARRAY, model.getIslands());
         return new GameCommandSendInfo(map);
     }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
@@ -30,7 +31,7 @@ public final class GameStateFillClouds implements GameStatePlanPhase {
                 fillCloud(model.getCloudTile(i), data);
 
             // Creates the Map to send via GameCommand and adds updated CloudTiles to it
-            Map<GameValues, Object> updatedCloud = new HashMap<>();
+            InfoMap updatedCloud = new InfoMap();
             updatedCloud.put(GameValues.CLOUDARRAY, model.getCloudTile());
 
             // Sends to all the players the updated array of Clouds, once they have been filled

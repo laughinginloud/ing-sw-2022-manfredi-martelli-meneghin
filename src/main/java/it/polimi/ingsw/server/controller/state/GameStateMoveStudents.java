@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
@@ -140,7 +141,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
             Color    movedStudent      = (Color)    commandReturnInfo[1];
 
             // Create a Map where to store updatedFields in order to send them to the players
-            Map<GameValues, Object> updateInfo = new HashMap<>();
+            InfoMap updateInfo = new InfoMap();
 
             if (!toDiningRoom)
                 // Adds IslandArray value to the updateInfo Map that will be sent to all the players

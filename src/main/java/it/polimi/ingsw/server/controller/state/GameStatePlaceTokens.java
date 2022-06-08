@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
@@ -38,7 +39,7 @@ public final class GameStatePlaceTokens implements GameStateSetup {
 
         try {
             // Get all the Object/Fields have to be sent to each player's Client
-            Map<GameValues, Object> placedTokens = packPlacedTokens();
+            InfoMap placedTokens = packPlacedTokens();
 
             // Send those Object/Fields via a SendMessage message, through the Network
             for (Player player : ControllerData.getInstance().getGameModel().getPlayer()) {
@@ -107,8 +108,8 @@ public final class GameStatePlaceTokens implements GameStateSetup {
     /**
      * Get all the Tokens that have to be sent to each Client and save them in a Map
      */
-    private Map<GameValues, Object> packPlacedTokens() {
-        Map<GameValues, Object> placedTokens = new HashMap<>();
+    private InfoMap packPlacedTokens() {
+        InfoMap placedTokens = new InfoMap();
 
         /* TODO: [ClientCache] Caricare tutte le informazioni in una mappa, facendo attenzione ai puntatori disaccoppiati (player in team) */
         // Get all the objects/fields each player's Client need to know
