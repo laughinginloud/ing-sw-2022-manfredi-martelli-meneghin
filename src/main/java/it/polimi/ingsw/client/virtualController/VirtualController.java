@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
@@ -19,6 +20,7 @@ import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class VirtualController extends Thread implements Closeable {
     private static final Gson messageBuilder = Constants.jsonBuilder;
@@ -35,6 +37,8 @@ public class VirtualController extends Thread implements Closeable {
 
     private       String                  username;
 
+    private ReentrantLock outStreamLock;
+
     public VirtualController(Address address, View view) throws IOException {
         socket       = new Socket(address.ipAddress(), address.port());
         inputStream  = new DataInputStream(socket.getInputStream());
@@ -46,6 +50,8 @@ public class VirtualController extends Thread implements Closeable {
 
         // Sets himself as the VirtualController linked to the View that just invoked this method
         view.setVirtualController(this);
+
+        outStreamLock = new ReentrantLock();
 
         start();
     }
@@ -79,13 +85,19 @@ public class VirtualController extends Thread implements Closeable {
         }
     }
 
-    public synchronized void sendMessage(Message message) {
+    public void sendMessage(Message message) {
         try {
+            outStreamLock.lock();
             outputStream.writeUTF(messageBuilder.toJson(message));
+            outputStream.flush();
         }
 
         catch (Exception e) {
-            new RuntimeException(e);
+            throw new RuntimeException(e);
+        }
+
+        finally {
+            outStreamLock.unlock();
         }
     }
 
@@ -242,7 +254,7 @@ public class VirtualController extends Thread implements Closeable {
      * Sends to the controller the character correspondent to the CharacterCard the player decided to play
      * @param selectedCharacterCard The CharacterCard selected by the player
      */
-    private void sendCharacterCardChoice(CharacterCard selectedCharacterCard) {
+    private synchronized void sendCharacterCardChoice(CharacterCard selectedCharacterCard) {
         // Gets the Character correspondent to the chosen CharacterCard and save it in a Tuple
         Character                     selectedCharacter     = selectedCharacterCard.getCharacter();
         Tuple<GameActions, Character> playCharacterResponse = new Tuple<>(GameActions.CHOSENCHARACTER, selectedCharacter);
@@ -559,7 +571,7 @@ public class VirtualController extends Thread implements Closeable {
         }
     }
 
-    public void messageAfterUserInteraction (Object infoToSend) {
+    public synchronized void messageAfterUserInteraction (Object infoToSend) {
         switch(this.vcState) {
             case REQ_USER_AGE                   -> {
                 UsernameAndMagicAge                     usernameAndAgeInsertion     = (UsernameAndMagicAge) infoToSend;
@@ -974,7 +986,7 @@ public class VirtualController extends Thread implements Closeable {
      * @return the username of the local player
      */
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     /**
