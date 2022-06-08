@@ -32,7 +32,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             outputStream = new DataOutputStream(socket.getOutputStream());
 
             // Set a timeout of 1 second for every input stream read
-            socket.setSoTimeout(1000);
+            socket.setSoTimeout(500);
 
             start();
         }
@@ -97,9 +97,9 @@ public class VirtualView extends Thread implements AutoCloseable {
                     return MessageBuilder.messageToCommand(msg);
             }
 
+            /*
             catch (EOFException ignored) {
                 try {
-                    sleep(1000);
                     sendPing();
                 }
 
@@ -111,6 +111,7 @@ public class VirtualView extends Thread implements AutoCloseable {
                     endThread();
                 }
             }
+            */
 
             catch (SocketTimeoutException ignored) {
                 try {
@@ -169,6 +170,25 @@ public class VirtualView extends Thread implements AutoCloseable {
                 }
 
                 catch (SocketException e) {
+                    endThread();
+                }
+
+                catch (NotPongException e) {
+                    e.getCommand().executeCommand();
+                }
+            }
+
+            catch (EOFException ignored) {
+                try {
+                    sleep(1000);
+
+                    if (inputStream.available() == 0)
+                        sendPing();
+
+                    continue;
+                }
+
+                catch (InterruptedException | IOException e) {
                     endThread();
                 }
 
