@@ -37,7 +37,8 @@ public class VirtualController extends Thread implements Closeable {
 
     private       String                  username;
 
-    private ReentrantLock outStreamLock;
+    // Lock to be used to better synch the output stream
+    private final ReentrantLock outStreamLock;
 
     public VirtualController(Address address, View view) throws IOException {
         socket       = new Socket(address.ipAddress(), address.port());

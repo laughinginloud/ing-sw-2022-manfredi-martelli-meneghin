@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Class describing the general virtual view interface, encapsulating the sockets
@@ -25,6 +26,9 @@ public class VirtualView extends Thread implements AutoCloseable {
     private final DataInputStream  inputStream;
     private final DataOutputStream outputStream;
 
+    // Lock to be used to better synch the output stream
+    private final ReentrantLock    outStreamLock;
+
     public VirtualView(Socket socket) throws SocketException {
         try {
             this.socket  = socket;
@@ -33,6 +37,8 @@ public class VirtualView extends Thread implements AutoCloseable {
 
             // Set a timeout of 1 second for every input stream read
             socket.setSoTimeout(500);
+
+            outStreamLock = new ReentrantLock();
 
             start();
         }
@@ -67,11 +73,18 @@ public class VirtualView extends Thread implements AutoCloseable {
     public synchronized void sendMessage(GameCommand command) {
         try {
             String message = MessageBuilder.commandToJson(command);
+
+            outStreamLock.lock();
             outputStream.writeUTF(message);
+            outputStream.flush();
         }
 
         catch (Exception ignored) {
             endThread();
+        }
+
+        finally {
+            outStreamLock.unlock();
         }
     }
 
