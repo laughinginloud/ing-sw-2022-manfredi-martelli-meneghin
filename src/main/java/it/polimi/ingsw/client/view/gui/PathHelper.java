@@ -3,6 +3,9 @@ package it.polimi.ingsw.client.view.gui;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 
+import java.lang.String;
+import java.util.Objects;
+
 // TODO - JavaDocs (?)
 
 /**
@@ -99,6 +102,7 @@ public class PathHelper {
      * @return A String representing the HandlerPath correspondent to the fxmlPath
      */
     public static String fromFXMLPathToHandlerPath (String fxmlPath) {
+        fxmlPath = fromAbsoluteURLToRelativeURL(fxmlPath);
         return switch(fxmlPath) {
 
             // CharacterCards
@@ -671,4 +675,34 @@ public class PathHelper {
 
     // endregion Translators/Switches
 
+    /**
+     * Converts the absolute URL, that depends on the devices, on the relative URL useful for the project
+     * @param absoluteURL A String containing the absolute URL
+     * @return A String representing the relative URL
+     */
+    public static String fromAbsoluteURLToRelativeURL (String absoluteURL) {
+        if (absoluteURL.contains("/")) {
+            absoluteURL = absoluteURL.replace("/", "\\");
+        }
+
+        int    slashPosition = absoluteURL.indexOf("\\");
+        String beforeSlash  = absoluteURL.substring(slashPosition);
+        String afterSlash;
+
+        while (!Objects.equals(beforeSlash.substring(0, 7), "\\images")) {
+
+            // Moves after the slash, since it was not followed by "images"
+            afterSlash = beforeSlash.substring(1);
+
+            // Searches for the first slash in the new substring
+            slashPosition  = afterSlash.indexOf("\\");
+
+            // Moves on the found slash
+            beforeSlash = afterSlash.substring(slashPosition);
+        }
+
+        beforeSlash = beforeSlash.replace("\\", "/");
+        beforeSlash = "@..".concat(beforeSlash);
+        return beforeSlash;
+    }
 }
