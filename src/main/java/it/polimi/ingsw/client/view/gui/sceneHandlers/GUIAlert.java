@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import javafx.scene.control.Alert;
 
+// TODO - JavaDocs
+
 public enum GUIAlert {
     // Used when the user press the exitButton or press ALT+F4 in order to exit the game
     EXIT,
@@ -78,7 +80,7 @@ public enum GUIAlert {
     // Alert showed when a player, different by the player is receiving the message, start his turn
     START_ANOTHER_PLAYER_TURN,
 
-    // Alert showed to the player when his turn is ended (when he can't play a CharacterCard and the he
+    // Alert showed to the player when his turn is ended (when he can't play a CharacterCard and when he
     // can't choose between play a CC or end his turn with a specific alert)
     NOTIFY_END_THIS_PLAYER_TURN;
 
@@ -261,7 +263,7 @@ public enum GUIAlert {
                 title       = "Ending the turn";
                 headerText  = "You may choose to end the turn now by pressing OK or play a CharacterCard by pressing cancel";
                 contentText = "If you press OK you will end you turn and pass to the next player. Do you wish to continue?";
-                alertType   =  Alert.AlertType.INFORMATION;
+                alertType   =  Alert.AlertType.CONFIRMATION;
             }
 
             case NOTIFY_PLAYER_DISCONNECTION     -> {
