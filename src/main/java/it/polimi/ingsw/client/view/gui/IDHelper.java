@@ -920,6 +920,8 @@ public class IDHelper {
                     case 5  -> gs.CC2_elem5_img;
                     default -> throw new IllegalStateException("The elementPosOnCC must be between 0 and 5. You've inserted: " + elementPosOnCC);
                 };
+
+            default -> throw new IllegalStateException();
         };
     }
 
@@ -1034,6 +1036,8 @@ public class IDHelper {
                     case 3  -> gs.CT3_student3_img;
                     default -> throw new IllegalStateException("The studentPositionOnCloud must be between 0 and 3. You've inserted: " + studentPositionOnCloud);
                 };
+
+            default -> throw new IllegalStateException();
         };
     }
 

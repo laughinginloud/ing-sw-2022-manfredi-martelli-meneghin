@@ -93,6 +93,8 @@ public class PathHelper {
             case "/it/polimi/ingsw/images/return.png"        -> "@../images/return.png";
             case "/it/polimi/ingsw/images/school_board.png"  -> "@../images/school_board.png";
             case "/it/polimi/ingsw/images/home_page.jpg"     -> "@../images/home_page.jpg";
+
+            default -> throw new IllegalStateException();
         };
     }
 
