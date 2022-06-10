@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.common.termutils.TermConstants;
 import it.polimi.ingsw.common.termutils.Key;
 import it.polimi.ingsw.common.termutils.Ansi;
-import it.polimi.ingsw.server.controller.GameController;
+import it.polimi.ingsw.server.Server;
 import org.jline.terminal.Attributes;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
@@ -57,7 +57,7 @@ public class Main {
             // Simply start the server
             case "server" -> {
                 if (args.length == 1)
-                    GameController.main();
+                    Server.main();
 
                 else {
                     Optional<Integer> port = parsePort(args[1].trim());
@@ -67,7 +67,7 @@ public class Main {
                         throw new GameNotStarted();
                     }
 
-                    GameController.main(port.get());
+                    Server.main(port.get());
                 }
             }
 
@@ -226,7 +226,7 @@ public class Main {
                                     display.clear();
                                     display.updateAnsi(new ArrayList<>(), 0);
                                     writer.print("Server started");
-                                    GameController.main();
+                                    Server.main();
                                 }
 
                                 // Option 2: start the client in CLI mode

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Main client class
+ * Client's main class
  * @author Mattia Martelli
  */
 public class Client {
