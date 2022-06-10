@@ -6,12 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+// TODO - JavaDoc
+
 public class WaitingRoomHandler implements GUIHandler {
 
     private ViewGUI gui;
-
-    // TODO JavaDocs + Regions
-    // TODO Implementation
 
     // region FXML_Ids
 

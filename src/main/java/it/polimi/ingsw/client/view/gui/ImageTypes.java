@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view.gui;
 
+// TODO - JavaDocs (?)
+
 /**
  * Enum used to have an easier access to the images through theirs url path
  * for the ImageViews (ID) that changes their linked Image (then their places in the pages)

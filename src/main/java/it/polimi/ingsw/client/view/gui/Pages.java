@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view.gui;
 
+// TODO - JavaDocs
+
 public enum Pages {
 
     INITIAL_PAGE,

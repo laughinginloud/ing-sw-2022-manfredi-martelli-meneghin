@@ -1384,8 +1384,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
 
     // endregion FXML_Ids
 
-    // TODO JavaDocs + Regions
-    // TODO Implementations
+    // TODO JavaDocs
 
 
     // region PSBUpdateModel
@@ -1395,7 +1394,6 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
      * @param model the model to update
      */
     public void psbUpdateModel(GameModel model, Set<GameValues> updatedValues) {
-        //TODO: Optimize the psbUpdateModel, updating only the updated fields
         boolean containsModel = updatedValues.contains(GameValues.MODEL);
         Player[] players      = model.getPlayer();
         // For each player present
@@ -1670,9 +1668,5 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
     @Override
     public void setGUI(ViewGUI gui) {
         this.gui = gui;
-
-        // Usata solo per testare la funzione:
-        // p0_entranceStudent1_img.setImage(new Image(getClass().getClassLoader().getResource("it/polimi/ingsw/images/students/student_red.png").toString(), true));
-
     }
 }

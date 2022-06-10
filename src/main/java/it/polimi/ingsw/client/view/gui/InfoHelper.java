@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+// TODO - JavaDocs (?)
+
 /**
  * Helper class with useful methods to switch from elements ID to their information (position, color,
  * index, number, etc...) related to the Model's way to store data

@@ -3,6 +3,8 @@ package it.polimi.ingsw.client.view.gui;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 
+// TODO - JavaDocs (?)
+
 /**
  * Class containing useful support method for FXMLPath and HandlerPath usage
  * @author Sebastiano

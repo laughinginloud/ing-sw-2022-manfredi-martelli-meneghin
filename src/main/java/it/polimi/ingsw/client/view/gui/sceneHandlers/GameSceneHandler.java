@@ -1324,7 +1324,7 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion FXML_Ids
 
-    // TODO Full implementation
+    // TODO - Fix JavaDocs, regions and readability
 
     // region GSUpdateModel
 

@@ -17,13 +17,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO - JavaDoc
+
 public class WizardChoiceHandler implements GUIHandler {
     private ViewGUI gui;
 
     private Wizard[] availableWizard;
-
-    // TODO JavaDocs
-    // TODO Implementation
 
     // region FXML_Ids
 
