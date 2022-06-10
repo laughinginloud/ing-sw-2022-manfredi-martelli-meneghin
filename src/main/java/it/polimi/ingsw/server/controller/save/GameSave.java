@@ -23,20 +23,22 @@ public class GameSave {
     private static final File SAVE_FOLDER = new File("./saves/");
 
     public static void saveGame(String fileName) throws IOException {
-        Map<SaveData, Object> data = new HashMap<>();
-        data.put(SaveData.ControllerData, ControllerData.getInstance());
-        data.put(SaveData.GameState, GameController.saveGameState());
+        SaveData data = new SaveData(ControllerData.getInstance(), GameController.saveGameState());
 
         File save = new File(SAVE_FOLDER, fileName);
-        save.createNewFile();
+
+        if (!save.createNewFile())
+            if (!save.delete() || !save.createNewFile())
+                throw new IOException("Save already exists and cannot be replaced");
+
         FileWriter saveWriter = new FileWriter(save);
         saveWriter.write(saveBuilder.toJson(data));
         saveWriter.close();
     }
 
     public static void loadGame(File save) throws IOException {
-        Map<SaveData, Object> data = saveBuilder.fromJson(Files.readString(save.toPath()), Map.class);
-        ControllerData.loadData((ControllerData) data.get(SaveData.ControllerData));
+        SaveData data = saveBuilder.fromJson(Files.readString(save.toPath()), SaveData.class);
+        GameController.loadGameState(data.gameState());
     }
 
     public static Optional<File> findSavedGame(String username) {

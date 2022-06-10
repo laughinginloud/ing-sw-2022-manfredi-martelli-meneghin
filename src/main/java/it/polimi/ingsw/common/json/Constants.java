@@ -8,11 +8,12 @@ import it.polimi.ingsw.common.json.adapters.*;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.model.*;
-import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
 import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
+import it.polimi.ingsw.server.controller.ControllerData;
+import it.polimi.ingsw.server.controller.save.SaveData;
 
 /**
  * Useful constants for both client and server
@@ -29,12 +30,13 @@ public /*static*/ final class Constants {
     public static final Gson jsonBuilder = new GsonBuilder()
         // region Custom type adapters
         .registerTypeAdapter(AssistantCard.class,        new AssistantCardJSONAdapter())
-        .registerTypeAdapter(AssistantCard[].class,      new AssistantDeckJSONAdapter())
+        .registerTypeAdapter(AssistantCard[].class,      new AssistantCardArrayJSONAdapter())
         .registerTypeAdapter(Bag.class,                  new BagJSONAdapter())
         .registerTypeAdapter(CharacterCard[].class,      new CharacterCardArrayJSONAdapter())
         .registerTypeAdapter(CloudTile[].class,          new CloudTileArrayJSONAdapter())
         .registerTypeAdapter(Color.class,                new ColorJSONAdapter())
         .registerTypeAdapter(Color[].class,              new ColorArrayJSONAdapter())
+        .registerTypeAdapter(ControllerData.class,       new ControllerDataJSONAdapter())
         .registerTypeAdapter(DiningRoom.class,           new DiningRoomJSONAdapter())
         .registerTypeAdapter(Entrance.class,             new EntranceJSONAdapter())
         .registerTypeAdapter(GameActions.class,          new GameActionsJSONAdapter())
@@ -48,6 +50,7 @@ public /*static*/ final class Constants {
         .registerTypeAdapter(MoveStudentInfo.class,      new MoveStudentInfoJSONAdapter())
         .registerTypeAdapter(Player.class,               new PlayerJSONAdapter())
         .registerTypeAdapter(Player[].class,             new PlayerArrayJSONAdapter())
+        .registerTypeAdapter(SaveData.class,             new SaveDataJSONAdapter())
         .registerTypeAdapter(SchoolBoard.class,          new SchoolBoardJSONAdapter())
         .registerTypeAdapter(TowerColor.class,           new TowerColorJSONAdapter())
         .registerTypeAdapter(Tuple.class,                new TupleJSONAdapter())

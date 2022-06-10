@@ -30,7 +30,7 @@ import java.util.Map;
 public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
     private static final Gson json = new GsonBuilder()
         .registerTypeAdapter(AssistantCard.class,        new AssistantCardJSONAdapter())
-        .registerTypeAdapter(AssistantCard[].class,      new AssistantDeckJSONAdapter())
+        .registerTypeAdapter(AssistantCard[].class,      new AssistantCardArrayJSONAdapter())
         .registerTypeAdapter(Bag.class,                  new BagJSONAdapter())
         .registerTypeAdapter(CharacterCard[].class,      new CharacterCardArrayJSONAdapter())
         .registerTypeAdapter(CloudTile[].class,          new CloudTileArrayJSONAdapter())

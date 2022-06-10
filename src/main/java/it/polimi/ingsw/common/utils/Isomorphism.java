@@ -4,13 +4,14 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Class representing an isomorphism between two classes
  * @param <Left> The "left side" of the isomorphism, i.e. the domain
  * @param <Right> The "right side" of the isomorphism, i.e. the codomain
  */
-public class Isomorphism<Left, Right> {
+public final class Isomorphism<Left, Right> {
     private final Map<Left, Right> leftRightMap;
     private final Map<Right, Left> rightLeftMap;
 
@@ -178,5 +179,24 @@ public class Isomorphism<Left, Right> {
     public Left removeRight(Right right) {
         leftRightMap.remove(rightLeftMap.get(right));
         return rightLeftMap.remove(right);
+    }
+
+    /**
+     * Return a set of tuples representing the isomorphism
+     * @return An unordered Set(Tuple(Left, Right))
+     */
+    public Set<Tuple<Left, Right>> tupleSet() {
+        return entrySet().stream().map(e -> new Tuple<Left, Right>(e.getKey(), e.getValue())).collect(Collectors.toSet());
+    }
+
+    /**
+     * Map the isomorphism to a new domain
+     * @param map The mapper function
+     * @return The new isomorphism
+     * @param <NewLeft> The type of the new left domain
+     * @param <NewRight> The type of the new right domain
+     */
+    public <NewLeft, NewRight> Isomorphism<NewLeft, NewRight> map(Function<Isomorphism<Left, Right>, Isomorphism<NewLeft, NewRight>> map) {
+        return map.apply(this);
     }
 }

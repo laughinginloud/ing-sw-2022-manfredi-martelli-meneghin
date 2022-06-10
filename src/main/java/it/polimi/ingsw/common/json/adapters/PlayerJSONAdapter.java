@@ -18,7 +18,7 @@ import java.lang.reflect.Field;
 public class PlayerJSONAdapter extends TypeAdapter<Player> {
     private static final Gson json = new GsonBuilder()
         .registerTypeAdapter(AssistantCard.class, new AssistantCardJSONAdapter())
-        .registerTypeAdapter(AssistantCard[].class, new AssistantDeckJSONAdapter())
+        .registerTypeAdapter(AssistantCard[].class, new AssistantCardArrayJSONAdapter())
         .registerTypeAdapter(Wizard.class, new WizardJSONAdapter())
         .registerTypeAdapter(SchoolBoard.class, new SchoolBoardJSONAdapter())
         .setPrettyPrinting()

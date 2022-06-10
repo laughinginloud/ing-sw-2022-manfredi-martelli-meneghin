@@ -35,17 +35,12 @@ public class CharacterCard {
      *                  (CharacterCard are enum according to their order in the Eriantys Manual) - not null
      * @return A new CharacterCard object of a specific class
      */
-    public static CharacterCard build (Character character){
-        //CharacterCards that need students on them
-        if (character == Character.MONK || character == Character.JESTER || character == Character.PRINCESS)
-            return new CharacterCardStudent(character);
-
-        //CharacterCard that needs NoEntryTile on it
-        else if (character == Character.HERBALIST)
-            return new CharacterCardNoEntry(character);
-
-        else
-            return new CharacterCard(character);
+    public static CharacterCard build (Character character) {
+        return switch (character) {
+            case MONK, JESTER, PRINCESS -> new CharacterCardStudent(character);
+            case HERBALIST              -> new CharacterCardNoEntry(character);
+            default                     -> new CharacterCard       (character);
+        };
     }
 
     // endregion

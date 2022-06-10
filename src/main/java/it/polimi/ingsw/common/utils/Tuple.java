@@ -23,7 +23,7 @@ public record Tuple<Left, Right>(Left left, Right right) {
      * Map the first element of the tuple to a new domain
      * @param map The mapper function
      * @return The new tuple
-     * @param <NewLeft>> The type of the new domain
+     * @param <NewLeft> The type of the new domain
      */
     public <NewLeft> Tuple<NewLeft, Right> mapLeft(Function<Left, NewLeft> map) {
         return new Tuple<>(map.apply(left), right);
@@ -37,5 +37,28 @@ public record Tuple<Left, Right>(Left left, Right right) {
      */
     public <NewRight> Tuple<Left, NewRight> mapRight(Function<Right, NewRight> map) {
         return new Tuple<>(left, map.apply(right));
+    }
+
+    /**
+     * Map the tuple to a new domain
+     * @param map The mapper function
+     * @return The new tuple
+     * @param <NewLeft> The type of the new domain
+     * @param <NewRight> The type of the new codomain
+     */
+    public <NewLeft, NewRight> Tuple<NewLeft, NewRight> map(Function<Tuple<Left, Right>, Tuple<NewLeft, NewRight>> map) {
+        return map.apply(this);
+    }
+
+    /**
+     * Map the tuple to a new domain
+     * @param leftMap The mapper function for the left side
+     * @param rightMap The mapper function for the right side
+     * @return The new tuple
+     * @param <NewLeft> The type of the new domain
+     * @param <NewRight> The type of the new codomain
+     */
+    public <NewLeft, NewRight> Tuple<NewLeft, NewRight> map(Function<Left, NewLeft> leftMap, Function<Right, NewRight> rightMap) {
+        return mapLeft(leftMap).mapRight(rightMap);
     }
 }

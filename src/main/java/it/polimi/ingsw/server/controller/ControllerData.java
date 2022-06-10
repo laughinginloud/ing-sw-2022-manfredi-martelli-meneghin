@@ -21,7 +21,8 @@ import java.util.Map;
  */
 public class ControllerData {
 
-    public enum Flags { equalStudentsFlag, extraMovementFlag, ignoreTowersFlag, extraInfluenceFlag, excludeColorFlag}
+    //FIXME: mettere in regioni
+    public enum Flags { equalStudentsFlag, extraMovementFlag, ignoreTowersFlag, extraInfluenceFlag, excludeColorFlag }
 
     // region Fields
 
@@ -32,7 +33,7 @@ public class ControllerData {
     private        boolean                          emptyBagTrigger;
     private        boolean                          emptyAssistantDeckTrigger;
     private        boolean                          hasPlayedCard;
-    private        Integer                          numOfPlayers;
+    private        int                              numOfPlayers;
     private        boolean                          expertMode;
     private        Isomorphism<Player, VirtualView> playerViewMap;
     private        Player                           currentPlayer;
@@ -346,6 +347,45 @@ public class ControllerData {
     }
 
     /**
+     * Load the data into the current instance
+     * @return A pointer to the instance
+     */
+    public static ControllerData loadData(
+        GameModel model,
+        Map<Player, AssistantCard> assistantCardMap,
+        Player[] playersOrder,
+        boolean emptyBagTrigger,
+        boolean emptyAssistantDeckTrigger,
+        boolean hasPlayedCard,
+        int numOfPlayers,
+        boolean expertMode,
+        Player currentPlayer,
+        CharacterCardStrategy[] characterCardStrategies,
+        boolean[] characterCardFlags,
+        Color excludedColor,
+        boolean winTrigger) {
+
+        if (instance == null)
+            instance = new ControllerData();
+
+        instance.gameModel                 = model;
+        instance.playerAssistantCardMap    = assistantCardMap;
+        instance.playersOrder              = playersOrder;
+        instance.emptyBagTrigger           = emptyBagTrigger;
+        instance.emptyAssistantDeckTrigger = emptyAssistantDeckTrigger;
+        instance.hasPlayedCard             = hasPlayedCard;
+        instance.numOfPlayers              = numOfPlayers;
+        instance.expertMode                = expertMode;
+        instance.currentPlayer             = currentPlayer;
+        instance.cardStrategies            = characterCardStrategies;
+        instance.characterCardFlags        = characterCardFlags;
+        instance.excludedColor             = excludedColor;
+        instance.winTrigger                = winTrigger;
+
+        return instance;
+    }
+
+    /**
      * Method to search for the original copy of a player in the model
      * @param players The array containing the original copies
      * @param player The player to search in the model
@@ -381,7 +421,7 @@ public class ControllerData {
 
     public void setCharacterCardFlag(Flags flag, boolean value) {
         if (characterCardFlags == null)
-            characterCardFlags = new boolean[4];
+            characterCardFlags = new boolean[Flags.values().length];
 
         characterCardFlags[flag.ordinal()] = value;
     }

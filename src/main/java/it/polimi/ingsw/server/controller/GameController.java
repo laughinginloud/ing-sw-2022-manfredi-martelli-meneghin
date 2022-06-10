@@ -7,6 +7,7 @@ import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
 import it.polimi.ingsw.server.controller.state.GameState;
+import it.polimi.ingsw.server.controller.state.GameStateModelInitialization;
 import it.polimi.ingsw.server.controller.state.GameStateThread;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 import it.polimi.ingsw.common.viewRecord.*;
@@ -34,6 +35,8 @@ public class GameController {
     private static boolean         rulesSet;
 
     private static GameStateThread gameStateThread;
+
+    private static GameState startState = new GameStateModelInitialization();
 
     /**
      * Start the server with the default port
@@ -167,7 +170,8 @@ public class GameController {
                         playerAgeQueue.clear();
                         activeGame = true;
                         data.sendMessageToPlayers(new GameCommandGameStart());
-                        (gameStateThread = new GameStateThread()).start();
+                        (gameStateThread = new GameStateThread(startState)).start();
+                        startState = new GameStateModelInitialization();
                     }
                 }
 
@@ -235,6 +239,7 @@ public class GameController {
                 data     = ControllerData.getInstance();
                 rulesSet = false;
                 playerAgeQueue.clear();
+                startState = new GameStateModelInitialization();
             }
 
             else {
@@ -382,7 +387,19 @@ public class GameController {
         }
     }
 
+    /**
+     * Save the current game state
+     * @return A pointer to the state
+     */
     public static GameState saveGameState() {
         return gameStateThread.saveGameState();
+    }
+
+    /**
+     * Load a specific state as the entry point for the DFA
+     * @param state The initial state
+     */
+    public static void loadGameState(GameState state) {
+        startState = state;
     }
 }

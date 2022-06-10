@@ -16,7 +16,7 @@ import java.util.List;
  * Adapter for an array of assistant cards
  * @author Mattia Martelli
  */
-public class AssistantDeckJSONAdapter extends TypeAdapter<AssistantCard[]> {
+public class AssistantCardArrayJSONAdapter extends TypeAdapter<AssistantCard[]> {
     private static final Gson json = new GsonBuilder().registerTypeAdapter(AssistantCard.class, new AssistantCardJSONAdapter()).setPrettyPrinting().create();
 
     @Override

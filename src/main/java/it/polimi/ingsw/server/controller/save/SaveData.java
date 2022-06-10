@@ -1,9 +1,10 @@
 package it.polimi.ingsw.server.controller.save;
 
+import it.polimi.ingsw.server.controller.ControllerData;
+import it.polimi.ingsw.server.controller.state.GameState;
+
 /**
- * Enum that represents the serialized saved data
+ * Record that represents the serialized saved data
  * @author Mattia Martelli
  */
-enum SaveData {
-    ControllerData, GameState
-}
+public record SaveData (ControllerData controllerData, GameState gameState) {}

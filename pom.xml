@@ -60,6 +60,7 @@
             <artifactId>javafx-fxml</artifactId>
             <version>18.0.1</version>
         </dependency>
+        <!-- JavaFX' graphics packages for all platforms, to make the uber-jar cross-platform -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
