@@ -1,13 +1,17 @@
 package it.polimi.ingsw.client.view.gui;
 
+import it.polimi.ingsw.client.view.gui.sceneHandlers.EndGameHandler;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.GameSceneHandler;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.PlayersSchoolBoardHandler;
 import it.polimi.ingsw.common.model.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
+// TODO - JavaDocs (?)
 
 /**
  * Helper class with useful methods to switch between model elements and corresponding id
@@ -2064,4 +2068,34 @@ public class IDHelper {
 
     // endregion PlayersSchoolBoardID
 
+
+    // region EndGameID
+
+    public static ImageView egFindWizardID (EndGameHandler eg, int wizardIndex) {
+        ImageView wizardID = null;
+        switch (wizardIndex) {
+            case 0 -> wizardID = eg.wizard0_img;
+            case 1 -> wizardID = eg.wizard1_img;
+            case 2 -> wizardID = eg.wizard2_img;
+            case 3 -> wizardID = eg.wizard3_img;
+            default -> throw new IllegalStateException("The wizardIndex must be between 0 and 3, has been inserted: " + wizardIndex);
+        }
+
+        return wizardID;
+    }
+
+    public static Label egFindUsernameID (EndGameHandler eg, int usernameIndex) {
+        Label usernameID = null;
+        switch (usernameIndex) {
+            case 0 -> usernameID = eg.user0_label;
+            case 1 -> usernameID = eg.user1_label;
+            case 2 -> usernameID = eg.user2_label;
+            case 3 -> usernameID = eg.user3_label;
+            default -> throw new IllegalStateException("The usernameIndex must be between 0 and 3, has been inserted: " + usernameIndex);
+        }
+
+        return usernameID;
+    }
+
+    // endregion EndGameID
 }

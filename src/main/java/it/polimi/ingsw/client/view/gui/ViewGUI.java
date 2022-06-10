@@ -569,9 +569,9 @@ public final class ViewGUI extends Application implements View {
      * @param winner the winning player
      */
     @Override
-    // TODO [Implement -> EndGame]
     public void signalWinner(Player winner) {
-
+        ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinner(winner);
+        switchScene(Pages.END_GAME);
     }
 
     /**
@@ -580,9 +580,9 @@ public final class ViewGUI extends Application implements View {
      * @param team the winning team
      */
     @Override
-    // TODO [Implement -> EndGame]
     public void signalWinner(List<Player> team) {
-
+        ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinningTeam(team);
+        switchScene(Pages.END_GAME);
     }
 
     /**
@@ -591,9 +591,9 @@ public final class ViewGUI extends Application implements View {
      * @param drawers the player who ended in a draw
      */
     @Override
-    // TODO [Implement -> EndGame]
     public void signalDraw(List<Player> drawers) {
-
+        ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayDraw(drawers);
+        switchScene(Pages.END_GAME);
     }
 
     // endregion SignalEndGame
