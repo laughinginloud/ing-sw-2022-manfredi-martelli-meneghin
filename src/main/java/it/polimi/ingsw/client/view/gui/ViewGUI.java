@@ -21,6 +21,8 @@ import java.util.Set;
 import java.io.IOException;
 import java.util.*;
 
+// TODO - Fix JavaDocs and increase readability
+
 /**
  * View implementation for the GUI (Graphic User Interface)
  * ViewGUI implements Application to execute the program with the Java Application Thread
@@ -74,6 +76,7 @@ public final class ViewGUI extends Application implements View {
         // Adds the scenes and the sceneHandlers to their respective HashMap
         setupScenes();
         this.stage = stage;
+        stage.setResizable(false);
 
         // Sets the title, the scene, the icon
         stage.setTitle("Eriantys pre alpha 5.0");
@@ -170,11 +173,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void playExitMenu() {
-        this.currentScene = nameMapScene.get(Pages.INITIAL_PAGE);
-        nameMapHandler.get(Pages.INITIAL_PAGE).setGUI(this);
-        stage.setResizable(false);
-
-        Platform.runLater(() -> stage.setScene(currentScene));
+        switchScene(Pages.INITIAL_PAGE);
         stage.show();
     }
 
@@ -187,10 +186,7 @@ public final class ViewGUI extends Application implements View {
         virtualController = null;
         model = null;
 
-        this.currentScene = nameMapScene.get(Pages.CONNECTION_ERROR);
-        nameMapHandler.get(Pages.CONNECTION_ERROR).setGUI(this);
-
-        Platform.runLater(() -> stage.setScene(currentScene));
+        switchScene(Pages.CONNECTION_ERROR);
     }
 
     /**
@@ -204,13 +200,7 @@ public final class ViewGUI extends Application implements View {
         ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model,updatedValues);
 
         if (updatedValues.contains(GameValues.MODEL)){
-            this.currentScene = nameMapScene.get(Pages.GAME_SCENE);
-            nameMapHandler.get(Pages.GAME_SCENE).setGUI(this);
-
-            Platform.runLater(() -> {
-                stage.setScene(currentScene);
-                //stage.setFullScreen(true);
-            });
+            switchScene(Pages.GAME_SCENE);
         }
     }
 
@@ -223,11 +213,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askAddress() {
-        currentScene = nameMapScene.get(Pages.SERVER_INFO);
-        nameMapHandler.get(Pages.SERVER_INFO).setGUI(this);
-
-        Platform.runLater(() -> stage.setScene(currentScene));
-        stage.show();
+        switchScene(Pages.SERVER_INFO);
     }
 
     /**
@@ -236,10 +222,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askRules() {
-        this.currentScene = nameMapScene.get(Pages.ASK_RULES);
-        nameMapHandler.get(Pages.ASK_RULES).setGUI(this);
-
-        Platform.runLater(() -> stage.setScene(currentScene));
+        switchScene(Pages.ASK_RULES);
     }
 
     /**
@@ -247,10 +230,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askReloadGame() {
-        this.currentScene = nameMapScene.get(Pages.GAME_CHOICE);
-        nameMapHandler.get(Pages.GAME_CHOICE).setGUI(this);
-
-        Platform.runLater(() -> stage.setScene(currentScene));
+        switchScene(Pages.GAME_CHOICE);
     }
 
     /**
@@ -275,11 +255,8 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestUsernameAndMagicAge(Set<String> forbiddenUsernames) {
-        this.currentScene = nameMapScene.get(Pages.CLIENT_INFO);
-        nameMapHandler.get(Pages.CLIENT_INFO).setGUI(this);
         ((ClientInfoHandler) nameMapHandler.get(Pages.CLIENT_INFO)).setForbiddenUsernames(forbiddenUsernames);
-
-        Platform.runLater(() -> stage.setScene(currentScene));
+        switchScene(Pages.CLIENT_INFO);
     }
 
     /**
@@ -289,12 +266,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestWizard(Wizard[] availableWizards) {
-        this.currentScene = nameMapScene.get(Pages.WIZARD_CHOICE);
-        nameMapHandler.get(Pages.WIZARD_CHOICE).setGUI(this);
         ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
         ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClicksWizard();
-
-        Platform.runLater(() -> stage.setScene(currentScene));
+        switchScene(Pages.WIZARD_CHOICE);
     }
 
     /**
@@ -485,10 +459,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyGameInProgress() {
-        this.currentScene = nameMapScene.get(Pages.UNABLE_JOIN);
-        nameMapHandler.get(Pages.UNABLE_JOIN).setGUI(this);
-
-        Platform.runLater(() -> stage.setScene(currentScene));
+        switchScene(Pages.UNABLE_JOIN);
     }
 
     /**
