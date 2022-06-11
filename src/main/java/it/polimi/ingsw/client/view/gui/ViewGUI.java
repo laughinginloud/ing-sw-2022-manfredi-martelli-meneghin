@@ -490,8 +490,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyStartGameTurn(String playingPlayerUsername) {
-        Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.START_ANOTHER_PLAYER_TURN, playingPlayerUsername);
-        playerDisconnection.showAndWait();
+        Platform.runLater(() -> {
+            Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.START_ANOTHER_PLAYER_TURN, playingPlayerUsername);
+            playerDisconnection.showAndWait();
+        });
     }
 
     /**
