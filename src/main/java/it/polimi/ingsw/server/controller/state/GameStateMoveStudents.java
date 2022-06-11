@@ -48,13 +48,12 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
 
             // Notify all the not-current Players about the beginning of the currentPlayer ActionTurn
             Player[] players = data.getGameModel().getPlayer();
-            for (Player playerToUpdate : players) {
-                if (playerToUpdate.getUsername() != currentPlayer.getUsername()) {
+            for (Player playerToUpdate : players)
+                if (playerToUpdate.getPlayerID() != currentPlayer.getPlayerID()) {
                     VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
                     GameCommand update             = new GameCommandNotifyBeginningTurn(currentPlayer.getUsername());
                     playerToUpdateView.sendMessage(update);
                 }
-            }
 
             for (int i = 0; i < numOfMovements && !data.checkWinTrigger(); i++)
                 moveOneStudent(currentPlayer, playerView);
@@ -88,6 +87,8 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                     updatedCurrentPlayer = data.getPlayersOrder(i + 1);
                     break;
                 }
+
+        data.setCurrentPlayer(updatedCurrentPlayer);
 
         return updatedCurrentPlayer;
     }
@@ -222,16 +223,15 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
      * @return if the professorNeeds to be moved (true or false)
      */
     public static boolean checkProfessorMovement(Player newPlayer, Player controllingPlayer, Color student) {
-
         ControllerData data                        = ControllerData.getInstance();
         DiningRoom     diningRoomNewPlayer         = newPlayer.getSchoolBoard().getDiningRoom();
-        DiningRoom     diningRoomControllingPlayer = controllingPlayer.getSchoolBoard().getDiningRoom();
+        DiningRoom     diningRoomControllingPlayer = controllingPlayer == null ? null : controllingPlayer.getSchoolBoard().getDiningRoom();
 
         // If the flag 'equalStudentsFlag' is set the professor moves if the number of students in the dining room
         // is >= to the player is currently holding the professor. Otherwise, only if the number of students is >.
-        return data.getCharacterCardFlag(ControllerData.Flags.equalStudentsFlag) ?
+        return diningRoomControllingPlayer == null || (data.getCharacterCardFlag(ControllerData.Flags.equalStudentsFlag) ?
             diningRoomNewPlayer.getStudentCounters(student) >= diningRoomControllingPlayer.getStudentCounters(student) :
-            diningRoomNewPlayer.getStudentCounters(student) >  diningRoomControllingPlayer.getStudentCounters(student) ;
+            diningRoomNewPlayer.getStudentCounters(student) >  diningRoomControllingPlayer.getStudentCounters(student));
     }
 
     /**
