@@ -75,6 +75,8 @@ public class GameController {
             return;
         }
 
+        System.out.println("Server started");
+
         while (true) {
             VirtualView view;
 
