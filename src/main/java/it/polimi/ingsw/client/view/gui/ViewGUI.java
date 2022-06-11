@@ -420,8 +420,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromEntrance(Color[] availableColors) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsChooseStudentFromEntrance(availableColors);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsChooseStudentFromEntrance(availableColors);
+        });
     }
 
     /**
