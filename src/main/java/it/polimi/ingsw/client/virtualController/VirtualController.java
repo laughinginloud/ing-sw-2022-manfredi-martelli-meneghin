@@ -37,9 +37,6 @@ public class VirtualController extends Thread implements Closeable {
 
     private       String                  username;
 
-    // Lock to be used to better synch the output stream
-    private final ReentrantLock outStreamLock;
-
     public VirtualController(Address address, View view) throws IOException {
         socket       = new Socket(address.ipAddress(), address.port());
         inputStream  = new DataInputStream(socket.getInputStream());
@@ -51,8 +48,6 @@ public class VirtualController extends Thread implements Closeable {
 
         // Sets himself as the VirtualController linked to the View that just invoked this method
         view.setVirtualController(this);
-
-        outStreamLock = new ReentrantLock();
 
         start();
     }
@@ -70,7 +65,12 @@ public class VirtualController extends Thread implements Closeable {
     public void run() {
         while (!isInterrupted()) {
             try {
-                messageInterpreter(messageBuilder.fromJson(inputStream.readUTF(), Message.class));
+                String msg;
+                synchronized (inputStream) {
+                    msg = inputStream.readUTF();
+                }
+                System.out.println(msg);
+                messageInterpreter(messageBuilder.fromJson(msg, Message.class));
             }
 
             catch (EOFException ignored) {}
@@ -88,17 +88,16 @@ public class VirtualController extends Thread implements Closeable {
 
     public void sendMessage(Message message) {
         try {
-            outStreamLock.lock();
-            outputStream.writeUTF(messageBuilder.toJson(message));
-            outputStream.flush();
+            String msg = messageBuilder.toJson(message);
+            System.out.println(msg);
+            synchronized (outputStream) {
+                outputStream.writeUTF(msg);
+                outputStream.flush();
+            }
         }
 
         catch (Exception e) {
             throw new RuntimeException(e);
-        }
-
-        finally {
-            outStreamLock.unlock();
         }
     }
 
@@ -158,7 +157,8 @@ public class VirtualController extends Thread implements Closeable {
                 GlobalProfessorTable gpt = model.getGlobalProfessorTable();
 
                 for (Color color : Color.values())
-                    gpt.setProfessorLocation(color, model.getPlayer(gpt.getProfessorLocation(color).getPlayerID()));
+                    if (gpt.getProfessorLocation(color) != null)
+                        gpt.setProfessorLocation(color, model.getPlayer(gpt.getProfessorLocation(color).getPlayerID()));
             }
 
             case CLOUDARRAY           -> model.setCloudTile((CloudTile[]) object);

@@ -1,19 +1,19 @@
 package it.polimi.ingsw.server.virtualView;
 
-import it.polimi.ingsw.server.controller.command.GameCommand;
+import it.polimi.ingsw.common.message.Message;
 
 /**
  * Exception thrown when a message different from "pong" is received
  * @author Mattia Martelli
  */
 class NotPongException extends Exception {
-    private final GameCommand command;
+    private final Message message;
 
-    NotPongException(GameCommand command) {
-        this.command = command;
+    NotPongException(Message message) {
+        this.message = message;
     }
 
-    GameCommand getCommand() {
-        return command;
+    Message getMsg() {
+        return message;
     }
 }

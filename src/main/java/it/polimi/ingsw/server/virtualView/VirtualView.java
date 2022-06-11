@@ -9,7 +9,6 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Class describing the general virtual view interface, encapsulating the sockets
@@ -26,9 +25,6 @@ public class VirtualView extends Thread implements AutoCloseable {
     private final DataInputStream  inputStream;
     private final DataOutputStream outputStream;
 
-    // Lock to be used to better synch the output stream
-    private final ReentrantLock    outStreamLock;
-
     public VirtualView(Socket socket) throws SocketException {
         try {
             this.socket  = socket;
@@ -37,8 +33,6 @@ public class VirtualView extends Thread implements AutoCloseable {
 
             // Set a timeout of 1 second for every input stream read
             socket.setSoTimeout(500);
-
-            outStreamLock = new ReentrantLock();
 
             start();
         }
@@ -57,6 +51,8 @@ public class VirtualView extends Thread implements AutoCloseable {
             if (isInterrupted())
                 return;
 
+            System.out.println("Exit");
+
             // Stop the thread and close the socket
             interrupt();
             socket.close();
@@ -70,21 +66,18 @@ public class VirtualView extends Thread implements AutoCloseable {
      * Send a command to the view, without waiting for a response
      * @param command the command to be sent
      */
-    public synchronized void sendMessage(GameCommand command) {
+    public void sendMessage(GameCommand command) {
         try {
             String message = MessageBuilder.commandToJson(command);
 
-            outStreamLock.lock();
-            outputStream.writeUTF(message);
-            outputStream.flush();
+            synchronized (outputStream) {
+                outputStream.writeUTF(message);
+                outputStream.flush();
+            }
         }
 
         catch (Exception ignored) {
             endThread();
-        }
-
-        finally {
-            outStreamLock.unlock();
         }
     }
 
@@ -93,50 +86,50 @@ public class VirtualView extends Thread implements AutoCloseable {
      * @return The command received from the client
      * @throws SocketException Throws a socket exception if the connection has been closed
      */
-    public synchronized GameCommand getMessage() throws SocketException {
+    public GameCommand getCommand() throws SocketException {
+        try {
+            return MessageBuilder.messageToCommand(getMessage());
+        }
+
+        catch (NotPongException e) {
+            return MessageBuilder.messageToCommand(e.getMsg());
+        }
+    }
+
+    private Message getMessage() throws NotPongException, SocketException {
         Message msg;
 
         while (!isInterrupted()) {
             try {
-                msg = MessageBuilder.jsonToMessage(inputStream.readUTF());
+                String message;
+                synchronized (inputStream) {
+                    message = inputStream.readUTF();
+                }
+                System.out.println(message);
+                msg = MessageBuilder.jsonToMessage(message);
 
                 if (msg == null)
                     sendPing();
 
-                else if (msg.equals(PONG_MESSAGE))
-                    msg = null;
+                //else if (msg.equals(PONG_MESSAGE))
+                //    msg = null;
 
                 else
-                    return MessageBuilder.messageToCommand(msg);
+                    return msg;
             }
 
-            /*
-            catch (EOFException ignored) {
+            catch (EOFException | SocketTimeoutException ignored) {
                 try {
                     sendPing();
                 }
 
                 catch (NotPongException e) {
-                    e.getCommand().executeCommand();
+                    throw e;
                 }
 
                 catch (Exception e) {
                     endThread();
-                }
-            }
-            */
-
-            catch (SocketTimeoutException ignored) {
-                try {
-                    sendPing();
-                }
-
-                catch (NotPongException e) {
-                    return e.getCommand();
-                }
-
-                catch (SocketException ignore) {
-                    endThread();
+                    throw new SocketException();
                 }
             }
 
@@ -157,13 +150,13 @@ public class VirtualView extends Thread implements AutoCloseable {
      */
     public synchronized GameCommand sendRequest(GameCommand request) throws SocketException {
         sendMessage(request);
-        return getMessage();
+        return getCommand();
     }
 
     public void run() {
         while (!isInterrupted()) {
             try {
-                Message msg = MessageBuilder.jsonToMessage(inputStream.readUTF());
+                Message msg = getMessage();
 
                 if (msg == null)
                     sendPing();
@@ -173,9 +166,10 @@ public class VirtualView extends Thread implements AutoCloseable {
             }
 
             catch (NotPongException e) {
-                e.getCommand().executeCommand();
+                MessageBuilder.messageToCommand(e.getMsg()).executeCommand();
             }
 
+/*
             // If the socket timed out whilst reading, try sending a ping to see if the client is still alive
             catch (SocketTimeoutException ignored) {
                 try {
@@ -197,8 +191,6 @@ public class VirtualView extends Thread implements AutoCloseable {
 
                     if (inputStream.available() == 0)
                         sendPing();
-
-                    continue;
                 }
 
                 catch (InterruptedException | IOException e) {
@@ -209,7 +201,7 @@ public class VirtualView extends Thread implements AutoCloseable {
                     e.getCommand().executeCommand();
                 }
             }
-
+*/
             // If I can't sleep it's because I've been interrupted: just let the while end gracefully, ending the thread
             catch (Exception ignored) {
                 endThread();
@@ -226,11 +218,39 @@ public class VirtualView extends Thread implements AutoCloseable {
         Message pong = null;
 
         try {
-            outputStream.writeUTF(MessageBuilder.messageToJson(PING_MESSAGE));
-            pong = MessageBuilder.jsonToMessage(inputStream.readUTF());
+            String msg = MessageBuilder.messageToJson(PING_MESSAGE);
+
+            synchronized (outputStream) {
+                outputStream.writeUTF(msg);
+                outputStream.flush();
+            }
+
+            synchronized (inputStream) {
+                msg = inputStream.readUTF();
+            }
+
+            pong = MessageBuilder.jsonToMessage(msg);
         }
 
-        catch (Exception e) {
+        catch (SocketTimeoutException e) {
+            try {
+                String msg;
+                synchronized (inputStream) {
+                    msg = inputStream.readUTF();
+                }
+
+                pong = MessageBuilder.jsonToMessage(msg);
+            }
+
+            catch (Exception ignored) {
+                endThread();
+            }
+
+            if (!pong.equals(PONG_MESSAGE))
+                throw new NotPongException(pong);
+        }
+
+        catch (IOException e) {
             endThread();
         }
 
@@ -238,7 +258,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             endThread();
 
         else if (!pong.equals(PONG_MESSAGE))
-            throw new NotPongException(MessageBuilder.messageToCommand(pong));
+            throw new NotPongException(pong);
     }
 
     private void endThread() {
