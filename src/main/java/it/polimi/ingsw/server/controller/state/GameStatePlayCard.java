@@ -107,7 +107,7 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
             ControllerData data = ControllerData.getInstance();
 
             // Gets the AssistantCard from the current player's deck
-            AssistantCard drawnFromDeck = player.getAssistantCard(chosenCard.cardValue());
+            AssistantCard drawnFromDeck = player.getAssistantCard(chosenCard.cardValue() - 1);
             if (!drawnFromDeck.equals(chosenCard))
                 throw new IllegalStateException("The two AssistantCards cannot be different");
 
