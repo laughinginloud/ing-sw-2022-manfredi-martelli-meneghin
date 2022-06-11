@@ -77,40 +77,42 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
         jsonWriter.name("currentPlayer");
         jsonWriter.value(controllerData.getCurrentPlayer().getPlayerID());
 
-        jsonWriter.name("characterCardStrategies");
-        jsonWriter.beginArray();
-        try {
-            Field characterCardField = CharacterCardStrategy.class.getDeclaredField("card");
-            characterCardField.setAccessible(true);
+        if (controllerData.getExpertMode()) {
+            jsonWriter.name("characterCardStrategies");
+            jsonWriter.beginArray();
+            try {
+                Field characterCardField = CharacterCardStrategy.class.getDeclaredField("card");
+                characterCardField.setAccessible(true);
 
-            for (CharacterCardStrategy card : controllerData.getCardStrategies())
-                jsonWriter.value(json.toJson(characterCardField.get(card)));
+                for (CharacterCardStrategy card : controllerData.getCardStrategies())
+                    jsonWriter.value(json.toJson(characterCardField.get(card)));
 
-            characterCardField.setAccessible(false);
+                characterCardField.setAccessible(false);
+            }
+
+            catch (IllegalAccessException | NoSuchFieldException ignored) {
+                throw new IOException();
+            }
+            jsonWriter.endArray();
+
+            jsonWriter.name("characterCardFlags");
+            jsonWriter.beginArray();
+            for (ControllerData.Flags flag : ControllerData.Flags.values()) {
+                jsonWriter.beginObject();
+
+                jsonWriter.name("flag");
+                jsonWriter.value(flag.name());
+
+                jsonWriter.name("value");
+                jsonWriter.value(controllerData.getCharacterCardFlag(flag));
+
+                jsonWriter.endObject();
+            }
+            jsonWriter.endArray();
+
+            jsonWriter.name("excludedColor");
+            jsonWriter.value(controllerData.getExcludedColor().name());
         }
-
-        catch (IllegalAccessException | NoSuchFieldException ignored) {
-            throw new IOException();
-        }
-        jsonWriter.endArray();
-
-        jsonWriter.name("characterCardFlags");
-        jsonWriter.beginArray();
-        for (ControllerData.Flags flag : ControllerData.Flags.values()) {
-            jsonWriter.beginObject();
-
-            jsonWriter.name("flag");
-            jsonWriter.value(flag.name());
-
-            jsonWriter.name("value");
-            jsonWriter.value(controllerData.getCharacterCardFlag(flag));
-
-            jsonWriter.endObject();
-        }
-        jsonWriter.endArray();
-
-        jsonWriter.name("excludedColor");
-        jsonWriter.value(controllerData.getExcludedColor().name());
 
         jsonWriter.name("winTrigger");
         jsonWriter.value(controllerData.checkWinTrigger());

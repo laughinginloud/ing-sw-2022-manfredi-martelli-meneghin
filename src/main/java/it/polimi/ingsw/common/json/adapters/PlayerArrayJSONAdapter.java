@@ -38,9 +38,8 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
         jsonReader.beginObject();
         jsonReader.nextName();
         jsonReader.beginArray();
-        while (jsonReader.hasNext()) {
+        while (jsonReader.hasNext())
             playerList.add(json.fromJson(jsonReader.nextString(), Player.class));
-        }
         jsonReader.endArray();
         jsonReader.endObject();
 
