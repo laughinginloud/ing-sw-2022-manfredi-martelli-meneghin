@@ -2334,8 +2334,9 @@ public class GameSceneHandler implements GUIHandler {
 
         // Gets the ImageView of the selected assistantCard, then retrieve is position on the
         // assistantCardDeck and gets its instance from the model
-        ImageView     selectedAssistantCardID = (ImageView) mouseEvent.getSource();
-        int           selectedAssistantCardIndex = InfoHelper.gsFindAssistantCardIndex(selectedAssistantCardID);
+        ImageView     selectedAssistantCardID    = (ImageView) mouseEvent.getSource();
+        // The index is different from the ID because the ID goes from 1 to 10 and the index goes from 0 to 9
+        int           selectedAssistantCardIndex = InfoHelper.gsFindAssistantCardIndex(selectedAssistantCardID) - 1;
         AssistantCard selectedAssistantCard      = gui.getModel().getPlayer(localPlayerIndex).getAssistantCard(selectedAssistantCardIndex);
 
         // Notifies the ViewGUI (and the VirtualController) about the user choice
