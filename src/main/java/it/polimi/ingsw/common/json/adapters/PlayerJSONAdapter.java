@@ -84,7 +84,7 @@ public class PlayerJSONAdapter extends TypeAdapter<Player> {
                         String temp = jsonReader.nextString();
 
                         if (!temp.equals("void"))
-                            lastPlayedCard = json.fromJson(jsonReader.nextString(), AssistantCard.class);
+                            lastPlayedCard = json.fromJson(temp, AssistantCard.class);
                     }
                     case "playerID"       -> playerID       = jsonReader.nextInt();
                     case "playerWizard"   -> playerWizard   = json.fromJson(jsonReader.nextString(), Wizard.class);
