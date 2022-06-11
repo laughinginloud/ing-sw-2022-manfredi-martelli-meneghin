@@ -27,15 +27,7 @@ public final class InfoMap {
 
     /**
      * Create a map from a previous one
-     * @param map The map used to initialized
-     */
-    public InfoMap(Map<GameValues, Object> map) {
-        this.map = new EnumMap<GameValues, Object>(map);
-    }
-
-    /**
-     * Create a map from a previous one
-     * @param map The map used to initialized
+     * @param map The map used to initialize
      */
     public InfoMap(InfoMap map) {
         this.map = map.map;
