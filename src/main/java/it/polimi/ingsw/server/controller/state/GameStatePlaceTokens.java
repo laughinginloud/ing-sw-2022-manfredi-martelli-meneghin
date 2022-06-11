@@ -67,7 +67,7 @@ public final class GameStatePlaceTokens implements GameStateSetup {
             // Iterate through the islands, adding the students
             // Note: "j++" executes the increment at the end of the statement, after the current value ("j") has been used
             for (int i = 0, j = 0; i < 12; ++i)
-                if (i != motherNaturePosition && i != ((motherNaturePosition + 6) % 11))
+                if (i != motherNaturePosition && i != ((motherNaturePosition + 6) % 12))
                     model.getIsland(i).setStudentCounters(initialStudents.drawnStudents()[j++], 1);
         }
 
