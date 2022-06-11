@@ -74,8 +74,10 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
         jsonWriter.name("expertMode");
         jsonWriter.value(controllerData.getExpertMode());
 
-        jsonWriter.name("currentPlayer");
-        jsonWriter.value(controllerData.getCurrentPlayer().getPlayerID());
+        if (controllerData.getCurrentPlayer() != null) {
+            jsonWriter.name("currentPlayer");
+            jsonWriter.value(controllerData.getCurrentPlayer().getPlayerID());
+        }
 
         if (controllerData.getExpertMode()) {
             jsonWriter.name("characterCardStrategies");
