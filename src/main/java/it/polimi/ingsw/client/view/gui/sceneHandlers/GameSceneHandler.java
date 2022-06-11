@@ -1489,7 +1489,7 @@ public class GameSceneHandler implements GUIHandler {
             for (int j = 0; j < cloudTileMaxNumOfStudents; j++) {
                 // Gets the id and the path of the image
                 cloudTileStudent      = IDHelper.gsFindCloudStudentID(this, i, j);
-                cloudTileStudentColor = cloudTiles[i].getStudents()[i];
+                cloudTileStudentColor = cloudTiles[i].getStudents()[j];
 
                 // For each student present on the island
                 if (cloudTileStudentColor != null){
