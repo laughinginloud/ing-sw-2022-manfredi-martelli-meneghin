@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.controller.state;
 
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
@@ -42,7 +43,7 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
             boolean canPlayCharacterCard = false;
 
             // Creates a map where to save the fields that will be sent to the current player
-            Map<GameValues, Object> characterCardInfo = new HashMap<>();
+            InfoMap characterCardInfo = new InfoMap();
 
             // If the player hasn't player a card yet and the game is in ExpertMode
             if (expertMode && !data.checkPlayedCard()) {

@@ -46,7 +46,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
             Island[] reachableIsland             = getReachableIslands(motherNatureMovement, currentMotherNaturePosition);
 
             // Creates a Map where to store the info in order to let the player play his turn, then saves the reachableIsland in it
-            Map<GameValues, Object> moveMNInfo = new HashMap<>();
+            InfoMap moveMNInfo = new InfoMap();
             moveMNInfo.put(GameValues.MNPOSSIBLEMOVEMENTS, reachableIsland);
 
             // If the player hasn't played a card yet

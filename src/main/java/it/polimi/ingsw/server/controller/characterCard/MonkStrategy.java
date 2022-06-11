@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
@@ -50,7 +51,7 @@ public class MonkStrategy extends CharacterCardStrategy {
             int position = CharacterCardManager.getCharacterCardPosition(Character.MONK);
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
-            Map<GameValues, Object> monkMap = new HashMap<>();
+            InfoMap monkMap = new InfoMap();
             monkMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.MONKFIRST);
             monkMap.put(GameValues.CARDSTUDENTS, availableStudents);
             monkMap.put(GameValues.ISLANDARRAY, availableIslands);
@@ -63,8 +64,7 @@ public class MonkStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                @SuppressWarnings("unchecked")
-                Map<GameValues, Object> chosenFields = (Map<GameValues, Object>) c.executeCommand();
+                InfoMap chosenFields = (InfoMap) c.executeCommand();
 
                 // A cast for the information requested by the server (student and island index)
                 int student_index = (int) chosenFields.get(GameValues.STUDENTINDEX);

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.virtualView;
 
 import it.polimi.ingsw.common.GameActions;
-import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.*;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
@@ -10,8 +9,6 @@ import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
 import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import it.polimi.ingsw.server.controller.command.*;
-
-import java.util.Map;
 
 import static it.polimi.ingsw.common.json.Constants.jsonBuilder;
 
@@ -83,17 +80,17 @@ final class MessageBuilder {
                 Tuple<GameActions, Object> tupleReceived = (Tuple<GameActions, Object>) message.value();
 
                 yield switch(tupleReceived.left()) {
-                    case CHOSENRULES                -> new GameCommandResponseRules             ((GameRules)               tupleReceived.right());
-                    case CHOSENWIZARD               -> new GameCommandResponseWizard            ((Wizard)                  tupleReceived.right());
+                    case CHOSENRULES                -> new GameCommandResponseRules             ((GameRules)           tupleReceived.right());
+                    case CHOSENWIZARD               -> new GameCommandResponseWizard            ((Wizard)              tupleReceived.right());
                     case ENDTHISTURN                -> new GameCommandEndTurn                   ();
-                    case CHOSENCHARACTER            -> new GameCommandPlayCharacterCard         ((Character)               tupleReceived.right());
-                    case CHOSENFIELDSMAP            -> new GameCommandChosenCharacterCardFields ((Map<GameValues, Object>) tupleReceived.right());
-                    case LOADGAMECHOICE             -> new GameCommandResponseAction            (                          tupleReceived.right());
-                    case CHOSENASSISTANTCARD        -> new GameCommandPlayAssistantCard         ((AssistantCard)           tupleReceived.right());
-                    case INSERTEDUSERNAMEANDAGE     -> new GameCommandUsernameAndMagicAge       ((UsernameAndMagicAge)     tupleReceived.right());
-                    case STUDENTSOFSELECTEDCLOUD    -> new GameCommandChooseCloud               ((Color[])                 tupleReceived.right());
-                    case MOVESTUDENTINFO            -> new GameCommandMoveStudent               ((MoveStudentInfo)         tupleReceived.right());
-                    case CHOSENMOTHERNATUREMOVEMENT -> new GameCommandMoveMotherNature          ((Integer)                 tupleReceived.right());
+                    case CHOSENCHARACTER            -> new GameCommandPlayCharacterCard         ((Character)           tupleReceived.right());
+                    case CHOSENFIELDSMAP            -> new GameCommandChosenCharacterCardFields ((InfoMap)             tupleReceived.right());
+                    case LOADGAMECHOICE             -> new GameCommandResponseAction            (                      tupleReceived.right());
+                    case CHOSENASSISTANTCARD        -> new GameCommandPlayAssistantCard         ((AssistantCard)       tupleReceived.right());
+                    case INSERTEDUSERNAMEANDAGE     -> new GameCommandUsernameAndMagicAge       ((UsernameAndMagicAge) tupleReceived.right());
+                    case STUDENTSOFSELECTEDCLOUD    -> new GameCommandChooseCloud               ((Color[])             tupleReceived.right());
+                    case MOVESTUDENTINFO            -> new GameCommandMoveStudent               ((MoveStudentInfo)     tupleReceived.right());
+                    case CHOSENMOTHERNATUREMOVEMENT -> new GameCommandMoveMotherNature          ((Integer)             tupleReceived.right());
                     default                         -> null;
                 };
             }

@@ -1,8 +1,6 @@
 package it.polimi.ingsw.server.controller.command;
 
-import it.polimi.ingsw.common.GameValues;
-
-import java.util.Map;
+import it.polimi.ingsw.common.message.InfoMap;
 
 /**
  * GameCommand representing the response to a GameCommandRequestAction.CharacterCardEffect containing the fields
@@ -10,9 +8,9 @@ import java.util.Map;
  * @author Sebastiano Meneghin
  */
 public class GameCommandChosenCharacterCardFields implements GameCommand {
-    Map<GameValues, Object> chosenData;
+    private final InfoMap chosenData;
 
-    public GameCommandChosenCharacterCardFields(Map<GameValues, Object> chosenData) { this.chosenData = chosenData; }
+    public GameCommandChosenCharacterCardFields(InfoMap chosenData) { this.chosenData = chosenData; }
 
     /**
      * Executes the GameCommand procedure

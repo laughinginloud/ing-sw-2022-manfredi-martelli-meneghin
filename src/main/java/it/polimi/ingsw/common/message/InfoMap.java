@@ -26,6 +26,22 @@ public final class InfoMap {
     }
 
     /**
+     * Create a map from a previous one
+     * @param map The map used to initialized
+     */
+    public InfoMap(Map<GameValues, Object> map) {
+        this.map = new EnumMap<GameValues, Object>(map);
+    }
+
+    /**
+     * Create a map from a previous one
+     * @param map The map used to initialized
+     */
+    public InfoMap(InfoMap map) {
+        this.map = map.map;
+    }
+
+    /**
      * Add an element to the map
      * @param key The key that specifies the type of the value
      * @param value An object of the type specified by the key

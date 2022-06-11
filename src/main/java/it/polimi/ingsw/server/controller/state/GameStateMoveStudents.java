@@ -109,7 +109,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
         boolean canPlayCharacterCard = false;
 
         // Creates a map that will be filled by the fields to send to the player in order to let him move a student
-        Map<GameValues, Object> moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
+        InfoMap moveStudentsInfo = setMoveStudentsInfo(player, movableStudents);
 
         // If the player hasn't played a card yet
         if (expertMode && !data.checkPlayedCard()) {
@@ -240,9 +240,9 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
      * @param movableStudents The students, currently in the player's entrance, that can be moved
      * @return A Map containing the movableStudents and an Array of boolean representing the diningRoomTableFreeSeatAvailable flags
      */
-    private Map<GameValues, Object> setMoveStudentsInfo (Player player, Color[] movableStudents) {
+    private InfoMap setMoveStudentsInfo (Player player, Color[] movableStudents) {
         boolean[] diningRoomTableFreeSeatAvailable = new boolean[5];
-        Map<GameValues, Object> moveStudentsInfo = new HashMap<>();
+        InfoMap moveStudentsInfo = new InfoMap();
 
         // For each color checks if the correspondent DiningRoomTable has free seat(s)
         for (Color color : Color.values())

@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.CharacterCard;
@@ -41,7 +42,7 @@ public class MerchantStrategy extends CharacterCardStrategy {
             Color[] availableColors = Color.values();
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
-            Map<GameValues, Object> merchantMap = new HashMap<>();
+            InfoMap merchantMap = new InfoMap();
             merchantMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.MERCHANTFIRST);
             merchantMap.put(GameValues.COLORARRAY, availableColors);
 
@@ -52,8 +53,7 @@ public class MerchantStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                @SuppressWarnings("unchecked")
-                Map<GameValues, Object> chosenFields = (Map<GameValues, Object>) c.executeCommand();
+                InfoMap chosenFields = (InfoMap) c.executeCommand();
 
                 // A cast for the information requested by the server (color to inhibit)
                 Color selectedColor = (Color) chosenFields.get(GameValues.MERCHANTCOLOR);

@@ -31,11 +31,11 @@ public class VirtualController extends Thread implements Closeable {
 
     private final View             view;
 
-    private       VCStates                vcState;
-    private       Map<GameValues, Object> savedReceivedMap = null;
-    private       Map<GameValues, Object> savedToSendMap   = null;
+    private       VCStates         vcState;
+    private       InfoMap          savedReceivedMap = null;
+    private       InfoMap          savedToSendMap   = null;
 
-    private       String                  username;
+    private       String           username;
 
     public VirtualController(Address address, View view) throws IOException {
         socket       = new Socket(address.ipAddress(), address.port());
@@ -218,7 +218,7 @@ public class VirtualController extends Thread implements Closeable {
      * @param receivedMap A Map containing the flags about DiningRoomTableFreeSeats
      * @param selectedStudentIndex An int representing the index of the selected entrance's student
      */
-    private void onlyMoveStudent(Map<GameValues, Object> receivedMap, int selectedStudentIndex) {
+    private void onlyMoveStudent(InfoMap receivedMap, int selectedStudentIndex) {
         // Gets the entrance's students and the info about DiningRoomTableFreeSeats from the message received from the server
         Boolean[] diningRoomTableFreeSeats = (Boolean[]) receivedMap.get(GameValues.BOOLARRAY);
 
@@ -263,7 +263,7 @@ public class VirtualController extends Thread implements Closeable {
         sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
     }
 
-    private Color[] getCompatibleDiningRooms(Map<GameValues, Object> characterCardEffectMap, Color selectedColor) {
+    private Color[] getCompatibleDiningRooms(InfoMap characterCardEffectMap, Color selectedColor) {
         // Gets from the message the BardSwapMap in order to make "clickable" only allowed diningRoom's students
         @SuppressWarnings("unchecked")
         Map<Color, Boolean[]> possibleMovementMap = (Map<Color, Boolean[]>) characterCardEffectMap.get(GameValues.BARDSWAPMAP);
@@ -335,16 +335,15 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case MOVESTUDENT                -> {
-                @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
-                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap receivedMap = (InfoMap) dataValue.right();
 
                 // Gets from the Map the entrance's students
                 Color[] entranceStudents = (Color[]) receivedMap.get(GameValues.COLORARRAY);
 
                 // Saves the receivedMap in this instance's supportMap in order to use it after the interaction with the user
                 // and the Virtual Controller state
-                savedReceivedMap = new HashMap<>(receivedMap);
+                savedReceivedMap = new InfoMap(receivedMap);
                 this.vcState = VCStates.REQ_MOVE_STUD_FIRST;
 
                 // Asks the player which student he would like to move
@@ -352,9 +351,8 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case MOVEMOTHERNATURE           -> {
-                @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
-                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap receivedMap = (InfoMap) dataValue.right();
 
                 // Gets from the Map the maximum possible movement of mother nature
                 Island[] possibleMovement = (Island[]) receivedMap.get(GameValues.MNPOSSIBLEMOVEMENTS);
@@ -367,9 +365,8 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case CHOOSECLOUD                -> {
-                @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
-                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap receivedMap = (InfoMap) dataValue.right();
 
                 // Gets from the Map the availableClouds
                 CloudTile[] availableClouds = (CloudTile[]) receivedMap.get(GameValues.CLOUDARRAY);
@@ -382,9 +379,8 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case MOVESTUDENTORPLAYCARD      -> {
-                @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
-                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap receivedMap = (InfoMap) dataValue.right();
 
                 // Gets from the Map the entrance's students and the playable CharacterCards
                 Color[] entranceStudents = (Color[]) receivedMap.get(GameValues.COLORARRAY);
@@ -392,7 +388,7 @@ public class VirtualController extends Thread implements Closeable {
 
                 // Saves the receivedMap in this instance's supportMap in order to use it after the interaction with the user
                 // and the Virtual Controller state
-                savedReceivedMap = new HashMap<>(receivedMap);
+                savedReceivedMap = new InfoMap(receivedMap);
                 this.vcState = VCStates.REQ_MOVE_STUD_OR_PLAY;
 
                 // Lets the player select a CharacterCard or a student from the entrance
@@ -400,9 +396,8 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case MOVEMOTHERNATUREORPLAYCARD -> {
-                @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
-                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap receivedMap = (InfoMap) dataValue.right();
 
                 // Gets from the Map the maximum possible movement of motherNature  and the playable CharacterCards
                 Island[] possibleMovement = (Island[]) receivedMap.get(GameValues.MNPOSSIBLEMOVEMENTS);
@@ -416,9 +411,8 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case CHOOSECLOUDORPLAYCARD      -> {
-                @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
-                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap receivedMap = (InfoMap) dataValue.right();
 
                 // Gets from the Map the availableClouds and the playable CharacterCards
                 CloudTile[] availableClouds = (CloudTile[]) receivedMap.get(GameValues.CLOUDARRAY);
@@ -432,13 +426,12 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case ENDTURN                    -> {
-                @SuppressWarnings("unchecked")
                 // Stores the Map received from the Server via message
-                Map<GameValues, Object> receivedMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap receivedMap = (InfoMap) dataValue.right();
 
                 // Saves the receivedMap in this instance's supportMap in order to use it after the interaction with the user
                 // and the Virtual Controller state
-                savedReceivedMap = new HashMap<>(receivedMap);
+                savedReceivedMap = new InfoMap(receivedMap);
                 this.vcState = VCStates.REQ_END_TURN_ASK;
 
                 // Asks the player whether he wants to end his turn or to play a characterCard
@@ -446,8 +439,7 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case CHARACTERCARDEFFECT        -> {
-                @SuppressWarnings("unchecked")
-                Map<GameValues, Object> characterCardEffectMap = (Map<GameValues, Object>) dataValue.right();
+                InfoMap characterCardEffectMap = (InfoMap) dataValue.right();
                 PlayCharacterAction     characterAction        = (PlayCharacterAction)     characterCardEffectMap.get(GameValues.CHARACTERVALUE);
 
                 switchReqActCharEffect(characterCardEffectMap, characterAction);
@@ -455,7 +447,7 @@ public class VirtualController extends Thread implements Closeable {
         }
     }
 
-    private void switchReqActCharEffect(Map<GameValues, Object> characterCardEffectMap, PlayCharacterAction characterAction) {
+    private void switchReqActCharEffect(InfoMap characterCardEffectMap, PlayCharacterAction characterAction) {
         // Manages the received action "characterAction" depending on the character and on the phase
         // of the character's activateEffect phase
         switch (characterAction) {
@@ -466,7 +458,7 @@ public class VirtualController extends Thread implements Closeable {
 
                 // Saves the characterCardEffectMap in this instance's supportMap in order to use it after the interaction with the user
                 // and saves the Virtual Controller state
-                savedReceivedMap = new HashMap<>(characterCardEffectMap);
+                savedReceivedMap = new InfoMap(characterCardEffectMap);
                 this.vcState     = VCStates.REQ_MONK_FIRST__STUDENT;
 
                 // Asks the player to select the students he wants to move from the CharacterCard
@@ -503,7 +495,7 @@ public class VirtualController extends Thread implements Closeable {
 
                 // Saves the characterCardEffectMap in this instance's supportMap in order to use it after the interaction with the user
                 // and saves the Virtual Controller state
-                savedReceivedMap = new HashMap<>(characterCardEffectMap);
+                savedReceivedMap = new InfoMap(characterCardEffectMap);
                 this.vcState     = VCStates.REQ_JEST_SECOND__CARD;
 
                 // Asks the player to select the students he wants to move from the CharacterCard
@@ -538,7 +530,7 @@ public class VirtualController extends Thread implements Closeable {
 
                 // Saves the characterCardEffectMap in this instance's supportMap in order to use it after the interaction with the user
                 // and saves the Virtual Controller state
-                savedReceivedMap = new HashMap<>(characterCardEffectMap);
+                savedReceivedMap = new InfoMap(characterCardEffectMap);
                 this.vcState     = VCStates.REQ_BARD_SECOND_STUDENT;
 
                 // Asks the player which available students from the Entrance he wants to swap with a DiningRoomStudent
@@ -760,7 +752,7 @@ public class VirtualController extends Thread implements Closeable {
                 int selectedStudentIndex = (int) infoToSend;
 
                 // Saves the user choice in the savedToSendMap
-                savedToSendMap = new HashMap<>();
+                savedToSendMap = new InfoMap();
                 savedToSendMap.put(GameValues.STUDENTINDEX, selectedStudentIndex);
 
                 // Gets from the savedReceivedMap the available Island received beforehand from the server
@@ -779,7 +771,7 @@ public class VirtualController extends Thread implements Closeable {
                 savedToSendMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
 
                 // Returns the selectedStudentIndex and the selectedIslandIndex
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
@@ -796,11 +788,11 @@ public class VirtualController extends Thread implements Closeable {
                 int selectedIslandIndex = (int) infoToSend;
 
                 // Saves into a map the islandIndex
-                Map<GameValues, Object> stdHerbMap = new HashMap<>();
+                InfoMap stdHerbMap = new InfoMap();
                 stdHerbMap.put(GameValues.ISLANDINDEX, selectedIslandIndex);
 
                 // Returns the selectedIslandIndex
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, stdHerbMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, stdHerbMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Resets the vcState
@@ -812,11 +804,11 @@ public class VirtualController extends Thread implements Closeable {
                 int selectedNumOfMovements = (int) infoToSend;
 
                 // Saves into a map the number correspondent to the chosen MovementJester
-                Map<GameValues, Object> jesterFirstMap = new HashMap<>();
+                InfoMap jesterFirstMap = new InfoMap();
                 jesterFirstMap.put(GameValues.MOVEMENTJESTER, selectedNumOfMovements);
 
                 // Returns the selected numOfMovements that will be done using the Jester effect
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, jesterFirstMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, jesterFirstMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Resets the vcState
@@ -828,7 +820,7 @@ public class VirtualController extends Thread implements Closeable {
                 int characterCardStudentIndex = (int) infoToSend;
 
                 // Saves the student selected by the player from the CharacterCard in the savedToSendMap
-                savedToSendMap = new HashMap<>();
+                savedToSendMap = new InfoMap();
                 savedToSendMap.put(GameValues.CARDSTUDENTINDEX, characterCardStudentIndex);
 
                 // Gets from the savedReceivedMap the movable entranceStudents received beforehand from the server
@@ -849,7 +841,7 @@ public class VirtualController extends Thread implements Closeable {
                 savedToSendMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
 
                 // Returns the Map where has been saved the entranceStudentIndex and the characterCardStudentIndex
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
@@ -865,11 +857,11 @@ public class VirtualController extends Thread implements Closeable {
                 Color selectedColor = (Color) infoToSend;
 
                 // Saves into a map the selectedColor in order to send it to the Controller
-                Map<GameValues, Object> merchantMap = new HashMap<>();
+                InfoMap merchantMap = new InfoMap();
                 merchantMap.put(GameValues.MERCHANTCOLOR, selectedColor);
 
                 // Returns the Map containing the color selected by the students
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, merchantMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, merchantMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Resets the vcState
@@ -882,11 +874,11 @@ public class VirtualController extends Thread implements Closeable {
                 int selectedNumOfMovements = (int) infoToSend;
 
                 // Saves into a map the number correspondent to the chosen MovementBard
-                Map<GameValues, Object> bardFirstMap = new HashMap<>();
+                InfoMap bardFirstMap = new InfoMap();
                 bardFirstMap.put(GameValues.MOVEMENTBARD, selectedNumOfMovements);
 
                 // Returns the selected numOfMovements that will be done using the Bard effect
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, bardFirstMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, bardFirstMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Resets the vcState
@@ -898,7 +890,7 @@ public class VirtualController extends Thread implements Closeable {
                 int entranceStudentIndex = (int) infoToSend;
 
                 // Saves into a map the entranceStudentIndex
-                savedToSendMap = new HashMap<>();
+                savedToSendMap = new InfoMap();
                 savedToSendMap.put(GameValues.ENTRANCESTUDENTINDEX, entranceStudentIndex);
 
                 // Gets the Entrance of the player (sent by the Server) and then find which is the color of
@@ -925,7 +917,7 @@ public class VirtualController extends Thread implements Closeable {
                 savedToSendMap.put(GameValues.DININGROOMTABLECOLOR, selectedDiningRoomTable);
 
                 // Returns the Map where has been saved the entranceStudentIndex and the chosen DiningRoomTableColor
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, savedToSendMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
@@ -941,11 +933,11 @@ public class VirtualController extends Thread implements Closeable {
                 int selectedStudentIndex = (int) infoToSend;
 
                 // Saves into a map the studentIndex of the selectedStudent from the characterCard's students
-                Map<GameValues, Object> princessMap = new HashMap<>();
+                InfoMap princessMap = new InfoMap();
                 princessMap.put(GameValues.STUDENTINDEX, selectedStudentIndex);
 
                 // Returns the Map containing the selectedStudentIndex
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, princessMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, princessMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions
@@ -962,11 +954,11 @@ public class VirtualController extends Thread implements Closeable {
                 Color selectedColor = (Color) infoToSend;
 
                 // Saves into a map the selectedColor
-                Map<GameValues, Object> thiefMap = new HashMap<>();
+                InfoMap thiefMap = new InfoMap();
                 thiefMap.put(GameValues.REDUCECOLOR, selectedColor);
 
                 // Returns the Map containing the selectedColor
-                Tuple<GameActions, Map<GameValues, Object>> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, thiefMap);
+                Tuple<GameActions, InfoMap> playCharacterResponse = new Tuple<>(GameActions.CHOSENFIELDSMAP, thiefMap);
                 sendMessage(new Message(MessageType.RESPONSEACTION, playCharacterResponse));
 
                 // Nullify the savedToSendMap, in order to prevent possible wrongly accesses by functions

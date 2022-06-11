@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
@@ -51,7 +52,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
             int position = CharacterCardManager.getCharacterCardPosition(Character.PRINCESS);
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
-            Map<GameValues, Object> princessMap = new HashMap<>();
+            InfoMap princessMap = new InfoMap();
             princessMap.put(GameValues.CHARACTERVALUE,        PlayCharacterAction.PRINCESSFIRST);
             princessMap.put(GameValues.CARDSTUDENTS,          movableStudents);
             princessMap.put(GameValues.CHARACTERCARDPOSITION, position);
@@ -63,8 +64,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                @SuppressWarnings("unchecked")
-                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
+                InfoMap chosenField = (InfoMap) c.executeCommand();
 
                 // Gets the index of students that the player wants to move, from the Map received from the client
                 int characterCardStudentIndex = (int) chosenField.get(GameValues.STUDENTINDEX);

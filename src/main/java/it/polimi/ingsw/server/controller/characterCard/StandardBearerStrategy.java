@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.state.GameStateComputeIsland;
@@ -44,7 +45,7 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
             Island[] availableIslands = model.getIslands();
 
             // Create a Map and save the fields that will be sent to the player as RequestAction's payload
-            Map<GameValues, Object> standardBearerMap = new HashMap<>();
+            InfoMap standardBearerMap = new InfoMap();
             standardBearerMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.STANDARDBEARERFIRST);
             standardBearerMap.put(GameValues.ISLANDARRAY, availableIslands);
 
@@ -55,8 +56,7 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                @SuppressWarnings("unchecked")
-                Map<GameValues, Object> chosenFields = (Map<GameValues, Object>) c.executeCommand();
+                InfoMap chosenFields = (InfoMap) c.executeCommand();
 
                 // Gets the index of Island that the player wants to compute, from the Map received from the client
                 int island_index = (int) chosenFields.get(GameValues.ISLANDINDEX);

@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
@@ -42,7 +43,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
             Color[] reducibleColors = getReducibleColors(model, data);
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
-            Map<GameValues, Object> thiefMap = new HashMap<>();
+            InfoMap thiefMap = new InfoMap();
             thiefMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.THIEFFIRST);
             thiefMap.put(GameValues.REDUCIBLECOLOR, reducibleColors);
 
@@ -53,8 +54,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                @SuppressWarnings("unchecked")
-                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
+                InfoMap chosenField = (InfoMap) c.executeCommand();
 
                 // Gets the color of the students the player wants to reduce from all the players' diningRooms
                 Color colorToReduce = (Color) chosenField.get(GameValues.REDUCECOLOR);

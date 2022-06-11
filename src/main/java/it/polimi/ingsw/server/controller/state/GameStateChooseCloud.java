@@ -34,10 +34,10 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
 
     public void executeState() {
         try {
-            ControllerData data       = ControllerData.getInstance();
-            Player         player     = data.getCurrentPlayer();
-            VirtualView    playerView = data.getPlayerView(player);
-            Map<GameValues, Object> chooseCloudInfo = new HashMap<>();
+            ControllerData data            = ControllerData.getInstance();
+            Player         player          = data.getCurrentPlayer();
+            VirtualView    playerView      = data.getPlayerView(player);
+            InfoMap        chooseCloudInfo = new InfoMap();
             boolean expertMode = data.getExpertMode();
             boolean canPlayCharacterCard = false;
 

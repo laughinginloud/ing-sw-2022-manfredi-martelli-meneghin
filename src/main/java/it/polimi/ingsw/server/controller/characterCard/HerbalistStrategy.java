@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.characterCard;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.CharacterCard;
@@ -43,7 +44,7 @@ public class HerbalistStrategy extends CharacterCardStrategy {
             Island[] availableIslands = model.getIslands();
 
             // Create a Map and save the field that will be sent to the player as RequestAction's payload
-            Map<GameValues, Object> herbalistMap = new HashMap<>();
+            InfoMap herbalistMap = new InfoMap();
             herbalistMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.HERBALISTFIRST);
             herbalistMap.put(GameValues.ISLANDARRAY, availableIslands);
 
@@ -54,8 +55,7 @@ public class HerbalistStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                @SuppressWarnings("unchecked")
-                Map<GameValues, Object> chosenField = (Map<GameValues, Object>) c.executeCommand();
+                InfoMap chosenField = (InfoMap) c.executeCommand();
 
                 // Gets the value of the chosenField from the Map and retrieve the selected island from its index
                 int    chosenIslandIndex = (int) chosenField.get(GameValues.ISLANDINDEX);
