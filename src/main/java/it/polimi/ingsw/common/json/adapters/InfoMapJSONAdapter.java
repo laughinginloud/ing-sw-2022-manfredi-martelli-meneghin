@@ -118,15 +118,45 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
 
     private static void serialize(GameValues key, Object value, JsonWriter jsonWriter) throws IOException {
         switch (key) {
-            case BOOLARRAY,
-                 ENTRANCEARRAY,
-                 DININGROOMARRAY,
-                 SCHOOLBOARDARRAY -> {
-                Object[] array = (Object[]) value;
+            case BOOLARRAY -> {
+                boolean[] array = (boolean[]) value;
 
                 jsonWriter.beginArray();
 
-                for (Object obj : array)
+                for (boolean obj : array)
+                    jsonWriter.value(json.toJson(obj));
+
+                jsonWriter.endArray();
+            }
+
+            case ENTRANCEARRAY -> {
+                Entrance[] array = (Entrance[]) value;
+
+                jsonWriter.beginArray();
+
+                for (Entrance obj : array)
+                    jsonWriter.value(json.toJson(obj));
+
+                jsonWriter.endArray();
+            }
+
+            case DININGROOMARRAY -> {
+                DiningRoom[] array = (DiningRoom[]) value;
+
+                jsonWriter.beginArray();
+
+                for (DiningRoom obj : array)
+                    jsonWriter.value(json.toJson(obj));
+
+                jsonWriter.endArray();
+            }
+
+            case SCHOOLBOARDARRAY -> {
+                SchoolBoard[] array = (SchoolBoard[]) value;
+
+                jsonWriter.beginArray();
+
+                for (SchoolBoard obj : array)
                     jsonWriter.value(json.toJson(obj));
 
                 jsonWriter.endArray();
