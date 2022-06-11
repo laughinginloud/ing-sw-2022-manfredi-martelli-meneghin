@@ -477,12 +477,9 @@ public final class ViewGUI extends Application implements View {
      * Notifies the player that he will be instantly disconnected from the server (then from the Game)
      */
     @Override
-    // TODO [Implement -> Connection]
     public void notifyPlayerDisconnection() {
         Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_PLAYER_DISCONNECTION, null);
         playerDisconnection.showAndWait();
-
-        //TODO: Implementare la pressione del bottone per chiudere la GUI
     }
 
     /**
