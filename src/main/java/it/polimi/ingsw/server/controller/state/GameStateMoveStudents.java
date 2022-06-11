@@ -39,18 +39,17 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
             if (expertMode)
                 data.resetPlayedCard();
 
-            int numOfMovements = 0;
             // Sets the num of students the player is required to move, according to the number of players in the match
-            switch (data.getNumOfPlayers()) {
+            int numOfMovements = switch (data.getNumOfPlayers()) {
                 case 2, 4 -> numOfMovements = 3;
                 case 3    -> numOfMovements = 4;
-            }
+                default   -> throw new IllegalStateException();
+            };
 
             // Notify all the not-current Players about the beginning of the currentPlayer ActionTurn
             Player[] players = data.getGameModel().getPlayer();
             for (Player playerToUpdate : players) {
                 if (playerToUpdate.getUsername() != currentPlayer.getUsername()) {
-
                     VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
                     GameCommand update             = new GameCommandNotifyBeginningTurn(currentPlayer.getUsername());
                     playerToUpdateView.sendMessage(update);
