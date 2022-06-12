@@ -1,10 +1,10 @@
 package it.polimi.ingsw.common.utils;
 
 /**
- * Wrapper for a natural in modulo n
+ * Wrapper for a natural number in modulo n
  * @author Mattia Martelli
  */
-public final class BoundedInt {
+public final class ModuloNat {
     /**
      * The concrete value of the number
      */
@@ -19,11 +19,8 @@ public final class BoundedInt {
      * Create a new bounded natural with the default value of 0
      * @param mod The modulo that will bound the value
      */
-    public BoundedInt(int mod) {
-        assert mod >= 1: "Modulo must be in N+";
-
-        this.mod   = mod;
-             value = 0;
+    public ModuloNat(int mod) {
+        this(mod, 0);
     }
 
     /**
@@ -31,15 +28,11 @@ public final class BoundedInt {
      * @param mod The modulo that will bound the value
      * @param initialValue The initial value of the number
      */
-    public BoundedInt(int mod, int initialValue) {
+    public ModuloNat(int mod, int initialValue) {
         assert mod >= 1: "Modulo must be in N+";
 
-        this.mod   = mod;
-
-        while (initialValue < 0)
-            initialValue += mod;
-
-        value = initialValue % mod;
+        this.mod = mod;
+        set(initialValue);
     }
 
     /**
@@ -69,10 +62,7 @@ public final class BoundedInt {
      * @param value The value the number will be set to
      */
     public void set(int value) {
-        while (value < 0)
-            value += mod;
-
-        this.value = value;
+        this.value = normalize(value);
     }
 
     /**
@@ -80,10 +70,7 @@ public final class BoundedInt {
      * @param n The value to add
      */
     public void add(int n) {
-        while (n < 0)
-            n += mod;
-
-        value = (value + n) % mod;
+        set(value + n);
     }
 
     /**
@@ -91,12 +78,28 @@ public final class BoundedInt {
      * @param n The value to subtract
      */
     public void sub(int n) {
+        set(value - n);
+    }
+
+    /**
+     * Normalize the number passed to a value of the set (0, mod - 1)
+     * @param n The number to normalize
+     * @return The normalized number
+     */
+    private int normalize(int n) {
+        return normalize(n, mod);
+    }
+
+    /**
+     * Normalize the number passed to a value of the set (0, mod - 1)
+     * @param n The number to normalize
+     * @param mod The modulo for which to normalize
+     * @return The normalized number
+     */
+    public static int normalize(int n, int mod) {
         while (n < 0)
             n += mod;
 
-        while (n >= mod)
-            n -= mod;
-
-        add(mod - n);
+        return n % mod;
     }
 }
