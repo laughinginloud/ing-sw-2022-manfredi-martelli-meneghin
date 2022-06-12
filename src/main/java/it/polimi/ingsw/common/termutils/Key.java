@@ -17,7 +17,7 @@ public enum Key {
     UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW,
 
     // Used to jump directly to menu options
-    ONE, TWO, THREE, FOUR,
+    ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO,
 
     // Useful letter keys
     Y, N,
@@ -57,6 +57,12 @@ public enum Key {
             case 50 -> TWO;
             case 51 -> THREE;
             case 52 -> FOUR;
+            case 53 -> FIVE;
+            case 54 -> SIX;
+            case 55 -> SEVEN;
+            case 56 -> EIGHT;
+            case 57 -> NINE;
+            case 48 -> ZERO;
 
             case 121 -> Y;
             case 110 -> N;
