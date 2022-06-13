@@ -1,5 +1,7 @@
 package it.polimi.ingsw.common.utils;
 
+import static java.lang.Math.floorMod;
+
 /**
  * Wrapper for a natural number in modulo n
  * @author Mattia Martelli
@@ -62,7 +64,7 @@ public final class ModuloNat {
      * @param value The value the number will be set to
      */
     public void set(int value) {
-        this.value = normalize(value);
+        this.value = mod(value);
     }
 
     /**
@@ -83,11 +85,11 @@ public final class ModuloNat {
 
     /**
      * Normalize the number passed to a value of the set (0, mod - 1)
-     * @param n The number to normalize
+     * @param n The number to nurmalize
      * @return The normalized number
      */
-    private int normalize(int n) {
-        return normalize(n, mod);
+    private int mod(int n) {
+        return mod(mod, n);
     }
 
     /**
@@ -96,10 +98,7 @@ public final class ModuloNat {
      * @param mod The modulo for which to normalize
      * @return The normalized number
      */
-    public static int normalize(int n, int mod) {
-        while (n < 0)
-            n += mod;
-
-        return n % mod;
+    public static int mod(int mod, int n) {
+        return floorMod(n, mod);
     }
 }

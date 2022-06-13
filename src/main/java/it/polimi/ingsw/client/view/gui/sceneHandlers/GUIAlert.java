@@ -160,7 +160,6 @@ public enum GUIAlert {
 
             case SELECT_CHARACTER_CARD -> {
                 title       = "Select a Character Card";
-
                 headerText  = "You may now select the CharacterCard you wish to play";
                 contentText = "Remember that you can select only the CharacterCards you can play\n" +
                               "NB! The cost of the card will be automatically deducted from you pool";
@@ -270,13 +269,13 @@ public enum GUIAlert {
                 title       = "A player left the game";
                 headerText  = "You now will disconnected!";
                 contentText = "If you want to resume the game that you were playing, try to reconnect to the Server!\n" +
-                              "If the other participants want too, you'll restart from just this point!";
+                              "If the other participants want too, you'll restart from this point!";
                 alertType   =  Alert.AlertType.WARNING;
             }
 
             case START_ANOTHER_PLAYER_TURN       -> {
                 title       = "It's " + dynamicString + " turn!";
-                headerText  = "Now you won't be able to play, since it's the turn of" + dynamicString + " !";
+                headerText  = "Now you won't be able to play, since it's the turn of " + dynamicString + "!";
                 contentText = "Pay attention to the player's moves and plan your best strategy";
                 alertType   =  Alert.AlertType.INFORMATION;
             }

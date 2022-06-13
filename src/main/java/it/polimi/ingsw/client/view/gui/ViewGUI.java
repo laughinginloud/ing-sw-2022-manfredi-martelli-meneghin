@@ -241,7 +241,6 @@ public final class ViewGUI extends Application implements View {
     public void askEndOfTurn() {
         GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
         gs.gsAskEndOfTurn();
-
     }
 
     // endregion AskPlayer

@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * Interface shared between ViewCLI and ViewGUI
- * @author Giovanni Manfredi & Sebastiano Meneghin & Mattia Martelli
+ * @author Giovanni Manfredi, Mattia Martelli & Sebastiano Meneghin
  */
 public sealed interface View permits ViewCLI, ViewGUI {
 

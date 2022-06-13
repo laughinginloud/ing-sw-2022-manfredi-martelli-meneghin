@@ -19,7 +19,7 @@ import java.util.Map;
  * Singleton containing data used by the controller during the game
  * @author Mattia Martelli
  */
-public class ControllerData {
+public final class ControllerData {
 
     //FIXME: mettere in regioni
     public enum Flags { equalStudentsFlag, extraMovementFlag, ignoreTowersFlag, extraInfluenceFlag, excludeColorFlag }

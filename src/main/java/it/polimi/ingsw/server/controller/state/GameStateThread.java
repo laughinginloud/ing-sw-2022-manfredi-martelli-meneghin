@@ -15,7 +15,7 @@ public class GameStateThread extends Thread {
         do {
             state.executeState();
             state = state.nextState();
-        } while (state != null && !interrupted());
+        } while (state != null && !isInterrupted());
     }
 
     public synchronized GameState saveGameState() {

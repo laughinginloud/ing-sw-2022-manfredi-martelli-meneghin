@@ -143,8 +143,8 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         if (model.getIsland(previousIndex).getTowerColor() == model.getIsland(localIslandIndex).getTowerColor()) {
             mergeIslandsData(model.getIsland(previousIndex), model.getIsland(localIslandIndex));
             model.shiftIslands(localIslandIndex);
-            successorIndex = localIslandIndex;
-            localIslandIndex    = previousIndex;
+            successorIndex   = localIslandIndex;
+            localIslandIndex = previousIndex;
         }
 
         if (model.getIsland(localIslandIndex).getTowerColor() == model.getIsland(successorIndex).getTowerColor()) {
