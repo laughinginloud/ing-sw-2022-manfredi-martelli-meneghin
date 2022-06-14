@@ -17,6 +17,6 @@ public enum Wizard {
      * @return The desired set
      */
     public static Set<Wizard> set() {
-        return Set.of(Wizard.values());
+        return new HashSet<>(Arrays.asList(values()));
     }
 }
