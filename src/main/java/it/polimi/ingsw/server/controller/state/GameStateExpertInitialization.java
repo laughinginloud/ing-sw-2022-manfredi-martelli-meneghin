@@ -4,9 +4,11 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
+import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +29,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
 
         setStudentsOnCards(characterCards, model);
         setCoins(players, model);
+        data.setCardStrategies(Arrays.stream(characterCards).map(CharacterCardStrategy::build).toArray(CharacterCardStrategy[]::new));
 
         try {
             for (Player player : players) {
