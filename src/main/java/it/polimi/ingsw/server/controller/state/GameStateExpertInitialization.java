@@ -75,10 +75,9 @@ public final class GameStateExpertInitialization implements GameStateSetup {
                 //Set numOfRequiredStudents students to the CharacterCard when it's needed
                 if (numOfRequiredStudents != 0) {
                     studentsToSet = model.getBag().drawStudents(numOfRequiredStudents);
-                    for (int j = 0; j < numOfRequiredStudents; j++) {
+                    for (int j = 0; j < numOfRequiredStudents; j++)
                         if (characterCard instanceof CharacterCardStudent c)
                             c.setStudents(studentsToSet.drawnStudents()[j], j);
-                    }
                 }
             }
         }
@@ -102,7 +101,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
             if (player instanceof PlayerExpert p)
                 p.setCoinCount(1);
 
-            else if ((player instanceof PlayerTeamExpert p))
+            else if (player instanceof PlayerTeamExpert p)
                 p.setCoinCount(1);
 
             else

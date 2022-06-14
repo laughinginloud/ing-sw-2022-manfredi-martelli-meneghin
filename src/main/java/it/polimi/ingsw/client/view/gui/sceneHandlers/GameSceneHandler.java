@@ -2049,15 +2049,12 @@ public class GameSceneHandler implements GUIHandler {
                 if (color.equals(studentOnCharacterCard[i])) {
                     ccStudentImageView = IDHelper.gsFindCharacterCardElementID(this, characterCardPosition, i);
 
-                    EventHandler<MouseEvent> clickOnCharacterCardStudentHandler = new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                            // Associates to the click of the mouse the function clickOnCharacterCardStudent
-                            // as response to the user's action
-                            clickOnCharacterCardStudent(mouseEvent);
+                    EventHandler<MouseEvent> clickOnCharacterCardStudentHandler = mouseEvent -> {
+                        // Associates to the click of the mouse the function clickOnCharacterCardStudent
+                        // as response to the user's action
+                        clickOnCharacterCardStudent(mouseEvent);
 
-                            mouseEvent.consume();
-                        }
+                        mouseEvent.consume();
                     };
 
                     ccStudentImageView.setOnMouseClicked(clickOnCharacterCardStudentHandler);

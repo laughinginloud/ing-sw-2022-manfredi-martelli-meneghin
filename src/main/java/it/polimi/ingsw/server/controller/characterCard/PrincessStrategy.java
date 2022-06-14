@@ -78,7 +78,10 @@ public class PrincessStrategy extends CharacterCardStrategy {
                 // The server refills the card taking a student from the Bag (EmptyBagException)
                 Color drawnStudent = null;
                 try {
-                    drawnStudent = model.getBag().drawStudents(1).drawnStudents()[0];
+                    BagResult br = model.getBag().drawStudents(1);
+                    drawnStudent = br.drawnStudents()[0];
+                    if (br.emptyBag())
+                        data.setEmptyBagTrigger();
                 } catch (EmptyBagException e) {
                     data.setEmptyBagTrigger();
                 }
