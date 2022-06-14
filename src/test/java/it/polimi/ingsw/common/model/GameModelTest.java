@@ -363,18 +363,5 @@ class GameModelTest {
 
         if ((int) coinPoolField.get(gameModelTest) != 2)
             throw new AssertionError("Decreased the wrong amount of coins");
-
-        try {
-            gameModelTest.decreaseCoinPool(10);
-
-            throw new AssertionError("No exception thrown when going out of bounds");
-        }
-        catch (IllegalArgumentException e) {
-            if ((int) coinPoolField.get(gameModelTest) != 2)
-                throw new AssertionError("Still decreased even after throwing the exception");
-        }
-        catch (Exception e) {
-            throw new AssertionError("Wrong exception thrown");
-        }
     }
 }
