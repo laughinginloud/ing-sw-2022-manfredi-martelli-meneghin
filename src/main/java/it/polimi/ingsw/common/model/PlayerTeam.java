@@ -4,7 +4,7 @@ package it.polimi.ingsw.common.model;
  * Class that inherits from Player used for 4 players game mode version - 'PlayerTeam'
  * @author Mattia Martelli
  */
-public class PlayerTeam extends Player {
+public final class PlayerTeam extends Player {
     private Integer teamMember;
 
     /**
@@ -28,10 +28,9 @@ public class PlayerTeam extends Player {
 
     /**
      * Sets the associated team member
-     * @param teamMember A reference to the Player representing the team member
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
+     * @param teamMember The ID of the team member
      */
-    public void setTeamMember(int teamMember) throws IllegalArgumentException {
+    public void setTeamMember(int teamMember) {
         this.teamMember = teamMember;
     }
 }

@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Class representing the cloud tiles
  * @author Mattia Martelli
  */
-public class CloudTile {
+public final class CloudTile {
     private Color[] students = new Color[4];
 
     /**
@@ -35,11 +35,9 @@ public class CloudTile {
     /**
      * Sets all the students on the tile to a specific array of students
      * @param students Array containing the set of students
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setStudents(Color[] students) throws IllegalArgumentException {
-        if (students.length != this.students.length)
-            throw new IllegalArgumentException("Passed wrongly dimensioned array");
+    public void setStudents(Color[] students) {
+        assert students.length == this.students.length: "Passed wrongly dimensioned array";
 
         this.students = Arrays.copyOf(students, students.length);
     }

@@ -4,7 +4,7 @@ package it.polimi.ingsw.common.model;
  * Class that inherits from Player used for the 'ExpertGame' version - 'PlayerExpert'
  * @author Mattia Martelli
  */
-public class PlayerExpert extends Player {
+public final class PlayerExpert extends Player {
     private int coinCount;
 
     /**
@@ -29,11 +29,9 @@ public class PlayerExpert extends Player {
     /**
      * Sets the number of coins currently held by the player to specified amount
      * @param coinCount An integer representing the number of coins (positive integer from 0 to 20)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setCoinCount(int coinCount) throws IllegalArgumentException {
-        if (coinCount < 0 || coinCount > 20)
-            throw new IllegalArgumentException("Coin count out of range");
+    public void setCoinCount(int coinCount) {
+        assert coinCount >= 0 && coinCount <= 20: "Coin count out of range";
 
         this.coinCount = coinCount;
     }

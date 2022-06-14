@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Class representing a player
  * @author Mattia Martelli
  */
-public class Player {
+public sealed class Player permits PlayerExpert, PlayerTeam, PlayerTeamExpert {
     private       AssistantCard[] assistantDeck;
     private       AssistantCard   lastPlayedCard;
     private final int             playerID;
@@ -36,20 +36,17 @@ public class Player {
     private void assistantDeckSetup() {
         assistantDeck = new AssistantCard[10];
 
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 10; ++i)
             assistantDeck[i] = new AssistantCard(i + 1, (i / 2) + 1);
-        }
     }
 
     /**
      * Gets the selected card, deleting it from the deck in the process
      * @param index The index of the card to be removed (positive integer between 0 and 9)
      * @return A record representing the card
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public AssistantCard getAssistantCard(int index) throws IllegalArgumentException {
-        if (index < 0 || index >= assistantDeck.length)
-            throw new IllegalArgumentException("Index out of bounds");
+    public AssistantCard getAssistantCard(int index) {
+        assert index >= 0 && index < assistantDeck.length: "Index out of bounds";
 
         AssistantCard tempCard = assistantDeck[index];
 
@@ -103,12 +100,9 @@ public class Player {
     /**
      * Sets the last played card
      * @param lastPlayedCard The card to be set (not null)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setLastPlayedCard(AssistantCard lastPlayedCard) throws IllegalArgumentException {
-        // Check whether the first field is in the valid range and the second field follows the correct pattern
-        if (lastPlayedCard.cardValue() < 0 || lastPlayedCard.cardValue() > 10 || lastPlayedCard.movementPoints() != (((lastPlayedCard.cardValue() - 1) / 2) + 1))
-            throw new IllegalArgumentException("Invalid assistant card");
+    public void setLastPlayedCard(AssistantCard lastPlayedCard) {
+        assert lastPlayedCard.cardValue() >= 1 && lastPlayedCard.cardValue() <= 10 && lastPlayedCard.movementPoints() == (((lastPlayedCard.cardValue() - 1) / 2) + 1): "Invalid assistant card";
 
         this.lastPlayedCard = lastPlayedCard;
     }

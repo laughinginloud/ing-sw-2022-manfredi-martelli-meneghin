@@ -4,7 +4,7 @@ package it.polimi.ingsw.common.model;
  * Class representing the school board of a player
  * @author Mattia Martelli
  */
-public class SchoolBoard {
+public final class SchoolBoard {
     private final TowerColor towerColor;
     private       int        towerCount;
     private       Entrance   entrance;
@@ -45,8 +45,7 @@ public class SchoolBoard {
      * @param towerCount An integer containing the number to be set (positive integer between 0 and 8)
      */
     public void setTowerCount(int towerCount) {
-        if (towerCount < 0 || towerCount > 8)
-            return;
+        assert towerCount >= 0 && towerCount <= 8: "TowerCount must be in the range [0, 8]";
 
         this.towerCount = towerCount;
     }
@@ -60,9 +59,12 @@ public class SchoolBoard {
         increaseTowerCount(1);
     }
 
+    /**
+     * Increases the tower's count
+     * @param n The number to add to the tower count
+     */
     public void increaseTowerCount(int n) {
-        if (towerCount + n > 8)
-            throw new IllegalStateException();
+        assert towerCount + n <= 8: "TowerCount cannot be greater than 8";
 
         towerCount += n;
     }
@@ -74,9 +76,12 @@ public class SchoolBoard {
         decreaseTowerCount(1);
     }
 
+    /**
+     * Decreases the tower's count
+     * @param n The number to subtract to the tower count
+     */
     public void decreaseTowerCount(int n) {
-        if (towerCount < n)
-            return;
+        assert towerCount >= n: "TowerCount cannot be negative";
 
         towerCount -= n;
     }

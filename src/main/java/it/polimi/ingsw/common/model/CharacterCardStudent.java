@@ -4,17 +4,17 @@ package it.polimi.ingsw.common.model;
  * Class representing CharacterCards that need students on them - MONK, JESTER and PRINCESS
  * @author Sebastiano Meneghin
  */
-public class CharacterCardStudent extends CharacterCard {
+public final class CharacterCardStudent extends CharacterCard {
     private final Color[] students;
 
     /**
      * Constructor of the class 'CharacterCardStudent'
      * @param character the character to which the card is set (not null and in the set {MONK, JESTER, PRINCESS})
      */
-    protected CharacterCardStudent (Character character) {
+    CharacterCardStudent (Character character) {
         super(character);
 
-        if(character == Character.MONK || character == Character.PRINCESS)
+        if (character == Character.MONK || character == Character.PRINCESS)
             students = new Color[4];
 
         else
@@ -40,8 +40,7 @@ public class CharacterCardStudent extends CharacterCard {
      * @return the student removed from the array
      */
     public Color retrieveStudent(int index) {
-        if (index < 0 || index > students.length)
-            throw new IllegalArgumentException("Index out of bounds");
+        assert index >= 0 && index < students.length: "Index out of bounds";
 
         Color temp = students[index];
         System.arraycopy(students, index + 1, students, index, students.length - index - 1);
@@ -56,8 +55,7 @@ public class CharacterCardStudent extends CharacterCard {
      * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
     public void setStudents(Color color, int index) throws IllegalArgumentException {
-        if (index < 0 || index > 5)
-            throw new IllegalArgumentException("CharacterCardStudent.students has maximum length 6");
+        assert index >= 0 && index < students.length: "Index out of bounds";
 
         this.students[index] = color;
     }

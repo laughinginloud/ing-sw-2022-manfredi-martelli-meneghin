@@ -2,6 +2,7 @@ package it.polimi.ingsw.common.model;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,6 +17,6 @@ public enum Wizard {
      * @return The desired set
      */
     public static Set<Wizard> set() {
-        return new HashSet<>(Arrays.asList(Wizard.values()));
+        return Set.of(Wizard.values());
     }
 }

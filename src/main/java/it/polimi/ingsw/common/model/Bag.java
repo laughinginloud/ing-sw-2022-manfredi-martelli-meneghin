@@ -6,7 +6,7 @@ import java.util.Random;
  * Class representing the bag
  * @author Sebastiano Meneghin
  */
-public class Bag {
+public final class Bag {
     private final int[] studentCounters;
     private       int   numOfStudents;
 
@@ -37,9 +37,8 @@ public class Bag {
      * @param color Color of the studentCounter to set (not null)
      * @param n Int to set studentCounter to (positive integer between 0 and 16 included)
      */
-    public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
-        if (n < 0 || n > 26)
-            throw new IllegalArgumentException("Bag.studentCounters accepted value is between 0 and 26");
+    public void setStudentCounters(Color color, int n) {
+        assert n >= 0 && n <= 26: "Bag.studentCounters accepted value is between 0 and 26";
 
         numOfStudents = numOfStudents - studentCounters[color.ordinal()] + n;
 
@@ -51,9 +50,8 @@ public class Bag {
      * @param n Int to set all studentCounter to (positive integer between 0 and 16 included)
      */
     public void setStudentCounters(int n){
-        for (Color color : Color.values()) {
+        for (Color color : Color.values())
             setStudentCounters(color, n);
-        }
     }
 
     /**
@@ -76,8 +74,9 @@ public class Bag {
      * Draws a specific number of random students from the bag
      * @author Mattia Martelli & Sebastiano Meneghin
      * @param n Int representing the number of students to be drawn (a positive integer)
-     * @return A variable length array of Color containing the students drawn
-     *         (if there are fewer students than required, its size is < n) - not null
+     * @return A record containing the array of students extracted and a flag that indicates whether
+     *         the bag is now empty. Please note that the function is "best effort", so if there are not
+     *         enough students available, the array will be shorter than requested
      * @throws EmptyBagException Launched when trying to draw a student from an empty bag
      */
     public BagResult drawStudents(int n) throws EmptyBagException {

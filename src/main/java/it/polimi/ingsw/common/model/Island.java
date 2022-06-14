@@ -7,7 +7,7 @@ import java.util.List;
  * Class representing the islands
  * @author Sebastiano Meneghin
  */
-public class Island {
+public final class Island {
 
     // region Fields
 
@@ -27,7 +27,7 @@ public class Island {
     public Island() {
         studentCounters  = new int[Color.values().length];
         setStudentCounters(0);
-        setMultiplicity(   0);
+        setMultiplicity   (0);
         noEntryTileCount = null;
         backgroundID     = null;
         towerColor       = null;
@@ -81,11 +81,9 @@ public class Island {
     /**
      * Sets the multiplicity to a value
      * @param multiplicity Value to be set (positive integer between 0 and 12)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setMultiplicity(int multiplicity) throws IllegalArgumentException {
-        if(multiplicity < 0 || multiplicity > 12)
-            throw new IllegalArgumentException("Island.multiplicity accepted value is between 0 and 12");
+    public void setMultiplicity(int multiplicity) {
+        assert multiplicity >= 0 && multiplicity <= 12: "Island.multiplicity accepted value is between 0 and 12";
 
         this.multiplicity = multiplicity;
     }
@@ -94,11 +92,9 @@ public class Island {
      * Sets a specific counter to a value
      * @param color Color of the counter (not null)
      * @param n Value to be set (positive integer between 0 and 26)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
-        if(n < 0 || n > 26)
-            throw new IllegalArgumentException("Island.studentCounters accepted value is between 0 and 26");
+    public void setStudentCounters(Color color, int n) {
+        assert n >= 0 && n <= 26: "Island.studentCounters accepted value is between 0 and 26";
 
         this.studentCounters[color.ordinal()] = n;
     }
@@ -108,19 +104,16 @@ public class Island {
      * @param n Value to be set for all counters (positive integer between 0 and 26)
      */
     public void setStudentCounters(int n) {
-        for (Color color : Color.values()) {
+        for (Color color : Color.values())
             setStudentCounters(color, n);
-        }
     }
 
     /**
      * Sets noEntryTileCount to a value
      * @param noEntryTileCount Value to be set (positive integer between 0 and 4)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setNoEntryTileCount(int noEntryTileCount) throws IllegalArgumentException {
-        if(noEntryTileCount < 0 || noEntryTileCount > 4)
-            throw new IllegalArgumentException("Island.noEntryTileCount accepted value is between 0 and 4");
+    public void setNoEntryTileCount(int noEntryTileCount) {
+        assert noEntryTileCount >= 0 && noEntryTileCount <= 4: "Island.noEntryTileCount accepted value is between 0 and 4";
 
         this.noEntryTileCount = noEntryTileCount;
     }
@@ -133,11 +126,9 @@ public class Island {
     /**
      * Adds a backgroundID to the end of the backgroundID's list, modifying its length
      * @param backgroundID The backgroundID to add (positive integer between 0 and 3)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setBackgroundID(int backgroundID) throws IllegalArgumentException {
-        if (backgroundID < 0 || backgroundID > 3)
-            throw new IllegalArgumentException("Island.backgroundID accepted value is between 0 and 3");
+    public void setBackgroundID(int backgroundID) {
+        assert backgroundID >= 0 && backgroundID <= 3: "Island.backgroundID accepted value is between 0 and 3";
 
         this.backgroundID = backgroundID;
     }

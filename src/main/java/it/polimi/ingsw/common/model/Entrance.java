@@ -7,17 +7,15 @@ import java.util.Arrays;
  * to be used as part of SchoolBoard
  * @author Mattia Martelli
  */
-public class Entrance {
+public final class Entrance {
     private Color[] students;
 
     /**
      * Constructor of the class 'Entrance'
      * @param size the dimension of the entrance to which the Entrance is initialized (an integer in the set {7,9})
-     * @throws IllegalArgumentException exception thrown when an illegal argument is given
      */
-    public Entrance(int size) throws IllegalArgumentException {
-        if (size != 7 && size != 9)
-            throw new IllegalArgumentException("Entrance's size must be either 7 or 9");
+    public Entrance(int size) {
+        assert size == 7 || size == 9: "Entrance's size must be either 7 or 9";
 
         students = new Color[size];
     }
@@ -34,11 +32,9 @@ public class Entrance {
      * Gets a specific student, removing it from the array in the process
      * @param index The position of the student in the entrance (a positive integer between 0 and students.length
      * @return The color that represents the student
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public Color retrieveStudent(int index) throws IllegalArgumentException {
-        if (index < 0 || index > students.length)
-            throw new IllegalArgumentException("Index out of bounds");
+    public Color retrieveStudent(int index) {
+        assert index >= 0 && index < students.length: "Index out of bounds";
 
         Color temp = students[index];
         System.arraycopy(students, index + 1, students, index, students.length - index - 1);
@@ -49,11 +45,9 @@ public class Entrance {
     /**
      * Set all the students in the entrance to a specified array
      * @param students The array containing the students
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setStudents(Color[] students) throws IllegalArgumentException {
-        if (students.length != this.students.length)
-            throw new IllegalArgumentException("Passed wrongly dimensioned array");
+    public void setStudents(Color[] students) {
+        assert students.length == this.students.length: "Passed wrongly dimensioned array";
 
         this.students = Arrays.copyOf(students, students.length);
     }

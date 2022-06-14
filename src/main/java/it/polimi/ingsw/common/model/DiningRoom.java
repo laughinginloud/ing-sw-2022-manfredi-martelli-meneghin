@@ -5,7 +5,7 @@ package it.polimi.ingsw.common.model;
  * To be used as part of SchoolBoard
  * @author Mattia Martelli
  */
-public class DiningRoom {
+public final class DiningRoom {
     private final int[] studentCounters = new int[Color.values().length];
 
     /**
@@ -28,13 +28,11 @@ public class DiningRoom {
      * Sets all the counters to a value
      * @param n Value to be set for all counters (positive integer)
      */
-    public void setStudentCounters(int n) throws IllegalArgumentException {
-        if (n < 0 || n > 10)
-            throw new IllegalArgumentException("The counter must be an element of [0, 10]");
+    public void setStudentCounters(int n) {
+        assert n >= 0 && n <= 10: "The counter must be an element of [0, 10]";
 
-        for (Color color : Color.values()) {
+        for (Color color : Color.values())
             setStudentCounters(color, n);
-        }
     }
 
     /**
@@ -42,7 +40,7 @@ public class DiningRoom {
      * @param color Color of the counter (not null)
      * @param n Value to be set (positive integer)
      */
-    public void setStudentCounters(Color color, int n) throws IllegalArgumentException {
+    public void setStudentCounters(Color color, int n) {
         studentCounters[color.ordinal()] = n;
     }
 }

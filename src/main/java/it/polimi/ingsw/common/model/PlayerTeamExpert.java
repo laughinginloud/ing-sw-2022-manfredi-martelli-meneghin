@@ -4,7 +4,7 @@ package it.polimi.ingsw.common.model;
  * Class that inherits from Player used for 4 players game mode and Expert version - 'PlayerTeamExpert'
  * @author Mattia Martelli
  */
-public class PlayerTeamExpert extends Player {
+public final class PlayerTeamExpert extends Player {
     private Integer teamMember;
     private int     coinCount;
 
@@ -29,10 +29,9 @@ public class PlayerTeamExpert extends Player {
 
     /**
      * Sets the associated team member
-     * @param teamMember A pointer to the Player representing the team member
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
+     * @param teamMember The ID of the team member
      */
-    public void setTeamMember(int teamMember) throws IllegalArgumentException {
+    public void setTeamMember(int teamMember) {
         this.teamMember = teamMember;
     }
 
@@ -48,9 +47,8 @@ public class PlayerTeamExpert extends Player {
      * Sets the number of coins currently hold by the player to specified amount
      * @param coinCount An integer representing the number of coins (positive integer between 0 and 20)
      */
-    public void setCoinCount(int coinCount) throws IllegalArgumentException {
-        if (coinCount < 0 || coinCount > 15)
-            throw new IllegalArgumentException("Coin count out of range");
+    public void setCoinCount(int coinCount) {
+        assert coinCount >= 0 && coinCount <= 20: "Coin count out of range";
 
         this.coinCount = coinCount;
     }

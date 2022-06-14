@@ -4,7 +4,7 @@ package it.polimi.ingsw.common.model;
  * Class representing a CharacterCard
  * @author Sebastiano Meneghin
  */
-public class CharacterCard {
+public sealed class CharacterCard permits CharacterCardNoEntry, CharacterCardStudent {
     private       int       cost;
     private final Character character;
     private       boolean   hasCoin;
@@ -73,11 +73,9 @@ public class CharacterCard {
     /**
      * Sets the cost of the CharacterCard to a specific value
      * @param cost The value to be set to (positive integer between 1 and 4)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setCost(int cost) throws IllegalArgumentException {
-        if (cost > 4)
-            throw new IllegalArgumentException("CharacterCard.cost accepted value is maximum 4");
+    public void setCost(int cost) {
+        assert cost <= 4: "CharacterCard.cost accepted value is maximum 4";
 
         this.cost = cost;
     }

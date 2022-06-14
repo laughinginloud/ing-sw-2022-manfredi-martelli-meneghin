@@ -10,7 +10,7 @@ import java.util.Set;
  * which will interface with the controller - Facade Pattern
  * @author Giovanni Manfredi
  */
-public class GameModel {
+public final class GameModel {
 
     // region Fields
 
@@ -54,6 +54,7 @@ public class GameModel {
      * @author Giovanni Manfredi & Mattia Martelli
      * @return An array containing the cards (not null)
      */
+    @SuppressWarnings("StatementWithEmptyBody")
     private CharacterCard[] chooseCharacterCards() {
         Random rng = new Random();
         // Use a set to avoid getting duplicates
@@ -80,9 +81,9 @@ public class GameModel {
      */
     private void buildIslands() {
         int seed = (int) (Math.random() * 3);
-        for (int i = 0; i < islands.length; ++i) {
+        for (int i = 0; i < islands.length; ++i, ++seed) {
             islands[i] = new Island();
-            islands[i].setBackgroundID(seed++ % 3);
+            islands[i].setBackgroundID(seed % 3);
         }
     }
 
@@ -103,12 +104,10 @@ public class GameModel {
      * Gets the Player saved at a specific index
      * @param index The index at which the Player is saved (positive integer between 0 and 3)
      * @return The Player requested (not null)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public Player getPlayer(int index) throws IllegalArgumentException {
-        // Checks if the given index is within the range accepted [0, 3]
-        if (index < 0 || index > 3)
-            throw new IllegalArgumentException("getPlayer: Index value invalid! Accepted index in the range [0, 3]");
+    public Player getPlayer(int index) {
+        // Checks if the given index is within the range accepted [0, numOfPlayers]
+        assert index >= 0 && index < players.length: "getPlayer: Index value invalid! Accepted index in the range [0, " + (players.length - 1) + "]";
 
         return players[index];
     }
@@ -134,12 +133,10 @@ public class GameModel {
      * Gets the Island saved at a specific index
      * @param index The index of the island array (positive integer between 0 and 11)
      * @return The island requested (not null)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public Island getIsland(int index) throws IllegalArgumentException {
-        // Checks if the index is within the accepted range [0, 11]
-        if (index < 0 || index > 11)
-            throw new IllegalArgumentException("getIsland: Index value invalid! Accepted index in the range [0, 11]");
+    public Island getIsland(int index) {
+        // Checks if the index is within the accepted range [0, islandCount]
+        assert index >= 0 && index < islands.length: "getIsland: Index value invalid! Accepted index in the range [0, " + (islands.length - 1) + "]";
 
         return islands[index];
     }
@@ -155,12 +152,10 @@ public class GameModel {
      * Gets the CloudTile saved at a specific index
      * @param index The index of the cloudTile array (in the range [0, 3])
      * @return The cloudTile requested
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public CloudTile getCloudTile(int index) throws IllegalArgumentException {
-        // Checks if the index is within the accepted range [0, 3]
-        if (index < 0 || index > 3)
-            throw new IllegalArgumentException("getCloudTile: Index value invalid! Accepted index in the range [0, 3]");
+    public CloudTile getCloudTile(int index) {
+        // Checks if the index is within the accepted range [0, cloudTilesCount]
+        assert index >= 0 && index < cloudTiles.length: "getCloudTile: Index value invalid! Accepted index in the range [0, " + (cloudTiles.length - 1) + "]";
 
         return cloudTiles[index];
     }
@@ -181,15 +176,11 @@ public class GameModel {
      * Sets the Player saved at a specific index
      * @param player The player to be saved (not null)
      * @param index The index of the Player that needs to be set (positive integer from 0 to 3)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setPlayer(Player player, int index) throws IllegalArgumentException {
-        // Checks if the player is not null and if the index is within the accepted range [0, 3]
-        if (player == null)
-            throw new IllegalArgumentException("setPlayer: The player to be set is null!");
-
-        if (index < 0 || index > 3)
-            throw new IllegalArgumentException("setPlayer: Index value invalid! Accepted index in the range [0, 3]");
+    public void setPlayer(Player player, int index) {
+        // Checks if the player is not null and if the index is within the accepted range [0, numOfPlayers]
+        assert player != null: "setPlayer: The player to be set is null!";
+        assert index >= 0 && index < players.length: "setPlayer: Index value invalid! Accepted index in the range [0, " + (players.length - 1) + "]";
 
         this.players[index] = player;
     }
@@ -223,15 +214,12 @@ public class GameModel {
 
     /**
      * Gets the characterCard saved at a specific index
-     * @param index The index at which the characterCard is saved (positive integer from 0 to 3)
+     * @param index The index at which the characterCard is saved (positive integer from 0 to 2)
      * @return The characterCard requested
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public CharacterCard getCharacterCard(int index) throws IllegalArgumentException {
-        // Checks if the index is within the accepted range [0, 2]
-        if (index < 0 || index > 2)
-            throw new IllegalArgumentException("getCharacterCard: Index value invalid! " +
-                                               "Accepted index in the range [0, 2]");
+    public CharacterCard getCharacterCard(int index) {
+        // Checks if the index is within the accepted range [0, numOfCards)
+        assert index >= 0 && index < characterCards.length: "getCharacterCard: Index value invalid! Accepted index in the range [0, " + (characterCards.length - 1) + "]";
 
         return characterCards[index];
     }
@@ -267,15 +255,11 @@ public class GameModel {
      * Sets the Island saved at a specific index
      * @param island The island to be saved (not null)
      * @param index The index of the island that needs to be set (positive integer from 0 to 11)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setIsland(Island island, int index) throws IllegalArgumentException {
-        // Checks if the island is not null and if the index is within the accepted range [0, 11]
-        if (island == null)
-            throw new IllegalArgumentException("setIsland: The island to be set is null!");
-        else if (index < 0 || index > 11)
-            throw new IllegalArgumentException("setIsland: Index value invalid! " +
-                                               "Accepted index in the range [0, 11]");
+    public void setIsland(Island island, int index) {
+        // Checks if the island is not null and if the index is within the accepted range [0, islandCount)
+        assert island != null: "setIsland: The island to be set is null!";
+        assert index >= 0 && index < islands.length: "setIsland: Index value invalid! Accepted index in the range [0, " + (islands.length - 1) + "]";
 
         this.islands[index] = island;
     }
@@ -293,15 +277,11 @@ public class GameModel {
      * Sets the cloudTile saved at a specific index
      * @param cloudTile The cloudTile to be saved (not null)
      * @param index The index of the cloudTile that needs to be set (positive integer from 0 to 3)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setCloudTile(CloudTile cloudTile, int index) throws IllegalArgumentException {
-        // Checks if the cloudTile is not null and if the index is within the accepted range [0, 3]
-        if (cloudTile == null)
-            throw new IllegalArgumentException("setCloudTile: The cloudTile to be set is null!");
-        else if (index < 0 || index > 3)
-            throw new IllegalArgumentException("setCloudTile: Index value invalid! " +
-                                               "Accepted index in the range [0, 3]");
+    public void setCloudTile(CloudTile cloudTile, int index) {
+        // Checks if the cloudTile is not null and if the index is within the accepted range [0, cloudTilesCount)
+        assert cloudTile != null: "setCloudTile: The cloudTile to be set is null!";
+        assert index >= 0 && index < cloudTiles.length: "setCloudTile: Index value invalid! Accepted index in the range [0, " + (cloudTiles.length - 1) + "]";
 
         this.cloudTiles[index] = cloudTile;
     }
@@ -318,13 +298,11 @@ public class GameModel {
     /**
      * Sets the saved position of mother nature to a parameter
      * @param motherNaturePosition The position of mother nature to be saved (between 0 and 11)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setMotherNaturePosition(int motherNaturePosition) throws IllegalArgumentException {
-        // Checks if the motherNaturePosition is within the accepted range [0, 11]
-        if (motherNaturePosition < 0 || motherNaturePosition > 11)
-            throw new IllegalArgumentException("setMotherNaturePosition: MotherNaturePosition value invalid! " +
-                                               "Accepted motherNaturePosition in the range [0, 11]");
+    public void setMotherNaturePosition(int motherNaturePosition) {
+        // Checks if the motherNaturePosition is within the accepted range [0, islandCount)
+        assert motherNaturePosition >= 0 && motherNaturePosition < islands.length:
+            "setMotherNaturePosition: MotherNaturePosition value invalid! Accepted motherNaturePosition in the range [0, " + (islands.length - 1) + "]";
 
         this.motherNaturePosition = motherNaturePosition;
     }
@@ -335,18 +313,18 @@ public class GameModel {
      */
     //TODO: test
     public void moveMotherNature(int movementPoints) {
+        assert movementPoints >= 1 && movementPoints <= 5: "moveMotherNature: movementPoints is more than the maximum allowed by the cards";
+
         setMotherNaturePosition((motherNaturePosition + movementPoints) % getIslandsCount());
     }
 
     /**
      * Sets the saved bag to a specific bag
      * @param bag The bag to be saved (not null)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setBag(Bag bag) throws IllegalArgumentException {
+    public void setBag(Bag bag) {
         // Checks if the bag is not null
-        if (bag == null)
-            throw new IllegalArgumentException("setBag: The bag to be set is null!");
+        assert bag != null: "setBag: The bag to be set is null!";
 
         this.bag = bag;
     }
@@ -354,12 +332,10 @@ public class GameModel {
     /**
      * Sets the saved globalProfessorTable to a specific globalProfessorTable
      * @param globalProfessorTable The globalProfessorTable to be saved (not null)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setGlobalProfessorTable(GlobalProfessorTable globalProfessorTable) throws IllegalArgumentException {
+    public void setGlobalProfessorTable(GlobalProfessorTable globalProfessorTable) {
         // Checks if the globalProfessorTable is not null
-        if (globalProfessorTable == null)
-            throw new IllegalArgumentException("setGlobalProfessorTable: The globalProfessorTable to be set is null!");
+        assert globalProfessorTable != null: "setGlobalProfessorTable: The globalProfessorTable to be set is null!";
 
         this.globalProfessorTable = globalProfessorTable;
     }
@@ -368,15 +344,11 @@ public class GameModel {
      * Sets the characterCard saved at a specific index
      * @param characterCard The characterCard to be saved (not null)
      * @param index The index of the specific characterCard that needs to be set (positive integer from 0 to 2)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setCharacterCard(CharacterCard characterCard, int index) throws IllegalArgumentException {
-        // Checks if the CharacterCard is not null and if the index is within the accepted range [0, 2]
-        if (characterCard == null)
-            throw new IllegalArgumentException("setCharacterCard: The characterCard to be set is null!");
-        else if (index < 0 || index > 2)
-            throw new IllegalArgumentException("setCharacterCard: Index value invalid! " +
-                                               "Accepted index in the range [0, 2]");
+    public void setCharacterCard(CharacterCard characterCard, int index) {
+        // Checks if the CharacterCard is not null and if the index is within the accepted range [0, numOfCards)
+        assert characterCard != null: "setCharacterCard: The characterCard to be set is null!";
+        assert index >= 0 && index < characterCards.length: "setCharacterCard: Index value invalid! Accepted index in the range [0, " + characterCards.length + "]";
 
         this.characterCards[index] = characterCard;
     }
@@ -393,13 +365,10 @@ public class GameModel {
     /**
      * Sets the number of coins in the pool
      * @param coinPool The number of coins that are in the pool (positive integer from 0 to 20)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void setCoinPool(Integer coinPool) throws IllegalArgumentException {
+    public void setCoinPool(Integer coinPool) {
         // Checks if the coinPool is within the accepted range [0, 20]
-        if (coinPool < 0 || coinPool > 20)
-            throw new IllegalArgumentException("setCoinPool: CoinPool value invalid! " +
-                                               "Accepted coinPool in the range [0, 20]");
+        assert coinPool >= 0 && coinPool <= 20: "setCoinPool: CoinPool value invalid! Accepted coinPool in the range [0, 20]";
 
         this.coinPool = coinPool;
     }
@@ -411,13 +380,10 @@ public class GameModel {
     /**
      * Shifts of the islands array needed when merging islands, shrinking it in the process
      * @param index The index of the island I will overwrite (positive integer from 0 to 11)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void shiftIslands(int index) throws IllegalArgumentException {
-        // Checks if the index is within the accepted range [0, 11]
-        if (index < 0 || index > 11)
-            throw new IllegalArgumentException("shiftIslands: Index value invalid! " +
-                                               "Accepted index in the range [0, 11]");
+    public void shiftIslands(int index) {
+        // Checks if the index is within the accepted range [0, islandsCount)
+        assert index >= 0 && index < islands.length: "shiftIslands: Index value invalid! Accepted index in the range [0, " + (islands.length - 1) + "]";
 
         // Copies the part of the island Array after the index over the index and then shrinks it
         System.arraycopy(islands, index + 1, islands, index, islands.length - index - 1);
@@ -427,11 +393,9 @@ public class GameModel {
     /**
      * Decreases the coin pool of a specified amount
      * @param n The amount to remove from the pool (positive integer from 0 to coinPool)
-     * @throws IllegalArgumentException exception thrown when an illegalArgument is passed
      */
-    public void decreaseCoinPool(Integer n) throws IllegalArgumentException {
-        if (n <= 0 || n > coinPool)
-            throw new IllegalArgumentException("Quantity n to remove must be 0 < n <= coinPool");
+    public void decreaseCoinPool(Integer n) {
+        assert n > 0 && n <= coinPool: "Quantity n to remove must be 0 < n <= coinPool";
 
         coinPool -= n;
     }
