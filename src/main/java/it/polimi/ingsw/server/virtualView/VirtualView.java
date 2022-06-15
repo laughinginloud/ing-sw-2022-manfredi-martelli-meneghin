@@ -158,10 +158,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             try {
                 Message msg = getMessage();
 
-                if (msg == null)
-                    sendPing();
-
-                else if (!msg.equals(PONG_MESSAGE))
+                if (!msg.equals(PONG_MESSAGE))
                     MessageBuilder.messageToCommand(msg).executeCommand(); //TODO: gestione delle richieste
             }
 
