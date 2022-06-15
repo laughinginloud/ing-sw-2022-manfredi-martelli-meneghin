@@ -21,7 +21,12 @@ import java.util.List;
  * @author Mattia Martelli
  */
 public class CharacterCardArrayJSONAdapter extends TypeAdapter<CharacterCard[]> {
-    private static final Gson json = new GsonBuilder().registerTypeAdapter(CharacterCard.class, new CharacterCardJSONAdapter()).setPrettyPrinting().create();
+    private static final Gson json = new GsonBuilder()
+        .registerTypeAdapter(CharacterCard.class,        new CharacterCardJSONAdapter())
+        .registerTypeAdapter(CharacterCardNoEntry.class, new CharacterCardNoEntryJSONAdapter())
+        .registerTypeAdapter(CharacterCardStudent.class, new CharacterCardStudentJSONAdapter())
+        .setPrettyPrinting()
+        .create();
 
     @Override
     public void write(JsonWriter jsonWriter, CharacterCard[] characterCards) throws IOException {

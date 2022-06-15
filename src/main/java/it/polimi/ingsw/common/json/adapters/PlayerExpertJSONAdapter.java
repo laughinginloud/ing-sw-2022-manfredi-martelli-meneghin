@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
- * Adapter for a single base player
+ * Adapter for a single expert player
  * @author Mattia Martelli
  */
-public class PlayerJSONAdapter extends TypeAdapter<Player> {
+public class PlayerExpertJSONAdapter extends TypeAdapter<PlayerExpert> {
     private static final Gson json = new GsonBuilder()
         .registerTypeAdapter(AssistantCard.class, new AssistantCardJSONAdapter())
         .registerTypeAdapter(AssistantCard[].class, new AssistantCardArrayJSONAdapter())
@@ -25,38 +25,42 @@ public class PlayerJSONAdapter extends TypeAdapter<Player> {
         .create();
 
     @Override
-    public void write(JsonWriter jsonWriter, Player player) throws IOException {
+    public void write(JsonWriter jsonWriter, PlayerExpert playerExpert) throws IOException {
         jsonWriter.beginObject();
 
         jsonWriter.name("assistantDeck");
-        jsonWriter.value(json.toJson(player.getAssistantDeck()));
+        jsonWriter.value(json.toJson(playerExpert.getAssistantDeck()));
 
         jsonWriter.name("lastPlayedCard");
-        jsonWriter.value(player.getLastPlayedCard() != null ? json.toJson(player.getLastPlayedCard()) : "void");
+        jsonWriter.value(playerExpert.getLastPlayedCard() != null ? json.toJson(playerExpert.getLastPlayedCard()) : "void");
 
         jsonWriter.name("playerID");
-        jsonWriter.value(player.getPlayerID());
+        jsonWriter.value(playerExpert.getPlayerID());
 
         jsonWriter.name("playerWizard");
-        jsonWriter.value(json.toJson(player.getPlayerWizard()));
+        jsonWriter.value(json.toJson(playerExpert.getPlayerWizard()));
 
         jsonWriter.name("schoolBoard");
-        jsonWriter.value(json.toJson(player.getSchoolBoard()));
+        jsonWriter.value(json.toJson(playerExpert.getSchoolBoard()));
 
         jsonWriter.name("username");
-        jsonWriter.value(player.getUsername());
+        jsonWriter.value(playerExpert.getUsername());
+
+        jsonWriter.name("coinCount");
+        jsonWriter.value(playerExpert.getCoinCount());
 
         jsonWriter.endObject();
     }
 
     @Override
-    public Player read(JsonReader jsonReader) throws IOException {
+    public PlayerExpert read(JsonReader jsonReader) throws IOException {
         AssistantCard[] assistantDeck = null;
         AssistantCard lastPlayedCard = null;
         int playerID = 0;
         Wizard playerWizard = null;
         SchoolBoard schoolBoard = null;
         String username = null;
+        int coinCount = 0;
 
         String fieldName = null;
 
@@ -81,6 +85,7 @@ public class PlayerJSONAdapter extends TypeAdapter<Player> {
                     case "playerWizard"   -> playerWizard   = json.fromJson(jsonReader.nextString(), Wizard.class);
                     case "schoolBoard"    -> schoolBoard    = json.fromJson(jsonReader.nextString(), SchoolBoard.class);
                     case "username"       -> username       = jsonReader.nextString();
+                    case "coinCount"      -> coinCount      = jsonReader.nextInt();
                 }
 
             jsonReader.peek();
@@ -88,10 +93,11 @@ public class PlayerJSONAdapter extends TypeAdapter<Player> {
 
         jsonReader.endObject();
 
-        Player player = new Player(playerID, username, playerWizard, schoolBoard);
+        PlayerExpert player = new PlayerExpert(playerID, username, playerWizard, schoolBoard);
         setAssistantDeck(player, assistantDeck);
         if (lastPlayedCard != null)
             player.setLastPlayedCard(lastPlayedCard);
+        player.setCoinCount(coinCount);
 
         return player;
     }
