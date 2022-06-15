@@ -102,16 +102,16 @@ public class PlayerExpertJSONAdapter extends TypeAdapter<PlayerExpert> {
         return player;
     }
 
-    private static void setAssistantDeck(Player player, AssistantCard[] assistantDeck) {
+    private static void setAssistantDeck(PlayerExpert playerExpert, AssistantCard[] assistantDeck) {
         try {
-            Field assistantDeckField = player.getClass().getDeclaredField("assistantDeck");
+            Field assistantDeckField = playerExpert.getClass().getSuperclass().getDeclaredField("assistantDeck");
             assistantDeckField.setAccessible(true);
-            assistantDeckField.set(player, assistantDeck);
+            assistantDeckField.set(playerExpert, assistantDeck);
             assistantDeckField.setAccessible(false);
         }
 
         catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw new AssertionError(e);
         }
     }
 }

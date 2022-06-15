@@ -35,8 +35,16 @@ public class CharacterCardArrayJSONAdapter extends TypeAdapter<CharacterCard[]> 
         jsonWriter.name("characterCards");
         jsonWriter.beginArray();
 
-        for (CharacterCard characterCard : characterCards)
+        for (CharacterCard characterCard : characterCards) {
+            jsonWriter.beginObject();
+
+            jsonWriter.name("type");
+            jsonWriter.value(characterCardType(characterCard));
+            jsonWriter.name("card");
             jsonWriter.value(json.toJson(characterCard));
+
+            jsonWriter.endObject();
+        }
 
         jsonWriter.endArray();
         jsonWriter.endObject();
@@ -50,12 +58,52 @@ public class CharacterCardArrayJSONAdapter extends TypeAdapter<CharacterCard[]> 
         jsonReader.nextName();
         jsonReader.beginArray();
 
-        while (jsonReader.hasNext())
-            characterCardList.add(json.fromJson(jsonReader.nextString(), CharacterCard.class));
+        while (jsonReader.hasNext()) {
+            String type  = null;
+            String field = null;
+
+            jsonReader.beginObject();
+
+            while (jsonReader.hasNext()) {
+                JsonToken jsonToken = jsonReader.peek();
+
+                if (jsonToken == JsonToken.NAME)
+                    field = jsonReader.nextName();
+
+                if (field != null)
+                    switch (field) {
+                        case "type" -> type = jsonReader.nextString();
+                        case "card" -> characterCardList.add((CharacterCard) json.fromJson(jsonReader.nextString(), characterCardType(type)));
+                    }
+
+                jsonReader.peek();
+            }
+
+            jsonReader.endObject();
+        }
 
         jsonReader.endArray();
         jsonReader.endObject();
 
         return characterCardList.toArray(CharacterCard[]::new);
+    }
+
+    private static String characterCardType(CharacterCard characterCard) {
+        if (characterCard instanceof CharacterCardNoEntry)
+            return "noEntry";
+
+        if (characterCard instanceof CharacterCardStudent)
+            return "student";
+
+        return "base";
+    }
+
+    private static Class characterCardType(String type) {
+        return switch (type) {
+            case "base"    -> CharacterCard.class;
+            case "noEntry" -> CharacterCardNoEntry.class;
+            case "student" -> CharacterCardStudent.class;
+            default        -> throw new AssertionError();
+        };
     }
 }

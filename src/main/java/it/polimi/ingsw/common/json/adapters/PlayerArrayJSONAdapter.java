@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.common.model.PlayerExpert;
@@ -33,8 +34,17 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
 
         jsonWriter.name("players");
         jsonWriter.beginArray();
-        for (Player player : players)
-            jsonWriter.value(json.toJson((Player) player));
+        for (Player player : players) {
+            jsonWriter.beginObject();
+
+            jsonWriter.name("type");
+            jsonWriter.value(playerType(player));
+
+            jsonWriter.name("player");
+            jsonWriter.value(json.toJson(player));
+
+            jsonWriter.endObject();
+        }
         jsonWriter.endArray();
 
         jsonWriter.endObject();
@@ -47,11 +57,55 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
         jsonReader.beginObject();
         jsonReader.nextName();
         jsonReader.beginArray();
-        while (jsonReader.hasNext())
-            playerList.add(json.fromJson(jsonReader.nextString(), Player.class));
+        while (jsonReader.hasNext()) {
+            String type      = null;
+            String fieldName = null;
+
+            jsonReader.beginObject();
+
+            while (jsonReader.hasNext()) {
+                JsonToken jsonToken = jsonReader.peek();
+
+                if (jsonToken == JsonToken.NAME)
+                    fieldName = jsonReader.nextName();
+
+                if (fieldName != null)
+                    switch (fieldName) {
+                        case "type"   -> type = jsonReader.nextString();
+                        case "player" -> playerList.add((Player) json.fromJson(jsonReader.nextString(), playerType(type)));
+                    }
+
+                jsonReader.peek();
+            }
+
+            jsonReader.endObject();
+        }
         jsonReader.endArray();
         jsonReader.endObject();
 
         return playerList.toArray(Player[]::new);
+    }
+
+    private static String playerType(Player player) {
+        if (player instanceof PlayerTeam)
+            return "team";
+
+        if (player instanceof PlayerExpert)
+            return "expert";
+
+        if (player instanceof PlayerTeamExpert)
+            return "teamExpert";
+
+        return "base";
+    }
+
+    private static Class playerType(String type) {
+        return switch (type) {
+            case "base"       -> Player.class;
+            case "team"       -> PlayerTeam.class;
+            case "expert"     -> PlayerExpert.class;
+            case "teamExpert" -> PlayerTeamExpert.class;
+            default           -> throw new AssertionError();
+        };
     }
 }
