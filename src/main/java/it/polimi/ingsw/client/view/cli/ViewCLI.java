@@ -327,7 +327,8 @@ public final class ViewCLI implements View {
     }
 
     public void close() {
-        virtualController.close();
+        if (virtualController != null)
+            virtualController.close();
 
         terminal.setAttributes(savedAttributes);
         terminal.puts(InfoCmp.Capability.exit_ca_mode);

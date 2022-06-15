@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static it.polimi.ingsw.common.termutils.Ansi.hideCursor;
-import static it.polimi.ingsw.common.termutils.Ansi.showCursor;
+import static it.polimi.ingsw.common.termutils.Ansi.*;
 
 /**
  * Entry point of the app and main mode menu
