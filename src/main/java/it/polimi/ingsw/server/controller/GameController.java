@@ -226,6 +226,9 @@ public class GameController {
         }
 
         else {
+            if (data.getPlayersOrder() == null)
+                return;
+
             if (data.getPlayersOrder(0).equals(data.getViewPlayer(playerView))) {
                 // Signal every player that the game has been ended and close the relative socket
                 for (Player player : data.getGameModel().getPlayer()) {
