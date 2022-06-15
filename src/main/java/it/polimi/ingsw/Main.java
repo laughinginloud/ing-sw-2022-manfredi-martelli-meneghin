@@ -119,6 +119,7 @@ public class Main {
             Terminal terminal = TerminalBuilder.builder()
                 .name("Eriantys")
                 .encoding("UTF-8")
+                .system(true)
                 .nativeSignals(true)
                 //.type("screen")
                 .jna(true)
@@ -146,7 +147,8 @@ public class Main {
             hideCursor(writer);
 
             // Main menu loop
-            MENU: while (true) {
+            MENU:
+            while (true) {
                 // Reset the objects
                 display.clear();
                 mainMenu.clear();
@@ -173,10 +175,11 @@ public class Main {
                 display.updateAnsi(mainMenu, 0);
 
                 // Key pressing loop
-                KEYPRESS: while (true) {
+                KEYPRESS:
+                while (true) {
                     // If no keys have been pressed just wait for them
-                    if (inputStream.available() == 0)
-                        continue KEYPRESS;
+                    //if (inputStream.available() == 0)
+                    //    continue KEYPRESS;
 
                     // Interpret the availale key
                     switch (Key.parseKey(inputStream)) {
@@ -243,8 +246,9 @@ public class Main {
                                 // Option 4: exit without doing anything
                                 case EXIT -> {
                                     // Before closing the program restore the terminal to its original state
-                                    terminal.setAttributes(attributes);
                                     terminal.puts(InfoCmp.Capability.exit_ca_mode);
+                                    terminal.setAttributes(attributes);
+                                    showCursor(writer);
                                     terminal.close();
                                     throw new GameNotStarted();
                                 }

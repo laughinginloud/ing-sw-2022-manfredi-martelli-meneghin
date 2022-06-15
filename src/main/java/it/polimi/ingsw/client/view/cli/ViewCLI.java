@@ -59,6 +59,7 @@ public final class ViewCLI implements View {
         terminal = TerminalBuilder.builder()
             .name("Eriantys")
             .encoding("UTF-8")
+            .system(true)
             .nativeSignals(true)
             //.type("screen")
             .jna(true)
