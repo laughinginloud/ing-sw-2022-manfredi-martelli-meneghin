@@ -212,7 +212,7 @@ public enum Ansi {
     /**
      * ANSI commands introducers
      */
-    public static class Escapes {
+    public static final class Escapes {
         /**
          * Escape sequence introducer
          */
@@ -221,17 +221,17 @@ public enum Ansi {
         /**
          * Control Sequence Introducer
          */
-        public static final String CSI = "\u009B";
+        public static final String CSI = "\u001B[";
 
         /**
          * Device Control String Introducer
          */
-        public static final String DCS = "\u0090";
+        public static final String DCS = "\u001BP";
 
         /**
          * Operating System Command introducer
          */
-        public static final String OSC = "\u009D";
+        public static final String OSC = "\u001B]";
 
         /**
          * Return a Select Graphic Rendition command
