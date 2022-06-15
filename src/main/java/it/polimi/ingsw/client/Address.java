@@ -39,7 +39,7 @@ public record Address(String ipAddress, int port) {
      * @throws NumberFormatException If the provided string does not contain a valid integer
      */
     public static int parsePort(String port) throws NumberFormatException {
-        return Integer.parseInt(port);
+        return Integer.parseInt(port.replaceAll("(\\r|\\n|\\r\\n|\\s)+", ""));
     }
 
     /**

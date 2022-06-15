@@ -14,9 +14,8 @@ import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
 import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge.UsernameResult;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.reader.UserInterruptException;
+import org.jline.reader.*;
+import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.terminal.Attributes;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
@@ -99,7 +98,7 @@ public final class ViewCLI implements View {
             run();
         }
 
-        catch (UserInterruptException ignored) {
+        catch (EndOfFileException | UserInterruptException ignored) {
             close();
         }
     }
@@ -347,6 +346,8 @@ public final class ViewCLI implements View {
     public void askAddress() {
         showCursor(writer);
 
+        LineReader localReader = LineReaderBuilder.builder().terminal(terminal).completer(new StringsCompleter("localhost")).option(LineReader.Option.INSERT_TAB, false).build();
+
         try {
             // Both tuples contain a string representing a candidate for the value
             // and a bool representing whether that value is acceptable
@@ -383,7 +384,7 @@ public final class ViewCLI implements View {
                 // Otherwise, check if there is not a candidate
                 else if (ip.left() == null) {
                     // Read an IP, sanitizing it in the process as the unsatized version is currently useless
-                    String readIP = Address.sanitizeIP(reader.readLine());
+                    String readIP = Address.sanitizeIP(localReader.readLine());
 
                     if (readIP.equals(""))
                         continue;
@@ -410,6 +411,8 @@ public final class ViewCLI implements View {
                 writer.print("Please enter the server port:");
                 writer.print(" ");
 
+                localReader = LineReaderBuilder.builder().terminal(terminal).completer(new StringsCompleter("6556")).option(LineReader.Option.INSERT_TAB, false).build();
+
                 // Check if there is an illegal candidate for the value
                 if (port.right()) {
                     // Print the candidate on a red background with an error message
@@ -427,7 +430,7 @@ public final class ViewCLI implements View {
                 }
 
                 // Otherwise, read the port and try to parse it
-                String readPort = reader.readLine();
+                String readPort = localReader.readLine();
 
                 if (readPort.equals(""))
                     continue;
