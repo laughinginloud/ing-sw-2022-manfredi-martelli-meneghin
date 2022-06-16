@@ -240,26 +240,23 @@ public class VirtualView extends Thread implements AutoCloseable {
             }
 
             catch (Exception ignored) {
-                endThread();
+                throw new SocketException();
             }
 
-            if (!pong.equals(PONG_MESSAGE))
+            if (pong == null)
+                throw new SocketException();
+
+            else if (!pong.equals(PONG_MESSAGE))
                 throw new NotPongException(pong);
         }
 
         catch (IOException e) {
-            endThread();
+            throw new SocketException();
         }
-
-        if (pong == null)
-            endThread();
-
-        else if (!pong.equals(PONG_MESSAGE))
-            throw new NotPongException(pong);
     }
 
     private void endThread() {
-        GameController.signalPlayerDisconnected(this);
+        GameController.signalPlayerDisconnected(this, outputStream);
         close();
     }
 }
