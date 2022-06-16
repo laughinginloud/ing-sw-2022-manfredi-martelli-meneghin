@@ -187,7 +187,7 @@ public final class GameStateEndGame implements GameState {
         for (Color color : Color.values()) {
             Player professorLocation = gpt.getProfessorLocation(color);
 
-            if (professorLocation == players[0] || professorLocation == players[2])
+            if (professorLocation.equals(players[0]) || professorLocation.equals(players[2]))
                 teamA++;
 
             else
@@ -209,9 +209,9 @@ public final class GameStateEndGame implements GameState {
             resB = 0;
 
         for (Color color : Color.values())
-            if (gpt.getProfessorLocation(color) == a)
+            if (gpt.getProfessorLocation(color).equals(a))
                 resA++;
-            else if (gpt.getProfessorLocation(color) == b)
+            else if (gpt.getProfessorLocation(color).equals(b))
                 resB++;
 
         return compare(resA, resB);
