@@ -9,11 +9,16 @@ import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -76,7 +81,7 @@ public final class ViewGUI extends Application implements View {
         // Adds the scenes and the sceneHandlers to their respective HashMap
         setupScenes();
         this.stage = stage;
-        stage.setResizable(false);
+        //stage.setResizable(false);
 
         // Sets the title, the scene, the icon
         stage.setTitle("Eriantys pre alpha 5.0");
@@ -151,7 +156,20 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(nextPage);
         nameMapHandler.get(nextPage).setGUI(this);
 
-        Platform.runLater(() -> stage.setScene(currentScene));
+        Platform.runLater(() -> {
+            if (nextPage == Pages.GAME_SCENE) {
+                Scale scale = new Scale(1, 1);
+                scale.setPivotX(0);
+                scale.setPivotY(0);
+                currentScene.getRoot().getTransforms().setAll(scale);
+                SceneSizeChangeListener sizeChangeListener = new SceneSizeChangeListener(currentScene, currentScene.getWidth() / currentScene.getHeight(), currentScene.getHeight(), currentScene.getWidth(), (Pane) currentScene.lookup("playersBoards_BorderPane"));
+                currentScene.widthProperty().addListener(sizeChangeListener);
+                currentScene.heightProperty().addListener(sizeChangeListener);
+                letterbox(currentScene, (Pane) currentScene.lookup("playersBoards_BorderPane"));
+            }
+
+            stage.setScene(currentScene);
+        });
     }
 
     // endregion SwitchScene
@@ -199,9 +217,8 @@ public final class ViewGUI extends Application implements View {
         ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer(), updatedValues);
         ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model,updatedValues);
 
-        if (updatedValues.contains(GameValues.MODEL)){
+        if (updatedValues.contains(GameValues.MODEL))
             switchScene(Pages.GAME_SCENE);
-        }
     }
 
     // endregion MiscellaneousMethods
@@ -647,4 +664,54 @@ public final class ViewGUI extends Application implements View {
     // endregion Setter
 
     // endregion ViewImplementation
+
+    private void letterbox(final Scene scene, final Pane contentPane) {
+        final double initWidth  = scene.getWidth();
+        final double initHeight = scene.getHeight();
+        final double ratio      = initWidth / initHeight;
+
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
+    }
+
+    private static class SceneSizeChangeListener implements ChangeListener<Number> {
+        private final Scene scene;
+        private final double ratio;
+        private final double initHeight;
+        private final double initWidth;
+        private final Pane contentPane;
+
+        public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
+            this.scene = scene;
+            this.ratio = ratio;
+            this.initHeight = initHeight;
+            this.initWidth = initWidth;
+            this.contentPane = contentPane;
+        }
+
+        @Override
+        public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+            final double newWidth  = scene.getWidth();
+            final double newHeight = scene.getHeight();
+
+            double scaleFactor =
+                newWidth / newHeight > ratio
+                    ? newHeight / initHeight
+                    : newWidth / initWidth;
+
+            if (scaleFactor <= 1) {
+                Scale scale = new Scale(scaleFactor, scaleFactor);
+                scale.setPivotX(0);
+                scale.setPivotY(0);
+                scene.getRoot().getTransforms().setAll(scale);
+
+                contentPane.setPrefWidth (newWidth  / scaleFactor);
+                contentPane.setPrefHeight(newHeight / scaleFactor);
+            } else {
+                contentPane.setPrefWidth (Math.max(initWidth,  newWidth));
+                contentPane.setPrefHeight(Math.max(initHeight, newHeight));
+            }
+        }
+    }
 }
