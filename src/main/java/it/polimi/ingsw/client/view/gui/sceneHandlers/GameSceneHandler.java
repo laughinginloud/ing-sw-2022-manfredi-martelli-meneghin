@@ -2137,14 +2137,11 @@ public class GameSceneHandler implements GUIHandler {
                 islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
 
                 // Creates a function that will handle the islandClick
-                EventHandler<MouseEvent> clickOnIslandHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Invokes the function clickOnIsland
-                        clickOnIslandDuringEntranceMovement(mouseEvent, selectedStudentIndex);
+                EventHandler<MouseEvent> clickOnIslandHandler = mouseEvent -> {
+                    // Invokes the function clickOnIsland
+                    clickOnIslandDuringEntranceMovement(mouseEvent, selectedStudentIndex);
 
-                        mouseEvent.consume();
-                    }
+                    mouseEvent.consume();
                 };
 
                 islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);
@@ -2158,15 +2155,12 @@ public class GameSceneHandler implements GUIHandler {
         for (Color color : compatibleTables) {
             diningRoomTablePane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
 
-            EventHandler<MouseEvent> clickOnDiningRoomTableHandler = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    // Associates to the click of the mouse the function clickOnDiningRoomTable
-                    // as response to the user's action
-                    clickOnDiningRoomTablesDuringEntranceMovement(mouseEvent, selectedStudentIndex);
+            EventHandler<MouseEvent> clickOnDiningRoomTableHandler = mouseEvent -> {
+                // Associates to the click of the mouse the function clickOnDiningRoomTable
+                // as response to the user's action
+                clickOnDiningRoomTablesDuringEntranceMovement(mouseEvent, selectedStudentIndex);
 
-                    mouseEvent.consume();
-                }
+                mouseEvent.consume();
             };
 
             diningRoomTablePane.setOnMouseClicked(clickOnDiningRoomTableHandler);
@@ -2180,14 +2174,11 @@ public class GameSceneHandler implements GUIHandler {
 
     public void activateClicksInputButton() {
         // Creates a function that will handle the characterCardClick
-        EventHandler<MouseEvent> clickOnInputButtonHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                // Invokes the function clickOnCharacterCard
-                clickOnInputButton(mouseEvent);
+        EventHandler<MouseEvent> clickOnInputButtonHandler = mouseEvent -> {
+            // Invokes the function clickOnCharacterCard
+            clickOnInputButton(mouseEvent);
 
-                mouseEvent.consume();
-            }
+            mouseEvent.consume();
         };
 
         // Then links the created handler to the click of the CCImage
@@ -2339,7 +2330,11 @@ public class GameSceneHandler implements GUIHandler {
 
     public void clickOnCharacterCard(MouseEvent mouseEvent, boolean otherElementsClickable) {
         // If the player chose the characterCard when other elements were clickable, deactivates all of them
-        if (otherElementsClickable) { deactivateClicksEntranceStudents(); deactivateClicksIslands(); deactivateClicksCloudTiles(); }
+        if (otherElementsClickable) {
+            deactivateClicksEntranceStudents();
+            deactivateClicksIslands();
+            deactivateClicksCloudTiles();
+        }
 
         deactivateClicksCharacterCards();
 
