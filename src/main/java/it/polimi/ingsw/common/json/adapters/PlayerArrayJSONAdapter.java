@@ -37,11 +37,16 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
         for (Player player : players) {
             jsonWriter.beginObject();
 
-            jsonWriter.name("type");
-            jsonWriter.value(playerType(player));
+            jsonWriter.name("isPresent");
+            jsonWriter.value(player != null);
 
-            jsonWriter.name("player");
-            jsonWriter.value(json.toJson(player));
+            if (player != null) {
+                jsonWriter.name("type");
+                jsonWriter.value(playerType(player));
+
+                jsonWriter.name("player");
+                jsonWriter.value(json.toJson(player));
+            }
 
             jsonWriter.endObject();
         }
@@ -63,6 +68,7 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
 
             jsonReader.beginObject();
 
+            OBJECT:
             while (jsonReader.hasNext()) {
                 JsonToken jsonToken = jsonReader.peek();
 
@@ -71,8 +77,14 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
 
                 if (fieldName != null)
                     switch (fieldName) {
-                        case "type"   -> type = jsonReader.nextString();
-                        case "player" -> playerList.add((Player) json.fromJson(jsonReader.nextString(), playerType(type)));
+                        case "isPresent" -> {
+                            if (!jsonReader.nextBoolean()) {
+                                playerList.add(null);
+                                break OBJECT;
+                            }
+                        }
+                        case "type"      -> type = jsonReader.nextString();
+                        case "player"    -> playerList.add((Player) json.fromJson(jsonReader.nextString(), playerType(type)));
                     }
 
                 jsonReader.peek();

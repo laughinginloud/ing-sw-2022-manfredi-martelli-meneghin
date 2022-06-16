@@ -47,7 +47,8 @@ public class GlobalProfessorTableJSONAdapter extends TypeAdapter<GlobalProfessor
 
         GlobalProfessorTable globalProfessorTable = new GlobalProfessorTable();
         for (Color color : Color.values())
-            globalProfessorTable.setProfessorLocation(color, professorsLocation[color.ordinal()]);
+            if (professorsLocation[color.ordinal()] != null)
+                globalProfessorTable.setProfessorLocation(color, professorsLocation[color.ordinal()]);
 
         return globalProfessorTable;
     }
