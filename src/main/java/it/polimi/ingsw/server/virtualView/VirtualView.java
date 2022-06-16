@@ -256,7 +256,7 @@ public class VirtualView extends Thread implements AutoCloseable {
     }
 
     private void endThread() {
-        GameController.signalPlayerDisconnected(this, outputStream);
+        GameController.signalPlayerDisconnected(this);
         close();
     }
 }
