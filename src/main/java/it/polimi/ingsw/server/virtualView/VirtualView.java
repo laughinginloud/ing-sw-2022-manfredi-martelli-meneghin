@@ -4,6 +4,7 @@ import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.controller.command.GameCommand;
+import it.polimi.ingsw.server.controller.command.GameCommandInterruptGame;
 
 import java.io.*;
 import java.net.Socket;
@@ -32,7 +33,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             outputStream = new DataOutputStream(socket.getOutputStream());
 
             // Set a timeout of 1 second for every input stream read
-            socket.setSoTimeout(500);
+            socket.setSoTimeout(250);
 
             start();
         }
@@ -78,6 +79,26 @@ public class VirtualView extends Thread implements AutoCloseable {
 
         catch (Exception ignored) {
             endThread();
+        }
+    }
+
+    /**
+     * Send a GameCommandInterruptGame to the view
+     */
+    public void sendInetterrupt() {
+        try {
+            String message = MessageBuilder.commandToJson(new GameCommandInterruptGame());
+
+            synchronized (outputStream) {
+                outputStream.writeUTF(message);
+                outputStream.flush();
+            }
+        }
+
+        catch (Exception ignored) {}
+
+        finally {
+            close();
         }
     }
 
