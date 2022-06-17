@@ -323,8 +323,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMotherNatureMovement(Island[] possibleMovement) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestMotherNatureMovement(possibleMovement);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestMotherNatureMovement(possibleMovement);
+        });
     }
 
     /**

@@ -5,6 +5,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -2021,6 +2022,9 @@ public class GameSceneHandler implements GUIHandler {
         ImageView entranceStudentImageView;
 
         for (Color color : availableColors) {
+            if (color == null)
+                continue;
+
             for (int studentPos = 0; studentPos < entranceStudents.length; studentPos++) {
                 if (color.equals(entranceStudents[studentPos])) {
                     entranceStudentImageView = IDHelper.gsFindStudentEntranceID(this, studentPos);

@@ -1,9 +1,7 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.common.GameActions;
-import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
-import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
 import it.polimi.ingsw.server.controller.state.GameState;
@@ -213,7 +211,7 @@ public class GameController {
             for (Player player : players) {
                 VirtualView view = data.getPlayerView(player);
                 if (view != playerView)
-                    view.sendMessage(new GameCommandInterruptGame());
+                    view.sendInterrupt();
 
                 view.close();
             }
@@ -231,7 +229,7 @@ public class GameController {
 
             if (data.getPlayersOrder(0).equals(data.getViewPlayer(playerView))) {
                 // Signal every player that the game has been ended and close the relative socket
-                for (Player player : data.getGameModel().getPlayer()) {
+                for (Player player : data.getPlayersOrder()) {
                     VirtualView view = data.getPlayerView(player);
                     if (view != playerView)
                         view.sendMessage(new GameCommandInterruptGame());

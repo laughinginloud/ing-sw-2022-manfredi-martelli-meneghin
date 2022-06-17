@@ -85,7 +85,7 @@ public class VirtualView extends Thread implements AutoCloseable {
     /**
      * Send a GameCommandInterruptGame to the view
      */
-    public void sendInetterrupt() {
+    public void sendInterrupt() {
         try {
             String message = MessageBuilder.commandToJson(new GameCommandInterruptGame());
 
@@ -132,10 +132,7 @@ public class VirtualView extends Thread implements AutoCloseable {
                 if (msg == null)
                     sendPing();
 
-                //else if (msg.equals(PONG_MESSAGE))
-                //    msg = null;
-
-                else
+                else if (!msg.equals(PONG_MESSAGE))
                     return msg;
             }
 
@@ -233,7 +230,7 @@ public class VirtualView extends Thread implements AutoCloseable {
      * @throws SocketException Throws a socket exception if the connection has been closed
      */
     private synchronized void sendPing() throws NotPongException, SocketException {
-        Message pong = null;
+        Message pong;
 
         try {
             String msg = MessageBuilder.messageToJson(PING_MESSAGE);
@@ -248,6 +245,9 @@ public class VirtualView extends Thread implements AutoCloseable {
             }
 
             pong = MessageBuilder.jsonToMessage(msg);
+
+            if (!pong.equals(PONG_MESSAGE))
+                throw new NotPongException(pong);
         }
 
         catch (SocketTimeoutException e) {
@@ -264,10 +264,7 @@ public class VirtualView extends Thread implements AutoCloseable {
                 throw new SocketException();
             }
 
-            if (pong == null)
-                throw new SocketException();
-
-            else if (!pong.equals(PONG_MESSAGE))
+            if (!pong.equals(PONG_MESSAGE))
                 throw new NotPongException(pong);
         }
 

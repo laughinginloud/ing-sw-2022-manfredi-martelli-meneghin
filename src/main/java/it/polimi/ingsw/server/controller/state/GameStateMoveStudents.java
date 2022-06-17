@@ -41,8 +41,8 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
 
             // Sets the num of students the player is required to move, according to the number of players in the match
             int numOfMovements = switch (data.getNumOfPlayers()) {
-                case 2, 4 -> numOfMovements = 3;
-                case 3    -> numOfMovements = 4;
+                case 2, 4 -> 3;
+                case 3    -> 4;
                 default   -> throw new IllegalStateException();
             };
 
@@ -162,11 +162,13 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 // Checks if the current player has more students on a specific color's DiningRoomTable than the player
                 // which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
                 GlobalProfessorTable gpt = model.getGlobalProfessorTable();
-                gpt.getProfessorLocation(movedStudent).ifPresent(p -> {
+                gpt.getProfessorLocation(movedStudent).ifPresentOrElse(p -> {
                     if (!player.equals(p) && checkProfessorMovement(player, p, movedStudent)) {
                         gpt.setProfessorLocation(movedStudent, player);
                         updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
                     }
+                }, () -> {
+                    gpt.setProfessorLocation(movedStudent, player);
                 });
 
                 // Gets the DiningRoom of each player and save it a DiningRoomArray
@@ -226,7 +228,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
     public static boolean checkProfessorMovement(Player newPlayer, Player controllingPlayer, Color student) {
         ControllerData data                        = ControllerData.getInstance();
         DiningRoom     diningRoomNewPlayer         = newPlayer.getSchoolBoard().getDiningRoom();
-        DiningRoom     diningRoomControllingPlayer = controllingPlayer == null ? null : controllingPlayer.getSchoolBoard().getDiningRoom();
+        DiningRoom     diningRoomControllingPlayer = controllingPlayer.getSchoolBoard().getDiningRoom();
 
         // If the flag 'equalStudentsFlag' is set the professor moves if the number of students in the dining room
         // is >= to the player is currently holding the professor. Otherwise, only if the number of students is >.
