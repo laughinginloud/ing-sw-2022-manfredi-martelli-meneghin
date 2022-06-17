@@ -4,11 +4,14 @@ import com.google.gson.Gson;
 import it.polimi.ingsw.common.json.Constants;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.GameController;
+import it.polimi.ingsw.server.controller.state.GameState;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -22,18 +25,23 @@ public class GameSave {
 
     private static final File SAVE_FOLDER = new File("./saves/");
 
-    public static void saveGame(String fileName) throws IOException {
-        SaveData data = new SaveData(ControllerData.getInstance(), GameController.saveGameState());
+    public static void saveGame(String fileName, GameState state) throws IOException {
+        SaveData data = new SaveData(ControllerData.getInstance(), state);
+        Path     path = Paths.get(SAVE_FOLDER.getAbsolutePath(), fileName);
 
+        try (final BufferedWriter bf = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
+            StandardOpenOption.CREATE,
+            StandardOpenOption.WRITE,
+            StandardOpenOption.TRUNCATE_EXISTING)) {
+            bf.write(saveBuilder.toJson(data));
+            bf.flush();
+        }
+    }
+
+    public static void deleteGame(String fileName) {
         File save = new File(SAVE_FOLDER, fileName);
 
-        if (!save.createNewFile())
-            if (!save.delete() || !save.createNewFile())
-                throw new IOException("Save already exists and cannot be replaced");
-
-        FileWriter saveWriter = new FileWriter(save);
-        saveWriter.write(saveBuilder.toJson(data));
-        saveWriter.close();
+        save.delete();
     }
 
     public static void loadGame(File save) throws IOException {
