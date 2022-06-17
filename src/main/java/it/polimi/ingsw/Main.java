@@ -227,7 +227,6 @@ public class Main {
                                     showCursor(writer);
                                     display.clear();
                                     display.updateAnsi(new ArrayList<>(), 0);
-                                    writer.print("Server started");
                                     Server.main();
                                 }
 
