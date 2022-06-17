@@ -287,6 +287,8 @@ public final class ViewGUI extends Application implements View {
         switchScene(Pages.WIZARD_CHOICE);
     }
 
+    // region GameSceneRequests
+
     /**
      * Requests the player which assistantCard he wants to play between the provided assistantCards
      *
@@ -298,43 +300,18 @@ public final class ViewGUI extends Application implements View {
         Platform.runLater(() -> gs.gsRequestPlayAssistantCard(assistantCards));
     }
 
-    /**
-     * Requests the player which characterCards he would like to play between the CharacterCard provided
-     *
-     * @param playableCharacterCards An array of characterCards that are currently playable
-     */
-    @Override
-    public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestPlayCharacterCard(playableCharacterCards);
-    }
+    // region GSSkyRequests
 
     /**
-     * Shows to the player the entranceStudents and the playableCharacterCards, waiting for a selection.
-     * It sets clickable all and only entranceStudents and playableCharacterCards and based on
-     * the click, I'll decide the return
+     * Requests the player to choose an Island. It sets to "clickable"
+     * only the island present in the "availableIslands" array
      *
-     * @param entranceStudents       An array of students containing the entrance's students
-     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
+     * @param availableIslands An array of Island representing the Island that can be chosen by the player
      */
     @Override
-    public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
+    public void requestChooseIsland(Island[] availableIslands) {
         GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
-    }
-
-    /**
-     * Requests the player to move the selected student from his entrance to an Island or to a table
-     * of his diningRoom
-     *
-     * @param selectedStudentIndex The index of the entrance's player selected by the player
-     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still
-     *                             have free seats (where the player can move the student)
-     */
-    @Override
-    public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestStudentEntranceMovement(selectedStudentIndex, diningRoomFreeTables);
+        gs.gsRequestChooseIsland(availableIslands);
     }
 
     /**
@@ -351,22 +328,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Requests the player to move motherNature among the possible islands.
-     * Shows to the player the Islands where motherNature could be moved and the CharacterCards
-     * that can be played. It sets to clickable only the Islands that can be selected by the player,
-     * according to the provided Islands' array and only the playable CharacterCards
-     *
-     * @param possibleMovement       An array containing the Islands that can be moved by the player
-     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
-     */
-    @Override
-    public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
-    }
-
-    /**
-     * Requests the player to S a CloudTile from the availableClouds
+     * Requests the player to select a CloudTile from the availableClouds
      *
      * @param availableClouds An array of CloudTile representing the available CloudTiles
      */
@@ -376,17 +338,65 @@ public final class ViewGUI extends Application implements View {
         gs.gsRequestCloudTileSelection(availableClouds);
     }
 
+    // endregion GSSkyRequests
+
+    // region GSSchoolBoardRequests
+
     /**
-     * Requests the player to choose between selecting a CloudTile or playing a CharacterCard.
-     * Shows to the player the CloudTiles that can be selected and the CharacterCard that can be played
+     * Requests the player to choose a diningRoomTable from the provided ones.
+     * It links the diningRoomTable with theirs color, then make "clickable" only the diningRoomTable
+     * that have the same color of the provided "compatibleDiningRoomTable" colors' array
      *
-     * @param availableClouds        An array of CloudTiles containing the CloudTiles that have students on them
-     * @param playableCharacterCards An array of CharacterCard containing the playableCharacterCards
+     * @param compatibleDiningRoomTable The color of the diningRoomTables that can be chosen by the player
      */
     @Override
-    public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
+    public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
         GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
+        gs.gsRequestChooseDiningRoom(compatibleDiningRoomTable);
+    }
+
+    /**
+     * Requests the player to choose a student from his Entrance.
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
+     * @param availableColors The colors correspondent to the students that can be
+     *                        moved/picked from the Entrance
+     */
+    @Override
+    public void chooseStudentFromEntrance(Color[] availableColors) {
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsChooseStudentFromEntrance(availableColors);
+        });
+    }
+
+    /**
+     * Requests the player to move the selected student from his entrance to an Island or to a table
+     * of his diningRoom
+     *
+     * @param selectedStudentIndex The index of the entrance's player selected by the player
+     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still
+     *                             have free seats (where the player can move the student)
+     */
+    @Override
+    public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestStudentEntranceMovement(selectedStudentIndex, diningRoomFreeTables);
+    }
+
+    // endregion GSSchoolBoardRequests
+
+    // region GSExpertModeRequests
+
+    /**
+     * Requests the player which characterCards he would like to play between the CharacterCard provided
+     *
+     * @param playableCharacterCards An array of characterCards that are currently playable
+     */
+    @Override
+    public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestPlayCharacterCard(playableCharacterCards);
     }
 
     /**
@@ -427,45 +437,55 @@ public final class ViewGUI extends Application implements View {
         gs.gsChooseStudentFromCharacterCard(characterCardPosition, availableColors, numOfAvailableStudent);
     }
 
+    // endregion GSExpertModeRequests
+
+    // region GSExpertModeChoiceRequests
+
     /**
-     * Requests the player to choose a student from his Entrance.
-     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     * Requests the player to choose between selecting a CloudTile or playing a CharacterCard.
+     * Shows to the player the CloudTiles that can be selected and the CharacterCard that can be played
      *
-     * @param availableColors The colors correspondent to the students that can be
-     *                        moved/picked from the Entrance
+     * @param availableClouds        An array of CloudTiles containing the CloudTiles that have students on them
+     * @param playableCharacterCards An array of CharacterCard containing the playableCharacterCards
      */
     @Override
-    public void chooseStudentFromEntrance(Color[] availableColors) {
-        Platform.runLater(() -> {
-            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-            gs.gsChooseStudentFromEntrance(availableColors);
-        });
+    public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
+        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+        gs.gsRequestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
     }
 
     /**
-     * Requests the player to choose an Island. It sets to "clickable"
-     * only the island present in the "availableIslands" array
+     * Shows to the player the entranceStudents and the playableCharacterCards, waiting for a selection.
+     * It sets clickable all and only entranceStudents and playableCharacterCards and based on
+     * the click, I'll decide the return
      *
-     * @param availableIslands An array of Island representing the Island that can be chosen by the player
+     * @param entranceStudents       An array of students containing the entrance's students
+     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
      */
     @Override
-    public void requestChooseIsland(Island[] availableIslands) {
+    public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
         GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestChooseIsland(availableIslands);
+        gs.gsRequestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
     }
 
     /**
-     * Requests the player to choose a diningRoomTable from the provided ones.
-     * It links the diningRoomTable with theirs color, then make "clickable" only the diningRoomTable
-     * that have the same color of the provided "compatibleDiningRoomTable" colors' array
+     * Requests the player to move motherNature among the possible islands.
+     * Shows to the player the Islands where motherNature could be moved and the CharacterCards
+     * that can be played. It sets to clickable only the Islands that can be selected by the player,
+     * according to the provided Islands' array and only the playable CharacterCards
      *
-     * @param compatibleDiningRoomTable The color of the diningRoomTables that can be chosen by the player
+     * @param possibleMovement       An array containing the Islands that can be moved by the player
+     * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
      */
     @Override
-    public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
+    public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
         GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestChooseDiningRoom(compatibleDiningRoomTable);
+        gs.gsRequestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
     }
+
+    // endregion GSExpertModeChoiceRequests
+
+    // endregion GameSceneRequests
 
     // endregion Requests
 
@@ -665,6 +685,8 @@ public final class ViewGUI extends Application implements View {
 
     // endregion ViewImplementation
 
+    // region ResizeWindow
+
     private void letterbox(final Scene scene, final Pane contentPane) {
         final double initWidth  = scene.getWidth();
         final double initHeight = scene.getHeight();
@@ -714,4 +736,6 @@ public final class ViewGUI extends Application implements View {
             }
         }
     }
+
+    // endregion ResizeWindow
 }
