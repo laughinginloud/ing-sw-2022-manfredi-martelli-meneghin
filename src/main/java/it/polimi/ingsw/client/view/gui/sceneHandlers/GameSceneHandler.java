@@ -1324,7 +1324,7 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion FXML_Ids
 
-    // TODO - Fix JavaDocs, regions and readability
+    // TODO - Fix JavaDocs and readability
 
     // region GSUpdateModel
 
@@ -1930,59 +1930,7 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
-    public void activateClicksCharacterCards(CharacterCard[] playableCharacterCards, boolean otherElementsClickable) {
-
-        Set<CharacterCard> playableCharacterCardsSet = new HashSet<>();
-        Collections.addAll(playableCharacterCardsSet, playableCharacterCards);
-
-        CharacterCard[] characterCardsModel = gui.getModel().getCharacterCards();
-        int             characterCardIndex;
-        ImageView       characterCardImgView;
-
-        for (int i = 0; i < characterCardsModel.length; i++) {
-            if (playableCharacterCardsSet.contains(characterCardsModel[i])) {
-                characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, i);
-
-                // Creates a function that will handle the characterCardClick
-                EventHandler<MouseEvent> clickOnCharacterCardHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Invokes the function clickOnCharacterCard
-                        clickOnCharacterCard(mouseEvent, otherElementsClickable);
-
-                        mouseEvent.consume();
-                    }
-                };
-
-                // Then links the created handler to the click of the CCImage
-                characterCardImgView.setOnMouseClicked(clickOnCharacterCardHandler);
-            }
-        }
-    }
-
-    public void activateClicksEntranceStudents(Color[] availableColors, boolean otherElementsClickable) {
-        Color[] entranceStudents = gui.getLocalPlayer().getSchoolBoard().getEntrance().getStudents();
-
-        ImageView entranceStudentImageView;
-
-        for (Color color : availableColors) {
-            for (int studentPos = 0; studentPos < entranceStudents.length; studentPos++) {
-                if (color.equals(entranceStudents[studentPos])) {
-                    entranceStudentImageView = IDHelper.gsFindStudentEntranceID(this, studentPos);
-
-                    EventHandler<MouseEvent> clickOnEntranceStudentHandler = mouseEvent -> {
-                        // Associates to the click of the mouse the function clickOnEntranceStudent
-                        // as response to the user's action
-                        clickOnEntranceStudent(mouseEvent, otherElementsClickable);
-
-                        mouseEvent.consume();
-                    };
-
-                    entranceStudentImageView.setOnMouseClicked(clickOnEntranceStudentHandler);
-                }
-            }
-        }
-    }
+    // region ActivateClicksSky
 
     public void activateClicksIslands(Island[] availableIslands, boolean otherElementsClickable) {
         Island[] islandFromModel = gui.getModel().getIslands();
@@ -2009,54 +1957,6 @@ public class GameSceneHandler implements GUIHandler {
                 };
 
                 islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);
-            }
-        }
-    }
-
-    public void activateClicksDiningRoomTables(Color[] compatibleDiningRoomTable) {
-
-        AnchorPane diningRoomTablePane;
-
-        for (Color color : compatibleDiningRoomTable) {
-            diningRoomTablePane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
-
-            EventHandler<MouseEvent> clickOnDiningRoomTableHandler = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    // Associates to the click of the mouse the function clickOnDiningRoomTable
-                    // as response to the user's action
-                    clickOnDiningRoomTable(mouseEvent);
-
-                    mouseEvent.consume();
-                }
-            };
-
-            diningRoomTablePane.setOnMouseClicked(clickOnDiningRoomTableHandler);
-        }
-    }
-
-    public void activateClicksCharacterCardElements(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
-        CharacterCardStudent playedCharacterCard    = (CharacterCardStudent) gui.getModel().getCharacterCard(characterCardPosition);
-        Color[]              studentOnCharacterCard = playedCharacterCard.getStudents();
-        int                  numOfCCStudents        = studentOnCharacterCard.length;
-
-        ImageView ccStudentImageView;
-
-        for (Color color : availableColors) {
-            for (int i = 0; i < numOfCCStudents; i++) {
-                if (color.equals(studentOnCharacterCard[i])) {
-                    ccStudentImageView = IDHelper.gsFindCharacterCardElementID(this, characterCardPosition, i);
-
-                    EventHandler<MouseEvent> clickOnCharacterCardStudentHandler = mouseEvent -> {
-                        // Associates to the click of the mouse the function clickOnCharacterCardStudent
-                        // as response to the user's action
-                        clickOnCharacterCardStudent(mouseEvent);
-
-                        mouseEvent.consume();
-                    };
-
-                    ccStudentImageView.setOnMouseClicked(clickOnCharacterCardStudentHandler);
-                }
             }
         }
     }
@@ -2089,15 +1989,132 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
-    public void activateClicksCloudTilesOrCCs(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
-        activateClicksCloudTiles(availableClouds, true);
-        activateClicksCharacterCards(playableCharacterCards, true);
+    // endregion ActivateClicksSky
+
+    // region ActivateClicksSchoolBoard
+
+    public void activateClicksDiningRoomTables(Color[] compatibleDiningRoomTable) {
+
+        AnchorPane diningRoomTablePane;
+
+        for (Color color : compatibleDiningRoomTable) {
+            diningRoomTablePane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
+
+            EventHandler<MouseEvent> clickOnDiningRoomTableHandler = new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    // Associates to the click of the mouse the function clickOnDiningRoomTable
+                    // as response to the user's action
+                    clickOnDiningRoomTable(mouseEvent);
+
+                    mouseEvent.consume();
+                }
+            };
+
+            diningRoomTablePane.setOnMouseClicked(clickOnDiningRoomTableHandler);
+        }
     }
 
-    public void activateClicksEntranceStudentsAndCC (Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
-        activateClicksEntranceStudents(entranceStudents, true);
-        activateClicksCharacterCards(playableCharacterCards, true);
+    public void activateClicksEntranceStudents(Color[] availableColors, boolean otherElementsClickable) {
+        Color[] entranceStudents = gui.getLocalPlayer().getSchoolBoard().getEntrance().getStudents();
+
+        ImageView entranceStudentImageView;
+
+        for (Color color : availableColors) {
+            for (int studentPos = 0; studentPos < entranceStudents.length; studentPos++) {
+                if (color.equals(entranceStudents[studentPos])) {
+                    entranceStudentImageView = IDHelper.gsFindStudentEntranceID(this, studentPos);
+
+                    EventHandler<MouseEvent> clickOnEntranceStudentHandler = mouseEvent -> {
+                        // Associates to the click of the mouse the function clickOnEntranceStudent
+                        // as response to the user's action
+                        clickOnEntranceStudent(mouseEvent, otherElementsClickable);
+
+                        mouseEvent.consume();
+                    };
+
+                    entranceStudentImageView.setOnMouseClicked(clickOnEntranceStudentHandler);
+                }
+            }
+        }
     }
+
+    // endregion ActivateClicksSchoolBoard
+
+    // region ActivateClicksExpertMode
+
+    public void activateClicksCharacterCards(CharacterCard[] playableCharacterCards, boolean otherElementsClickable) {
+
+        Set<CharacterCard> playableCharacterCardsSet = new HashSet<>();
+        Collections.addAll(playableCharacterCardsSet, playableCharacterCards);
+
+        CharacterCard[] characterCardsModel = gui.getModel().getCharacterCards();
+        int             characterCardIndex;
+        ImageView       characterCardImgView;
+
+        for (int i = 0; i < characterCardsModel.length; i++) {
+            if (playableCharacterCardsSet.contains(characterCardsModel[i])) {
+                characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, i);
+
+                // Creates a function that will handle the characterCardClick
+                EventHandler<MouseEvent> clickOnCharacterCardHandler = new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        // Invokes the function clickOnCharacterCard
+                        clickOnCharacterCard(mouseEvent, otherElementsClickable);
+
+                        mouseEvent.consume();
+                    }
+                };
+
+                // Then links the created handler to the click of the CCImage
+                characterCardImgView.setOnMouseClicked(clickOnCharacterCardHandler);
+            }
+        }
+    }
+
+    public void activateClicksCharacterCardElements(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
+        CharacterCardStudent playedCharacterCard    = (CharacterCardStudent) gui.getModel().getCharacterCard(characterCardPosition);
+        Color[]              studentOnCharacterCard = playedCharacterCard.getStudents();
+        int                  numOfCCStudents        = studentOnCharacterCard.length;
+
+        ImageView ccStudentImageView;
+
+        for (Color color : availableColors) {
+            for (int i = 0; i < numOfCCStudents; i++) {
+                if (color.equals(studentOnCharacterCard[i])) {
+                    ccStudentImageView = IDHelper.gsFindCharacterCardElementID(this, characterCardPosition, i);
+
+                    EventHandler<MouseEvent> clickOnCharacterCardStudentHandler = mouseEvent -> {
+                        // Associates to the click of the mouse the function clickOnCharacterCardStudent
+                        // as response to the user's action
+                        clickOnCharacterCardStudent(mouseEvent);
+
+                        mouseEvent.consume();
+                    };
+
+                    ccStudentImageView.setOnMouseClicked(clickOnCharacterCardStudentHandler);
+                }
+            }
+        }
+    }
+
+    public void activateClicksInputButton() {
+        // Creates a function that will handle the characterCardClick
+        EventHandler<MouseEvent> clickOnInputButtonHandler = mouseEvent -> {
+            // Invokes the function clickOnCharacterCard
+            clickOnInputButton(mouseEvent);
+
+            mouseEvent.consume();
+        };
+
+        // Then links the created handler to the click of the CCImage
+        input_button.setOnMouseClicked(clickOnInputButtonHandler);
+    }
+
+    // endregion ActivateClicksExpertMode
+
+    // region ActivateMultipleClicks
 
     public void activateClicksDiningRoomTablesAndIsland(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
         // Gets the IslandsArray from the model
@@ -2165,64 +2182,58 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    // endregion ActivateMultipleClicks
+
+    // region ActivateMultipleClicksExpertMode
+
+    public void activateClicksCloudTilesOrCCs(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
+        activateClicksCloudTiles(availableClouds, true);
+        activateClicksCharacterCards(playableCharacterCards, true);
+    }
+
+    public void activateClicksEntranceStudentsAndCC (Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
+        activateClicksEntranceStudents(entranceStudents, true);
+        activateClicksCharacterCards(playableCharacterCards, true);
+    }
+
     public void activateClicksIslandsAndCCs(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
         activateClicksIslands(possibleMovement, true);
         activateClicksCharacterCards(playableCharacterCards, true);
     }
 
-    public void activateClicksInputButton() {
-        // Creates a function that will handle the characterCardClick
-        EventHandler<MouseEvent> clickOnInputButtonHandler = mouseEvent -> {
-            // Invokes the function clickOnCharacterCard
-            clickOnInputButton(mouseEvent);
-
-            mouseEvent.consume();
-        };
-
-        // Then links the created handler to the click of the CCImage
-        input_button.setOnMouseClicked(clickOnInputButtonHandler);
-    }
-
-    public void clickOnInputButton(MouseEvent mouseEvent) {
-        deactivateClicksInputButton();
-
-        int studentsToMove = input_spinner.getValue();
-
-        gui.forwardViewToVirtualController(studentsToMove);
-
-        input_pane.setVisible(false);
-    }
+    // endregion ActivateMultipleClicksExpertMode
 
     // endregion ActivateClicks
-
-
-
-
-    // region Seba's activateClicksMethods
-
-    // endregion Seba's activateClicksMethods
-
-
-
-    //  region Giovanni's activateClicksMethods
-
-    // endregion Giovanni's activateClicksMethods
-
-
-
 
     // region DeactivateClicks
 
     public void deactivateClicks() {
+        deactivateClicksAssistantCards();
+
+        // Deactivates Sky
         deactivateClicksIslands();
         deactivateClicksCloudTiles();
+
+        // Deactivates SchoolBoard
+        deactivateClicksDiningRoomTables();
+        deactivateClicksEntranceStudents();
+
+        // Deactivates ExpertModeElements
         deactivateClicksCharacterCards();
         deactivateClicksCharacterCardsElements();
-        deactivateClicksDiningRoomTables();
-        deactivateClicksAssistantCards();
-        deactivateClicksEntranceStudents();
+
         deactivateClicksInputButton();
     }
+
+    public void deactivateClicksAssistantCards() {
+        ImageView assistantCardImgView;
+        for (int i = 0; i < ViewGUI.MAX_ASSISTANT_CARDS; i++) {
+            assistantCardImgView = IDHelper.gsFindAssistantCardID(this, i + 1);
+            assistantCardImgView.setOnMouseClicked(null);
+        }
+    }
+
+    // region DeactivateClicksSky
 
     public void deactivateClicksIslands() {
         AnchorPane islandPane;
@@ -2240,6 +2251,30 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    // endregion DeactivateClicksSky
+
+    // region DeactivateClicksSchoolBoard
+
+    public void deactivateClicksDiningRoomTables() {
+        AnchorPane diningRoomPane;
+        for (Color color : Color.values()) {
+            diningRoomPane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
+            diningRoomPane.setOnMouseClicked(null);
+        }
+    }
+
+    public void deactivateClicksEntranceStudents() {
+        ImageView entranceStudentImgView;
+        for (int i = 0; i < ViewGUI.MAX_ENTRANCE_STUDENTS; i++) {
+            entranceStudentImgView = IDHelper.gsFindStudentEntranceID(this, i);
+            entranceStudentImgView.setOnMouseClicked(null);
+        }
+    }
+
+    // endregion DeactivateClicksSchoolBoard
+
+    // region DeactivateClicksExpertMode
+
     public void deactivateClicksCharacterCards() {
         ImageView characterCardsImgView;
         for (int i = 0; i < ViewGUI.MAX_CC; i++) {
@@ -2256,54 +2291,15 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
-    public void deactivateClicksDiningRoomTables() {
-        AnchorPane diningRoomPane;
-        for (Color color : Color.values()) {
-            diningRoomPane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
-            diningRoomPane.setOnMouseClicked(null);
-        }
-    }
-
-    public void deactivateClicksAssistantCards() {
-        ImageView assistantCardImgView;
-        for (int i = 0; i < ViewGUI.MAX_ASSISTANT_CARDS; i++) {
-            assistantCardImgView = IDHelper.gsFindAssistantCardID(this, i + 1);
-            assistantCardImgView.setOnMouseClicked(null);
-        }
-    }
-
-    public void deactivateClicksEntranceStudents() {
-        ImageView entranceStudentImgView;
-        for (int i = 0; i < ViewGUI.MAX_ENTRANCE_STUDENTS; i++) {
-            entranceStudentImgView = IDHelper.gsFindStudentEntranceID(this, i);
-            entranceStudentImgView.setOnMouseClicked(null);
-        }
-    }
-
     public void deactivateClicksInputButton() {
         input_button.setOnMouseClicked(null);
     }
 
+    // endregion DeactivateClicksExpertMode
 
     // endregion DeactivateClicks
 
-    /**
-     * Requests the player which assistantCard he wants to play between the provided assistantCards
-     * @param assistantCards An array of AssistantCards that are currently playable
-     */
-    public void gsRequestPlayAssistantCard(AssistantCard[] assistantCards) {
-        activateClicksAssistantCards(assistantCards);
-
-        Alert playAssistantCard = GUIAlert.getAlert(GUIAlert.CHOOSE_ASSISTANT, "");
-        playAssistantCard.showAndWait();
-    }
-
-    public void gsRequestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        activateClicksCharacterCards(playableCharacterCards, false);
-        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_CHARACTER_CARD, null);
-        possiblePlay.showAndWait();
-    }
-
+    // region ClickOnEvents
 
     /**
      * Deactivates the clicks of other AssistantCards, then forward to the ViewGUI the user choice
@@ -2326,6 +2322,87 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(selectedAssistantCard);
     }
 
+    // region ClickOnSkyEvents
+
+    public void clickOnIsland(MouseEvent mouseEvent, boolean otherElementsClickable) {
+        // If the player chose the Island when also CharacterCards were clickable, deactivates all of them
+        if (otherElementsClickable) { deactivateClicksCharacterCards(); }
+
+        deactivateClicksIslands();
+
+        AnchorPane selectedIslandPaneID = (AnchorPane) mouseEvent.getSource();
+        int        selectedIslandIndex  = InfoHelper.gsFindIslandIndex(selectedIslandPaneID);
+
+        gui.forwardViewToVirtualController(selectedIslandIndex);
+    }
+
+    public void clickOnCloudTile(MouseEvent mouseEvent, boolean otherElementsClickable) {
+        // If the player chose the CloudTile when also CharacterCards were clickable, deactivates all of them
+        if (otherElementsClickable) { deactivateClicksCharacterCards(); }
+
+        deactivateClicksCloudTiles();
+
+        AnchorPane selectedCloudTilePaneID = (AnchorPane) mouseEvent.getSource();
+        int        selectedCloudTileIndex  = InfoHelper.gsFindCloudTileIndex(selectedCloudTilePaneID);
+        CloudTile  selectedCloudTile       = gui.getModel().getCloudTile(selectedCloudTileIndex);
+
+        gui.forwardViewToVirtualController(selectedCloudTile);
+    }
+
+    public void clickOnIslandDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
+        // Deactivates the click-linked function of both Islands and DiningRoomTables
+        deactivateClicksIslands();
+        deactivateClicksDiningRoomTables();
+
+        AnchorPane selectedIslandPaneID = (AnchorPane) mouseEvent.getSource();
+        int        selectedIslandIndex  = InfoHelper.gsFindIslandIndex(selectedIslandPaneID);
+
+        // Creates a new record "MoveStudentInfo", where to save the number of the island and set
+        // to false the boolean "toDiningRoom" related to the student's movement
+        MoveStudentInfo infoFromIslandClick = new MoveStudentInfo(false, selectedIslandIndex, selectedStudentIndex);
+        gui.forwardViewToVirtualController(infoFromIslandClick);
+    }
+
+    // endregion ClickOnSkyEvents
+
+    // region ClicksOnSchoolBoardEvents
+
+    public void clickOnDiningRoomTable(MouseEvent mouseEvent) {
+        deactivateClicksDiningRoomTables();
+
+        AnchorPane selectedTablePaneID    = (AnchorPane) mouseEvent.getSource();
+        Color      selectedTablePaneColor = InfoHelper.gsFindDiningRoomTableColor(selectedTablePaneID);
+
+        gui.forwardViewToVirtualController(selectedTablePaneColor);
+    }
+
+    public void clickOnEntranceStudent(MouseEvent mouseEvent, boolean otherElementsClickable) {
+        // If the player chose the CloudTile when also CharacterCards were clickable, deactivates all of them
+        if (otherElementsClickable) { deactivateClicksCharacterCards(); }
+
+        deactivateClicksEntranceStudents();
+
+        ImageView selectedEntranceStudentID    = (ImageView) mouseEvent.getSource();
+        int       selectedEntranceStudentIndex = InfoHelper.gsFindEntranceStudentIndex(selectedEntranceStudentID);
+
+        gui.forwardViewToVirtualController(selectedEntranceStudentIndex);
+    }
+
+    public void clickOnDiningRoomTablesDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
+        // Deactivates the click-linked function of both Islands and DiningRoomTables
+        deactivateClicksIslands();
+        deactivateClicksDiningRoomTables();
+
+        // Creates a new record "MoveStudentInfo", where to save the index of the selected
+        // students and to set "true" the boolean "toDiningRoom"
+        MoveStudentInfo infoFromIslandClick = new MoveStudentInfo(true, null, selectedStudentIndex);
+        gui.forwardViewToVirtualController(infoFromIslandClick);
+    }
+
+    // endregion ClicksOnSchoolBoardEvents
+
+    // region ClicksOnExpertModeEvents
+
     public void clickOnCharacterCard(MouseEvent mouseEvent, boolean otherElementsClickable) {
         // If the player chose the characterCard when other elements were clickable, deactivates all of them
         if (otherElementsClickable) {
@@ -2346,31 +2423,60 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(characterCard);
     }
 
+    public void clickOnCharacterCardStudent(MouseEvent mouseEvent) {
+        deactivateClicksCharacterCardsElements();
+
+        ImageView selectedCCStudentID    = (ImageView) mouseEvent.getSource();
+        int       selectedCCStudentIndex = InfoHelper.gsFindCharacterCardElementIndex(selectedCCStudentID);
+
+        gui.forwardViewToVirtualController(selectedCCStudentIndex);
+    }
+
+    public void clickOnInputButton(MouseEvent mouseEvent) {
+        deactivateClicksInputButton();
+
+        int studentsToMove = input_spinner.getValue();
+
+        gui.forwardViewToVirtualController(studentsToMove);
+
+        input_pane.setVisible(false);
+    }
+
+    // endregion ClicksOnExpertModeEvents
+
+    // endregion ClickOnEvents
+
+    // region OtherEvents
+
+    public void showInputPane(int maxNum) {
+        // Sets a factory integers between 2 and 4
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, maxNum);
+        // Sets default value
+        valueFactory.setValue(1);
+
+        // Assigns the spinnerFactory to the spinner
+        input_spinner.setValueFactory(valueFactory);
+
+        // Shows the inputPane
+        input_pane.setVisible(true);
+    }
+
+    // endregion OtherEvents
+
+    // region GSRequests
+
     /**
-     * Requests the player to choose a student from his Entrance.
-     * It sets to "clickable" only the students colored as the students contained in "availableColors"
-     *
-     * @param availableColors The colors correspondent to the students that can be
-     *                        moved/picked from the Entrance
+     * Requests the player which assistantCard he wants to play between the provided assistantCards
+     * @param assistantCards An array of AssistantCards that are currently playable
      */
-    public void gsChooseStudentFromEntrance(Color[] availableColors) {
-        activateClicksEntranceStudents(availableColors, false);
+    public void gsRequestPlayAssistantCard(AssistantCard[] assistantCards) {
+        activateClicksAssistantCards(assistantCards);
 
-        Alert selectEntranceStudent = GUIAlert.getAlert(GUIAlert.SELECT_ENTRANCE_STUDENT, "");
-        selectEntranceStudent.showAndWait();
+        Alert playAssistantCard = GUIAlert.getAlert(GUIAlert.CHOOSE_ASSISTANT, "");
+        playAssistantCard.showAndWait();
     }
 
-    public void clickOnEntranceStudent(MouseEvent mouseEvent, boolean otherElementsClickable) {
-        // If the player chose the CloudTile when also CharacterCards were clickable, deactivates all of them
-        if (otherElementsClickable) { deactivateClicksCharacterCards(); }
-
-        deactivateClicksEntranceStudents();
-
-        ImageView selectedEntranceStudentID    = (ImageView) mouseEvent.getSource();
-        int       selectedEntranceStudentIndex = InfoHelper.gsFindEntranceStudentIndex(selectedEntranceStudentID);
-
-        gui.forwardViewToVirtualController(selectedEntranceStudentIndex);
-    }
+    // region GSSkyRequests
 
     /**
      * Requests the player to choose an Island. It sets to "clickable"
@@ -2385,17 +2491,35 @@ public class GameSceneHandler implements GUIHandler {
         selectIsland.showAndWait();
     }
 
-    public void clickOnIsland(MouseEvent mouseEvent, boolean otherElementsClickable) {
-        // If the player chose the Island when also CharacterCards were clickable, deactivates all of them
-        if (otherElementsClickable) { deactivateClicksCharacterCards(); }
+    /**
+     * Requests the player how far he wants to move MotherNature
+     * It sets to clickable only the Islands that can be selected by the player, according to the
+     * provided Islands' array
+     *
+     * @param possibleMovement An array containing the Islands that can be moved by the player
+     */
+    public void gsRequestMotherNatureMovement(Island[] possibleMovement) {
+        activateClicksIslands(possibleMovement, false);
 
-        deactivateClicksIslands();
-
-        AnchorPane selectedIslandPaneID = (AnchorPane) mouseEvent.getSource();
-        int        selectedIslandIndex  = InfoHelper.gsFindIslandIndex(selectedIslandPaneID);
-
-        gui.forwardViewToVirtualController(selectedIslandIndex);
+        Alert moveMotherNature = GUIAlert.getAlert(GUIAlert.MOVE_MOTHER_NATURE, "");
+        moveMotherNature.showAndWait();
     }
+
+    /**
+     * Requests the player to S a CloudTile from the availableClouds
+     *
+     * @param availableClouds An array of CloudTile representing the available CloudTiles
+     */
+    public void gsRequestCloudTileSelection(CloudTile[] availableClouds) {
+        activateClicksCloudTiles(availableClouds, false);
+
+        Alert selectCloudTile = GUIAlert.getAlert(GUIAlert.SELECT_CLOUD, "");
+        selectCloudTile.showAndWait();
+    }
+
+    // endregion GSSkyRequests
+
+    // region GSSchoolBoardRequests
 
     /**
      * Requests the player to choose a diningRoomTable from the provided ones.
@@ -2411,13 +2535,47 @@ public class GameSceneHandler implements GUIHandler {
         selectDiningRoomTable.showAndWait();
     }
 
-    public void clickOnDiningRoomTable(MouseEvent mouseEvent) {
-        deactivateClicksDiningRoomTables();
+    /**
+     * Requests the player to choose a student from his Entrance.
+     * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
+     * @param availableColors The colors correspondent to the students that can be
+     *                        moved/picked from the Entrance
+     */
+    public void gsChooseStudentFromEntrance(Color[] availableColors) {
+        activateClicksEntranceStudents(availableColors, false);
 
-        AnchorPane selectedTablePaneID    = (AnchorPane) mouseEvent.getSource();
-        Color      selectedTablePaneColor = InfoHelper.gsFindDiningRoomTableColor(selectedTablePaneID);
+        Alert selectEntranceStudent = GUIAlert.getAlert(GUIAlert.SELECT_ENTRANCE_STUDENT, "");
+        selectEntranceStudent.showAndWait();
+    }
 
-        gui.forwardViewToVirtualController(selectedTablePaneColor);
+    /**
+     * Requests the player to move the selected student from his entrance to an Island or to a table
+     * of his diningRoom
+     *
+     * @param selectedStudentIndex The index of the entrance's player selected by the player
+     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still
+     *                             have free seats (where the player can move the student)
+     */
+    public void gsRequestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
+        activateClicksDiningRoomTablesAndIsland(selectedStudentIndex, diningRoomFreeTables);
+
+        // Gets the color of the student that has been selected from the Entrance
+        Entrance currentPlayerEntrance = gui.getLocalPlayer().getSchoolBoard().getEntrance();
+        Color selectedStudentColor = currentPlayerEntrance.getStudents()[selectedStudentIndex];
+
+        Alert moveSelectedStudent = GUIAlert.getAlert(GUIAlert.MOVE_ENTRANCE_STUDENT_DR_OR_ISL, selectedStudentColor.toString());
+        moveSelectedStudent.showAndWait();
+    }
+
+    // endregion GSSchoolBoardRequests
+
+    // region GSExpertModeRequests
+
+    public void gsRequestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
+        activateClicksCharacterCards(playableCharacterCards, false);
+        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_CHARACTER_CARD, null);
+        possiblePlay.showAndWait();
     }
 
     /**
@@ -2440,15 +2598,6 @@ public class GameSceneHandler implements GUIHandler {
         selectCharacterCardStudent.showAndWait();
     }
 
-    public void clickOnCharacterCardStudent(MouseEvent mouseEvent) {
-        deactivateClicksCharacterCardsElements();
-
-        ImageView selectedCCStudentID    = (ImageView) mouseEvent.getSource();
-        int       selectedCCStudentIndex = InfoHelper.gsFindCharacterCardElementIndex(selectedCCStudentID);
-
-        gui.forwardViewToVirtualController(selectedCCStudentIndex);
-    }
-
     /**
      * Requests the player to choose a color between the provided ones
      *
@@ -2461,30 +2610,16 @@ public class GameSceneHandler implements GUIHandler {
         selectColor.showAndWait();
     }
 
-    /**
-     * Requests the player to S a CloudTile from the availableClouds
-     *
-     * @param availableClouds An array of CloudTile representing the available CloudTiles
-     */
-    public void gsRequestCloudTileSelection(CloudTile[] availableClouds) {
-        activateClicksCloudTiles(availableClouds, false);
-
-        Alert selectCloudTile = GUIAlert.getAlert(GUIAlert.SELECT_CLOUD, "");
-        selectCloudTile.showAndWait();
+    public void gsRequestHowManyStudentsToMove (int maxNumOfStudentMovable) {
+        showInputPane(maxNumOfStudentMovable);
+        activateClicksInputButton();
+        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_NUM_STUDENTS, null);
+        possiblePlay.showAndWait();
     }
 
-    public void clickOnCloudTile(MouseEvent mouseEvent, boolean otherElementsClickable) {
-        // If the player chose the CloudTile when also CharacterCards were clickable, deactivates all of them
-        if (otherElementsClickable) { deactivateClicksCharacterCards(); }
+    // endregion GSExpertModeRequests
 
-        deactivateClicksCloudTiles();
-
-        AnchorPane selectedCloudTilePaneID = (AnchorPane) mouseEvent.getSource();
-        int        selectedCloudTileIndex  = InfoHelper.gsFindCloudTileIndex(selectedCloudTilePaneID);
-        CloudTile  selectedCloudTile       = gui.getModel().getCloudTile(selectedCloudTileIndex);
-
-        gui.forwardViewToVirtualController(selectedCloudTile);
-    }
+    // region GSExpertModeChoiceRequests
 
     /**
      * Requests the player to choose between selecting a CloudTile or playing a CharacterCard.
@@ -2507,64 +2642,6 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     * Requests the player to move the selected student from his entrance to an Island or to a table
-     * of his diningRoom
-     *
-     * @param selectedStudentIndex The index of the entrance's player selected by the player
-     * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still
-     *                             have free seats (where the player can move the student)
-     */
-    public void gsRequestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
-        activateClicksDiningRoomTablesAndIsland(selectedStudentIndex, diningRoomFreeTables);
-
-        // Gets the color of the student that has been selected from the Entrance
-        Entrance currentPlayerEntrance = gui.getLocalPlayer().getSchoolBoard().getEntrance();
-        Color selectedStudentColor = currentPlayerEntrance.getStudents()[selectedStudentIndex];
-
-        Alert moveSelectedStudent = GUIAlert.getAlert(GUIAlert.MOVE_ENTRANCE_STUDENT_DR_OR_ISL, selectedStudentColor.toString());
-        moveSelectedStudent.showAndWait();
-    }
-
-    public void clickOnIslandDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
-        // Deactivates the click-linked function of both Islands and DiningRoomTables
-        deactivateClicksIslands();
-        deactivateClicksDiningRoomTables();
-
-        AnchorPane selectedIslandPaneID = (AnchorPane) mouseEvent.getSource();
-        int        selectedIslandIndex  = InfoHelper.gsFindIslandIndex(selectedIslandPaneID);
-
-        // Creates a new record "MoveStudentInfo", where to save the number of the island and set
-        // to false the boolean "toDiningRoom" related to the student's movement
-        MoveStudentInfo infoFromIslandClick = new MoveStudentInfo(false, selectedIslandIndex, selectedStudentIndex);
-        gui.forwardViewToVirtualController(infoFromIslandClick);
-    }
-
-    public void clickOnDiningRoomTablesDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
-        // Deactivates the click-linked function of both Islands and DiningRoomTables
-        deactivateClicksIslands();
-        deactivateClicksDiningRoomTables();
-
-        // Creates a new record "MoveStudentInfo", where to save the index of the selected
-        // students and to set "true" the boolean "toDiningRoom"
-        MoveStudentInfo infoFromIslandClick = new MoveStudentInfo(true, null, selectedStudentIndex);
-        gui.forwardViewToVirtualController(infoFromIslandClick);
-    }
-
-    /**
-     * Requests the player how far he wants to move MotherNature
-     * It sets to clickable only the Islands that can be selected by the player, according to the
-     * provided Islands' array
-     *
-     * @param possibleMovement An array containing the Islands that can be moved by the player
-     */
-    public void gsRequestMotherNatureMovement(Island[] possibleMovement) {
-        activateClicksIslands(possibleMovement, false);
-
-        Alert moveMotherNature = GUIAlert.getAlert(GUIAlert.MOVE_MOTHER_NATURE, "");
-        moveMotherNature.showAndWait();
-    }
-
-    /**
      * Requests the player to move motherNature among the possible islands.
      * Shows to the player the Islands where motherNature could be moved and the CharacterCards
      * that can be played. It sets to clickable only the Islands that can be selected by the player,
@@ -2580,25 +2657,7 @@ public class GameSceneHandler implements GUIHandler {
         moveMotherNatureOrPlayCC.showAndWait();
     }
 
-    public void gsRequestHowManyStudentsToMove (int maxNumOfStudentMovable) {
-        showInputPane(maxNumOfStudentMovable);
-        activateClicksInputButton();
-        Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_NUM_STUDENTS, null);
-        possiblePlay.showAndWait();
-    }
-
-    public void showInputPane(int maxNum) {
-        // Sets a factory integers between 2 and 4
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, maxNum);
-        // Sets default value
-        valueFactory.setValue(1);
-
-        // Assigns the spinnerFactory to the spinner
-        input_spinner.setValueFactory(valueFactory);
-
-        // Shows the inputPane
-        input_pane.setVisible(true);
-    }
+    // endregion GSExpertModeChoiceRequests
 
     public void gsAskEndOfTurn() {
         Alert possiblePlay = GUIAlert.getAlert(GUIAlert.ASK_END_OF_TURN, null);
@@ -2614,22 +2673,13 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    // endregion GSRequests
 
-
-
-
-    // region Seba's gsMethodImplementations
-
-    // endregion Seba's gsMethodImplementations
-
-
-
-
-    //  region Giovanni's gsMethodImplementations
-
-    // endregion Giovanni's gsMethodImplementations
+    // region SwitchSceneToPSB
 
     public void switchToPSBScene() {
         gui.switchScene(Pages.SCHOOL_BOARDS);
     }
+
+    // endregion SwitchSceneToPSB
 }
