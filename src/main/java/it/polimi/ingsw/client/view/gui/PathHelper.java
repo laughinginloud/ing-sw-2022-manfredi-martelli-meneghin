@@ -217,8 +217,8 @@ public class PathHelper {
             case ASS_10_IMG -> "/it/polimi/ingsw/images/assistantCards/assistantCard10.png";
 
             // Students
-            case STUDENT_GREEN_IMG  -> "/it/polimi/ingsw/images/students/student_red.png";
-            case STUDENT_RED_IMG    -> "/it/polimi/ingsw/images/students/student_green.png";
+            case STUDENT_GREEN_IMG  -> "/it/polimi/ingsw/images/students/student_green.png";
+            case STUDENT_RED_IMG    -> "/it/polimi/ingsw/images/students/student_red.png";
             case STUDENT_YELLOW_IMG -> "/it/polimi/ingsw/images/students/student_yellow.png";
             case STUDENT_PINK_IMG   -> "/it/polimi/ingsw/images/students/student_pink.png";
             case STUDENT_BLUE_IMG   -> "/it/polimi/ingsw/images/students/student_blue.png";
