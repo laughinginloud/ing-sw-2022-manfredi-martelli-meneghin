@@ -1858,7 +1858,7 @@ public class GameSceneHandler implements GUIHandler {
         CC_ImgView = IDHelper.gsFindCharacterCardImageID(this, index);
 
         // Gets the path of the image
-        CC_ImgPath = PathHelper.fromCharacterEnumToFXMLPath(character);
+        CC_ImgPath = PathHelper.fromCharacterEnumToHandlerPath(character);
 
         // Sets the image
         CC_ImgView.setImage(new Image(getClass().getResourceAsStream(CC_ImgPath)));
