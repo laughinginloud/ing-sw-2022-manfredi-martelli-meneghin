@@ -17,6 +17,8 @@ import java.net.SocketException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
+
 // TODO: controllare l'id nel caso di un player che si disconnette ed uno che si connette dopo
 
 /**
@@ -189,26 +191,11 @@ public class GameController {
         if (ControllerData.getInstance().getPlayersOrder() == null)
             return;
 
-        // If a game is in progress it needs to be saved
         if (activeGame) {
-            Player[]      players  = data.getGameModel().getPlayer();
-            StringBuilder fileName = new StringBuilder(players[0].getUsername());
-            for (int i = 1; i < players.length; i++)
-                fileName.append("-").append(players[i].getUsername());
-
-            try {
-                GameSave.saveGame(fileName.toString()); //TODO: check correctness of the DFA's interruption
-            }
-
-            //Should never happen as permissions have already been checked
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-
             gameStateThread.interrupt();
 
             // Signal every player that the game has been ended and close the relative socket
-            for (Player player : players) {
+            for (Player player : ControllerData.getInstance().getPlayersOrder()) {
                 VirtualView view = data.getPlayerView(player);
                 if (view != playerView)
                     view.sendInterrupt();
@@ -229,13 +216,14 @@ public class GameController {
 
             if (data.getPlayersOrder(0).equals(data.getViewPlayer(playerView))) {
                 // Signal every player that the game has been ended and close the relative socket
-                for (Player player : data.getPlayersOrder()) {
-                    VirtualView view = data.getPlayerView(player);
-                    if (view != playerView)
-                        view.sendMessage(new GameCommandInterruptGame());
+                for (Player player : data.getPlayersOrder())
+                    ifNotNull(player, () -> {
+                        VirtualView view = data.getPlayerView(player);
+                        if (view != playerView)
+                            view.sendMessage(new GameCommandInterruptGame());
 
-                    view.close();
-                }
+                        view.close();
+                    });
 
                 // Reset the data
                 ControllerData.nukeInstance();

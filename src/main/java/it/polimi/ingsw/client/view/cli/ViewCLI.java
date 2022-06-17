@@ -30,6 +30,7 @@ import java.util.*;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.TermConstants.*;
+import static it.polimi.ingsw.common.utils.Methods.capitalize;
 
 @SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue"})
 public final class ViewCLI implements View {
@@ -2657,10 +2658,6 @@ public final class ViewCLI implements View {
     @Override
     public void setVirtualController(VirtualController virtualController) {
         this.virtualController = virtualController;
-    }
-
-    private static String capitalize(String str) {
-        return Character.toUpperCase(str.charAt(0)) + str.substring(1).toLowerCase();
     }
 
     private static void colorElem(List<String> list, int index) {
