@@ -1516,13 +1516,12 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
      * @param playerIndex the index of the player in the PlayerSchoolBoard
      */
     public void psbUpdateDiningRoomProfessors(GlobalProfessorTable gpt, Player player, int playerIndex) {
-        ImageView gptImageView;
         // For each color (professor) checks if the localPlayer is or not the controller
-        for (Color color : Color.values()) {
-            gptImageView = IDHelper.psbFindProfessorSingleImageID(this, playerIndex, color);
-            if (gpt.getProfessorLocation(color) != null)
-                gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
-        }
+        for (Color color : Color.values())
+            gpt.getProfessorLocation(color).ifPresent(p -> {
+                ImageView gptImageView = IDHelper.psbFindProfessorSingleImageID(this, playerIndex, color);
+                gptImageView.setVisible(p.equals(player));
+            });
     }
 
     /**

@@ -45,7 +45,7 @@ class GlobalProfessorTableTest {
         professorLocationsField.set(globalProfessorTableTest, tempPlayer);
 
         for (Color colorTest : Color.values())
-            if (professorLocationsTest[colorTest.ordinal()] != globalProfessorTableTest.getProfessorLocation(colorTest))
+            if (!professorLocationsTest[colorTest.ordinal()].equals(globalProfessorTableTest.getProfessorLocation(colorTest).orElseGet(null)))
                 throw new AssertionError("Getter returned wrong value");
     }
 

@@ -68,7 +68,7 @@ public class CharacterCardManager {
             case FARMER -> {
                 GlobalProfessorTable gpt = ControllerData.getInstance().getGameModel().getGlobalProfessorTable();
                 for (Color color : Color.values())
-                    if (gpt.getProfessorLocation(color) != null)
+                    if (gpt.getProfessorLocation(color).isPresent())
                         characterCardPlayability = true;
             }
 

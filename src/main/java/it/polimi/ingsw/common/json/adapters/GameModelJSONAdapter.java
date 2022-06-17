@@ -56,7 +56,7 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
             jsonWriter.name("color");
             jsonWriter.value(color.name());
             jsonWriter.name("playerID");
-            jsonWriter.value(gpt.getProfessorLocation(color) == null ? "none" : String.valueOf(gpt.getProfessorLocation(color).getPlayerID()));
+            jsonWriter.value(gpt.getProfessorLocation(color).isEmpty() ? "none" : String.valueOf(gpt.getProfessorLocation(color).get().getPlayerID()));
             jsonWriter.endObject();
         }
         jsonWriter.endArray();

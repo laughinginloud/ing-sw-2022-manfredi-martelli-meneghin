@@ -187,12 +187,10 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             if (data.getCharacterCardFlag(ControllerData.Flags.excludeColorFlag) && data.getExcludedColor() == color)
                 continue;
 
-            if (island.getStudentCounters(color) > 0) {
-                Player professorLocation = model.getGlobalProfessorTable().getProfessorLocation(color);
-
-                if (professorLocation != null)
-                    influences.replace(professorLocation, influences.get(professorLocation) + 1);
-            }
+            if (island.getStudentCounters(color) > 0)
+                model.getGlobalProfessorTable()
+                    .getProfessorLocation(color)
+                    .ifPresent(p -> influences.replace(p, influences.get(p) + 1));
         }
 
         return influences;

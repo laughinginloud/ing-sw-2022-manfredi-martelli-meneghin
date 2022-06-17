@@ -162,11 +162,12 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 // Checks if the current player has more students on a specific color's DiningRoomTable than the player
                 // which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
                 GlobalProfessorTable gpt = model.getGlobalProfessorTable();
-                Player playerControllingProfessor = gpt.getProfessorLocation(movedStudent);
-                if (!player.equals(playerControllingProfessor) && checkProfessorMovement(player, playerControllingProfessor, movedStudent)) {
-                    gpt.setProfessorLocation(movedStudent, player);
-                    updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
-                }
+                gpt.getProfessorLocation(movedStudent).ifPresent(p -> {
+                    if (!player.equals(p) && checkProfessorMovement(player, p, movedStudent)) {
+                        gpt.setProfessorLocation(movedStudent, player);
+                        updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
+                    }
+                });
 
                 // Gets the DiningRoom of each player and save it a DiningRoomArray
                 DiningRoom[] updatedDiningRooms = new DiningRoom[players.length];

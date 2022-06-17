@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Ansi.Direction.*;
@@ -145,9 +146,9 @@ public /*static*/ final class TermConstants {
     }
 
     private static String formatProfessor(Color color, GameModel model, Player curPlayer) {
-        Player profLocation = model.getGlobalProfessorTable().getProfessorLocation(color);
+        Optional<Player> profLocation = model.getGlobalProfessorTable().getProfessorLocation(color);
 
-        return profLocation == null || profLocation.getPlayerID() != curPlayer.getPlayerID() ?
+        return profLocation.isEmpty() || profLocation.get().getPlayerID() != curPlayer.getPlayerID() ?
             " " :
             colorString(" ", getStudentColor(color, true));
     }

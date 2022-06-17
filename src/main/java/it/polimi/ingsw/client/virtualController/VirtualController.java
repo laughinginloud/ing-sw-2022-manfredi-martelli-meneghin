@@ -157,8 +157,7 @@ public class VirtualController extends Thread implements Closeable {
                 GlobalProfessorTable gpt = model.getGlobalProfessorTable();
 
                 for (Color color : Color.values())
-                    if (gpt.getProfessorLocation(color) != null)
-                        gpt.setProfessorLocation(color, model.getPlayer(gpt.getProfessorLocation(color).getPlayerID()));
+                    gpt.getProfessorLocation(color).ifPresent(p -> gpt.setProfessorLocation(color, p));
             }
 
             case CLOUDARRAY           -> model.setCloudTile((CloudTile[]) object);
@@ -171,7 +170,7 @@ public class VirtualController extends Thread implements Closeable {
                 GlobalProfessorTable gpt = (GlobalProfessorTable) object;
 
                 for (Color color : Color.values())
-                    gpt.setProfessorLocation(color, model.getPlayer(gpt.getProfessorLocation(color).getPlayerID()));
+                    gpt.getProfessorLocation(color).ifPresent(p -> gpt.setProfessorLocation(color, p));
 
                 model.setGlobalProfessorTable(gpt);
             }

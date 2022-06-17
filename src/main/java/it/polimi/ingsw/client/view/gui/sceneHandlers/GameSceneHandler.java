@@ -1640,14 +1640,12 @@ public class GameSceneHandler implements GUIHandler {
      * @param player the localPlayer
      */
     public void gsUpdateDiningRoomProfessors(GlobalProfessorTable gpt, Player player) {
-        ImageView gptImageView;
         // For each color (professor) checks if the localPlayer is or not the controller
-        for (Color color : Color.values()) {
-            gptImageView = IDHelper.gsFindProfessorOnProfTableID(this, color);
-            if (gpt.getProfessorLocation(color) != null){
-                gptImageView.setVisible(gpt.getProfessorLocation(color).equals(player));
-            }
-        }
+        for (Color color : Color.values())
+            gpt.getProfessorLocation(color).ifPresent(p -> {
+                ImageView imageView = IDHelper.gsFindProfessorOnProfTableID(this, color);
+                imageView.setVisible(p.equals(player));
+            });
     }
 
     /**

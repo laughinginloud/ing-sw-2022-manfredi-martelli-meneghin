@@ -10,10 +10,7 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Strategy representing the activation of the CharacterCard 'BARD'
@@ -134,16 +131,13 @@ public class BardStrategy extends CharacterCardStrategy {
             entrance.appendStudent(diningRoomTableStudent);
 
             // Update the globalProfessorTable according to the new SchoolBoard (professor could change location)
-            for (Color student: Color.values()) {
-                Player controllingPlayer = model.getGlobalProfessorTable().getProfessorLocation(student);
+            for (Color student: Color.values())
                 // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
                 // The professorLocation is changed to the currentPlayer
-                if (!curPlayer.equals(controllingPlayer) &&
-                    GameStateMoveStudents.checkProfessorMovement(curPlayer, controllingPlayer, student)) {
-
-                    model.getGlobalProfessorTable().setProfessorLocation(student, curPlayer);
-                }
-            }
+                model.getGlobalProfessorTable().getProfessorLocation(student).ifPresent(p -> {
+                    if (!curPlayer.equals(p) && GameStateMoveStudents.checkProfessorMovement(curPlayer, p, student))
+                        model.getGlobalProfessorTable().setProfessorLocation(student, curPlayer);
+                });
 
             // After the server managed the use of the CharacterCard, gets the updated values of the SchoolBoards and of the GlobalProfessorTable
             SchoolBoard[]        updatedSchoolBoards = new SchoolBoard[players.length];

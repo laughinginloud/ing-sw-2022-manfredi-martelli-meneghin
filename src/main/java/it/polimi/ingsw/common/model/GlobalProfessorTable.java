@@ -1,5 +1,7 @@
 package it.polimi.ingsw.common.model;
 
+import java.util.Optional;
+
 /**
  * Class representing the ProfessorTable
  * @author Sebastiano Meneghin
@@ -13,12 +15,12 @@ public final class GlobalProfessorTable {
     public GlobalProfessorTable(){ professorLocations = new Player[Color.values().length]; }
 
     /**
-     * Gets the player who is controlling the specific professor (or null if no one is controlling the professor)
+     * Gets the player who is controlling the specific professor
      * @param color Color of the specific professor to locate (not null)
-     * @return A player controlling a specific professor (null or a Color)
+     * @return An optional containing the controlling player, if he exists
      */
-    public Player getProfessorLocation(Color color) {
-        return professorLocations[color.ordinal()];
+    public Optional<Player> getProfessorLocation(Color color) {
+        return Optional.ofNullable(professorLocations[color.ordinal()]);
     }
 
     /**

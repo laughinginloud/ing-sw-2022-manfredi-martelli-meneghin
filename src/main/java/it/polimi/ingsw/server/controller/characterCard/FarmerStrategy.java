@@ -5,6 +5,8 @@ import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 
+import java.util.Optional;
+
 /**
  * Strategy representing the activation of the CharacterCard 'FARMER'
  * @author Giovanni Manfredi
@@ -27,23 +29,19 @@ public class FarmerStrategy extends CharacterCardStrategy {
         ControllerData data              = ControllerData.getInstance();
         GameModel      model             = data.getGameModel();
         Player         currentPlayer     = data.getCurrentPlayer();
-        Player         controllingPlayer;
 
         // The card allows the player to take control of the professor even if he has the same number of students
         // in the schoolBoard - use of the flag equalStudentsFlag
         data.setCharacterCardFlag(ControllerData.Flags.equalStudentsFlag, true);
 
         // For each Color, the server re-checks if a Professor needs to be changed
-        for (Color student: Color.values()) {
-            controllingPlayer = model.getGlobalProfessorTable().getProfessorLocation(student);
+        for (Color student: Color.values())
             // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
             // The professorLocation is changed to the currentPlayer
-            if (!currentPlayer.equals(controllingPlayer) &&
-                GameStateMoveStudents.checkProfessorMovement(currentPlayer, controllingPlayer, student)) {
-
-                model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
-            }
-        }
+            model.getGlobalProfessorTable().getProfessorLocation(student).ifPresent(p -> {
+                if (!currentPlayer.equals(p) && GameStateMoveStudents.checkProfessorMovement(currentPlayer, p, student))
+                    model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
+            });
 
         try {
             Player[] players = model.getPlayer();

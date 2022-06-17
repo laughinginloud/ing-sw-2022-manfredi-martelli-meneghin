@@ -11,10 +11,7 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Strategy representing the activation of the CharacterCard 'PRINCESS'
@@ -89,16 +86,13 @@ public class PrincessStrategy extends CharacterCardStrategy {
                 enhancedCard.appendStudent(drawnStudent);
 
                 // Update the globalProfessorTable according to the new SchoolBoards (professor could change location)
-                for (Color student: Color.values()) {
-                    Player controllingPlayer = model.getGlobalProfessorTable().getProfessorLocation(student);
+                for (Color student: Color.values())
                     // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
                     // The professorLocation is changed to the currentPlayer
-                    if (!currentPlayer.equals(controllingPlayer) &&
-                        GameStateMoveStudents.checkProfessorMovement(currentPlayer, controllingPlayer, student)) {
-
-                        model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
-                    }
-                }
+                    model.getGlobalProfessorTable().getProfessorLocation(student).ifPresent(p -> {
+                        if (!currentPlayer.equals(p) && GameStateMoveStudents.checkProfessorMovement(currentPlayer, p, student))
+                            model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
+                    });
 
                 // After the server managed the use of the CharacterCard, gets the updated values of schoolBoards, globalProfessorTable
                 // and characterCards

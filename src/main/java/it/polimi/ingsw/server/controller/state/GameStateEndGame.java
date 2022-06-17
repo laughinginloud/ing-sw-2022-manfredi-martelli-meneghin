@@ -8,6 +8,7 @@ import it.polimi.ingsw.common.model.GlobalProfessorTable;
 import it.polimi.ingsw.common.model.Player;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static it.polimi.ingsw.common.utils.Ordering.compare;
 
@@ -181,20 +182,22 @@ public final class GameStateEndGame implements GameState {
      * @return The result represented an Ordering
      */
     private Ordering compareProfessorsTeam(GlobalProfessorTable gpt, Player[] players) {
-        int teamA = 0,
-            teamB = 0;
+        AtomicInteger teamA = new AtomicInteger(0),
+                      teamB = new AtomicInteger(0);
 
-        for (Color color : Color.values()) {
-            Player professorLocation = gpt.getProfessorLocation(color);
+        Arrays.stream(Color.values())
+            .map(gpt::getProfessorLocation)
+            .forEach(op -> {
+                op.ifPresent(p -> {
+                    if (p.equals(players[0]) || p.equals(players[2]))
+                        teamA.addAndGet(1);
 
-            if (professorLocation.equals(players[0]) || professorLocation.equals(players[2]))
-                teamA++;
+                    else
+                        teamB.addAndGet(1);
+                });
+            });
 
-            else
-                teamB++;
-        }
-
-        return compare(teamA, teamB);
+        return compare(teamA.get(), teamB.get());
     }
 
     /**
@@ -205,16 +208,22 @@ public final class GameStateEndGame implements GameState {
      * @return The player that controls more professors, using an Ordering
      */
     private Ordering compareProfessors(GlobalProfessorTable gpt, Player a, Player b) {
-        int resA = 0,
-            resB = 0;
+        AtomicInteger resA = new AtomicInteger(0),
+                      resB = new AtomicInteger(0);
 
-        for (Color color : Color.values())
-            if (gpt.getProfessorLocation(color).equals(a))
-                resA++;
-            else if (gpt.getProfessorLocation(color).equals(b))
-                resB++;
+        Arrays.stream(Color.values())
+            .map(gpt::getProfessorLocation)
+            .forEach(op -> {
+                op.ifPresent(p -> {
+                    if (p.equals(a))
+                        resA.addAndGet(1);
 
-        return compare(resA, resB);
+                    else if (p.equals(b))
+                        resB.addAndGet(1);
+                });
+            });
+
+        return compare(resA.get(), resB.get());
     }
 
     /**
