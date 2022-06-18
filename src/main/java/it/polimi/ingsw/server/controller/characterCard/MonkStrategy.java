@@ -115,7 +115,7 @@ public class MonkStrategy extends CharacterCardStrategy {
                 length++;
         } while (length < max_length && students[length] != null);
 
-        return Arrays.copyOf(students,length);
+        return Arrays.copyOf(students, length);
     }
 }
 

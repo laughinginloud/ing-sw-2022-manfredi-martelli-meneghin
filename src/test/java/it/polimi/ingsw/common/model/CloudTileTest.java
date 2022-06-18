@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
+
 /**
  * Tests for class "CloudTile"
  * @author Mattia Martelli
@@ -23,7 +25,7 @@ class CloudTileTest {
         studentsField = cloudTileTest.getClass().getDeclaredField("students");
         studentsField.setAccessible(true);
 
-        studentsField.set(cloudTileTest, Arrays.copyOf(globalTestSet, globalTestSet.length));
+        studentsField.set(cloudTileTest, copyOf(globalTestSet));
     }
 
     /**

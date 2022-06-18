@@ -1,6 +1,7 @@
 package it.polimi.ingsw.common.utils;
 
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 /**
@@ -48,9 +49,37 @@ public /*static*/ final class Methods {
     /**
      * Capitalize the first letter of the string, whilst putting in lower case the rest
      * @param str The string to capitalize
-     * @return The capitalized string
+     * @return    The capitalized string
      */
     public static String capitalize(String str) {
         return Character.toUpperCase(str.charAt(0)) + str.substring(1).toLowerCase();
+    }
+
+    /**
+     * Deep copy an array
+     * @param array The array to copy
+     * @return      A deep copy of the array
+     * @param <T>   The type of the array
+     */
+    public static <T> T[] copyOf(T[] array) {
+        return Arrays.copyOf(array, array.length);
+    }
+
+    /**
+     * Deep copy an array
+     * @param array The array to copy
+     * @return      A deep copy of the array
+     */
+    public static int[] copyOf(int[] array) {
+        return Arrays.copyOf(array, array.length);
+    }
+
+    /**
+     * Deep copy an array
+     * @param array The array to copy
+     * @return      A deep copy of the array
+     */
+    public static boolean[] copyOf(boolean[] array) {
+        return Arrays.copyOf(array, array.length);
     }
 }

@@ -137,8 +137,8 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private void unifyIslands(GameModel model, int localIslandIndex) {
-        int previousIndex  = localIslandIndex - 1 % model.getIslandsCount(),
-            successorIndex = localIslandIndex + 1 % model.getIslandsCount();
+        int previousIndex  = (localIslandIndex - 1) % model.getIslandsCount(),
+            successorIndex = (localIslandIndex + 1) % model.getIslandsCount();
 
         if (model.getIsland(previousIndex).getTowerColor() == model.getIsland(localIslandIndex).getTowerColor()) {
             mergeIslandsData(model.getIsland(previousIndex), model.getIsland(localIslandIndex));

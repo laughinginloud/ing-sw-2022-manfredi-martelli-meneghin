@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
+
 /**
  * Tests for class "Entrance"
  * @author Mattia Martelli
@@ -23,7 +25,7 @@ class EntranceTest {
         studentsField = entranceTest.getClass().getDeclaredField("students");
         studentsField.setAccessible(true);
 
-        studentsField.set(entranceTest, Arrays.copyOf(globalTestSet, globalTestSet.length));
+        studentsField.set(entranceTest, copyOf(globalTestSet));
     }
 
     /**
@@ -83,7 +85,7 @@ class EntranceTest {
     @Test
     void appendStudentTest() throws IllegalAccessException {
         Color[] testSet = new Color[]{Color.RED, Color.PINK, Color.GREEN, Color.GREEN, Color.BLUE, Color.RED, null};
-        studentsField.set(entranceTest, Arrays.copyOf(testSet, testSet.length));
+        studentsField.set(entranceTest, copyOf(testSet));
         entranceTest.appendStudent(Color.PINK);
         Color[] postAppendStudents = (Color[]) studentsField.get(entranceTest);
 

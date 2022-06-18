@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
+
 /**
  * Singleton containing data used by the controller during the game
  * @author Mattia Martelli
@@ -321,8 +323,8 @@ public final class ControllerData {
         instance.hasPlayedCard             = data.hasPlayedCard;
         instance.numOfPlayers              = data.numOfPlayers;
         instance.expertMode                = data.expertMode;
-        instance.cardStrategies            = Arrays.copyOf(data.cardStrategies, data.cardStrategies.length);
-        instance.characterCardFlags        = Arrays.copyOf(data.characterCardFlags, data.characterCardFlags.length);
+        instance.cardStrategies            = copyOf(data.cardStrategies);
+        instance.characterCardFlags        = copyOf(data.characterCardFlags);
         instance.winTrigger                = data.winTrigger;
 
         // Create a copy the players, to aid the linking process
@@ -409,7 +411,7 @@ public final class ControllerData {
 
     // endregion
 
-    public CharacterCardStrategy[] getCardStrategies() { return Arrays.copyOf(cardStrategies, cardStrategies.length); }
+    public CharacterCardStrategy[] getCardStrategies() { return copyOf(cardStrategies); }
 
     public void setCardStrategies(CharacterCardStrategy[] cardStrategies) {
         this.cardStrategies = cardStrategies;

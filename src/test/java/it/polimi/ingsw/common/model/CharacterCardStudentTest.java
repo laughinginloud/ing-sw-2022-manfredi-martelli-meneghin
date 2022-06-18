@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
+
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
 
 /**
  * Test for class "CharacterCardStudent"
@@ -31,7 +32,7 @@ class CharacterCardStudentTest {
      */
     @Test
     void getStudentTest() throws IllegalAccessException {
-        studentsField.set(characterCardStudentTest, Arrays.copyOf(studentsTest, studentsTest.length));
+        studentsField.set(characterCardStudentTest, copyOf(studentsTest));
 
         for (int i = 0; i < studentsTest.length; i++)
             if (studentsTest[i] != (characterCardStudentTest.getStudents())[i])

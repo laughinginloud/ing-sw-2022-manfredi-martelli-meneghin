@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
+
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
 
 /**
  * Tests for class "Game Model"
@@ -100,7 +101,7 @@ class GameModelTest {
     @Test
     void getPlayerTest() throws IllegalAccessException {
         // Sets playersField with testPlayers using the method set (library method)
-        playersField.set(gameModelTest, Arrays.copyOf(testPlayers, testPlayers.length));
+        playersField.set(gameModelTest, copyOf(testPlayers));
 
         // Gets each Player of Players[] independently and checks if they are the same as in testPlayers
         for (int i = 0; i < MAX_PLAYERS; ++i)
@@ -137,7 +138,7 @@ class GameModelTest {
     @Test
     void getIslandTest() throws IllegalAccessException {
         // Sets islandsField with testIslands using the method set (library method)
-        islandsField.set(gameModelTest, Arrays.copyOf(testIslands, testIslands.length));
+        islandsField.set(gameModelTest, copyOf(testIslands));
 
         // Gets each Island of Island[] independently and checks if they are the same as in testIslands
         for (int i = 0; i < MAX_ISLANDS; ++i)
@@ -164,7 +165,7 @@ class GameModelTest {
     @Test
     void shiftIslandsTest() throws IllegalAccessException {
         // Sets islandsField with testIslands using the method set (library method)
-        islandsField.set(gameModelTest, Arrays.copyOf(testIslands, testIslands.length));
+        islandsField.set(gameModelTest, copyOf(testIslands));
 
         // Call the method shiftIslands
         gameModelTest.shiftIslands(0);
@@ -198,7 +199,7 @@ class GameModelTest {
     @Test
     void getCloudTileTest() throws IllegalAccessException {
         // Sets cloudTilesField with testCloudTiles using the method set (library method)
-        cloudTilesField.set(gameModelTest, Arrays.copyOf(testCloudTiles, testCloudTiles.length));
+        cloudTilesField.set(gameModelTest, copyOf(testCloudTiles));
 
         // Gets each CloudTile of CloudTiles[] independently and checks if they are the same as in testCloudTiles
         for (int i = 0; i < MAX_CLOUD_TILES; ++i)
@@ -306,7 +307,7 @@ class GameModelTest {
     @Test
     void getCharacterCardTest() throws IllegalAccessException {
         // Sets characterCardsField with testCharacterCards using the method set (library method)
-        characterCardsField.set(gameModelTest, Arrays.copyOf(testCharacterCards, testCharacterCards.length));
+        characterCardsField.set(gameModelTest, copyOf(testCharacterCards));
 
         // Gets each CharacterCard of CharacterCards[] independently and checks if they are the same as in testCharacterCards
         for (int i = 0; i < CHARACTER_CARDS_NUMBER; ++i)

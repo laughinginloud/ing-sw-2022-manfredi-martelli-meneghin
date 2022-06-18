@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
+
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
 
 /**
  * Tests for class "DiningRoom"
@@ -31,7 +32,7 @@ class DiningRoomTest {
      */
     @Test
     void getStudentCountersTest() throws IllegalAccessException {
-        studentCountersField.set(diningRoomTest, Arrays.copyOf(testSet, testSet.length));
+        studentCountersField.set(diningRoomTest, copyOf(testSet));
 
         for (Color color : Color.values())
             if (testSet[color.ordinal()] != diningRoomTest.getStudentCounters(color))

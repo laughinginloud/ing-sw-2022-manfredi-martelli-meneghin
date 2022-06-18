@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
+
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
 
 /**
  * Test for class "Bag"
@@ -39,12 +40,11 @@ class BagTest {
      */
     @Test
     void getStudentCountersTest() throws IllegalAccessException {
-        studentCountersField.set(bagTest, Arrays.copyOf(studentCountersTest, studentCountersTest.length));
+        studentCountersField.set(bagTest, copyOf(studentCountersTest));
 
-        for (Color color : Color.values()) {
+        for (Color color : Color.values())
             if (studentCountersTest[color.ordinal()] != bagTest.getStudentCounters(color))
                 throw new AssertionError("Getter returned wrong value");
-        }
     }
 
     /**
@@ -89,7 +89,7 @@ class BagTest {
         BagResult drawResult;
 
         //Set a single counter to 1 and try a single draw
-        studentCountersField.set(bagTest, Arrays.copyOf(studentCountersTestSingleDraw, studentCountersTestSingleDraw.length));
+        studentCountersField.set(bagTest, copyOf(studentCountersTestSingleDraw));
         numOfStudentsField.set(bagTest, studentCountersTestSingleDraw.length);
 
         try {
@@ -106,7 +106,7 @@ class BagTest {
 
 
         //Set two different counter to 1 and try a double draw
-        studentCountersField.set(bagTest, Arrays.copyOf(studentCountersTestDoubleDraw, studentCountersTestDoubleDraw.length));
+        studentCountersField.set(bagTest, copyOf(studentCountersTestDoubleDraw));
         numOfStudentsField.set(bagTest, studentCountersTestDoubleDraw.length);
 
         try {
