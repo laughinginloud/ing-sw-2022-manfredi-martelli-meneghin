@@ -1,7 +1,13 @@
 package it.polimi.ingsw.common.termutils;
 
+import it.polimi.ingsw.common.utils.Methods;
+
 import java.io.IOException;
 import java.io.InputStream;
+
+import static it.polimi.ingsw.common.utils.Methods.interrupted;
+import static java.lang.Thread.currentThread;
+import static java.lang.Thread.sleep;
 
 /**
  * Enum that represents some common keys
@@ -31,7 +37,15 @@ public enum Key {
      * @return The first key read
      * @throws IOException if an I/O error occurs
      */
-    public static Key parseKey(InputStream inputStream) throws IOException {
+    public static Key parseKey(InputStream inputStream) throws IOException, InterruptedException {
+        if (interrupted())
+            throw new InterruptedException();
+
+        if (inputStream.available() == 0) {
+            sleep(100);
+            parseKey(inputStream);
+        }
+
         return switch (inputStream.read()) {
             case 9  -> TAB;
             case 13 -> ENTER;

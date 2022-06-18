@@ -4,6 +4,8 @@ package it.polimi.ingsw.common.utils;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import static java.lang.Thread.currentThread;
+
 /**
  * Static class containing miscellaneous utility methods
  * @author Mattia Martelli
@@ -81,5 +83,13 @@ public /*static*/ final class Methods {
      */
     public static boolean[] copyOf(boolean[] array) {
         return Arrays.copyOf(array, array.length);
+    }
+
+    /**
+     * Check whether the current thread has been interrupted
+     * @return <code>true</code> if the thread has been interrupted, <code>false</code> otherwise
+     */
+    public static boolean interrupted() {
+        return currentThread().isInterrupted();
     }
 }
