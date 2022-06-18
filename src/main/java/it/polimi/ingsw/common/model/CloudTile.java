@@ -1,6 +1,6 @@
 package it.polimi.ingsw.common.model;
 
-import java.util.Arrays;
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
 
 /**
  * Class representing the cloud tiles
@@ -19,7 +19,7 @@ public final class CloudTile {
      * @return An array containing the students
      */
     public Color[] getStudents() {
-        return Arrays.copyOf(students, students.length);
+        return copyOf(students);
     }
 
     /**
@@ -27,7 +27,7 @@ public final class CloudTile {
      * @return An array containing the students
      */
     public Color[] retrieveStudents() {
-        Color[] temp = Arrays.copyOf(students, students.length);
+        Color[] temp = copyOf(students);
         students = new Color[4];
         return temp;
     }
@@ -39,6 +39,6 @@ public final class CloudTile {
     public void setStudents(Color[] students) {
         assert students.length == this.students.length: "Passed wrongly dimensioned array";
 
-        this.students = Arrays.copyOf(students, students.length);
+        this.students = copyOf(students);
     }
 }

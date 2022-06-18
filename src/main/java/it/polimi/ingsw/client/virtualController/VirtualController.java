@@ -108,16 +108,14 @@ public class VirtualController extends Thread implements Closeable {
             case SENDINFO                -> {
                 InfoMap map = (InfoMap) message.value();
 
-                if (map.containsKey(GameValues.MODEL)) {
-                    view.setModel((GameModel) map.get(GameValues.MODEL));
+                map.ifPresent(GameValues.MODEL, m -> {
+                    view.setModel((GameModel) m);
                     map.remove(GameValues.MODEL);
 
                     // Sends to the view the notification about the values of the model that
                     // has been updated by the SendInfo
-                    Set<GameValues> updatedValues = new HashSet<>();
-                    updatedValues.add(GameValues.MODEL);
-                    view.updateModel(view.getModel(), updatedValues);
-                }
+                    view.updateModel((GameModel) m, Collections.singleton(GameValues.MODEL));
+                });
 
                 map.forEach((v, o) -> modifyModelInfo(view.getModel(), v, o));
             }
@@ -206,9 +204,7 @@ public class VirtualController extends Thread implements Closeable {
 
         // Sends to the view the notification about the values of the model that
         // has been updated by the SendInfo
-        Set<GameValues> updatedValues = new HashSet<>();
-        updatedValues.add(value);
-        view.updateModel(view.getModel(), updatedValues);
+        view.updateModel(view.getModel(), Collections.singleton(value));
     }
 
     /**

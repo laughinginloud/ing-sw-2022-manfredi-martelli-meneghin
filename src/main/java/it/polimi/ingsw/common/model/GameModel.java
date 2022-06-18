@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
+
 /**
  * Class representing the basic structure of the game,
  * which will interface with the controller - Facade Pattern
@@ -164,7 +166,7 @@ public final class GameModel {
      * Gets the CloudTiles of the current Game
      * @return An Array containing all the CloudTiles of the GameModel
      */
-    public CloudTile[] getCloudTile() { return Arrays.copyOf(cloudTiles, cloudTiles.length); }
+    public CloudTile[] getCloudTile() { return copyOf(cloudTiles); }
 
     /**
      * Gets the position of mother nature saved
@@ -191,7 +193,7 @@ public final class GameModel {
      * @param players The array to copy into the model
      */
     public void setPlayer(Player[] players) {
-        this.players = Arrays.copyOf(players, players.length);
+        this.players = copyOf(players);
     }
 
     /**
@@ -229,7 +231,7 @@ public final class GameModel {
      * @return An array containing all the CharacterCards drawn at the beginning of the game
      */
     public CharacterCard[] getCharacterCards() {
-        return Arrays.copyOf(characterCards, characterCards.length);
+        return copyOf(characterCards);
     }
 
     /**
@@ -270,7 +272,7 @@ public final class GameModel {
      * @param islands The array to be copied in the model
      */
     public void setIsland(Island[] islands) {
-        this.islands = Arrays.copyOf(islands, islands.length);
+        this.islands = copyOf(islands);
     }
 
     /**
@@ -292,7 +294,7 @@ public final class GameModel {
      * @param cloudTiles The array to copy into the model
      */
     public void setCloudTile(CloudTile[] cloudTiles) {
-        this.cloudTiles = Arrays.copyOf(cloudTiles, cloudTiles.length);
+        this.cloudTiles = copyOf(cloudTiles);
     }
 
     /**
@@ -359,7 +361,7 @@ public final class GameModel {
      * @param characterCards The array to copy into the model
      */
     public void setCharacterCard(CharacterCard[] characterCards) {
-        this.characterCards = Arrays.copyOf(characterCards, characterCards.length);
+        this.characterCards = copyOf(characterCards);
     }
 
     /**

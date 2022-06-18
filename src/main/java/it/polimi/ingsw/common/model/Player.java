@@ -2,6 +2,8 @@ package it.polimi.ingsw.common.model;
 
 import java.util.Arrays;
 
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
+
 /**
  * Class representing a player
  * @author Mattia Martelli
@@ -62,7 +64,7 @@ public sealed class Player permits PlayerExpert, PlayerTeam, PlayerTeamExpert {
      * @return An array containing the deck
      */
     public AssistantCard[] getAssistantDeck() {
-        return Arrays.copyOf(assistantDeck, assistantDeck.length);
+        return copyOf(assistantDeck);
     }
 
     /**

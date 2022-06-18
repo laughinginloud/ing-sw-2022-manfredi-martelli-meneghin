@@ -1,12 +1,14 @@
 package it.polimi.ingsw.common.message;
 
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.model.Island;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * A wrapper for <code>Map(GameValues, Object)</code>
@@ -80,11 +82,9 @@ public final class InfoMap {
      * @param key The key to search for
      * @return An <code>Optional</code> containing the value, if it exists
      */
-    public Optional<Object> ifPresent(GameValues key) {
+    public void ifPresent(GameValues key, Consumer action) {
         if (map.containsKey(key))
-            return Optional.of(map.get(key));
-
-        return Optional.empty();
+            action.accept(map.get(key));
     }
 
     /**

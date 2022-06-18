@@ -2,6 +2,8 @@ package it.polimi.ingsw.common.model;
 
 import java.util.Arrays;
 
+import static it.polimi.ingsw.common.utils.Methods.copyOf;
+
 /**
  * Class representing the school's entrance,
  * to be used as part of SchoolBoard
@@ -49,7 +51,7 @@ public final class Entrance {
     public void setStudents(Color[] students) {
         assert students.length == this.students.length: "Passed wrongly dimensioned array";
 
-        this.students = Arrays.copyOf(students, students.length);
+        this.students = copyOf(students);
     }
 
     /**
