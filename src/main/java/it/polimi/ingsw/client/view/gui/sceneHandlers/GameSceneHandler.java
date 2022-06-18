@@ -1932,24 +1932,19 @@ public class GameSceneHandler implements GUIHandler {
         Set<AssistantCard> playableAssistantCardSet = new HashSet<>();
         Collections.addAll(playableAssistantCardSet, playableAssistantCards);
 
-        AssistantCard[] assistantCardOnModel     = gui.getModel().getPlayer()[localPlayerIndex].getAssistantDeck();
-        int             assistantCardIndex;
+        AssistantCard[] assistantCardOnModel = gui.getModel().getPlayer()[localPlayerIndex].getAssistantDeck();
         ImageView       assistantCardImageView;
 
         for (int assCardPos = 0; assCardPos < assistantCardOnModel.length; assCardPos++) {
             if (playableAssistantCardSet.contains(assistantCardOnModel[assCardPos])) {
                 assistantCardImageView = IDHelper.gsFindAssistantCardID(this, assCardPos + 1);
 
+                EventHandler<MouseEvent> clickOnAssistantCardHandler = mouseEvent -> {
+                    // Associates to the click of the mouse the function clickOnAssistantCard
+                    // as response to the user's action
+                    clickOnAssistantCard(mouseEvent);
 
-                EventHandler<MouseEvent> clickOnAssistantCardHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Associates to the click of the mouse the function clickOnAssistantCard
-                        // as response to the user's action
-                        clickOnAssistantCard(mouseEvent);
-
-                        mouseEvent.consume();
-                    }
+                    mouseEvent.consume();
                 };
 
                 // Then links the created mouseEventHanlder to the click of the ACImage
@@ -1974,14 +1969,11 @@ public class GameSceneHandler implements GUIHandler {
                 islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
 
                 // Creates a function that will handle the islandClick
-                EventHandler<MouseEvent> clickOnIslandHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Invokes the function clickOnIsland
-                        clickOnIsland(mouseEvent, otherElementsClickable);
+                EventHandler<MouseEvent> clickOnIslandHandler = mouseEvent -> {
+                    // Invokes the function clickOnIsland
+                    clickOnIsland(mouseEvent, otherElementsClickable);
 
-                        mouseEvent.consume();
-                    }
+                    mouseEvent.consume();
                 };
 
                 islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);

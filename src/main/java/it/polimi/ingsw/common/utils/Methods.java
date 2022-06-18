@@ -64,6 +64,9 @@ public /*static*/ final class Methods {
      * @param <T>   The type of the array
      */
     public static <T> T[] copyOf(T[] array) {
+        if (array == null)
+            return null;
+
         return Arrays.copyOf(array, array.length);
     }
 
@@ -73,6 +76,9 @@ public /*static*/ final class Methods {
      * @return      A deep copy of the array
      */
     public static int[] copyOf(int[] array) {
+        if (array == null)
+            return null;
+
         return Arrays.copyOf(array, array.length);
     }
 
@@ -82,6 +88,9 @@ public /*static*/ final class Methods {
      * @return      A deep copy of the array
      */
     public static boolean[] copyOf(boolean[] array) {
+        if (array == null)
+            return null;
+
         return Arrays.copyOf(array, array.length);
     }
 

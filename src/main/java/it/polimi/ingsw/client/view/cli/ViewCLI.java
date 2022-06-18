@@ -118,13 +118,14 @@ public final class ViewCLI implements View {
 
             catch (IOException ignored) {
                 signalConnectionError();
-                address = null;
-                run();
             }
 
             catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
+            address = null;
+            launchUI();
         });
     }
 
@@ -330,8 +331,7 @@ public final class ViewCLI implements View {
     }
 
     public void close() {
-        if (virtualController != null)
-            virtualController.close();
+        ifNotNull(virtualController, VirtualController::close);
 
         currentMenu.interrupt();
 
@@ -356,7 +356,7 @@ public final class ViewCLI implements View {
         try {
             // Both tuples contain a string representing a candidate for the value
             // and a bool representing whether that value is acceptable
-            Tuple<String, Boolean> ip = new Tuple<>(null, false);
+            Tuple<String, Boolean> ip   = new Tuple<>(null, false);
             Tuple<String, Boolean> port = new Tuple<>(null, false);
 
             while (!interrupted()) {
@@ -598,7 +598,7 @@ public final class ViewCLI implements View {
 
                                 // Return: select the item
                                 case ENTER -> {
-                                    expertMode = expSel.value() == 1;
+                                    expertMode = expSel.value() == 0;
                                     continue MENU;
                                 }
 
@@ -930,8 +930,8 @@ public final class ViewCLI implements View {
     public void requestWizard(Wizard[] availableWizards) {
         contextSwitch(() -> {
             try {
-                int numOfWiz = availableWizards.length;
-                ModuloNat wizSel = new ModuloNat(numOfWiz);
+                int       numOfWiz = availableWizards.length;
+                ModuloNat wizSel   = new ModuloNat(numOfWiz);
 
                 hideCursor(writer);
 
@@ -1002,6 +1002,12 @@ public final class ViewCLI implements View {
                             // Return: select the item
                             case ENTER -> {
                                 forwardViewToVirtualController(availableWizards[wizSel.value()]);
+                                menu = new ArrayList<>(logoList);
+                                menu.add("");
+                                menu.add("Rules set!");
+                                menu.add("Please wait for the other players to join");
+                                display.clear();
+                                display.updateAnsi(menu, 0);
                                 return;
                             }
 
@@ -1011,6 +1017,8 @@ public final class ViewCLI implements View {
                             }
                         }
                     }
+
+
                 }
             }
 
