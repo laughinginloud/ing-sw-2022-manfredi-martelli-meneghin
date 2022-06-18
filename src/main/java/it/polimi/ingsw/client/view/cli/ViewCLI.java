@@ -30,8 +30,7 @@ import java.util.*;
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
 import static it.polimi.ingsw.common.termutils.TermConstants.*;
-import static it.polimi.ingsw.common.utils.Methods.capitalize;
-import static it.polimi.ingsw.common.utils.Methods.interrupted;
+import static it.polimi.ingsw.common.utils.Methods.*;
 import static java.lang.Thread.currentThread;
 
 @SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue"})
@@ -111,7 +110,7 @@ public final class ViewCLI implements View {
     public void run() {
         playExitMenu();
 
-        if (address != null) {
+        ifNotNull(address, () -> {
             try {
                 new VirtualController(address, this);
                 virtualController.join();
@@ -126,7 +125,7 @@ public final class ViewCLI implements View {
             catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
+        });
     }
 
     private boolean confirmMenu(List<String> header, boolean cursorShown) throws IOException, InterruptedException {
@@ -197,102 +196,98 @@ public final class ViewCLI implements View {
 
     @Override
     public void playExitMenu() {
-        contextSwitch(() -> {
-            try {
-                ModuloNat sel = new ModuloNat(2);
+        try {
+            ModuloNat sel = new ModuloNat(2);
 
-                hideCursor(writer);
+            hideCursor(writer);
 
-                // Main menu
-                MENU:
+            // Main menu
+            MENU:
+            while (!interrupted()) {
+                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                menu.add("Welcome to Eryantis!");
+                menu.add("");
+
+                List<String> numOptions = new ArrayList<>(2);
+                numOptions.add("> Play");
+                numOptions.add("> Exit");
+
+                colorElem(numOptions, sel.value());
+                menu.addAll(numOptions);
+
+                display.clear();
+                display.updateAnsi(menu, 0);
+
+                // Key pressing loop
+                KEYPRESS:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
-                    menu.add("Welcome to Eryantis!");
-                    menu.add("");
+                    // Interpret the availale key
+                    switch (parseKey(keyStream)) {
+                        // Tab or an arrow: go to the other menu item
+                        case TAB, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW -> {
+                            sel.next();
+                            continue MENU;
+                        }
 
-                    List<String> numOptions = new ArrayList<>(2);
-                    numOptions.add("> Play");
-                    numOptions.add("> Exit");
+                        case ONE, Y -> {
+                            sel.set(0);
+                            continue MENU;
+                        }
 
-                    colorElem(numOptions, sel.value());
-                    menu.addAll(numOptions);
+                        case TWO, N, ESCAPE -> {
+                            sel.set(1);
+                            continue MENU;
+                        }
 
-                    display.clear();
-                    display.updateAnsi(menu, 0);
-
-                    // Key pressing loop
-                    KEYPRESS:
-                    while (!interrupted()) {
-                        // Interpret the availale key
-                        switch (parseKey(keyStream)) {
-                            // Tab or an arrow: go to the other menu item
-                            case TAB, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW -> {
-                                sel.next();
-                                continue MENU;
+                        // Return: select the item
+                        case ENTER -> {
+                            switch (sel.value()) {
+                                case 0 -> askAddress();
+                                case 1 -> close();
                             }
 
-                            case ONE, Y -> {
-                                sel.set(0);
-                                continue MENU;
-                            }
+                            break MENU;
+                        }
 
-                            case TWO, N, ESCAPE -> {
-                                sel.set(1);
-                                continue MENU;
-                            }
-
-                            // Return: select the item
-                            case ENTER -> {
-                                switch (sel.value()) {
-                                    case 0 -> askAddress();
-                                    case 1 -> close();
-                                }
-
-                                break MENU;
-                            }
-
-                            // Otherwise, just read the next keypress
-                            default -> {
-                                continue KEYPRESS;
-                            }
+                        // Otherwise, just read the next keypress
+                        default -> {
+                            continue KEYPRESS;
                         }
                     }
                 }
             }
+        }
 
-            catch (InterruptedException | UserInterruptException ignored) {
-                close();
-            }
+        catch (InterruptedException | UserInterruptException ignored) {
+            close();
+        }
 
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void signalConnectionError() {
-        contextSwitch(() -> {
-            display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+        display.clear();
+        display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
 
-            writer.println();
-            writer.println("There was an error whilst trying to connect to the server!");
-            writer.println("Please check your Internet connection and try again");
-            writer.println();
+        writer.println();
+        writer.println("There was an error whilst trying to connect to the server!");
+        writer.println("Please check your Internet connection and try again");
+        writer.println();
 
-            try {
-                hideCursor(writer);
-                writer.print("Press any key to continue...");
-                keyStream.read();
-                showCursor(writer);
-            }
+        try {
+            hideCursor(writer);
+            writer.print("Press any key to continue...");
+            keyStream.read();
+            showCursor(writer);
+        }
 
-            // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        // Should never happen
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -354,133 +349,131 @@ public final class ViewCLI implements View {
 
     @Override
     public void askAddress() {
-        contextSwitch(() -> {
-            showCursor(writer);
+        showCursor(writer);
 
-            LineReader localReader = LineReaderBuilder.builder().terminal(terminal).completer(new StringsCompleter("localhost")).option(LineReader.Option.INSERT_TAB, false).build();
+        LineReader localReader = LineReaderBuilder.builder().terminal(terminal).completer(new StringsCompleter("localhost")).option(LineReader.Option.INSERT_TAB, false).build();
 
-            try {
-                // Both tuples contain a string representing a candidate for the value
-                // and a bool representing whether that value is acceptable
-                Tuple<String, Boolean> ip = new Tuple<>(null, false);
-                Tuple<String, Boolean> port = new Tuple<>(null, false);
+        try {
+            // Both tuples contain a string representing a candidate for the value
+            // and a bool representing whether that value is acceptable
+            Tuple<String, Boolean> ip = new Tuple<>(null, false);
+            Tuple<String, Boolean> port = new Tuple<>(null, false);
 
-                while (!interrupted()) {
-                    //Update the console with the logo
-                    display.clear();
-                    display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            while (!interrupted()) {
+                //Update the console with the logo
+                display.clear();
+                display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
 
-                    // Print the request for the IP
-                    // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
-                    writer.println();
-                    writer.print("Please enter the IP address of the server you're trying to connect to:");
-                    writer.print(" ");
+                // Print the request for the IP
+                // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
+                writer.println();
+                writer.print("Please enter the IP address of the server you're trying to connect to:");
+                writer.print(" ");
 
-                    // Check if there is an illegal candidate for the value
-                    if (ip.right()) {
-                        // Print the candidate on a red background with an error message
-                        writer.print(colorString(ip.left() + " is not a valid IP address", Ansi.BACKGROUND_RED));
+                // Check if there is an illegal candidate for the value
+                if (ip.right()) {
+                    // Print the candidate on a red background with an error message
+                    writer.print(colorString(ip.left() + " is not a valid IP address", Ansi.BACKGROUND_RED));
 
-                        // Reset the tuple
-                        ip = new Tuple<>(null, false);
+                    // Reset the tuple
+                    ip = new Tuple<>(null, false);
 
-                        // Wait for a generic key, hiding the cursor
-                        hideCursor(writer);
-                        keyStream.read();
-                        showCursor(writer);
+                    // Wait for a generic key, hiding the cursor
+                    hideCursor(writer);
+                    keyStream.read();
+                    showCursor(writer);
 
-                        continue;
-                    }
-
-                    // Otherwise, check if there is not a candidate
-                    else if (ip.left() == null) {
-                        // Read an IP, sanitizing it in the process as the unsatized version is currently useless
-                        String readIP = Address.sanitizeIP(localReader.readLine());
-
-                        if (readIP.equals(""))
-                            continue;
-
-                        // If the IP is incorrect, add it to the tuple and print again the menu, to highlight it with an error
-                        if (!Address.checkIP(readIP)) {
-                            ip = new Tuple<>(readIP, true);
-                            continue;
-                        }
-
-                        // Otherwise, the candidate is correct, so update the tuple accordingly
-                        ip = new Tuple<>(readIP, false);
-                        //moveCursor(writer, Ansi.Direction.UP, 5);
-                        continue;
-                    }
-
-                    // Otherwise, there already is a correct candidate, so print it
-                    else
-                        writer.println(colorString(ip.left(), Ansi.GREEN));
-
-                    // Print the request for the port number
-                    // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
-                    writer.println();
-                    writer.print("Please enter the server port:");
-                    writer.print(" ");
-
-                    localReader = LineReaderBuilder.builder().terminal(terminal).completer(new StringsCompleter("6556")).option(LineReader.Option.INSERT_TAB, false).build();
-
-                    // Check if there is an illegal candidate for the value
-                    if (port.right()) {
-                        // Print the candidate on a red background with an error message
-                        writer.print(colorString(port.left() + " is not a valid port number", Ansi.BACKGROUND_RED));
-
-                        // Reset the tuple
-                        port = new Tuple<>(null, false);
-
-                        // Wait for a generic key, hiding the cursor
-                        hideCursor(writer);
-                        keyStream.read();
-                        showCursor(writer);
-
-                        continue;
-                    }
-
-                    // Otherwise, read the port and try to parse it
-                    String readPort = localReader.readLine();
-
-                    if (readPort.equals(""))
-                        continue;
-
-                    try {
-                        // Filter for well known ports, that will not be accepted
-                        if (Address.checkPort(readPort)) {
-                            List<String> conf = new ArrayList<>(TermConstants.logoList);
-                            conf.add("");
-                            conf.add("Selected address:");
-                            conf.add("IP address: " + ip.left());
-                            conf.add("Port: " + readPort);
-
-                            if (confirmMenu(conf, true)) {
-                                address = new Address(ip.left(), Address.parsePort(readPort));
-                                return;
-                            }
-
-                            else
-                                ip = new Tuple<>(null, false);
-                        }
-                    }
-
-                    // If the port cannot be parsed, simply ignore the exception
-                    catch (NumberFormatException ignored) {}
-
-                    catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    // The port number is illegal because of parsing or for beign well known, so update the tuple accordingly
-                    port = new Tuple<>(readPort, true);
+                    continue;
                 }
-            }
 
-            catch (IOException e) {
-                throw new RuntimeException(e);
+                // Otherwise, check if there is not a candidate
+                else if (ip.left() == null) {
+                    // Read an IP, sanitizing it in the process as the unsatized version is currently useless
+                    String readIP = Address.sanitizeIP(localReader.readLine());
+
+                    if (readIP.equals(""))
+                        continue;
+
+                    // If the IP is incorrect, add it to the tuple and print again the menu, to highlight it with an error
+                    if (!Address.checkIP(readIP)) {
+                        ip = new Tuple<>(readIP, true);
+                        continue;
+                    }
+
+                    // Otherwise, the candidate is correct, so update the tuple accordingly
+                    ip = new Tuple<>(readIP, false);
+                    //moveCursor(writer, Ansi.Direction.UP, 5);
+                    continue;
+                }
+
+                // Otherwise, there already is a correct candidate, so print it
+                else
+                    writer.println(colorString(ip.left(), Ansi.GREEN));
+
+                // Print the request for the port number
+                // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
+                writer.println();
+                writer.print("Please enter the server port:");
+                writer.print(" ");
+
+                localReader = LineReaderBuilder.builder().terminal(terminal).completer(new StringsCompleter("6556")).option(LineReader.Option.INSERT_TAB, false).build();
+
+                // Check if there is an illegal candidate for the value
+                if (port.right()) {
+                    // Print the candidate on a red background with an error message
+                    writer.print(colorString(port.left() + " is not a valid port number", Ansi.BACKGROUND_RED));
+
+                    // Reset the tuple
+                    port = new Tuple<>(null, false);
+
+                    // Wait for a generic key, hiding the cursor
+                    hideCursor(writer);
+                    keyStream.read();
+                    showCursor(writer);
+
+                    continue;
+                }
+
+                // Otherwise, read the port and try to parse it
+                String readPort = localReader.readLine();
+
+                if (readPort.equals(""))
+                    continue;
+
+                try {
+                    // Filter for well known ports, that will not be accepted
+                    if (Address.checkPort(readPort)) {
+                        List<String> conf = new ArrayList<>(TermConstants.logoList);
+                        conf.add("");
+                        conf.add("Selected address:");
+                        conf.add("IP address: " + ip.left());
+                        conf.add("Port: " + readPort);
+
+                        if (confirmMenu(conf, true)) {
+                            address = new Address(ip.left(), Address.parsePort(readPort));
+                            return;
+                        }
+
+                        else
+                            ip = new Tuple<>(null, false);
+                    }
+                }
+
+                // If the port cannot be parsed, simply ignore the exception
+                catch (NumberFormatException ignored) {}
+
+                catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                // The port number is illegal because of parsing or for beign well known, so update the tuple accordingly
+                port = new Tuple<>(readPort, true);
             }
-        });
+        }
+
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -2705,7 +2698,7 @@ public final class ViewCLI implements View {
     }
 
     private void contextSwitch(Runnable runnable) {
-        currentMenu.interrupt();
+        ifNotNull(currentMenu, Thread::interrupt);
         currentMenu = new Thread(runnable);
         currentMenu.start();
     }
