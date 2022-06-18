@@ -484,7 +484,7 @@ public final class ViewCLI implements View {
                 Boolean expertMode   = null;
 
                 ModuloNat numSel = new ModuloNat(3);
-                ModuloNat expSel = new ModuloNat(2);
+                ModuloNat expSel = new ModuloNat(2, 1);
 
                 hideCursor(writer);
 
@@ -659,7 +659,9 @@ public final class ViewCLI implements View {
                     if (sel) {
                         menu.add(colorString("> Yes", CYAN));
                         menu.add("> No");
-                    } else {
+                    }
+
+                    else {
                         menu.add("> Yes");
                         menu.add(colorString("> No", CYAN));
                     }
@@ -942,8 +944,8 @@ public final class ViewCLI implements View {
 
                     List<String> wizOptions = new ArrayList<>(numOfWiz);
 
-                    for (Wizard wizard : availableWizards)
-                        wizOptions.add("> " + capitalize(wizard.name()));
+                    Arrays.stream(availableWizards).forEach(wizard ->
+                        wizOptions.add("> " + capitalize(wizard.name())));
 
                     colorElem(wizOptions, wizSel.value());
                     menu.addAll(wizOptions);
@@ -1024,22 +1026,22 @@ public final class ViewCLI implements View {
     public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
         contextSwitch(() -> {
             try {
-                int numOfCards = assistantCards.length;
-                ModuloNat cardSel = new ModuloNat(numOfCards);
+                int       numOfCards = assistantCards.length;
+                ModuloNat cardSel    = new ModuloNat(numOfCards);
 
                 hideCursor(writer);
 
                 // Main menu
                 MENU:
-                while (!currentThread().isInterrupted()) {
+                while (!interrupted()) {
                     List<String> menu = new ArrayList<>(TermConstants.logoList);
                     menu.add("");
                     menu.add("Please select the assistant card you would like to play:");
 
                     List<String> cardOptions = new ArrayList<>(numOfCards);
 
-                    for (AssistantCard card : assistantCards)
-                        cardOptions.add("> Card value: %2d, Movement points: %1d".formatted(card.cardValue(), card.movementPoints()));
+                    Arrays.stream(assistantCards).forEach(card ->
+                        cardOptions.add("> Card value: %2d, Movement points: %1d".formatted(card.cardValue(), card.movementPoints())));
 
                     colorElem(cardOptions, cardSel.value());
                     menu.addAll(cardOptions);
@@ -1049,7 +1051,7 @@ public final class ViewCLI implements View {
 
                     // Key pressing loop
                     KEYPRESS:
-                    while (!currentThread().isInterrupted()) {
+                    while (!interrupted()) {
                         // Interpret the availale key
                         switch (parseKey(keyStream)) {
                             // Tab, down arrow or right arrow: go to next menu item
@@ -1182,7 +1184,8 @@ public final class ViewCLI implements View {
 
                     List<String> cardOptions = new ArrayList<>(numOfCards);
 
-                    Arrays.stream(playableCharacterCards).forEach(card -> cardOptions.add("> " + capitalize(card.getCharacter().name())));
+                    Arrays.stream(playableCharacterCards).forEach(card ->
+                        cardOptions.add("> " + capitalize(card.getCharacter().name())));
 
                     colorElem(cardOptions, cardSel.value());
                     menu.addAll(cardOptions);
@@ -2674,7 +2677,9 @@ public final class ViewCLI implements View {
     @Override
     public Player getLocalPlayer() {
         if (localPlayer == null)
-            localPlayer = Arrays.stream(model.getPlayer()).reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2).orElseThrow();
+            localPlayer = Arrays.stream(model.getPlayer())
+                .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
+                .orElseThrow();
 
         return localPlayer;
     }
