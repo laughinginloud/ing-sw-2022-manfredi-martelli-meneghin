@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="wizardChoice_pane" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.sceneHandlers.WizardChoiceHandler">
+   <children>
+      <ImageView fx:id="wizardChoice_imgView" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/home_page.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="wizardChoice_subPane" layoutY="265.0" prefWidth="800.0">
+         <children>
+            <HBox fx:id="wizardChoice_hbox" alignment="CENTER" layoutX="36.0" layoutY="59.0" prefHeight="208.0" prefWidth="727.0">
+               <children>
+                  <AnchorPane fx:id="wizard0_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="wizard0_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/wizards/0_NATURE.jpg" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="wizard1_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="wizard1_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/wizards/1_DESERT.jpg" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="wizard2_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="wizard2_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/wizards/2_CLOUD.jpg" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="wizard3_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="wizard3_img" fitHeight="190.0" fitWidth="125.0" layoutX="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/wizards/3_SNOW.jpg" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+            <Label fx:id="wizardChoice_titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="201.0" prefHeight="46.0" prefWidth="399.0" text="Select your wizard:" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
