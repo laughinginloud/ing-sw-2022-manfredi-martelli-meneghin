@@ -301,12 +301,14 @@ public final class ViewCLI implements View {
         writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 1));
 
         for (int i = 0, isl = 0; i < 2; ++i) {
-            for (int j = 0; j < 6; ++j) {
+            for (int j = 0; j < 6; ++j, ++isl) {
                 if (isl >= model.getIslandsCount())
                     break;
 
                 drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
-                ++isl;
+
+                writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
+                writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
             }
 
             writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
@@ -315,10 +317,8 @@ public final class ViewCLI implements View {
 
         writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 1));
 
-        int nC = 4;
-
-        for (int i = 0; i < nC; ++i) {
-            drawCloud(writer, model.getCloudTile(nC));
+        for (int i = 0; i < model.getCloudTile().length; ++i) {
+            drawCloud(writer, model.getCloudTile(i));
 
             writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
             writer.print(Ansi.moveCursor(Ansi.Direction.UP, 7));
@@ -333,7 +333,7 @@ public final class ViewCLI implements View {
     public void close() {
         ifNotNull(virtualController, VirtualController::close);
 
-        currentMenu.interrupt();
+        ifNotNull(currentMenu, Thread::interrupt);
 
         terminal.setAttributes(savedAttributes);
         terminal.puts(InfoCmp.Capability.exit_ca_mode);

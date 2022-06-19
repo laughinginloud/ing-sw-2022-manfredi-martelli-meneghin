@@ -1,12 +1,9 @@
 package it.polimi.ingsw.common.termutils;
 
-import it.polimi.ingsw.common.utils.Methods;
-
 import java.io.IOException;
 import java.io.InputStream;
 
 import static it.polimi.ingsw.common.utils.Methods.interrupted;
-import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 /**

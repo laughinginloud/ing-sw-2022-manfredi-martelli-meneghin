@@ -99,6 +99,9 @@ public /*static*/ final class TermConstants {
     }
 
     private static String formatTower(Island island) {
+        if (island.getTowerColor() == null)
+            return " ";
+
         return colorString(String.valueOf(island.getMultiplicity()), getTowerColor(island.getTowerColor(), true));
     }
 
