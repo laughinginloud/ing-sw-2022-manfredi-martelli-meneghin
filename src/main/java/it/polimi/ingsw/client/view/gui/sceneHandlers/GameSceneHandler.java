@@ -1337,10 +1337,6 @@ public class GameSceneHandler implements GUIHandler {
     public void gsUpdateModel(GameModel model, Player player, Set<GameValues> updatedValues) {
         boolean containsModel = updatedValues.contains(GameValues.MODEL);
 
-        if (containsModel) {
-            resetAssistantCards(player.getAssistantDeck());
-        }
-
         if (containsModel || updatedValues.contains(GameValues.ISLANDARRAY) || updatedValues.contains(GameValues.MOTHERNATURE)) {
             // Updates the islands
             gsUpdateIslands(model.getIslands(), model.getMotherNaturePosition());
@@ -1538,19 +1534,26 @@ public class GameSceneHandler implements GUIHandler {
         Collections.addAll(availableAssistantCardsSet, assistantDeck);
 
         ImageView assistantCardID;
-        String    assistantCardWizardPath;
+        String    assistantCardPath;
         // For each assistantCard in a fullDeck (i.e. for each card existent)
         for (AssistantCard assistantCard : fullDeck) {
+            // Gets the ID of the assistantCard from the assistantCard enum
+            assistantCardID         = IDHelper.gsFindAssistantCardID(this, assistantCard);
+
             // If the card isn't in the availableDeck -> Flip the card
             if (!availableAssistantCardsSet.contains(assistantCard)){
-                // Gets the ID of the assistantCard from the assistantCard enum
-                assistantCardID         = IDHelper.gsFindAssistantCardID(this, assistantCard);
-
                 // Finds the handlerPath of the corresponding image that I need to put (wizard)
-                assistantCardWizardPath = PathHelper.fromWizardEnumToHandlerPath(wizard);
+                assistantCardPath = PathHelper.fromWizardEnumToHandlerPath(wizard);
 
                 // Sets the image using the path just found
-                assistantCardID.setImage(new Image(getClass().getResourceAsStream(assistantCardWizardPath)));
+                assistantCardID.setImage(new Image(getClass().getResourceAsStream(assistantCardPath)));
+            }
+            else {
+                // Finds the handlerPath of the corresponding image that I need to put (assistantCard)
+                assistantCardPath = PathHelper.fromAssistantCardNumberToHandlerPath(assistantCard.cardValue());
+
+                // Sets the image using the path just found
+                assistantCardID.setImage(new Image(getClass().getResourceAsStream(assistantCardPath)));
             }
         }
     }
