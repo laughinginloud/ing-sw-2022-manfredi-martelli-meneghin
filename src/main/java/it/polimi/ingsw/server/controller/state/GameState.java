@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.controller.state;
 
+import java.net.SocketException;
+
 /**
  * Interface representing a state of the game's DFA
  * @author Mattia Martelli
@@ -19,5 +21,5 @@ public sealed interface GameState
     /**
      * Execute the current state of the DFA
      */
-    void executeState();
+    void executeState() throws SocketException;
 }

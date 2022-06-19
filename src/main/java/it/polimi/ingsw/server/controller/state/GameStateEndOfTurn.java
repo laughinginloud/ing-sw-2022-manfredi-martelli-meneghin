@@ -12,6 +12,7 @@ import it.polimi.ingsw.common.model.CharacterCard;
 import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                     new GameStateEndCheckPhase();
     }
 
-    public void executeState() {
+    public void executeState() throws SocketException {
         try {
             ControllerData data          = ControllerData.getInstance();
             Player         curPlayer     = data.getCurrentPlayer();
@@ -56,12 +57,11 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
 
                     //Set the flag to true to change the GameCommandRequestAction's type during its initialization
                     canPlayCharacterCard = true;
-
                 }
 
                 // If a CharacterCard can be played by the current player
                 if (canPlayCharacterCard) {
-                    GameCommand request = new GameCommandRequestAction(GameActions.ENDTURN, characterCardInfo);
+                    GameCommand request  = new GameCommandRequestAction(GameActions.ENDTURN, characterCardInfo);
                     GameCommand response = curPlayerView.sendRequest(request);
 
                     // If the player decide to play a characterCard
@@ -102,6 +102,10 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                 GameCommand update = new GameCommandNotifyEndTurn();
                 curPlayerView.sendMessage(update);
             }
+        }
+
+        catch (SocketException e) {
+            throw e;
         }
 
         catch (Exception e) {

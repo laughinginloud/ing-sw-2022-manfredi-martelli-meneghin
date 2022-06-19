@@ -12,6 +12,7 @@ import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,14 +33,14 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                 new GameStateEndOfTurn();
     }
 
-    public void executeState() {
+    public void executeState() throws SocketException {
         try {
-            ControllerData data            = ControllerData.getInstance();
-            Player         player          = data.getCurrentPlayer();
-            VirtualView    playerView      = data.getPlayerView(player);
-            InfoMap        chooseCloudInfo = new InfoMap();
-            boolean expertMode = data.getExpertMode();
-            boolean canPlayCharacterCard = false;
+            ControllerData data                 = ControllerData.getInstance();
+            Player         player               = data.getCurrentPlayer();
+            VirtualView    playerView           = data.getPlayerView(player);
+            InfoMap        chooseCloudInfo      = new InfoMap();
+            boolean        expertMode           = data.getExpertMode();
+            boolean        canPlayCharacterCard = false;
 
             // Gets all the cloud still filled by students
             CloudTile[] availableCloud = getAvailableClouds();
@@ -114,6 +115,11 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
             // If the response is of the wrong kind throw an exception to help debug
             else
                 throw new IllegalStateException("Wrong command received: " + response);
+        }
+
+        // If there was a connection error, signal the DFA
+        catch (SocketException e) {
+            throw e;
         }
 
         catch (Exception e) {

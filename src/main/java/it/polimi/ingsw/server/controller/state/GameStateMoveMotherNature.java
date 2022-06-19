@@ -11,6 +11,7 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
                 new GameStateComputeIsland();
     }
 
-    public void executeState() {
+    public void executeState() throws SocketException {
         try {
             ControllerData data                 = ControllerData.getInstance();
             Player         player               = data.getCurrentPlayer();
@@ -117,6 +118,10 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
             // If the response is of the wrong kind throw an exception to help debug
             else
                 throw new IllegalStateException("Wrong command received: " + response);
+        }
+
+        catch (SocketException e) {
+            throw e;
         }
 
         catch (Exception e) {

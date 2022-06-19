@@ -10,6 +10,7 @@ import it.polimi.ingsw.common.model.GameModel;
 import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
 import java.util.*;
 
 /**
@@ -22,7 +23,7 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
     }
 
     @Override
-    public void executeState() {
+    public void executeState() throws SocketException {
         ControllerData data  = ControllerData.getInstance();
         // Orders the player according to the Eriantys Rules (the first to pick is the first player of the previous round, the other follow clockwise)
         selectPlanPhasePlayersOrder();
@@ -39,8 +40,8 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
             try {
                 // Requests to the current player to play a card between the playable AssistantCard he has in his deck
                 VirtualView playerView = data.getPlayerView(player);
-                GameCommand request = new GameCommandRequestAction(GameActions.PLAYASSISTANTCARD, playableAssistantCards);
-                GameCommand response = playerView.sendRequest(request);
+                GameCommand request    = new GameCommandRequestAction(GameActions.PLAYASSISTANTCARD, playableAssistantCards);
+                GameCommand response   = playerView.sendRequest(request);
 
                 if (response instanceof GameCommandPlayAssistantCard c) {
                     AssistantCard chosenCard = (AssistantCard) c.executeCommand();
@@ -52,6 +53,10 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
                     if (player.getAssistantDeck().length == 0)
                         data.setEmptyAssistantDeckTrigger();
                 }
+            }
+
+            catch (SocketException e) {
+                throw e;
             }
 
             catch (Exception e) {

@@ -11,6 +11,7 @@ import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
 import java.util.*;
 
 /**
@@ -28,7 +29,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 new GameStateMoveMotherNature();
     }
 
-    public void executeState() {
+    public void executeState() throws SocketException {
         try {
             ControllerData data          = ControllerData.getInstance();
             Player         currentPlayer = updateCurrentPlayer();
@@ -57,6 +58,10 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
 
             for (int i = 0; i < numOfMovements && !data.checkWinTrigger(); i++)
                 moveOneStudent(currentPlayer, playerView);
+        }
+
+        catch (SocketException e) {
+            throw e;
         }
 
         catch (Exception e){
@@ -100,9 +105,9 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
      * @throws Exception Can be thrown by GameCommands or by the Network
      */
     private void moveOneStudent(Player player, VirtualView playerView) throws Exception {
-        ControllerData data            = ControllerData.getInstance();
-        GameModel      model           = data.getGameModel();
-        Player[]       players         = model.getPlayer();
+        ControllerData data    = ControllerData.getInstance();
+        GameModel      model   = data.getGameModel();
+        Player[]       players = model.getPlayer();
 
         // Gets the entrance's students, the flag expertMode and sets useful flags to "false"
         Color[] movableStudents      = player.getSchoolBoard().getEntrance().getStudents();
@@ -129,7 +134,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
         // Send a RequestAction to the player is playing, requesting him to move students from the provided movableStudents to an Island or to a DiningRoomTable (if it is possible)
         // If the player is allowed to, send also the CharacterCard he could play
         GameCommand request = canPlayCharacterCard ?
-            new GameCommandRequestAction(GameActions.MOVESTUDENTORPLAYCARD, moveStudentsInfo):
+            new GameCommandRequestAction(GameActions.MOVESTUDENTORPLAYCARD, moveStudentsInfo) :
             new GameCommandRequestAction(GameActions.MOVESTUDENT, moveStudentsInfo);
         GameCommand response = playerView.sendRequest(request);
 
@@ -200,7 +205,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
         // If the player decided to play a CharacterCard
         else if (response instanceof GameCommandPlayCharacterCard c) {
             // If the player already used a CharacterCard during this turn, throws an exception
-            if(data.checkPlayedCard())
+            if (data.checkPlayedCard())
                 throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
             // Executes the command received
