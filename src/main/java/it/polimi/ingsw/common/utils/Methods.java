@@ -49,6 +49,20 @@ public /*static*/ final class Methods {
     }
 
     /**
+     * Execute an action based on the state of the object
+     * @param obj       The object to null-check
+     * @param ifNotNull The action to perform if the object is not null
+     * @param ifNull    The action to perform it the object is null
+     */
+    public static <T> void ifNotNullOrElse(T obj, Consumer<T> ifNotNull, Runnable ifNull) {
+        if (obj != null)
+            ifNotNull.accept(obj);
+
+        else
+            ifNull.run();
+    }
+
+    /**
      * Capitalize the first letter of the string, whilst putting in lower case the rest
      * @param str The string to capitalize
      * @return    The capitalized string

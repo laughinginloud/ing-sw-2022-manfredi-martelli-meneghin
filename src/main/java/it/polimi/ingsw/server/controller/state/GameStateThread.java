@@ -26,7 +26,7 @@ public final class GameStateThread extends Thread {
             state = state.nextState();
 
             ifNotNullOrElse(state,
-                () -> save(state),
+                GameStateThread::save,
                 GameStateThread::deleteSave);
         } while (state != null && !isInterrupted());
 
