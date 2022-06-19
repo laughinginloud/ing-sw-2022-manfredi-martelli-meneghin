@@ -1548,13 +1548,6 @@ public class GameSceneHandler implements GUIHandler {
                 // Sets the image using the path just found
                 assistantCardID.setImage(new Image(getClass().getResourceAsStream(assistantCardPath)));
             }
-            else {
-                // Finds the handlerPath of the corresponding image that I need to put (assistantCard)
-                assistantCardPath = PathHelper.fromAssistantCardNumberToHandlerPath(assistantCard.cardValue());
-
-                // Sets the image using the path just found
-                assistantCardID.setImage(new Image(getClass().getResourceAsStream(assistantCardPath)));
-            }
         }
     }
 
@@ -1899,29 +1892,6 @@ public class GameSceneHandler implements GUIHandler {
     // endregion GSUpdateExpertMode
 
     // endregion GSUpdateModel
-
-    // region ResetElements
-
-    /**
-     * Resets the assistantCards in the GUI the first time the model is updated to their images
-     * @param assistantCards the array of assistantCards to reset
-     */
-    public void resetAssistantCards(AssistantCard[] assistantCards) {
-        ImageView assistantCardID;
-        String    assistantCardPath;
-        for (AssistantCard assistantCard : assistantCards) {
-            // Gets the ID of the assistantCard from the assistantCard enum
-            assistantCardID         = IDHelper.gsFindAssistantCardID(this, assistantCard);
-
-            // Finds the handlerPath of the corresponding image that I need to put (assistantCard)
-            assistantCardPath = PathHelper.fromAssistantCardNumberToHandlerPath(assistantCard.cardValue());
-
-            // Sets the image using the path just found
-            assistantCardID.setImage(new Image(getClass().getResourceAsStream(assistantCardPath)));
-        }
-    }
-
-    // endregion ResetElements
 
     // region ActivateClicks
 
