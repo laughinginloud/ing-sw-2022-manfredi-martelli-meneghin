@@ -20,7 +20,6 @@ import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class VirtualController extends Thread implements Closeable {
     private static final Gson messageBuilder = Constants.jsonBuilder;

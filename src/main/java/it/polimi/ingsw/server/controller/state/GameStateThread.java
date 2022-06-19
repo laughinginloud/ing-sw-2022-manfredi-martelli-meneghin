@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server.controller.state;
 
-import it.polimi.ingsw.common.model.Player;
-import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.controller.save.GameSave;
 
@@ -10,24 +8,20 @@ import java.io.IOException;
 import static it.polimi.ingsw.common.utils.Methods.ifNotNullOrElse;
 
 public final class GameStateThread extends Thread {
-    private static String fileName;
+    private final String fileName;
 
     private GameState state;
 
-    public GameStateThread(GameState state) {
-        this.state = state;
+    public GameStateThread(GameState state, String fileName) {
+        this.state    = state;
+        this.fileName = fileName;
     }
 
     public synchronized void run() {
-        fileName = mkFileName();
-
         do {
             state.executeState();
             state = state.nextState();
-
-            ifNotNullOrElse(state,
-                GameStateThread::save,
-                GameStateThread::deleteSave);
+            autosave(state);
         } while (state != null && !isInterrupted());
 
         GameController.signalEndGame();
@@ -38,7 +32,20 @@ public final class GameStateThread extends Thread {
         return state;
     }
 
-    private static void save(GameState state) {
+    private void autosave(GameState state) {
+        ifNotNullOrElse(state,
+            this::save,
+            this::deleteSave);
+    }
+
+    private void save(GameState state) {
+        if (isInterrupted())
+            return;
+
+        if ((state instanceof GameStateSetup) ||
+            (state instanceof GameStateEndGame))
+            return;
+
         try {
             GameSave.saveGame(fileName, state);
         }
@@ -49,17 +56,7 @@ public final class GameStateThread extends Thread {
         }
     }
 
-    private static void deleteSave() {
+    private void deleteSave() {
         GameSave.deleteGame(fileName);
-    }
-
-    private static String mkFileName() {
-        Player[] players = ControllerData.getInstance().getPlayersOrder();
-        StringBuilder sb = new StringBuilder(players[0].getUsername());
-
-        for (int i = 1; i < players.length; i++)
-            sb.append("-").append(players[i].getUsername());
-
-        return sb.toString();
     }
 }

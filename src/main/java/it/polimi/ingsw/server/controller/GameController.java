@@ -172,7 +172,7 @@ public class GameController {
                         playerAgeQueue.clear();
                         activeGame = true;
                         data.sendMessageToPlayers(new GameCommandGameStart());
-                        (gameStateThread = new GameStateThread(startState)).start();
+                        (gameStateThread = new GameStateThread(startState, mkFileName(data.getPlayersOrder()))).start();
                         startState = new GameStateModelInitialization();
                     }
                 }
@@ -181,6 +181,20 @@ public class GameController {
                 // In this case, just go on normally, since the model hasn't been modified yet
                 catch (SocketException ignored) {}
         }
+    }
+
+    /**
+     * Create the file name that will be used
+     * @param players The array of players the name will be based on
+     * @return The file name
+     */
+    private static String mkFileName(Player[] players) {
+        StringBuilder sb = new StringBuilder(players[0].getUsername());
+
+        for (int i = 1; i < players.length; i++)
+            sb.append("-").append(players[i].getUsername());
+
+        return sb.toString();
     }
 
     /**
