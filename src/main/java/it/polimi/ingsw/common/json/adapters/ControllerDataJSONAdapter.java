@@ -161,7 +161,7 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
 
                             String mapField = null;
 
-                            jsonReader.beginArray();
+                            jsonReader.beginObject();
 
                             while (jsonReader.hasNext()) {
                                 JsonToken jsonTokenMap = jsonReader.peek();

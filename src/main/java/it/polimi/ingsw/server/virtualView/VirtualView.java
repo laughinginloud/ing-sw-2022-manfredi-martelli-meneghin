@@ -33,7 +33,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             outputStream = new DataOutputStream(socket.getOutputStream());
 
             // Set a timeout of 1 second for every input stream read
-            socket.setSoTimeout(250);
+            socket.setSoTimeout(500);
 
             start();
         }

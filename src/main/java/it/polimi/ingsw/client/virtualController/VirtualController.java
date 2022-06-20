@@ -95,6 +95,10 @@ public class VirtualController extends Thread implements Closeable {
             }
         }
 
+        catch (SocketException ignored) {
+            close();
+        }
+
         catch (Exception e) {
             throw new RuntimeException(e);
         }

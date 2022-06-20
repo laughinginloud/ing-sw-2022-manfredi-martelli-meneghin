@@ -23,8 +23,8 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     public GameStateComputeIsland(int islandIndex) {
-        this.islandIndex      = islandIndex;
-        winner                = null;
+        this.islandIndex = islandIndex;
+             winner      = null;
     }
 
     public GameState nextState() {
@@ -58,7 +58,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
         // Updates all the players about the variation on IslandArray caused by the execution of controlIsland or conquerIsland
         try {
-            InfoMap controlAndConquerInfo = new InfoMap();
+            InfoMap     controlAndConquerInfo = new InfoMap();
             GameCommand controlAndConquerUpdate;
 
             // Then save anyway the update IslandArray and PlayerArray into the map

@@ -7,6 +7,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.termutils.Ansi;
 import it.polimi.ingsw.common.termutils.TermConstants;
+import it.polimi.ingsw.common.utils.Methods;
 import it.polimi.ingsw.common.utils.ModuloNat;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.viewRecord.GameRules;
@@ -21,17 +22,19 @@ import org.jline.terminal.TerminalBuilder;
 import org.jline.utils.Display;
 import org.jline.utils.InfoCmp;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.SocketException;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
 import static it.polimi.ingsw.common.termutils.TermConstants.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
-import static java.lang.Thread.currentThread;
+import static java.util.Collections.singletonList;
+import static java.util.Comparator.*;
 
 @SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue"})
 public final class ViewCLI implements View {
@@ -181,6 +184,7 @@ public final class ViewCLI implements View {
                     case ENTER -> {
                         if (cursorShown)
                             showCursor(writer);
+
                         return okSel;
                     }
 
@@ -935,17 +939,23 @@ public final class ViewCLI implements View {
 
                 hideCursor(writer);
 
+                Wizard[] sortedWiz = Arrays.stream(availableWizards)
+                    .sorted(comparing(Enum::name))
+                    .toArray(Wizard[]::new);
+
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Please select the wizard you would like to play as:");
 
                     List<String> wizOptions = new ArrayList<>(numOfWiz);
 
-                    Arrays.stream(availableWizards).forEach(wizard ->
-                        wizOptions.add("> " + capitalize(wizard.name())));
+                    Arrays.stream(sortedWiz)
+                        .map(Enum::name)
+                        .map(Methods::capitalize)
+                        .forEachOrdered(w -> wizOptions.add("> " + w));
 
                     colorElem(wizOptions, wizSel.value());
                     menu.addAll(wizOptions);
@@ -1001,7 +1011,10 @@ public final class ViewCLI implements View {
 
                             // Return: select the item
                             case ENTER -> {
-                                forwardViewToVirtualController(availableWizards[wizSel.value()]);
+                                if (!confirmMenu(singletonList("Selected wizard: " + capitalize(sortedWiz[wizSel.value()].name())), false))
+                                    continue MENU;
+
+                                forwardViewToVirtualController(sortedWiz[wizSel.value()]);
                                 menu = new ArrayList<>(logoList);
                                 menu.add("");
                                 menu.add("Rules set!");
@@ -1035,7 +1048,7 @@ public final class ViewCLI implements View {
         contextSwitch(() -> {
             try {
                 int       numOfCards = assistantCards.length;
-                ModuloNat cardSel    = new ModuloNat(numOfCards);
+                ModuloNat cardSel    = new ModuloNat(numOfCards + 1);
 
                 hideCursor(writer);
 
@@ -1050,6 +1063,8 @@ public final class ViewCLI implements View {
 
                     Arrays.stream(assistantCards).forEach(card ->
                         cardOptions.add("> Card value: %2d, Movement points: %1d".formatted(card.cardValue(), card.movementPoints())));
+
+                    cardOptions.add("> Show board");
 
                     colorElem(cardOptions, cardSel.value());
                     menu.addAll(cardOptions);
@@ -1153,6 +1168,12 @@ public final class ViewCLI implements View {
 
                             // Return: select the item
                             case ENTER -> {
+                                if (cardSel.value() == numOfCards) {
+                                    showModel();
+
+                                    continue MENU;
+                                }
+
                                 forwardViewToVirtualController(assistantCards[cardSel.value()]);
                                 return;
                             }
@@ -1344,7 +1365,7 @@ public final class ViewCLI implements View {
     public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
         contextSwitch(() -> {
             try {
-                ModuloNat sel = new ModuloNat(2);
+                ModuloNat sel = new ModuloNat(3);
 
                 hideCursor(writer);
 
@@ -1355,10 +1376,11 @@ public final class ViewCLI implements View {
                     menu.add("");
                     menu.add("Please select where you'd like to move the student:");
 
-                    List<String> options = new ArrayList<>(2);
+                    List<String> options = new ArrayList<>(3);
 
                     options.add("> An island");
                     options.add("> Your dining room");
+                    options.add("> Show board");
 
                     colorElem(options, sel.value());
                     menu.addAll(options);
@@ -1393,6 +1415,11 @@ public final class ViewCLI implements View {
                                 continue MENU;
                             }
 
+                            case THREE -> {
+                                sel.set(2);
+                                continue MENU;
+                            }
+
                             // Return: select the item
                             case ENTER -> {
                                 switch (sel.value()) {
@@ -1403,6 +1430,10 @@ public final class ViewCLI implements View {
                                     case 1 -> {
                                         forwardViewToVirtualController(new MoveStudentInfo(true, null, selectedStudentIndex));
                                         return;
+                                    }
+
+                                    case 2 -> {
+                                        showModel();
                                     }
                                 }
                             }
@@ -2153,7 +2184,7 @@ public final class ViewCLI implements View {
         contextSwitch(() -> {
             try {
                 int       numOfColors = availableColors.length;
-                ModuloNat colorSel    = new ModuloNat(numOfColors);
+                ModuloNat colorSel    = new ModuloNat(numOfColors + 1);
 
                 hideCursor(writer);
 
@@ -2263,7 +2294,7 @@ public final class ViewCLI implements View {
 
                             // Return: select the item
                             case ENTER -> {
-                                forwardViewToVirtualController(availableColors[colorSel.value()]);
+                                forwardViewToVirtualController(colorSel.value());
                                 return;
                             }
 
@@ -2546,7 +2577,8 @@ public final class ViewCLI implements View {
                 hideCursor(writer);
                 writer.print("Press any key to continue...");
                 keyStream.read();
-                showCursor(writer);
+
+                updateModel(model, null);
             }
 
             // Should never happen
@@ -2583,7 +2615,8 @@ public final class ViewCLI implements View {
 
     @Override
     public void forwardViewToVirtualController(Object infoToSend) {
-        virtualController.messageAfterUserInteraction(infoToSend);
+        if (!interrupted())
+            virtualController.messageAfterUserInteraction(infoToSend);
     }
 
     @Override
@@ -2711,8 +2744,16 @@ public final class ViewCLI implements View {
     }
 
     private void contextSwitch(Runnable runnable) {
-        ifNotNull(currentMenu, Thread::interrupt);
+        ifNotNull(currentMenu, Thread::stop);
         currentMenu = new Thread(runnable);
         currentMenu.start();
+    }
+
+    private void showModel() throws IOException {
+        updateModel(model, null);
+
+        writer.println();
+        writer.print("Press any key to continue...");
+        keyStream.read();
     }
 }
