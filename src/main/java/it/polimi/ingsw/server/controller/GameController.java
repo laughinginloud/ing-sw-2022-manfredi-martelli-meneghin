@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.common.GameActions;
+import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
@@ -179,12 +181,16 @@ public class GameController {
                             throw new IllegalStateException();
                         }).toArray(Player[]::new));
 
-                        savedGame.delete();
+                        ifNotNull(savedGame, File::delete);
                         savedGame = null;
 
                         playerAgeQueue.clear();
                         activeGame = true;
                         data.sendMessageToPlayers(new GameCommandGameStart());
+
+                        if (loadedGame)
+                            data.sendMessageToPlayers(new GameCommandSendInfo(new InfoMap(GameValues.MODEL, data.getGameModel())));
+
                         (gameStateThread = new GameStateThread(startState, mkFileName(data.getPlayersOrder()))).start();
                         startState = new GameStateModelInitialization();
                     }

@@ -34,6 +34,16 @@ public final class InfoMap {
     }
 
     /**
+     * Create a map with an initial value-object tuple
+     * @param val The key of the tuple
+     * @param obj The value of the tuple
+     */
+    public InfoMap(GameValues val, Object obj) {
+        map = new EnumMap<GameValues, Object>(GameValues.class);
+        map.put(val, obj);
+    }
+
+    /**
      * Add an element to the map
      * @param key The key that specifies the type of the value
      * @param value An object of the type specified by the key
