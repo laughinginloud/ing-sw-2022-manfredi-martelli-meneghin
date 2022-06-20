@@ -429,6 +429,9 @@ public final class ControllerData {
     }
 
     public boolean getCharacterCardFlag(Flags flag) {
+        if (characterCardFlags == null)
+            characterCardFlags = new boolean[Flags.values().length];
+
         return characterCardFlags[flag.ordinal()];
     }
 

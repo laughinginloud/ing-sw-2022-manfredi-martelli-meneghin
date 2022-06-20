@@ -17,14 +17,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
+
 /**
  * Adapter for the ControllerData class
  * @author Mattia Martelli
  */
 public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
     public static final Gson json = new GsonBuilder()
-        .registerTypeAdapter(CharacterCard.class, new CharacterCardJSONAdapter())
-        .registerTypeAdapter(GameModel    .class, new GameModelJSONAdapter())
+        .registerTypeAdapter(CharacterCard       .class, new CharacterCardJSONAdapter())
+        .registerTypeAdapter(CharacterCardStudent.class, new CharacterCardStudentJSONAdapter())
+        .registerTypeAdapter(CharacterCardNoEntry.class, new CharacterCardNoEntryJSONAdapter())
+        .registerTypeAdapter(GameModel           .class, new GameModelJSONAdapter())
         .setPrettyPrinting()
         .create();
 
@@ -112,8 +116,10 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
             }
             jsonWriter.endArray();
 
-            jsonWriter.name("excludedColor");
-            jsonWriter.value(controllerData.getExcludedColor().name());
+            if (controllerData.getExcludedColor() != null) {
+                jsonWriter.name("excludedColor");
+                jsonWriter.value(controllerData.getExcludedColor().name());
+            }
         }
 
         jsonWriter.name("winTrigger");

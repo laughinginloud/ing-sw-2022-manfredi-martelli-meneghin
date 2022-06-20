@@ -903,6 +903,7 @@ public final class ViewCLI implements View {
 
                             if (confirmMenu(menu, true)) {
                                 forwardViewToVirtualController(new UsernameAndMagicAge(username.left(), UsernameAndMagicAge.parseMagicAge(readAge)));
+                                setUsernameVirtualController(username.left());
                                 return;
                             }
 
@@ -2187,7 +2188,7 @@ public final class ViewCLI implements View {
         contextSwitch(() -> {
             try {
                 int       numOfColors = availableColors.length;
-                ModuloNat colorSel    = new ModuloNat(numOfColors + 1);
+                ModuloNat colorSel    = new ModuloNat(numOfColors);
 
                 hideCursor(writer);
 
