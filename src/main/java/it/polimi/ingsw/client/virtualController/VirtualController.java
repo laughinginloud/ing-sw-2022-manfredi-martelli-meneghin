@@ -19,6 +19,7 @@ import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.*;
 
 public class VirtualController extends Thread implements Closeable {
