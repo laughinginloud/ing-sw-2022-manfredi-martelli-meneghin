@@ -25,15 +25,12 @@ import org.jline.utils.InfoCmp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.net.SocketException;
 import java.util.*;
-import java.util.stream.Stream;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
 import static it.polimi.ingsw.common.termutils.TermConstants.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
-import static java.util.Collections.singletonList;
 import static java.util.Comparator.*;
 
 @SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue"})
@@ -678,31 +675,34 @@ public final class ViewCLI implements View {
                     while (!interrupted()) {
                         // Interpret the availale key
                         switch (parseKey(keyStream)) {
-                            // Tab, down arrow or right arrow: go to next menu item
                             case TAB, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW -> {
                                 sel = !sel;
                                 continue MENU;
                             }
 
-                            // Number two: jump to two players
                             case Y, ONE -> {
                                 sel = true;
                                 continue MENU;
                             }
 
-                            // Number three: jump to three players
                             case N, TWO -> {
                                 sel = false;
                                 continue MENU;
                             }
 
-                            // Return: select the item
                             case ENTER -> {
+                                if (sel) {
+                                    display.clear();
+                                    display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
+                                    writer.println();
+                                    writer.println("Rules set!");
+                                    writer.print("Please wait for the other players to join");
+                                }
+
                                 forwardViewToVirtualController(sel);
                                 return;
                             }
 
-                            // Otherwise, just read the next keypress
                             default -> {
                                 continue KEYPRESS;
                             }
@@ -1011,7 +1011,10 @@ public final class ViewCLI implements View {
 
                             // Return: select the item
                             case ENTER -> {
-                                if (!confirmMenu(singletonList("Selected wizard: " + capitalize(sortedWiz[wizSel.value()].name())), false))
+                                List<String> header = new ArrayList<>(logoList);
+                                header.add("Selected wizard: " + capitalize(sortedWiz[wizSel.value()].name()));
+
+                                if (!confirmMenu(header, false))
                                     continue MENU;
 
                                 forwardViewToVirtualController(sortedWiz[wizSel.value()]);
@@ -2197,8 +2200,8 @@ public final class ViewCLI implements View {
 
                     List<String> colorOptions = new ArrayList<>(numOfColors);
 
-                    for (Color color : availableColors)
-                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)));
+                    Arrays.stream(availableColors).forEachOrdered(color ->
+                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false))));
 
                     underlineElem(colorOptions, colorSel.value());
                     menu.addAll(colorOptions);
@@ -2499,27 +2502,27 @@ public final class ViewCLI implements View {
 
     @Override
     public void notifyGameInProgress() {
-        contextSwitch(() -> {
-            display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+        virtualController.close();
 
-            writer.println();
-            writer.println("Another game is already in progress!");
-            writer.println("Please come back later");
-            writer.println();
+        display.clear();
+        display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
 
-            try {
-                hideCursor(writer);
-                writer.print("Press any key to continue...");
-                keyStream.read();
-                showCursor(writer);
-            }
+        writer.println();
+        writer.println("Another game is already in progress!");
+        writer.println("Please come back later");
+        writer.println();
 
-            // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            hideCursor(writer);
+            writer.print("Press any key to continue...");
+            keyStream.read();
+            showCursor(writer);
+        }
+
+        // Should never happen
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -2744,7 +2747,10 @@ public final class ViewCLI implements View {
     }
 
     private void contextSwitch(Runnable runnable) {
-        ifNotNull(currentMenu, Thread::stop);
+        ifNotNull(currentMenu, t -> {
+            t.interrupt();
+            t.stop();
+        });
         currentMenu = new Thread(runnable);
         currentMenu.start();
     }

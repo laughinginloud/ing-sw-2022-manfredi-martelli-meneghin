@@ -28,15 +28,19 @@ import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
 public class GameController {
     // Priority queue used to decide the initial order
     private static PriorityQueue<UsernameAndMagicAge> playerAgeQueue;
+    private static Set<String>                        forbiddenNames;
 
     private static ControllerData  data;
 
     private static boolean         activeGame;
     private static boolean         rulesSet;
+    private static boolean         loadedGame;
+
+    private static int             playersNum;
 
     private static GameStateThread gameStateThread;
 
-    private static GameState startState = new GameStateModelInitialization();
+    private static GameState       startState;
 
     /**
      * Start the server with the default port
@@ -57,11 +61,16 @@ public class GameController {
             return;
         }
 
-        data       = ControllerData.getInstance();
-        activeGame = false;
-        rulesSet   = false;
-
+        data           = ControllerData.getInstance();
+        activeGame     = false;
+        rulesSet       = false;
+        loadedGame     = false;
+        playersNum     = 0;
+        startState     = new GameStateModelInitialization();
         playerAgeQueue = new PriorityQueue<>(Comparator.comparingInt(UsernameAndMagicAge::magicAge).reversed());
+        forbiddenNames = new HashSet<>();
+
+        File         savedGame      = null;
 
         ServerSocket serverSocket;
 
@@ -77,6 +86,7 @@ public class GameController {
 
         System.out.println("Server started");
 
+        MAIN:
         while (true) {
             VirtualView view;
 
@@ -98,44 +108,44 @@ public class GameController {
 
             else
                 try {
-                    UsernameAndMagicAge usernameAndMagicAge;
+                    UsernameAndMagicAge usernameAndMagicAge = (UsernameAndMagicAge)
+                        view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, forbiddenNames)).executeCommand();
 
-                    if (rulesSet) {
-                        Set<String> usernameSet =
-                            // Morph the array of players to a stream to ease operations
-                            Arrays.stream(data.getPlayersOrder())
-                                // Morph the stream into a stream containing the usernames
-                                .map(p -> p == null ? "" : p.getUsername())
-                                // Normalize the usernames to avoid being case-sensitive
-                                .map(String::toLowerCase)
-                                // Collect the results into a set
-                                .collect(Collectors.toSet());
+                    if (rulesSet && loadedGame) {
+                        if (!savedGame.getName().contains(usernameAndMagicAge.username())) {
+                            view.sendMessage(new GameCommandGameProgress());
+                            view.close();
 
-                        // Send the player a request for the username, signaling which ones were already picked
-                        usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, usernameSet)).executeCommand();
+                            continue MAIN;
+                        }
+
+                        // Ask the player whether he wants to load the saved game
+                        if ((Boolean) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand())
+                            loadedGame = true;
+
+                        else {
+                            view.sendMessage(new GameCommandGameProgress());
+                            view.close();
+
+                            continue MAIN;
+                        }
                     }
 
-                    else
-                        // Send the player a request for the username, signaling which ones were already picked
-                        usernameAndMagicAge = (UsernameAndMagicAge) view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, new HashSet<>())).executeCommand();
+                    else if (!rulesSet) {
+                        Optional<File> optSavedGame = GameSave.findSavedGame(usernameAndMagicAge.username());
 
-                    if (!rulesSet) {
-                        Optional<File> savedGame = GameSave.findSavedGame(usernameAndMagicAge.username());
-
-                        if (savedGame.isPresent()) {
-                            File save = savedGame.get();
+                        if (optSavedGame.isPresent()) {
+                            savedGame = optSavedGame.get();
 
                             // Ask the player whether he wants to load the saved game
                             if ((Boolean) view.sendRequest(new GameCommandRequestAction(GameActions.LOADGAME, null)).executeCommand()) {
-                                try {
-                                    GameSave.loadGame(save);
-                                    save.delete();
-                                }
+                                loadedGame = true;
+                                GameSave.loadGame(savedGame);
+                            }
 
-                                // Should never happen, since the permissions have already been checked
-                                catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                            else if (loadedGame) {
+                                view.sendMessage(new GameCommandGameProgress());
+                                view.close();
                             }
 
                             // Ask the new rules
@@ -145,11 +155,11 @@ public class GameController {
 
                             // The game has not been loaded, but new rules have been, so delete the old save
                             else
-                                save.delete();
+                                savedGame.delete();
                         }
 
                         // Ask the new rules
-                        // Returns false if there was a connection error: in that case do not delete the save and go to the next loop
+                        // Returns false if there was a connection error: in that case do not delete the save and go to the next iteration
                         else if (!askRules(view))
                             continue;
 
@@ -169,6 +179,9 @@ public class GameController {
                             throw new IllegalStateException();
                         }).toArray(Player[]::new));
 
+                        savedGame.delete();
+                        savedGame = null;
+
                         playerAgeQueue.clear();
                         activeGame = true;
                         data.sendMessageToPlayers(new GameCommandGameStart());
@@ -180,6 +193,11 @@ public class GameController {
                 // If there's a SocketException whilst trying to add the player it means that it's no longer available
                 // In this case, just go on normally, since the model hasn't been modified yet
                 catch (SocketException ignored) {}
+
+                // Should never happen as permissions have been checked at the very beginning
+                catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
         }
     }
 
@@ -226,9 +244,12 @@ public class GameController {
 
                 // Reset the data
                 ControllerData.nukeInstance();
-                data = ControllerData.getInstance();
+                data       = ControllerData.getInstance();
                 activeGame = false;
-                rulesSet = false;
+                rulesSet   = false;
+                loadedGame = false;
+                playersNum = 0;
+                forbiddenNames.clear();
             }
         }
 
@@ -249,30 +270,36 @@ public class GameController {
 
                 // Reset the data
                 ControllerData.nukeInstance();
-                data     = ControllerData.getInstance();
-                rulesSet = false;
+                data       = ControllerData.getInstance();
+                rulesSet   = false;
+                loadedGame = false;
+                playersNum = 0;
                 playerAgeQueue.clear();
                 startState = new GameStateModelInitialization();
+                forbiddenNames.clear();
             }
 
             else {
                 Player player = data.removePlayer(playerView);
 
-                // Get the removed player's index
-                int playerIndex = 0;
-                for (int i = 0; i < data.getNumOfPlayers(); ++i)
-                    if (data.getPlayersOrder(i).equals(player)) {
-                        playerIndex = i;
-                        break;
-                    }
+                ifNotNull(player, () -> {
+                    // Get the removed player's index
+                    int playerIndex = 0;
+                    for (int i = 0; i < playersNum; ++i)
+                        if (data.getPlayersOrder(i).equals(player)) {
+                            playerIndex = i;
+                            break;
+                        }
 
-                // Move all the other players upwards
-                for (int i = playerIndex; i < data.getNumOfPlayers() - 1; ++i)
-                    data.getPlayersOrder()[i] = data.getPlayersOrder(i + 1);
+                    // Move all the other players upwards
+                    for (int i = playerIndex; i < data.getNumOfPlayers() - 1; ++i)
+                        data.getPlayersOrder()[i] = data.getPlayersOrder(i + 1);
 
-                data.getPlayersOrder()[data.getNumOfPlayers() - 1] = null;
+                    data.getPlayersOrder()[data.getNumOfPlayers() - 1] = null;
 
-                playerAgeQueue.removeIf(uM -> uM.username().equals(player.getUsername()));
+                    playerAgeQueue.removeIf(uM -> uM.username().equalsIgnoreCase(player.getUsername()));
+                    forbiddenNames.remove(player.getUsername().toLowerCase());
+                });
             }
         }
     }
@@ -282,6 +309,8 @@ public class GameController {
      */
     public static synchronized void signalEndGame() {
         activeGame = false;
+        loadedGame = false;
+
         ControllerData.nukeInstance();
         data = ControllerData.getInstance();
     }
@@ -300,6 +329,17 @@ public class GameController {
         int numOfPlayers = data.getNumOfPlayers();
 
         playerAgeQueue.add(usernameAndMagicAge);
+        forbiddenNames.add(usernameAndMagicAge.username().toLowerCase());
+
+        if (loadedGame) {
+            data.addViewPlayer(Arrays.stream(players)
+                .reduce((p1, p2) -> p1.getUsername().equals(usernameAndMagicAge.username().toLowerCase()) ? p1 : p2).orElseThrow(),
+                view);
+
+            playersNum++;
+
+            return playersNum == numOfPlayers;
+        }
 
         // Get a set of all the wizards and remove the ones that were already picked
         Set<Wizard> wizardSet = Wizard.set();
@@ -338,7 +378,9 @@ public class GameController {
                 // Add the newly created player to the isomorphism (Player, View)
                 data.addViewPlayer(players[i], view);
 
-                return i + 1 == numOfPlayers;
+                playersNum++;
+
+                return playersNum == numOfPlayers;
             }
 
         // Should never be reached
