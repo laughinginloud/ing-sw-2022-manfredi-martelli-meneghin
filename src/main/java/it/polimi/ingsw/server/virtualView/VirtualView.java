@@ -261,6 +261,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             }
 
             catch (Exception ignored) {
+                endThread();
                 throw new SocketException();
             }
 
@@ -269,6 +270,7 @@ public class VirtualView extends Thread implements AutoCloseable {
         }
 
         catch (IOException e) {
+            endThread();
             throw new SocketException();
         }
     }

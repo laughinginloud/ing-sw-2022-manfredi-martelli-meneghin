@@ -64,6 +64,12 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
                 }
             }
 
+            if (motherNatureMovement == 1) {
+                GameModel model = data.getGameModel();
+                model.setMotherNaturePosition((model.getMotherNaturePosition() + 1) % model.getIslandsCount());
+                return;
+            }
+
             // Create a command representing the request of MotherNature's movement and send it to the player
             // If the player is allowed to, send also the CharacterCard he could play
             GameCommand request    = canPlayCharacterCard ?
@@ -154,13 +160,9 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
         int          numOfIsland         = islands.length;
         List<Island> reachableIslandList = new ArrayList<>();
 
-        for (int i = 1; i < motherNatureMovement && i < numOfIsland - 1; i++)
-            reachableIslandList.add(islands[motherNaturePosition + i]);
+        for (int i = 1; i <= motherNatureMovement; ++i)
+            reachableIslandList.add(islands[(motherNaturePosition + i) % numOfIsland]);
 
-        Island[] reachableIslands = new Island[reachableIslandList.size()];
-        for (int i = 0; i < reachableIslandList.size(); i++)
-            reachableIslands[i] = reachableIslandList.get(i);
-
-        return reachableIslands;
+        return reachableIslandList.toArray(Island[]::new);
     }
 }

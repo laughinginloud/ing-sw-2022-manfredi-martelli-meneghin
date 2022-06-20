@@ -1473,6 +1473,9 @@ public final class ViewCLI implements View {
                                 break;
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
+
+                            writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
+                            writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
                         }
 
                         writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
@@ -1588,7 +1591,7 @@ public final class ViewCLI implements View {
                             if (readIslInd <= 0 || readIslInd > islandNum)
                                 throw new NumberFormatException();
 
-                            forwardViewToVirtualController(readIslInd - 1);
+                            forwardViewToVirtualController((model.getMotherNaturePosition() + readIslInd) % model.getIslandsCount());
                             return;
                         }
 
@@ -2202,7 +2205,8 @@ public final class ViewCLI implements View {
                     List<String> colorOptions = new ArrayList<>(numOfColors);
 
                     Arrays.stream(availableColors).forEachOrdered(color ->
-                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false))));
+                        ifNotNull(color, () ->
+                            colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)))));
 
                     underlineElem(colorOptions, colorSel.value());
                     menu.addAll(colorOptions);
@@ -2298,7 +2302,7 @@ public final class ViewCLI implements View {
 
                             // Return: select the item
                             case ENTER -> {
-                                forwardViewToVirtualController(colorSel.value());
+                                new Thread(() -> forwardViewToVirtualController(colorSel.value())).start();
                                 return;
                             }
 
