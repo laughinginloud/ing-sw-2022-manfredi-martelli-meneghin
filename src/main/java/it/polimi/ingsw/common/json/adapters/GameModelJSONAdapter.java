@@ -24,7 +24,6 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
         .registerTypeAdapter(Island[].class, new IslandArrayJSONAdapter())
         .registerTypeAdapter(CloudTile[].class, new CloudTileArrayJSONAdapter())
         .registerTypeAdapter(Bag.class, new BagJSONAdapter())
-        .registerTypeAdapter(GlobalProfessorTable.class, new GlobalProfessorTableJSONAdapter())
         .registerTypeAdapter(CharacterCard[].class, new CharacterCardArrayJSONAdapter())
         .setPrettyPrinting()
         .create();

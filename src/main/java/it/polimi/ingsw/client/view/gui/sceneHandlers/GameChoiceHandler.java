@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import javafx.fxml.FXML;
@@ -40,6 +41,7 @@ public class GameChoiceHandler implements GUIHandler {
      */
     public void loadOldGame(){
         gui.forwardViewToVirtualController(true);
+        gui.switchScene(Pages.WAITING_ROOM);
     }
 
     /**

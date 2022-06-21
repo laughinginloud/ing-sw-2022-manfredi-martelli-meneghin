@@ -95,7 +95,7 @@ public class IslandArrayJSONAdapter extends TypeAdapter<Island[]> {
                         case "towerColor" -> {
                             String tc = jsonReader.nextString();
                             if (!tc.equals("none"))
-                                island.setTowerColor(json.fromJson(jsonReader.nextString(), TowerColor.class));
+                                island.setTowerColor(json.fromJson(tc, TowerColor.class));
                         }
                         case "noEntryTileCount" -> {
                             String count = jsonReader.nextString();
