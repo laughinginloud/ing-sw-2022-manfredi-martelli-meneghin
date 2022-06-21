@@ -157,7 +157,7 @@ public /*static*/ final class TermConstants {
     }
 
     private static String schoolTower(SchoolBoard schoolBoard, int index) {
-        return schoolBoard.getTowerCount() >= index ? " " : colorString(" ", getTowerColor(schoolBoard.getTowerColor(), true));
+        return schoolBoard.getTowerCount() >= index ? colorString(" ", getTowerColor(schoolBoard.getTowerColor(), true)) : " ";
     }
 
     public static void drawCloud(PrintWriter writer, CloudTile cloudTile) {

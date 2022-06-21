@@ -294,8 +294,6 @@ public final class ViewCLI implements View {
 
     @Override
     public void updateModel(GameModel model, Set<GameValues> ignored) {
-        //TODO: check correttezza del solo show
-
         display.clear();
         display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
@@ -1556,6 +1554,9 @@ public final class ViewCLI implements View {
                                 break;
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
+
+                            writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
+                            writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
                         }
 
                         writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));

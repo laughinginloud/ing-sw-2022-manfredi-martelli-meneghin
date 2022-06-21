@@ -160,8 +160,8 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
         int          numOfIsland         = islands.length;
         List<Island> reachableIslandList = new ArrayList<>();
 
-        for (int i = 1; i <= motherNatureMovement; ++i)
-            reachableIslandList.add(islands[(motherNaturePosition + i) % numOfIsland]);
+        for (int i = 1, p = motherNaturePosition + 1; i <= motherNatureMovement; ++i, ++p)
+            reachableIslandList.add(islands[p % numOfIsland]);
 
         return reachableIslandList.toArray(Island[]::new);
     }
