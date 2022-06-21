@@ -95,7 +95,13 @@ public /*static*/ final class TermConstants {
     }
 
     private static String formatStudent(Island island, Color student, boolean background) {
-        return colorString(String.valueOf(island.getStudentCounters(student)), getStudentColor(student, background));
+        int stdCnt = island.getStudentCounters(student);
+
+        return stdCnt == 0 ?
+            " " :
+            colorString(String.valueOf(stdCnt == 1 ?
+                " " :
+                stdCnt), getStudentColor(student, background), BLACK);
     }
 
     private static String formatTower(Island island) {

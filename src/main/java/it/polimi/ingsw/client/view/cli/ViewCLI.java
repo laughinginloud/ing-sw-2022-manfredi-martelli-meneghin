@@ -33,7 +33,7 @@ import static it.polimi.ingsw.common.termutils.TermConstants.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
 import static java.util.Comparator.*;
 
-@SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue"})
+@SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue", "UnnecessaryLabelOnBreakStatement"})
 public final class ViewCLI implements View {
 
     // region Terminal related fields
@@ -857,7 +857,6 @@ public final class ViewCLI implements View {
 
                             // Otherwise, the candidate is correct, so update the tuple accordingly
                             username = new Tuple<>(readName, UsernameAndMagicAge.checkUsername(readName, forbiddenUsernames));
-                            //moveCursor(writer, Ansi.Direction.UP, 5);
                             continue;
                         }
                     }
@@ -900,8 +899,8 @@ public final class ViewCLI implements View {
                             menu.add("Magic age: " + readAge);
 
                             if (confirmMenu(menu, true)) {
-                                forwardViewToVirtualController(new UsernameAndMagicAge(username.left(), UsernameAndMagicAge.parseMagicAge(readAge)));
                                 setUsernameVirtualController(username.left());
+                                forwardViewToVirtualController(new UsernameAndMagicAge(username.left(), UsernameAndMagicAge.parseMagicAge(readAge)));
                                 return;
                             }
 
@@ -1199,90 +1198,92 @@ public final class ViewCLI implements View {
 
     @Override
     public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        contextSwitch(() -> {
-            try {
-                int       numOfCards = playableCharacterCards.length;
-                ModuloNat cardSel    = new ModuloNat(numOfCards);
+        contextSwitch(() -> requestPlayCharacterCard_noSwitch(playableCharacterCards));
+    }
 
-                hideCursor(writer);
+    private void requestPlayCharacterCard_noSwitch(CharacterCard[] playableCharacterCards) {
+        try {
+            int       numOfCards = playableCharacterCards.length;
+            ModuloNat cardSel    = new ModuloNat(numOfCards);
 
-                // Main menu
-                MENU:
+            hideCursor(writer);
+
+            // Main menu
+            MENU:
+            while (!interrupted()) {
+                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                menu.add("");
+                menu.add("Please select the assistant card you would like to play:");
+
+                List<String> cardOptions = new ArrayList<>(numOfCards);
+
+                Arrays.stream(playableCharacterCards).forEach(card ->
+                    cardOptions.add("> " + capitalize(card.getCharacter().name())));
+
+                colorElem(cardOptions, cardSel.value());
+                menu.addAll(cardOptions);
+
+                display.clear();
+                display.updateAnsi(menu, 0);
+
+                // Key pressing loop
+                KEYPRESS:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
-                    menu.add("");
-                    menu.add("Please select the assistant card you would like to play:");
+                    // Interpret the availale key
+                    switch (parseKey(keyStream)) {
+                        // Tab, down arrow or right arrow: go to next menu item
+                        case TAB, DOWN_ARROW, RIGHT_ARROW -> {
+                            cardSel.next();
+                            continue MENU;
+                        }
 
-                    List<String> cardOptions = new ArrayList<>(numOfCards);
+                        // Up arrow or left arrow: go to the previous menu item
+                        case UP_ARROW, LEFT_ARROW -> {
+                            cardSel.prev();
+                            continue MENU;
+                        }
 
-                    Arrays.stream(playableCharacterCards).forEach(card ->
-                        cardOptions.add("> " + capitalize(card.getCharacter().name())));
+                        case ONE -> {
+                            cardSel.set(0);
+                            continue MENU;
+                        }
 
-                    colorElem(cardOptions, cardSel.value());
-                    menu.addAll(cardOptions);
-
-                    display.clear();
-                    display.updateAnsi(menu, 0);
-
-                    // Key pressing loop
-                    KEYPRESS:
-                    while (!interrupted()) {
-                        // Interpret the availale key
-                        switch (parseKey(keyStream)) {
-                            // Tab, down arrow or right arrow: go to next menu item
-                            case TAB, DOWN_ARROW, RIGHT_ARROW -> {
-                                cardSel.next();
-                                continue MENU;
-                            }
-
-                            // Up arrow or left arrow: go to the previous menu item
-                            case UP_ARROW, LEFT_ARROW -> {
-                                cardSel.prev();
-                                continue MENU;
-                            }
-
-                            case ONE -> {
-                                cardSel.set(0);
-                                continue MENU;
-                            }
-
-                            case TWO -> {
-                                if (numOfCards < 2)
-                                    continue KEYPRESS;
-
-                                cardSel.set(1);
-                                continue MENU;
-                            }
-
-                            case THREE -> {
-                                if (numOfCards < 3)
-                                    continue KEYPRESS;
-
-                                cardSel.set(2);
-                                continue MENU;
-                            }
-
-                            // Return: select the item
-                            case ENTER -> {
-                                forwardViewToVirtualController(playableCharacterCards[cardSel.value()]);
-                                return;
-                            }
-
-                            // Otherwise, just read the next keypress
-                            default -> {
+                        case TWO -> {
+                            if (numOfCards < 2)
                                 continue KEYPRESS;
-                            }
+
+                            cardSel.set(1);
+                            continue MENU;
+                        }
+
+                        case THREE -> {
+                            if (numOfCards < 3)
+                                continue KEYPRESS;
+
+                            cardSel.set(2);
+                            continue MENU;
+                        }
+
+                        // Return: select the item
+                        case ENTER -> {
+                            forwardViewToVirtualController(playableCharacterCards[cardSel.value()]);
+                            return;
+                        }
+
+                        // Otherwise, just read the next keypress
+                        default -> {
+                            continue KEYPRESS;
                         }
                     }
                 }
             }
+        }
 
-            catch (InterruptedException ignored) {}
+        catch (InterruptedException ignored) {}
 
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -1339,8 +1340,8 @@ public final class ViewCLI implements View {
                             // Return: select the item
                             case ENTER -> {
                                 switch (sel.value()) {
-                                    case 0 -> chooseStudentFromEntrance(entranceStudents);
-                                    case 1 -> requestPlayCharacterCard(playableCharacterCards); //TODO: controllare che non generi casini
+                                    case 0 -> chooseStudentFromEntrance_noSwitch(entranceStudents);
+                                    case 1 -> requestPlayCharacterCard_noSwitch(playableCharacterCards);
                                 }
 
                                 return;
@@ -1374,6 +1375,9 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
+                    if (!diningRoomFreeTables[localPlayer.getSchoolBoard().getEntrance().getStudents()[selectedStudentIndex].ordinal()])
+                        break MENU;
+
                     List<String> menu = new ArrayList<>(TermConstants.logoList);
                     menu.add("");
                     menu.add("Please select where you'd like to move the student:");
@@ -1431,6 +1435,9 @@ public final class ViewCLI implements View {
 
                                     case 1 -> {
                                         forwardViewToVirtualController(new MoveStudentInfo(true, null, selectedStudentIndex));
+                                        SchoolBoard sch = localPlayer.getSchoolBoard();
+                                        Color std = sch.getEntrance().retrieveStudent(selectedStudentIndex);
+                                        sch.getDiningRoom().setStudentCounters(std, sch.getDiningRoom().getStudentCounters(std) + 1);
                                         return;
                                     }
 
@@ -1448,9 +1455,7 @@ public final class ViewCLI implements View {
                     }
                 }
 
-
                 int islandNum = model.getIslandsCount();
-                sel = new ModuloNat(islandNum);
 
                 Tuple<String, Boolean> islInd = new Tuple<>(null, false);
 
@@ -1510,6 +1515,8 @@ public final class ViewCLI implements View {
                                 throw new NumberFormatException();
 
                             forwardViewToVirtualController(new MoveStudentInfo(false, readIslInd - 1, selectedStudentIndex));
+                            Color std = localPlayer.getSchoolBoard().getEntrance().retrieveStudent(selectedStudentIndex);
+                            model.getIsland(readIslInd - 1).setStudentCounters(std, model.getIsland(readIslInd - 1).getStudentCounters(std) + 1);
                             return;
                         }
 
@@ -1531,83 +1538,85 @@ public final class ViewCLI implements View {
 
     @Override
     public void requestMotherNatureMovement(Island[] possibleMovement) {
-        contextSwitch(() -> {
-            try {
-                int islandNum = possibleMovement.length;
+        contextSwitch(() -> requestMotherNatureMovement_noSwitch(possibleMovement));
+    }
 
-                Tuple<String, Boolean> islInd = new Tuple<>(null, false);
+    private void requestMotherNatureMovement_noSwitch(Island[] possibleMovement) {
+        try {
+            int islandNum = possibleMovement.length;
 
-                showCursor(writer);
+            Tuple<String, Boolean> islInd = new Tuple<>(null, false);
 
-                while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
-                    menu.add("");
-                    menu.add("Here are the islands you can move Mother Nature to");
-                    menu.add("");
+            showCursor(writer);
 
-                    display.clear();
-                    display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
+            while (!interrupted()) {
+                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                menu.add("");
+                menu.add("Here are the islands you can move Mother Nature to");
+                menu.add("");
 
-                    for (int i = 0, isl = 0; i < 2; ++i) {
-                        for (int j = 0; j < 6; ++j, ++isl) {
-                            if (isl >= islandNum)
-                                break;
+                display.clear();
+                display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                            drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
+                for (int i = 0, isl = 0; i < 2; ++i) {
+                    for (int j = 0; j < 6; ++j, ++isl) {
+                        if (isl >= islandNum)
+                            break;
 
-                            writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
-                            writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
-                        }
+                        drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
-                        writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                        writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                        writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
+                        writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
                     }
 
-                    writer.println();
-                    writer.print("Please enter the index, starting from 1, of the island you've chosen:");
-                    writer.print(" ");
+                    writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
+                    writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                }
 
-                    // Check if there is an illegal candidate for the value
-                    if (islInd.right()) {
-                        // Print the candidate on a red background with an error message
-                        writer.print(colorString(islInd.left() + " is not a valid index", Ansi.BACKGROUND_RED));
+                writer.println();
+                writer.print("Please enter the index, starting from 1, of the island you've chosen:");
+                writer.print(" ");
 
-                        // Reset the tuple
-                        islInd = new Tuple<>(null, false);
+                // Check if there is an illegal candidate for the value
+                if (islInd.right()) {
+                    // Print the candidate on a red background with an error message
+                    writer.print(colorString(islInd.left() + " is not a valid index", Ansi.BACKGROUND_RED));
 
-                        // Wait for a generic key, hiding the cursor
-                        hideCursor(writer);
-                        keyStream.read();
-                        showCursor(writer);
+                    // Reset the tuple
+                    islInd = new Tuple<>(null, false);
 
+                    // Wait for a generic key, hiding the cursor
+                    hideCursor(writer);
+                    keyStream.read();
+                    showCursor(writer);
+
+                    continue;
+                }
+
+                // Otherwise, check if there is not a candidate
+                else {
+                    String read = reader.readLine();
+
+                    try {
+                        int readIslInd = Integer.parseInt(read);
+                        if (readIslInd <= 0 || readIslInd > islandNum)
+                            throw new NumberFormatException();
+
+                        forwardViewToVirtualController((model.getMotherNaturePosition() + readIslInd) % model.getIslandsCount());
+                        return;
+                    }
+
+                    catch (NumberFormatException ignored) {
+                        islInd = new Tuple<>(read, true);
                         continue;
-                    }
-
-                    // Otherwise, check if there is not a candidate
-                    else {
-                        String read = reader.readLine();
-
-                        try {
-                            int readIslInd = Integer.parseInt(read);
-                            if (readIslInd <= 0 || readIslInd > islandNum)
-                                throw new NumberFormatException();
-
-                            forwardViewToVirtualController((model.getMotherNaturePosition() + readIslInd) % model.getIslandsCount());
-                            return;
-                        }
-
-                        catch (NumberFormatException ignored) {
-                            islInd = new Tuple<>(read, true);
-                            continue;
-                        }
                     }
                 }
             }
+        }
 
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -1664,8 +1673,8 @@ public final class ViewCLI implements View {
                             // Return: select the item
                             case ENTER -> {
                                 switch (sel.value()) {
-                                    case 0 -> requestMotherNatureMovement(possibleMovement); //TODO: controllare che non generi casini
-                                    case 1 -> requestPlayCharacterCard(playableCharacterCards); //TODO: controllare che non generi casini
+                                    case 0 -> requestMotherNatureMovement_noSwitch(possibleMovement);
+                                    case 1 -> requestPlayCharacterCard_noSwitch(playableCharacterCards);
                                 }
 
                                 return;
@@ -1690,75 +1699,77 @@ public final class ViewCLI implements View {
 
     @Override
     public void requestCloudTileSelection(CloudTile[] availableClouds) {
-        contextSwitch(() -> {
-            try {
-                int cloudsNum = availableClouds.length;
+        contextSwitch(() -> requestCloudTileSelection_noSwitch(availableClouds));
+    }
 
-                Tuple<String, Boolean> cldInd = new Tuple<>(null, false);
+    private void requestCloudTileSelection_noSwitch(CloudTile[] availableClouds) {
+        try {
+            int cloudsNum = availableClouds.length;
 
-                showCursor(writer);
+            Tuple<String, Boolean> cldInd = new Tuple<>(null, false);
 
-                while (true) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
-                    menu.add("");
-                    menu.add("Here are the cloud tiles from which you can choose from");
-                    menu.add("");
+            showCursor(writer);
 
-                    display.clear();
-                    display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
+            while (true) {
+                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                menu.add("");
+                menu.add("Here are the cloud tiles from which you can choose from");
+                menu.add("");
 
-                    Arrays.stream(availableClouds).forEach(availableCloud -> {
-                        drawCloud(writer, availableCloud);
+                display.clear();
+                display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                        writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                        writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
-                    });
+                Arrays.stream(availableClouds).forEach(availableCloud -> {
+                    drawCloud(writer, availableCloud);
 
-                    writer.println();
-                    writer.print("Please enter the index, starting from 1, of the cloud tile you've chosen:");
-                    writer.print(" ");
+                    writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
+                    writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                });
 
-                    // Check if there is an illegal candidate for the value
-                    if (cldInd.right()) {
-                        // Print the candidate on a red background with an error message
-                        writer.print(colorString(cldInd.left() + " is not a valid index", Ansi.BACKGROUND_RED));
+                writer.println();
+                writer.print("Please enter the index, starting from 1, of the cloud tile you've chosen:");
+                writer.print(" ");
 
-                        // Reset the tuple
-                        cldInd = new Tuple<>(null, false);
+                // Check if there is an illegal candidate for the value
+                if (cldInd.right()) {
+                    // Print the candidate on a red background with an error message
+                    writer.print(colorString(cldInd.left() + " is not a valid index", Ansi.BACKGROUND_RED));
 
-                        // Wait for a generic key, hiding the cursor
-                        hideCursor(writer);
-                        keyStream.read();
-                        showCursor(writer);
+                    // Reset the tuple
+                    cldInd = new Tuple<>(null, false);
 
-                        continue;
+                    // Wait for a generic key, hiding the cursor
+                    hideCursor(writer);
+                    keyStream.read();
+                    showCursor(writer);
+
+                    continue;
+                }
+
+                // Otherwise, check if there is not a candidate
+                else if (cldInd.left() == null) {
+                    String read = reader.readLine();
+
+                    try {
+                        int readCldInd = Integer.parseInt(read);
+                        if (readCldInd <= 0 || readCldInd > cloudsNum)
+                            throw new NumberFormatException();
+
+                        forwardViewToVirtualController(availableClouds[readCldInd - 1]);
+                        return;
                     }
 
-                    // Otherwise, check if there is not a candidate
-                    else if (cldInd.left() == null) {
-                        String read = reader.readLine();
-
-                        try {
-                            int readCldInd = Integer.parseInt(read);
-                            if (readCldInd <= 0 || readCldInd > cloudsNum)
-                                throw new NumberFormatException();
-
-                            forwardViewToVirtualController(availableClouds[readCldInd - 1]);
-                            return;
-                        }
-
-                        catch (NumberFormatException ignored) {
-                            cldInd = new Tuple<>(read, true);
-                            continue;
-                        }
+                    catch (NumberFormatException ignored) {
+                        cldInd = new Tuple<>(read, true);
+                        continue;
                     }
                 }
             }
+        }
 
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -1815,8 +1826,8 @@ public final class ViewCLI implements View {
                             // Return: select the item
                             case ENTER -> {
                                 switch (sel.value()) {
-                                    case 0 -> requestCloudTileSelection(availableClouds); //TODO: controllare che non generi casini
-                                    case 1 -> requestPlayCharacterCard(playableCharacterCards); //TODO: controllare che non generi casini
+                                    case 0 -> requestCloudTileSelection_noSwitch(availableClouds);
+                                    case 1 -> requestPlayCharacterCard_noSwitch(playableCharacterCards);
                                 }
 
                                 return;
@@ -2189,139 +2200,141 @@ public final class ViewCLI implements View {
 
     @Override
     public void chooseStudentFromEntrance(Color[] availableColors) {
-        contextSwitch(() -> {
-            try {
-                int       numOfColors = availableColors.length;
-                ModuloNat colorSel    = new ModuloNat(numOfColors);
+        contextSwitch(() -> chooseStudentFromEntrance_noSwitch(availableColors));
+    }
 
-                hideCursor(writer);
+    private void chooseStudentFromEntrance_noSwitch(Color[] availableColors) {
+        try {
+            int       numOfColors = availableColors.length;
+            ModuloNat colorSel    = new ModuloNat(numOfColors);
 
-                // Main menu
-                MENU:
+            hideCursor(writer);
+
+            // Main menu
+            MENU:
+            while (!interrupted()) {
+                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                menu.add("");
+                menu.add("Please select a color from your entrance:");
+
+                List<String> colorOptions = new ArrayList<>(numOfColors);
+
+                Arrays.stream(availableColors).forEachOrdered(color ->
+                    ifNotNull(color, () ->
+                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)))));
+
+                underlineElem(colorOptions, colorSel.value());
+                menu.addAll(colorOptions);
+
+                display.clear();
+                display.updateAnsi(menu, 0);
+
+                // Key pressing loop
+                KEYPRESS:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
-                    menu.add("");
-                    menu.add("Please select a color from your entrance:");
+                    // Interpret the availale key
+                    switch (parseKey(keyStream)) {
+                        // Tab, down arrow or right arrow: go to next menu item
+                        case TAB, DOWN_ARROW, RIGHT_ARROW -> {
+                            colorSel.next();
+                            continue MENU;
+                        }
 
-                    List<String> colorOptions = new ArrayList<>(numOfColors);
+                        // Up arrow or left arrow: go to the previous menu item
+                        case UP_ARROW, LEFT_ARROW -> {
+                            colorSel.prev();
+                            continue MENU;
+                        }
 
-                    Arrays.stream(availableColors).forEachOrdered(color ->
-                        ifNotNull(color, () ->
-                            colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)))));
+                        case ONE -> {
+                            colorSel.set(0);
+                            continue MENU;
+                        }
 
-                    underlineElem(colorOptions, colorSel.value());
-                    menu.addAll(colorOptions);
-
-                    display.clear();
-                    display.updateAnsi(menu, 0);
-
-                    // Key pressing loop
-                    KEYPRESS:
-                    while (!interrupted()) {
-                        // Interpret the availale key
-                        switch (parseKey(keyStream)) {
-                            // Tab, down arrow or right arrow: go to next menu item
-                            case TAB, DOWN_ARROW, RIGHT_ARROW -> {
-                                colorSel.next();
-                                continue MENU;
-                            }
-
-                            // Up arrow or left arrow: go to the previous menu item
-                            case UP_ARROW, LEFT_ARROW -> {
-                                colorSel.prev();
-                                continue MENU;
-                            }
-
-                            case ONE -> {
-                                colorSel.set(0);
-                                continue MENU;
-                            }
-
-                            case TWO -> {
-                                if (numOfColors < 2)
-                                    continue KEYPRESS;
-
-                                colorSel.set(1);
-                                continue MENU;
-                            }
-
-                            case THREE -> {
-                                if (numOfColors < 3)
-                                    continue KEYPRESS;
-
-                                colorSel.set(2);
-                                continue MENU;
-                            }
-
-                            case FOUR -> {
-                                if (numOfColors < 4)
-                                    continue KEYPRESS;
-
-                                colorSel.set(3);
-                                continue MENU;
-                            }
-
-                            case FIVE -> {
-                                if (numOfColors < 5)
-                                    continue KEYPRESS;
-
-                                colorSel.set(4);
-                                continue MENU;
-                            }
-
-                            case SIX -> {
-                                if (numOfColors < 6)
-                                    continue KEYPRESS;
-
-                                colorSel.set(5);
-                                continue MENU;
-                            }
-
-                            case SEVEN -> {
-                                if (numOfColors < 7)
-                                    continue KEYPRESS;
-
-                                colorSel.set(6);
-                                continue MENU;
-                            }
-
-                            case EIGHT -> {
-                                if (numOfColors < 8)
-                                    continue KEYPRESS;
-
-                                colorSel.set(7);
-                                continue MENU;
-                            }
-
-                            case NINE -> {
-                                if (numOfColors < 9)
-                                    continue KEYPRESS;
-
-                                colorSel.set(8);
-                                continue MENU;
-                            }
-
-                            // Return: select the item
-                            case ENTER -> {
-                                new Thread(() -> forwardViewToVirtualController(colorSel.value())).start();
-                                return;
-                            }
-
-                            // Otherwise, just read the next keypress
-                            default -> {
+                        case TWO -> {
+                            if (numOfColors < 2)
                                 continue KEYPRESS;
-                            }
+
+                            colorSel.set(1);
+                            continue MENU;
+                        }
+
+                        case THREE -> {
+                            if (numOfColors < 3)
+                                continue KEYPRESS;
+
+                            colorSel.set(2);
+                            continue MENU;
+                        }
+
+                        case FOUR -> {
+                            if (numOfColors < 4)
+                                continue KEYPRESS;
+
+                            colorSel.set(3);
+                            continue MENU;
+                        }
+
+                        case FIVE -> {
+                            if (numOfColors < 5)
+                                continue KEYPRESS;
+
+                            colorSel.set(4);
+                            continue MENU;
+                        }
+
+                        case SIX -> {
+                            if (numOfColors < 6)
+                                continue KEYPRESS;
+
+                            colorSel.set(5);
+                            continue MENU;
+                        }
+
+                        case SEVEN -> {
+                            if (numOfColors < 7)
+                                continue KEYPRESS;
+
+                            colorSel.set(6);
+                            continue MENU;
+                        }
+
+                        case EIGHT -> {
+                            if (numOfColors < 8)
+                                continue KEYPRESS;
+
+                            colorSel.set(7);
+                            continue MENU;
+                        }
+
+                        case NINE -> {
+                            if (numOfColors < 9)
+                                continue KEYPRESS;
+
+                            colorSel.set(8);
+                            continue MENU;
+                        }
+
+                        // Return: select the item
+                        case ENTER -> {
+                            forwardViewToVirtualController(colorSel.value());
+                            return;
+                        }
+
+                        // Otherwise, just read the next keypress
+                        default -> {
+                            continue KEYPRESS;
                         }
                     }
                 }
             }
+        }
 
-            catch (InterruptedException ignored) {}
+        catch (InterruptedException ignored) {}
 
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -2349,6 +2362,9 @@ public final class ViewCLI implements View {
                                 break;
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
+
+                            writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
+                            writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
                         }
 
                         writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
@@ -2625,7 +2641,8 @@ public final class ViewCLI implements View {
     @Override
     public void forwardViewToVirtualController(Object infoToSend) {
         if (!interrupted())
-            virtualController.messageAfterUserInteraction(infoToSend);
+            async(() ->
+                virtualController.messageAfterUserInteraction(infoToSend));
     }
 
     @Override

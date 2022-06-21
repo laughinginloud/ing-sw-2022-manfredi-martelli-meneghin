@@ -51,7 +51,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         Island         currentIsland = model.getIsland(islandIndex);
 
         // If the island doesn't have a tower on it launch the control routine, otherwise launch the conquest one
-        if (currentIsland.getTowerColor() == null)
+        if (currentIsland.getMultiplicity() == 0)
             controlIsland(data, model, currentIsland);
         else
             conquerIsland(data, model, currentIsland);

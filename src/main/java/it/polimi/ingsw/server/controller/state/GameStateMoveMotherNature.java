@@ -93,7 +93,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
             // If the player decided to play a CharacterCard
             else if (response instanceof GameCommandPlayCharacterCard c) {
                 // If the player already used a CharacterCard during this turn, throws an exception
-                if (ControllerData.getInstance().checkPlayedCard())
+                if (data.checkPlayedCard())
                     throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
                 // Executes the command received
@@ -108,7 +108,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
 
                     // If the game hasn't ended restart the method from the beginning
                     // in order to allow the MotherNature movement
-                    if (!ControllerData.getInstance().checkWinTrigger())
+                    if (!data.checkWinTrigger())
                         executeState();
                 }
 
