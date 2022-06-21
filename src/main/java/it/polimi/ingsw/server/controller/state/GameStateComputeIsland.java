@@ -10,6 +10,8 @@ import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.*;
 
+import static it.polimi.ingsw.common.utils.ModuloNat.mod;
+
 /**
  * State representing the operations on the islands: control, conquest and unification
  * @author Mattia Martelli
@@ -58,13 +60,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
         // Updates all the players about the variation on IslandArray caused by the execution of controlIsland or conquerIsland
         try {
-            InfoMap     controlAndConquerInfo = new InfoMap();
-            GameCommand controlAndConquerUpdate;
-
-            // Then save anyway the update IslandArray and PlayerArray into the map
-            controlAndConquerInfo.put(GameValues.ISLANDARRAY, model.getIslands());
-            controlAndConquerInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
-            controlAndConquerUpdate = new GameCommandSendInfo(controlAndConquerInfo);
+            GameCommand controlAndConquerUpdate = createMap(model);
 
             // Updates all the players
             for (Player playerToUpdate : model.getPlayer())
@@ -105,6 +101,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
         // Set the color of the tower on the island and decrease the count in the school board
         island.setTowerColor(schoolBoard.getTowerColor());
+        island.setMultiplicity(1);
         schoolBoard.decreaseTowerCount();
 
         // If the current player has no more towers, call the end game trigger
@@ -115,7 +112,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     private void conquerIsland(ControllerData data, GameModel model, Island island) {
         Map<Player, Integer> influencePoints = getIslandInfluences(data, model, island);
 
-        if (!ControllerData.getInstance().getCharacterCardFlag(ControllerData.Flags.ignoreTowersFlag))
+        if (!data.getCharacterCardFlag(ControllerData.Flags.ignoreTowersFlag))
             addTowerInfluence(influencePoints, model, island);
 
         Player      maxPlayer      = getMaxPlayer(influencePoints);
@@ -137,17 +134,19 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private void unifyIslands(GameModel model, int localIslandIndex) {
-        int previousIndex  = (localIslandIndex - 1) % model.getIslandsCount(),
-            successorIndex = (localIslandIndex + 1) % model.getIslandsCount();
+        int previousIndex  = mod(model.getIslandsCount(), localIslandIndex - 1),
+            successorIndex = mod(model.getIslandsCount(), localIslandIndex + 1);
 
-        if (model.getIsland(previousIndex).getTowerColor() == model.getIsland(localIslandIndex).getTowerColor()) {
+        if (model.getIsland(previousIndex).getTowerColor() != null &&
+            model.getIsland(previousIndex).getTowerColor().equals(model.getIsland(localIslandIndex).getTowerColor())) {
             mergeIslandsData(model.getIsland(previousIndex), model.getIsland(localIslandIndex));
             model.shiftIslands(localIslandIndex);
             successorIndex   = localIslandIndex;
             localIslandIndex = previousIndex;
         }
 
-        if (model.getIsland(localIslandIndex).getTowerColor() == model.getIsland(successorIndex).getTowerColor()) {
+        if (model.getIsland(localIslandIndex).getTowerColor() != null  &&
+            model.getIsland(localIslandIndex).getTowerColor().equals(model.getIsland(successorIndex).getTowerColor())) {
             mergeIslandsData(model.getIsland(localIslandIndex), model.getIsland(successorIndex));
             model.shiftIslands(successorIndex);
         }
@@ -182,15 +181,15 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             influences.put(player, 0);
 
         // Iterate for each color on the island and add +1 influence to the player who controls the professor
-        // Note that professorLocation is null checked because it is null if the professor's not controlled by anyone
+        // Note that professorLocation is empty checked because it is null if the professor's not controlled by anyone
         for (Color color : Color.values()) {
             if (data.getCharacterCardFlag(ControllerData.Flags.excludeColorFlag) && data.getExcludedColor() == color)
                 continue;
 
             if (island.getStudentCounters(color) > 0)
                 model.getGlobalProfessorTable()
-                    .getProfessorLocation(color)
-                    .ifPresent(p -> influences.replace(p, influences.get(p) + 1));
+                     .getProfessorLocation(color)
+                     .ifPresent(p -> influences.replace(p, influences.get(p) + 1));
         }
 
         return influences;
@@ -240,7 +239,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             // Transform in into a stream to ease operations
             .stream()
             // Reduce the stream to an optional containing the desired (Player, Integer)
-            .reduce((a, b) -> a.getValue() > b.getValue() ? a : b)
+            .reduce((a, b) -> a.getValue() >= b.getValue() ? a : b)
             // Check whether a value is really present, just to be safe
             .orElseThrow()
             // Return the desired player
@@ -249,7 +248,6 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
     private void mergeIslandsData(Island finalIsland, Island oldIsland) {
         finalIsland.setMultiplicity(finalIsland.getMultiplicity() + oldIsland.getMultiplicity());
-        finalIsland.setBackgroundID(oldIsland.getBackgroundID());
         if (ControllerData.getInstance().getExpertMode())
             finalIsland.setNoEntryTileCount(finalIsland.getNoEntryTileCount() + oldIsland.getNoEntryTileCount());
         for (Color color : Color.values())

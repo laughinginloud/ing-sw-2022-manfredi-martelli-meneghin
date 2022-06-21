@@ -364,11 +364,8 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case CHOOSECLOUD                -> {
-                // Stores the Map received from the Server via message
-                InfoMap receivedMap = (InfoMap) dataValue.right();
-
-                // Gets from the Map the availableClouds
-                CloudTile[] availableClouds = (CloudTile[]) receivedMap.get(GameValues.CLOUDARRAY);
+                // Gets the availableClouds
+                CloudTile[] availableClouds = (CloudTile[]) dataValue.right();
 
                 // Saves the Virtual Controller state
                 this.vcState = VCStates.REQ_CHOOSE_CLOUD;
@@ -438,8 +435,8 @@ public class VirtualController extends Thread implements Closeable {
             }
 
             case CHARACTERCARDEFFECT        -> {
-                InfoMap characterCardEffectMap = (InfoMap) dataValue.right();
-                PlayCharacterAction     characterAction        = (PlayCharacterAction)     characterCardEffectMap.get(GameValues.CHARACTERVALUE);
+                InfoMap             characterCardEffectMap = (InfoMap)             dataValue.right();
+                PlayCharacterAction characterAction        = (PlayCharacterAction) characterCardEffectMap.get(GameValues.CHARACTERVALUE);
 
                 switchReqActCharEffect(characterCardEffectMap, characterAction);
             }

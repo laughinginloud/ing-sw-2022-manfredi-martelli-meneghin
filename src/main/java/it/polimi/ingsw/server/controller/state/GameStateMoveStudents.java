@@ -172,9 +172,9 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                         gpt.setProfessorLocation(movedStudent, player);
                         updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
                     }
-                }, () -> {
-                    gpt.setProfessorLocation(movedStudent, player);
-                });
+                }, () ->
+                    gpt.setProfessorLocation(movedStudent, player)
+                );
 
                 // Gets the DiningRoom of each player and save it a DiningRoomArray
                 DiningRoom[] updatedDiningRooms = new DiningRoom[players.length];
@@ -237,9 +237,10 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
 
         // If the flag 'equalStudentsFlag' is set the professor moves if the number of students in the dining room
         // is >= to the player is currently holding the professor. Otherwise, only if the number of students is >.
-        return diningRoomControllingPlayer == null || (data.getCharacterCardFlag(ControllerData.Flags.equalStudentsFlag) ?
-            diningRoomNewPlayer.getStudentCounters(student) >= diningRoomControllingPlayer.getStudentCounters(student) :
-            diningRoomNewPlayer.getStudentCounters(student) >  diningRoomControllingPlayer.getStudentCounters(student));
+        return
+            data.getCharacterCardFlag(ControllerData.Flags.equalStudentsFlag) ?
+                diningRoomNewPlayer.getStudentCounters(student) >= diningRoomControllingPlayer.getStudentCounters(student) :
+                diningRoomNewPlayer.getStudentCounters(student) >  diningRoomControllingPlayer.getStudentCounters(student) ;
     }
 
     /**

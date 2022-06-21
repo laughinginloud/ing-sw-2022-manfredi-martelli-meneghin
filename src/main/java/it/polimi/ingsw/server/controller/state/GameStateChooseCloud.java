@@ -66,10 +66,10 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
 
             // Send a RequestAction to the current player, asking him to choose a CloudTile between the provided ones
             // If the player is allowed to, send also the CharacterCard he could play
-            GameCommand request    = canPlayCharacterCard ?
+            GameCommand request  = canPlayCharacterCard ?
                 new GameCommandRequestAction(GameActions.CHOOSECLOUDORPLAYCARD, chooseCloudInfo) :
                 new GameCommandRequestAction(GameActions.CHOOSECLOUD, availableCloud);
-            GameCommand response   = playerView.sendRequest(request);
+            GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right type, try to execute
             if (response instanceof GameCommandChooseCloud c) {
