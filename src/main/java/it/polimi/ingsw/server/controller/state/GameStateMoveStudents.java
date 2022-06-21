@@ -87,7 +87,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
 
         // If not, set currentPlayer to the nextPlayer of the PlayersOrderArray
         else
-            for (int i = 0; i < data.getNumOfPlayers(); i ++)
+            for (int i = 0; i < data.getNumOfPlayers(); i++)
                 if (previousCurrentPlayer.equals(data.getPlayersOrder(i))) {
                     updatedCurrentPlayer = data.getPlayersOrder(i + 1);
                     break;
@@ -148,47 +148,48 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
             // Create a Map where to store updatedFields in order to send them to the players
             InfoMap updateInfo = new InfoMap();
 
-            if (!toDiningRoom)
-                // Adds IslandArray value to the updateInfo Map that will be sent to all the players
-                updateInfo.put(GameValues.ISLANDARRAY, model.getIslands());
-
-            else {
+            if (toDiningRoom) {
                 // If the current player is playing an ExpertMode Game it checks if the current player will receive
                 // a Coin adding a student to a specific DiningRoomTable
-                if (data.getExpertMode())
-                    if (checkAndAddCoin(player, movedStudent)) {
-                        int coinPool = model.getCoinPool();
-
-                        // Adds globalCoinPool and playerArray values to the updateInfo Map that will be sent to all the players
-                        updateInfo.put(GameValues.COINPOOL,    coinPool);
-                        updateInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
-                    }
+                if (data.getExpertMode() && checkAndAddCoin(player, movedStudent)) {
+                    // Adds globalCoinPool and playerArray values to the updateInfo Map that will be sent to all the players
+                    updateInfo.put(GameValues.COINPOOL,    model.getCoinPool());
+                    updateInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
+                }
 
                 // Checks if the current player has more students on a specific color's DiningRoomTable than the player
                 // which is controlling the Professor of the same color. If necessary, it changes the ProfessorLocation
                 GlobalProfessorTable gpt = model.getGlobalProfessorTable();
                 gpt.getProfessorLocation(movedStudent).ifPresentOrElse(p -> {
-                    if (!player.equals(p) && checkProfessorMovement(player, p, movedStudent)) {
+                        if (!player.equals(p) && checkProfessorMovement(player, p, movedStudent)) {
+                            gpt.setProfessorLocation(movedStudent, player);
+                            updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
+                        }
+                    }, () -> {
                         gpt.setProfessorLocation(movedStudent, player);
                         updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
                     }
-                }, () ->
-                    gpt.setProfessorLocation(movedStudent, player)
                 );
 
                 // Gets the DiningRoom of each player and save it a DiningRoomArray
-                DiningRoom[] updatedDiningRooms = new DiningRoom[players.length];
-                for (int i = 0; i < players.length; i++)
-                    updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
+                DiningRoom[] updatedDiningRooms = Arrays.stream(players)
+                    .map(Player::getSchoolBoard)
+                    .map(SchoolBoard::getDiningRoom)
+                    .toArray(DiningRoom[]::new);
 
                 // Adds current player DiningRoom value to the updateInfo Map that will be sent to all the players
                 updateInfo.put(GameValues.DININGROOMARRAY, updatedDiningRooms);
             }
 
+            else
+                // Adds IslandArray value to the updateInfo Map that will be sent to all the players
+                updateInfo.put(GameValues.ISLANDARRAY, model.getIslands());
+
             // Gets the entrance of each player and save it an entranceArray
-            Entrance[] updatedEntrances = new Entrance[players.length];
-            for (int i = 0; i < players.length; i++)
-                updatedEntrances[i] = players[i].getSchoolBoard().getEntrance();
+            Entrance[] updatedEntrances = Arrays.stream(players)
+                .map(Player::getSchoolBoard)
+                .map(SchoolBoard::getEntrance)
+                .toArray(Entrance[]::new);
 
             // Adds current player Entrance value to the updateInfo Map that will be sent to all the players
             updateInfo.put(GameValues.ENTRANCEARRAY, updatedEntrances);

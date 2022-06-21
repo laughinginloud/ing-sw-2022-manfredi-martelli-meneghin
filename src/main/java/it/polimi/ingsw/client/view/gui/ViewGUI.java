@@ -296,8 +296,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        Platform.runLater(() -> gs.gsRequestPlayAssistantCard(assistantCards));
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestPlayAssistantCard(assistantCards);
+        });
     }
 
     // region GSSkyRequests
@@ -310,8 +312,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseIsland(Island[] availableIslands) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestChooseIsland(availableIslands);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestChooseIsland(availableIslands);
+        });
     }
 
     /**
@@ -336,8 +340,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestCloudTileSelection(CloudTile[] availableClouds) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestCloudTileSelection(availableClouds);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestCloudTileSelection(availableClouds);
+        });
     }
 
     // endregion GSSkyRequests
@@ -353,8 +359,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestChooseDiningRoom(compatibleDiningRoomTable);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestChooseDiningRoom(compatibleDiningRoomTable);
+        });
     }
 
     /**
@@ -382,8 +390,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestStudentEntranceMovement(selectedStudentIndex, diningRoomFreeTables);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestStudentEntranceMovement(selectedStudentIndex, diningRoomFreeTables);
+        });
     }
 
     // endregion GSSchoolBoardRequests
@@ -397,8 +407,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestPlayCharacterCard(playableCharacterCards);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestPlayCharacterCard(playableCharacterCards);
+        });
     }
 
     /**
@@ -408,8 +420,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestHowManyStudentsToMove(int maxNumOfStudentMovable) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestHowManyStudentsToMove(maxNumOfStudentMovable);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestHowManyStudentsToMove(maxNumOfStudentMovable);
+        });
     }
 
     /**
@@ -419,8 +433,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseColor(Color[] availableColors) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestChooseColor(availableColors);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestChooseColor(availableColors);
+        });
     }
 
     /**
@@ -435,8 +451,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsChooseStudentFromCharacterCard(characterCardPosition, availableColors, numOfAvailableStudent);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsChooseStudentFromCharacterCard(characterCardPosition, availableColors, numOfAvailableStudent);
+        });
     }
 
     // endregion GSExpertModeRequests
@@ -452,8 +470,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
+        });
     }
 
     /**
@@ -466,8 +486,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
+        });
     }
 
     /**
@@ -481,8 +503,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsRequestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsRequestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
+        });
     }
 
     // endregion GSExpertModeChoiceRequests
@@ -516,8 +540,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyPlayerDisconnection() {
-        Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_PLAYER_DISCONNECTION, null);
-        playerDisconnection.showAndWait();
+        Platform.runLater(() -> {
+            Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_PLAYER_DISCONNECTION, null);
+            playerDisconnection.showAndWait();
+        });
     }
 
     /**
@@ -538,8 +564,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyEndOfTurn() {
-        Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_END_THIS_PLAYER_TURN, null);
-        playerDisconnection.showAndWait();
+        Platform.runLater(() -> {
+            Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_END_THIS_PLAYER_TURN, null);
+            playerDisconnection.showAndWait();
+        });
     }
 
     // endregion Notifications

@@ -64,18 +64,19 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
                 }
             }
 
-            if (motherNatureMovement == 1) {
+            if (motherNatureMovement == 1 && !canPlayCharacterCard) {
                 GameModel model = data.getGameModel();
                 model.setMotherNaturePosition((model.getMotherNaturePosition() + 1) % model.getIslandsCount());
+                updateMotherNaturePosition();
                 return;
             }
 
             // Create a command representing the request of MotherNature's movement and send it to the player
             // If the player is allowed to, send also the CharacterCard he could play
-            GameCommand request    = canPlayCharacterCard ?
+            GameCommand request  = canPlayCharacterCard ?
                 new GameCommandRequestAction(GameActions.MOVEMOTHERNATUREORPLAYCARD, moveMNInfo):
                 new GameCommandRequestAction(GameActions.MOVEMOTHERNATURE, moveMNInfo);
-            GameCommand response   = playerView.sendRequest(request);
+            GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right kind, try to execute the movement
             if (response instanceof GameCommandMoveMotherNature c) {
