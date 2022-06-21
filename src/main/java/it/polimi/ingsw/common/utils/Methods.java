@@ -114,4 +114,12 @@ public /*static*/ final class Methods {
     public static boolean interrupted() {
         return currentThread().isInterrupted();
     }
+
+    /**
+     * Perform an action asynchronously
+     * @param action The action to perform
+     */
+    public static void async(Runnable action) {
+        (new Thread(action)).start();
+    }
 }
