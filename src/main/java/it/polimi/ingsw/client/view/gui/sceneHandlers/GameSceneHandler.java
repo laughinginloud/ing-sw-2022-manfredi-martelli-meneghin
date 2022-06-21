@@ -1920,7 +1920,7 @@ public class GameSceneHandler implements GUIHandler {
                     mouseEvent.consume();
                 };
 
-                // Then links the created mouseEventHanlder to the click of the ACImage
+                // Then links the created mouseEventHandler to the click of the ACImage
                 assistantCardImageView.setOnMouseClicked(clickOnAssistantCardHandler);
             }
         }
@@ -1966,15 +1966,12 @@ public class GameSceneHandler implements GUIHandler {
             if (cloudTilesModelSet.contains(availableClouds[i])) {
                 cloudTilePane = IDHelper.gsFindCloudAnchorPaneID(this, i);
 
-                EventHandler<MouseEvent> clickOnCloudTileHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Associates to the click of the mouse the function clickOnCloudTile
-                        // as response to the user's action
-                        clickOnCloudTile(mouseEvent, otherElementsClickable);
+                EventHandler<MouseEvent> clickOnCloudTileHandler = mouseEvent -> {
+                    // Associates to the click of the mouse the function clickOnCloudTile
+                    // as response to the user's action
+                    clickOnCloudTile(mouseEvent, otherElementsClickable);
 
-                        mouseEvent.consume();
-                    }
+                    mouseEvent.consume();
                 };
 
                 cloudTilePane.setOnMouseClicked(clickOnCloudTileHandler);
@@ -1993,15 +1990,12 @@ public class GameSceneHandler implements GUIHandler {
         for (Color color : compatibleDiningRoomTable) {
             diningRoomTablePane = IDHelper.gsFindDiningRoomTablePaneID(this, color);
 
-            EventHandler<MouseEvent> clickOnDiningRoomTableHandler = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    // Associates to the click of the mouse the function clickOnDiningRoomTable
-                    // as response to the user's action
-                    clickOnDiningRoomTable(mouseEvent);
+            EventHandler<MouseEvent> clickOnDiningRoomTableHandler = mouseEvent -> {
+                // Associates to the click of the mouse the function clickOnDiningRoomTable
+                // as response to the user's action
+                clickOnDiningRoomTable(mouseEvent);
 
-                    mouseEvent.consume();
-                }
+                mouseEvent.consume();
             };
 
             diningRoomTablePane.setOnMouseClicked(clickOnDiningRoomTableHandler);
@@ -2053,14 +2047,11 @@ public class GameSceneHandler implements GUIHandler {
                 characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, i);
 
                 // Creates a function that will handle the characterCardClick
-                EventHandler<MouseEvent> clickOnCharacterCardHandler = new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        // Invokes the function clickOnCharacterCard
-                        clickOnCharacterCard(mouseEvent, otherElementsClickable);
+                EventHandler<MouseEvent> clickOnCharacterCardHandler = mouseEvent -> {
+                    // Invokes the function clickOnCharacterCard
+                    clickOnCharacterCard(mouseEvent, otherElementsClickable);
 
-                        mouseEvent.consume();
-                    }
+                    mouseEvent.consume();
                 };
 
                 // Then links the created handler to the click of the CCImage
