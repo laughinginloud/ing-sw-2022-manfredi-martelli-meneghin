@@ -13,10 +13,9 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
 
 /**
  * State representing the retrieval of students from an island
@@ -43,12 +42,13 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
             boolean        canPlayCharacterCard = false;
 
             // Gets all the cloud still filled by students
-            CloudTile[] availableCloud = getAvailableClouds();
-            chooseCloudInfo.put(GameValues.CLOUDARRAY, availableCloud);
+            Optional<CloudTile[]> availableCloud = getAvailableClouds();
 
             // If there are not cloudTile filled by at least one student, end GameStateChooseCloud
-            if (availableCloud == null)
+            if (availableCloud.isEmpty())
                 return;
+
+            chooseCloudInfo.put(GameValues.CLOUDARRAY, availableCloud.get());
 
             // If the player hasn't player a card yet
             if (expertMode && !data.checkPlayedCard()) {
@@ -68,7 +68,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
             // If the player is allowed to, send also the CharacterCard he could play
             GameCommand request  = canPlayCharacterCard ?
                 new GameCommandRequestAction(GameActions.CHOOSECLOUDORPLAYCARD, chooseCloudInfo) :
-                new GameCommandRequestAction(GameActions.CHOOSECLOUD, availableCloud);
+                new GameCommandRequestAction(GameActions.CHOOSECLOUD, availableCloud.get());
             GameCommand response = playerView.sendRequest(request);
 
             // If the response is of the right type, try to execute
@@ -128,27 +128,17 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
         }
     }
 
-    private CloudTile[] getAvailableClouds() {
-        CloudTile[] presentCloudTiles = ControllerData.getInstance().getGameModel().getCloudTile();
-        CloudTile[] cloudTilesToSend;
+    private Optional<CloudTile[]> getAvailableClouds() {
         List<CloudTile> availableCloudTiles = new ArrayList<>();
 
-        for (CloudTile cloudTile : presentCloudTiles)
-            for (Color color : cloudTile.getStudents())
-                if (color != null)
-                    availableCloudTiles.add(cloudTile);
+        Arrays.stream(ControllerData.getInstance().getGameModel().getCloudTile())
+            .forEachOrdered(c -> {
+                if (c != null && c.getStudents()[0] != null)
+                    availableCloudTiles.add(c);
+            });
 
-        // If there are no available CloudTiles
-        if (availableCloudTiles.isEmpty())
-            return null;
-
-        // If there is at least one available CloudTile
-        else {
-            cloudTilesToSend = new CloudTile[availableCloudTiles.size()];
-            for (int i = 0; i < availableCloudTiles.size(); i++)
-                cloudTilesToSend[i] = availableCloudTiles.get(i);
-
-            return cloudTilesToSend;
-        }
+        return availableCloudTiles.isEmpty() ?
+            Optional.empty() :
+            Optional.of(availableCloudTiles.toArray(CloudTile[]::new));
     }
 }

@@ -1719,12 +1719,15 @@ public final class ViewCLI implements View {
                 display.clear();
                 display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                Arrays.stream(availableClouds).forEach(availableCloud -> {
+                Arrays.stream(availableClouds).forEachOrdered(availableCloud -> {
                     drawCloud(writer, availableCloud);
 
-                    writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                    writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                    writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
+                    writer.print(Ansi.moveCursor(Ansi.Direction.UP, 7));
                 });
+
+                writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
+                writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
 
                 writer.println();
                 writer.print("Please enter the index, starting from 1, of the cloud tile you've chosen:");
@@ -2774,7 +2777,13 @@ public final class ViewCLI implements View {
             t.interrupt();
             t.stop();
         });
-        currentMenu = new Thread(runnable);
+        currentMenu = new Thread(() -> {
+            try {
+                runnable.run();
+            }
+
+            catch (UserInterruptException ignored) {}
+        });
         currentMenu.start();
     }
 

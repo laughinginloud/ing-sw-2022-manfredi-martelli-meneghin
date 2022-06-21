@@ -144,7 +144,7 @@ public /*static*/ final class TermConstants {
     }
 
     private static String entranceStudent(Color[] students, int index) {
-        return students.length > index ? colorString(" ", getStudentColor(students[index], true)) : " ";
+        return students.length > index && students[index] != null ? colorString(" ", getStudentColor(students[index], true)) : " ";
     }
 
     private static String buildDining(DiningRoom diningRoom, Color color) {
