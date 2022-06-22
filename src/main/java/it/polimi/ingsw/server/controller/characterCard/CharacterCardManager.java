@@ -18,28 +18,28 @@ public class CharacterCardManager {
      * @return An array of CharacterCard containing the playable CharacterCards
      */
     public static CharacterCard[] getPlayableCharacterCard (Player player) {
-        PlayerExpert playerExpert = (PlayerExpert) player;
-        CharacterCard[]     presentCharacterCard = ControllerData.getInstance().getGameModel().getCharacterCards();
-        CharacterCard[]     characterCardsToSend;
+        CharacterCard[]     presentCharacterCard  = ControllerData.getInstance().getGameModel().getCharacterCards();
         List<CharacterCard> playableCharacterCard = new ArrayList<>();
 
-        // Select which CharacterCard can be played by the player
-        for (CharacterCard characterCard : presentCharacterCard)
-            if (playerExpert.getCoinCount() >= characterCard.getCost() && checkCharacterCardTokens(characterCard, playerExpert))
-                playableCharacterCard.add(characterCard);
+        if (player instanceof PlayerExpert p)
+            // Select which CharacterCard can be played by the player
+            for (CharacterCard characterCard : presentCharacterCard)
+                if (p.getCoinCount() >= characterCard.getCost() && checkCharacterCardTokens(characterCard, p))
+                    playableCharacterCard.add(characterCard);
+
+        if (player instanceof PlayerTeamExpert p)
+            // Select which CharacterCard can be played by the player
+            for (CharacterCard characterCard : presentCharacterCard)
+                if (p.getCoinCount() >= characterCard.getCost() && checkCharacterCardTokens(characterCard, p))
+                    playableCharacterCard.add(characterCard);
 
         // If there are no playable CharacterCards
         if (playableCharacterCard.isEmpty())
             return null;
 
-            // If there's at least one playable CharacterCard
-        else {
-            characterCardsToSend = new CharacterCard[playableCharacterCard.size()];
-            for (int i = 0; i < playableCharacterCard.size(); i++)
-                characterCardsToSend[i] = playableCharacterCard.get(i);
-
-            return characterCardsToSend;
-        }
+        // If there's at least one playable CharacterCard
+        else
+            return playableCharacterCard.toArray(CharacterCard[]::new);
     }
 
     /**
@@ -100,8 +100,10 @@ public class CharacterCardManager {
                 // Check every diningRoom and set characterCardPlayability to true if a student is found
                 for (DiningRoom diningRoom : diningRooms)
                     for (Color color : Color.values())
-                        if (diningRoom.getStudentCounters(color) > 0)
+                        if (diningRoom.getStudentCounters(color) > 0) {
                             characterCardPlayability = true;
+                            break;
+                        }
             }
 
             // If this characterCar's utilization is always allowed
