@@ -273,9 +273,6 @@ public class Main {
             terminal.close();
         }
 
-        // Should never happen, but if it does just end gracefully
-        catch (InterruptedException ignored) {}
-
         // Should never happen, as it would mean that the program does not have access to the terminal
         catch (IOException e) {
             e.printStackTrace();

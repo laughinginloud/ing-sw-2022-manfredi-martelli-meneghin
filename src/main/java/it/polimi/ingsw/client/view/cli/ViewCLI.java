@@ -260,7 +260,7 @@ public final class ViewCLI implements View {
             }
         }
 
-        catch (InterruptedException | UserInterruptException ignored) {
+        catch (UserInterruptException ignored) {
             close();
         }
 
@@ -709,8 +709,6 @@ public final class ViewCLI implements View {
                 }
             }
 
-            catch (InterruptedException ignored) {}
-
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -788,8 +786,6 @@ public final class ViewCLI implements View {
                     }
                 }
             }
-
-            catch (InterruptedException ignored) {}
 
             catch (IOException e) {
                 throw new RuntimeException(e);
@@ -1188,8 +1184,6 @@ public final class ViewCLI implements View {
                 }
             }
 
-            catch (InterruptedException ignored) {}
-
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -1279,8 +1273,6 @@ public final class ViewCLI implements View {
             }
         }
 
-        catch (InterruptedException ignored) {}
-
         catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -1355,8 +1347,6 @@ public final class ViewCLI implements View {
                     }
                 }
             }
-
-            catch (InterruptedException ignored) {}
 
             catch (IOException e) {
                 throw new RuntimeException(e);
@@ -1528,8 +1518,6 @@ public final class ViewCLI implements View {
                 }
             }
 
-            catch (InterruptedException ignored) {}
-
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -1689,8 +1677,6 @@ public final class ViewCLI implements View {
                 }
             }
 
-            catch (InterruptedException ignored) {}
-
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -1844,8 +1830,6 @@ public final class ViewCLI implements View {
                     }
                 }
             }
-
-            catch (InterruptedException ignored) {}
 
             catch (IOException e) {
                 throw new RuntimeException(e);
@@ -2048,9 +2032,6 @@ public final class ViewCLI implements View {
                 }
             }
 
-            // The thread has been interrupted, so I just end gracefully
-            catch (InterruptedException ignored) {}
-
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -2193,8 +2174,6 @@ public final class ViewCLI implements View {
                 }
             }
 
-            catch (InterruptedException ignored) {}
-
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -2332,8 +2311,6 @@ public final class ViewCLI implements View {
                 }
             }
         }
-
-        catch (InterruptedException ignored) {}
 
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -2516,8 +2493,6 @@ public final class ViewCLI implements View {
                     }
                 }
             }
-
-            catch (InterruptedException ignored) {}
 
             catch (IOException e) {
                 throw new RuntimeException(e);

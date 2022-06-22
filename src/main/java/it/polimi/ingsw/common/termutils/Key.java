@@ -34,52 +34,43 @@ public enum Key {
      * @return The first key read
      * @throws IOException if an I/O error occurs
      */
-    public static Key parseKey(InputStream inputStream) throws IOException, InterruptedException {
-        while (!interrupted()) {
-            if (inputStream.available() == 0) {
-                sleep(100);
-                continue;
+    public static Key parseKey(InputStream inputStream) throws IOException {
+        return switch (inputStream.read()) {
+            case 9 -> TAB;
+            case 13 -> ENTER;
+
+            case 27 -> {
+                if (inputStream.available() == 0)
+                    yield ESCAPE;
+
+                if (inputStream.read() != 79)
+                    yield GENERIC;
+
+                yield switch (inputStream.read()) {
+                    case 65 -> UP_ARROW;
+                    case 66 -> DOWN_ARROW;
+                    case 67 -> RIGHT_ARROW;
+                    case 68 -> LEFT_ARROW;
+
+                    default -> GENERIC;
+                };
             }
 
-            return switch (inputStream.read()) {
-                case 9  -> TAB;
-                case 13 -> ENTER;
+            case 49 -> ONE;
+            case 50 -> TWO;
+            case 51 -> THREE;
+            case 52 -> FOUR;
+            case 53 -> FIVE;
+            case 54 -> SIX;
+            case 55 -> SEVEN;
+            case 56 -> EIGHT;
+            case 57 -> NINE;
+            case 48 -> ZERO;
 
-                case 27 -> {
-                    if (inputStream.available() == 0)
-                        yield ESCAPE;
+            case 121 -> Y;
+            case 110 -> N;
 
-                    if (inputStream.read() != 79)
-                        yield GENERIC;
-
-                    yield switch (inputStream.read()) {
-                        case 65 -> UP_ARROW;
-                        case 66 -> DOWN_ARROW;
-                        case 67 -> RIGHT_ARROW;
-                        case 68 -> LEFT_ARROW;
-
-                        default -> GENERIC;
-                    };
-                }
-
-                case 49 -> ONE;
-                case 50 -> TWO;
-                case 51 -> THREE;
-                case 52 -> FOUR;
-                case 53 -> FIVE;
-                case 54 -> SIX;
-                case 55 -> SEVEN;
-                case 56 -> EIGHT;
-                case 57 -> NINE;
-                case 48 -> ZERO;
-
-                case 121 -> Y;
-                case 110 -> N;
-
-                default -> GENERIC;
-            };
-        }
-
-        throw new InterruptedException();
+            default -> GENERIC;
+        };
     }
 }
