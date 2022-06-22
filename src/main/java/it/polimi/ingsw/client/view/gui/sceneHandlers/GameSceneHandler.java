@@ -2331,9 +2331,8 @@ public class GameSceneHandler implements GUIHandler {
 
         AnchorPane selectedCloudTilePaneID = (AnchorPane) mouseEvent.getSource();
         int        selectedCloudTileIndex  = InfoHelper.gsFindCloudTileIndex(selectedCloudTilePaneID);
-        CloudTile  selectedCloudTile       = gui.getModel().getCloudTile(selectedCloudTileIndex);
 
-        gui.forwardViewToVirtualController(selectedCloudTile);
+        gui.forwardViewToVirtualController(selectedCloudTileIndex);
     }
 
     public void clickOnIslandDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
