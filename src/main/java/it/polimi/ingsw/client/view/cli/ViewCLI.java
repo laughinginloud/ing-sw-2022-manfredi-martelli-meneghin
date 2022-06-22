@@ -776,7 +776,7 @@ public final class ViewCLI implements View {
 
                             // Return: select the item
                             case ENTER -> {
-                                forwardViewToVirtualController(sel);
+                                forwardViewToVirtualController(!sel);
                                 return;
                             }
 

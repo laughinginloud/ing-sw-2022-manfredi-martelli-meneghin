@@ -41,7 +41,10 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
             boolean        canPlayCharacterCard = false;
 
             // Calculates the max motherNature movement and store it on the Map moveMNInfo
-            int motherNatureMovement = player.getLastPlayedCard().movementPoints() + (data.getExpertMode() && data.getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0);
+            int motherNatureMovement =
+                player.getLastPlayedCard().movementPoints() +
+                    (data.getExpertMode() &&
+                        data.getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0);
 
             int      currentMotherNaturePosition = data.getGameModel().getMotherNaturePosition();
             Island[] reachableIsland             = getReachableIslands(motherNatureMovement, currentMotherNaturePosition);

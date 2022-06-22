@@ -9,8 +9,6 @@ import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class containing the initialization procedure of ExpertMode feature
@@ -29,7 +27,10 @@ public final class GameStateExpertInitialization implements GameStateSetup {
 
         setStudentsOnCards(characterCards, model);
         setCoins(players, model);
-        data.setCardStrategies(Arrays.stream(characterCards).map(CharacterCardStrategy::build).toArray(CharacterCardStrategy[]::new));
+
+        data.setCardStrategies(Arrays.stream(characterCards)
+            .map(CharacterCardStrategy::build)
+            .toArray(CharacterCardStrategy[]::new));
 
         try {
             for (Player player : players) {
