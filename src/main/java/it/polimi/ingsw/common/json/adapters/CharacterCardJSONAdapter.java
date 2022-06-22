@@ -16,8 +16,6 @@ import java.io.IOException;
  * @author Mattia Martelli
  */
 public class CharacterCardJSONAdapter extends TypeAdapter<CharacterCard> {
-    private static final Gson json = new GsonBuilder().registerTypeAdapter(Color[].class, new ColorArrayJSONAdapter()).setPrettyPrinting().create();
-
     @Override
     public void write(JsonWriter jsonWriter, CharacterCard characterCard) throws IOException {
         jsonWriter.beginObject();

@@ -12,10 +12,7 @@ import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
 
@@ -25,10 +22,8 @@ import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
  */
 public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
     public static final Gson json = new GsonBuilder()
-        .registerTypeAdapter(CharacterCard       .class, new CharacterCardJSONAdapter())
-        .registerTypeAdapter(CharacterCardStudent.class, new CharacterCardStudentJSONAdapter())
-        .registerTypeAdapter(CharacterCardNoEntry.class, new CharacterCardNoEntryJSONAdapter())
-        .registerTypeAdapter(GameModel           .class, new GameModelJSONAdapter())
+        .registerTypeAdapter(CharacterCard[].class, new CharacterCardArrayJSONAdapter())
+        .registerTypeAdapter(GameModel      .class, new GameModelJSONAdapter())
         .setPrettyPrinting()
         .create();
 
@@ -85,13 +80,16 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
 
         if (controllerData.getExpertMode()) {
             jsonWriter.name("characterCardStrategies");
-            jsonWriter.beginArray();
             try {
                 Field characterCardField = CharacterCardStrategy.class.getDeclaredField("card");
                 characterCardField.setAccessible(true);
 
-                for (CharacterCardStrategy card : controllerData.getCardStrategies())
-                    jsonWriter.value(json.toJson(characterCardField.get(card)));
+                List<CharacterCard> cards = new ArrayList<>();
+
+                for (CharacterCardStrategy strategy : controllerData.getCardStrategies())
+                    cards.add((CharacterCard) characterCardField.get(strategy));
+
+                jsonWriter.value(json.toJson(cards.toArray(CharacterCard[]::new)));
 
                 characterCardField.setAccessible(false);
             }
@@ -99,7 +97,6 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
             catch (IllegalAccessException | NoSuchFieldException ignored) {
                 throw new IOException();
             }
-            jsonWriter.endArray();
 
             jsonWriter.name("characterCardFlags");
             jsonWriter.beginArray();
@@ -209,16 +206,11 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
                     case "expertMode" -> expertMode = jsonReader.nextBoolean();
                     case "currentPlayer" -> currentPlayerID = jsonReader.nextInt();
                     case "characterCardStrategies" -> {
-                        jsonReader.beginArray();
-
-                        List<CharacterCard> cardList = new ArrayList<>();
-
-                        while (jsonReader.hasNext())
-                            cardList.add(json.fromJson(jsonReader.nextString(), CharacterCard.class));
-
-                        characterCardStrategies = cardList.stream().map(CharacterCardStrategy::build).toArray(CharacterCardStrategy[]::new);
-
-                        jsonReader.endArray();
+                        CharacterCard[] cards   = json.fromJson(jsonReader.nextString(), CharacterCard[].class);
+                        
+                        characterCardStrategies = Arrays.stream(cards)
+                            .map(CharacterCardStrategy::build)
+                            .toArray(CharacterCardStrategy[]::new);
                     }
                     case "characterCardFlags" -> {
                         jsonReader.beginArray();

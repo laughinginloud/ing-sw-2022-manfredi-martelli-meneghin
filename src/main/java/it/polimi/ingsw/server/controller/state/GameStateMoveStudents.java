@@ -134,8 +134,8 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
         // Send a RequestAction to the player is playing, requesting him to move students from the provided movableStudents to an Island or to a DiningRoomTable (if it is possible)
         // If the player is allowed to, send also the CharacterCard he could play
         GameCommand request = canPlayCharacterCard ?
-            new GameCommandRequestAction(GameActions.MOVESTUDENTORPLAYCARD, moveStudentsInfo) :
-            new GameCommandRequestAction(GameActions.MOVESTUDENT, moveStudentsInfo);
+            new GameCommandRequestAction(GameActions.MOVESTUDENTORPLAYCARD, moveStudentsInfo):
+            new GameCommandRequestAction(GameActions.MOVESTUDENT,           moveStudentsInfo);
         GameCommand response = playerView.sendRequest(request);
 
         // If the player responded with the students he wants to move
@@ -168,8 +168,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                     }, () -> {
                         gpt.setProfessorLocation(movedStudent, player);
                         updateInfo.put(GameValues.GLOBALPROFESSORTABLE, gpt);
-                    }
-                );
+                    });
 
                 // Gets the DiningRoom of each player and save it a DiningRoomArray
                 DiningRoom[] updatedDiningRooms = Arrays.stream(players)
