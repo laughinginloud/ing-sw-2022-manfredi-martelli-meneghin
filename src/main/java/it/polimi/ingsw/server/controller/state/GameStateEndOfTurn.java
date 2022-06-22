@@ -40,7 +40,7 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
             VirtualView    curPlayerView = data.getPlayerView(curPlayer);
 
             // Gets the expertMode and set useful flag to "false"
-            boolean expertMode = data.getExpertMode();
+            boolean expertMode           = data.getExpertMode();
             boolean canPlayCharacterCard = false;
 
             // Creates a map where to save the fields that will be sent to the current player
@@ -86,10 +86,9 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                     }
 
                     // If the player decide to end his turn
-                    else if (response instanceof GameCommandEndTurn) {
+                    else if (response instanceof GameCommandEndTurn)
                         // Reset then all the characterCard flags that has been enabled during this turn and end the player's turn
                         resetCharacterCardFlags();
-                    }
 
                     // If the response is of the wrong kind throw an exception to help debug
                     else
@@ -98,10 +97,8 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
             }
 
             // If the player can't play a CharacterCard, notify him about the end of his actionPhase turn
-            else {
-                GameCommand update = new GameCommandNotifyEndTurn();
-                curPlayerView.sendMessage(update);
-            }
+            else
+                curPlayerView.sendMessage(new GameCommandNotifyEndTurn());
         }
 
         catch (SocketException e) {
@@ -131,9 +128,13 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
      */
     private void resetCharacterCardFlags() {
         ControllerData data = ControllerData.getInstance();
+
+        if (!data.getExpertMode())
+            return;
+
         for (ControllerData.Flags flag : ControllerData.Flags.values())
             data.setCharacterCardFlag(flag, false);
 
-        ControllerData.getInstance().setExcludedColor(null);
+        data.setExcludedColor(null);
     }
 }

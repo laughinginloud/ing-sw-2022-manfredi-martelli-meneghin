@@ -64,6 +64,15 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                 }
             }
 
+            if (availableCloud.get().length == 1 && !canPlayCharacterCard) {
+                for (Color color : availableCloud.get()[0].retrieveStudents())
+                    player.getSchoolBoard().getEntrance().appendStudent(color);
+
+                updatePlayers(data, player);
+
+                return;
+            }
+
             // Send a RequestAction to the current player, asking him to choose a CloudTile between the provided ones
             // If the player is allowed to, send also the CharacterCard he could play
             GameCommand request  = canPlayCharacterCard ?
@@ -78,12 +87,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                     for (Color student : students)
                         player.getSchoolBoard().getEntrance().appendStudent(student);
 
-                    InfoMap map = new InfoMap();
-                    map.put(GameValues.ENTRANCE, new Tuple<>(player.getPlayerID(), player.getSchoolBoard().getEntrance()));
-                    map.put(GameValues.CLOUDARRAY, data.getGameModel().getCloudTile());
-
-                    for (Player playerToUpdate : data.getGameModel().getPlayer())
-                        data.getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(map));
+                    updatePlayers(data, player);
                 }
 
                 catch (IllegalArgumentException e) {
@@ -140,5 +144,14 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
         return availableCloudTiles.isEmpty() ?
             Optional.empty() :
             Optional.of(availableCloudTiles.toArray(CloudTile[]::new));
+    }
+
+    private void updatePlayers(ControllerData data, Player player) {
+        InfoMap map = new InfoMap();
+        map.put(GameValues.ENTRANCE, new Tuple<>(player.getPlayerID(), player.getSchoolBoard().getEntrance()));
+        map.put(GameValues.CLOUDARRAY, data.getGameModel().getCloudTile());
+
+        for (Player playerToUpdate : data.getGameModel().getPlayer())
+            data.getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(map));
     }
 }

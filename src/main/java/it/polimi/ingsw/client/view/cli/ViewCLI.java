@@ -1758,7 +1758,7 @@ public final class ViewCLI implements View {
                         if (readCldInd <= 0 || readCldInd > cloudsNum)
                             throw new NumberFormatException();
 
-                        forwardViewToVirtualController(availableClouds[readCldInd - 1]);
+                        forwardViewToVirtualController(readCldInd - 1);
                         return;
                     }
 

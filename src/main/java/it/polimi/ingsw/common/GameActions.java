@@ -10,8 +10,8 @@ public enum GameActions {
     // Contains the cloudTiles that can be chosen by the player, at the end of his ActonPhase
     CHOOSECLOUD,
 
-    // An Array of Color representing the students on the cloudTile chosen by the player during GameStateChooseCloud
-    STUDENTSOFSELECTEDCLOUD,
+    // An int representing the cloudTile chosen by the player during GameStateChooseCloud
+    SELECTEDCLOUD,
 
     // CHOOSECLOUD + Array of characterCard playable by the current player
     CHOOSECLOUDORPLAYCARD,

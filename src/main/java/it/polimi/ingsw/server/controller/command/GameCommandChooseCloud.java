@@ -1,17 +1,19 @@
 package it.polimi.ingsw.server.controller.command;
 
-import it.polimi.ingsw.common.model.Color;
+import it.polimi.ingsw.server.controller.ControllerData;
 
 /**
  * Command used by the client to reply after ActionPhase's CloudTile choice of the current player
  * @author Mattia Martelli
  */
 public class GameCommandChooseCloud implements GameCommand {
-    private final Color[] studentsOnCloud;
+    private final int cloudIndex;
 
-    public GameCommandChooseCloud(Color[] studentsOnCloud) {
-        this.studentsOnCloud = studentsOnCloud;
+    public GameCommandChooseCloud(int cloudIndex) {
+        this.cloudIndex = cloudIndex;
     }
 
-    public Object executeCommand() { return studentsOnCloud; }
+    public Object executeCommand() {
+        return ControllerData.getInstance().getGameModel().getCloudTile(cloudIndex).retrieveStudents();
+    }
 }

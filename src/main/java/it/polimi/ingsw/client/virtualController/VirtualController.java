@@ -239,14 +239,10 @@ public class VirtualController extends Thread implements Closeable {
 
     /**
      * Sends to the Controller the students retrieved by the cloud chosen by the player after he received "ChooseCloud" message
-     * @param selectedCloud The cloudTile selected by the player
+     * @param selectedCloudIndex The index of the cloudTile selected by the player
      */
-    private void onlyChooseCloud(CloudTile selectedCloud) {
-        // Gets the students present on the selected cloudTile and save them in a Tuple
-        Color[]                     studentsOfSelectedCloud = selectedCloud.getStudents();
-        Tuple<GameActions, Color[]> chooseCloudResponse     = new Tuple<>(GameActions.STUDENTSOFSELECTEDCLOUD, studentsOfSelectedCloud);
-
-        // Sends a message of type "responseAction" containing the Tuple
+    private void onlyChooseCloud(int selectedCloudIndex) {
+        Tuple<GameActions, Integer> chooseCloudResponse = new Tuple<>(GameActions.SELECTEDCLOUD, selectedCloudIndex);
         sendMessage(new Message(MessageType.RESPONSEACTION, chooseCloudResponse));
     }
 
@@ -651,7 +647,7 @@ public class VirtualController extends Thread implements Closeable {
 
             case REQ_CHOOSE_CLOUD               -> {
                 // Saves the CloudTile the player selected between the provided ones
-                CloudTile selectedCloud = (CloudTile) infoToSend;
+                int selectedCloud = (int) infoToSend;
                 onlyChooseCloud(selectedCloud);
 
                 // Resets the vcState
@@ -696,7 +692,7 @@ public class VirtualController extends Thread implements Closeable {
                 Object selectedItem = infoToSend;
 
                 // If the player choose a CloudTile recall the normal-chooseCloudTile method
-                if (selectedItem instanceof CloudTile selectedCloud)
+                if (selectedItem instanceof Integer selectedCloud)
                     onlyChooseCloud(selectedCloud);
 
                 // If the player decided to play a CharacterCard, sends the chosen characterCard to the controller

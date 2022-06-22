@@ -88,7 +88,7 @@ final class MessageBuilder {
                     case LOADGAMECHOICE             -> new GameCommandResponseAction            (                      tupleReceived.right());
                     case CHOSENASSISTANTCARD        -> new GameCommandPlayAssistantCard         ((AssistantCard)       tupleReceived.right());
                     case INSERTEDUSERNAMEANDAGE     -> new GameCommandUsernameAndMagicAge       ((UsernameAndMagicAge) tupleReceived.right());
-                    case STUDENTSOFSELECTEDCLOUD    -> new GameCommandChooseCloud               ((Color[])             tupleReceived.right());
+                    case SELECTEDCLOUD              -> new GameCommandChooseCloud               ((int)                 tupleReceived.right());
                     case MOVESTUDENTINFO            -> new GameCommandMoveStudent               ((MoveStudentInfo)     tupleReceived.right());
                     case CHOSENMOTHERNATUREMOVEMENT -> new GameCommandMoveMotherNature          ((Integer)             tupleReceived.right());
                     default                         -> null;
