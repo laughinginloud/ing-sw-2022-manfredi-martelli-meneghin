@@ -181,9 +181,7 @@ public class GameController {
                             throw new IllegalStateException();
                         }).toArray(Player[]::new));
 
-                        ifNotNull(savedGame, File::delete);
                         savedGame = null;
-
                         playerAgeQueue.clear();
                         activeGame = true;
                         data.sendMessageToPlayers(new GameCommandGameStart());

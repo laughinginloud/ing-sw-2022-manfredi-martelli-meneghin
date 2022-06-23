@@ -34,7 +34,7 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
         // Makes every player play an AssistantCard
         Player[] players = data.getGameModel().getPlayer();
         for (Player player : players) {
-            data.setCurrentPlayer(player);
+            //data.setCurrentPlayer(player);
             AssistantCard[] playableAssistantCards = getPlayableAssistantCards(player);
 
             try {

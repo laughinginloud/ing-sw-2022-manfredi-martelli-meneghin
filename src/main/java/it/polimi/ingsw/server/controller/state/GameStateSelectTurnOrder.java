@@ -27,10 +27,7 @@ public final class GameStateSelectTurnOrder implements GameStatePlanPhase {
             for (Player player : data.getPlayersOrder())
                 playQueue.add(new Tuple<>(player, data.getPlayerCard(player).cardValue()));
 
-            data.setPlayersOrder(playQueue.stream().map(Tuple::left).toArray(Player[]::new));
-
-            // Set current player to null at the end of the GameStatePlanPhase. It will be initialized to firstPlayer in GameStateActionPhase.GameStateMoveStudents
-            data.setCurrentPlayer(null);
+            data.updatePlayersOrder(playQueue.stream().map(Tuple::left).toArray(Player[]::new));
         }
 
         catch (Exception e) {

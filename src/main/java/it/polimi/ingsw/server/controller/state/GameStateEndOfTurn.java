@@ -21,6 +21,8 @@ import java.util.Map;
  * @author Sebastiano Meneghin
  */
 public final class GameStateEndOfTurn implements GameStateActionPhase {
+    private boolean turnEnd;
+
     public GameState nextState() {
         return
             // Check if the game has been won already
@@ -28,9 +30,9 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                 // If the game has ended, return a plain end phase, which will decide who won
                 new GameStateEndGame() :
                 // Otherwise, go to the next phase
-                anotherPlayerTurn() ?
-                    new GameStateMoveStudents() :
-                    new GameStateEndCheckPhase();
+                turnEnd ?
+                    new GameStateEndCheckPhase():
+                    new GameStateMoveStudents();
     }
 
     public void executeState() throws SocketException {
@@ -38,6 +40,8 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
             ControllerData data          = ControllerData.getInstance();
             Player         curPlayer     = data.getCurrentPlayer();
             VirtualView    curPlayerView = data.getPlayerView(curPlayer);
+
+            turnEnd = false;
 
             // Gets the expertMode and set useful flag to "false"
             boolean expertMode           = data.getExpertMode();
@@ -99,6 +103,12 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
             // If the player can't play a CharacterCard, notify him about the end of his actionPhase turn
             else
                 curPlayerView.sendMessage(new GameCommandNotifyEndTurn());
+
+            if (data.turnEnd())
+                turnEnd = true;
+
+            else
+                data.nextPlayer();
         }
 
         catch (SocketException e) {
@@ -109,18 +119,6 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
             // Fatal error: print the stack trace to help debug
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Check if there's another player that has to play his turn during this Round
-     * @return A boolean representing the presence of another player that has to play his turn
-     */
-    private boolean anotherPlayerTurn() {
-        Player[] orderedPlayer = ControllerData.getInstance().getGameModel().getPlayer();
-        Player currentPlayer   = ControllerData.getInstance().getCurrentPlayer();
-
-        // If the currentPlayer it's not the last player of the round, then anotherPlayerTurn() -> True
-        return !currentPlayer.equals(orderedPlayer[ControllerData.getInstance().getNumOfPlayers() - 1]);
     }
 
     /**

@@ -74,8 +74,19 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
         jsonWriter.value(controllerData.getExpertMode());
 
         if (controllerData.getCurrentPlayer() != null) {
-            jsonWriter.name("currentPlayer");
-            jsonWriter.value(controllerData.getCurrentPlayer().getPlayerID());
+            try {
+                Field currentPlayerField = ControllerData.class.getDeclaredField("currentPlayer");
+                currentPlayerField.setAccessible(true);
+
+                jsonWriter.name("currentPlayer");
+                jsonWriter.value((int) currentPlayerField.get(controllerData));
+
+                currentPlayerField.setAccessible(false);
+            }
+
+            catch (IllegalAccessException | NoSuchFieldException ignored) {
+                throw new IOException();
+            }
         }
 
         if (controllerData.getExpertMode()) {
@@ -135,7 +146,7 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
         boolean hasPlayedCard = false;
         int numOfPlayers = 0;
         boolean expertMode = false;
-        int currentPlayerID = 0;
+        int currentPlayer = 0;
         CharacterCardStrategy[] characterCardStrategies = null;
         boolean[] flags = new boolean[ControllerData.Flags.values().length];
         Color excludedColor = null;
@@ -204,10 +215,10 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
                     case "hasPlayedCard" -> hasPlayedCard = jsonReader.nextBoolean();
                     case "numOfPlayers" -> numOfPlayers = jsonReader.nextInt();
                     case "expertMode" -> expertMode = jsonReader.nextBoolean();
-                    case "currentPlayer" -> currentPlayerID = jsonReader.nextInt();
+                    case "currentPlayer" -> currentPlayer = jsonReader.nextInt();
                     case "characterCardStrategies" -> {
                         CharacterCard[] cards   = json.fromJson(jsonReader.nextString(), CharacterCard[].class);
-                        
+
                         characterCardStrategies = Arrays.stream(cards)
                             .map(CharacterCardStrategy::build)
                             .toArray(CharacterCardStrategy[]::new);
@@ -267,7 +278,7 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
             hasPlayedCard,
             numOfPlayers,
             expertMode,
-            finalModel.getPlayer(currentPlayerID),
+            currentPlayer,
             characterCardStrategies,
             flags,
             excludedColor,

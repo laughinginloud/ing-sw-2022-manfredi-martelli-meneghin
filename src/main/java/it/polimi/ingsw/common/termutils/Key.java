@@ -2,6 +2,7 @@ package it.polimi.ingsw.common.termutils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 
 import static it.polimi.ingsw.common.utils.Methods.interrupted;
 import static java.lang.Thread.sleep;
@@ -35,42 +36,48 @@ public enum Key {
      * @throws IOException if an I/O error occurs
      */
     public static Key parseKey(InputStream inputStream) throws IOException {
-        return switch (inputStream.read()) {
-            case 9 -> TAB;
-            case 13 -> ENTER;
+        try {
+            return switch (inputStream.read()) {
+                case 9 -> TAB;
+                case 13 -> ENTER;
 
-            case 27 -> {
-                if (inputStream.available() == 0)
-                    yield ESCAPE;
+                case 27 -> {
+                    if (inputStream.available() == 0)
+                        yield ESCAPE;
 
-                if (inputStream.read() != 79)
-                    yield GENERIC;
+                    if (inputStream.read() != 79)
+                        yield GENERIC;
 
-                yield switch (inputStream.read()) {
-                    case 65 -> UP_ARROW;
-                    case 66 -> DOWN_ARROW;
-                    case 67 -> RIGHT_ARROW;
-                    case 68 -> LEFT_ARROW;
+                    yield switch (inputStream.read()) {
+                        case 65 -> UP_ARROW;
+                        case 66 -> DOWN_ARROW;
+                        case 67 -> RIGHT_ARROW;
+                        case 68 -> LEFT_ARROW;
 
-                    default -> GENERIC;
-                };
-            }
+                        default -> GENERIC;
+                    };
+                }
 
-            case 49 -> ONE;
-            case 50 -> TWO;
-            case 51 -> THREE;
-            case 52 -> FOUR;
-            case 53 -> FIVE;
-            case 54 -> SIX;
-            case 55 -> SEVEN;
-            case 56 -> EIGHT;
-            case 57 -> NINE;
-            case 48 -> ZERO;
+                case 49 -> ONE;
+                case 50 -> TWO;
+                case 51 -> THREE;
+                case 52 -> FOUR;
+                case 53 -> FIVE;
+                case 54 -> SIX;
+                case 55 -> SEVEN;
+                case 56 -> EIGHT;
+                case 57 -> NINE;
+                case 48 -> ZERO;
 
-            case 121 -> Y;
-            case 110 -> N;
+                case 121 -> Y;
+                case 110 -> N;
 
-            default -> GENERIC;
-        };
+                default -> GENERIC;
+            };
+        }
+
+        catch (IllegalMonitorStateException | InterruptedIOException ignored) {}
+
+        return GENERIC;
     }
 }

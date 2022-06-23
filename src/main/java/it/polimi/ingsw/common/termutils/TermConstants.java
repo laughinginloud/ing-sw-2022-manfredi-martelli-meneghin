@@ -61,6 +61,7 @@ public /*static*/ final class TermConstants {
         logo.add("o888ooooood8 d888b    o888o `Y888\"\"8o o888o o888o  \"888\"     .8'    8\"\"888P'");
         logo.add("                                                         .o..P'");
         logo.add("                                                         `Y8P'");
+
         return logo;
     }
 
@@ -163,7 +164,7 @@ public /*static*/ final class TermConstants {
     }
 
     private static String schoolTower(SchoolBoard schoolBoard, int index) {
-        return schoolBoard.getTowerCount() >= index ? colorString(" ", getTowerColor(schoolBoard.getTowerColor(), true)) : " ";
+        return schoolBoard.getTowerCount() > index ? colorString(" ", getTowerColor(schoolBoard.getTowerColor(), true)) : " ";
     }
 
     public static void drawCloud(PrintWriter writer, CloudTile cloudTile) {

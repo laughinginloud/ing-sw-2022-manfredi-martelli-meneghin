@@ -32,7 +32,7 @@
             <version>2.9.0</version>
         </dependency>
 
-        <!-- JLine to help develop the CLI -->
+        <!-- JLine and JNA to help develop the CLI -->
         <dependency>
             <groupId>org.jline</groupId>
             <artifactId>jline</artifactId>

@@ -32,7 +32,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
     public void executeState() throws SocketException {
         try {
             ControllerData data          = ControllerData.getInstance();
-            Player         currentPlayer = updateCurrentPlayer();
+            Player         currentPlayer = data.getCurrentPlayer();
             VirtualView    playerView    = data.getPlayerView(currentPlayer);
             boolean        expertMode    = data.getExpertMode();
 
@@ -68,34 +68,6 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
             // Fatal error: print the stack trace to help debug
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Determines and set the currentPlayer at the beginning of his ActionPhase
-     * @return A Player representing the current player of this ActionPhase turn
-     */
-    private Player updateCurrentPlayer() {
-        ControllerData data = ControllerData.getInstance();
-
-        // Creates a new player, that will be the updatedCurrentPlayer and gets the current player
-        Player updatedCurrentPlayer  = null;
-        Player previousCurrentPlayer = data.getCurrentPlayer();
-
-        // If it is the first turn, set currentPlayer to the firstPlayer of the PlayersOrderArray
-        if (previousCurrentPlayer == null)
-            updatedCurrentPlayer = data.getPlayersOrder(0);
-
-        // If not, set currentPlayer to the nextPlayer of the PlayersOrderArray
-        else
-            for (int i = 0; i < data.getNumOfPlayers(); i++)
-                if (previousCurrentPlayer.equals(data.getPlayersOrder(i))) {
-                    updatedCurrentPlayer = data.getPlayersOrder(i + 1);
-                    break;
-                }
-
-        data.setCurrentPlayer(updatedCurrentPlayer);
-
-        return updatedCurrentPlayer;
     }
 
     /**

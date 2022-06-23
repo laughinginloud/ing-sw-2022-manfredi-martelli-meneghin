@@ -38,7 +38,7 @@ public final class ControllerData {
     private        int                              numOfPlayers;
     private        boolean                          expertMode;
     private        Isomorphism<Player, VirtualView> playerViewMap;
-    private        Player                           currentPlayer;
+    private        int                              currentPlayer;
     private        CharacterCardStrategy[]          cardStrategies;
     private        boolean[]                        characterCardFlags;
     private        Color                            excludedColor;
@@ -164,7 +164,7 @@ public final class ControllerData {
      * @return A pointer to the player
      */
     public Player getCurrentPlayer() {
-        return currentPlayer;
+        return playersOrder[currentPlayer];
     }
 
     // endregion
@@ -279,14 +279,6 @@ public final class ControllerData {
         this.playerViewMap = playerViewMap;
     }
 
-    /**
-     * Set the player currently playing
-     * @param currentPlayer The player to set
-     */
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
     // endregion
 
     // region Instance related methods
@@ -309,46 +301,6 @@ public final class ControllerData {
     }
 
     /**
-     * Load all the data from a previous ControllerData instance into the current one
-     * @param data The instance to load all data from
-     */
-    public static void loadData(ControllerData data) {
-        if (instance == null)
-            instance = new ControllerData();
-
-        // Load everything that doesn't need linking
-        instance.gameModel                 = data.gameModel;
-        instance.emptyBagTrigger           = data.emptyBagTrigger;
-        instance.emptyAssistantDeckTrigger = data.emptyBagTrigger;
-        instance.hasPlayedCard             = data.hasPlayedCard;
-        instance.numOfPlayers              = data.numOfPlayers;
-        instance.expertMode                = data.expertMode;
-        instance.cardStrategies            = copyOf(data.cardStrategies);
-        instance.characterCardFlags        = copyOf(data.characterCardFlags);
-        instance.winTrigger                = data.winTrigger;
-
-        // Create a copy the players, to aid the linking process
-        Player[] players = instance.gameModel.getPlayer();
-
-        instance.playerAssistantCardMap = new HashMap<>();
-        // For each entry (Player, AssistantCard) of the map, load it in the new map whilst linking the player
-        for (Map.Entry<Player, AssistantCard> entry : data.playerAssistantCardMap.entrySet())
-            instance.playerAssistantCardMap.put(
-                // Find the original copy of the player
-                findPlayer(players, entry.getKey()),
-                // Along with the player, put the corresponding assistant card
-                entry.getValue());
-
-        instance.playersOrder = new Player[data.numOfPlayers];
-        // For each element of the array "playersOrder", find the original copy of the player and put it in the same spot in the array
-        for (int i = 0; i < data.numOfPlayers; ++i)
-            instance.playersOrder[i] = findPlayer(players, data.playersOrder[i]);
-
-        // Find the original copy of the current player and put it into the corresponding spot in the instance
-        instance.currentPlayer = findPlayer(players, data.getCurrentPlayer());
-    }
-
-    /**
      * Load the data into the current instance
      * @return A pointer to the instance
      */
@@ -361,7 +313,7 @@ public final class ControllerData {
         boolean hasPlayedCard,
         int numOfPlayers,
         boolean expertMode,
-        Player currentPlayer,
+        int currentPlayer,
         CharacterCardStrategy[] characterCardStrategies,
         boolean[] characterCardFlags,
         Color excludedColor,
@@ -464,6 +416,19 @@ public final class ControllerData {
 
     public Player removePlayer(VirtualView virtualView) {
         return playerViewMap.removeRight(virtualView);
+    }
+
+    public void updatePlayersOrder(Player[] players) {
+        playersOrder  = copyOf(players);
+        currentPlayer = 0;
+    }
+
+    public void nextPlayer() {
+        currentPlayer++;
+    }
+
+    public boolean turnEnd() {
+        return (currentPlayer + 1) == playersOrder.length;
     }
 
 }
