@@ -229,7 +229,7 @@ public class GameController {
 
         if (activeGame) {
             try {
-                gameStateThread.end();
+                gameStateThread.close();
                 gameStateThread.join();
             }
 
@@ -238,15 +238,6 @@ public class GameController {
             catch (InterruptedException ignored) {}
 
             finally {
-                // Signal every player that the game has been ended and close the relative socket
-                for (Player player : ControllerData.getInstance().getPlayersOrder()) {
-                    VirtualView view = data.getPlayerView(player);
-                    if (view != playerView)
-                        view.sendInterrupt();
-
-                    view.close();
-                }
-
                 // Reset the data
                 ControllerData.nukeInstance();
                 data       = ControllerData.getInstance();

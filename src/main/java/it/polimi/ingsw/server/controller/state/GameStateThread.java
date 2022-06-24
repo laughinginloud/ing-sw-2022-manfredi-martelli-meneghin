@@ -1,10 +1,12 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.controller.save.GameSave;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Arrays;
 
 import static it.polimi.ingsw.common.utils.Methods.ifNotNullOrElse;
 
@@ -16,12 +18,9 @@ public final class GameStateThread extends Thread {
     private final String    fileName;
     private       GameState state;
 
-    private       boolean   stopped;
-
     public GameStateThread(GameState state, String fileName) {
         this.state    = state;
         this.fileName = fileName;
-             stopped  = false;
     }
 
     public void run() {
@@ -30,7 +29,7 @@ public final class GameStateThread extends Thread {
                 state.executeState();
                 state = state.nextState();
                 autosave(state);
-            } while (state != null && !stopped);
+            } while (state != null && !isInterrupted());
 
             GameController.signalEndGame();
         }
@@ -41,10 +40,16 @@ public final class GameStateThread extends Thread {
     }
 
     /**
-     * Stop the DFA
+     * Terminate the DFA
      */
-    public void end() {
-        stopped = true;
+    public void close() {
+        ControllerData data = ControllerData.getInstance();
+
+        Arrays.stream(data.getPlayersOrder())
+            .parallel()
+            .forEach(p -> data.getPlayerView(p).sendInterrupt());
+
+        interrupt();
     }
 
     /**
@@ -62,7 +67,7 @@ public final class GameStateThread extends Thread {
      * @param state The state to save
      */
     private void save(GameState state) {
-        if (stopped)
+        if (isInterrupted())
             return;
 
         // Avoid saving setup or endgame states, as it would make little sense to load these
