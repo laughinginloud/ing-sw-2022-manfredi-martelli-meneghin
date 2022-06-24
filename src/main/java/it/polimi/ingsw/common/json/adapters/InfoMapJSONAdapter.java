@@ -8,6 +8,7 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
+import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.model.*;
@@ -162,7 +163,7 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
                 jsonWriter.endArray();
             }
 
-            case CHARACTERVALUE -> jsonWriter.value(((Character) value).name());
+            case CHARACTERVALUE -> jsonWriter.value(((PlayCharacterAction) value).name());
 
             case BARDSWAPMAP -> {
                 Map<Color, Boolean[]> map = (Map<Color, Boolean[]>) value;
@@ -239,7 +240,7 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
                  MAXMOVEMENTBARD,
                  MOVEMENTJESTER -> jsonReader.nextInt();
 
-            case CHARACTERVALUE -> Character.valueOf(jsonReader.nextString());
+            case CHARACTERVALUE -> PlayCharacterAction.valueOf(jsonReader.nextString());
 
             case ENTRANCE,
                  DININGROOM -> json.fromJson(jsonReader.nextString(), Tuple.class);

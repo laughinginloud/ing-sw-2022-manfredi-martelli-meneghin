@@ -4,6 +4,7 @@ import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.ModuloNat;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
@@ -41,10 +42,10 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
             boolean        canPlayCharacterCard = false;
 
             // Calculates the max motherNature movement and store it on the Map moveMNInfo
-            int motherNatureMovement =
-                player.getLastPlayedCard().movementPoints() +
-                    (data.getExpertMode() &&
-                        data.getCharacterCardFlag(ControllerData.Flags.extraMovementFlag) ? 2 : 0);
+            int motherNatureMovement = player.getLastPlayedCard().movementPoints();
+
+            if (data.getExpertMode() && data.getCharacterCardFlag(ControllerData.Flags.extraMovementFlag))
+                motherNatureMovement += 2;
 
             int      currentMotherNaturePosition = data.getGameModel().getMotherNaturePosition();
             Island[] reachableIsland             = getReachableIslands(motherNatureMovement, currentMotherNaturePosition);
@@ -67,6 +68,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
                 }
             }
 
+            // If the player is forced to move MN by exactly one island, the server does it automatically
             if (motherNatureMovement == 1 && !canPlayCharacterCard) {
                 GameModel model = data.getGameModel();
                 model.setMotherNaturePosition((model.getMotherNaturePosition() + 1) % model.getIslandsCount());
@@ -164,8 +166,8 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
         int          numOfIsland         = islands.length;
         List<Island> reachableIslandList = new ArrayList<>();
 
-        for (int i = 1, p = motherNaturePosition + 1; i <= motherNatureMovement; ++i, ++p)
-            reachableIslandList.add(islands[p % numOfIsland]);
+        for (int i = 0, p = (motherNaturePosition + 1) % numOfIsland; i < motherNatureMovement; ++i, p = (p + 1) % numOfIsland)
+            reachableIslandList.add(islands[p]);
 
         return reachableIslandList.toArray(Island[]::new);
     }

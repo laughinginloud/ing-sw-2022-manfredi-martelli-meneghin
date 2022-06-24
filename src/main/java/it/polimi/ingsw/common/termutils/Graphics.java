@@ -12,16 +12,14 @@ import java.util.Optional;
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Ansi.Direction.*;
 
-// TODO: rinominare classe in DrawElements?
-
 /**
  * Class containing useful CLI constants
  * @author Mattia Martelli
  */
-public /*static*/ final class TermConstants {
+public /*static*/ final class Graphics {
 
     // Hid the constructor to emulate a static class
-    private TermConstants() {}
+    private Graphics() {}
 
     // region Logos
 

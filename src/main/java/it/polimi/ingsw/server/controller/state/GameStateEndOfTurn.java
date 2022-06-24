@@ -43,9 +43,8 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
 
             turnEnd = false;
 
-            // Gets the expertMode and set useful flag to "false"
-            boolean expertMode           = data.getExpertMode();
-            boolean canPlayCharacterCard = false;
+            // Gets the expertMode
+            boolean expertMode = data.getExpertMode();
 
             // Creates a map where to save the fields that will be sent to the current player
             InfoMap characterCardInfo = new InfoMap();
@@ -59,12 +58,6 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                 if (playableCharacterCard != null) {
                     characterCardInfo.put(GameValues.CHARACTERCARDARRAY, playableCharacterCard);
 
-                    //Set the flag to true to change the GameCommandRequestAction's type during its initialization
-                    canPlayCharacterCard = true;
-                }
-
-                // If a CharacterCard can be played by the current player
-                if (canPlayCharacterCard) {
                     GameCommand request  = new GameCommandRequestAction(GameActions.ENDTURN, characterCardInfo);
                     GameCommand response = curPlayerView.sendRequest(request);
 

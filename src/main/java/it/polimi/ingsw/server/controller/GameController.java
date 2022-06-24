@@ -258,10 +258,8 @@ public class GameController {
                 for (Player player : data.getPlayersOrder())
                     ifNotNull(player, () -> {
                         VirtualView view = data.getPlayerView(player);
-                        if (view != playerView)
-                            view.sendMessage(new GameCommandInterruptGame());
-
-                        view.close();
+                        if (!view.equals(playerView))
+                            view.sendInterrupt();
                     });
 
                 // Reset the data

@@ -25,7 +25,7 @@ public enum GameValues {
     // USED IN MAP
     CHARACTERCARDPOSITION,
 
-    // An enumeration constant of Character correspondent to the character on a CharacterCard
+    // An enumeration constant of PlayCharacterAction correspondent to the character on a CharacterCard
     // USED IN MAP
     CHARACTERVALUE,
 

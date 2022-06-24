@@ -8,6 +8,7 @@ import it.polimi.ingsw.common.json.adapters.*;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
@@ -32,6 +33,7 @@ public /*static*/ final class Constants {
         .registerTypeAdapter(AssistantCard.class,        new AssistantCardJSONAdapter())
         .registerTypeAdapter(AssistantCard[].class,      new AssistantCardArrayJSONAdapter())
         .registerTypeAdapter(Bag.class,                  new BagJSONAdapter())
+        .registerTypeAdapter(Character.class,            new CharacterJSONAdapter())
         .registerTypeAdapter(CharacterCard.class,        new CharacterCardJSONAdapter())
         .registerTypeAdapter(CharacterCardNoEntry.class, new CharacterCardNoEntryJSONAdapter())
         .registerTypeAdapter(CharacterCardStudent.class, new CharacterCardStudentJSONAdapter())

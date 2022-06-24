@@ -2,7 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.common.termutils.TermConstants;
+import it.polimi.ingsw.common.termutils.Graphics;
 import it.polimi.ingsw.common.termutils.Key;
 import it.polimi.ingsw.common.termutils.Ansi;
 import it.polimi.ingsw.server.Server;
@@ -155,7 +155,7 @@ public class Main {
                 menuOptions.clear();
 
                 // Add the top text to the menu
-                mainMenu.addAll(TermConstants.logoList);
+                mainMenu.addAll(Graphics.logoList);
                 mainMenu.add("Welcome! Please select the desired mode: ");
                 mainMenu.add("");
 

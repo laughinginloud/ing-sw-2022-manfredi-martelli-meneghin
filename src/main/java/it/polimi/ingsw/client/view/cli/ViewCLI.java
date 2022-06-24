@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.termutils.Ansi;
-import it.polimi.ingsw.common.termutils.TermConstants;
+import it.polimi.ingsw.common.termutils.Graphics;
 import it.polimi.ingsw.common.utils.Methods;
 import it.polimi.ingsw.common.utils.ModuloNat;
 import it.polimi.ingsw.common.utils.Tuple;
@@ -30,7 +30,7 @@ import java.util.*;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
-import static it.polimi.ingsw.common.termutils.TermConstants.*;
+import static it.polimi.ingsw.common.termutils.Graphics.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
 import static java.util.Comparator.*;
 
@@ -207,7 +207,7 @@ public final class ViewCLI implements View {
             // Main menu
             MENU:
             while (!interrupted()) {
-                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                List<String> menu = new ArrayList<>(logoList);
                 menu.add("Welcome to Eryantis!");
                 menu.add("");
 
@@ -273,7 +273,7 @@ public final class ViewCLI implements View {
     @Override
     public void signalConnectionError() {
         display.clear();
-        display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+        display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
         writer.println();
         writer.println("There was an error whilst trying to connect to the server!");
@@ -303,11 +303,10 @@ public final class ViewCLI implements View {
 
         writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 1));
 
-        MAIN_FOR:
         for (int i = 0, isl = 0; i < 2; ++i) {
             for (int j = 0; j < 6; ++j, ++isl) {
                 if (isl >= model.getIslandsCount())
-                    break MAIN_FOR;
+                    break;
 
                 drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -366,7 +365,7 @@ public final class ViewCLI implements View {
             while (!interrupted()) {
                 //Update the console with the logo
                 display.clear();
-                display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+                display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
                 // Print the request for the IP
                 // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
@@ -447,7 +446,7 @@ public final class ViewCLI implements View {
                 try {
                     // Filter for well known ports, that will not be accepted
                     if (Address.checkPort(readPort)) {
-                        List<String> conf = new ArrayList<>(TermConstants.logoList);
+                        List<String> conf = new ArrayList<>(logoList);
                         conf.add("");
                         conf.add("Selected address:");
                         conf.add("IP address: " + ip.left());
@@ -495,7 +494,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Please select the rules of the game");
                     menu.add("");
@@ -618,7 +617,7 @@ public final class ViewCLI implements View {
                         return;
 
                     menu.clear();
-                    menu.addAll(TermConstants.logoList);
+                    menu.addAll(logoList);
                     menu.add("");
                     menu.add("Selected options:");
                     menu.add("Number of players: " + numOfPlayers);
@@ -655,7 +654,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("A saved game has been found!");
                     menu.add("Would you like to resume it?");
@@ -731,7 +730,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("You still have the chance to play a character card!");
                     menu.add("");
@@ -810,7 +809,7 @@ public final class ViewCLI implements View {
                 while (!interrupted()) {
                     //Update the console with the logo
                     display.clear();
-                    display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+                    display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
                     // NB: the last space is used to solve a bug, because otherwise backspace would delete the whole line
                     writer.println();
@@ -893,7 +892,7 @@ public final class ViewCLI implements View {
                     try {
                         if (UsernameAndMagicAge.checkMagicAge(readAge)) {
                             display.clear();
-                            List<String> menu = new ArrayList<>(TermConstants.logoList);
+                            List<String> menu = new ArrayList<>(logoList);
                             menu.add("");
                             menu.add("Entered data:");
                             menu.add("Username: " + username.left());
@@ -1055,7 +1054,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Please select the assistant card you would like to play:");
 
@@ -1208,7 +1207,7 @@ public final class ViewCLI implements View {
             // Main menu
             MENU:
             while (!interrupted()) {
-                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                List<String> menu = new ArrayList<>(logoList);
                 menu.add("");
                 menu.add("Please select the assistant card you would like to play:");
 
@@ -1282,7 +1281,10 @@ public final class ViewCLI implements View {
     }
 
     private String characterName(CharacterCard card) {
-        return capitalize(card.getCharacter().name().replace("_", " "));
+        return switch (card.getCharacter()) {
+            case STANDARD_BEARER -> "Herald";
+            default              -> capitalize(card.getCharacter().name());
+        };
     }
 
     @Override
@@ -1296,7 +1298,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("You can move the students or play a character card");
                     menu.add("");
@@ -1376,7 +1378,7 @@ public final class ViewCLI implements View {
                     if (!diningRoomFreeTables[localPlayer.getSchoolBoard().getEntrance().getStudents()[selectedStudentIndex].ordinal()])
                         break MENU;
 
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Please select where you'd like to move the student:");
 
@@ -1460,7 +1462,7 @@ public final class ViewCLI implements View {
                 showCursor(writer);
 
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Here are the islands you can select");
                     menu.add("");
@@ -1468,11 +1470,10 @@ public final class ViewCLI implements View {
                     display.clear();
                     display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                    MAIN_FOR:
                     for (int i = 0, isl = 0; i < 2; ++i) {
                         for (int j = 0; j < 6; ++j, ++isl) {
                             if (isl >= islandNum)
-                                break MAIN_FOR;
+                                break;
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -1547,7 +1548,7 @@ public final class ViewCLI implements View {
             showCursor(writer);
 
             while (!interrupted()) {
-                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                List<String> menu = new ArrayList<>(logoList);
                 menu.add("");
                 menu.add("Here are the islands you can move Mother Nature to");
                 menu.add("");
@@ -1555,11 +1556,10 @@ public final class ViewCLI implements View {
                 display.clear();
                 display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                MAIN_FOR:
                 for (int i = 0, isl = 0; i < 2; ++i) {
                     for (int j = 0; j < 6; ++j, ++isl) {
                         if (isl >= islandNum)
-                            break MAIN_FOR;
+                            break;
 
                         drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -1628,7 +1628,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("You can move Mother Nature or play a character card");
                     menu.add("");
@@ -1707,7 +1707,7 @@ public final class ViewCLI implements View {
             showCursor(writer);
 
             while (true) {
-                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                List<String> menu = new ArrayList<>(logoList);
                 menu.add("");
                 menu.add("Here are the cloud tiles from which you can choose from");
                 menu.add("");
@@ -1782,7 +1782,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("You can choose a cloud tile or play a character card");
                     menu.add("");
@@ -1918,7 +1918,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Please select a color:");
 
@@ -2060,7 +2060,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Please select a color from the card:");
 
@@ -2205,7 +2205,7 @@ public final class ViewCLI implements View {
             // Main menu
             MENU:
             while (!interrupted()) {
-                List<String> menu = new ArrayList<>(TermConstants.logoList);
+                List<String> menu = new ArrayList<>(logoList);
                 menu.add("");
                 menu.add("Please select a color from your entrance:");
 
@@ -2338,7 +2338,7 @@ public final class ViewCLI implements View {
                 showCursor(writer);
 
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Here are the islands you can select");
                     menu.add("");
@@ -2346,11 +2346,10 @@ public final class ViewCLI implements View {
                     display.clear();
                     display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                    MAIN_FOR:
                     for (int i = 0, isl = 0; i < 2; ++i) {
                         for (int j = 0; j < 6; ++j, ++isl) {
                             if (isl >= islandNum)
-                                break MAIN_FOR;
+                                break;
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -2421,7 +2420,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
-                    List<String> menu = new ArrayList<>(TermConstants.logoList);
+                    List<String> menu = new ArrayList<>(logoList);
                     menu.add("");
                     menu.add("Please select the color of the dining room you'll pick the student:");
 
@@ -2516,7 +2515,7 @@ public final class ViewCLI implements View {
         virtualController.close();
 
         display.clear();
-        display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+        display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
         writer.println();
         writer.println("Another game is already in progress!");
@@ -2540,7 +2539,7 @@ public final class ViewCLI implements View {
     public void notifyGameStart() {
         contextSwitch(() -> {
             display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
             writer.println();
             writer.println("The game is now starting!");
@@ -2553,7 +2552,7 @@ public final class ViewCLI implements View {
     public void notifyPlayerDisconnection() {
         contextSwitch(() -> {
             display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
             writer.println();
             writer.println("You have been disconnected from the server because another player left the game!");
@@ -2578,7 +2577,7 @@ public final class ViewCLI implements View {
     public void notifyStartGameTurn(String playingPlayerUsername) {
         contextSwitch(() -> {
             display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
             writer.println();
             writer.println("It is now " + capitalize(playingPlayerUsername) + "'s turn!");
@@ -2589,6 +2588,8 @@ public final class ViewCLI implements View {
                 hideCursor(writer);
                 writer.print("Press any key to continue...");
                 keyStream.read();
+
+                updateModel(model, null);
             }
 
             // Should never happen
@@ -2602,7 +2603,7 @@ public final class ViewCLI implements View {
     public void notifyEndOfTurn() {
         contextSwitch(() -> {
             display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
             writer.println();
             writer.println("Your turn has now ended!");
@@ -2641,7 +2642,7 @@ public final class ViewCLI implements View {
     public void signalWinner(Player winner) {
         contextSwitch(() -> {
             display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
             writer.println();
             writer.println("The game has now ended!");
@@ -2666,7 +2667,7 @@ public final class ViewCLI implements View {
     public void signalWinner(List<Player> team) {
         contextSwitch(() -> {
             display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
             writer.println();
             writer.println("The game has now ended!");
@@ -2695,7 +2696,7 @@ public final class ViewCLI implements View {
     public void signalDraw(List<Player> drawers) {
         contextSwitch(() -> {
             display.clear();
-            display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
+            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
             writer.println();
             writer.println("The game has ended in a draw!");
@@ -2764,7 +2765,7 @@ public final class ViewCLI implements View {
         currentMenu = new Thread(() -> {
             try {
                 runnable.run();
-                updateModel(model, null);
+                //updateModel(model, null);
             }
 
             catch (UserInterruptException ignored) {}
