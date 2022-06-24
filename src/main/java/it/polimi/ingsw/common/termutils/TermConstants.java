@@ -100,16 +100,20 @@ public /*static*/ final class TermConstants {
 
         return stdCnt == 0 ?
             " " :
-            colorString(String.valueOf(stdCnt == 1 ?
+            colorString(stdCnt == 1 ?
                 " " :
-                stdCnt), getStudentColor(student, background), BLACK);
+                String.valueOf(stdCnt), getStudentColor(student, background), BLACK);
     }
 
     private static String formatTower(Island island) {
         if (island.getTowerColor() == null)
             return " ";
 
-        return colorString(String.valueOf(island.getMultiplicity()), getTowerColor(island.getTowerColor(), true));
+        int twrCnt = island.getMultiplicity();
+
+        return colorString(twrCnt == 1 ?
+            " " :
+            String.valueOf(twrCnt), getTowerColor(island.getTowerColor(), true));
     }
 
     private static String formatMotherNature(boolean motherNature) {

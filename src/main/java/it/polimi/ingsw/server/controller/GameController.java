@@ -234,6 +234,7 @@ public class GameController {
             }
 
             // Should never happen, since no one calls the interrupt method on the DFA
+            // It's here to make the type system happy
             catch (InterruptedException ignored) {}
 
             finally {
@@ -303,6 +304,7 @@ public class GameController {
 
                     playerAgeQueue.removeIf(uM -> uM.username().equalsIgnoreCase(player.getUsername()));
                     forbiddenNames.remove(player.getUsername().toLowerCase());
+                    playersNum--;
                 });
             }
         }
@@ -329,8 +331,8 @@ public class GameController {
      * @throws SocketException If the player gets disconnected whilst adding it
      */
     private static boolean addPlayer(VirtualView view, UsernameAndMagicAge usernameAndMagicAge) throws SocketException {
-        Player[] players = data.getPlayersOrder();
-        int numOfPlayers = data.getNumOfPlayers();
+        Player[] players          = data.getPlayersOrder();
+        int      gameNumOfPlayers = data.getNumOfPlayers();
 
         playerAgeQueue.add(usernameAndMagicAge);
         forbiddenNames.add(usernameAndMagicAge.username().toLowerCase());
@@ -342,7 +344,7 @@ public class GameController {
 
             playersNum++;
 
-            return playersNum == numOfPlayers;
+            return playersNum == gameNumOfPlayers;
         }
 
         // Get a set of all the wizards and remove the ones that were already picked
@@ -358,37 +360,31 @@ public class GameController {
                 wizardSet.toArray(Wizard[]::new)[0] :
                 view.sendRequest(new GameCommandRequestAction(GameActions.WIZARD, wizardSet.toArray(Wizard[]::new))).executeCommand());
 
-        boolean teamMode = numOfPlayers == 4;
+        boolean teamMode = data.getNumOfPlayers() == 4;
 
-        for (int i = 0; i < numOfPlayers; ++i)
-            if (players[i] == null) {
-                players[i] =
-                    buildPlayer(
-                        data.getExpertMode(),
-                        teamMode,
-                        i,
-                        usernameAndMagicAge.username(),
-                        wizard,
-                        // If there are three players, each one gets 6 towers, else if there are two players, each one takes 8 towers,
-                        // otherwise, there are four players and the first member of each team gets 8 towers, whilst its teammate gets 0
-                        numOfPlayers == 3 ? 6 : numOfPlayers == 2 || i <= 1 ? 8 : 0,
-                        // The entrance's size is 7 for two or four players games, 9 otherwise
-                        numOfPlayers == 3 ? 9 : 7);
+        players[playersNum] =
+            buildPlayer(
+                data.getExpertMode(),
+                teamMode,
+                playersNum,
+                usernameAndMagicAge.username(),
+                wizard,
+                // If there are three players, each one gets 6 towers, else if there are two players, each one takes 8 towers,
+                // otherwise, there are four players and the first member of each team gets 8 towers, whilst its teammate gets 0
+                gameNumOfPlayers == 3 ? 6 : gameNumOfPlayers == 2 || playersNum <= 1 ? 8 : 0,
+                // The entrance's size is 7 for two or four players games, 9 otherwise
+                gameNumOfPlayers == 3 ? 9 : 7);
 
-                // Link the current player with its team member if both exist
-                if (teamMode && i > 1)
-                    linkTeams(players, i);
+        // Link the current player with its team member if both exist
+        if (teamMode && playersNum > 1)
+            linkTeams(players, playersNum);
 
-                // Add the newly created player to the isomorphism (Player, View)
-                data.addViewPlayer(players[i], view);
+        // Add the newly created player to the isomorphism (Player, View)
+        data.addViewPlayer(players[playersNum], view);
 
-                playersNum++;
+        playersNum++;
 
-                return playersNum == numOfPlayers;
-            }
-
-        // Should never be reached
-        throw new IllegalStateException();
+        return playersNum == gameNumOfPlayers;
     }
 
     /**

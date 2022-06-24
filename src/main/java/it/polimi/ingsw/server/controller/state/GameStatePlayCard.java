@@ -29,12 +29,10 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
         selectPlanPhasePlayersOrder();
 
         // Cleans the PlayerAssistantCardMap, removing previous rounds' played cards
-        ControllerData.getInstance().nukePlayerAssistantCardMap();
+        data.nukePlayerAssistantCardMap();
 
         // Makes every player play an AssistantCard
-        Player[] players = data.getGameModel().getPlayer();
-        for (Player player : players) {
-            //data.setCurrentPlayer(player);
+        for (Player player : data.getPlayersOrder()) {
             AssistantCard[] playableAssistantCards = getPlayableAssistantCards(player);
 
             try {
@@ -158,8 +156,10 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
 
         // Find the seat of the first picker around the table
         for (int i = 0; i < numOfPlayers; i++)
-            if (firstPickers.equals(model.getPlayer(i)))
+            if (firstPickers.equals(model.getPlayer(i))) {
                 firstPickerSeatPosition = i;
+                break;
+            }
 
         // Order the player clockwise after the first picker, depending on where they are sat around the "table"
         for (int i = 0; i < numOfPlayers; i++)

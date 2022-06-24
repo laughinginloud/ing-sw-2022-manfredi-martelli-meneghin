@@ -211,7 +211,7 @@ public final class ControllerData {
      * @param playersOrder An array containing the play order
      */
     public void setPlayersOrder(Player[] playersOrder) {
-        this.playersOrder = playersOrder;
+        this.playersOrder = copyOf(playersOrder);
     }
 
     /**
@@ -428,7 +428,7 @@ public final class ControllerData {
     }
 
     public boolean turnEnd() {
-        return (currentPlayer + 1) == playersOrder.length;
+        return (currentPlayer + 1) >= playersOrder.length;
     }
 
 }

@@ -24,6 +24,7 @@ import org.jline.utils.InfoCmp;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -294,15 +295,19 @@ public final class ViewCLI implements View {
 
     @Override
     public void updateModel(GameModel model, Set<GameValues> ignored) {
+        if (model == null)
+            return;
+
         display.clear();
         display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
         writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 1));
 
+        MAIN_FOR:
         for (int i = 0, isl = 0; i < 2; ++i) {
             for (int j = 0; j < 6; ++j, ++isl) {
                 if (isl >= model.getIslandsCount())
-                    break;
+                    break MAIN_FOR;
 
                 drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -949,7 +954,7 @@ public final class ViewCLI implements View {
                     Arrays.stream(sortedWiz)
                         .map(Enum::name)
                         .map(Methods::capitalize)
-                        .forEachOrdered(w -> wizOptions.add("> " + w));
+                        .forEach(w -> wizOptions.add("> " + w));
 
                     colorElem(wizOptions, wizSel.value());
                     menu.addAll(wizOptions);
@@ -1027,8 +1032,6 @@ public final class ViewCLI implements View {
                             }
                         }
                     }
-
-
                 }
             }
 
@@ -1212,7 +1215,7 @@ public final class ViewCLI implements View {
                 List<String> cardOptions = new ArrayList<>(numOfCards);
 
                 Arrays.stream(playableCharacterCards).forEach(card ->
-                    cardOptions.add("> " + capitalize(card.getCharacter().name())));
+                    cardOptions.add("> " + characterName(card)));
 
                 colorElem(cardOptions, cardSel.value());
                 menu.addAll(cardOptions);
@@ -1276,6 +1279,10 @@ public final class ViewCLI implements View {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String characterName(CharacterCard card) {
+        return capitalize(card.getCharacter().name().replace("_", " "));
     }
 
     @Override
@@ -1365,6 +1372,7 @@ public final class ViewCLI implements View {
                 // Main menu
                 MENU:
                 while (!interrupted()) {
+                    // Check whether the selected student can be moved to the corresponding table, breaking the loop if it can't
                     if (!diningRoomFreeTables[localPlayer.getSchoolBoard().getEntrance().getStudents()[selectedStudentIndex].ordinal()])
                         break MENU;
 
@@ -1460,10 +1468,11 @@ public final class ViewCLI implements View {
                     display.clear();
                     display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
+                    MAIN_FOR:
                     for (int i = 0, isl = 0; i < 2; ++i) {
                         for (int j = 0; j < 6; ++j, ++isl) {
                             if (isl >= islandNum)
-                                break;
+                                break MAIN_FOR;
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -1546,10 +1555,11 @@ public final class ViewCLI implements View {
                 display.clear();
                 display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
+                MAIN_FOR:
                 for (int i = 0, isl = 0; i < 2; ++i) {
                     for (int j = 0; j < 6; ++j, ++isl) {
                         if (isl >= islandNum)
-                            break;
+                            break MAIN_FOR;
 
                         drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -1705,7 +1715,7 @@ public final class ViewCLI implements View {
                 display.clear();
                 display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                Arrays.stream(availableClouds).forEachOrdered(availableCloud -> {
+                Arrays.stream(availableClouds).forEach(availableCloud -> {
                     drawCloud(writer, availableCloud);
 
                     writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
@@ -2201,7 +2211,7 @@ public final class ViewCLI implements View {
 
                 List<String> colorOptions = new ArrayList<>(numOfColors);
 
-                Arrays.stream(availableColors).forEachOrdered(color ->
+                Arrays.stream(availableColors).forEach(color ->
                     ifNotNull(color, () ->
                         colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)))));
 
@@ -2336,10 +2346,11 @@ public final class ViewCLI implements View {
                     display.clear();
                     display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
+                    MAIN_FOR:
                     for (int i = 0, isl = 0; i < 2; ++i) {
                         for (int j = 0; j < 6; ++j, ++isl) {
                             if (isl >= islandNum)
-                                break;
+                                break MAIN_FOR;
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
@@ -2540,8 +2551,6 @@ public final class ViewCLI implements View {
 
     @Override
     public void notifyPlayerDisconnection() {
-        //TODO: controllare utilizzi
-
         contextSwitch(() -> {
             display.clear();
             display.updateAnsi(TermConstants.logoList, (terminal.getWidth() + 1) * TermConstants.logoList.size());
@@ -2580,8 +2589,6 @@ public final class ViewCLI implements View {
                 hideCursor(writer);
                 writer.print("Press any key to continue...");
                 keyStream.read();
-
-                updateModel(model, null);
             }
 
             // Should never happen
@@ -2608,6 +2615,8 @@ public final class ViewCLI implements View {
                 keyStream.read();
                 showCursor(writer);
             }
+
+            catch (InterruptedIOException ignored) {}
 
             // Should never happen
             catch (IOException e) {
@@ -2750,11 +2759,12 @@ public final class ViewCLI implements View {
     private void contextSwitch(Runnable runnable) {
         ifNotNull(currentMenu, t -> {
             t.interrupt();
-            t.stop();
+            //t.stop();
         });
         currentMenu = new Thread(() -> {
             try {
                 runnable.run();
+                updateModel(model, null);
             }
 
             catch (UserInterruptException ignored) {}
