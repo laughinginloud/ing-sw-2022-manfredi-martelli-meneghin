@@ -1,13 +1,11 @@
 package it.polimi.ingsw.client.view;
 
-import it.polimi.ingsw.client.view.cli.ViewCLI;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**

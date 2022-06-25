@@ -1,7 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.view.*;
-import it.polimi.ingsw.client.view.cli.ViewCLI;
+import it.polimi.ingsw.client.view.ViewCLI;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import org.jline.terminal.Attributes;
 import org.jline.terminal.Terminal;

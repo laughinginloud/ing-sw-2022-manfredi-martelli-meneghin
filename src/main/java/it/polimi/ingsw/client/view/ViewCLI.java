@@ -1,4 +1,4 @@
-package it.polimi.ingsw.client.view.cli;
+package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
@@ -6,7 +6,6 @@ import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.termutils.Ansi;
-import it.polimi.ingsw.common.termutils.Graphics;
 import it.polimi.ingsw.common.utils.Methods;
 import it.polimi.ingsw.common.utils.ModuloNat;
 import it.polimi.ingsw.common.utils.Tuple;
@@ -27,6 +26,7 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.function.Consumer;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
@@ -34,31 +34,50 @@ import static it.polimi.ingsw.common.termutils.Graphics.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
 import static java.util.Comparator.*;
 
-@SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue", "UnnecessaryLabelOnBreakStatement"})
+/**
+ * The CLI user interface
+ * @author Mattia Martelli
+ */
+
+// A few warnings are suppressed for the whole class:
+//
+//      - UnnecessaryLabelOnContinueStatement,
+//        UnnecessaryContinue,
+//        UnnecessaryLabelOnBreakStatement: some nested loops are quite complicated, so in those cases all control flow instructions are labeled for clarity, even when not needed
+//
+//      - ResultOfMethodCallIgnored: to emulate Windows cmd's "Press any key to continue...", there are a few calls to InputStream::read where the result is discarded
+//
+@SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "UnnecessaryContinue", "UnnecessaryLabelOnBreakStatement", "ResultOfMethodCallIgnored"})
+
 public final class ViewCLI implements View {
 
     // region Terminal related fields
 
     private final Attributes  savedAttributes;
-    private final Terminal    terminal;
     private final Display     display;
-    private final PrintWriter writer;
-    private final LineReader  reader;
     private final InputStream keyStream;
+    private final LineReader  reader;
+    private final Terminal    terminal;
+    private final PrintWriter writer;
 
-    private Address address;
+    // endregion
 
-    private Player localPlayer;
+    // region Game related fields
 
+    private Address           address;
+    private Thread            currentMenu;
+    private Player            localPlayer;
+    private GameModel         model;
     private VirtualController virtualController;
-    private GameModel model;
-
-    private Thread currentMenu;
 
     // endregion
 
     // region Constructors
 
+    /**
+     * Build a CLI from scratch
+     * @throws IOException If the terminal cannot be built
+     */
     public ViewCLI() throws IOException {
         terminal = TerminalBuilder.builder()
             .name("Eriantys")
@@ -83,6 +102,13 @@ public final class ViewCLI implements View {
         localPlayer = null;
     }
 
+    /**
+     * Build a CLI from a previously created terminal
+     * @param terminal        The terminal
+     * @param display         The display
+     * @param keyStream       The input stream
+     * @param savedAttributes The past terminal state
+     */
     public ViewCLI(Terminal terminal, Display display, InputStream keyStream, Attributes savedAttributes) {
         this.terminal        = terminal;
         this.display         = display;
@@ -97,6 +123,8 @@ public final class ViewCLI implements View {
 
     // endregion
 
+    // region Execution related methods
+
     @Override
     public void launchUI() {
         try {
@@ -108,7 +136,10 @@ public final class ViewCLI implements View {
         }
     }
 
-    public void run() {
+    /**
+     * Run the CLI
+     */
+    private void run() {
         playExitMenu();
 
         ifNotNull(address, () -> {
@@ -117,12 +148,8 @@ public final class ViewCLI implements View {
                 virtualController.join();
             }
 
-            catch (IOException ignored) {
+            catch (IOException | InterruptedException ignored) {
                 signalConnectionError();
-            }
-
-            catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
 
             address = null;
@@ -130,6 +157,154 @@ public final class ViewCLI implements View {
         });
     }
 
+    /**
+     * Terminate the CLI
+     */
+    public void close() {
+        ifNotNull(virtualController, VirtualController::close);
+        ifNotNull(currentMenu,       Thread::interrupt);
+
+        terminal.setAttributes(savedAttributes);
+        terminal.puts(InfoCmp.Capability.exit_ca_mode);
+
+        try {
+            terminal.close();
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // endregion
+
+    // region Utility methods
+
+    /**
+     * Context switch to a different "window"
+     * @param window The "window" to switch to
+     */
+    private void contextSwitch(Runnable window) {
+        ifNotNull(currentMenu, Thread::interrupt);
+
+        currentMenu = new Thread(() -> {
+            try {
+                window.run();
+            }
+
+            catch (UserInterruptException ignored) {}
+        });
+
+        currentMenu.start();
+    }
+
+    /**
+     * Context switch to a different "window"
+     * @param window The "window" to switch to
+     * @param param  The parameter of the "window"
+     * @param <T>    The type of the parameter
+     */
+    private <T> void contextSwitch(Consumer<T> window, T param) {
+        contextSwitch(() -> window.accept(param));
+    }
+
+    @Override
+    public GameModel getModel() {
+        return model;
+    }
+
+    @Override
+    public void setModel(GameModel model) {
+        this.model = model;
+    }
+
+    /**
+     * Shows the game board and awaits for user input
+     * @throws IOException If there is an error whilst reading
+     */
+    private void showModel() throws IOException {
+        updateModel(model, null);
+
+        writer.println();
+        writer.print("Press any key to continue...");
+        keyStream.read();
+    }
+
+    @Override
+    public void setVirtualController(VirtualController virtualController) {
+        this.virtualController = virtualController;
+    }
+
+    @Override
+    public Player getLocalPlayer() {
+        if (localPlayer == null)
+            localPlayer = Arrays.stream(model.getPlayer())
+                .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
+                .orElseThrow();
+
+        return localPlayer;
+    }
+
+    @Override
+    public void forwardViewToVirtualController(Object infoToSend) {
+        if (!interrupted())
+            async(virtualController::messageAfterUserInteraction, infoToSend);
+    }
+
+    @Override
+    public void setUsernameVirtualController(String readUsername) {
+        virtualController.setUsername(readUsername);
+    }
+
+
+    /**
+     * Color the selected element of the list in cyan
+     * @param list  The list to modify
+     * @param index The index of the selected item
+     */
+    private static void colorElem(List<String> list, int index) {
+        highlightElem(list, index, CYAN);
+    }
+
+    /**
+     * Underline the selected element of the list
+     * @param list  The list to modify
+     * @param index The index of the selected item
+     */
+    private static void underlineElem(List<String> list, int index) {
+        highlightElem(list, index, UNDERLINE);
+    }
+
+    /**
+     * Highlight the selected element of the list
+     * @param list  The list to modify
+     * @param index The index of the selected item
+     * @param color The color(s) to apply to the element
+     */
+    private static void highlightElem(List<String> list, int index, Ansi... color) {
+        list.set(index, (colorString(list.get(index), color)));
+    }
+
+    /**
+     * Return the name of a character
+     * @param card The card to elaborate
+     * @return A String representing the character
+     */
+    private String characterName(CharacterCard card) {
+        return switch (card.getCharacter()) {
+            case STANDARD_BEARER -> "Herald";
+            default              -> capitalize(card.getCharacter().name());
+        };
+    }
+
+    /**
+     * Print a simple confirm menu
+     * @param header      The header of the menu
+     * @param cursorShown Wheteher the cursor is currently shown
+     * @return A boolean representing the choice
+     * @throws IOException If there is an error whilst reading and writing
+     * @throws InterruptedException If the current "window" has been interrupted
+     */
     private boolean confirmMenu(List<String> header, boolean cursorShown) throws IOException, InterruptedException {
         boolean okSel = false;
 
@@ -196,6 +371,15 @@ public final class ViewCLI implements View {
 
         throw new InterruptedException();
     }
+
+    // endregion
+
+    // region Menus
+
+    // In this region there are "noSwitch" version of methods, which, as the name suggest,
+    // do not perform context switching
+    // They are required to avoid problems with complex requests, e.g. requesting a character card
+    // or the movement of a pawn, which can call these "noSwitch" versions to maintain the context
 
     @Override
     public void playExitMenu() {
@@ -331,23 +515,6 @@ public final class ViewCLI implements View {
         writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 8));
 
         drawTable(writer, getLocalPlayer().getSchoolBoard(), model, getLocalPlayer());
-    }
-
-    public void close() {
-        ifNotNull(virtualController, VirtualController::close);
-
-        ifNotNull(currentMenu, Thread::interrupt);
-
-        terminal.setAttributes(savedAttributes);
-        terminal.puts(InfoCmp.Capability.exit_ca_mode);
-
-        try {
-            terminal.close();
-        }
-
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -615,6 +782,14 @@ public final class ViewCLI implements View {
 
                     if (interrupted())
                         return;
+
+                    // When I get to this point both should have a value, but if for some reason
+                    // that's not the case, simply reset the state of the menu and try again
+                    if (numOfPlayers == null || expertMode == null) {
+                        numOfPlayers = null;
+                        expertMode   = null;
+                        continue MENU;
+                    }
 
                     menu.clear();
                     menu.addAll(logoList);
@@ -1197,6 +1372,10 @@ public final class ViewCLI implements View {
         contextSwitch(() -> requestPlayCharacterCard_noSwitch(playableCharacterCards));
     }
 
+    /**
+     * A context switch-less version of the request
+     * @param playableCharacterCards The available cards
+     */
     private void requestPlayCharacterCard_noSwitch(CharacterCard[] playableCharacterCards) {
         try {
             int       numOfCards = playableCharacterCards.length;
@@ -1278,13 +1457,6 @@ public final class ViewCLI implements View {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private String characterName(CharacterCard card) {
-        return switch (card.getCharacter()) {
-            case STANDARD_BEARER -> "Herald";
-            default              -> capitalize(card.getCharacter().name());
-        };
     }
 
     @Override
@@ -1441,9 +1613,7 @@ public final class ViewCLI implements View {
                                         return;
                                     }
 
-                                    case 2 -> {
-                                        showModel();
-                                    }
+                                    case 2 -> showModel();
                                 }
                             }
 
@@ -1536,9 +1706,13 @@ public final class ViewCLI implements View {
 
     @Override
     public void requestMotherNatureMovement(Island[] possibleMovement) {
-        contextSwitch(() -> requestMotherNatureMovement_noSwitch(possibleMovement));
+        contextSwitch(this::requestMotherNatureMovement_noSwitch, possibleMovement);
     }
 
+    /**
+     * A context switch-less version of the request
+     * @param possibleMovement The island Mother Nature can move to
+     */
     private void requestMotherNatureMovement_noSwitch(Island[] possibleMovement) {
         try {
             int islandNum = possibleMovement.length;
@@ -1695,9 +1869,13 @@ public final class ViewCLI implements View {
 
     @Override
     public void requestCloudTileSelection(CloudTile[] availableClouds) {
-        contextSwitch(() -> requestCloudTileSelection_noSwitch(availableClouds));
+        contextSwitch(this::requestCloudTileSelection_noSwitch, availableClouds);
     }
 
+    /**
+     * A context switch-less version of the request
+     * @param availableClouds The available clouds
+     */
     private void requestCloudTileSelection_noSwitch(CloudTile[] availableClouds) {
         try {
             int cloudsNum = availableClouds.length;
@@ -2192,9 +2370,13 @@ public final class ViewCLI implements View {
 
     @Override
     public void chooseStudentFromEntrance(Color[] availableColors) {
-        contextSwitch(() -> chooseStudentFromEntrance_noSwitch(availableColors));
+        contextSwitch(this::chooseStudentFromEntrance_noSwitch, availableColors);
     }
 
+    /**
+     * A context switch-less version of the request
+     * @param availableColors The available colors
+     */
     private void chooseStudentFromEntrance_noSwitch(Color[] availableColors) {
         try {
             int       numOfColors = availableColors.length;
@@ -2627,18 +2809,6 @@ public final class ViewCLI implements View {
     }
 
     @Override
-    public void forwardViewToVirtualController(Object infoToSend) {
-        if (!interrupted())
-            async(() ->
-                virtualController.messageAfterUserInteraction(infoToSend));
-    }
-
-    @Override
-    public void setUsernameVirtualController(String readUsername) {
-        virtualController.setUsername(readUsername);
-    }
-
-    @Override
     public void signalWinner(Player winner) {
         contextSwitch(() -> {
             display.clear();
@@ -2724,60 +2894,6 @@ public final class ViewCLI implements View {
         });
     }
 
-    @Override
-    public GameModel getModel() {
-        return model;
-    }
+    // endregion
 
-    @Override
-    public Player getLocalPlayer() {
-        if (localPlayer == null)
-            localPlayer = Arrays.stream(model.getPlayer())
-                .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
-                .orElseThrow();
-
-        return localPlayer;
-    }
-
-    @Override
-    public void setModel(GameModel model) {
-        this.model = model;
-    }
-
-    @Override
-    public void setVirtualController(VirtualController virtualController) {
-        this.virtualController = virtualController;
-    }
-
-    private static void colorElem(List<String> list, int index) {
-        list.set(index, colorString(list.get(index), CYAN));
-    }
-
-    private static void underlineElem(List<String> list, int index) {
-        list.set(index, colorString(list.get(index), UNDERLINE));
-    }
-
-    private void contextSwitch(Runnable runnable) {
-        ifNotNull(currentMenu, t -> {
-            t.interrupt();
-            //t.stop();
-        });
-        currentMenu = new Thread(() -> {
-            try {
-                runnable.run();
-                //updateModel(model, null);
-            }
-
-            catch (UserInterruptException ignored) {}
-        });
-        currentMenu.start();
-    }
-
-    private void showModel() throws IOException {
-        updateModel(model, null);
-
-        writer.println();
-        writer.print("Press any key to continue...");
-        keyStream.read();
-    }
 }

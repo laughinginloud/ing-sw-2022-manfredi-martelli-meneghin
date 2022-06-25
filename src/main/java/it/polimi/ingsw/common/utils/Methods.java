@@ -122,4 +122,14 @@ public /*static*/ final class Methods {
     public static void async(Runnable action) {
         (new Thread(action)).start();
     }
+
+    /**
+     * Perform an action asynchronously
+     * @param action The action to perform
+     * @param param  The parameter of the action
+     * @param <T>    The type of the parameter
+     */
+    public static <T> void async(Consumer<T> action, T param) {
+        async(() -> action.accept(param));
+    }
 }

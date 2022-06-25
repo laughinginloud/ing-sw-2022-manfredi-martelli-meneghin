@@ -22,7 +22,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.*;
 
-public class VirtualController extends Thread implements Closeable {
+public class VirtualController extends Thread {
     private static final Gson messageBuilder = Constants.jsonBuilder;
 
     private final Socket           socket;
