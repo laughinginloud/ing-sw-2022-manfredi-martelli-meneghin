@@ -1401,7 +1401,8 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
             if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)          || updatedValues.contains(GameValues.SCHOOLBOARDARRAY)
                               || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE) || updatedValues.contains(GameValues.ENTRANCE)
                               || updatedValues.contains(GameValues.ENTRANCEARRAY)        || updatedValues.contains(GameValues.DININGROOM)
-                              || updatedValues.contains(GameValues.DININGROOMARRAY)                                                            ) {
+                              || updatedValues.contains(GameValues.DININGROOMARRAY))
+            {
                 // Updates the SchoolBoard of the specified player
                 psbUpdateSchoolBoard(model, players[i], i, updatedValues);
             }
@@ -1520,7 +1521,9 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
         for (Color color : Color.values())
             gpt.getProfessorLocation(color).ifPresent(p -> {
                 ImageView gptImageView = IDHelper.psbFindProfessorSingleImageID(this, playerIndex, color);
-                gptImageView.setVisible(p.equals(player));
+
+                // TODO: verify this
+                gptImageView.setVisible(p.getUsername().equals(player.getUsername()));
             });
     }
 
@@ -1609,7 +1612,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
         psbUpdateUsername(player.getUsername(), playerIndex);
         psbUpdateLastAssistantCard(player.getLastPlayedCard(), playerIndex);
 
-        AnchorPane expertMode_pane = IDHelper.psbFindPlayerAdditionalInfoPaneID(this, playerIndex);
+        AnchorPane expertMode_pane = IDHelper.psbFindPlayerCoinPaneID(this, playerIndex);
         if (isExpertMode) {
             expertMode_pane.setVisible(true);
             psbUpdateCoinCount(player, playerIndex);

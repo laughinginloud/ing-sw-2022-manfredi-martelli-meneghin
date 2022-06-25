@@ -1645,7 +1645,9 @@ public class GameSceneHandler implements GUIHandler {
         for (Color color : Color.values())
             gpt.getProfessorLocation(color).ifPresent(p -> {
                 ImageView imageView = IDHelper.gsFindProfessorOnProfTableID(this, color);
-                imageView.setVisible(p.equals(player));
+
+                //TODO: verify this
+                imageView.setVisible(p.getUsername().equals(player.getUsername()));
             });
     }
 
