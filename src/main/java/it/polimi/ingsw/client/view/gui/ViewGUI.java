@@ -81,7 +81,7 @@ public final class ViewGUI extends Application implements View {
         // Adds the scenes and the sceneHandlers to their respective HashMap
         setupScenes();
         this.stage = stage;
-        //stage.setResizable(false);
+        stage.setResizable(false);
 
         // Sets the title, the scene, the icon
         stage.setTitle("Eriantys pre alpha 5.0");
@@ -157,6 +157,7 @@ public final class ViewGUI extends Application implements View {
         nameMapHandler.get(nextPage).setGUI(this);
 
         Platform.runLater(() -> {
+            /*
             if (nextPage == Pages.GAME_SCENE) {
                 Scale scale = new Scale(1, 1);
                 scale.setPivotX(0);
@@ -167,6 +168,7 @@ public final class ViewGUI extends Application implements View {
                 currentScene.heightProperty().addListener(sizeChangeListener);
                 letterbox(currentScene, (Pane) currentScene.lookup("playersBoards_BorderPane"));
             }
+            */
 
             stage.setScene(currentScene);
         });
@@ -717,7 +719,7 @@ public final class ViewGUI extends Application implements View {
 
     // region ResizeWindow
 
-    private void letterbox(final Scene scene, final Pane contentPane) {
+    /*private void letterbox(final Scene scene, final Pane contentPane) {
         final double initWidth  = scene.getWidth();
         final double initHeight = scene.getHeight();
         final double ratio      = initWidth / initHeight;
@@ -765,7 +767,7 @@ public final class ViewGUI extends Application implements View {
                 contentPane.setPrefHeight(Math.max(initHeight, newHeight));
             }
         }
-    }
+    }*/
 
     // endregion ResizeWindow
 }
