@@ -111,7 +111,8 @@ public final class VirtualController extends Thread {
                     msg = inputStream.readUTF();
                 }
 
-                System.out.println(msg);
+                if (!msg.equals(jsonBuilder.toJson(new Message(PING, null))) && !msg.equals(jsonBuilder.toJson(new Message(PONG, null))))
+                    System.out.println(msg);
 
                 messageInterpreter(jsonBuilder.fromJson(msg, Message.class));
             }
@@ -135,7 +136,8 @@ public final class VirtualController extends Thread {
         try {
             String msg = jsonBuilder.toJson(message);
 
-            System.out.println(msg);
+            if (!msg.equals(jsonBuilder.toJson(new Message(PING, null))) && !msg.equals(jsonBuilder.toJson(new Message(PONG, null))))
+                System.out.println(msg);
 
             synchronized (outputStream) {
                 outputStream.writeUTF(msg);
