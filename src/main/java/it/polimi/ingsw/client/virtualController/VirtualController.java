@@ -20,6 +20,7 @@ import java.net.Socket;
 import java.util.*;
 
 import static it.polimi.ingsw.common.json.Constants.jsonBuilder;
+import static it.polimi.ingsw.common.message.MessageType.*;
 
 /**
  * Class describing the general virtual controller interface, encapsulating the sockets
