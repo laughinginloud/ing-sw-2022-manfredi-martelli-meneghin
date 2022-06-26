@@ -1365,10 +1365,14 @@ public class GameSceneHandler implements GUIHandler {
             // Updates the expertMode elements
             gsUpdateExpertModeElements(model, player, updatedValues);
         }
+
+        // TODO: sistemare con la possibilità di reset
+        /*
         else {
             // Hides the ExpertMode pane
             characterCards_pane.setVisible(false);
         }
+        */
     }
 
     // region GSUpdateSky
