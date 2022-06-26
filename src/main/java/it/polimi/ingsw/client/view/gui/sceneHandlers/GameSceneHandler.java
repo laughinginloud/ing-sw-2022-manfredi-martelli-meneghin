@@ -1914,9 +1914,9 @@ public class GameSceneHandler implements GUIHandler {
         AssistantCard[] assistantCardOnModel = gui.getModel().getPlayer()[localPlayerIndex].getAssistantDeck();
         ImageView       assistantCardImageView;
 
-        for (int assCardPos = 0; assCardPos < assistantCardOnModel.length; assCardPos++) {
-            if (playableAssistantCardSet.contains(assistantCardOnModel[assCardPos])) {
-                assistantCardImageView = IDHelper.gsFindAssistantCardID(this, assCardPos + 1);
+        for (AssistantCard assistantCard : assistantCardOnModel) {
+            if (playableAssistantCardSet.contains(assistantCard)) {
+                assistantCardImageView = IDHelper.gsFindAssistantCardID(this, assistantCard.cardValue());
 
                 EventHandler<MouseEvent> clickOnAssistantCardHandler = mouseEvent -> {
                     // Associates to the click of the mouse the function clickOnAssistantCard
