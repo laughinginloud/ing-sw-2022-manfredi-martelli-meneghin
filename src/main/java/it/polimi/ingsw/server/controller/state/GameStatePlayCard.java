@@ -110,7 +110,7 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
             ControllerData data = ControllerData.getInstance();
 
             // Gets the AssistantCard from the current player's deck
-            AssistantCard drawnFromDeck = player.getAssistantCard(chosenCard.cardValue() - 1);
+            AssistantCard drawnFromDeck = player.getAssistantCard(findCardIndex(chosenCard, player.getAssistantDeck()));
             if (!drawnFromDeck.equals(chosenCard))
                 throw new IllegalStateException("The two AssistantCards cannot be different");
 
@@ -137,6 +137,20 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
             // Fatal error: print the stack trace to help debug
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Find the index of the chosen card
+     * @param card           The chosen card
+     * @param assistantCards The deck of cards
+     * @return The index of the card
+     */
+    private int findCardIndex(AssistantCard card, AssistantCard[] assistantCards) {
+        for (int i = 0; i < assistantCards.length; ++i)
+            if (card.equals(assistantCards[i]))
+                return i;
+
+        throw new IllegalStateException();
     }
 
     /**
