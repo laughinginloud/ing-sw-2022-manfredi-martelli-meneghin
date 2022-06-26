@@ -105,11 +105,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl1_pane" layoutX="343.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl1_pane" layoutX="744.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <ImageView fx:id="isl1_img" fitHeight="243.0" fitWidth="237.0" layoutX="-22.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="isl1_img" fitHeight="237.0" fitWidth="240.0" layoutX="-22.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl1_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
@@ -185,11 +185,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl2_pane" layoutX="153.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl2_pane" layoutX="935.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl2_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl2_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
@@ -265,7 +265,7 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl3_pane" layoutY="339.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl3_pane" layoutX="1091.0" layoutY="339.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl3_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -345,11 +345,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl4_pane" layoutX="153.0" layoutY="482.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl4_pane" layoutX="935.0" layoutY="482.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl4_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl4_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
@@ -425,11 +425,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl5_pane" layoutX="343.0" layoutY="586.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl5_pane" layoutX="744.0" layoutY="586.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl5_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl5_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
@@ -585,11 +585,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl7_pane" layoutX="744.0" layoutY="586.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl7_pane" layoutX="343.0" layoutY="586.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl7_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl7_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
@@ -665,11 +665,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl8_pane" layoutX="935.0" layoutY="482.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl8_pane" layoutX="153.0" layoutY="482.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl8_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl8_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
@@ -745,7 +745,7 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl9_pane" layoutX="1091.0" layoutY="339.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl9_pane" layoutY="339.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl9_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -825,11 +825,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl10_pane" layoutX="935.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl10_pane" layoutX="153.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <ImageView fx:id="isl10_img" fitHeight="243.0" fitWidth="237.0" layoutX="-18.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island2.png" />
+                                    <Image url="@../images/islands/island1.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl10_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
@@ -905,11 +905,11 @@
                               </Text>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="isl11_pane" layoutX="744.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="isl11_pane" layoutX="343.0" layoutY="72.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <ImageView fx:id="isl11_img" fitHeight="237.0" fitWidth="240.0" layoutX="-22.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="isl11_img" fitHeight="243.0" fitWidth="237.0" layoutX="-22.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../images/islands/island1.png" />
+                                    <Image url="@../images/islands/island2.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="isl11_tower_img" fitHeight="74.0" fitWidth="66.0" layoutX="96.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
