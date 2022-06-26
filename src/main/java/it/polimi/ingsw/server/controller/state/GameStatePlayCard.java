@@ -163,7 +163,7 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
 
         // Order the player clockwise after the first picker, depending on where they are sat around the "table"
         for (int i = 0; i < numOfPlayers; i++)
-            planPhasePlayersOrder[i] = model.getPlayer((i + firstPickerSeatPosition) % 4);
+            planPhasePlayersOrder[i] = model.getPlayer((i + firstPickerSeatPosition) % numOfPlayers);
 
         // Set then the new playersOrder in ControllerData
         data.setPlayersOrder(planPhasePlayersOrder);
