@@ -164,7 +164,7 @@ public class BardStrategy extends CharacterCardStrategy {
      * @return An array of Color representing the students of the entrance that can be swapped
      */
     public static Color[] getSwappableStudents(Player player, Color[] entranceStudents) {
-        DiningRoom diningRoom = player.getSchoolBoard().getDiningRoom();
+        DiningRoom  diningRoom            = player.getSchoolBoard().getDiningRoom();
         List<Color> swappableStudentsList = new ArrayList<>();
         boolean addable = false;
 
@@ -176,7 +176,7 @@ public class BardStrategy extends CharacterCardStrategy {
                     addable = true;
 
             // If the DiningTable of the same color of the student is full, set "addable" to false
-            if (diningRoom.getStudentCounters(color) == 10)
+            if (color != null && diningRoom.getStudentCounters(color) == 10)
                 addable = false;
 
             // If the student is swappable at least with a single DiningRoomTable, it is not already present on the list, then add it to the swappableStudents list
