@@ -48,7 +48,7 @@ public sealed class Player permits PlayerExpert, PlayerTeam, PlayerTeamExpert {
      * @return A record representing the card
      */
     public AssistantCard getAssistantCard(int index) {
-        assert index >= 0 && index < assistantDeck.length: "Index out of bounds";
+        assert index >= 0 && index < assistantDeck.length: "Index out of bounds, since index is:" + index;
 
         AssistantCard tempCard = assistantDeck[index];
 
