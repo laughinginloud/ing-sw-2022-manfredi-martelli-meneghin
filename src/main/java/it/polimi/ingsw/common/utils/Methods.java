@@ -1,6 +1,8 @@
 package it.polimi.ingsw.common.utils;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import static java.lang.Thread.currentThread;
@@ -102,19 +104,6 @@ public /*static*/ final class Methods {
 
     // endregion
 
-    // region String
-
-    /**
-     * Capitalize the first letter of the string, whilst putting in lower case the rest
-     * @param str The string to capitalize
-     * @return    The capitalized string
-     */
-    public static String capitalize(String str) {
-        return Character.toUpperCase(str.charAt(0)) + str.substring(1).toLowerCase();
-    }
-
-    // endregion
-
     // region Thread
 
     /**
@@ -141,6 +130,46 @@ public /*static*/ final class Methods {
      */
     public static <T> void async(Consumer<T> action, T param) {
         async(() -> action.accept(param));
+    }
+
+    // endregion
+
+    // region Miscellaneous
+
+    /**
+     * Capitalize the first letter of the string, whilst putting in lower case the rest
+     * @param str The string to capitalize
+     * @return    The capitalized string
+     */
+    public static String capitalize(String str) {
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1).toLowerCase();
+    }
+
+    /**
+     * Find the index of an array's element
+     * @param elem  The element to search for
+     * @param array The array to search in
+     * @return Optional containing the index, if it exists
+     * @param <T> The type of the array
+     */
+    public static <T> Optional<Integer> elemindexOpt(T elem, T[] array) {
+        for (int i = 0; i < array.length; ++i)
+            if (elem.equals(array[i]))
+                return Optional.of(i);
+
+        return Optional.empty();
+    }
+
+    /**
+     * Find the index of an array's element
+     * @param elem  The element to search for
+     * @param array The array to search in
+     * @return The index of the element
+     * @param <T> The type of the array
+     * @throws NoSuchElementException If the element is not in the array
+     */
+    public static <T> int elemIndex(T elem, T[] array) throws NoSuchElementException {
+        return elemindexOpt(elem, array).orElseThrow();
     }
 
     // endregion

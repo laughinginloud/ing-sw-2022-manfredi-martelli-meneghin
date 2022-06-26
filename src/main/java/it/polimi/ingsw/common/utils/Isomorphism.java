@@ -61,7 +61,7 @@ public final class Isomorphism<Left, Right> {
     }
 
     /**
-     * Returns whether or not the specified domain value exists in the isomorphism
+     * Returns whether the specified domain value exists in the isomorphism
      * @param left The value to search
      * @return A boolean representing the result of the search
      */
@@ -70,7 +70,7 @@ public final class Isomorphism<Left, Right> {
     }
 
     /**
-     * Returns whether or not the specified codomain value exists in the isomorphism
+     * Returns whether the specified codomain value exists in the isomorphism
      * @param right The value to search
      * @return A boolean representing the result of the search
      */
@@ -186,7 +186,7 @@ public final class Isomorphism<Left, Right> {
      * @return An unordered Set(Tuple(Left, Right))
      */
     public Set<Tuple<Left, Right>> tupleSet() {
-        return entrySet().stream().map(e -> new Tuple<Left, Right>(e.getKey(), e.getValue())).collect(Collectors.toSet());
+        return entrySet().stream().map(e -> new Tuple<>(e.getKey(), e.getValue())).collect(Collectors.toSet());
     }
 
     /**

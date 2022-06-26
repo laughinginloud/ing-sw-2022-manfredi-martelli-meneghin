@@ -169,11 +169,3 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
         data.setPlayersOrder(planPhasePlayersOrder);
     }
 }
-
-
-
-
-
-
-
-

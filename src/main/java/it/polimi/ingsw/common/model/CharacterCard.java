@@ -5,9 +5,14 @@ package it.polimi.ingsw.common.model;
  * @author Sebastiano Meneghin
  */
 public sealed class CharacterCard permits CharacterCardNoEntry, CharacterCardStudent {
+
+    // region Fields
+
     private       int       cost;
     private final Character character;
     private       boolean   hasCoin;
+
+    // endregion
 
     // region Constructor and Builder
 
@@ -87,4 +92,5 @@ public sealed class CharacterCard permits CharacterCardNoEntry, CharacterCardStu
     public void setHasCoin(boolean hasCoin) { this.hasCoin = hasCoin; }
 
     // endregion
+
 }

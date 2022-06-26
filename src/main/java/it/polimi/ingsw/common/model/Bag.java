@@ -7,10 +7,17 @@ import java.util.Random;
  * @author Sebastiano Meneghin
  */
 public final class Bag {
-    private final int[] studentCounters;
-    private       int   numOfStudents;
+
+    // region Fields
+
+    private final int[]  studentCounters;
+    private       int    numOfStudents;
 
     private final Random random;
+
+    // endregion
+
+    // region Constructor and setters
 
     /**
      * Constructor of the class 'Bag'
@@ -20,16 +27,6 @@ public final class Bag {
         setStudentCounters(0);
         numOfStudents = 0;
         random = new Random();
-    }
-
-    /**
-     * Gets the current value of a specific studentCounter
-     * @param color Color of the studentCounter to return (not null)
-     * @return An int representing the current value of the specified color
-     *         (positive integer between 0 and 16 included)
-     */
-    public int getStudentCounters(Color color){
-        return studentCounters[color.ordinal()];
     }
 
     /**
@@ -52,6 +49,20 @@ public final class Bag {
     public void setStudentCounters(int n){
         for (Color color : Color.values())
             setStudentCounters(color, n);
+    }
+
+    // endregion
+
+    // region Getters
+
+    /**
+     * Gets the current value of a specific studentCounter
+     * @param color Color of the studentCounter to return (not null)
+     * @return An int representing the current value of the specified color
+     *         (positive integer between 0 and 16 included)
+     */
+    public int getStudentCounters(Color color){
+        return studentCounters[color.ordinal()];
     }
 
     /**
@@ -90,4 +101,7 @@ public final class Bag {
 
         return new BagResult(students, numOfStudents == 0);
     }
+
+    // endregion
+
 }

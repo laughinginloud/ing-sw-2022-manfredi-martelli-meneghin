@@ -7,6 +7,9 @@ import static java.lang.Math.floorMod;
  * @author Mattia Martelli
  */
 public final class ModuloNat {
+
+    // region Fields
+
     /**
      * The concrete value of the number
      */
@@ -16,6 +19,26 @@ public final class ModuloNat {
      * The modulo bounding the value
      */
     private final int mod;
+
+    /**
+     * Set the current value
+     * @param value The value the number will be set to
+     */
+    public void set(int value) {
+        this.value = mod(value);
+    }
+
+    /**
+     * Return the unwrapped number
+     * @return The concrete value
+     */
+    public int value() {
+        return value;
+    }
+
+    // endregion
+
+    // region Constructors
 
     /**
      * Create a new bounded natural with the default value of 0
@@ -37,13 +60,9 @@ public final class ModuloNat {
         set(initialValue);
     }
 
-    /**
-     * Return the unwrapped number
-     * @return The concrete value
-     */
-    public int value() {
-        return value;
-    }
+    // endregion
+
+    // region Mathematical functions
 
     /**
      * Modify the current value into the next number
@@ -57,14 +76,6 @@ public final class ModuloNat {
      */
     public void prev() {
         sub(1);
-    }
-
-    /**
-     * Set the current value
-     * @param value The value the number will be set to
-     */
-    public void set(int value) {
-        this.value = mod(value);
     }
 
     /**
@@ -101,4 +112,7 @@ public final class ModuloNat {
     public static int mod(int mod, int n) {
         return floorMod(n, mod);
     }
+
+    // endregion
+
 }

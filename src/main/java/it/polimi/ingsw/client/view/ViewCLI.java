@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Address;
-import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.virtualController.VirtualController;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
@@ -255,7 +254,6 @@ public final class ViewCLI implements View {
     public void setUsernameVirtualController(String readUsername) {
         virtualController.setUsername(readUsername);
     }
-
 
     /**
      * Color the selected element of the list in cyan
@@ -2371,7 +2369,9 @@ public final class ViewCLI implements View {
 
                             // Return: select the item
                             case ENTER -> {
-                                forwardViewToVirtualController(colorSel.value());
+                                forwardViewToVirtualController(elemIndex(
+                                    availableColors[colorSel.value()],
+                                    ((CharacterCardStudent) model.getCharacterCard(characterCardPosition)).getStudents()));
                                 return;
                             }
 
@@ -2513,7 +2513,9 @@ public final class ViewCLI implements View {
 
                         // Return: select the item
                         case ENTER -> {
-                            forwardViewToVirtualController(colorSel.value());
+                            forwardViewToVirtualController(elemIndex(
+                                availableColors[colorSel.value()],
+                                getLocalPlayer().getSchoolBoard().getEntrance().getStudents()));
                             return;
                         }
 
@@ -2594,7 +2596,7 @@ public final class ViewCLI implements View {
                             if (readIslInd <= 0 || readIslInd > islandNum)
                                 throw new NumberFormatException();
 
-                            forwardViewToVirtualController(readIslInd - 1);
+                            forwardViewToVirtualController(elemIndex(availableIslands[readIslInd - 1], model.getIslands()));
                             return;
                         }
 

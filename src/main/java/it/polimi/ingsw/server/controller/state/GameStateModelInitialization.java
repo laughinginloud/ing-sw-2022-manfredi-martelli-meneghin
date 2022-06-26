@@ -21,8 +21,8 @@ public final class GameStateModelInitialization implements GameStateSetup {
 
         GameModel model   = data.getGameModel();
         Player[]  players = data.getPlayersOrder();
-        for (int i = 0; i < players.length; ++i)
-            model.setPlayer(players[i], i);
+        for (Player player : players)
+            model.setPlayer(player, player.getPlayerID());
 
         if (data.getNumOfPlayers() == 4)
             setMembers(players);

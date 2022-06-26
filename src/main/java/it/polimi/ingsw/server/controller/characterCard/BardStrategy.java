@@ -172,8 +172,10 @@ public class BardStrategy extends CharacterCardStrategy {
         for (Color color : entranceStudents) {
             // If there's a DiningTable of a different color of the student that is not empty, set "addable" to true
             for (Color compareColor : Color.values())
-                if (color != compareColor && diningRoom.getStudentCounters(compareColor) > 0)
+                if (color != compareColor && diningRoom.getStudentCounters(compareColor) > 0) {
                     addable = true;
+                    break;
+                }
 
             // If the DiningTable of the same color of the student is full, set "addable" to false
             if (color != null && diningRoom.getStudentCounters(color) == 10)

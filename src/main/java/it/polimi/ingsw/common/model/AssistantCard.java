@@ -1,6 +1,5 @@
 package it.polimi.ingsw.common.model;
 
-
 /**
  * Data type dedicated to storing information regarding the assistant cards
  * @author Mattia Martelli
