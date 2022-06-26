@@ -372,6 +372,28 @@ public final class ViewCLI implements View {
         throw new InterruptedException();
     }
 
+    /**
+     * Find the correct index of the selected cloud tile
+     * @param req    The contents of the cloud tile
+     * @param clouds The array of clouds from the model
+     * @return The index of the cloud tile requested
+     */
+    private int findCloud(Color[] req, CloudTile[] clouds) {
+        OUT:
+        for (int i = 0; i < clouds.length; ++i) {
+            Color[] cloudStuds = clouds[i].getStudents();
+
+            for (int j = 0; j < cloudStuds.length; ++j)
+                if (cloudStuds[j] != req[j])
+                    continue OUT;
+
+            return i;
+        }
+
+        // Should never happen
+        throw new IllegalStateException();
+    }
+
     // endregion
 
     // region Menus
@@ -1932,7 +1954,7 @@ public final class ViewCLI implements View {
                         if (readCldInd <= 0 || readCldInd > cloudsNum)
                             throw new NumberFormatException();
 
-                        forwardViewToVirtualController(readCldInd - 1);
+                        forwardViewToVirtualController(findCloud(availableClouds[readCldInd - 1].getStudents(), model.getCloudTile()));
                         return;
                     }
 
@@ -2406,7 +2428,7 @@ public final class ViewCLI implements View {
                 // Key pressing loop
                 KEYPRESS:
                 while (!interrupted()) {
-                    // Interpret the availale key
+                    // Interpret the available key
                     switch (parseKey(keyStream)) {
                         // Tab, down arrow or right arrow: go to next menu item
                         case TAB, DOWN_ARROW, RIGHT_ARROW -> {
