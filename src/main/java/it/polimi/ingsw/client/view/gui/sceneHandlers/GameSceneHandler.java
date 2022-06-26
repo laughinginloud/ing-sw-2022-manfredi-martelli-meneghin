@@ -1931,28 +1931,25 @@ public class GameSceneHandler implements GUIHandler {
     // region ActivateClicksSky
 
     public void activateClicksIslands(Island[] availableIslands, boolean otherElementsClickable) {
-        Island[] islandFromModel = gui.getModel().getIslands();
-        int      islandCount     = islandFromModel.length;
-
-        Set<Island> availableIslandSet = new HashSet<>();
-        Collections.addAll(availableIslandSet, availableIslands);
+        Island[] islandFromModel       = gui.getModel().getIslands();
+        int      islandCount           = islandFromModel.length;
+        int      availableIslandsCount = availableIslands.length;
+        int      motherNaturePosition  = gui.getModel().getMotherNaturePosition();
 
         AnchorPane islandAnchorPane;
 
-        for (int i = 0; i < islandCount; i++) {
-            if (availableIslandSet.contains(islandFromModel[i])) {
-                islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
+        for (int i = (motherNaturePosition + 1) % islandCount; i <= (motherNaturePosition + availableIslandsCount) % islandCount/*islandCount*/; i++) {
+            islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
 
-                // Creates a function that will handle the islandClick
-                EventHandler<MouseEvent> clickOnIslandHandler = mouseEvent -> {
-                    // Invokes the function clickOnIsland
-                    clickOnIsland(mouseEvent, otherElementsClickable);
+            // Creates a function that will handle the islandClick
+            EventHandler<MouseEvent> clickOnIslandHandler = mouseEvent -> {
+                // Invokes the function clickOnIsland
+                clickOnIsland(mouseEvent, otherElementsClickable);
 
-                    mouseEvent.consume();
-                };
+                mouseEvent.consume();
+            };
 
-                islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);
-            }
+            islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);
         }
     }
 
