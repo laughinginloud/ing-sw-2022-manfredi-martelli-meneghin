@@ -14,9 +14,13 @@ import javafx.scene.layout.GridPane;
 
 import java.util.List;
 
-// TODO - JavaDocs
-
+/**
+ * Handler (or Controller) of the scene EndGame (endGamePage.fxml)
+ * The client is shown the game's winner(s) or of a draw
+ * @author Giovanni Manfredi
+ */
 public class EndGameHandler implements GUIHandler {
+
     private ViewGUI gui;
 
     // region FXML_Ids
@@ -65,8 +69,10 @@ public class EndGameHandler implements GUIHandler {
 
     // endregion FXML_Ids
 
-    // TODO - JavaDocs
-
+    /**
+     * Shows the single winner it receives as input in the EndGameScene
+     * @param winner the game's winner
+     */
     public void displayWinner(Player winner) {
         description_label.setText("And the winner is ...");
 
@@ -87,30 +93,14 @@ public class EndGameHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Shows the players in the winning team in the EndGameScene
+     * @param team the game's winning team
+     */
     public void displayWinningTeam(List<Player> team) {
         description_label.setText("And the winning team is ...");
-        Player    curr;
-        ImageView currPlayerWizard;
-        Label     currPlayerUsername;
-        String    wizardImgPath;
 
-        for (int i = 1; i < 3; i++) {
-            // Gets the current Player from the list
-            curr = team.get(i);
-
-            // Gets the id of the ImageView and the path to the img
-            currPlayerWizard = IDHelper.egFindWizardID(this, i);
-            wizardImgPath    = PathHelper.fromWizardEnumToHandlerPath(curr.getPlayerWizard());
-
-            // Sets the correct img
-            currPlayerWizard.setImage(new Image(getClass().getResourceAsStream(wizardImgPath)));
-
-            // Gets the id of the Label
-            currPlayerUsername = IDHelper.egFindUsernameID(this, i);
-
-            // Sets the correct Username
-            currPlayerUsername.setText(curr.getUsername());
-        }
+        displayPlayers(team);
 
         // For each wizard and username not in the team hides it
         wizard0_img.setVisible(false);
@@ -119,15 +109,47 @@ public class EndGameHandler implements GUIHandler {
         user3_label.setVisible(false);
     }
 
+    /**
+     * Shows the players who ended the game in a draw in the EndGameScene
+     * @param drawers the players who ended the game in a draw
+     */
     public void displayDraw(List<Player> drawers) {
         description_label.setText("It's a draw! Between ...");
+
+        displayPlayers(drawers);
+
+        ImageView currPlayerWizard;
+        Label     currPlayerUsername;
+        // For each wizard and username not in the List hides them
+        for (int i = drawers.size(); i < 4; i++) {
+            currPlayerWizard   = IDHelper.egFindWizardID(this, i);
+            currPlayerWizard.setVisible(false);
+
+            currPlayerUsername = IDHelper.egFindUsernameID(this, i);
+            currPlayerUsername.setVisible(false);
+        }
+    }
+
+    /**
+     * Shows the players array it receives as input in the EndGameScene
+     * @param players the players to be shown
+     */
+    private void displayPlayers(List<Player> players) {
         Player    curr;
         ImageView currPlayerWizard;
         Label     currPlayerUsername;
         String    wizardImgPath;
-        for (int i = 0; i < drawers.size(); i++) {
+        int       k = 0, m = 4;
+
+        // If the players are 2 or less, I'll display them from the second imgView (to center them)
+        if (players.size() < 3) {
+            k = 1;
+            m = 3;
+        }
+
+        for (int i = k; i < m; i++) {
             // Gets the current Player from the list
-            curr = drawers.get(i);
+            curr = players.get(i);
 
             // Gets the id of the ImageView and the path to the img
             currPlayerWizard = IDHelper.egFindWizardID(this, i);
@@ -141,14 +163,6 @@ public class EndGameHandler implements GUIHandler {
 
             // Sets the correct Username
             currPlayerUsername.setText(curr.getUsername());
-        }
-        // For each wizard and username not in the List hides them
-        for (int i = drawers.size(); i < 4; i++) {
-            currPlayerWizard   = IDHelper.egFindWizardID(this, i);
-            currPlayerWizard.setVisible(false);
-
-            currPlayerUsername = IDHelper.egFindUsernameID(this, i);
-            currPlayerUsername.setVisible(false);
         }
     }
 

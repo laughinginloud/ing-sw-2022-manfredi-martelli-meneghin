@@ -55,8 +55,8 @@ public class AskForRulesHandler implements GUIHandler, Initializable {
     // endregion FXML_Ids
 
     /**
-     * Method called on the click of "askRules_submit" and
-     * gets the inserted data in the fields (default 2 players and ExperMode = false)
+     * Method called on the click of "askRules_submit".
+     * Gets the inserted data in the fields (default 2 players and ExpertMode = false)
      */
     public void submitGameRules(){
         int readNumOfPlayers = numOfPlayers_spinner.getValue();
@@ -66,8 +66,8 @@ public class AskForRulesHandler implements GUIHandler, Initializable {
     }
 
     /**
-     * Implementation of the interface Initializable. Needed to initialize the Spinner to a
-     * defaul set of integers [2,4]
+     * Implementation of the interface Initialize.
+     * Initializes the Spinner to a default set of integers [2,4]
      * @param url resource url
      * @param resourceBundle bundle of the resource
      */

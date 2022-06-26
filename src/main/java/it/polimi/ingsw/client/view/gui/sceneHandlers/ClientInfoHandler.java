@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  * Handler (or Controller) of the scene ClientInfo (clientInfoPage.fxml)
- * The client is asked for a username (different from the forbiddenAddress)
+ * The client is asked for a username (different from the forbiddenUsernames)
  * and for how many years has he know magic (MagicAge) and sends it to the
  * VirtualController
  * @author Giovanni Manfredi
@@ -54,8 +54,9 @@ public class ClientInfoHandler implements GUIHandler {
     // endregion FXML_Ids
 
     /**
-     *  Method called on the click of "submit_button" which takes care
-     *  of checking if the submitted data is correct.
+     *  Method called on the click of "submit_button".
+     *  Checks if the submitted data is correct and
+     *  then sends it to the VirtualController
      */
     public void submitClientInfo(){
 

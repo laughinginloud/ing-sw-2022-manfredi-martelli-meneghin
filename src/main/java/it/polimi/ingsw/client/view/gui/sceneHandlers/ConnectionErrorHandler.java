@@ -31,13 +31,17 @@ public class ConnectionErrorHandler implements GUIHandler {
     @FXML
     private Label connectionError_text;
 
+    // TODO: Remove return button
+
     @FXML
     private Button return_button;
 
     // endregion FXML_Ids
 
+    // TODO: Remove pressReturnButton method
+
     /**
-     * Method called on the click of "return_button"
+     * Method called on the click of "return_button".
      * Returns to "initialPage" with virtualController and
      * model set to null
      */
