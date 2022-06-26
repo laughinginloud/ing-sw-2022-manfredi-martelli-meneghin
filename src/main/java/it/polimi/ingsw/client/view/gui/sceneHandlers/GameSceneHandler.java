@@ -1942,7 +1942,7 @@ public class GameSceneHandler implements GUIHandler {
 
         AnchorPane islandAnchorPane;
 
-        for (int i = (motherNaturePosition + 1) % islandCount; i <= (motherNaturePosition + availableIslandsCount) % islandCount/*islandCount*/; i++) {
+        for (int i = (motherNaturePosition + 1) % islandCount; i <= (motherNaturePosition + availableIslandsCount) % islandCount; i++) {
             islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
 
             // Creates a function that will handle the islandClick
@@ -1958,27 +1958,59 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     public void activateClicksCloudTiles(CloudTile[] availableClouds, boolean otherElementsClickable) {
-        int            numOfAvailableClouds = availableClouds.length;
-        CloudTile[]    cloudTilesModel      = gui.getModel().getCloudTile();
-        Set<CloudTile> cloudTilesModelSet   = new HashSet<>();
-        Collections.addAll(cloudTilesModelSet, cloudTilesModel);
+        int             numOfAvailableClouds           = availableClouds.length;
+        CloudTile[]     cloudTilesModel                = gui.getModel().getCloudTile();
+        List<CloudTile> cloudTileModelList             = Arrays.stream(cloudTilesModel).toList();
+        int[]           availableCloudsPositionOnModel = new int[numOfAvailableClouds];
+
+
+        // TODO: Fix: It's needed to keep the positional info of the modelCloud, so
+        //       the list is not an option, fix that!
+        for (int i = 0; i < numOfAvailableClouds; i++) {
+            boolean breakOther = false;
+            Color[] colorOnTile = availableClouds[i].getStudents();
+
+            for (int k = 0; k < cloudTileModelList.size(); k++) {
+
+                for (int j = 0; j < colorOnTile.length; j++) {
+                    breakOther = false;
+                    if (availableClouds[i].getStudents()[j] != cloudTileModelList.get(k).getStudents()[j])
+                        break;
+
+                    if (j == colorOnTile.length - 1)
+                        breakOther = true;
+                }
+
+                if (breakOther) {
+                    availableCloudsPositionOnModel[i] = k;
+                    List<CloudTile> temp = new ArrayList<>();
+
+                    for (int j = 0; j < cloudTileModelList.size(); j++) {
+                        if (j == k) {
+                            temp.add(cloudTileModelList.get(j));
+                        }
+                    }
+
+                    cloudTileModelList  =temp;
+                    break;
+                }
+            }
+        }
 
         AnchorPane cloudTilePane;
-
         for (int i = 0; i < numOfAvailableClouds; i++) {
-            if (cloudTilesModelSet.contains(availableClouds[i])) {
-                cloudTilePane = IDHelper.gsFindCloudAnchorPaneID(this, i);
+            int currentCloud = availableCloudsPositionOnModel[i];
+            cloudTilePane = IDHelper.gsFindCloudAnchorPaneID(this, currentCloud);
 
-                EventHandler<MouseEvent> clickOnCloudTileHandler = mouseEvent -> {
-                    // Associates to the click of the mouse the function clickOnCloudTile
-                    // as response to the user's action
-                    clickOnCloudTile(mouseEvent, otherElementsClickable);
+            EventHandler<MouseEvent> clickOnCloudTileHandler = mouseEvent -> {
+                // Associates to the click of the mouse the function clickOnCloudTile
+                // as response to the user's action
+                clickOnCloudTile(mouseEvent, otherElementsClickable);
 
-                    mouseEvent.consume();
-                };
+                mouseEvent.consume();
+            };
 
-                cloudTilePane.setOnMouseClicked(clickOnCloudTileHandler);
-            }
+            cloudTilePane.setOnMouseClicked(clickOnCloudTileHandler);
         }
     }
 
@@ -2306,6 +2338,8 @@ public class GameSceneHandler implements GUIHandler {
         ImageView     selectedAssistantCardID    = (ImageView) mouseEvent.getSource();
         // The index is different from the ID because the ID goes from 1 to 10 and the index goes from 0 to 9
         int           selectedAssistantCardIndex = InfoHelper.gsFindAssistantCardIndex(selectedAssistantCardID) - 1;
+
+        //TODO: il vettore delle assistant card è ridotto di dimensione, dunque non posso accedere a quell'indice
         AssistantCard selectedAssistantCard      = gui.getModel().getPlayer(localPlayerIndex).getAssistantCard(selectedAssistantCardIndex);
 
         // Notifies the ViewGUI (and the VirtualController) about the user choice
