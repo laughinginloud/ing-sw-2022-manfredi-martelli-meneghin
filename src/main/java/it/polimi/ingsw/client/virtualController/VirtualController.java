@@ -209,7 +209,7 @@ public final class VirtualController extends Thread {
         switch (value) {
             case COINPOOL -> model.setCoinPool((int) object);
 
-            case ISLANDARRAY -> model.setIsland((Island[]) object);
+            case ISLANDARRAY -> model.setIslands((Island[]) object);
 
             case PLAYERARRAY -> {
                 model.setPlayers((Player[]) object);

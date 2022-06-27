@@ -143,6 +143,14 @@ public final class GameModel {
     }
 
     /**
+     * Gets the entire array of islands
+     * @return the array of islands
+     */
+    public Island[] getIslands() {
+        return copyOf(islands);
+    }
+
+    /**
      * Gets the number of Island present, i.e. the length of islands
      * @author Mattia Martelli
      * @return The number of Island present (in the range [0, 12])
@@ -172,28 +180,6 @@ public final class GameModel {
      * @return The position of mother nature (from 0 to 11)
      */
     public int getMotherNaturePosition() { return motherNaturePosition; }
-
-    /**
-     * Sets the Player saved at a specific index
-     * @param player The player to be saved (not null)
-     * @param index The index of the Player that needs to be set (positive integer from 0 to 3)
-     */
-    public void setPlayer(Player player, int index) {
-        // Checks if the player is not null and if the index is within the accepted range [0, numOfPlayers]
-        assert player != null: "setPlayer: The player to be set is null!";
-        assert index >= 0 && index < players.length: "setPlayer: Index value invalid! Accepted index in the range [0, " + (players.length - 1) + "]";
-
-        this.players[index] = player;
-    }
-
-    //TODO: test
-    /**
-     * Set the entire array of players
-     * @param players The array to copy into the model
-     */
-    public void setPlayer(Player[] players) {
-        this.players = copyOf(players);
-    }
 
     /**
      * Gets the Bag saved
@@ -239,16 +225,23 @@ public final class GameModel {
      */
     public Integer getCoinPool() { return coinPool; }
 
-    // TODO Test
+    // endregion
+
+    // region Setter
+
     /**
-     * Gets the entire array of islands
-     * @return the array of islands
+     * Sets the Player saved at a specific index
+     * @param player The player to be saved (not null)
+     * @param index The index of the Player that needs to be set (positive integer from 0 to 3)
      */
-    public Island[] getIslands() {
-        return islands;
+    public void setPlayer(Player player, int index) {
+        // Checks if the player is not null and if the index is within the accepted range [0, numOfPlayers]
+        assert player != null: "setPlayer: The player to be set is null!";
+        assert index >= 0 && index < players.length: "setPlayer: Index value invalid! Accepted index in the range [0, " + (players.length - 1) + "]";
+
+        this.players[index] = player;
     }
 
-    //TODO: refactor in setPlayers (?)
     /**
      * Set the entire array of players
      * @param players The array to copy into the model
@@ -269,13 +262,12 @@ public final class GameModel {
 
         this.islands[index] = island;
     }
-
-    //TODO: test
+    
     /**
      * Set the entire Island array
      * @param islands The array to be copied in the model
      */
-    public void setIsland(Island[] islands) {
+    public void setIslands(Island[] islands) {
         this.islands = copyOf(islands);
     }
 
@@ -292,7 +284,7 @@ public final class GameModel {
         this.cloudTiles[index] = cloudTile;
     }
 
-    //TODO: test
+    //TODO: test - refactor in setCloudTiles (?)
     /**
      * Set the entire array of cloud tiles
      * @param cloudTiles The array to copy into the model
@@ -311,17 +303,6 @@ public final class GameModel {
             "setMotherNaturePosition: MotherNaturePosition value invalid! Accepted motherNaturePosition in the range [0, " + (islands.length - 1) + "]";
 
         this.motherNaturePosition = motherNaturePosition;
-    }
-
-    /**
-     * Moves Mother Nature by increasing motherNaturePosition
-     * @param movementPoints the steps that motherNature makes (positive integer from 1 to 5)
-     */
-    //TODO: test
-    public void moveMotherNature(int movementPoints) {
-        assert movementPoints >= 1 && movementPoints <= 5: "moveMotherNature: movementPoints is more than the maximum allowed by the cards";
-
-        setMotherNaturePosition((motherNaturePosition + movementPoints) % getIslandsCount());
     }
 
     /**
@@ -359,7 +340,7 @@ public final class GameModel {
         this.characterCards[index] = characterCard;
     }
 
-    //TODO: test
+    //TODO: test - refactor in setCharacterCards (?)
     /**
      * Set the entire array of character cards
      * @param characterCards The array to copy into the model

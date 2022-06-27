@@ -160,7 +160,7 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
         }
 
         gameModel.setPlayers(players);
-        gameModel.setIsland(islands);
+        gameModel.setIslands(islands);
         gameModel.setCloudTile(cloudTiles);
         gameModel.setMotherNaturePosition(motherNaturePosition);
         gameModel.setBag(bag);
