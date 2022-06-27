@@ -166,7 +166,7 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
         gameModel.setBag(bag);
         gameModel.setGlobalProfessorTable(globalProfessorTable);
         if (expertMode) {
-            gameModel.setCharacterCard(characterCards);
+            gameModel.setCharacterCards(characterCards);
             gameModel.setCoinPool(coinPool);
         }
 

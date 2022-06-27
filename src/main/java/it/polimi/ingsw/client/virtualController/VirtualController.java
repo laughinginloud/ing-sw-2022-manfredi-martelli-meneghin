@@ -222,7 +222,7 @@ public final class VirtualController extends Thread {
 
             case CLOUDARRAY -> model.setCloudTiles((CloudTile[]) object);
 
-            case CHARACTERCARDARRAY -> model.setCharacterCard((CharacterCard[]) object);
+            case CHARACTERCARDARRAY -> model.setCharacterCards((CharacterCard[]) object);
 
             case MOTHERNATURE -> model.setMotherNaturePosition((int) object);
 
