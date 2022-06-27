@@ -3,6 +3,8 @@ package it.polimi.ingsw.common.termutils;
 import it.polimi.ingsw.common.model.Color;
 import it.polimi.ingsw.common.model.TowerColor;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -193,6 +195,20 @@ public enum Ansi {
      */
     public static void showCursor(PrintWriter writer) {
         writer.print(SHOW_CURSOR);
+    }
+
+    /**
+     * Read a generic key
+     * @param stream The stream to read from
+     * @param writer The writer to write to
+     * @return The pressed key
+     * @throws IOException if there was an error whilst reading
+     */
+    public static int readKey(InputStream stream, PrintWriter writer) throws IOException {
+        Ansi.hideCursor(writer);
+        int res = stream.read();
+        Ansi.showCursor(writer);
+        return res;
     }
 
     // endregion

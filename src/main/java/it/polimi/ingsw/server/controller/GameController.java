@@ -20,13 +20,14 @@ import java.util.*;
 
 import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
 
-// TODO: controllare l'id nel caso di un player che si disconnette ed uno che si connette dopo
-
 /**
  * Main server class
  * @author Mattia Martelli
  */
-public class GameController {
+public /*static*/ final class GameController {
+
+    private GameController() {}
+
     // Priority queue used to decide the initial order
     private static PriorityQueue<UsernameAndMagicAge> playerAgeQueue;
     private static Set<String>                        forbiddenNames;
@@ -296,8 +297,6 @@ public class GameController {
         ControllerData.nukeInstance();
         data = ControllerData.getInstance();
     }
-
-    // Returns true if the correct number of players has been reached
 
     /**
      * Add a player to the controller's data, linking it with its virtual view
