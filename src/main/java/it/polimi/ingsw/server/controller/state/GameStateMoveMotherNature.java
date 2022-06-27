@@ -69,7 +69,6 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
             if (motherNatureMovement == 1 && !canPlayCharacterCard) {
                 GameModel model = data.getGameModel();
                 model.setMotherNaturePosition((model.getMotherNaturePosition() + 1) % model.getIslandsCount());
-                updateMotherNaturePosition();
                 return;
             }
 
@@ -84,7 +83,6 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
             if (response instanceof GameCommandMoveMotherNature c) {
                 try {
                     c.executeCommand();
-                    updateMotherNaturePosition();
                 }
 
                 catch (Exception e) {
