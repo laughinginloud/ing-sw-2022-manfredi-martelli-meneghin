@@ -187,7 +187,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         for (Player player : model.getPlayers())
             influences.put(player, 0);
 
-        // Iterate for each color on the island and add +1 influence to the player who controls the professor
+        // Iterate for each color on the island and add influence equal to the number of students to the player who controls the professor
         // Note that professorLocation is empty checked because it is null if the professor's not controlled by anyone
         for (Color color : Color.values()) {
             if (data.getCharacterCardFlag(ControllerData.Flags.excludeColorFlag) && data.getExcludedColor() == color)
@@ -196,7 +196,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             if (island.getStudentCounters(color) > 0)
                 model.getGlobalProfessorTable()
                      .getProfessorLocation(color)
-                     .ifPresent(p -> influences.replace(p, influences.get(p) + 1));
+                     .ifPresent(p -> influences.replace(p, influences.get(p) + island.getStudentCounters(color)));
         }
 
         return influences;

@@ -19,8 +19,8 @@ public final class GameStateSelectTurnOrder implements GameStatePlanPhase {
     @Override
     public void executeState() {
         try {
-            ControllerData data           = ControllerData.getInstance();
-            int            numOfPlayers   = data.getNumOfPlayers();
+            ControllerData data         = ControllerData.getInstance();
+            int            numOfPlayers = data.getNumOfPlayers();
 
             PriorityQueue<Tuple<Player, Integer>> playQueue = new PriorityQueue<>(numOfPlayers, Comparator.comparingInt(Tuple::right));
 
