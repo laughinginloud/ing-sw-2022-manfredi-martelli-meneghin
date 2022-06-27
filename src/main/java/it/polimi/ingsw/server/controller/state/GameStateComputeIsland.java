@@ -99,7 +99,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         }
 
         if (model.getIslandsCount() <= 3)
-            data.setWinTrigger(true);
+            data.setWinTrigger();
     }
 
     // endregion
@@ -403,7 +403,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
      */
     private void endGame(Player winner) {
         this.winner = winner;
-        ControllerData.getInstance().setWinTrigger(true);
+        ControllerData.getInstance().setWinTrigger();
     }
 
     /**

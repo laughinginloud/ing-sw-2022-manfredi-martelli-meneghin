@@ -7,8 +7,6 @@ import it.polimi.ingsw.common.model.Color;
 import it.polimi.ingsw.common.model.GameModel;
 import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.controller.command.GameCommand;
-import it.polimi.ingsw.server.controller.command.GameCommandEndGame;
-import it.polimi.ingsw.server.controller.state.GameState;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.Arrays;
@@ -23,8 +21,42 @@ import static it.polimi.ingsw.common.utils.Methods.copyOf;
  */
 public final class ControllerData {
 
-    //FIXME: mettere in regioni
-    public enum Flags { equalStudentsFlag, extraMovementFlag, ignoreTowersFlag, extraInfluenceFlag, excludeColorFlag }
+    // region Character cards flags
+
+    /**
+     * Flags used by the character cards
+     */
+    public enum Flags {
+        /**
+         * A professor should be moved even if the current player has the same influence as the current holder
+         */
+        equalStudentsFlag,
+
+        /**
+         * Mother nature can move up to two more spaces
+         */
+        extraMovementFlag,
+
+        /**
+         * The towers should be ignored during the computation of the island influences
+         */
+        ignoreTowersFlag,
+
+        /**
+         * Two extra influence points should be added to the current player during the computation of the islands
+         */
+        extraInfluenceFlag,
+
+        /**
+         * A specified color schould be ignored during the computation of the island influences
+         */
+        excludeColorFlag
+    }
+
+    private boolean[] characterCardFlags;
+    private Color     excludedColor;
+
+    // endregion
 
     // region Fields
 
@@ -40,8 +72,6 @@ public final class ControllerData {
     private        Isomorphism<Player, VirtualView> playerViewMap;
     private        int                              currentPlayer;
     private        CharacterCardStrategy[]          cardStrategies;
-    private        boolean[]                        characterCardFlags;
-    private        Color                            excludedColor;
     private        boolean                          winTrigger;
 
     // endregion
@@ -157,6 +187,50 @@ public final class ControllerData {
      */
     public Player getCurrentPlayer() {
         return playersOrder[currentPlayer];
+    }
+
+    /**
+     * Get a copy of the array of card strategies
+     * @return A copy of the array
+     */
+    public CharacterCardStrategy[] getCardStrategies() {
+        return copyOf(cardStrategies);
+    }
+
+    /**
+     * Get the value of a character card flag
+     * @param flag The requested flag
+     * @return The value of the flag
+     */
+    public boolean getCharacterCardFlag(Flags flag) {
+        if (characterCardFlags == null)
+            characterCardFlags = new boolean[Flags.values().length];
+
+        return characterCardFlags[flag.ordinal()];
+    }
+
+    /**
+     * Get the value of the win trigger
+     * @return The value of the flag
+     */
+    public boolean checkWinTrigger() {
+        return winTrigger;
+    }
+
+    /**
+     * Get the currently excluded color
+     * @return The excluded color
+     */
+    public Color getExcludedColor() {
+        return excludedColor;
+    }
+
+    /**
+     * Check whether the turn should end
+     * @return <code>true</code> if the turn has ended, <code>false</code> otherwise
+     */
+    public boolean turnEnd() {
+        return (currentPlayer + 1) >= playersOrder.length;
     }
 
     // endregion
@@ -275,14 +349,115 @@ public final class ControllerData {
         this.playerViewMap = playerViewMap;
     }
 
+    /**
+     * Set the entire array of card strategies
+     * @param cardStrategies The array to set
+     */
+    public void setCardStrategies(CharacterCardStrategy[] cardStrategies) {
+        this.cardStrategies = copyOf(cardStrategies);
+    }
+
+    /**
+     * Set a single card strategy
+     * @param cardStrategy The startegy to set
+     * @param index        The index of the strategy
+     */
+    public void setCardStrategies(CharacterCardStrategy cardStrategy, int index) {
+        if (cardStrategies == null)
+            cardStrategies = new CharacterCardStrategy[3];
+
+        cardStrategies[index] = cardStrategy;
+    }
+
+    /**
+     * Set the value of a character card flag
+     * @param flag  The flag to set
+     * @param value The value of the flag
+     */
+    public void setCharacterCardFlag(Flags flag, boolean value) {
+        if (characterCardFlags == null)
+            characterCardFlags = new boolean[Flags.values().length];
+
+        characterCardFlags[flag.ordinal()] = value;
+    }
+
+    /**
+     * Set the win trigger flag to true
+     */
+    public void setWinTrigger() {
+        winTrigger = true;
+    }
+
+    /**
+     * Set the win trigger flag to false
+     */
+    public void resetWinTrigger() {
+        winTrigger = false;
+    }
+
+    /**
+     * Set the currently excluded color
+     * @param excludedColor The color to exclude
+     */
+    public void setExcludedColor(Color excludedColor) {
+        this.excludedColor = excludedColor;
+    }
+
+    /**
+     * A tuple (Player, VirtualView) to the isomorphism
+     * @param player The player instance
+     * @param view   The virtual view instance
+     */
+    public void addViewPlayer(Player player, VirtualView view) {
+        if (playerViewMap == null)
+            playerViewMap = new Isomorphism<>(numOfPlayers);
+
+        playerViewMap.put(player, view);
+    }
+
+    /**
+     * Remove a player from the isomorphism
+     * @param virtualView The view associated with the player
+     * @return The player associated with the view
+     */
+    public Player removePlayer(VirtualView virtualView) {
+        return playerViewMap.removeRight(virtualView);
+    }
+
+    /**
+     * Set the players order and the current player
+     * @param players The players order
+     */
+    public void updatePlayersOrder(Player[] players) {
+        playersOrder  = copyOf(players);
+        currentPlayer = 0;
+    }
+
+    /**
+     * Update the current player to the next in line
+     */
+    public void nextPlayer() {
+        currentPlayer++;
+    }
+
+    /**
+     * Send a message to all players
+     * @param gameCommand The command to send
+     */
+    public void sendMessageToPlayers(GameCommand gameCommand) {
+        playerViewMap.forEach((p, v) -> v.sendMessage(gameCommand));
+    }
+
     // endregion
 
     // region Instance related methods
 
     private ControllerData() {
-        expertMode = false;
-        winTrigger = false;
-        //TODO: trigger rimanenti
+        expertMode                = false;
+        winTrigger                = false;
+        emptyBagTrigger           = false;
+        emptyAssistantDeckTrigger = false;
+        hasPlayedCard             = false;
     }
 
     /**
@@ -358,73 +533,5 @@ public final class ControllerData {
     }
 
     // endregion
-
-    public CharacterCardStrategy[] getCardStrategies() { return copyOf(cardStrategies); }
-
-    public void setCardStrategies(CharacterCardStrategy[] cardStrategies) {
-        this.cardStrategies = cardStrategies;
-    }
-
-    public void setCardStrategies(CharacterCardStrategy cardStrategy, int index) {
-        cardStrategies[index] = cardStrategy;
-    }
-
-    public void setCharacterCardFlag(Flags flag, boolean value) {
-        if (characterCardFlags == null)
-            characterCardFlags = new boolean[Flags.values().length];
-
-        characterCardFlags[flag.ordinal()] = value;
-    }
-
-    public boolean getCharacterCardFlag(Flags flag) {
-        if (characterCardFlags == null)
-            characterCardFlags = new boolean[Flags.values().length];
-
-        return characterCardFlags[flag.ordinal()];
-    }
-
-    public void setWinTrigger(boolean winTrigger) {
-        this.winTrigger = winTrigger;
-    }
-
-    public boolean checkWinTrigger() {
-        return winTrigger;
-    }
-
-    public void setExcludedColor(Color excludedColor) {
-        this.excludedColor = excludedColor;
-    }
-
-    public Color getExcludedColor() {
-        return excludedColor;
-    }
-
-    public void addViewPlayer(Player player, VirtualView view) {
-        if (playerViewMap == null)
-            playerViewMap = new Isomorphism<>(numOfPlayers);
-
-        playerViewMap.put(player, view);
-    }
-
-    public void sendMessageToPlayers(GameCommand gameCommand) {
-        playerViewMap.forEach((p, v) -> v.sendMessage(gameCommand));
-    }
-
-    public Player removePlayer(VirtualView virtualView) {
-        return playerViewMap.removeRight(virtualView);
-    }
-
-    public void updatePlayersOrder(Player[] players) {
-        playersOrder  = copyOf(players);
-        currentPlayer = 0;
-    }
-
-    public void nextPlayer() {
-        currentPlayer++;
-    }
-
-    public boolean turnEnd() {
-        return (currentPlayer + 1) >= playersOrder.length;
-    }
 
 }

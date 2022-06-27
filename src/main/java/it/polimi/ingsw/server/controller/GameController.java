@@ -277,14 +277,7 @@ public class GameController {
                 Player player = data.removePlayer(playerView);
 
                 ifNotNull(player, () -> {
-                    // Get the removed player's index
-                    int playerIndex = 0;
-                    for (int i = 0; i < playersNum; ++i)
-                        if (data.getPlayersOrder(i).equals(player)) {
-                            data.getPlayersOrder()[i] = null;
-                            break;
-                        }
-
+                    data.getPlayersOrder()[player.getPlayerID()] = null;
                     playerAgeQueue.removeIf(uM -> uM.username().equalsIgnoreCase(player.getUsername()));
                     forbiddenNames.remove(player.getUsername().toLowerCase());
                     playersNum--;
