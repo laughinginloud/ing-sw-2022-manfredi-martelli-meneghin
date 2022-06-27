@@ -248,9 +248,14 @@ public final class GameModel {
         return islands;
     }
 
-    // endregion
-
-    // region Setter
+    //TODO: refactor in setPlayers (?)
+    /**
+     * Set the entire array of players
+     * @param players The array to copy into the model
+     */
+    public void setPlayers(Player[] players) {
+        this.players = copyOf(players);
+    }
 
     /**
      * Sets the Island saved at a specific index

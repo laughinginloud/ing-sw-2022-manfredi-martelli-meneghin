@@ -159,7 +159,7 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
             globalProfessorTable.setProfessorLocation(e.left(), ePlayer);
         }
 
-        gameModel.setPlayer(players);
+        gameModel.setPlayers(players);
         gameModel.setIsland(islands);
         gameModel.setCloudTile(cloudTiles);
         gameModel.setMotherNaturePosition(motherNaturePosition);

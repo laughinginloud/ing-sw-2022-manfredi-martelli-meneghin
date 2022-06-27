@@ -212,7 +212,7 @@ public final class VirtualController extends Thread {
             case ISLANDARRAY -> model.setIsland((Island[]) object);
 
             case PLAYERARRAY -> {
-                model.setPlayer((Player[]) object);
+                model.setPlayers((Player[]) object);
 
                 GlobalProfessorTable gpt = model.getGlobalProfessorTable();
 
