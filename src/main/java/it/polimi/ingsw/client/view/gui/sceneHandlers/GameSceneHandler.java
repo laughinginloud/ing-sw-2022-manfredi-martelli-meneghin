@@ -1316,8 +1316,6 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion FXML_Ids
 
-    // TODO - Fix JavaDocs and readability
-
     /**
      * Sets the ViewGUI at which the ServerInfoHandler is related
      *
