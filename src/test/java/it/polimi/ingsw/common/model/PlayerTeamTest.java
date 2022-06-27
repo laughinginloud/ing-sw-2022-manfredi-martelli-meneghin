@@ -11,25 +11,25 @@ import java.lang.reflect.Field;
  */
 class PlayerTeamTest {
     private PlayerTeam playerTeamTest;
-    private Player     teamMemberTest;
-    private Field      teamMemberField;
+    private Player     teamMemberIDTest;
+    private Field      teamMemberIDField;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
-        teamMemberTest = new Player(0, null, null, null);
+        teamMemberIDTest = new Player(0, null, null, null);
         playerTeamTest = new PlayerTeam(0, null, null, null);
 
-        teamMemberField = playerTeamTest.getClass().getDeclaredField("teamMember");
-        teamMemberField.setAccessible(true);
-        teamMemberField.set(playerTeamTest, teamMemberTest.getPlayerID());
+        teamMemberIDField = playerTeamTest.getClass().getDeclaredField("teamMemberID");
+        teamMemberIDField.setAccessible(true);
+        teamMemberIDField.set(playerTeamTest, teamMemberIDTest.getPlayerID());
     }
 
     /**
      * Test for teamMember's getter
      */
     @Test
-    void getTeamMemberTest() {
-        if (playerTeamTest.getTeamMemberID() != teamMemberTest.getPlayerID())
+    void getTeamMemberIDTest() {
+        if (playerTeamTest.getTeamMemberID() != teamMemberIDTest.getPlayerID())
             throw new AssertionError("Returned wrong team member");
     }
 
@@ -37,13 +37,13 @@ class PlayerTeamTest {
      *
      */
     @Test
-    void setTeamMemberTest() throws IllegalAccessException {
+    void setTeamMemberIDTest() throws IllegalAccessException {
         Player localTest = new Player(1, null, null, null);
         playerTeamTest.setTeamMemberID(localTest.getPlayerID());
 
-        Integer fieldValue = (Integer) teamMemberField.get(playerTeamTest);
+        Integer fieldValue = (Integer) teamMemberIDField.get(playerTeamTest);
 
-        if (fieldValue.equals(teamMemberTest.getPlayerID()))
+        if (fieldValue.equals(teamMemberIDTest.getPlayerID()))
             throw new AssertionError("Setter did not set value");
 
         if (!fieldValue.equals(localTest.getPlayerID()))

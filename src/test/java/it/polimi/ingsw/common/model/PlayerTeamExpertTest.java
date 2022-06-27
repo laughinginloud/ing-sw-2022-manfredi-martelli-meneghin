@@ -13,8 +13,8 @@ import java.lang.reflect.Field;
 public class PlayerTeamExpertTest {
     private PlayerTeamExpert playerTeamExpertTest;
     private Field            coinCountField;
-    private Player           teamMemberTest;
-    private Field            teamMemberField;
+    private Player           teamMemberIDTest;
+    private Field            teamMemberIDField;
 
     @BeforeEach
     void setUp() throws NoSuchFieldException, IllegalAccessException {
@@ -22,11 +22,11 @@ public class PlayerTeamExpertTest {
         coinCountField = playerTeamExpertTest.getClass().getDeclaredField("coinCount");
         coinCountField.setAccessible(true);
 
-        teamMemberTest = new Player(0, null, null, null);
+        teamMemberIDTest = new Player(0, null, null, null);
 
-        teamMemberField = playerTeamExpertTest.getClass().getDeclaredField("teamMember");
-        teamMemberField.setAccessible(true);
-        teamMemberField.set(playerTeamExpertTest, teamMemberTest.getPlayerID());
+        teamMemberIDField = playerTeamExpertTest.getClass().getDeclaredField("teamMemberID");
+        teamMemberIDField.setAccessible(true);
+        teamMemberIDField.set(playerTeamExpertTest, teamMemberIDTest.getPlayerID());
     }
 
     /**
@@ -55,8 +55,8 @@ public class PlayerTeamExpertTest {
      * Test for teamMember's getter
      */
     @Test
-    void getTeamMemberTest() {
-        if (playerTeamExpertTest.getTeamMemberID() != teamMemberTest.getPlayerID())
+    void getTeamMemberIDTest() {
+        if (playerTeamExpertTest.getTeamMemberID() != teamMemberIDTest.getPlayerID())
             throw new AssertionError("Returned wrong team member");
     }
 
@@ -64,13 +64,13 @@ public class PlayerTeamExpertTest {
      * Test for teamMember's setter
      */
     @Test
-    void setTeamMemberTest() throws IllegalAccessException {
+    void setTeamMemberIDTest() throws IllegalAccessException {
         Player localTest = new Player(1, null, null, null);
         playerTeamExpertTest.setTeamMemberID(localTest.getPlayerID());
 
-        Integer fieldValue = (Integer) teamMemberField.get(playerTeamExpertTest);
+        Integer fieldValue = (Integer) teamMemberIDField.get(playerTeamExpertTest);
 
-        if (fieldValue.equals(teamMemberTest.getPlayerID()))
+        if (fieldValue.equals(teamMemberIDTest.getPlayerID()))
             throw new AssertionError("Setter did not set value");
 
         if (!fieldValue.equals(localTest.getPlayerID()))
