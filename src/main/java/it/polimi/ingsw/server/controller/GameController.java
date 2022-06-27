@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.SocketException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
 
@@ -55,6 +54,7 @@ public class GameController {
      * Start the server with a specified port
      * @param port The port the server will listen to
      */
+    @SuppressWarnings({"UnnecessaryLabelOnContinueStatement", "ResultOfMethodCallIgnored"})
     public static void main(int port) {
         // Check whether the current file position allows read and write
         // If it's not possible then the program cannot save or read saves
@@ -114,7 +114,7 @@ public class GameController {
                         view.sendRequest(new GameCommandRequestAction(GameActions.USERNAMEANDMAGICAGE, forbiddenNames)).executeCommand();
 
                     if (rulesSet && loadedGame) {
-                        if (!savedGame.getName().contains(usernameAndMagicAge.username())) {
+                        if (savedGame != null && !savedGame.getName().contains(usernameAndMagicAge.username())) {
                             view.sendMessage(new GameCommandGameProgress());
                             view.close();
 
@@ -153,7 +153,7 @@ public class GameController {
                             // Ask the new rules
                             // Returns false if there was a connection error: in that case do not delete the save and go to the next iteration
                             else if (!askRules(view))
-                                continue;
+                                continue MAIN;
 
                             // The game has not been loaded, but new rules have been, so delete the old save
                             else
@@ -163,7 +163,7 @@ public class GameController {
                         // Ask the new rules
                         // Returns false if there was a connection error: in that case do not delete the save and go to the next iteration
                         else if (!askRules(view))
-                            continue;
+                            continue MAIN;
 
                         rulesSet = true;
                     }
@@ -281,15 +281,9 @@ public class GameController {
                     int playerIndex = 0;
                     for (int i = 0; i < playersNum; ++i)
                         if (data.getPlayersOrder(i).equals(player)) {
-                            playerIndex = i;
+                            data.getPlayersOrder()[i] = null;
                             break;
                         }
-
-                    // Move all the other players upwards
-                    for (int i = playerIndex; i < data.getNumOfPlayers() - 1; ++i)
-                        data.getPlayersOrder()[i] = data.getPlayersOrder(i + 1);
-
-                    data.getPlayersOrder()[data.getNumOfPlayers() - 1] = null;
 
                     playerAgeQueue.removeIf(uM -> uM.username().equalsIgnoreCase(player.getUsername()));
                     forbiddenNames.remove(player.getUsername().toLowerCase());
@@ -351,25 +345,30 @@ public class GameController {
 
         boolean teamMode = data.getNumOfPlayers() == 4;
 
-        players[playersNum] =
-            buildPlayer(
-                data.getExpertMode(),
-                teamMode,
-                playersNum,
-                usernameAndMagicAge.username(),
-                wizard,
-                // If there are three players, each one gets 6 towers, else if there are two players, each one takes 8 towers,
-                // otherwise, there are four players and the first member of each team gets 8 towers, whilst its teammate gets 0
-                gameNumOfPlayers == 3 ? 6 : gameNumOfPlayers == 2 || playersNum <= 1 ? 8 : 0,
-                // The entrance's size is 7 for two or four players games, 9 otherwise
-                gameNumOfPlayers == 3 ? 9 : 7);
+        for (int i = 0; i < players.length; ++i)
+            if (players[i] == null) {
+                players[i] =
+                    buildPlayer(
+                        data.getExpertMode(),
+                        teamMode,
+                        i,
+                        usernameAndMagicAge.username(),
+                        wizard,
+                        // If there are three players, each one gets 6 towers, else if there are two players, each one takes 8 towers,
+                        // otherwise, there are four players and the first member of each team gets 8 towers, whilst its teammate gets 0
+                        gameNumOfPlayers == 3 ? 6 : gameNumOfPlayers == 2 || playersNum <= 1 ? 8 : 0,
+                        // The entrance's size is 7 for two or four players games, 9 otherwise
+                        gameNumOfPlayers == 3 ? 9 : 7);
 
-        // Link the current player with its team member if both exist
-        if (teamMode && playersNum > 1)
-            linkTeams(players, playersNum);
+                // Link the current player with its team member if both exist
+                if (teamMode && i > 1)
+                    linkTeams(players, i);
 
-        // Add the newly created player to the isomorphism (Player, View)
-        data.addViewPlayer(players[playersNum], view);
+                // Add the newly created player to the isomorphism (Player, View)
+                data.addViewPlayer(players[i], view);
+
+                break;
+            }
 
         playersNum++;
 
@@ -414,6 +413,7 @@ public class GameController {
      * @param view The virtual view of the player deciding the rules
      * @return <code>true</code> if the rules were set correctly, <code>false</code> otherwise
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private static boolean askRules(VirtualView view) {
         try {
             GameRules rules = (GameRules) view.sendRequest(new GameCommandRequestAction(GameActions.RULES, null)).executeCommand();

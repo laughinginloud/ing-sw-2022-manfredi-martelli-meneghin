@@ -9,6 +9,7 @@ import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.*;
+import java.util.function.Function;
 
 import static it.polimi.ingsw.common.utils.ModuloNat.mod;
 
@@ -91,8 +92,8 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     private void controlIsland(ControllerData data, GameModel model, Island island) {
         Map<Player, Integer> influencePoints = getIslandInfluences(data, model, island);
 
-        // If nobody has any influence then nobody controls the island
-        if (noInfluencePoints(influencePoints))
+        // If nobody has any influence or multiple players have the same influence then nobody controls the island
+        if (noInfluencePoints(influencePoints) || contested(influencePoints))
             return;
 
         // Find the school board associated with the controlling player
@@ -115,6 +116,9 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         if (!data.getCharacterCardFlag(ControllerData.Flags.ignoreTowersFlag))
             addTowerInfluence(influencePoints, model, island);
 
+        if (contested(influencePoints))
+            return;
+
         Player      maxPlayer      = getMaxPlayer(influencePoints);
         Player      curPlayer      = getTowerPlayer(model, island);
         SchoolBoard maxPlayerBoard = maxPlayer.getSchoolBoard();
@@ -134,15 +138,18 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     }
 
     private void unifyIslands(GameModel model, int localIslandIndex) {
-        int previousIndex  = mod(model.getIslandsCount(), localIslandIndex - 1),
-            successorIndex = mod(model.getIslandsCount(), localIslandIndex + 1);
+        Function<Integer, Integer> islandMod = n -> mod(model.getIslandsCount(), n);
+
+        int previousIndex  = islandMod.apply(localIslandIndex - 1),
+            successorIndex = islandMod.apply(localIslandIndex + 1);
 
         if (model.getIsland(previousIndex).getTowerColor() != null &&
             model.getIsland(previousIndex).getTowerColor().equals(model.getIsland(localIslandIndex).getTowerColor())) {
             mergeIslandsData(model.getIsland(previousIndex), model.getIsland(localIslandIndex));
             model.shiftIslands(localIslandIndex);
-            successorIndex   = localIslandIndex;
-            localIslandIndex = previousIndex;
+            successorIndex   = islandMod.apply(localIslandIndex);
+            localIslandIndex = islandMod.apply(previousIndex);
+            model.setMotherNaturePosition(islandMod.apply(model.getMotherNaturePosition() - 1));
         }
 
         if (model.getIsland(localIslandIndex).getTowerColor() != null  &&
@@ -230,6 +237,16 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             throw new IllegalStateException();
 
         return towerPlayer;
+    }
+
+    private boolean contested(Map<Player, Integer> players) {
+        PriorityQueue<Integer> testQueue = new PriorityQueue<>(players.size(), Comparator.reverseOrder());
+
+        players.forEach((p, i) -> testQueue.add(i));
+
+        Integer head = testQueue.poll();
+
+        return head != null && head.equals(testQueue.peek());
     }
 
     private Player getMaxPlayer(Map<Player, Integer> players) throws NoSuchElementException {
