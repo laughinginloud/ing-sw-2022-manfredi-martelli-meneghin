@@ -195,7 +195,11 @@ public final class ControllerData {
         if (playerAssistantCardMap == null)
             playerAssistantCardMap = new HashMap<>(numOfPlayers);
 
-        playerAssistantCardMap.replace(player, assistantCard);
+        if (playerAssistantCardMap.containsKey(player))
+            playerAssistantCardMap.replace(player, assistantCard);
+
+        else
+            playerAssistantCardMap.put(player, assistantCard);
     }
 
     /**
