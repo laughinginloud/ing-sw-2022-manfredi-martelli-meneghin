@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 
 import java.util.Set;
 
-public class PlayersSchoolBoardHandler implements GUIHandler {
+public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     private ViewGUI gui;
 

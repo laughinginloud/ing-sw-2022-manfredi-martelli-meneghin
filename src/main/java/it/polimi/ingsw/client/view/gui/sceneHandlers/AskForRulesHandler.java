@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * the VirtualController
  * @author Giovanni Manfredi
  */
-public class AskForRulesHandler implements GUIHandler, Initializable {
+public final class AskForRulesHandler implements GUIHandler, Initializable {
 
     private ViewGUI gui;
 

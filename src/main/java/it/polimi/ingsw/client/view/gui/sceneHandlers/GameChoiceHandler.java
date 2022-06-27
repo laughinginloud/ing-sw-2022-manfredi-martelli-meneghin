@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
  * the saved game. The information is then sent to the VirtualController
  * @author Giovanni Manfredi & Sebastiano Meneghin
  */
-public class GameChoiceHandler implements GUIHandler {
+public final class GameChoiceHandler implements GUIHandler {
 
     private ViewGUI gui;
 

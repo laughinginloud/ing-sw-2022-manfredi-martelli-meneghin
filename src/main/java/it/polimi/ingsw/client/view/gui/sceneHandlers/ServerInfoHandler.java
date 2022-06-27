@@ -26,7 +26,7 @@ import java.io.IOException;
  * The information is then sent to the Client.java
  * @author Giovanni Manfredi
  */
-public class ServerInfoHandler implements GUIHandler {
+public final class ServerInfoHandler implements GUIHandler {
 
     private ViewGUI gui;
 

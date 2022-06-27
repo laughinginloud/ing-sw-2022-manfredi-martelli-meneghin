@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 
 // TODO - JavaDoc
 
-public class WaitingRoomHandler implements GUIHandler {
+public final class WaitingRoomHandler implements GUIHandler {
 
     private ViewGUI gui;
 

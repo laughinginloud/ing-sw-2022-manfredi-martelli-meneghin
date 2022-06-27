@@ -19,7 +19,7 @@ import java.util.Set;
 
 // TODO - JavaDoc
 
-public class WizardChoiceHandler implements GUIHandler {
+public final class WizardChoiceHandler implements GUIHandler {
     private ViewGUI gui;
 
     private Wizard[] availableWizard;

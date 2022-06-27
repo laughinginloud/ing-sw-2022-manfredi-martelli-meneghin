@@ -25,7 +25,7 @@ import java.util.*;
  *
  * @author Giovanni Manfredi & Sebastiano Meneghin
  */
-public class GameSceneHandler implements GUIHandler {
+public final class GameSceneHandler implements GUIHandler {
 
     public ViewGUI gui;
 

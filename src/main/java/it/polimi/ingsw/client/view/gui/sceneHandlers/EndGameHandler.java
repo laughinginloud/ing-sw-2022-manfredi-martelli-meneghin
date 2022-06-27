@@ -19,7 +19,7 @@ import java.util.List;
  * The client is shown the game's winner(s) or of a draw
  * @author Giovanni Manfredi
  */
-public class EndGameHandler implements GUIHandler {
+public final class EndGameHandler implements GUIHandler {
 
     private ViewGUI gui;
 

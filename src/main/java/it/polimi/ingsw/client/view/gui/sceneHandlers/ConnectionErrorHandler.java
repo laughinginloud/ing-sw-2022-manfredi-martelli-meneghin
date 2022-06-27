@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
  * and advises him to close the application and try again
  * @author Giovanni Manfredi
  */
-public class ConnectionErrorHandler implements GUIHandler {
+public final class ConnectionErrorHandler implements GUIHandler {
 
     private ViewGUI gui;
 

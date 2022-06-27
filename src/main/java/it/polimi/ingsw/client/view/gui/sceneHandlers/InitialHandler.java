@@ -17,7 +17,7 @@ import javafx.scene.shape.Rectangle;
  * the Client.java otherwise if the window is closed the application is closed
  * @author Giovanni Manfredi
  */
-public class InitialHandler implements GUIHandler{
+public final class InitialHandler implements GUIHandler{
     private ViewGUI gui;
 
     // region FXML_Ids

@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
  * and try again.
  * @author Giovanni Manfredi
  */
-public class UnableToJoinHandler implements GUIHandler {
+public final class UnableToJoinHandler implements GUIHandler {
 
     private ViewGUI gui;
 

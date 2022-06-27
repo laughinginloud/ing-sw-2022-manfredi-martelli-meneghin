@@ -22,7 +22,7 @@ import java.util.Set;
  * VirtualController
  * @author Giovanni Manfredi
  */
-public class ClientInfoHandler implements GUIHandler {
+public final class ClientInfoHandler implements GUIHandler {
 
     private ViewGUI gui;
 
