@@ -214,7 +214,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
             model.shiftIslands(successorIndex);
 
-            if (model.getMotherNaturePosition() > localIslandIndex)
+            if (model.getMotherNaturePosition() > localIslandIndex || model.getMotherNaturePosition() == model.getIslandsCount())
                 model.setMotherNaturePosition(model.getMotherNaturePosition() - 1);
         }
     }
