@@ -5,7 +5,6 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -23,20 +22,12 @@ import java.util.*;
 /**
  * Handler (or Controller) of the scene GameScene (gameScenePage.fxml)
  * The game's main scene
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi & Sebastiano Meneghin
  */
 public class GameSceneHandler implements GUIHandler {
 
     public ViewGUI gui;
-
-    /**
-     * Sets the ViewGUI at which the ServerInfoHandler is related
-     * @param gui the ViewGUI instance
-     */
-    @Override
-    public void setGUI(ViewGUI gui) {
-        this.gui = gui;
-    }
 
     // region FXML_Ids
 
@@ -1327,27 +1318,41 @@ public class GameSceneHandler implements GUIHandler {
 
     // TODO - Fix JavaDocs and readability
 
+    /**
+     * Sets the ViewGUI at which the ServerInfoHandler is related
+     *
+     * @param gui the ViewGUI instance
+     */
+    @Override
+    public void setGUI(ViewGUI gui) {
+        this.gui = gui;
+    }
+
     // region GSUpdateModel
 
     /**
      * Updates the GameScene according to the updated model
-     * @param model the model to update
+     *
+     * @param model  the model to update
      * @param player the localPlayer
      */
     public void gsUpdateModel(GameModel model, Player player, Set<GameValues> updatedValues) {
         boolean containsModel = updatedValues.contains(GameValues.MODEL);
 
-        if (containsModel || updatedValues.contains(GameValues.ISLANDARRAY) || updatedValues.contains(GameValues.MOTHERNATURE)) {
+        if (containsModel || updatedValues.contains(GameValues.ISLANDARRAY) || updatedValues.contains(GameValues.MOTHERNATURE))
+        {
             // Updates the islands
             gsUpdateIslands(model.getIslands(), model.getMotherNaturePosition());
         }
 
-        if (containsModel || updatedValues.contains(GameValues.CLOUDARRAY)) {
+        if (containsModel || updatedValues.contains(GameValues.CLOUDARRAY))
+        {
             // Updates the cloudTiles
             gsUpdateCloudTiles(model.getCloudTile(), model.getPlayersCount());
         }
 
-        if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)) {
+        if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY))
+        {
             // Updates the AssistantCards deck
             gsUpdateAssistantDeck(player.getAssistantDeck(), player.getPlayerWizard());
         }
@@ -1355,31 +1360,26 @@ public class GameSceneHandler implements GUIHandler {
         if (containsModel || updatedValues.contains(GameValues.SCHOOLBOARDARRAY) || updatedValues.contains(GameValues.ENTRANCE)
                           || updatedValues.contains(GameValues.ENTRANCEARRAY)    || updatedValues.contains(GameValues.DININGROOM)
                           || updatedValues.contains(GameValues.DININGROOMARRAY)  || updatedValues.contains(GameValues.PLAYERARRAY)
-                          || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE)                                              ){
+                          || updatedValues.contains(GameValues.GLOBALPROFESSORTABLE))
+        {
             // Updates the SchoolBoard
             gsUpdateSchoolBoard(model, player, updatedValues);
         }
 
         // If the game is in expertMode
-        if (model.getExpertMode() && (updatedValues.contains(GameValues.PLAYERARRAY) || updatedValues.contains(GameValues.CHARACTERCARDARRAY))) {
+        if (model.getExpertMode() && (updatedValues.contains(GameValues.PLAYERARRAY) || updatedValues.contains(GameValues.CHARACTERCARDARRAY)))
+        {
             // Updates the expertMode elements
             gsUpdateExpertModeElements(model, player, updatedValues);
         }
-
-        // TODO: sistemare con la possibilità di reset
-        /*
-        else {
-            // Hides the ExpertMode pane
-            characterCards_pane.setVisible(false);
-        }
-        */
     }
 
     // region GSUpdateSky
 
     /**
      * Updates the Islands in the GameScene according to the array of islands given
-     * @param islands the array of islands to update
+     *
+     * @param islands              the array of islands to update
      * @param motherNaturePosition the position of motherNature
      */
     public void gsUpdateIslands(Island[] islands, int motherNaturePosition){
@@ -1472,7 +1472,8 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the CloudTiles in the GameScene according to the array of cloudTiles given
-     * @param cloudTiles the array of cloudTiles to update
+     *
+     * @param cloudTiles   the array of cloudTiles to update
      * @param numOfPlayers the number of players in the game
      */
     public void gsUpdateCloudTiles(CloudTile[] cloudTiles, int numOfPlayers) {
@@ -1521,8 +1522,9 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the assistantCard deck in the GameScene of the player by "flipping" cards if not present
+     *
      * @param assistantDeck the deck of assistantCards to update
-     * @param wizard the wizard associated with the player
+     * @param wizard        the wizard associated with the player
      */
     public void gsUpdateAssistantDeck(AssistantCard[] assistantDeck, Wizard wizard) {
         // A deck with all the possible assistantCards
@@ -1559,7 +1561,8 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the SchoolBoard in the GameScene according to the updated model
-     * @param model the model to update
+     *
+     * @param model  the model to update
      * @param player the localPlayer
      */
     public void gsUpdateSchoolBoard(GameModel model, Player player, Set<GameValues> updatedValues) {
@@ -1587,8 +1590,9 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the towers in the GameScene of the player (SchoolBoard)
-     * @param towerColor the color of the towers (BLACK, GREY, WHITE)
-     * @param towerCount the number of towers present
+     *
+     * @param towerColor   the color of the towers (BLACK, GREY, WHITE)
+     * @param towerCount   the number of towers present
      * @param numOfPlayers the number of players in the game
      */
     public void gsUpdateTowers(TowerColor towerColor, int towerCount, int numOfPlayers) {
@@ -1620,9 +1624,10 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the DiningRoom in the GameScene according to the updated model
+     *
      * @param diningRoom the diningRoom to update
-     * @param player the localPlayer
-     * @param gpt the globalProfessorTable to update
+     * @param player     the localPlayer
+     * @param gpt        the globalProfessorTable to update
      */
     public void gsUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt, Set<GameValues> updatedValues) {
         boolean containsModel = updatedValues.contains(GameValues.MODEL);
@@ -1641,7 +1646,8 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the ProfessorDiningRoom in the GameScene according to the updated model
-     * @param gpt the globalProfessorTable to update
+     *
+     * @param gpt    the globalProfessorTable to update
      * @param player the localPlayer
      */
     public void gsUpdateDiningRoomProfessors(GlobalProfessorTable gpt, Player player) {
@@ -1657,6 +1663,7 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the StudentsDiningRoom in the GameScene according to the updated diningRoom
+     *
      * @param diningRoom the diningRoom to update
      */
     public void gsUpdateDiningRoomStudents(DiningRoom diningRoom) {
@@ -1688,6 +1695,7 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the Entrance in the GameScene according to the updated entrance
+     *
      * @param entrance the entrance to update
      */
     public void gsUpdateEntrance(Entrance entrance) {
@@ -1730,7 +1738,8 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the ExpertModeElements in the GameScene according to the updated model
-     * @param model the model to update
+     *
+     * @param model  the model to update
      * @param player the localPlayer
      */
     public void gsUpdateExpertModeElements(GameModel model, Player player, Set<GameValues> updatedValues) {
@@ -1751,6 +1760,7 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the CharacterCards in the GameScene according to the updated array
+     *
      * @param characterCards the characterCard array to update
      */
     public void gsUpdateCharacterCards(CharacterCard[] characterCards) {
@@ -1775,8 +1785,9 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the CharacterCardNoEntry in the GameScene according to the updated card
+     *
      * @param characterCardNoEntry the updated card
-     * @param index the index of the card in the GameScene
+     * @param index                the index of the card in the GameScene
      */
     public void gsUpdateCharacterCardNoEntry(CharacterCardNoEntry characterCardNoEntry, int index) {
         // Updates the CharacterCardImage
@@ -1804,8 +1815,9 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the CharacterCardStudent in the GameScene according to the updated card
+     *
      * @param characterCardStudent the updated card
-     * @param index the index of the card in the GameScene
+     * @param index                the index of the card in the GameScene
      */
     public void gsUpdateCharacterCardStudent(CharacterCardStudent characterCardStudent, int index) {
         // Updates the CharacterCardImage
@@ -1836,8 +1848,9 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the CharacterCard in the GameScene according to the updated card
+     *
      * @param characterCard the updated card
-     * @param index the index of the card in the GameScene
+     * @param index         the index of the card in the GameScene
      */
     public void gsUpdateCharacterCard(CharacterCard characterCard, int index) {
         // Updates the CharacterCardImage
@@ -1851,8 +1864,9 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the CharacterCard image in the GameScene according to the updated card and index
+     *
      * @param characterCard the updated card
-     * @param index the index of the card in the GameScene
+     * @param index         the index of the card in the GameScene
      */
     public void gsUpdateCharacterCardImage(CharacterCard characterCard, int index) {
         ImageView CC_ImgView;
@@ -1875,6 +1889,7 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Updates the CoinCount of the localPlayer in the GameScene according to the updated localPlayer
+     *
      * @param player the updated localPlayer
      */
     public void gsUpdatePlayerCoins(Player player){
@@ -1902,8 +1917,9 @@ public class GameSceneHandler implements GUIHandler {
     // region ActivateClicks
 
     /**
-     * Associates clickHandler to each available assistantCard
-     * @param playableAssistantCards The available assistantCards that has to been set clickable
+     * Associates clickHandler to each available assistantCard - activating the clicks on the AssistantCards
+     *
+     * @param playableAssistantCards the available assistantCards that have to be set clickable
      */
     public void activateClicksAssistantCards(AssistantCard[] playableAssistantCards) {
         int localPlayerIndex = gui.getLocalPlayerIndex();
@@ -1934,6 +1950,12 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ActivateClicksSky
 
+    /**
+     * Associates clickHandler to each available islands - activating the clicks on the Islands
+     *
+     * @param availableIslands       the available islands that have to be set clickable
+     * @param otherElementsClickable the otherElements that have to be set clickable
+     */
     public void activateClicksIslands(Island[] availableIslands, boolean otherElementsClickable) {
         Island[] islandFromModel       = gui.getModel().getIslands();
         int      islandCount           = islandFromModel.length;
@@ -1957,6 +1979,12 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Associates clickHandler to each available cloudTiles - activating the clicks on the CloudTiles
+     *
+     * @param availableClouds        the available cloudTiles that have to be set clickable
+     * @param otherElementsClickable the otherElements that have to be set clickable
+     */
     public void activateClicksCloudTiles(CloudTile[] availableClouds, boolean otherElementsClickable) {
         int             numOfAvailableClouds           = availableClouds.length;
         CloudTile[]     cloudTilesModel                = gui.getModel().getCloudTile();
@@ -2018,6 +2046,11 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ActivateClicksSchoolBoard
 
+    /**
+     * Associates clickHandler to each compatible diningRoomTable - activating the clicks on the DiningRoomTables
+     *
+     * @param compatibleDiningRoomTable the available diningRoomTables that have to be set clickable
+     */
     public void activateClicksDiningRoomTables(Color[] compatibleDiningRoomTable) {
 
         AnchorPane diningRoomTablePane;
@@ -2037,6 +2070,12 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Associates clickHandler to each compatible student in the entrance - activating the clicks on the EntranceStudents
+     *
+     * @param availableColors        the available entranceStudents that have to be set clickable
+     * @param otherElementsClickable the otherElements that have to be set clickable
+     */
     public void activateClicksEntranceStudents(Color[] availableColors, boolean otherElementsClickable) {
         Color[] entranceStudents = gui.getLocalPlayer().getSchoolBoard().getEntrance().getStudents();
 
@@ -2068,6 +2107,12 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ActivateClicksExpertMode
 
+    /**
+     * Associates clickHandler to each playable characterCards - activating the clicks on the CharacterCards
+     *
+     * @param playableCharacterCards the playable characterCards that have to be set clickable
+     * @param otherElementsClickable the otherElements that have to be set clickable
+     */
     public void activateClicksCharacterCards(CharacterCard[] playableCharacterCards, boolean otherElementsClickable) {
 
         Set<CharacterCard> playableCharacterCardsSet = new HashSet<>();
@@ -2095,7 +2140,15 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
-    public void activateClicksCharacterCardElements(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
+    // TODO: verify if we distinguish between CCStudent and CCNoEntryTile
+    /**
+     * Associates clickHandler to each available characterCardElement - activating the clicks on the CharacterCardElement
+     *
+     * @param characterCardPosition  the index of the CharacterCard in the GameModel (which contains a CC array)
+     * @param availableColors        the available CC Students on the CC (for CharacterCardStudent)
+     * @param numOfAvailableElements the number of AvailableElements on the CC (for CharacterCardStudent and Elements)
+     */
+    public void activateClicksCharacterCardElements(int characterCardPosition, Color[] availableColors, int numOfAvailableElements) {
         CharacterCardStudent playedCharacterCard    = (CharacterCardStudent) gui.getModel().getCharacterCard(characterCardPosition);
         Color[]              studentOnCharacterCard = playedCharacterCard.getStudents();
         int                  numOfCCStudents        = studentOnCharacterCard.length;
@@ -2108,7 +2161,7 @@ public class GameSceneHandler implements GUIHandler {
                     ccStudentImageView = IDHelper.gsFindCharacterCardElementID(this, characterCardPosition, i);
 
                     EventHandler<MouseEvent> clickOnCharacterCardStudentHandler = mouseEvent -> {
-                        // Associates to the click of the mouse the function clickOnCharacterCardStudent
+                        // Associates to the click of the mouse the function clickOnCharacterCardElements
                         // as response to the user's action
                         clickOnCharacterCardStudent(mouseEvent);
 
@@ -2121,6 +2174,9 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Associates clickHandler to the inputButton - activating the click on the inputButton
+     */
     public void activateClicksInputButton() {
         // Creates a function that will handle the characterCardClick
         EventHandler<MouseEvent> clickOnInputButtonHandler = mouseEvent -> {
@@ -2138,6 +2194,13 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ActivateMultipleClicks
 
+    /**
+     * Associates clickHandler to the diningRoomTables and islands - activating the click on the diningRoomTables and islands
+     *
+     * @param selectedStudentIndex the index of the selected student in the entrance
+     * @param diningRoomFreeTables an array of boolean which for each color has:
+     *                             'true' if the table is free and 'false' if the table is full
+     */
     public void activateClicksDiningRoomTablesAndIsland(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
         // Gets the IslandsArray from the model
         Island[] availableIslands = gui.getModel().getIslands();
@@ -2160,6 +2223,12 @@ public class GameSceneHandler implements GUIHandler {
         activateClicksDiningRoomTablesDuringEntranceMovement(compatibleTables, selectedStudentIndex);
     }
 
+    /**
+     * Associates clickHandler to the islands during the MoveStudentsState - activating the clicks on the islands
+     *
+     * @param availableIslands     the available islands to be set clickable
+     * @param selectedStudentIndex the index of the selected student in the Entrance
+     */
     public void activateClicksIslandsDuringEntranceMovement(Island[] availableIslands, int selectedStudentIndex) {
         Island[] islandFromModel = gui.getModel().getIslands();
         int      islandCount     = islandFromModel.length;
@@ -2186,6 +2255,12 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Associates clickHandler to the diningRoomTables during the MoveStudentsState - activating the clicks on the diningRoomTables
+     *
+     * @param compatibleTables     the tables compatible to be set clickable (not full tables)
+     * @param selectedStudentIndex the index of the selected student in the Entrance
+     */
     public void activateClicksDiningRoomTablesDuringEntranceMovement(Color[] compatibleTables, int selectedStudentIndex) {
         AnchorPane diningRoomTablePane;
 
@@ -2208,16 +2283,34 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ActivateMultipleClicksExpertMode
 
-    public void activateClicksCloudTilesOrCCs(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
+    /**
+     * Associates clickHandler to the CloudTiles and CC - activating the clicks on the CloudTiles and CC
+     *
+     * @param availableClouds        the cloudTiles available to be set clickable
+     * @param playableCharacterCards the playable CC to be set clickable
+     */
+    public void activateClicksCloudTilesAndCCs(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
         activateClicksCloudTiles(availableClouds, true);
         activateClicksCharacterCards(playableCharacterCards, true);
     }
 
+    /**
+     * Associates clickHandler to the EntranceStudents and CC - activating the clicks on the CloudTiles and CC
+     *
+     * @param entranceStudents       the students in the entrance to be set clickable
+     * @param playableCharacterCards the playable CC to be set clickable
+     */
     public void activateClicksEntranceStudentsAndCC (Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
         activateClicksEntranceStudents(entranceStudents, true);
         activateClicksCharacterCards(playableCharacterCards, true);
     }
 
+    /**
+     * Associates clickHandler to the Islands and CC - activating the clicks on the Islands and CC
+     *
+     * @param possibleMovement       the islands on which the movement is possible, to be set clickable
+     * @param playableCharacterCards the playable CC to be set clickable
+     */
     public void activateClicksIslandsAndCCs(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
         activateClicksIslands(possibleMovement, true);
         activateClicksCharacterCards(playableCharacterCards, true);
@@ -2229,6 +2322,9 @@ public class GameSceneHandler implements GUIHandler {
 
     // region DeactivateClicks
 
+    /**
+     * Deactivates all clicks on the interface
+     */
     public void deactivateClicks() {
         deactivateClicksAssistantCards();
 
@@ -2247,6 +2343,9 @@ public class GameSceneHandler implements GUIHandler {
         deactivateClicksInputButton();
     }
 
+    /**
+     * Deactivates the clicks on the AssistantCards
+     */
     public void deactivateClicksAssistantCards() {
         ImageView assistantCardImgView;
         for (int i = 0; i < ViewGUI.MAX_ASSISTANT_CARDS; i++) {
@@ -2257,6 +2356,9 @@ public class GameSceneHandler implements GUIHandler {
 
     // region DeactivateClicksSky
 
+    /**
+     * Deactivates the clicks on the Islands
+     */
     public void deactivateClicksIslands() {
         AnchorPane islandPane;
         for (int i = 0; i < ViewGUI.MAX_ISLANDS; i++) {
@@ -2265,6 +2367,9 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Deactivates the clicks on the CloudTiles
+     */
     public void deactivateClicksCloudTiles() {
         AnchorPane cloudTilePane;
         for (int i = 0; i < ViewGUI.MAX_CLOUD_TILES; i++) {
@@ -2277,6 +2382,9 @@ public class GameSceneHandler implements GUIHandler {
 
     // region DeactivateClicksSchoolBoard
 
+    /**
+     * Deactivates the clicks on the DiningRoomTables
+     */
     public void deactivateClicksDiningRoomTables() {
         AnchorPane diningRoomPane;
         for (Color color : Color.values()) {
@@ -2285,6 +2393,9 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Deactivates the clicks on the EntranceStudents
+     */
     public void deactivateClicksEntranceStudents() {
         ImageView entranceStudentImgView;
         for (int i = 0; i < ViewGUI.MAX_ENTRANCE_STUDENTS; i++) {
@@ -2297,6 +2408,9 @@ public class GameSceneHandler implements GUIHandler {
 
     // region DeactivateClicksExpertMode
 
+    /**
+     * Deactivates the clicks on the CC
+     */
     public void deactivateClicksCharacterCards() {
         ImageView characterCardsImgView;
         for (int i = 0; i < ViewGUI.MAX_CC; i++) {
@@ -2305,6 +2419,9 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Deactivates the clicks on the CC elements
+     */
     public void deactivateClicksCharacterCardsElements() {
         ImageView characterCardsElementImgView;
         for (int i = 0; i < ViewGUI.MAX_CC_ELEMENTS; i++) {
@@ -2313,6 +2430,9 @@ public class GameSceneHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Deactivates the click on the input button
+     */
     public void deactivateClicksInputButton() {
         input_button.setOnMouseClicked(null);
     }
@@ -2324,7 +2444,10 @@ public class GameSceneHandler implements GUIHandler {
     // region ClickOnEvents
 
     /**
-     * Deactivates the clicks of other AssistantCards, then forward to the ViewGUI the user choice
+     * Method called on the click of a "assistantCard"
+     * Deactivates the clicks of all AssistantCards, then forwards
+     * the selected AssistantCard to the ViewGUI
+     *
      * @param mouseEvent The event that happened on the GameScenePane
      */
     public void clickOnAssistantCard (MouseEvent mouseEvent) {
@@ -2348,6 +2471,14 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ClickOnSkyEvents
 
+    /**
+     * Method called on the click of an "island"
+     * Deactivates the clicks of all Islands, then forwards
+     * the selected island to the ViewGUI
+     *
+     * @param mouseEvent             The event that happened on the GameScenePane
+     * @param otherElementsClickable If the CC were clickable (true) they need to be deactivated
+     */
     public void clickOnIsland(MouseEvent mouseEvent, boolean otherElementsClickable) {
         // If the player chose the Island when also CharacterCards were clickable, deactivates all of them
         if (otherElementsClickable) { deactivateClicksCharacterCards(); }
@@ -2360,6 +2491,14 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(selectedIslandIndex);
     }
 
+    /**
+     * Method called on the click of a "cloudTile"
+     * Deactivates the clicks of all CloudTiles, then forwards
+     * the selected cloudTile to the ViewGUI
+     *
+     * @param mouseEvent             The event that happened on the GameScenePane
+     * @param otherElementsClickable If the CC were clickable (true) they need to be deactivated
+     */
     public void clickOnCloudTile(MouseEvent mouseEvent, boolean otherElementsClickable) {
         // If the player chose the CloudTile when also CharacterCards were clickable, deactivates all of them
         if (otherElementsClickable) { deactivateClicksCharacterCards(); }
@@ -2372,6 +2511,14 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(selectedCloudTileIndex);
     }
 
+    /**
+     * Method called on the click of an "island" during the MoveStudentsState
+     * Deactivates the clicks of all Islands, then forwards
+     * the selected island to the ViewGUI
+     *
+     * @param mouseEvent           The event that happened on the GameScenePane
+     * @param selectedStudentIndex The index of the selected student in the Entrance
+     */
     public void clickOnIslandDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
         // Deactivates the click-linked function of both Islands and DiningRoomTables
         deactivateClicksIslands();
@@ -2390,6 +2537,13 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ClicksOnSchoolBoardEvents
 
+    /**
+     * Method called on the click of a "diningRoomTable"
+     * Deactivates the clicks of all diningRoomTables, then forwards
+     * the selected diningRoomTable to the ViewGUI
+     *
+     * @param mouseEvent The event that happened on the GameScenePane
+     */
     public void clickOnDiningRoomTable(MouseEvent mouseEvent) {
         deactivateClicksDiningRoomTables();
 
@@ -2399,6 +2553,14 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(selectedTablePaneColor);
     }
 
+    /**
+     * Method called on the click of an "entranceStudent"
+     * Deactivates the clicks of all entranceStudents, then forwards
+     * the selected entranceStudent to the ViewGUI
+     *
+     * @param mouseEvent             The event that happened on the GameScenePane
+     * @param otherElementsClickable If the CC were clickable (true) they need to be deactivated
+     */
     public void clickOnEntranceStudent(MouseEvent mouseEvent, boolean otherElementsClickable) {
         // If the player chose the CloudTile when also CharacterCards were clickable, deactivates all of them
         if (otherElementsClickable) { deactivateClicksCharacterCards(); }
@@ -2411,6 +2573,14 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(selectedEntranceStudentIndex);
     }
 
+    /**
+     * Method called on the click of a "diningRoomTable" during the MoveStudentsState
+     * Deactivates the clicks of all DiningRoomTables, then forwards
+     * the selected diningRoomTable to the ViewGUI
+     *
+     * @param mouseEvent           The event that happened on the GameScenePane
+     * @param selectedStudentIndex The index of the selected student in the Entrance
+     */
     public void clickOnDiningRoomTablesDuringEntranceMovement(MouseEvent mouseEvent, int selectedStudentIndex) {
         // Deactivates the click-linked function of both Islands and DiningRoomTables
         deactivateClicksIslands();
@@ -2426,6 +2596,14 @@ public class GameSceneHandler implements GUIHandler {
 
     // region ClicksOnExpertModeEvents
 
+    /**
+     * Method called on the click of a "characterCard"
+     * Deactivates the clicks of all CharacterCards, then forwards
+     * the selected characterCards to the ViewGUI
+     *
+     * @param mouseEvent             The event that happened on the GameScenePane
+     * @param otherElementsClickable If the CC were clickable (true) they need to be deactivated
+     */
     public void clickOnCharacterCard(MouseEvent mouseEvent, boolean otherElementsClickable) {
         // If the player chose the characterCard when other elements were clickable, deactivates all of them
         if (otherElementsClickable) {
@@ -2446,6 +2624,13 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(characterCard);
     }
 
+    /**
+     * Method called on the click of a "characterCardElement"
+     * Deactivates the clicks of all CharacterCardElements, then forwards
+     * the selected characterCardElements to the ViewGUI
+     *
+     * @param mouseEvent The event that happened on the GameScenePane
+     */
     public void clickOnCharacterCardStudent(MouseEvent mouseEvent) {
         deactivateClicksCharacterCardsElements();
 
@@ -2455,6 +2640,13 @@ public class GameSceneHandler implements GUIHandler {
         gui.forwardViewToVirtualController(selectedCCStudentIndex);
     }
 
+    /**
+     * Method called on the click of the Spinner's Button
+     * Deactivates the clicks of the inputButton, then forwards
+     * the selected numberOfStudents to move to the ViewGUI and hides the input pane
+     *
+     * @param mouseEvent The event that happened on the GameScenePane
+     */
     public void clickOnInputButton(MouseEvent mouseEvent) {
         deactivateClicksInputButton();
 
@@ -2471,6 +2663,11 @@ public class GameSceneHandler implements GUIHandler {
 
     // region OtherEvents
 
+    /**
+     * Shows the inputPane and setUps the spinner
+     *
+     * @param maxNum max number of selectable students
+     */
     public void showInputPane(int maxNum) {
         // Sets a factory integers between 2 and 4
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, maxNum);
@@ -2490,6 +2687,7 @@ public class GameSceneHandler implements GUIHandler {
 
     /**
      * Requests the player which assistantCard he wants to play between the provided assistantCards
+     *
      * @param assistantCards An array of AssistantCards that are currently playable
      */
     public void gsRequestPlayAssistantCard(AssistantCard[] assistantCards) {
@@ -2529,7 +2727,7 @@ public class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     * Requests the player to S a CloudTile from the availableClouds
+     * Requests the player to choose a CloudTile from the availableClouds
      *
      * @param availableClouds An array of CloudTile representing the available CloudTiles
      */
@@ -2595,6 +2793,11 @@ public class GameSceneHandler implements GUIHandler {
 
     // region GSExpertModeRequests
 
+    /**
+     * Requests the player to select a CharacterCard from the playable ones
+     *
+     * @param playableCharacterCards The array of playable CharacterCards
+     */
     public void gsRequestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
         activateClicksCharacterCards(playableCharacterCards, false);
         Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_CHARACTER_CARD, null);
@@ -2633,6 +2836,11 @@ public class GameSceneHandler implements GUIHandler {
         selectColor.showAndWait();
     }
 
+    /**
+     * Requests the player (using the input_pane) how many students he wants to move
+     *
+     * @param maxNumOfStudentMovable max number of movable students
+     */
     public void gsRequestHowManyStudentsToMove (int maxNumOfStudentMovable) {
         showInputPane(maxNumOfStudentMovable);
         activateClicksInputButton();
@@ -2652,12 +2860,19 @@ public class GameSceneHandler implements GUIHandler {
      * @param playableCharacterCards An array of CharacterCard containing the playableCharacterCards
      */
     public void gsRequestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
-        activateClicksCloudTilesOrCCs(availableClouds, playableCharacterCards);
+        activateClicksCloudTilesAndCCs(availableClouds, playableCharacterCards);
 
         Alert selectCloudTileOrCharacterCard = GUIAlert.getAlert(GUIAlert.SELECT_CLOUD_OR_CC, "");
         selectCloudTileOrCharacterCard.showAndWait();
     }
 
+    /**
+     * Request the player to choose between selecting a student (and then moving it) or playing a CharacterCard.
+     * Shows to the player the students that can be selected and the CharacterCard that can be played
+     *
+     * @param entranceStudents       The array of student in the entrance
+     * @param playableCharacterCards An array of CharacterCard containing the playableCharacterCards
+     */
     public void gsRequestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
         activateClicksEntranceStudentsAndCC(entranceStudents, playableCharacterCards);
         Alert possiblePlay = GUIAlert.getAlert(GUIAlert.SELECT_ENTRANCE_STUDENT_OR_CC, null);
@@ -2682,6 +2897,9 @@ public class GameSceneHandler implements GUIHandler {
 
     // endregion GSExpertModeChoiceRequests
 
+    /**
+     * Asks the player whether he wants to end his/her turn or play a CharacterCard
+     */
     public void gsAskEndOfTurn() {
         Alert possiblePlay = GUIAlert.getAlert(GUIAlert.ASK_END_OF_TURN, null);
 
@@ -2700,6 +2918,10 @@ public class GameSceneHandler implements GUIHandler {
 
     // region SwitchSceneToPSB
 
+    /**
+     * Method called on the click of a "players_button"
+     * Changes scene to show the player the schoolBoard of all players
+     */
     public void switchToPSBScene() {
         gui.switchScene(Pages.SCHOOL_BOARDS);
     }
