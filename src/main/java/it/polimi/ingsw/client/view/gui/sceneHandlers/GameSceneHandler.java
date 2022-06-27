@@ -1653,8 +1653,6 @@ public class GameSceneHandler implements GUIHandler {
         for (Color color : Color.values())
             gpt.getProfessorLocation(color).ifPresent(p -> {
                 ImageView imageView = IDHelper.gsFindProfessorOnProfTableID(this, color);
-
-                //TODO: verify this
                 imageView.setVisible(p.getUsername().equals(player.getUsername()));
             });
     }
@@ -1986,39 +1984,46 @@ public class GameSceneHandler implements GUIHandler {
     public void activateClicksCloudTiles(CloudTile[] availableClouds, boolean otherElementsClickable) {
         int             numOfAvailableClouds           = availableClouds.length;
         CloudTile[]     cloudTilesModel                = gui.getModel().getCloudTile();
-        List<CloudTile> cloudTileModelList             = Arrays.stream(cloudTilesModel).toList();
         int[]           availableCloudsPositionOnModel = new int[numOfAvailableClouds];
 
 
-        // TODO: Fix: It's needed to keep the positional info of the modelCloud, so
-        //       the list is not an option, fix that!
+
+        // TODO: Verify it works using the ViewGUI
+
+        // For all the cloudTiles that has been sent by the VirtualController
         for (int i = 0; i < numOfAvailableClouds; i++) {
-            boolean breakOther = false;
+            boolean cloudMatch = false;
             Color[] colorOnTile = availableClouds[i].getStudents();
 
-            for (int k = 0; k < cloudTileModelList.size(); k++) {
+            // For all the cloudTiles that are currently present in the Model
+            for (int k = 0; k < cloudTilesModel.length; k++) {
+                // If a comparison with this Model's cloudTime hasn't been found yet
+                if (cloudTilesModel[k] != null) {
+                    // For all the students on the cloudTiles check which is the Model's cloudTile that
+                    // is equal to the sent one - that has the same students on it
+                    for (int j = 0; j < colorOnTile.length; j++) {
+                        cloudMatch = false;
 
-                for (int j = 0; j < colorOnTile.length; j++) {
-                    breakOther = false;
-                    if (availableClouds[i].getStudents()[j] != cloudTileModelList.get(k).getStudents()[j])
-                        break;
+                        // If there's at least one student who doesn't match with the specific model's cloudTile
+                        if (availableClouds[i].getStudents()[j] != cloudTilesModel[k].getStudents()[j])
+                            break;
 
-                    if (j == colorOnTile.length - 1)
-                        breakOther = true;
-                }
-
-                if (breakOther) {
-                    availableCloudsPositionOnModel[i] = k;
-                    List<CloudTile> temp = new ArrayList<>();
-
-                    for (int j = 0; j < cloudTileModelList.size(); j++) {
-                        if (j == k) {
-                            temp.add(cloudTileModelList.get(j));
-                        }
+                        // If all the students match between the model cloudTile and the provided cloudTile, set cloudMatch to true
+                        if (j == colorOnTile.length - 1)
+                            cloudMatch = true;
                     }
 
-                    cloudTileModelList  =temp;
-                    break;
+                    if (cloudMatch) {
+                        // Saves the position of the availableCloud on the Model, then set to null this cell of the array!
+                        availableCloudsPositionOnModel[i] = k;
+                        cloudTilesModel[k] = null;
+                        break;
+                    }
+
+                    // If at the end of the loop there are not matches with a provided error there must be an error with the network
+                    // or the GameStateController
+                    else if (k == cloudTilesModel.length - 1)
+                        throw new AssertionError("\nThere are no matches with that cloud that need to be set clickable!\n");
                 }
             }
         }
@@ -2457,11 +2462,25 @@ public class GameSceneHandler implements GUIHandler {
         // Gets the ImageView of the selected assistantCard, then retrieve is position on the
         // assistantCardDeck and gets its instance from the model
         ImageView     selectedAssistantCardID    = (ImageView) mouseEvent.getSource();
-        // The index is different from the ID because the ID goes from 1 to 10 and the index goes from 0 to 9
-        int           selectedAssistantCardIndex = InfoHelper.gsFindAssistantCardIndex(selectedAssistantCardID) - 1;
 
-        //TODO: il vettore delle assistant card è ridotto di dimensione, dunque non posso accedere a quell'indice
-        AssistantCard selectedAssistantCard      = gui.getModel().getPlayer(localPlayerIndex).getAssistantCard(selectedAssistantCardIndex);
+        // Finds the cardValue of the selected AssistantCard from the selectedAssistantCardID and
+        // gets all the currently present Model's AssistantCards
+        int             selectedAssistantCardValue = InfoHelper.gsFindAssistantCardIndex(selectedAssistantCardID);
+        AssistantCard[] modelAssistantDeck         = gui.getModel().getPlayer(localPlayerIndex).getAssistantDeck();
+
+
+        // TODO: verify the following part of code using the ViewGUI
+
+        // Retrieve the real position in the AssistantDeck of the selected AssistantCard
+        int positionOnModelAssCardArray = 0;
+        for (int i = 0; i < modelAssistantDeck.length; i++) {
+            if (modelAssistantDeck[i].cardValue() == selectedAssistantCardValue) {
+                positionOnModelAssCardArray = i;
+                break;
+            }
+        }
+
+        AssistantCard selectedAssistantCard = gui.getModel().getPlayer(localPlayerIndex).getAssistantCard(positionOnModelAssCardArray);
 
         // Notifies the ViewGUI (and the VirtualController) about the user choice
         gui.forwardViewToVirtualController(selectedAssistantCard);
