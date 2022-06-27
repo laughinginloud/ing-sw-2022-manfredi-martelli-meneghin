@@ -31,7 +31,6 @@ public final class CharacterCardStudent extends CharacterCard {
         return temp;
     }
 
-    // TODO: Test
     /**
      * Removes the student from the specified index and moves it the other elements in the array,
      * leaving the last element as null
@@ -59,8 +58,7 @@ public final class CharacterCardStudent extends CharacterCard {
 
         this.students[index] = color;
     }
-
-    // TODO: Test
+    
     /**
      * Adds the specified student at the end of the student's array
      * @author Giovanni Manfredi

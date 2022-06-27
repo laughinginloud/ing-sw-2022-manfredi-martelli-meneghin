@@ -42,6 +42,8 @@ public sealed class Player permits PlayerExpert, PlayerTeam, PlayerTeamExpert {
             assistantDeck[i] = new AssistantCard(i + 1, (i / 2) + 1);
     }
 
+    // region Getter
+
     /**
      * Gets the selected card, deleting it from the deck in the process
      * @param index The index of the card to be removed (positive integer between 0 and 9)
@@ -100,6 +102,18 @@ public sealed class Player permits PlayerExpert, PlayerTeam, PlayerTeamExpert {
     }
 
     /**
+     * Gets the last played card
+     * @return Last played card
+     */
+    public AssistantCard getLastPlayedCard() {
+        return lastPlayedCard;
+    }
+
+    // endregion Getter
+
+    // region Setter
+
+    /**
      * Sets the last played card
      * @param lastPlayedCard The card to be set (not null)
      */
@@ -110,18 +124,12 @@ public sealed class Player permits PlayerExpert, PlayerTeam, PlayerTeamExpert {
     }
 
     /**
-     * Gets the last played card
-     * @return Last played card
-     */
-    public AssistantCard getLastPlayedCard() {
-        return lastPlayedCard;
-    }
-
-    /**
      * Set the school board
      * @param schoolBoard The pointer to the school board
      */
     public void setSchoolBoard(SchoolBoard schoolBoard) {
         this.schoolBoard = schoolBoard;
     }
+
+    // endregion Setter
 }

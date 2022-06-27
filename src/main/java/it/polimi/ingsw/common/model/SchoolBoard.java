@@ -24,6 +24,8 @@ public final class SchoolBoard {
         this.diningRoom = diningRoom;
     }
 
+    // region Getter
+
     /**
      * Gets the tower color associated with the school board
      * @return An enum value representing the towers' color
@@ -41,6 +43,24 @@ public final class SchoolBoard {
     }
 
     /**
+     * Gets the entrance associated with the school board
+     * @return A reference to the school board's entrance
+     */
+    public Entrance getEntrance() { return entrance; }
+
+    /**
+     * Gets the dining room associated with the school board
+     * @return A reference to the school board's dining room
+     */
+    public DiningRoom getDiningRoom() {
+        return diningRoom;
+    }
+
+    // endregion Getter
+
+    // region Setter
+
+    /**
      * Sets the number of towers on the board to a specified value
      * @param towerCount An integer containing the number to be set (positive integer between 0 and 8)
      */
@@ -50,14 +70,25 @@ public final class SchoolBoard {
         this.towerCount = towerCount;
     }
 
-    //TODO: test
+    /**
+     * Sets the entrance associated with the school board
+     * @param entrance A reference to the school board's entrance
+     */
+    public void setEntrance(Entrance entrance) {
+        this.entrance = entrance;
+    }
 
     /**
-     * Increases the tower's count by one
+     * Sets the dining room associated with the school board
+     * @param diningRoom A reference to the school board's dining room
      */
-    public void increaseTowerCount() {
-        increaseTowerCount(1);
+    public void setDiningRoom(DiningRoom diningRoom) {
+        this.diningRoom = diningRoom;
     }
+
+    // endregion Setter
+
+    // region ModifyTowerCount
 
     /**
      * Increases the tower's count
@@ -86,32 +117,5 @@ public final class SchoolBoard {
         towerCount -= n;
     }
 
-    /**
-     * Gets the entrance associated with the school board
-     * @return A reference to the school board's entrance
-     */
-    public Entrance getEntrance() { return entrance; }
-
-    /**
-     * Sets the entrance associated with the school board
-     * @param entrance A reference to the school board's entrance
-     */
-    public void setEntrance(Entrance entrance) {
-        this.entrance = entrance;
-    }
-
-    /**
-     * Gets the dining room associated with the school board
-     * @return A reference to the school board's dining room
-     */
-    public DiningRoom getDiningRoom() {
-        return diningRoom;
-    }
-    /**
-     * Sets the dining room associated with the school board
-     * @param diningRoom A reference to the school board's dining room
-     */
-    public void setDiningRoom(DiningRoom diningRoom) {
-        this.diningRoom = diningRoom;
-    }
+    // endregion ModifyTowerCount
 }

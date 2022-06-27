@@ -122,7 +122,6 @@ public final class Island {
 
     // region Others
 
-    // TODO: Test it
     /**
      * Adds a backgroundID to the end of the backgroundID's list, modifying its length
      * @param backgroundID The backgroundID to add (positive integer between 0 and 3)
