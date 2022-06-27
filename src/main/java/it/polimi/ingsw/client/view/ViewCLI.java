@@ -524,7 +524,7 @@ public final class ViewCLI implements View {
 
         writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 1));
 
-        for (int i = 0; i < model.getCloudTile().length; ++i) {
+        for (int i = 0; i < model.getCloudTiles().length; ++i) {
             drawCloud(writer, model.getCloudTile(i));
 
             writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
@@ -1952,7 +1952,7 @@ public final class ViewCLI implements View {
                         if (readCldInd <= 0 || readCldInd > cloudsNum)
                             throw new NumberFormatException();
 
-                        forwardViewToVirtualController(findCloud(availableClouds[readCldInd - 1].getStudents(), model.getCloudTile()));
+                        forwardViewToVirtualController(findCloud(availableClouds[readCldInd - 1].getStudents(), model.getCloudTiles()));
                         return;
                     }
 

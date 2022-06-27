@@ -135,7 +135,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
     private Optional<CloudTile[]> getAvailableClouds() {
         List<CloudTile> availableCloudTiles = new ArrayList<>();
 
-        Arrays.stream(ControllerData.getInstance().getGameModel().getCloudTile())
+        Arrays.stream(ControllerData.getInstance().getGameModel().getCloudTiles())
             .forEachOrdered(c -> {
                 if (c != null && c.getStudents()[0] != null)
                     availableCloudTiles.add(c);
@@ -149,7 +149,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
     private void updatePlayers(ControllerData data, Player player) {
         InfoMap map = new InfoMap();
         map.put(GameValues.ENTRANCE, new Tuple<>(player.getPlayerID(), player.getSchoolBoard().getEntrance()));
-        map.put(GameValues.CLOUDARRAY, data.getGameModel().getCloudTile());
+        map.put(GameValues.CLOUDARRAY, data.getGameModel().getCloudTiles());
 
         for (Player playerToUpdate : data.getGameModel().getPlayers())
             data.getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(map));

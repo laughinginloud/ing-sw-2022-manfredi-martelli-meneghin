@@ -39,7 +39,7 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
         jsonWriter.value(json.toJson(gameModel.getIslands()));
 
         jsonWriter.name("cloudTiles");
-        jsonWriter.value(json.toJson(gameModel.getCloudTile()));
+        jsonWriter.value(json.toJson(gameModel.getCloudTiles()));
 
         jsonWriter.name("motherNaturePosition");
         jsonWriter.value(gameModel.getMotherNaturePosition());

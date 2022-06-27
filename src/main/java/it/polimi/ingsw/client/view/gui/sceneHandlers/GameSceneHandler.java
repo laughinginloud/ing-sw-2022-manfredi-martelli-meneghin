@@ -1346,7 +1346,7 @@ public class GameSceneHandler implements GUIHandler {
         if (containsModel || updatedValues.contains(GameValues.CLOUDARRAY))
         {
             // Updates the cloudTiles
-            gsUpdateCloudTiles(model.getCloudTile(), model.getPlayersCount());
+            gsUpdateCloudTiles(model.getCloudTiles(), model.getPlayersCount());
         }
 
         if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY))
@@ -1995,7 +1995,7 @@ public class GameSceneHandler implements GUIHandler {
      */
     public void activateClicksCloudTiles(CloudTile[] availableClouds, boolean otherElementsClickable) {
         int             numOfAvailableClouds           = availableClouds.length;
-        CloudTile[]     cloudTilesModel                = gui.getModel().getCloudTile();
+        CloudTile[]     cloudTilesModel                = gui.getModel().getCloudTiles();
         int[]           availableCloudsPositionOnModel = new int[numOfAvailableClouds];
 
 

@@ -165,7 +165,7 @@ public final class GameModel {
      * Gets the CloudTiles of the current Game
      * @return An Array containing all the CloudTiles of the GameModel
      */
-    public CloudTile[] getCloudTile() { return copyOf(cloudTiles); }
+    public CloudTile[] getCloudTiles() { return copyOf(cloudTiles); }
 
     /**
      * Gets the position of mother nature saved

@@ -30,7 +30,7 @@ public final class GameStateFillClouds implements GameStatePlanPhase {
 
             // Creates the Map to send via GameCommand and adds updated CloudTiles to it
             InfoMap updatedCloud = new InfoMap();
-            updatedCloud.put(GameValues.CLOUDARRAY, model.getCloudTile());
+            updatedCloud.put(GameValues.CLOUDARRAY, model.getCloudTiles());
 
             // Sends to all the players the updated array of Clouds, once they have been filled
             for (Player player : model.getPlayers()) {
