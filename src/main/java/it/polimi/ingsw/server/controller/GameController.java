@@ -356,7 +356,7 @@ public class GameController {
                         wizard,
                         // If there are three players, each one gets 6 towers, else if there are two players, each one takes 8 towers,
                         // otherwise, there are four players and the first member of each team gets 8 towers, whilst its teammate gets 0
-                        gameNumOfPlayers == 3 ? 6 : gameNumOfPlayers == 2 || playersNum <= 1 ? 8 : 0,
+                        gameNumOfPlayers == 3 ? 6 : gameNumOfPlayers == 2 || i <= 1 ? 8 : 0,
                         // The entrance's size is 7 for two or four players games, 9 otherwise
                         gameNumOfPlayers == 3 ? 9 : 7);
 
