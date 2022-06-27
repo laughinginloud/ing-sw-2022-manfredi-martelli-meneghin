@@ -202,7 +202,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             successorIndex   = islandMod.apply(localIslandIndex);
             localIslandIndex = islandMod.apply(previousIndex);
 
-            model.setMotherNaturePosition(islandMod.apply(model.getMotherNaturePosition() - 1));
+            model.setMotherNaturePosition(localIslandIndex);
         }
 
         // If the current and successor islands are both controlled by someone and can be merged, then do so
