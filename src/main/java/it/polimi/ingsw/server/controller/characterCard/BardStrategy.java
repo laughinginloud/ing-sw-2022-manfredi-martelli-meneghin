@@ -77,7 +77,7 @@ public class BardStrategy extends CharacterCardStrategy {
     }
 
     private void changeStudent(GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
-        Player[] players = model.getPlayer();
+        Player[] players = model.getPlayers();
 
         // Gets the students present in the current player's Entrance
         Color[] entranceStudents = curPlayer.getSchoolBoard().getEntrance().getStudents();

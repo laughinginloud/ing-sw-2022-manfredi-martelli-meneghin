@@ -64,7 +64,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             GameCommand controlAndConquerUpdate = createMap(model);
 
             // Updates all the players
-            for (Player playerToUpdate : model.getPlayer())
+            for (Player playerToUpdate : model.getPlayers())
                 data.getPlayerView(playerToUpdate).sendMessage(controlAndConquerUpdate);
         }
 
@@ -80,7 +80,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         unifyIslands(model, islandIndex);
 
         // Update every player about the GameBoard's changes
-        for (Player playerToUpdate : model.getPlayer()) {
+        for (Player playerToUpdate : model.getPlayers()) {
             VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
             playerToUpdateView.sendMessage(createLightMap(model));
         }
@@ -170,7 +170,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
     private Map<Player, Integer> getIslandInfluencesFourPlayers(ControllerData data, GameModel model, Island island) {
         // If there are four players, calculate the influence for each one and then fuse the teams
-        Player[]             players          = model.getPlayer();
+        Player[]             players          = model.getPlayers();
         Map<Player, Integer> influencesSingle = getIslandInfluencesTwoThreePlayers(data, model, island);
 
         // Create a map that will contain just two players: both teams' tower holders and sum the elements of the original map
@@ -184,7 +184,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     private Map<Player, Integer> getIslandInfluencesTwoThreePlayers(ControllerData data, GameModel model, Island island) {
         // Create and initialize a new map to represent the players' influences
         Map<Player, Integer> influences = new HashMap<>();
-        for (Player player : model.getPlayer())
+        for (Player player : model.getPlayers())
             influences.put(player, 0);
 
         // Iterate for each color on the island and add +1 influence to the player who controls the professor
@@ -222,7 +222,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     private Player getTowerPlayer(GameModel model, Island island) throws IllegalStateException, NoSuchElementException {
         Player towerPlayer =
             // Transform the array of players into a stream to ease filtering
-            Arrays.stream(model.getPlayer())
+            Arrays.stream(model.getPlayers())
                 // Remove from the stream all players that do not meet the criteria
                 .filter(p -> p.getSchoolBoard().getTowerColor() == island.getTowerColor())
                 // Take the first element, which will be the one with the same tower color
@@ -279,7 +279,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
     private GameCommand createMap(GameModel model) {
         InfoMap map = new InfoMap();
         map.put(GameValues.ISLANDARRAY, model.getIslands());
-        map.put(GameValues.PLAYERARRAY, model.getPlayer());
+        map.put(GameValues.PLAYERARRAY, model.getPlayers());
         return new GameCommandSendInfo(map);
     }
 

@@ -1395,7 +1395,7 @@ public class PlayersSchoolBoardHandler implements GUIHandler {
      */
     public void psbUpdateModel(GameModel model, Set<GameValues> updatedValues) {
         boolean containsModel = updatedValues.contains(GameValues.MODEL);
-        Player[] players      = model.getPlayer();
+        Player[] players      = model.getPlayers();
         // For each player present
         for (int i = 0; i < model.getPlayersCount(); i++) {
             if (containsModel || updatedValues.contains(GameValues.PLAYERARRAY)          || updatedValues.contains(GameValues.SCHOOLBOARDARRAY)

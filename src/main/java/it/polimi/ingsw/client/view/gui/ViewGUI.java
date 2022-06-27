@@ -9,16 +9,11 @@ import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import java.util.Optional;
@@ -676,7 +671,7 @@ public final class ViewGUI extends Application implements View {
         Player localPlayer = null;
 
         // Forall players in model, checks if the localUsername is equal to the one present in the model
-        for (Player player : model.getPlayer()) {
+        for (Player player : model.getPlayers()) {
             if (localUsername.equals(player.getUsername())){
                 localPlayer = player;
                 break;

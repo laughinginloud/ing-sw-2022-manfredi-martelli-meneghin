@@ -1931,7 +1931,7 @@ public class GameSceneHandler implements GUIHandler {
         Set<AssistantCard> playableAssistantCardSet = new HashSet<>();
         Collections.addAll(playableAssistantCardSet, playableAssistantCards);
 
-        AssistantCard[] assistantCardOnModel = gui.getModel().getPlayer()[localPlayerIndex].getAssistantDeck();
+        AssistantCard[] assistantCardOnModel = gui.getModel().getPlayers()[localPlayerIndex].getAssistantDeck();
         ImageView       assistantCardImageView;
 
         for (AssistantCard assistantCard : assistantCardOnModel) {

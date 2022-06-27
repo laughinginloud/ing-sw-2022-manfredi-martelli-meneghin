@@ -5,8 +5,6 @@ import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 
-import java.util.Optional;
-
 /**
  * Strategy representing the activation of the CharacterCard 'FARMER'
  * @author Giovanni Manfredi
@@ -44,7 +42,7 @@ public class FarmerStrategy extends CharacterCardStrategy {
             });
 
         try {
-            Player[] players = model.getPlayer();
+            Player[] players = model.getPlayers();
 
             // After the server managed the use of the CharacterCard, gets the updated GlobalProfessorTable and
             // the updated DiningRooms

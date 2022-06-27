@@ -114,14 +114,13 @@ public final class GameModel {
         return players[index];
     }
 
-    // TODO: test
     /**
      * Gets the entire array of players
      * @author Mattia Martelli
      * @return The desired array
      */
-    public Player[] getPlayer() {
-        return players;
+    public Player[] getPlayers() {
+        return copyOf(players);
     }
 
     /**

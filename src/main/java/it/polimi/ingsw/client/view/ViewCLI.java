@@ -237,7 +237,7 @@ public final class ViewCLI implements View {
     @Override
     public Player getLocalPlayer() {
         if (localPlayer == null)
-            localPlayer = Arrays.stream(model.getPlayer())
+            localPlayer = Arrays.stream(model.getPlayers())
                 .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
                 .orElseThrow();
 

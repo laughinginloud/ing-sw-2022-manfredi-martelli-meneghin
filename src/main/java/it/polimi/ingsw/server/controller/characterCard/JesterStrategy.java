@@ -10,9 +10,6 @@ import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Strategy representing the activation of the CharacterCard 'JESTER'
  * @author Giovanni Manfredi
@@ -77,7 +74,7 @@ public class JesterStrategy extends CharacterCardStrategy {
     }
 
     public void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
-        Player[] players = data.getGameModel().getPlayer();
+        Player[] players = data.getGameModel().getPlayers();
 
         // Cast the CharacterCard to a CharacterCardStudent
         CharacterCardStudent enhancedCard = (CharacterCardStudent) card;

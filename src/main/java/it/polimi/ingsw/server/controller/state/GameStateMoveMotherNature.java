@@ -4,7 +4,6 @@ import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.Character;
-import it.polimi.ingsw.common.utils.ModuloNat;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
@@ -14,9 +13,7 @@ import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * State representing the request and subsequent movement of the Mother Nature pawn
@@ -151,7 +148,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
 
         try {
             // Notify to all the player the new MotherNaturePosition
-            for (Player playerToUpdate : ControllerData.getInstance().getGameModel().getPlayer())
+            for (Player playerToUpdate : ControllerData.getInstance().getGameModel().getPlayers())
                 ControllerData.getInstance().getPlayerView(playerToUpdate).sendMessage(new GameCommandSendInfo(updateInfo));
         }
 

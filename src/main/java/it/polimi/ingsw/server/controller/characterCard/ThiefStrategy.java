@@ -10,9 +10,7 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'THIEF'
@@ -61,7 +59,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
 
                 // The server reduces 3 (or all) students of the specified color from each SchoolBoard and add them to the Bag
                 Bag      bag        = model.getBag();
-                Player[] players    = model.getPlayer();
+                Player[] players    = model.getPlayers();
                 int currentStudents;
 
                 for (Player player : players) {
@@ -109,7 +107,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
      */
     private Color[] getReducibleColors(GameModel model, ControllerData data) {
         int          numOfPlayers       = data.getNumOfPlayers();
-        Player[]     players            = model.getPlayer();
+        Player[]     players            = model.getPlayers();
         DiningRoom[] diningRooms        = new DiningRoom[numOfPlayers];
         List<Color>  reducibleColorList = new ArrayList<>();
 

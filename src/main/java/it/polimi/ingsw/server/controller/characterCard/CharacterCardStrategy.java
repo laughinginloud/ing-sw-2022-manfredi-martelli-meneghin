@@ -8,9 +8,6 @@ import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Abstract class representing the strategy of the CharacterCard
  * @author Giovanni Manfredi
@@ -113,7 +110,7 @@ public abstract class CharacterCardStrategy {
      */
     private void updatePlayersAboutCoin(ControllerData data){
         GameModel model  = data.getGameModel();
-        Player[] players = model.getPlayer();
+        Player[] players = model.getPlayers();
 
         int coinPool = model.getCoinPool();
 

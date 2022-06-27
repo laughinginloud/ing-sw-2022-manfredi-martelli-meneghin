@@ -22,7 +22,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
     public void executeState() {
         ControllerData  data           = ControllerData.getInstance();
         GameModel       model          = data.getGameModel();
-        Player[]        players        = model.getPlayer();
+        Player[]        players        = model.getPlayers();
         CharacterCard[] characterCards = model.getCharacterCards();
 
         setStudentsOnCards(characterCards, model);
@@ -43,7 +43,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
                 InfoMap updatedExpertInfo = new InfoMap();
                 updatedExpertInfo.put(GameValues.CHARACTERCARDARRAY, characterCards   );
                 updatedExpertInfo.put(GameValues.COINPOOL,           coinPool         );
-                updatedExpertInfo.put(GameValues.PLAYERARRAY,        model.getPlayer());
+                updatedExpertInfo.put(GameValues.PLAYERARRAY,        model.getPlayers());
 
                 playerView.sendMessage(new GameCommandSendInfo(updatedExpertInfo));
             }

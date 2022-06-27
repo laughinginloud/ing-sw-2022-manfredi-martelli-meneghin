@@ -48,7 +48,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
             };
 
             // Notify all the not-current Players about the beginning of the currentPlayer ActionTurn
-            Player[] players = data.getGameModel().getPlayer();
+            Player[] players = data.getGameModel().getPlayers();
             for (Player playerToUpdate : players)
                 if (playerToUpdate.getPlayerID() != currentPlayer.getPlayerID()) {
                     VirtualView playerToUpdateView = data.getPlayerView(playerToUpdate);
@@ -79,7 +79,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
     private void moveOneStudent(Player player, VirtualView playerView) throws Exception {
         ControllerData data    = ControllerData.getInstance();
         GameModel      model   = data.getGameModel();
-        Player[]       players = model.getPlayer();
+        Player[]       players = model.getPlayers();
 
         // Gets the entrance's students, the flag expertMode and sets useful flags to "false"
         Color[] movableStudents      = player.getSchoolBoard().getEntrance().getStudents();
@@ -126,7 +126,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 if (data.getExpertMode() && checkAndAddCoin(player, movedStudent)) {
                     // Adds globalCoinPool and playerArray values to the updateInfo Map that will be sent to all the players
                     updateInfo.put(GameValues.COINPOOL,    model.getCoinPool());
-                    updateInfo.put(GameValues.PLAYERARRAY, model.getPlayer());
+                    updateInfo.put(GameValues.PLAYERARRAY, model.getPlayers());
                 }
 
                 // Checks if the current player has more students on a specific color's DiningRoomTable than the player

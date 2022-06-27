@@ -8,9 +8,6 @@ import it.polimi.ingsw.server.controller.command.GameCommand;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * State representing the placement of the tokens on the board, following the model's initialization
  * @author Mattia Martelli
@@ -42,7 +39,7 @@ public final class GameStatePlaceTokens implements GameStateSetup {
             InfoMap placedTokens = packPlacedTokens();
 
             // Send those Object/Fields via a SendMessage message, through the Network
-            for (Player player : ControllerData.getInstance().getGameModel().getPlayer()) {
+            for (Player player : ControllerData.getInstance().getGameModel().getPlayers()) {
                 VirtualView playerView = ControllerData.getInstance().getPlayerView(player);
                 GameCommand tokensUpdate = new GameCommandSendInfo(placedTokens);
                 playerView.sendMessage(tokensUpdate);
@@ -82,7 +79,7 @@ public final class GameStatePlaceTokens implements GameStateSetup {
 
     private void setEntrancesStudents(Bag bag) {
         try {
-            Player[] players          = ControllerData.getInstance().getGameModel().getPlayer();
+            Player[] players          = ControllerData.getInstance().getGameModel().getPlayers();
             int      entranceCapacity = players.length == 3 ? 9 : 7;
 
             // Iterate through all the players, adding a random set of students to the entrances

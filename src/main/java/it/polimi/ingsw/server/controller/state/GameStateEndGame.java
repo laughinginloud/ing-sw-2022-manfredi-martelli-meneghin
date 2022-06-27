@@ -47,7 +47,7 @@ public final class GameStateEndGame implements GameState {
 
         // Otherwise, decide the winner
         else {
-            Player[] players    = data.getGameModel().getPlayer();
+            Player[] players    = data.getGameModel().getPlayers();
                      winnerList = new ArrayList<>();
 
             if (players.length == 4)

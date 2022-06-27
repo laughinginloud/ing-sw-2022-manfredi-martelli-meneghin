@@ -8,8 +8,6 @@ import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class containing the cloud filling procedure of the bigger PlanPhase
@@ -35,7 +33,7 @@ public final class GameStateFillClouds implements GameStatePlanPhase {
             updatedCloud.put(GameValues.CLOUDARRAY, model.getCloudTile());
 
             // Sends to all the players the updated array of Clouds, once they have been filled
-            for (Player player : model.getPlayer()) {
+            for (Player player : model.getPlayers()) {
                 VirtualView playerView = data.getPlayerView(player);
                 playerView.sendMessage(new GameCommandSendInfo(updatedCloud));
             }

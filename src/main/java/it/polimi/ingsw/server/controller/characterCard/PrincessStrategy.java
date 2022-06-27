@@ -96,7 +96,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
 
                 // After the server managed the use of the CharacterCard, gets the updated values of schoolBoards, globalProfessorTable
                 // and characterCards
-                Player[]             players               = model.getPlayer();
+                Player[]             players               = model.getPlayers();
                 DiningRoom[]         updatedDiningRooms    = new DiningRoom[players.length];
                 GlobalProfessorTable updatedGPT            = model.getGlobalProfessorTable();
                 CharacterCard[]      updatedCharacterCards = model.getCharacterCards();

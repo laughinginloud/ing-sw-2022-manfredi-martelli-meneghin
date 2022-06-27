@@ -33,7 +33,7 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
         jsonWriter.beginObject();
 
         jsonWriter.name("players");
-        jsonWriter.value(json.toJson(gameModel.getPlayer()));
+        jsonWriter.value(json.toJson(gameModel.getPlayers()));
 
         jsonWriter.name("islands");
         jsonWriter.value(json.toJson(gameModel.getIslands()));
