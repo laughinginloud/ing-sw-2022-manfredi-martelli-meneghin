@@ -5,7 +5,7 @@ package it.polimi.ingsw.common.model;
  * @author Mattia Martelli
  */
 public final class PlayerTeam extends Player {
-    private Integer teamMember;
+    private Integer teamMemberID;
 
     /**
      * Constructor of the class 'PlayerTeam'
@@ -22,15 +22,15 @@ public final class PlayerTeam extends Player {
      * Gets the team member of the player
      * @return A reference to the team member
      */
-    public int getTeamMember() {
-        return teamMember;
+    public int getTeamMemberID() {
+        return teamMemberID;
     }
 
     /**
      * Sets the associated team member
-     * @param teamMember The ID of the team member
+     * @param teamMemberID The ID of the team member
      */
-    public void setTeamMember(int teamMember) {
-        this.teamMember = teamMember;
+    public void setTeamMemberID(int teamMemberID) {
+        this.teamMemberID = teamMemberID;
     }
 }

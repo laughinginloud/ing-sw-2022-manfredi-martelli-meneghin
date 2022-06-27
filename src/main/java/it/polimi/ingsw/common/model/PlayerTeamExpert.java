@@ -5,7 +5,7 @@ package it.polimi.ingsw.common.model;
  * @author Mattia Martelli
  */
 public final class PlayerTeamExpert extends Player {
-    private Integer teamMember;
+    private Integer teamMemberID;
     private int     coinCount;
 
     /**
@@ -19,20 +19,14 @@ public final class PlayerTeamExpert extends Player {
         super(playerID, username, playerWizard, schoolBoard);
     }
 
+    // region Getter
+
     /**
      * Gets the team member of the player
      * @return A reference to the team member
      */
-    public Integer getTeamMember() {
-        return teamMember;
-    }
-
-    /**
-     * Sets the associated team member
-     * @param teamMember The ID of the team member
-     */
-    public void setTeamMember(int teamMember) {
-        this.teamMember = teamMember;
+    public Integer getTeamMemberID() {
+        return teamMemberID;
     }
 
     /**
@@ -41,6 +35,18 @@ public final class PlayerTeamExpert extends Player {
     */
     public int getCoinCount() {
         return coinCount;
+    }
+
+    // endregion Getter
+
+    // region Setter
+
+    /**
+     * Sets the associated team member
+     * @param teamMemberID The ID of the team member
+     */
+    public void setTeamMemberID(int teamMemberID) {
+        this.teamMemberID = teamMemberID;
     }
 
     /**
@@ -52,4 +58,6 @@ public final class PlayerTeamExpert extends Player {
 
         this.coinCount = coinCount;
     }
+
+    // endregion Setter
 }

@@ -47,7 +47,7 @@ public class PlayerTeamJSONAdapter extends TypeAdapter<PlayerTeam> {
         jsonWriter.value(playerTeam.getUsername());
 
         jsonWriter.name("teamMember");
-        jsonWriter.value(playerTeam.getTeamMember());
+        jsonWriter.value(playerTeam.getTeamMemberID());
 
         jsonWriter.endObject();
     }
@@ -97,7 +97,7 @@ public class PlayerTeamJSONAdapter extends TypeAdapter<PlayerTeam> {
         setAssistantDeck(player, assistantDeck);
         if (lastPlayedCard != null)
             player.setLastPlayedCard(lastPlayedCard);
-        player.setTeamMember(teamMember);
+        player.setTeamMemberID(teamMember);
 
         return player;
     }

@@ -393,14 +393,14 @@ public class GameController {
     private static void linkTeams(Player[] players, int index) {
         if (players[index] instanceof PlayerTeamExpert p) {
             PlayerTeamExpert teamMember = (PlayerTeamExpert) players[index - 2];
-            p.setTeamMember(teamMember.getPlayerID());
-            teamMember.setTeamMember(p.getPlayerID());
+            p.setTeamMemberID(teamMember.getPlayerID());
+            teamMember.setTeamMemberID(p.getPlayerID());
         }
 
         else if (players[index] instanceof PlayerTeam p) {
             PlayerTeam teamMember = (PlayerTeam) players[index - 2];
-            p.setTeamMember(teamMember.getPlayerID());
-            teamMember.setTeamMember(p.getPlayerID());
+            p.setTeamMemberID(teamMember.getPlayerID());
+            teamMember.setTeamMemberID(p.getPlayerID());
         }
 
         else

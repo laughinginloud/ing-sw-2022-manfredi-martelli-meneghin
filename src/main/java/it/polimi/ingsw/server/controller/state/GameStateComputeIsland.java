@@ -442,10 +442,10 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         winners.add(winner);
 
         if (winner instanceof PlayerTeam t)
-            winners.add(ControllerData.getInstance().getGameModel().getPlayer(t.getTeamMember()));
+            winners.add(ControllerData.getInstance().getGameModel().getPlayer(t.getTeamMemberID()));
 
         else
-            winners.add(ControllerData.getInstance().getGameModel().getPlayer(((PlayerTeamExpert) winner).getTeamMember()));
+            winners.add(ControllerData.getInstance().getGameModel().getPlayer(((PlayerTeamExpert) winner).getTeamMemberID()));
 
         return winners;
     }

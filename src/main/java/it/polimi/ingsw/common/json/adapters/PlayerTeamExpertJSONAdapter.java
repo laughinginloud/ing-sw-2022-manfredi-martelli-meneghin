@@ -50,7 +50,7 @@ public class PlayerTeamExpertJSONAdapter extends TypeAdapter<PlayerTeamExpert> {
         jsonWriter.value(playerTeamExpert.getCoinCount());
 
         jsonWriter.name("teamMember");
-        jsonWriter.value(playerTeamExpert.getTeamMember());
+        jsonWriter.value(playerTeamExpert.getTeamMemberID());
 
         jsonWriter.endObject();
     }
@@ -103,7 +103,7 @@ public class PlayerTeamExpertJSONAdapter extends TypeAdapter<PlayerTeamExpert> {
         if (lastPlayedCard != null)
             player.setLastPlayedCard(lastPlayedCard);
         player.setCoinCount(coinCount);
-        player.setTeamMember(teamMember);
+        player.setTeamMemberID(teamMember);
 
         return player;
     }
