@@ -198,11 +198,12 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             mergeIslandsData(model.getIsland(previousIndex), model.getIsland(localIslandIndex));
             model.shiftIslands(localIslandIndex);
 
+            if (model.getMotherNaturePosition() >= localIslandIndex)
+                model.setMotherNaturePosition(islandMod.apply(model.getMotherNaturePosition() - 1));
+
             // Correct the indexes after the merge
             successorIndex   = islandMod.apply(localIslandIndex);
-            localIslandIndex = islandMod.apply(previousIndex);
-
-            model.setMotherNaturePosition(localIslandIndex);
+            localIslandIndex = previousIndex == model.getIslandsCount() ? previousIndex - 1 : previousIndex;
         }
 
         // If the current and successor islands are both controlled by someone and can be merged, then do so
@@ -212,6 +213,9 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
             mergeIslandsData(model.getIsland(localIslandIndex), model.getIsland(successorIndex));
 
             model.shiftIslands(successorIndex);
+
+            if (model.getMotherNaturePosition() > localIslandIndex)
+                model.setMotherNaturePosition(model.getMotherNaturePosition() - 1);
         }
     }
 
