@@ -134,14 +134,6 @@ public final class ControllerData {
     }
 
     /**
-     * Returns the entire player view map
-     * @return A pointer to the map
-     */
-    //public Isomorphism<Player, VirtualView> getPlayerViewMap() {
-    //    return playerViewMap;
-    //}
-
-    /**
      * Get the player associated with the provided view
      * @param virtualView The view to search for
      * @return The associated player, or null if none exists
@@ -201,9 +193,9 @@ public final class ControllerData {
      */
     public void addPlayerCard(Player player, AssistantCard assistantCard) {
         if (playerAssistantCardMap == null)
-            playerAssistantCardMap = new HashMap<>();
+            playerAssistantCardMap = new HashMap<>(numOfPlayers);
 
-        playerAssistantCardMap.put(player, assistantCard);
+        playerAssistantCardMap.replace(player, assistantCard);
     }
 
     /**
