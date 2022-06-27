@@ -1503,12 +1503,20 @@ public class GameSceneHandler implements GUIHandler {
                 }
                 else {
                     // For each student non-present remove the student
+                    //TODO: remove this test
                     cloudTileStudent.setImage(null);
+                    System.out.println("\n\n\n\n\n\nLa risorsa di " + cloudTileStudent.toString() + " è una immagine nulla!\n\n\n\n");
                 }
             }
         }
 
         AnchorPane cloudAnchorPaneID;
+
+        for (int i = 0; i < numOfPlayers; i++) {
+            cloudAnchorPaneID = IDHelper.gsFindCloudAnchorPaneID(this, i);
+            cloudAnchorPaneID.setVisible(true);
+        }
+
         // For each not iterated cloud hide it from the board
         for (int i = numOfPlayers; i < ViewGUI.MAX_CLOUD_TILES; i++) {
             cloudAnchorPaneID = IDHelper.gsFindCloudAnchorPaneID(this, i);
