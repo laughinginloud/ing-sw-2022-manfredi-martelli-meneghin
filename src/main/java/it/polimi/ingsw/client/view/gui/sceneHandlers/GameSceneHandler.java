@@ -1968,8 +1968,10 @@ public class GameSceneHandler implements GUIHandler {
 
         AnchorPane islandAnchorPane;
 
-        for (int i = (motherNaturePosition + 1) % islandCount; i <= (motherNaturePosition + availableIslandsCount) % islandCount; i++) {
-            islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, i);
+        int islandToSelectIndex = (motherNaturePosition + 1) % islandCount;
+
+        for (int i = 0; i < availableIslandsCount; i++) {
+            islandAnchorPane = IDHelper.gsFindIslandAnchorPaneID(this, islandToSelectIndex);
 
             // Creates a function that will handle the islandClick
             EventHandler<MouseEvent> clickOnIslandHandler = mouseEvent -> {
@@ -1980,6 +1982,8 @@ public class GameSceneHandler implements GUIHandler {
             };
 
             islandAnchorPane.setOnMouseClicked(clickOnIslandHandler);
+
+            islandToSelectIndex = (islandToSelectIndex + 1) % islandCount;
         }
     }
 
