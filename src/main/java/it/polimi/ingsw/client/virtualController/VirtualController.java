@@ -220,7 +220,7 @@ public final class VirtualController extends Thread {
                     gpt.getProfessorLocation(color).ifPresent(p -> gpt.setProfessorLocation(color, p));
             }
 
-            case CLOUDARRAY -> model.setCloudTile((CloudTile[]) object);
+            case CLOUDARRAY -> model.setCloudTiles((CloudTile[]) object);
 
             case CHARACTERCARDARRAY -> model.setCharacterCard((CharacterCard[]) object);
 

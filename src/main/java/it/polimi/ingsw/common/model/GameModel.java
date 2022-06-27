@@ -262,7 +262,7 @@ public final class GameModel {
 
         this.islands[index] = island;
     }
-    
+
     /**
      * Set the entire Island array
      * @param islands The array to be copied in the model
@@ -283,13 +283,12 @@ public final class GameModel {
 
         this.cloudTiles[index] = cloudTile;
     }
-
-    //TODO: test - refactor in setCloudTiles (?)
+    
     /**
      * Set the entire array of cloud tiles
      * @param cloudTiles The array to copy into the model
      */
-    public void setCloudTile(CloudTile[] cloudTiles) {
+    public void setCloudTiles(CloudTile[] cloudTiles) {
         this.cloudTiles = copyOf(cloudTiles);
     }
 
