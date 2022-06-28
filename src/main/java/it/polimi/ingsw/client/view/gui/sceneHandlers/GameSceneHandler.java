@@ -2127,28 +2127,25 @@ public final class GameSceneHandler implements GUIHandler {
      * @param otherElementsClickable the otherElements that have to be set clickable
      */
     public void activateClicksCharacterCards(CharacterCard[] playableCharacterCards, boolean otherElementsClickable) {
-
-        Set<CharacterCard> playableCharacterCardsSet = new HashSet<>();
-        Collections.addAll(playableCharacterCardsSet, playableCharacterCards);
-
         CharacterCard[] characterCardsModel = gui.getModel().getCharacterCards();
-        int             characterCardIndex;
         ImageView       characterCardImgView;
 
-        for (int i = 0; i < characterCardsModel.length; i++) {
-            if (playableCharacterCardsSet.contains(characterCardsModel[i])) {
-                characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, i);
+        for (CharacterCard playableCharacterCard : playableCharacterCards) {
+            for (int j = 0; j < characterCardsModel.length; j++) {
+                if (playableCharacterCard.getCharacter().ordinal() == characterCardsModel[j].getCharacter().ordinal()) {
+                    characterCardImgView = IDHelper.gsFindCharacterCardImageID(this, j);
 
-                // Creates a function that will handle the characterCardClick
-                EventHandler<MouseEvent> clickOnCharacterCardHandler = mouseEvent -> {
-                    // Invokes the function clickOnCharacterCard
-                    clickOnCharacterCard(mouseEvent, otherElementsClickable);
+                    // Creates a function that will handle the characterCardClick
+                    EventHandler<MouseEvent> clickOnCharacterCardHandler = mouseEvent -> {
+                        // Invokes the function clickOnCharacterCard
+                        clickOnCharacterCard(mouseEvent, otherElementsClickable);
 
-                    mouseEvent.consume();
-                };
+                        mouseEvent.consume();
+                    };
 
-                // Then links the created handler to the click of the CCImage
-                characterCardImgView.setOnMouseClicked(clickOnCharacterCardHandler);
+                    // Then links the created handler to the click of the CCImage
+                    characterCardImgView.setOnMouseClicked(clickOnCharacterCardHandler);
+                }
             }
         }
     }
@@ -2433,12 +2430,25 @@ public final class GameSceneHandler implements GUIHandler {
     }
 
     /**
-     * Deactivates the clicks on the CC elements
+     * Deactivates the clicks on the CC elements of all the CharacterCards
      */
     public void deactivateClicksCharacterCardsElements() {
+        int numOfCharacterCard = gui.getModel().getCharacterCards().length;
+
+        for (int i = 0; i < numOfCharacterCard; i++) {
+            ImageView correspondentCCID      = IDHelper.gsFindCharacterCardImageID(this, i);
+            deactivateClicksCharacterCardsElements(correspondentCCID);
+        }
+    }
+
+    /**
+     * Deactivates the clicks on the CC elements of  a specific CharacterCard
+     * @param characterCardID the ImageView of the specific CharacterCard
+     */
+    public void deactivateClicksCharacterCardsElements(ImageView characterCardID) {
         ImageView characterCardsElementImgView;
         for (int i = 0; i < ViewGUI.MAX_CC_ELEMENTS; i++) {
-            characterCardsElementImgView = IDHelper.gsFindCharacterCardImageID(this, i);
+            characterCardsElementImgView = IDHelper.gsFindCharacterCardElementID(this, characterCardID, i);
             characterCardsElementImgView.setOnMouseClicked(null);
         }
     }
@@ -2659,11 +2669,13 @@ public final class GameSceneHandler implements GUIHandler {
      * @param mouseEvent The event that happened on the GameScenePane
      */
     public void clickOnCharacterCardStudent(MouseEvent mouseEvent) {
-        deactivateClicksCharacterCardsElements();
-
         ImageView selectedCCStudentID    = (ImageView) mouseEvent.getSource();
-        int       selectedCCStudentIndex = InfoHelper.gsFindCharacterCardElementIndex(selectedCCStudentID);
 
+        int       correspondentCCPos     = InfoHelper.gsFindCharacterCardIndexFromSelectedElement(selectedCCStudentID);
+        ImageView correspondentCCID      = IDHelper.gsFindCharacterCardImageID(this, correspondentCCPos);
+        deactivateClicksCharacterCardsElements(correspondentCCID);
+
+        int       selectedCCStudentIndex = InfoHelper.gsFindCharacterCardElementIndex(selectedCCStudentID);
         gui.forwardViewToVirtualController(selectedCCStudentIndex);
     }
 
@@ -2918,7 +2930,7 @@ public final class GameSceneHandler implements GUIHandler {
     public void gsRequestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
         activateClicksIslandsAndCCs(possibleMovement, playableCharacterCards);
 
-        Alert moveMotherNatureOrPlayCC = GUIAlert.getAlert(GUIAlert.MOVE_MOTHER_NATURE, "");
+        Alert moveMotherNatureOrPlayCC = GUIAlert.getAlert(GUIAlert.MOVE_MOTHER_NATURE_OR_CC, "");
         moveMotherNatureOrPlayCC.showAndWait();
     }
 

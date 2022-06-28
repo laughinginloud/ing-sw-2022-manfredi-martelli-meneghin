@@ -138,5 +138,8 @@ public abstract class CharacterCardStrategy {
             VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
             playerToUpdateView.sendMessage(sendInfo);
         }
+
+        // Resets the afterEffectUpdateInfoMap
+        afterEffectUpdate = new InfoMap();
     }
 }
