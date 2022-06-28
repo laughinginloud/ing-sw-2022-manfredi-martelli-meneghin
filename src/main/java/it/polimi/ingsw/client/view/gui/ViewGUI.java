@@ -202,8 +202,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void playExitMenu() {
-        switchScene(Pages.INITIAL_PAGE);
-        stage.show();
+        Platform.runLater(() -> {
+            switchScene(Pages.INITIAL_PAGE);
+            stage.show();
+        });
     }
 
     /**
@@ -213,8 +215,9 @@ public final class ViewGUI extends Application implements View {
     @Override
     public void signalConnectionError() {
 //        resetGUI(false);
-
-        switchScene(Pages.CONNECTION_ERROR);
+        Platform.runLater(() -> {
+            switchScene(Pages.CONNECTION_ERROR);
+        });
     }
 
     /**
@@ -224,11 +227,13 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void updateModel(GameModel model, Set<GameValues> updatedValues) {
-        ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer(), updatedValues);
-        ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model,updatedValues);
+        Platform.runLater(() -> {
+            ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer(), updatedValues);
+            ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model,updatedValues);
 
-        if (updatedValues.contains(GameValues.MODEL))
-            switchScene(Pages.GAME_SCENE);
+            if (updatedValues.contains(GameValues.MODEL))
+                switchScene(Pages.GAME_SCENE);
+        });
     }
 
     // endregion MiscellaneousMethods
@@ -240,7 +245,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askAddress() {
-        switchScene(Pages.SERVER_INFO);
+        Platform.runLater(() -> {
+            switchScene(Pages.SERVER_INFO);
+        });
     }
 
     /**
@@ -249,7 +256,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askRules() {
-        switchScene(Pages.ASK_RULES);
+        Platform.runLater(() -> {
+            switchScene(Pages.ASK_RULES);
+        });
     }
 
     /**
@@ -257,7 +266,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askReloadGame() {
-        switchScene(Pages.GAME_CHOICE);
+        Platform.runLater(() -> {
+            switchScene(Pages.GAME_CHOICE);
+        });
     }
 
     /**
@@ -266,8 +277,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askEndOfTurn() {
-        GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
-        gs.gsAskEndOfTurn();
+        Platform.runLater(() -> {
+            GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
+            gs.gsAskEndOfTurn();
+        });
     }
 
     // endregion AskPlayer
@@ -281,8 +294,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestUsernameAndMagicAge(Set<String> forbiddenUsernames) {
-        ((ClientInfoHandler) nameMapHandler.get(Pages.CLIENT_INFO)).setForbiddenUsernames(forbiddenUsernames);
-        switchScene(Pages.CLIENT_INFO);
+        Platform.runLater(() -> {
+            ((ClientInfoHandler) nameMapHandler.get(Pages.CLIENT_INFO)).setForbiddenUsernames(forbiddenUsernames);
+            switchScene(Pages.CLIENT_INFO);
+        });
     }
 
     /**
@@ -292,9 +307,11 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestWizard(Wizard[] availableWizards) {
-        ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
-        ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClicksWizard();
-        switchScene(Pages.WIZARD_CHOICE);
+        Platform.runLater(() -> {
+            ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
+            ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClicksWizard();
+            switchScene(Pages.WIZARD_CHOICE);
+        });
     }
 
     // region GameSceneRequests
@@ -533,7 +550,9 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyGameInProgress() {
-        switchScene(Pages.UNABLE_JOIN);
+        Platform.runLater(() -> {
+            switchScene(Pages.UNABLE_JOIN);
+        });
     }
 
     /**
@@ -541,9 +560,7 @@ public final class ViewGUI extends Application implements View {
      * by this game's rules are satisfied
      */
     @Override
-    public void notifyGameStart() {
-        boolean uselessFunction = true;
-    }
+    public void notifyGameStart() {}
 
     /**
      * Notifies the player that he will be instantly disconnected from the server (then from the Game)
@@ -621,8 +638,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalWinner(Player winner) {
-        ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinner(winner);
-        switchScene(Pages.END_GAME);
+        Platform.runLater(() -> {
+            ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinner(winner);
+            switchScene(Pages.END_GAME);
+        });
     }
 
     /**
@@ -632,8 +651,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalWinner(List<Player> team) {
-        ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinningTeam(team);
-        switchScene(Pages.END_GAME);
+        Platform.runLater(() -> {
+            ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinningTeam(team);
+            switchScene(Pages.END_GAME);
+        });
     }
 
     /**
@@ -643,8 +664,10 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalDraw(List<Player> drawers) {
-        ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayDraw(drawers);
-        switchScene(Pages.END_GAME);
+        Platform.runLater(() -> {
+            ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayDraw(drawers);
+            switchScene(Pages.END_GAME);
+        });
     }
 
     // endregion SignalEndGame
