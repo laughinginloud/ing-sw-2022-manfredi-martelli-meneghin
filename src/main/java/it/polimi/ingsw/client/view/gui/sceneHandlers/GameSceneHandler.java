@@ -1496,16 +1496,14 @@ public final class GameSceneHandler implements GUIHandler {
                 cloudTileStudentColor = cloudTiles[i].getStudents()[j];
 
                 // For each student present on the island
-                if (cloudTileStudentColor != null){
+                if (cloudTileStudentColor != null) {
                     // Sets the image to the specified studentColor
                     cloudTileStudentPath = PathHelper.fromStudentColorToHandlerPath(cloudTileStudentColor);
                     cloudTileStudent.setImage(new Image(getClass().getResourceAsStream(cloudTileStudentPath)));
                 }
                 else {
                     // For each student non-present remove the student
-                    //TODO: remove this test
                     cloudTileStudent.setImage(null);
-                    System.out.println("\n\n\n\n\n\nLa risorsa di " + cloudTileStudent.toString() + " è una immagine nulla!\n\n\n\n");
                 }
             }
         }
