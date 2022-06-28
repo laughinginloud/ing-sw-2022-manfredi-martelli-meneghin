@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
  * The client is informed that the game is still in progress and
  * he won't be able to join. It also suggests him to close the application
  * and try again.
+ *
  * @author Giovanni Manfredi
  */
 public final class UnableToJoinHandler implements GUIHandler {
@@ -36,6 +37,7 @@ public final class UnableToJoinHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the UnableToJoinHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override

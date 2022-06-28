@@ -18,6 +18,12 @@ import javafx.scene.text.Text;
 
 import java.util.Set;
 
+/**
+ * Handler (or Controller) of the scene PlayersSchoolBoard (playersSchoolBoardPage.fxml)
+ * The game's secondary scene in which each player school board is visibile
+ *
+ * @author Giovanni Manfredi & Sebastiano Meneghin
+ */
 public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     private ViewGUI gui;
@@ -1384,13 +1390,11 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     // endregion FXML_Ids
 
-    // TODO JavaDocs
-
-
     // region PSBUpdateModel
 
     /**
      * Updates the PlayersSchoolBoard according to the updated model
+     *
      * @param model the model to update
      */
     public void psbUpdateModel(GameModel model, Set<GameValues> updatedValues) {
@@ -1427,8 +1431,9 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Updates the SchoolBoard in the PlayerSchoolBoard according to the updated model
-     * @param model the model to update
-     * @param player the player to update
+     *
+     * @param model       the model to update
+     * @param player      the player to update
      * @param playerIndex the index of the player in the PlayerSchoolBoard
      */
     public void psbUpdateSchoolBoard(GameModel model, Player player, int playerIndex, Set<GameValues> updatedValues) {
@@ -1456,10 +1461,11 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Updates the towers in the PlayerSchoolBoard of the player (SchoolBoard)
-     * @param towerColor the color of the towers (BLACK, GREY, WHITE)
-     * @param towerCount the number of towers present
+     *
+     * @param towerColor   the color of the towers (BLACK, GREY, WHITE)
+     * @param towerCount   the number of towers present
      * @param numOfPlayers the number of players in the game
-     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     * @param playerIndex  the index of the player in the PlayerSchoolBoard
      */
     public void psbUpdateTowers(TowerColor towerColor, int towerCount, int numOfPlayers, int playerIndex) {
         ImageView schoolBoardTowerID;
@@ -1490,9 +1496,10 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Updates the DiningRoom in the PlayerSchoolBoard according to the updated model
-     * @param diningRoom the diningRoom to update
-     * @param player the player to update
-     * @param gpt the globalProfessorTable to update
+     *
+     * @param diningRoom  the diningRoom to update
+     * @param player      the player to update
+     * @param gpt         the globalProfessorTable to update
      * @param playerIndex the index of the player in the PlayerSchoolBoard
      */
     public void psbUpdateDiningRoom(DiningRoom diningRoom, Player player, GlobalProfessorTable gpt, int playerIndex, Set<GameValues> updatedValues) {
@@ -1512,8 +1519,9 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Updates the ProfessorDiningRoom in the PlayerSchoolBoard according to the updated model
-     * @param gpt the globalProfessorTable to update
-     * @param player the player to update
+     *
+     * @param gpt         the globalProfessorTable to update
+     * @param player      the player to update
      * @param playerIndex the index of the player in the PlayerSchoolBoard
      */
     public void psbUpdateDiningRoomProfessors(GlobalProfessorTable gpt, Player player, int playerIndex) {
@@ -1529,7 +1537,8 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Updates the StudentsDiningRoom in the PlayerSchoolBoard according to the updated diningRoom
-     * @param diningRoom the diningRoom to update
+     *
+     * @param diningRoom  the diningRoom to update
      * @param playerIndex the index of the player in the PlayerSchoolBoard
      */
     public void psbUpdateDiningRoomStudents(DiningRoom diningRoom, int playerIndex) {
@@ -1561,8 +1570,9 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Updates the Entrance in the PlayersSchoolBoard according to the updated entrance
-     * @param entrance the entrance to update
-     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     *
+     * @param entrance    the entrance to update
+     * @param playerIndex the index of the player in the PlayersSchoolBoard
      */
     public void psbUpdateEntrance(Entrance entrance, int playerIndex) {
         Color     entranceStudentColor;
@@ -1605,8 +1615,9 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Updates the AdditionalInfos of a player according to the updated player and the specified index
-     * @param player the player to update
-     * @param playerIndex the index of the player in the PlayerSchoolBoard
+     *
+     * @param player      the player to update
+     * @param playerIndex the index of the player in the PlayersSchoolBoard
      */
     public void psbUpdateAdditionalInfo(Player player, int playerIndex, boolean isExpertMode) {
         psbUpdateUsername(player.getUsername(), playerIndex);
@@ -1622,6 +1633,12 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
         }
     }
 
+    /**
+     * Updates the Username of a player according to the updated player username and the specified index
+     *
+     * @param username    the username to update
+     * @param playerIndex the index of the player in the PlayersSchoolBoard
+     */
     public void psbUpdateUsername(String username, int playerIndex) {
         Text usernameText;
         usernameText = IDHelper.psbFindPlayerUsernameID(this, playerIndex);
@@ -1629,6 +1646,12 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
             usernameText.setText(username);
     }
 
+    /**
+     * Updates the LastAssistantCard player by the player at the specified index
+     *
+     * @param lastAssistantCard the lastAssistantCard played
+     * @param playerIndex       the index of the player in the PlayersSchoolBoard
+     */
     public void psbUpdateLastAssistantCard(AssistantCard lastAssistantCard, int playerIndex) {
         if (lastAssistantCard == null)
             return;
@@ -1640,6 +1663,12 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
         assistantCardImg.setImage(new Image(getClass().getResourceAsStream(assistantCardPath)));
     }
 
+    /**
+     * Updates the CoinCount of the player at the specified index
+     *
+     * @param player      the player who's CoinCount needs to be updated
+     * @param playerIndex the index of the player in the PlayersSchoolBoard
+     */
     public void psbUpdateCoinCount(Player player, int playerIndex) {
         Text coinCountText;
         String coinCountString = "";
@@ -1658,6 +1687,9 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     // endregion PSBUpdateModel
 
+    /**
+     * Switches scene from the current scene (PSB) to GameScene (GS)
+     */
     public void switchToGS() {
         gui.switchScene(Pages.GAME_SCENE);
     }
@@ -1665,6 +1697,7 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the PlayerSchoolBoardHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override

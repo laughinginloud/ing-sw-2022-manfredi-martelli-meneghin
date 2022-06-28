@@ -24,6 +24,7 @@ import java.io.IOException;
  * Handler (or Controller) of the scene ServerInfo (serverInfoPage.fxml)
  * The client is asked for an IP Address and a port to connect to.
  * The information is then sent to the Client.java
+ *
  * @author Giovanni Manfredi
  */
 public final class ServerInfoHandler implements GUIHandler {
@@ -113,6 +114,7 @@ public final class ServerInfoHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the ServerInfoHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     public void setGUI(ViewGUI gui) {

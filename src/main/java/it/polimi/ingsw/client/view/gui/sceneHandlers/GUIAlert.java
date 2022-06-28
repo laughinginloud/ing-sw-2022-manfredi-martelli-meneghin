@@ -2,107 +2,142 @@ package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import javafx.scene.control.Alert;
 
-// TODO - JavaDocs
-
+/**
+ * Enum of all types of Alert present in the GUI application
+ *
+ * @author Giovanni Manfredi
+ */
 public enum GUIAlert {
-    // Used when the user press the exitButton or press ALT+F4 in order to exit the game
+    /**
+     * Used when the user press the exitButton or press ALT+F4 in order to exit the game
+     */
     EXIT,
 
-    // Alert showed when the user entered a wrong IP Address during the connection phase
+    /**
+     * Alert showed when the user entered a wrong IP Address during the connection phase
+     */
     INVALID_IP,
 
-    // Alert showed when the user entered a wrong Server Port during the connection phase
+    /**
+     * Alert showed when the user entered a wrong Server Port during the connection phase
+     */
     INVALID_PORT,
 
-    // Alert showed when the user entered a wrong username (null or greater than 20)
+    /**
+     * Alert showed when the user entered a wrong username (null or greater than 20)
+     */
     INVALID_USERNAME,
 
-    // Alert showed when the user entered a wrong magicAge (negative)
+    /**
+     * Alert showed when the user entered a wrong magicAge (negative)
+     */
     INVALID_MAGIC_AGE,
 
-    // Alert showed when the user has to select an AssistantCard during the PlanPhase
+    /**
+     * Alert showed when the user has to select an AssistantCard during the PlanPhase
+     */
     CHOOSE_ASSISTANT,
 
-    // Alert showed when the user has to select which CharacterCard he wants to play
+    /**
+     * Alert showed when the user has to select which CharacterCard he wants to play
+     */
     SELECT_CHARACTER_CARD,
 
-    // Alert showed when the user has to select a student from the Entrance
+    /**
+     * Alert showed when the user has to select a student from the Entrance
+     */
     SELECT_ENTRANCE_STUDENT,
 
-    // Alert showed when the user has to select an Island where to move MotherNature or
-    // to use the effect of a CharacterCard on
+    /**
+     * Alert showed when the user has to select an Island where to move MotherNature or
+     * to use the effect of a CharacterCard on
+     */
     SELECT_ISLAND,
 
-    // Alert showed when the user has to select a DiningRoomTable where to move the
-    // students or from which reduce the number of students on all the players' diningRooms
+    /**
+     * Alert showed when the user has to select a DiningRoomTable where to move the
+     * students or from which reduce the number of students on all the players' diningRooms
+     */
     SELECT_DINING_ROOM_TABLE,
 
-    // Alert showed when the user has to select a student from a CharacterCard
+    /**
+     * Alert showed when the user has to select a student from a CharacterCard
+     */
     SELECT_CC_STUDENT,
 
-    // Alert showed when the user has to select a Color
+    /**
+     * Alert showed when the user has to select a Color
+     */
     SELECT_COLOR,
 
-    // Alert showed when the user has to select a CloudTile
+    /**
+     * Alert showed when the user has to select a CloudTile
+     */
     SELECT_CLOUD,
 
-    // Alert showed when the user has to select between a CharacterCard
-    // and a CloudTile (used only in the expert mode)
+    /**
+     * Alert showed when the user has to select between a CharacterCard
+     * and a CloudTile (used only in the expert mode)
+     */
     SELECT_CLOUD_OR_CC,
 
-    // Alert showed when the user has to select how many players he
-    // wants to move during the ActionPhase or using a CharacterCard's effect
+    /**
+     * Alert showed when the user has to select how many players he
+     * wants to move during the ActionPhase or using a CharacterCard's effect
+     */
     SELECT_NUM_STUDENTS,
 
-    // Alert showed when the user has to select an element between a
-    // CharacterCard or a student from the Entrance (used only in the expert mode)
+    /**
+     * Alert showed when the user has to select an element between a
+     * CharacterCard or a student from the Entrance (used only in the expert mode)
+     */
     SELECT_ENTRANCE_STUDENT_OR_CC,
 
-    // Alert showed when the user has to decide where to move the entranceStudent he selected
-    // He can choose to move it on an Island or in one of the compatible DiningRoomTables
+    /**
+     * Alert showed when the user has to decide where to move the entranceStudent he selected
+     * He can choose to move it on an Island or in one of the compatible DiningRoomTables
+     */
     MOVE_ENTRANCE_STUDENT_DR_OR_ISL,
 
-    // Alert showed when the user has to decide on which Island move MotherNature,
-    // according to the movementPoints of the AssistantCard he selected during the planPhase
+    /**
+     * Alert showed when the user has to decide on which Island move MotherNature,
+     * according to the movementPoints of the AssistantCard he selected during the planPhase
+     */
     MOVE_MOTHER_NATURE,
 
-    // Alert showed when the user has to select an element between a CharacterCard
-    // or an Island where to move MotherNature (used only in the expert mode)
+    /**
+     * Alert showed when the user has to select an element between a CharacterCard
+     * or an Island where to move MotherNature (used only in the expert mode)
+     */
     MOVE_MOTHER_NATURE_OR_CC,
 
-    // Alert showed when the user has to decided whether to play a characterCard or
-    // ends his turn
+    /**
+     * Alert showed when the user has to decided whether to play a characterCard or
+     * ends his turn
+     */
+
     ASK_END_OF_TURN,
 
-    // Alert showed when a player leave the Game or get disconnected from the Server
+    /**
+     * Alert showed when a player leave the Game or get disconnected from the Server
+     */
     NOTIFY_PLAYER_DISCONNECTION,
 
-    // Alert showed when a player, different by the player is receiving the message, start his turn
+    /**
+     * Alert showed when a player, different by the player is receiving the message, start his turn
+     */
     START_ANOTHER_PLAYER_TURN,
 
-    // Alert showed to the player when his turn is ended (when he can't play a CharacterCard and when he
-    // can't choose between play a CC or end his turn with a specific alert)
+    /**
+     * Alert showed to the player when his turn is ended (when he can't play a CharacterCard and when he
+     * can't choose between play a CC or end his turn with a specific alert)
+     */
     NOTIFY_END_THIS_PLAYER_TURN;
-
-
-
-
-    // region Seba's Enum Constants
-
-    // endregion Seba's Enum Constants
-
-
-
-    //  region Giovanni's Enum Constants
-
-    // endregion Giovanni's Enum Constants
-
-
-
 
     /**
      * Creates an Alert according to the GUIAlertType is needed
-     * @param guiAlterType The GUIAlertType we want to create
+     *
+     * @param guiAlterType  The GUIAlertType we want to create
      * @param dynamicString A string representing a dynamicMessage we want to show to the user
      *                      looking at the Alert
      * @return The Alert that has been created

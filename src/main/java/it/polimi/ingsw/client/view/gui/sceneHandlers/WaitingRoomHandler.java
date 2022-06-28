@@ -6,8 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-// TODO - JavaDoc
-
+/**
+ * Handler (or Controller) of the scene WaitingRoom (waitingRoomPage.fxml)
+ * The client is put in a waiting room screen informing him/her
+ * that the game will start once enough players are connected
+ *
+ * @author Giovanni Manfredi
+ */
 public final class WaitingRoomHandler implements GUIHandler {
 
     private ViewGUI gui;
@@ -30,6 +35,7 @@ public final class WaitingRoomHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the WaitingRoomHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override

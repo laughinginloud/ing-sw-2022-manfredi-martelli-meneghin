@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
  * The client is shown a landing page with few informations (authors and logos)
  * and a play button. If the button is pressed the application starts notifying
  * the Client.java otherwise if the window is closed the application is closed
+ *
  * @author Giovanni Manfredi
  */
 public final class InitialHandler implements GUIHandler{
@@ -59,6 +60,7 @@ public final class InitialHandler implements GUIHandler{
 
     /**
      * Sets the ViewGUI at which the InitialHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override
