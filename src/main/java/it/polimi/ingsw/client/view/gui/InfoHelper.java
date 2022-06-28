@@ -93,6 +93,15 @@ public class InfoHelper {
 
     // region CharacterCardElementInfo
 
+    public static int gsFindCharacterCardIndexFromSelectedElement (ImageView elementImageID) {
+        return switch(elementImageID.getId()) {
+            case "CC0_elem0_img", "CC0_elem1_img", "CC0_elem2_img", "CC0_elem3_img", "CC0_elem4_img", "CC0_elem5_img" -> 0;
+            case "CC1_elem0_img", "CC1_elem1_img", "CC1_elem2_img", "CC1_elem3_img", "CC1_elem4_img", "CC1_elem5_img" -> 1;
+            case "CC2_elem0_img", "CC2_elem1_img", "CC2_elem2_img", "CC2_elem3_img", "CC2_elem4_img", "CC2_elem5_img" -> 2;
+            default -> throw new IllegalStateException("The elementImageID you have inserted is not contemplated. You've inserted: " + elementImageID.getId());
+        };
+    }
+
     public static int gsFindCharacterCardElementIndex(ImageView elementImageID) {
         return switch(elementImageID.getId()) {
             case "CC0_elem0_img", "CC1_elem0_img", "CC2_elem0_img" -> 0;
