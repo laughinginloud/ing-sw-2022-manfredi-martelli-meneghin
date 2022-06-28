@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 /**
  * Helper class with useful methods to switch between model elements and corresponding id
  * GS = Game Scene; PSB = PlayersSchoolBoard
+ *
  * @author Sebastiano Meneghin
  */
 public class IDHelper {
@@ -26,7 +27,8 @@ public class IDHelper {
 
     /**
      * GS Method that given the position of an island, returns the corresponding id
-     * @param gs the GameSceneHandler
+     *
+     * @param gs             the GameSceneHandler
      * @param islandPosition the island position
      * @return the corresponding id
      */
@@ -52,7 +54,8 @@ public class IDHelper {
 
     /**
      * Gets the AnchorPane (ID) of a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs       The gameSceneHandler
      * @param islandID An ImageView correspondent to the islandID of the specified island
      * @return The AnchorPane correspondent to the desired tower
      */
@@ -76,7 +79,8 @@ public class IDHelper {
 
     /**
      * Gets the AnchorPane (ID) of a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs             The gameSceneHandler
      * @param islandPosition An int representing the islandNumber of the specified island
      * @return The AnchorPane correspondent to the desired tower
      */
@@ -93,8 +97,9 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific student on a specific Island
-     * @param gs The gameSceneHandler
-     * @param islandID An ImageView correspondent to the islandID of the island where the student is located
+     *
+     * @param gs           The gameSceneHandler
+     * @param islandID     An ImageView correspondent to the islandID of the island where the student is located
      * @param studentColor The color of the student to identify
      * @return The ImageView correspondent to the desired student
      */
@@ -214,9 +219,10 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific student on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs             The gameSceneHandler
      * @param islandPosition An int representing the islandNumber where the student is located
-     * @param studentColor The color of the student to identify
+     * @param studentColor   The color of the student to identify
      * @return The ImageView correspondent to the desired student
      */
     public static ImageView gsFindStudentOnIslandID (GameSceneHandler gs, int islandPosition, Color studentColor) {
@@ -230,8 +236,9 @@ public class IDHelper {
 
     /**
      * Gets the Text (ID) of a specific studentCounter on a specific Island
-     * @param gs The gameSceneHandler
-     * @param islandID An ImageView correspondent to the islandID of the island where the counterStudent is located
+     *
+     * @param gs                  The gameSceneHandler
+     * @param islandID            An ImageView correspondent to the islandID of the island where the counterStudent is located
      * @param studentCounterColor The color of the studentCounter we want to access to
      * @return The Text (ID) correspondent to the desired studentCounter
      */
@@ -351,8 +358,9 @@ public class IDHelper {
 
     /**
      * Gets the Text (ID) of a specific studentCounter on a specific Island
-     * @param gs The gameSceneHandler
-     * @param islandPosition An int representing the islandNumber where the studentCounter is located
+     *
+     * @param gs                  The gameSceneHandler
+     * @param islandPosition      An int representing the islandNumber where the studentCounter is located
      * @param studentCounterColor The color of the studentCounter we want to access to
      * @return The Text (ID) correspondent to the desired studentCounter
      */
@@ -371,7 +379,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of the tower on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs       The gameSceneHandler
      * @param islandID An ImageView correspondent to the islandID of the island where the tower is located
      * @return The ImageView correspondent to the desired tower
      */
@@ -395,7 +404,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of the tower on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs             The gameSceneHandler
      * @param islandPosition An int representing the islandNumber of the island where the tower is located
      * @return The ImageView correspondent to the desired tower
      */
@@ -410,7 +420,8 @@ public class IDHelper {
 
     /**
      * Gets the Text (ID) of the towerCounter on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs       The gameSceneHandler
      * @param islandID An ImageView correspondent to the islandID of the island where the towerCounter is located
      * @return The Text (ID) correspondent to the desired towerCounter
      */
@@ -434,7 +445,8 @@ public class IDHelper {
 
     /**
      * Gets the Text (ID) of the towerCounter on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs             The gameSceneHandler
      * @param islandPosition An int representing the islandNumber of the island where the towerCounter is located
      * @return The Text (ID) correspondent to the desired towerCounter
      */
@@ -453,7 +465,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of the noEntryTile on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs       The gameSceneHandler
      * @param islandID An ImageView correspondent to the islandID of the island where the noEntryTile is located
      * @return The ImageView correspondent to the desired noEntryTile
      */
@@ -477,7 +490,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of the noEntryTile on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs             The gameSceneHandler
      * @param islandPosition An int representing the islandNumber of the island where the noEntryTile is located
      * @return The ImageView correspondent to the desired noEntryTile
      */
@@ -492,7 +506,8 @@ public class IDHelper {
 
     /**
      * Gets the Text (ID) of the noEntryTileCount on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs       The gameSceneHandler
      * @param islandID An ImageView correspondent to the islandID of the island where the noEntryTileCount is located
      * @return The Text correspondent to the desired noEntryTileCount
      */
@@ -516,7 +531,8 @@ public class IDHelper {
 
     /**
      * Gets the Text (ID) of the noEntryTileCount on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs             The gameSceneHandler
      * @param islandPosition An int representing the islandNumber of the island where the noEntryTileCount is located
      * @return The Text correspondent to the desired noEntryTileCount
      */
@@ -533,7 +549,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of MotherNature on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs       The gameSceneHandler
      * @param islandID An ImageView correspondent to the islandID of the island from which we need
      *                 to retrive the MotherNature ImageView
      * @return The ImageView of motherNature on the desired island
@@ -558,7 +575,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of MotherNature on a specific Island
-     * @param gs The gameSceneHandler
+     *
+     * @param gs             The gameSceneHandler
      * @param islandPosition An int representing the islandNumber of the island from which we need
      *                       to retrive the MotherNature ImageView
      * @return The ImageView of motherNature on the desired island
@@ -576,7 +594,8 @@ public class IDHelper {
 
     /**
      * GS Method that given the position of a student in the dining room, returns the corresponding id
-     * @param gs the GameSceneHandler
+     *
+     * @param gs                      the GameSceneHandler
      * @param studentEntrancePosition the student position
      * @return the corresponding id
      */
@@ -595,6 +614,13 @@ public class IDHelper {
         };
     }
 
+    /**
+     * GS Method that given the color of a table in the dining room, returns the corresponding id
+     *
+     * @param gs    the GameSceneHandler
+     * @param color the diningRoomTable color
+     * @return the corresponding id
+     */
     public static AnchorPane gsFindDiningRoomTablePaneID (GameSceneHandler gs, Color color) {
         return switch (color) {
             case GREEN  -> gs.greenDiningRoom_pane;
@@ -608,8 +634,9 @@ public class IDHelper {
     /**
      * GS Method that given the Color and the position of a student in the dining room, returns
      * the corresponding id
-     * @param gs the GameSceneHandler
-     * @param color the student's color
+     *
+     * @param gs                the GameSceneHandler
+     * @param color             the student's color
      * @param studentDRPosition the student position
      * @return the corresponding id
      */
@@ -694,7 +721,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific Professor on the player's GlobalProfessorTable
-     * @param gs The gameSceneHandler
+     *
+     * @param gs    The gameSceneHandler
      * @param color The color of the professor we want to find the ImageView of
      * @return The ImageView correspondent to the desired professor
      */
@@ -710,7 +738,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific tower on the player SchoolBoard
-     * @param gs The gameSceneHandler
+     *
+     * @param gs            The gameSceneHandler
      * @param towerPosition An int representing the index of the tower in the SchoolBoard
      * @return The ImageView correspondent to the desired tower
      *
@@ -735,7 +764,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific AssistantCard
-     * @param gs The gameSceneHandler
+     *
+     * @param gs                 The gameSceneHandler
      * @param assistantCardValue An int representing of the assistantCardValue the assistantCard of which we need to find the ImageView
      * @return The ImageView correspondent to the desired assistantCard
      */
@@ -757,7 +787,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific AssistantCard
-     * @param gs The gameSceneHandler
+     *
+     * @param gs            The gameSceneHandler
      * @param assistantCard The assistantCard of which we need to find the ImageView
      * @return The ImageView correspondent to the desired assistantCard
      */
@@ -772,7 +803,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific characterCard on the characterCards_pane
-     * @param gs The gameSceneHandler
+     *
+     * @param gs                    The gameSceneHandler
      * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
      * @return The ImageView correspondent to the desired characterCard
      */
@@ -789,7 +821,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of the characterCardCoin  of a specific characterCard on the characterCards_pane
-     * @param gs The gameSceneHandler
+     *
+     * @param gs                   The gameSceneHandler
      * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
      * @return The ImageView correspondent to the desired characterCardCoin
      */
@@ -803,8 +836,9 @@ public class IDHelper {
     }
 
     /**
-     * Gets the ImageView (ID) of the characterCardCoin  of a specific characterCard on the characterCards_pane
-     * @param gs The gameSceneHandler
+     * Gets the ImageView (ID) of the characterCardCoin of a specific characterCard on the characterCards_pane
+     *
+     * @param gs                    The gameSceneHandler
      * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
      * @return The ImageView correspondent to the desired characterCardCoin
      */
@@ -820,10 +854,12 @@ public class IDHelper {
     // region CharacterCardElementsRectangleID
 
     /**
+     * Gets the Rectangle (ID) of the characterCard rectangle elements background
+     * that are relative to the specified characterCardImageID
      *
-     * @param gs
-     * @param characterCardImageID
-     * @return
+     * @param gs                   the GameScene
+     * @param characterCardImageID the CCImgViewID to which the Rectangle is related
+     * @return the Rectangle correspondent to desired characterCardRectangleElementsID
      */
     public static Rectangle gsFindCharacterCardRectangleElementsID(GameSceneHandler gs, ImageView characterCardImageID) {
         return switch (characterCardImageID.getId()) {
@@ -835,10 +871,12 @@ public class IDHelper {
     }
 
     /**
+     * Gets the Rectangle (ID) of the characterCard rectangle elements background
+     * that are relative to the specified characterCardPosition (index)
      *
-     * @param gs
-     * @param characterCardPosition
-     * @return
+     * @param gs                    the GameScene
+     * @param characterCardPosition the CCPosition to which the Rectangle is related
+     * @return the Rectangle correspondent to desired characterCardRectangleElementsID
      */
     public static Rectangle gsFindCharacterCardRectangleElementsID(GameSceneHandler gs, int characterCardPosition) {
         ImageView characterCardImageID = gsFindCharacterCardImageID(gs, characterCardPosition);
@@ -851,7 +889,8 @@ public class IDHelper {
 
     /**
      * Gets the GridPane (ID) of the characterCardPane of a specific characterCard on the characterCards_pane
-     * @param gs The gameSceneHandler
+     *
+     * @param gs                   The gameSceneHandler
      * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
      * @return The GridPane correspondent to the desired characterCardPane
      */
@@ -866,7 +905,8 @@ public class IDHelper {
 
     /**
      * Gets the GridPane (ID) of the characterCardPane of a specific characterCard on the characterCards_pane
-     * @param gs The gameSceneHandler
+     *
+     * @param gs                    The gameSceneHandler
      * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
      * @return The GridPane correspondent to the desired characterCardPane
      */
@@ -881,9 +921,10 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a characterCardStudent of a specific characterCard on the characterCards_pane
-     * @param gs The gameSceneHandler
+     *
+     * @param gs                   The gameSceneHandler
      * @param characterCardImageID An ImageView representing the ID of the characterCard on the characterCards_pane
-     * @param elementPosOnCC An int representing the position of the student on the characterCard gridPane
+     * @param elementPosOnCC       An int representing the position of the student on the characterCard gridPane
      * @return The ImageView correspondent to the desired characterCardStudent
      */
     public static ImageView gsFindCharacterCardElementID(GameSceneHandler gs, ImageView characterCardImageID, int elementPosOnCC) {
@@ -927,9 +968,10 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a characterCardStudent of a specific characterCard on the characterCards_pane
-     * @param gs The gameSceneHandler
+     *
+     * @param gs                    The gameSceneHandler
      * @param characterCardPosition An integer representing the position of the characterCard on the characterCards_pane
-     * @param elementPosOnCC An int representing the position of the student on the characterCard gridPane
+     * @param elementPosOnCC        An int representing the position of the student on the characterCard gridPane
      * @return The ImageView correspondent to the desired characterCardStudent
      */
     public static ImageView gsFindCharacterCardElementID(GameSceneHandler gs, int characterCardPosition, int elementPosOnCC) {
@@ -948,7 +990,8 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of a specific CloudTile
-     * @param gs The gameSceneHandler
+     *
+     * @param gs            The gameSceneHandler
      * @param cloudPosition An int representing the cloudNumber of the specified cloud
      * @return The ImageView correspondent to the desired CloudTile
      */
@@ -964,7 +1007,8 @@ public class IDHelper {
 
     /**
      * Gets the AnchorPane (ID) of a specific CloudTile
-     * @param gs The gameSceneHandler
+     *
+     * @param gs            The gameSceneHandler
      * @param cloudPosition An int representing the cloudNumber of the specified cloud
      * @return The AnchorPane correspondent to the desired CloudTile's anchorPane
      */
@@ -975,7 +1019,8 @@ public class IDHelper {
 
     /**
      * Gets the AnchorPane (ID) of a specific CloudTile
-     * @param gs The gameSceneHandler
+     *
+     * @param gs           The gameSceneHandler
      * @param cloudImageID An ImageView correspondent to the cloudTileID of the specified cloud
      * @return The AnchorPane correspondent to the desired CloudTile's anchorPane
      */
@@ -993,8 +1038,9 @@ public class IDHelper {
 
     /**
      * Gets the ImageView (ID) of the tower on a specific Island
-     * @param gs The gameSceneHandler
-     * @param cloudImageID An ImageView correspondent to the cloudTileID of the specified cloud
+     *
+     * @param gs                     The gameSceneHandler
+     * @param cloudImageID           An ImageView correspondent to the cloudTileID of the specified cloud
      * @param studentPositionOnCloud An int representing the studentPosition of the specific students on
      *                               the specified cloud
      * @return The ImageView correspondent to the desired student on the CloudTile
@@ -1044,8 +1090,9 @@ public class IDHelper {
     /**
      * Gets the ImageView (ID) of the
      * tower on a specific Island
-     * @param gs The gameSceneHandler
-     * @param cloudPosition An int representing the cloudNumber of the specified cloud
+     *
+     * @param gs                     The gameSceneHandler
+     * @param cloudPosition          An int representing the cloudNumber of the specified cloud
      * @param studentPositionOnCloud An int representing the studentPosition of the specific students on
      *                               the specified cloud
      * @return The ImageView correspondent to the desired student on the CloudTile
