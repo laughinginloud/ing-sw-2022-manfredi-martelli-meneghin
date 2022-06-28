@@ -4,6 +4,8 @@ import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.utils.SortedList;
+import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.save.GameSave;
 import it.polimi.ingsw.server.controller.state.GameState;
@@ -30,7 +32,7 @@ public /*static*/ final class GameController {
     private GameController() {}
 
     // Priority queue used to decide the initial order
-    private static PriorityQueue<UsernameAndMagicAge> playerAgeQueue;
+    private static SortedList<Tuple<Player, Integer>> playerAgeList;
     private static Set<String>                        forbiddenNames;
 
     private static ControllerData  data;
@@ -71,7 +73,7 @@ public /*static*/ final class GameController {
         loadedGame     = false;
         playersNum     = 0;
         startState     = new GameStateModelInitialization();
-        playerAgeQueue = new PriorityQueue<>(Comparator.comparingInt(UsernameAndMagicAge::magicAge).reversed());
+        playerAgeList  = new SortedList<>(Comparator.comparingInt(Tuple<Player, Integer>::right).reversed());
         forbiddenNames = new HashSet<>();
 
         File         savedGame      = null;
@@ -171,20 +173,10 @@ public /*static*/ final class GameController {
                     }
 
                     if (addPlayer(view, usernameAndMagicAge)) {
-                        Player[] players = data.getPlayersOrder();
-
-                        // Morph the playerAgeQueue into an array of players, by finding the corresponding player for each username
-                        data.setPlayersOrder(playerAgeQueue.stream().map(uM -> {
-                            for (Player player : players)
-                                if (player.getUsername().equals(uM.username()))
-                                    return player;
-
-                            // Should never be reached, as it would mean that the data has been wrongly created
-                            throw new IllegalStateException();
-                        }).toArray(Player[]::new));
+                        data.setPlayersOrder(playerAgeList.stream().map(Tuple::left).toArray(Player[]::new));
 
                         savedGame = null;
-                        playerAgeQueue.clear();
+                        playerAgeList.clear();
                         activeGame = true;
                         data.sendMessageToPlayers(new GameCommandGameStart());
 
@@ -269,7 +261,7 @@ public /*static*/ final class GameController {
                 rulesSet   = false;
                 loadedGame = false;
                 playersNum = 0;
-                playerAgeQueue.clear();
+                playerAgeList.clear();
                 startState = new GameStateModelInitialization();
                 forbiddenNames.clear();
             }
@@ -279,7 +271,7 @@ public /*static*/ final class GameController {
 
                 ifNotNull(player, () -> {
                     data.getPlayersOrder()[player.getPlayerID()] = null;
-                    playerAgeQueue.removeIf(uM -> uM.username().equalsIgnoreCase(player.getUsername()));
+                    playerAgeList.removeIf(t -> t.left().getUsername().equalsIgnoreCase(player.getUsername()));
                     forbiddenNames.remove(player.getUsername().toLowerCase());
                     playersNum--;
                 });
@@ -309,12 +301,11 @@ public /*static*/ final class GameController {
         Player[] players          = data.getPlayersOrder();
         int      gameNumOfPlayers = data.getNumOfPlayers();
 
-        playerAgeQueue.add(usernameAndMagicAge);
         forbiddenNames.add(usernameAndMagicAge.username().toLowerCase());
 
         if (loadedGame) {
             data.addViewPlayer(Arrays.stream(players)
-                .reduce((p1, p2) -> p1.getUsername().equals(usernameAndMagicAge.username().toLowerCase()) ? p1 : p2).orElseThrow(),
+                .reduce((p1, p2) -> p1.getUsername().equalsIgnoreCase(usernameAndMagicAge.username()) ? p1 : p2).orElseThrow(),
                 view);
 
             playersNum++;
@@ -358,6 +349,8 @@ public /*static*/ final class GameController {
 
                 // Add the newly created player to the isomorphism (Player, View)
                 data.addViewPlayer(players[i], view);
+
+                playerAgeList.add(new Tuple<>(players[i], usernameAndMagicAge.magicAge()));
 
                 break;
             }

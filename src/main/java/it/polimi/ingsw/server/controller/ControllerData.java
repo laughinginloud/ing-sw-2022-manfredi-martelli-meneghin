@@ -169,6 +169,9 @@ public final class ControllerData {
      * @return The associated player, or null if none exists
      */
     public Player getViewPlayer(VirtualView virtualView) {
+        if (playerViewMap == null)
+            return null;
+
         return playerViewMap.getLeft(virtualView);
     }
 
@@ -257,7 +260,8 @@ public final class ControllerData {
      * Cleans the map Player -> AssistantCard
      */
     public void nukePlayerAssistantCardMap() {
-        playerAssistantCardMap = null;
+        if (playerAssistantCardMap != null)
+            playerAssistantCardMap.clear();
     }
 
     /**
@@ -269,11 +273,9 @@ public final class ControllerData {
         if (playerAssistantCardMap == null)
             playerAssistantCardMap = new HashMap<>(numOfPlayers);
 
-        if (playerAssistantCardMap.containsKey(player))
-            playerAssistantCardMap.replace(player, assistantCard);
+        playerAssistantCardMap.remove(player);
 
-        else
-            playerAssistantCardMap.put(player, assistantCard);
+        playerAssistantCardMap.put(player, assistantCard);
     }
 
     /**

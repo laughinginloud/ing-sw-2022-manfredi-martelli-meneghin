@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
-
 /**
  * Adapter for the ControllerData class
  * @author Mattia Martelli

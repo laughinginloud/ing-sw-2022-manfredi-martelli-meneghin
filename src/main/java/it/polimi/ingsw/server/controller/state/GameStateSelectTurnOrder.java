@@ -1,11 +1,11 @@
 package it.polimi.ingsw.server.controller.state;
 
+import it.polimi.ingsw.common.utils.SortedList;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.common.model.Player;
 
 import java.util.Comparator;
-import java.util.PriorityQueue;
 
 /**
  * Class representing the players' turn order selection made before the end of the PlanPhase
@@ -19,12 +19,11 @@ public final class GameStateSelectTurnOrder implements GameStatePlanPhase {
     @Override
     public void executeState() {
         try {
-            ControllerData data         = ControllerData.getInstance();
-            int            numOfPlayers = data.getNumOfPlayers();
+            ControllerData data = ControllerData.getInstance();
 
-            PriorityQueue<Tuple<Player, Integer>> playQueue = new PriorityQueue<>(numOfPlayers, Comparator.comparingInt(Tuple::right));
+            SortedList<Tuple<Player, Integer>> playQueue = new SortedList<>(data.getNumOfPlayers(), Comparator.comparingInt(Tuple::right));
 
-            for (Player player : data.getPlayersOrder())
+            for (Player player : data.getGameModel().getPlayers())
                 playQueue.add(new Tuple<>(player, data.getPlayerCard(player).cardValue()));
 
             data.updatePlayersOrder(playQueue.stream().map(Tuple::left).toArray(Player[]::new));

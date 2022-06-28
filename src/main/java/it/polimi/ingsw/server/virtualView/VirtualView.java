@@ -20,6 +20,8 @@ public class VirtualView extends Thread implements AutoCloseable {
     private static final Message PING_MESSAGE = new Message(MessageType.PING, null);
     private static final Message PONG_MESSAGE = new Message(MessageType.PONG, null);
 
+    private static boolean pongReceived;
+
 
     // Fields that hold the communication data
     private final Socket           socket;
@@ -132,7 +134,12 @@ public class VirtualView extends Thread implements AutoCloseable {
                 if (msg == null)
                     sendPing();
 
-                else if (!msg.equals(PONG_MESSAGE))
+                else if (msg.equals(PONG_MESSAGE)) {
+                    pongReceived = true;
+                    getMessage();
+                }
+
+                else
                     return msg;
             }
 
@@ -176,7 +183,10 @@ public class VirtualView extends Thread implements AutoCloseable {
             try {
                 Message msg = getMessage();
 
-                if (!msg.equals(PONG_MESSAGE))
+                if (msg.equals(PONG_MESSAGE))
+                    pongReceived = true;
+
+                else
                     MessageBuilder.messageToCommand(msg).executeCommand(); //TODO: gestione delle richieste
             }
 
@@ -261,6 +271,11 @@ public class VirtualView extends Thread implements AutoCloseable {
             }
 
             catch (Exception ignored) {
+                if (pongReceived) {
+                    pongReceived = false;
+                    return;
+                }
+
                 endThread();
                 throw new SocketException();
             }

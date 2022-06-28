@@ -180,6 +180,6 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
             planPhasePlayersOrder[i] = model.getPlayer((i + firstPickerSeatPosition) % numOfPlayers);
 
         // Set then the new playersOrder in ControllerData
-        data.setPlayersOrder(planPhasePlayersOrder);
+        data.updatePlayersOrder(planPhasePlayersOrder);
     }
 }
