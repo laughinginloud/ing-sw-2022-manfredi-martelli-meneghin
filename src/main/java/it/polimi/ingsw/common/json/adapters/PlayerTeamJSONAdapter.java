@@ -104,7 +104,7 @@ public class PlayerTeamJSONAdapter extends TypeAdapter<PlayerTeam> {
 
     private static void setAssistantDeck(Player player, AssistantCard[] assistantDeck) {
         try {
-            Field assistantDeckField = player.getClass().getDeclaredField("assistantDeck");
+            Field assistantDeckField = Player.class.getDeclaredField("assistantDeck");
             assistantDeckField.setAccessible(true);
             assistantDeckField.set(player, assistantDeck);
             assistantDeckField.setAccessible(false);
