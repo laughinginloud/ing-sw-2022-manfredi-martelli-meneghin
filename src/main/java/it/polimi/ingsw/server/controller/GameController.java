@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.SocketException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
 
@@ -212,12 +213,11 @@ public /*static*/ final class GameController {
      * @return The file name
      */
     private static String mkFileName(Player[] players) {
-        StringBuilder sb = new StringBuilder(players[0].getUsername());
-
-        for (int i = 1; i < players.length; i++)
-            sb.append("-").append(players[i].getUsername());
-
-        return sb.toString();
+        return Arrays.stream(players)
+            .map(Player::getUsername)
+            .map(String::toLowerCase)
+            .sorted()
+            .collect(Collectors.joining("-"));
     }
 
     /**
