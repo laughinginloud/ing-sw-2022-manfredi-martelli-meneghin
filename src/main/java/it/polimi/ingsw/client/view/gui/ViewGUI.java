@@ -139,11 +139,11 @@ public final class ViewGUI extends Application implements View {
         }
     }
 
-    /**
+/*    *//**
      * Resets the GUI to the original state created in "start"
      *
      * @param gameStarted if the game has started the reset needs to reset the scenes
-     */
+     *//*
     public void resetGUI(boolean gameStarted) {
         virtualController = null;
         model = null;
@@ -151,7 +151,7 @@ public final class ViewGUI extends Application implements View {
         if (gameStarted) {
             setupScenes();
         }
-    }
+    }*/
 
     // endregion StartMethods
 
@@ -212,7 +212,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalConnectionError() {
-        resetGUI(false);
+//        resetGUI(false);
 
         switchScene(Pages.CONNECTION_ERROR);
     }
@@ -555,7 +555,7 @@ public final class ViewGUI extends Application implements View {
             playerDisconnection.showAndWait();
 
             switchScene(Pages.CONNECTION_ERROR);
-            resetGUI(true);
+//            resetGUI(true);
         });
     }
 
