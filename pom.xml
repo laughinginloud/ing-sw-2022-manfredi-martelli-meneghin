@@ -8,7 +8,7 @@
              (example: group 99 will have artifactId PSP99 -->
     <artifactId>PSP27</artifactId>
 
-    <version>Eriantys-1.0</version>
+    <version>1.0</version>
     <name>Eriantys</name>
 
     <properties>
@@ -93,6 +93,8 @@
     </dependencies>
 
     <build>
+        <finalName>${artifactId}-${name}-${version}</finalName>
+
         <plugins>
 
             <!-- Compiler plugin, sets the Java version -->
