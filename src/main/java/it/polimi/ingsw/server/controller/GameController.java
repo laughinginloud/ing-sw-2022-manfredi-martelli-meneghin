@@ -76,7 +76,7 @@ public /*static*/ final class GameController {
         playerAgeList  = new SortedList<>(Comparator.comparingInt(Tuple<Player, Integer>::right).reversed());
         forbiddenNames = new HashSet<>();
 
-        File         savedGame      = null;
+        File savedGame = null;
 
         ServerSocket serverSocket;
 

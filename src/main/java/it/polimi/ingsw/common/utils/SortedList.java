@@ -6,11 +6,11 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
- * A simple sorted list, accessible via its Stream interface
+ * A simple stable sorted list, accessible via its Stream interface
  * @param <T> The type of the list
  * @author Mattia Martelli
  */
-public class SortedList<T> {
+public final class SortedList<T> {
     private final List<T>       list;
     private final Comparator<T> comparator;
 
