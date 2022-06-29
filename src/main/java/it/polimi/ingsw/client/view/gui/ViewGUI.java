@@ -139,20 +139,6 @@ public final class ViewGUI extends Application implements View {
         }
     }
 
-/*    *//**
-     * Resets the GUI to the original state created in "start"
-     *
-     * @param gameStarted if the game has started the reset needs to reset the scenes
-     *//*
-    public void resetGUI(boolean gameStarted) {
-        virtualController = null;
-        model = null;
-
-        if (gameStarted) {
-            setupScenes();
-        }
-    }*/
-
     // endregion StartMethods
 
     // region SwitchScene
