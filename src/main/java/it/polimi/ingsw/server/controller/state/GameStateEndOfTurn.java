@@ -93,9 +93,12 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                 }
             }
 
-            // If the player can't play a CharacterCard, notify him about the end of his actionPhase turn
-            else
+            // If the player can't play a CharacterCard, notify him about the end of his actionPhase turn and
+            // resets the CharacterCardFlags
+            else {
+                resetCharacterCardFlags();
                 curPlayerView.sendMessage(new GameCommandNotifyEndTurn());
+            }
 
             if (data.turnEnd())
                 turnEnd = true;
