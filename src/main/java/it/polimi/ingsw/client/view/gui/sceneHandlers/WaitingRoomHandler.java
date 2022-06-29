@@ -13,6 +13,12 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for gui field has been suppressed to allow future modification of the class
+@SuppressWarnings({"unused, FieldCanBeLocal"})
+
 public final class WaitingRoomHandler implements GUIHandler {
 
     private ViewGUI gui;

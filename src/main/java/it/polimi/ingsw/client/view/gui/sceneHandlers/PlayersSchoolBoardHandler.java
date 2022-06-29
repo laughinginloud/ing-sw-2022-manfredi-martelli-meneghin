@@ -20,10 +20,18 @@ import java.util.Set;
 
 /**
  * Handler (or Controller) of the scene PlayersSchoolBoard (playersSchoolBoardPage.fxml)
- * The game's secondary scene in which each player school board is visibile
+ * The game's secondary scene in which each player school board is visible
  *
- * @author Giovanni Manfredi & Sebastiano Meneghin
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for gui field has been suppressed to allow future modification of the class
+// Warnings for possible null parameters to an addImage have been suppressed because the input is constant
+// Warnings for classes that are not exported has been suppressed because are intentionally not exported
+@SuppressWarnings({"unused, FieldCanBeLocal, ConstantConditions", "ClassEscapesDefinedScope"})
+
 public final class PlayersSchoolBoardHandler implements GUIHandler {
 
     private ViewGUI gui;

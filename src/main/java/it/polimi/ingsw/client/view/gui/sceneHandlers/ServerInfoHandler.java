@@ -20,6 +20,11 @@ import java.io.IOException;
  *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+@SuppressWarnings({"unused"})
+
 public final class ServerInfoHandler implements GUIHandler {
 
     private ViewGUI gui;

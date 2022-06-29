@@ -5,16 +5,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 /**
  * Handler (or Controller) of the scene UnableToJoin (unableToJoinPage.fxml)
- * The client is informed that the game is still in progress and
+ * The client is informed that the game is still in progress, and
  * he won't be able to join. It also suggests him to close the application
  * and try again.
  *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for gui field has been suppressed to allow future modification of the class
+@SuppressWarnings({"unused, FieldCanBeLocal"})
+
 public final class UnableToJoinHandler implements GUIHandler {
 
     private ViewGUI gui;

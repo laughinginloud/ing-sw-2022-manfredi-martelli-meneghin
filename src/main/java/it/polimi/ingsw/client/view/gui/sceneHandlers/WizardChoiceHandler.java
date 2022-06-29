@@ -17,8 +17,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO - JavaDoc
-
 /**
  * Handler (or Controller) of the scene WizardChoice (wizardChoicePage.fxml)
  * The client is asked what wizard he/she wants to play with
@@ -26,6 +24,12 @@ import java.util.Set;
  *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for classes that are not exported has been suppressed because are intentionally not exported
+@SuppressWarnings({"unused, ClassEscapesDefinedScope"})
+
 public final class WizardChoiceHandler implements GUIHandler {
     private ViewGUI gui;
 
@@ -142,21 +146,6 @@ public final class WizardChoiceHandler implements GUIHandler {
             }
 
         gui.switchScene(Pages.WAITING_ROOM);
-    }
-
-    /**
-     * Gets the wizardImagePath of a specific Wizard
-     *
-     * @param wizard The wizard we want to find the image of
-     * @return A string representing the path to the wizard's image
-     */
-    public String fromWizardEnumToFXMLPath (Wizard wizard) {
-        return switch (wizard) {
-            case NATURE -> "@../images/wizards/0_NATURE.jpg";
-            case DESERT -> "@../images/wizards/1_DESERT.jpg";
-            case CLOUD  -> "@../images/wizards/2_CLOUD.jpg";
-            case SNOW   -> "@../images/wizards/3_SNOW.jpg";
-        };
     }
 
     /**
