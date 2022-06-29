@@ -60,7 +60,7 @@ public class JesterStrategy extends CharacterCardStrategy {
 
                 // For chosenNumOfMovement times asks the player which student he would like to move, waits for response and notifies all the players after the movement
                 for (int i = 0; i < chosenNumOfMovement; i++)
-                    changeStudent(data, model, curPlayer, playerView);
+                    changeStudent(data, model, curPlayer, playerView, chosenNumOfMovement, i);
 
             }
 
@@ -79,7 +79,7 @@ public class JesterStrategy extends CharacterCardStrategy {
         }
     }
 
-    public void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
+    public void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView, int chosenNumOfMovements, int iteration) throws Exception {
         Player[] players = data.getGameModel().getPlayers();
 
         // Cast the CharacterCard to a CharacterCardStudent
@@ -127,12 +127,41 @@ public class JesterStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedEntrances[i] = players[i].getSchoolBoard().getEntrance();
 
-            afterEffectUpdate.put(GameValues.CHARACTERCARDARRAY, updatedCharacterCards);
-            afterEffectUpdate.put(GameValues.ENTRANCEARRAY,      updatedEntrances);
+            // If it's the last iteration of "changeStudent" saves these data in the Map afterEffectUpdate
+            if (iteration == (chosenNumOfMovements - 1)) {
+                afterEffectUpdate.put(GameValues.CHARACTERCARDARRAY, updatedCharacterCards);
+                afterEffectUpdate.put(GameValues.ENTRANCEARRAY, updatedEntrances);
+            }
+
+            else
+                updateDuringIteration(model, updatedCharacterCards, updatedEntrances);
         }
 
         // If the response is of the wrong kind throw an exception to help debug
         else
             throw new IllegalStateException("Wrong command received: " + movementResponse);
     }
+
+    /**
+     * Update the players about the students' movements caused by the effect of the
+     * CharacterCard 'JESTER' on the CharacterCards and on the Entrances
+     * @param model The updated GameModel
+     * @param updatedCharacterCards The updated CharacterCardArray
+     * @param updatedEntrances The updated EntranceArray
+     */
+    private void updateDuringIteration(GameModel model, CharacterCard[] updatedCharacterCards, Entrance[] updatedEntrances) {
+        InfoMap duringInteractionMap = new InfoMap();
+
+        duringInteractionMap.put(GameValues.CHARACTERCARDARRAY, updatedCharacterCards);
+        duringInteractionMap.put(GameValues.ENTRANCEARRAY, updatedEntrances);
+
+        GameCommand sendInfo = new GameCommandSendInfo(duringInteractionMap);
+
+        Player[] players = model.getPlayers();
+        for (Player playersToUpdate : players) {
+            VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
+            playerToUpdateView.sendMessage(sendInfo);
+        }
+    }
 }
+
