@@ -3,6 +3,7 @@ package it.polimi.ingsw.server.controller.state;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.GameCommand;
 import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
@@ -65,6 +66,21 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         ControllerData data          = ControllerData.getInstance();
         GameModel      model         = data.getGameModel();
         Island         currentIsland = model.getIsland(islandIndex);
+
+        // If there is at least one no entry tile on this island, return it to the card and exit the current state
+        if (data.getExpertMode() && currentIsland.getNoEntryTileCount() > 0) {
+            currentIsland.setNoEntryTileCount(currentIsland.getNoEntryTileCount() - 1);
+
+            // Find the Herbalist card, which uses the tiles, in the array of character cards
+            CharacterCardNoEntry card = (CharacterCardNoEntry)
+                Arrays.stream(data.getGameModel().getCharacterCards())
+                    .reduce((c1, c2) -> c1.getCharacter() == Character.HERBALIST ? c1 : c2)
+                    .orElseThrow();
+
+            card.setNoEntryCount(card.getNoEntryCount() + 1);
+
+            return;
+        }
 
         // If the island doesn't have a tower on it launch the control routine, otherwise launch the conquest one
         if (currentIsland.getMultiplicity() == 0)
