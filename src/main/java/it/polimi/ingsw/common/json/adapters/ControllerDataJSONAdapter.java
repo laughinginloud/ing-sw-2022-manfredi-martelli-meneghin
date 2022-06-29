@@ -56,6 +56,22 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
             for (Player player : controllerData.getPlayersOrder())
                 jsonWriter.value(player.getPlayerID());
             jsonWriter.endArray();
+
+            if (controllerData.getCurrentPlayer() != null) {
+                try {
+                    Field currentPlayerField = ControllerData.class.getDeclaredField("currentPlayer");
+                    currentPlayerField.setAccessible(true);
+
+                    jsonWriter.name("currentPlayer");
+                    jsonWriter.value((int) currentPlayerField.get(controllerData));
+
+                    currentPlayerField.setAccessible(false);
+                }
+
+                catch (IllegalAccessException | NoSuchFieldException ignored) {
+                    throw new IOException();
+                }
+            }
         }
 
         jsonWriter.name("emptyBagTrigger");
@@ -72,22 +88,6 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
 
         jsonWriter.name("expertMode");
         jsonWriter.value(controllerData.getExpertMode());
-
-        if (controllerData.getCurrentPlayer() != null) {
-            try {
-                Field currentPlayerField = ControllerData.class.getDeclaredField("currentPlayer");
-                currentPlayerField.setAccessible(true);
-
-                jsonWriter.name("currentPlayer");
-                jsonWriter.value((int) currentPlayerField.get(controllerData));
-
-                currentPlayerField.setAccessible(false);
-            }
-
-            catch (IllegalAccessException | NoSuchFieldException ignored) {
-                throw new IOException();
-            }
-        }
 
         if (controllerData.getExpertMode()) {
             jsonWriter.name("characterCardStrategies");
