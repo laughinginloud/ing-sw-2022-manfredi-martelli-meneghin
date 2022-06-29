@@ -8,7 +8,13 @@
 
 Eriantys Board Game is the final project of **"Software Engineering"**, course of **"Computer Science Engineering"** held at Politecnico di Milano (2021/2022).
 
-**Teacher** Pierluigi San Pietro
+**Professor** Pierluigi San Pietro
+
+**Lab professor** Daniele Cattaneo</br>
+**Lab professor** Chiara Criscuolo
+
+**Tutor** Federica Suriano</br>
+**Tutor** Lorenzo Italiano
 
 ### The Team
 
@@ -30,7 +36,7 @@ Eriantys Board Game is the final project of **"Software Engineering"**, course o
 
 The project consists of a Java version of the board game *Eriantys*, made by Cranio Creations.
 
-You can find the full game [here](https://www.craniocreations.it/prodotto/eriantys/).
+The full game can be found [here](https://www.craniocreations.it/prodotto/eriantys/).
 
 The final version includes:
 * initial UML diagram: [a first][firstUML-link] and an [updated version][firstUML_updated-link];
@@ -83,21 +89,21 @@ The model package has a classes' coverage at 95% (22/23).
 
 ### System requirements
 
-* Windows OS, macOS or Linux with an active terminal
-* JAVA SE JDK 18 ([OracleJDK][oracleJDK18-link] or [OpenJDK][openJDK18-link])
+* Windows OS, macOS or Linux with an ANSI-capable terminal emulator
+* Java SE JDK 18 ([OracleJDK][oracleJDK18-link] or [OpenJDK][openJDK18-link])
 * [Maven][maven-link] framework version 3.0 (or newer)
 
-*WARNING* :warning: : A screen resolution of 1920x1080 (100% DPI) or more is required to render, see and play the GUI
+*WARNING* :warning: : A screen resolution of 1920x1080 or more is required to render, see and play the GUI
 properly. If these requirements are not met, we cannot ensure that the game will behave as designed.
 
 ### Windows
 
 #### Installing Terminal
 
-If the version in use is Windows 11, use the default terminal "Windows Terminal", 
-otherwise install it by using [this link][windowsTerminal-link].
+If using Windows 10 or newer, the recommended terminal emulator is "Windows Terminal",
+obtainable by using [this link][windowsTerminal-link].
 
-#### Installing JAVA
+#### Installing Java
 
 1. Download the compressed archive from [Oracle][oracleJDK18JARwin64-link] or [OpenJDK][openJDK18JARwin64-link];
 2. Extract content from the zip folder to your preferred location 
@@ -109,7 +115,7 @@ otherwise install it by using [this link][windowsTerminal-link].
 ```shell
 java -version
 ```
-7. If the version is the 18.0.1 or later, the installation has been successful!
+7. If the version is the 18.0.1 or later, the installation has been successful
 
 If something went wrong with the installation try again this or another method at [this link][javaguide-link].
 
@@ -126,7 +132,7 @@ If something went wrong with the installation try again this or another method a
 ```shell
 mvn --version
 ```
-7. If the version is the 3 or later, the installation has been successful!
+7. If the version is the 3 or later, the installation has been successful
 
 If something went wrong with the installation try again this or another method at [this link][mvnguide-link].
 
@@ -134,16 +140,16 @@ If something went wrong with the installation try again this or another method a
 
 #### Installing Terminal
 
-The default terminal will run the application just fine, but we recommend installing [iTerm2](https://iterm2.com/)
-directly from its website or by using the [Homebrew](https://brew.sh/) formula:
+The default terminal emulator will run the application, but the recommendation is [iTerm2](https://iterm2.com/), obtainable
+directly from its website or by using the [Homebrew](https://brew.sh/) command:
 ```shell
 brew install --cask iterm2
 ```
 
-#### Installing JAVA
+#### Installing Java
 
-1. Download the JAVA installer (`.dmg`) from [Oracle][oracleJDK18-link] 
-   the correct version for your system:
+1. Download the Java installer (`.dmg`) from [Oracle][oracleJDK18-link] 
+   the correct version for the system in use:
    * [**macOS x64 systems**][oracleJDK18JARmac64-link]
    * [**macOS aarch64 (64-bit ARM)**][oracleJDK18JARmacM1-link]
 2. From either the browser **downloads** window or from the file browser, double-click the `.dmg` file to start it.
@@ -153,11 +159,11 @@ brew install --cask iterm2
    `Installer is trying to install new software. Enter your password to allow this.`
 5. Enter the Administrator username and password and click `Install Software`.
    The software is installed and a confirmation window is displayed.
-6. Open your terminal of choice and verify your JAVA version by typing the following command:
+6. Open your terminal of choice and verify your Java version by typing the following command:
 ```shell
 java -version
 ```
-7. If the version is the 18.0.1 or later, the installation has been successful!
+7. If the version is the 18.0.1 or later, the installation has been successful
 
 After the software is installed, you can delete the `.dmg` file if you want to save disk space.
 
@@ -181,9 +187,9 @@ the system requirements otherwise follow the next steps.
 
 #### Installing Terminal
 
-You probably already have your favourite!
+The recommended choice is GNOME Terminal, obtainable from the distribution's package manager
 
-#### Installing JAVA
+#### Installing Java
 
 1. Download JavaJDK based on your distro [here][oracleJDK18-link];
 2. Navigate to your preferred install location and extract the .tar.gz archive file using:
@@ -203,7 +209,7 @@ export PATH=/<path-to-extracted-folder/bin:$PATH
 ```shell
 java -version
 ```
-6. If the version is the 18.0.1 or later, the installation has been successful!
+6. If the version is the 18.0.1 or later, the installation has been successful
 
 If something went wrong with the installation try again this or another method at [this link][javalinux-link].
 
@@ -228,15 +234,14 @@ or
 ```shell
 mvn --version
 ```
-5. If the version is the 3 or later, the installation has been successful!
+5. If the version is the 3 or later, the installation has been successful
 
 ## Compiling
 
-1. After downloading and installing the required software, clone this repo by either downloading the `.zip` and extract it,
+1. After downloading and installing the required software, clone this repo by either downloading the `.zip` and extracting it,
    or using `git clone`.
 2. Open your terminal of choice, navigate to the folder and compile sources of the package by typing:
 ```shell
-cd /path/to/project/home/directory
 mvn clean package
 ```
 3. A new folder called `/target` will be created in the project home directory, 
@@ -246,18 +251,18 @@ mvn clean package
 cd /target
 cd ls
 ```
-5. If you see a file named `PSP27-1.0-SNAPSHOT.jar` the compilation has been successful!
+5. If you see a file named `PSP27-Eriantys-1.0.jar` the compilation has been successful
 
 ## Running
 
 1. Once you met all the requirements, open a terminal and go to the project target directory 
    (which has to be previously built with maven, see the [compiling](#Compiling) section if you skipped 
-   this step, alternatively the already compiled `PSP27-1.0-SNAPSHOT.jar` in the `deliverables/jar` folder can be used).
+   this step, alternatively the already compiled `PSP27-Eriantys-1.0.jar` in the `deliverables/jar` folder can be used).
 2. Once there, execute this command:
 ```shell
-java -jar PSP27-1.0-SNAPSHOT.jar
+java -jar PSP27-Eriantys-1.0.jar
 ```
-*WARNING* :warning: : the file `PSP27-1.0-SNAPSHOT.jar` must match the one present in your directory,
+*WARNING* :warning: : the file `PSP27-Eriantys-1.0.jar` must match the one present in your directory,
 if it doesn't, execute the command by substituting the command above with the correct file name
 
 3. A CLI will appear, and you'll be able to choose an option among the present by using:
@@ -272,22 +277,29 @@ if it doesn't, execute the command by substituting the command above with the co
    * One server
    * Two clients (either CLI or GUI)
 
-*INFO* :information_source: : the CLI instance to choose an option can be skipped by specifying the
+*INFO* :information_source: : the CLI menu to choose an option can be skipped by specifying the
 desired instance of the program as a parameter of the command above. These are the available options:
 ```shell
-java -jar PSP27-1.0-SNAPSHOT.jar server
-java -jar PSP27-1.0-SNAPSHOT.jar client cli
-java -jar PSP27-1.0-SNAPSHOT.jar client gui
+java -jar PSP27-Eriantys-1.0.jar server
+java -jar PSP27-Eriantys-1.0.jar server ${port number}
+java -jar PSP27-Eriantys-1.0.jar client cli
+java -jar PSP27-Eriantys-1.0.jar client gui
+```
+where `${port number}` indicates a custom port number instead of the default one, which is 6556.
+A couple of help commands are also present:
+```shell
+java -jar PSP27-Eriantys-1.0.jar help
+java -jar PSP27-Eriantys-1.0.jar client help
 ```
 
 ## Javadocs
 
 This project has a large number of methods and classes and can sometimes be difficult 
-to understand the purpose of each one of them. For this reason, for each class and method there is a Javadoc for it!
+to understand the purpose of each one of them. For this reason, each method and class has a doc associated to it.
 
 The complete collection of the Javadocs can't be published right now because the
 project has yet to be evaluated. Nonetheless, ìt is possible to execute Maven locally
-on the repo by using the command `mvn javadoc:javadoc` to generate a html file containing 
+on the repo by using the command `mvn javadoc:javadoc` to generate a few html files containing 
 all the Javadocs of the project.
 
 ## More
