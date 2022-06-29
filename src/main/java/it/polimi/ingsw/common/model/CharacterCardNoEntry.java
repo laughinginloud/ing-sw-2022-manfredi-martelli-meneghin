@@ -27,7 +27,7 @@ public final class CharacterCardNoEntry extends CharacterCard {
      * @param noEntryCount The value to be set at (positive integer between 0 and 4)
      */
     public void setNoEntryCount (int noEntryCount) {
-        assert noEntryCount >= 0 && noEntryCount <= 4: "CharacterCardNoEntry.noEntryCount accepted value is between 0 and 4";
+        assert noEntryCount >= 0 && noEntryCount <= 4: "CharacterCardNoEntry.noEntryCount accepted value is between 0 and 4, you've inserted" + noEntryCount;
 
         this.noEntryCount = noEntryCount;
     }
