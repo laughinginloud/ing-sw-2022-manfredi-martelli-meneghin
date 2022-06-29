@@ -109,8 +109,10 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
 
                     // If the game hasn't ended restart the method from the beginning
                     // in order to allow the MotherNature movement
-                    if (!data.checkWinTrigger())
+                    if (!data.checkWinTrigger()) {
                         executeState();
+                        return;
+                    }
                 }
 
                 catch (Exception e) {

@@ -50,11 +50,13 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
         }
         jsonWriter.endArray();
 
-        jsonWriter.name("playersOrder");
-        jsonWriter.beginArray();
-        for (Player player : controllerData.getPlayersOrder())
-            jsonWriter.value(player.getPlayerID());
-        jsonWriter.endArray();
+        if (controllerData.getPlayersOrder() != null) {
+            jsonWriter.name("playersOrder");
+            jsonWriter.beginArray();
+            for (Player player : controllerData.getPlayersOrder())
+                jsonWriter.value(player.getPlayerID());
+            jsonWriter.endArray();
+        }
 
         jsonWriter.name("emptyBagTrigger");
         jsonWriter.value(controllerData.getEmptyBagTrigger());

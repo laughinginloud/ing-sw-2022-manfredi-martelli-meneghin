@@ -108,14 +108,11 @@ public final class GameStatePlaceTokens implements GameStateSetup {
     private InfoMap packPlacedTokens() {
         InfoMap placedTokens = new InfoMap();
 
-        /* TODO: [ClientCache] Caricare tutte le informazioni in una mappa, facendo attenzione ai puntatori disaccoppiati (player in team) */
         // Get all the objects/fields each player's Client need to know
         GameModel placedModel = ControllerData.getInstance().getGameModel();
-        // ...
 
         // Add to placedTokens Map all the object/fields that will be sent to the client
         placedTokens.put(GameValues.MODEL, placedModel);
-        // ...
 
         return placedTokens;
     }

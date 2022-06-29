@@ -21,13 +21,13 @@ public final class GameStateSelectTurnOrder implements GameStatePlanPhase {
         try {
             ControllerData data = ControllerData.getInstance();
 
-            SortedList<Tuple<Player, Integer>> playQueue = new SortedList<>(data.getNumOfPlayers(), Comparator.comparingInt(Tuple::right));
+            SortedList<Tuple<Player, Integer>> playList = new SortedList<>(data.getNumOfPlayers(), Comparator.comparingInt(Tuple::right));
 
             // Add all the players from the current turn order, so that the stable sorting will keep the current ordering for equal values
             for (Player player : data.getPlayersOrder())
-                playQueue.add(new Tuple<>(player, data.getPlayerCard(player).cardValue()));
+                playList.add(new Tuple<>(player, data.getPlayerCard(player).cardValue()));
 
-            data.updatePlayersOrder(playQueue.stream().map(Tuple::left).toArray(Player[]::new));
+            data.updatePlayersOrder(playList.stream().map(Tuple::left).toArray(Player[]::new));
         }
 
         catch (Exception e) {
