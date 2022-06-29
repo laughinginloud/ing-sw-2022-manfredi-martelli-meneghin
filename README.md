@@ -1,5 +1,7 @@
 # Eriantys Board Game
 
+[![Build and test](https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/actions/workflows/mavenBuildTest.yml/badge.svg?branch=main)](https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/actions/workflows/mavenBuildTest.yml)
+
 ## About
 
 <img src="https://www.craniocreations.it/wp-content/uploads/2021/06/Eriantys_scatola3Dombra-600x600.png" width=300px height=300px align="right"/>
