@@ -31,13 +31,5 @@
             <DropShadow />
          </effect>
       </Label>
-      <Button fx:id="return_button" layoutX="308.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#pressReturnButton" text="Return to Initial Menu">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Button>
    </children>
 </AnchorPane>
