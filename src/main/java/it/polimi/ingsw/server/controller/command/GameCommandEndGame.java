@@ -27,7 +27,7 @@ public class GameCommandEndGame implements GameCommand {
         if (winner != null)
             return winner;
 
-        return team;
+        return team.toArray(Player[]::new);
     }
 
     public boolean isDraw() {

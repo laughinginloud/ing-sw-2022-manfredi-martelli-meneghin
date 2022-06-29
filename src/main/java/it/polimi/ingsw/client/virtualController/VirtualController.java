@@ -179,9 +179,9 @@ public final class VirtualController extends Thread {
 
             case REQUESTACTION -> switchRequestAction((Tuple<GameActions, Object>) message.value());
 
-            case GAMEWINNER     -> view.signalWinner((Player)       message.value());
-            case GAMEWINNERTEAM -> view.signalWinner((List<Player>) message.value());
-            case GAMEDRAW       -> view.signalDraw  ((List<Player>) message.value());
+            case GAMEWINNER     -> view.signalWinner              ((Player)   message.value() );
+            case GAMEWINNERTEAM -> view.signalWinner(Arrays.asList((Player[]) message.value()));
+            case GAMEDRAW       -> view.signalDraw  (Arrays.asList((Player[]) message.value()));
 
             case GAMESTART               -> view.notifyGameStart();
             case CUR_PLAYER_END_TURN     -> view.notifyEndOfTurn();
