@@ -86,6 +86,12 @@ public class Main {
                     // Start the client in CLI mode
                     case "cli", "cui", "tui" -> Client.main(false);
 
+                    // Print a simple help text on how to start the game
+                    case "help" -> {
+                        System.out.println("Usage: eriantys client [gui | cli]");
+                        throw new GameNotStarted();
+                    }
+
                     // Unrecognized UI: signal the user
                     default -> {
                         System.out.println("Unrecognized client mode: " + args[1]);
@@ -96,7 +102,7 @@ public class Main {
 
             // Print a simple help text on how to start the game
             case "help" -> {
-                System.out.println("Usage: eriantys [server | client gui | client cli]");
+                System.out.println("Usage: eriantys [server | server ${port number} | client gui | client cli]");
                 throw new GameNotStarted();
             }
 
