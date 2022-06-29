@@ -4,12 +4,9 @@ import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.message.InfoMap;
+import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
-import it.polimi.ingsw.common.model.CharacterCard;
-import it.polimi.ingsw.common.model.GameModel;
-import it.polimi.ingsw.common.model.Island;
-import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
@@ -67,6 +64,10 @@ public class HerbalistStrategy extends CharacterCardStrategy {
                     ? chosenIsland.getNoEntryTileCount()
                     : 0;
                 chosenIsland.setNoEntryTileCount(currentNoEntryTileCount + 1);
+
+                // Removes one noEntryTile from the Herbalist's elements
+                CharacterCardNoEntry herbalistCard = (CharacterCardNoEntry) card;
+                herbalistCard.setNoEntryCount(herbalistCard.getNoEntryCount() - 1);
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
                 // CharacterCardsArray and IslandsArray and put them in the map that will be broadcast

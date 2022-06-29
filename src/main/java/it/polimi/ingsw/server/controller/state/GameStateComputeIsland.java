@@ -79,6 +79,21 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
             card.setNoEntryCount(card.getNoEntryCount() + 1);
 
+            // Updates all the players about the variation on IslandArray, MN and CharacterCardArray
+            // caused by the movement of motherNature on an Island with a NoEntryTile
+            try {
+                GameCommand foundNoEntryUpdate = createNoentryMap(model);
+
+                // Updates all the players
+                for (Player playerToUpdate : model.getPlayers())
+                    data.getPlayerView(playerToUpdate).sendMessage(foundNoEntryUpdate);
+            }
+
+            catch (Exception e) {
+                // Fatal error: print the stack trace to help debug
+                e.printStackTrace();
+            }
+
             return;
         }
 
@@ -444,6 +459,20 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         InfoMap map = new InfoMap();
         map.put(GameValues.ISLANDARRAY,  model.getIslands());
         map.put(GameValues.MOTHERNATURE, model.getMotherNaturePosition());
+        return new GameCommandSendInfo(map);
+    }
+
+    /**
+     * Create the map that will be sent to the players after an Island with a noEntryTile
+     * on it has been encountered by the current player
+     * @param model The GameModel instance
+     * @return The command to send
+     */
+    private GameCommand createNoentryMap(GameModel model) {
+        InfoMap map = new InfoMap();
+        map.put(GameValues.ISLANDARRAY,        model.getIslands());
+        map.put(GameValues.MOTHERNATURE,       model.getMotherNaturePosition());
+        map.put(GameValues.CHARACTERCARDARRAY, model.getCharacterCards());
         return new GameCommandSendInfo(map);
     }
 
