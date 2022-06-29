@@ -173,7 +173,8 @@ public /*static*/ final class GameController {
                     }
 
                     if (addPlayer(view, usernameAndMagicAge)) {
-                        data.setPlayersOrder(playerAgeList.stream().map(Tuple::left).toArray(Player[]::new));
+                        if (!loadedGame)
+                            data.setPlayersOrder(playerAgeList.stream().map(Tuple::left).toArray(Player[]::new));
 
                         savedGame = null;
                         playerAgeList.clear();
