@@ -9,10 +9,13 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
- * A wrapper for <code>Map(GameValues, Object)</code>
+ * A wrapper for <code>Map&lt;GameValues, Object&gt;</code>
  * @author Mattia Martelli
  */
 public final class InfoMap {
+
+    // region Concrete map and constructors
+
     /**
      * The concrete map
      */
@@ -22,7 +25,7 @@ public final class InfoMap {
      * Create an empty map
      */
     public InfoMap() {
-        map = new EnumMap<GameValues, Object>(GameValues.class);
+        map = new EnumMap<>(GameValues.class);
     }
 
     /**
@@ -39,17 +42,20 @@ public final class InfoMap {
      * @param obj The value of the tuple
      */
     public InfoMap(GameValues val, Object obj) {
-        map = new EnumMap<GameValues, Object>(GameValues.class);
+        map = new EnumMap<>(GameValues.class);
         map.put(val, obj);
     }
 
+    // endregion
+
+    // region Getters
+
     /**
-     * Add an element to the map
-     * @param key The key that specifies the type of the value
-     * @param value An object of the type specified by the key
+     * Returns an entry set that mirrors the map
+     * @return The set
      */
-    public void put(GameValues key, Object value) {
-        map.put(key, value);
+    public Set<Map.Entry<GameValues, Object>> entrySet() {
+        return map.entrySet();
     }
 
     /**
@@ -62,37 +68,24 @@ public final class InfoMap {
     }
 
     /**
-     * Returns an entry set that mirrors the map
-     * @return The set
+     * Check whether the map is empty
+     * @return <code>true</code> if the map is empty, <code>false</code> otherwise
      */
-    public Set<Map.Entry<GameValues, Object>> entrySet() {
-        return map.entrySet();
+    public boolean isEmpty() {
+        return map.isEmpty();
     }
 
-    /**
-     * remove all elements from the map
-     */
-    public void clear() {
-        map.clear();
-    }
+    // endregion
+
+    // region Setters
 
     /**
-     * Search whether the map contains a value for the specified key
-     * @param key The key to search for
-     * @return <code>true</code> if a value is present, <code>false</code> otherwise
+     * Add an element to the map
+     * @param key The key that specifies the type of the value
+     * @param value An object of the type specified by the key
      */
-    public boolean containsKey(GameValues key) {
-        return map.containsKey(key);
-    }
-
-    /**
-     * Returns an <code>Optional</code> containing the value searched, if present
-     * @param key The key to search for
-     * @return An <code>Optional</code> containing the value, if it exists
-     */
-    public void ifPresent(GameValues key, Consumer action) {
-        if (map.containsKey(key))
-            action.accept(map.get(key));
+    public void put(GameValues key, Object value) {
+        map.put(key, value);
     }
 
     /**
@@ -103,6 +96,21 @@ public final class InfoMap {
         map.remove(key);
     }
 
+    // endregion
+
+    // region Functional interfaces
+
+    /**
+     * Apply an action to the associated value, if it exists
+     * @param key    The key to search for
+     * @param action The action to perform
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public void ifPresent(GameValues key, Consumer action) {
+        if (map.containsKey(key))
+            action.accept(map.get(key));
+    }
+
     /**
      * Execute an action for each element of the map
      * @param action The action to perform
@@ -110,4 +118,7 @@ public final class InfoMap {
     public void forEach(BiConsumer<GameValues, Object> action) {
         map.forEach(action);
     }
+
+    // endregion
+
 }
