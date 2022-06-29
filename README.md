@@ -8,7 +8,7 @@
 
 Eriantys Board Game is the final project of **"Software Engineering"**, course of **"Computer Science Engineering"** held at Politecnico di Milano (2021/2022).
 
-**Teacher** Pierluigi Sanpietro
+**Teacher** Pierluigi San Pietro
 
 ### The Team
 
@@ -36,8 +36,11 @@ The final version includes:
 * initial UML diagram: [a first][firstUML-link] and an [updated version][firstUML_updated-link];
 * [final UML diagram][finalUML-link], generated from the code by automated tools;
 * working game implementation, which has to be rules compliant;
+* [network protocol documentation][protocolDoc-link] of the application
 * source code of the [implementation][main-link];
 * source code of [unity tests][tests-link].
+* received peer-reviews of our [UML][UMLpeer-link] and [network protocol][protocolDocPeer-link]
+* sent peer-reviews of [UML][UMLSentPeer-link] and [network protocol][protocolDocSentPeer-link] of other students
 
 ### Implemented Functionalities
 <table>
@@ -178,7 +181,7 @@ the system requirements otherwise follow the next steps.
 
 #### Installing Terminal
 
-You probably have already you favourite!
+You probably already have your favourite!
 
 #### Installing JAVA
 
@@ -249,7 +252,7 @@ cd ls
 
 1. Once you met all the requirements, open a terminal and go to the project target directory 
    (which has to be previously built with maven, see the [compiling](#Compiling) section if you skipped 
-   this step, alternatively the already compiled `PSP27-1.0-SNAPSHOT.jar` in the `deliverables\jar` folder can be used).
+   this step, alternatively the already compiled `PSP27-1.0-SNAPSHOT.jar` in the `deliverables/jar` folder can be used).
 2. Once there, execute this command:
 ```shell
 java -jar PSP27-1.0-SNAPSHOT.jar
@@ -289,6 +292,17 @@ all the Javadocs of the project.
 
 ## More
 
+### IntelliJ Options
+
+During the development of the project we have found necessary to automate the execution
+of the application. To do so we created a few `.xml` files that IntelliJ reads as running options (these files
+are all contained in the `/.run` folder.
+They are still in the project to show our methods and how we worked during the project.
+
+*WARNING* :warning: : these running options were used only internally for debugging and are not 
+intended for playing the game, so if you use these options we cannot ensure that the game will behave as designed.
+These running tools were tested only on Windows based systems.
+
 ### Software used
 
 **Intellij IDEA Ultimate** - main IDE
@@ -307,13 +321,16 @@ all the Javadocs of the project.
 
 <!--Links of the document-->
 
-[javadocs-link]: https:///laughinginloud.github.io/eriantys-javadocs/
-
 [firstUML-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/deliverables/UML/initial_uml.png
 [firstUML_updated-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/deliverables/UML/initialUML_updated.pdf
 [finalUML-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/deliverables
+[protocolDoc-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/blob/main/deliverables/protocolDocumentation/protocolDocumentation.pdf
 [main-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/main
 [tests-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/test/java/it/polimi/ingsw/common/model
+[UMLpeer-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/blob/main/deliverables/UML%20-%20peerReview/received_peer_review_uml.pdf
+[UMLSentPeer-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/blob/main/deliverables/UML%20-%20peerReview/peer_review_uml.pdf
+[protocolDocPeer-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/blob/main/deliverables/protocolDocumentation%20-%20peerReview/received_peerReview2_protocolDocumentation.pdf
+[protocolDocSentPeer-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/blob/main/deliverables/protocolDocumentation%20-%20peerReview/peerReview2_ProtocolDocumentation.pdf
 
 [rules-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/main/java/it/polimi/ingsw/common/model
 [socket-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/main/java/it/polimi/ingsw/server/virtualView
