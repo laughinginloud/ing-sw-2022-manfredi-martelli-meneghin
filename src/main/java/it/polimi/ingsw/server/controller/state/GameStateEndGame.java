@@ -17,18 +17,52 @@ import static it.polimi.ingsw.common.utils.Ordering.compare;
  * @author Mattia Martelli
  */
 public final class GameStateEndGame implements GameState {
-    private Player       winner     = null;
-    private List<Player> winnerList = null;
 
-    public GameStateEndGame() {}
+    // region Fields
 
-    public GameStateEndGame(Player winner) {
-        this.winner = winner;
+    /**
+     * The winning player
+     */
+    private Player       winner;
+
+    /**
+     * The winning team (could be a draw or a team)
+     */
+    private List<Player> winnerList;
+
+    // endregion
+
+    // region Constructors
+
+    /**
+     * Build the state without already having a winner or winning team
+     */
+    public GameStateEndGame() {
+        winner     = null;
+        winnerList = null;
     }
 
+    /**
+     * Build the state with the winner already decided
+     * @param winner The winning player
+     */
+    public GameStateEndGame(Player winner) {
+        this.winner     = winner;
+             winnerList = null;
+    }
+
+    /**
+     * Build the state with the winning team already decided
+     * @param winnerList The winning team
+     */
     public GameStateEndGame(List<Player> winnerList) {
+             winner     = null;
         this.winnerList = winnerList;
     }
+
+    // endregion
+
+    // region DFA related methods
 
     public GameState nextState() {
         return null;
@@ -58,13 +92,17 @@ public final class GameStateEndGame implements GameState {
         }
     }
 
+    // endregion
+
+    // region Utility methods
+
     /**
      * Function to decide the winner in the case of a two or three players game
-     * @param data The controller data's instance
+     * @param data    The controller data's instance
      * @param players An array containing the players, ordered by their id
      */
     private void fourPlayerWinner(ControllerData data, Player[] players) {
-        // If there are four players, I check for the teams (A for ids 0 and 2, B for 1 and 3)
+        // If there are four players, check for the teams (A for ids 0 and 2, B for 1 and 3)
         switch (compare(players[0].getSchoolBoard().getTowerCount(), players[1].getSchoolBoard().getTowerCount())) {
             // Team A wins the game by having fewer towers on their board
             case LT -> {
@@ -106,7 +144,7 @@ public final class GameStateEndGame implements GameState {
 
     /**
      * Function to decide the winner in the case of a two or three players game
-     * @param data The controller data's instance
+     * @param data    The controller data's instance
      * @param players An array containing the players
      */
     private void twoThreePlayerWinner(ControllerData data, Player[] players) {
@@ -177,7 +215,7 @@ public final class GameStateEndGame implements GameState {
 
     /**
      * Function that compares the professors for the two teams, (0, 2) and (1, 3)
-     * @param gpt The global professor table
+     * @param gpt     The global professor table
      * @param players An array containing the players, ordered by id
      * @return The result represented an Ordering
      */
@@ -185,9 +223,13 @@ public final class GameStateEndGame implements GameState {
         AtomicInteger teamA = new AtomicInteger(0),
                       teamB = new AtomicInteger(0);
 
+        // Get a stream of all colors
         Arrays.stream(Color.values())
+            // Get the professor location of each color
             .map(gpt::getProfessorLocation)
+            // Perform an action for each location
             .forEach(op -> {
+                // If a player is controlling the professor, increment the correct counter
                 op.ifPresent(p -> {
                     if (p.equals(players[0]) || p.equals(players[2]))
                         teamA.addAndGet(1);
@@ -203,17 +245,21 @@ public final class GameStateEndGame implements GameState {
     /**
      * Compare the professors controlled by two provided players
      * @param gpt The global professor table
-     * @param a The first player
-     * @param b The second player
+     * @param a   The first player
+     * @param b   The second player
      * @return The player that controls more professors, using an Ordering
      */
     private Ordering compareProfessors(GlobalProfessorTable gpt, Player a, Player b) {
         AtomicInteger resA = new AtomicInteger(0),
                       resB = new AtomicInteger(0);
 
+        // Get a stream of all colors
         Arrays.stream(Color.values())
+            // Get the professor location of each color
             .map(gpt::getProfessorLocation)
+            // Perform an action for each location
             .forEach(op -> {
+                // If a player is controlling the professor, increment the correct counter
                 op.ifPresent(p -> {
                     if (p.equals(a))
                         resA.addAndGet(1);
@@ -246,4 +292,7 @@ public final class GameStateEndGame implements GameState {
     private void sendDraw(ControllerData data, List<Player> players) {
         data.sendMessageToPlayers(new GameCommandEndGame(players, true));
     }
+
+    // endregion
+
 }
