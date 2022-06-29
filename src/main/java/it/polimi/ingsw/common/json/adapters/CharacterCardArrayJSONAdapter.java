@@ -6,11 +6,9 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.model.CharacterCard;
 import it.polimi.ingsw.common.model.CharacterCardNoEntry;
 import it.polimi.ingsw.common.model.CharacterCardStudent;
-import it.polimi.ingsw.common.model.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;

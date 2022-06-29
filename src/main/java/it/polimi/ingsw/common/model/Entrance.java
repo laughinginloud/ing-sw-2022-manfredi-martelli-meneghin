@@ -1,7 +1,5 @@
 package it.polimi.ingsw.common.model;
 
-import java.util.Arrays;
-
 import static it.polimi.ingsw.common.utils.Methods.copyOf;
 
 /**

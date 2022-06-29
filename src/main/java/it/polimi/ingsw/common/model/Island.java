@@ -1,8 +1,5 @@
 package it.polimi.ingsw.common.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Class representing the islands
  * @author Sebastiano Meneghin

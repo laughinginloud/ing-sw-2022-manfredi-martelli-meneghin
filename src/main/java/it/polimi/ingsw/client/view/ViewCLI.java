@@ -22,7 +22,6 @@ import org.jline.utils.InfoCmp;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.function.Consumer;

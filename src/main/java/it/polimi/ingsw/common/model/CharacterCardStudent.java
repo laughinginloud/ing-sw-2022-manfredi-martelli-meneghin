@@ -58,7 +58,7 @@ public final class CharacterCardStudent extends CharacterCard {
 
         this.students[index] = color;
     }
-    
+
     /**
      * Adds the specified student at the end of the student's array
      * @author Giovanni Manfredi

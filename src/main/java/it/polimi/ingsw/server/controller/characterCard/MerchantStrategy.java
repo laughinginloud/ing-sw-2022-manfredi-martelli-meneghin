@@ -12,8 +12,6 @@ import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'MERCHANT'

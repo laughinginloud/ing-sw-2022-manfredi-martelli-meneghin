@@ -12,7 +12,6 @@ import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.model.*;
-import it.polimi.ingsw.common.model.Character;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import it.polimi.ingsw.common.viewRecord.MoveStudentInfo;

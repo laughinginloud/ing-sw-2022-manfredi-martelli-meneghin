@@ -12,8 +12,6 @@ import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -113,7 +111,7 @@ public class MonkStrategy extends CharacterCardStrategy {
      * @param max_length the length of the array
      * @return the new array of not-Null elements
      */
-    private Color [] getAvailableStudents(Color[] students, int max_length){
+    private Color[] getAvailableStudents(Color[] students, int max_length){
         int length = 0;
         do {
             if (students[length] != null)

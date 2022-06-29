@@ -1,22 +1,15 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
 import it.polimi.ingsw.client.Address;
-import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.client.virtualController.VirtualController;
-import it.polimi.ingsw.common.model.Color;
-import it.polimi.ingsw.common.utils.Tuple;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
