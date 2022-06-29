@@ -62,7 +62,7 @@ public class BardStrategy extends CharacterCardStrategy {
                 // For chosenNumOfMovement times asks the player which students he would like to move,
                 // waits for response and then notifies all the players after the movement
                 for (int i = 0; i < chosenNumOfMovement; i++)
-                    changeStudent(model, curPlayer, playerView);
+                    changeStudent(model, curPlayer, playerView, chosenNumOfMovement, i);
 
             }
 
@@ -81,7 +81,7 @@ public class BardStrategy extends CharacterCardStrategy {
         }
     }
 
-    private void changeStudent(GameModel model, Player curPlayer, VirtualView playerView) throws Exception {
+    private void changeStudent(GameModel model, Player curPlayer, VirtualView playerView, int chosenNumOfMovement, int iteration) throws Exception {
         Player[] players = model.getPlayers();
 
         // Gets the students present in the current player's Entrance
@@ -152,9 +152,15 @@ public class BardStrategy extends CharacterCardStrategy {
             for (int i = 0; i < players.length; i++)
                 updatedSchoolBoards[i] = players[i].getSchoolBoard();
 
-            // Save into the afterEffectUpdate the updated fields that will be broadcast to the players
-            afterEffectUpdate.put(GameValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
-            afterEffectUpdate.put(GameValues.GLOBALPROFESSORTABLE, updatedGPT);
+            // If it's the last iteration, then saves these data in the afterEffectUpdate map
+            if (iteration == (chosenNumOfMovement - 1)) {
+                // Save into the afterEffectUpdate the updated fields that will be broadcast to the players
+                afterEffectUpdate.put(GameValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
+                afterEffectUpdate.put(GameValues.GLOBALPROFESSORTABLE, updatedGPT);
+            }
+
+            else
+                updateDuringIteration(model, updatedSchoolBoards, updatedGPT);
         }
 
         // If the response is of the wrong kind throw an exception to help debug
@@ -259,5 +265,27 @@ public class BardStrategy extends CharacterCardStrategy {
                     return i;
 
         throw new IllegalStateException("Entrance must contain the student select by the swappableStudents");
+    }
+
+    /**
+     * Update the players about the students' movements caused by the effect of the
+     * CharacterCard 'BARD' on the CharacterCards and on the Entrances
+     * @param model The updated GameModel
+     * @param updatedSchoolBoards The updated CharacterCardArray
+     * @param updatedGPT The updated EntranceArray
+     */
+    private void updateDuringIteration(GameModel model, SchoolBoard[] updatedSchoolBoards, GlobalProfessorTable updatedGPT) {
+        InfoMap duringInteractionMap = new InfoMap();
+
+        duringInteractionMap.put(GameValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
+        duringInteractionMap.put(GameValues.GLOBALPROFESSORTABLE, updatedGPT);
+
+        GameCommand sendInfo = new GameCommandSendInfo(duringInteractionMap);
+
+        Player[] players = model.getPlayers();
+        for (Player playersToUpdate : players) {
+            VirtualView playerToUpdateView = ControllerData.getInstance().getPlayerView(playersToUpdate);
+            playerToUpdateView.sendMessage(sendInfo);
+        }
     }
 }
