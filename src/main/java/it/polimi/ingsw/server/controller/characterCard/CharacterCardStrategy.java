@@ -63,7 +63,8 @@ public abstract class CharacterCardStrategy {
         // Sets that a flag which indicates that a CharacterCard has been played this turn
         data.setPlayedCard();
 
-        updatePlayers();
+        if (!afterEffectUpdate.entrySet().isEmpty())
+            updatePlayers();
     }
 
     /**
