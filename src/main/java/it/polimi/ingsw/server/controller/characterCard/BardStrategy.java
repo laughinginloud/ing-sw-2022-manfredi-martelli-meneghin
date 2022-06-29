@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
 import java.util.*;
 
 /**
@@ -30,7 +31,7 @@ public class BardStrategy extends CharacterCardStrategy {
      * Activates the effect of the CharacterCard 'BARD'
      */
     @Override
-    public void activateEffect() {
+    public void activateEffect() throws SocketException {
         try {
             ControllerData data       = ControllerData.getInstance();
             GameModel      model      = data.getGameModel();
@@ -68,6 +69,10 @@ public class BardStrategy extends CharacterCardStrategy {
             // If the response is of the wrong kind throw an exception to help debug
             else
                 throw new IllegalStateException("Wrong command received: " + response);
+        }
+
+        catch (SocketException e) {
+            throw e;
         }
 
         catch (Exception e){

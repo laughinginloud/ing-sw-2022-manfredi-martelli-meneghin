@@ -90,7 +90,7 @@ public /*static*/ final class GameController {
             return;
         }
 
-        System.out.println("Server started");
+        System.out.println("Server started on port " + port);
 
         MAIN:
         while (true) {
@@ -223,12 +223,7 @@ public /*static*/ final class GameController {
         if (activeGame) {
             try {
                 gameStateThread.close();
-                gameStateThread.join();
             }
-
-            // Should never happen, since no one calls the interrupt method on the DFA
-            // It's here to make the type system happy
-            catch (InterruptedException ignored) {}
 
             finally {
                 // Reset the data

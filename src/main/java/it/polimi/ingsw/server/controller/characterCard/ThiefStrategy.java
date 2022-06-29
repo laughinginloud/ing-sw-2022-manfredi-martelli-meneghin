@@ -9,6 +9,7 @@ import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
      * Activates the effect of the CharacterCard 'THIEF'
      */
     @Override
-    public void activateEffect() {
+    public void activateEffect() throws SocketException {
         try {
             ControllerData data       = ControllerData.getInstance();
             GameModel      model      = data.getGameModel();
@@ -91,6 +92,10 @@ public class ThiefStrategy extends CharacterCardStrategy {
             // If the response is of the wrong kind throw an exception to help debug
             else
                 throw new IllegalStateException("Wrong command received: " + response);
+        }
+
+        catch (SocketException e) {
+            throw e;
         }
 
         catch (Exception ex) {

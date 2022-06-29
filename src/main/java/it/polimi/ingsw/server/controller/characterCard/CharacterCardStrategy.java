@@ -8,6 +8,8 @@ import it.polimi.ingsw.server.controller.command.GameCommandSendInfo;
 import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
+import java.net.SocketException;
+
 /**
  * Abstract class representing the strategy of the CharacterCard
  * @author Giovanni Manfredi
@@ -47,7 +49,7 @@ public abstract class CharacterCardStrategy {
      * - Sends info to players about the previous changes
      * - Activates the card effect (varies depending on the card - 12 possible)
      */
-    public void playCharacterCard(){
+    public void playCharacterCard() throws SocketException {
         ControllerData data = ControllerData.getInstance();
         Player currentPlayer = data.getCurrentPlayer();
 
@@ -72,7 +74,7 @@ public abstract class CharacterCardStrategy {
      * @param currentPlayer the player that has activated the CharacterCard
      * @param characterCardCost the cost of the activated CharacterCard
      */
-    private void moveCoins(Player currentPlayer, int characterCardCost){
+    private void moveCoins(Player currentPlayer, int characterCardCost) {
         int currentCoins;
         // Based on the number of players the Player instance could vary, so this handles both cases
         // Here the player's coins are decremented by the characterCardCost
@@ -103,7 +105,7 @@ public abstract class CharacterCardStrategy {
     /**
      * Activates the effect of the CharacterCard
      */
-    abstract public void activateEffect();
+    abstract public void activateEffect() throws SocketException;
 
     /**
      * Sends to the players the updated values of currentPlayerCoins, characterCard's hasCoin, globalCoinPool

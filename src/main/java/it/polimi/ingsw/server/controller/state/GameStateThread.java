@@ -27,6 +27,10 @@ public final class GameStateThread extends Thread {
         try {
             do {
                 state.executeState();
+
+                if (isInterrupted())
+                    break;
+
                 state = state.nextState();
                 autosave(state);
             } while (state != null && !isInterrupted());
