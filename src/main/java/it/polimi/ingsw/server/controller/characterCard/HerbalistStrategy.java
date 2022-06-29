@@ -63,7 +63,9 @@ public class HerbalistStrategy extends CharacterCardStrategy {
                 Island chosenIsland      = model.getIsland(chosenIslandIndex);
 
                 // The server places the token on the selected island (noEntryTile++)
-                int currentNoEntryTileCount = chosenIsland.getNoEntryTileCount();
+                int currentNoEntryTileCount = chosenIsland.getNoEntryTileCount() != null
+                    ? chosenIsland.getNoEntryTileCount()
+                    : 0;
                 chosenIsland.setNoEntryTileCount(currentNoEntryTileCount + 1);
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
