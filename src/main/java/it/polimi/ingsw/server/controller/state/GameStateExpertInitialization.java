@@ -117,15 +117,15 @@ public final class GameStateExpertInitialization implements GameStateSetup {
 
         for (Player player : players) {
             if (player instanceof PlayerExpert p)
-                p.setCoinCount(5);
+                p.setCoinCount(10);
 
             else if (player instanceof PlayerTeamExpert p)
-                p.setCoinCount(5);
+                p.setCoinCount(10);
 
             else
                 throw new IllegalStateException("The players were not correctly created: use PlayerExpert or PlayerExpertTeam when using the expert ruleset");
         }
 
-        model.decreaseCoinPool((players.length)*5);
+        model.decreaseCoinPool((players.length)*10);
     }
 }

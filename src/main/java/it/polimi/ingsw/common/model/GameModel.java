@@ -63,9 +63,9 @@ public final class GameModel {
         Set<Integer> cardSet = new HashSet<>();
 
         // TODO: Remove this hardcoded part
-        cardSet.add(0);
-        cardSet.add(1);
-        cardSet.add(2);
+        cardSet.add(6);
+        cardSet.add(7);
+        cardSet.add(8);
 
         /*
         // Create a subset of three elements from [0, 11]
