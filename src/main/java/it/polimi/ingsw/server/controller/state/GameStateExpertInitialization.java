@@ -98,6 +98,9 @@ public final class GameStateExpertInitialization implements GameStateSetup {
      * @param model GameModel which the players are part of
      */
     private void setCoins(Player[] players, GameModel model) {
+
+        //TODO: remove this hardcoded part
+        /*
         for (Player player : players) {
             if (player instanceof PlayerExpert p)
                 p.setCoinCount(1);
@@ -110,5 +113,19 @@ public final class GameStateExpertInitialization implements GameStateSetup {
         }
 
         model.decreaseCoinPool(players.length);
+        */
+
+        for (Player player : players) {
+            if (player instanceof PlayerExpert p)
+                p.setCoinCount(5);
+
+            else if (player instanceof PlayerTeamExpert p)
+                p.setCoinCount(5);
+
+            else
+                throw new IllegalStateException("The players were not correctly created: use PlayerExpert or PlayerExpertTeam when using the expert ruleset");
+        }
+
+        model.decreaseCoinPool((players.length)*5);
     }
 }
