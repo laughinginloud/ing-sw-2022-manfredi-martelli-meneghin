@@ -30,6 +30,6 @@ public enum MessageType {
     CUR_PLAYER_END_TURN,
 
     // Message sent by the server to inform the not current players about the
-    // beginning of the the turn of another player
+    // beginning of the turn of another player
     OTHER_PLAYER_START_TURN;
 }

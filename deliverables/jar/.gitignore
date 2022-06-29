@@ -1,0 +1,2 @@
+# Allow the final compiled uber-jar for the folder
+!*.jar
