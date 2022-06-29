@@ -81,7 +81,7 @@ public final class ViewGUI extends Application implements View {
         stage.setResizable(false);
 
         // Sets the title, the scene, the icon
-        stage.setTitle("Eriantys pre alpha 5.0");
+        stage.setTitle("Eriantys 1.0 - PSP27");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/it/polimi/ingsw/images/cranio.png")));
 
         // Sets the trigger on close request. Event on close request -> exit
