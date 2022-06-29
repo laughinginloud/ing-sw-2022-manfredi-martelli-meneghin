@@ -68,7 +68,7 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
         Island         currentIsland = model.getIsland(islandIndex);
 
         // If there is at least one no entry tile on this island, return it to the card and exit the current state
-        if (data.getExpertMode() && currentIsland.getNoEntryTileCount() > 0) {
+        if (data.getExpertMode() && currentIsland.getNoEntryTileCount() != null && currentIsland.getNoEntryTileCount() > 0) {
             currentIsland.setNoEntryTileCount(currentIsland.getNoEntryTileCount() - 1);
 
             // Find the Herbalist card, which uses the tiles, in the array of character cards
