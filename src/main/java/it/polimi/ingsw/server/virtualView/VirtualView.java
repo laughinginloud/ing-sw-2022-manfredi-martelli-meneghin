@@ -16,17 +16,33 @@ import java.net.SocketTimeoutException;
  * @author Mattia Martelli
  */
 public class VirtualView extends Thread implements AutoCloseable {
+
+    // region Constants and fields
+
     // A couple of useful constants, representing the "ping" and "pong" messages
+
+    /**
+     * The "ping" message
+     */
     private static final Message PING_MESSAGE = new Message(MessageType.PING, null);
+
+    /**
+     * The "pong" message
+     */
     private static final Message PONG_MESSAGE = new Message(MessageType.PONG, null);
 
+    /**
+     * Signal whether a pong has been received
+     */
     private static boolean pongReceived;
 
-
-    // Fields that hold the communication data
     private final Socket           socket;
     private final DataInputStream  inputStream;
     private final DataOutputStream outputStream;
+
+    // endregion
+
+    // region Constructor and thread methods
 
     public VirtualView(Socket socket) throws SocketException {
         try {
@@ -34,7 +50,7 @@ public class VirtualView extends Thread implements AutoCloseable {
             inputStream  = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
 
-            // Set a timeout of 1 second for every input stream read
+            // Set a timeout of 1/2 second for every input stream read
             socket.setSoTimeout(500);
 
             start();
@@ -43,6 +59,30 @@ public class VirtualView extends Thread implements AutoCloseable {
         // If the socket cannot be opened, throw an exception
         catch (Exception e) {
             throw new SocketException();
+        }
+    }
+
+    @Override
+    public void run() {
+        while (!isInterrupted()) {
+            try {
+                Message msg = getMessage();
+
+                if (msg.equals(PONG_MESSAGE))
+                    pongReceived = true;
+
+                else
+                    MessageBuilder.messageToCommand(msg).executeCommand();
+            }
+
+            catch (NotPongException e) {
+                MessageBuilder.messageToCommand(e.getMsg()).executeCommand();
+            }
+
+            // If I can't sleep it's because I've been interrupted: just let the while end gracefully, ending the thread
+            catch (Exception ignored) {
+                endThread();
+            }
         }
     }
 
@@ -66,6 +106,18 @@ public class VirtualView extends Thread implements AutoCloseable {
     }
 
     /**
+     * End the current thread, sending a signal to the game controller
+     */
+    private void endThread() {
+        GameController.signalPlayerDisconnected(this);
+        close();
+    }
+
+    // endregion
+
+    // region Communication methods
+
+    /**
      * Send a command to the view, without waiting for a response
      * @param command the command to be sent
      */
@@ -85,7 +137,7 @@ public class VirtualView extends Thread implements AutoCloseable {
     }
 
     /**
-     * Send a GameCommandInterruptGame to the view
+     * Send a GameCommandInterruptGame to the view and close the view
      */
     public void sendInterrupt() {
         try {
@@ -119,6 +171,12 @@ public class VirtualView extends Thread implements AutoCloseable {
         }
     }
 
+    /**
+     * Get a message from the network
+     * @return The message received
+     * @throws NotPongException If a message different from "pong" was received unexpectedly
+     * @throws SocketException  If the socket was terminated
+     */
     private Message getMessage() throws NotPongException, SocketException {
         Message msg;
 
@@ -160,7 +218,7 @@ public class VirtualView extends Thread implements AutoCloseable {
 
             catch (Exception ignored) {
                 endThread();
-                throw new SocketException(); //TODO: controllare che tutti la gestiscano correttamente
+                throw new SocketException();
             }
         }
 
@@ -178,66 +236,10 @@ public class VirtualView extends Thread implements AutoCloseable {
         return getCommand();
     }
 
-    public void run() {
-        while (!isInterrupted()) {
-            try {
-                Message msg = getMessage();
-
-                if (msg.equals(PONG_MESSAGE))
-                    pongReceived = true;
-
-                else
-                    MessageBuilder.messageToCommand(msg).executeCommand(); //TODO: gestione delle richieste
-            }
-
-            catch (NotPongException e) {
-                MessageBuilder.messageToCommand(e.getMsg()).executeCommand();
-            }
-
-/*
-            // If the socket timed out whilst reading, try sending a ping to see if the client is still alive
-            catch (SocketTimeoutException ignored) {
-                try {
-                    sendPing();
-                }
-
-                catch (SocketException e) {
-                    endThread();
-                }
-
-                catch (NotPongException e) {
-                    e.getCommand().executeCommand();
-                }
-            }
-
-            catch (EOFException ignored) {
-                try {
-                    sleep(1000);
-
-                    if (inputStream.available() == 0)
-                        sendPing();
-                }
-
-                catch (InterruptedException | IOException e) {
-                    endThread();
-                }
-
-                catch (NotPongException e) {
-                    e.getCommand().executeCommand();
-                }
-            }
-*/
-            // If I can't sleep it's because I've been interrupted: just let the while end gracefully, ending the thread
-            catch (Exception ignored) {
-                endThread();
-            }
-        }
-    }
-
     /**
      * A simple function to send a ping to check whether the view's still alive
      * @throws NotPongException Throws an exception to signal that a command different from a ping response as been received
-     * @throws SocketException Throws a socket exception if the connection has been closed
+     * @throws SocketException  Throws a socket exception if the connection has been closed
      */
     private synchronized void sendPing() throws NotPongException, SocketException {
         Message pong;
@@ -290,8 +292,6 @@ public class VirtualView extends Thread implements AutoCloseable {
         }
     }
 
-    private void endThread() {
-        GameController.signalPlayerDisconnected(this);
-        close();
-    }
+    // endregion
+
 }

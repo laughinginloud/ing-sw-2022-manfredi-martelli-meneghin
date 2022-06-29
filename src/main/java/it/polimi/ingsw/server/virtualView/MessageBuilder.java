@@ -17,6 +17,7 @@ import static it.polimi.ingsw.common.json.Constants.jsonBuilder;
  * @author Mattia Martelli, Sebastiano Meneghin
  */
 final class MessageBuilder {
+
     // The constructor is private to emulate a static class (along with the class itself being final)
     private MessageBuilder() {}
 
@@ -51,7 +52,7 @@ final class MessageBuilder {
             return new Message(MessageType.REQUESTACTION, c.executeCommand());
 
         if (command instanceof GameCommandEndGame c)
-            return new Message(c.isDraw() ? MessageType.GAMEDRAW : c.isTeam() ? MessageType.GAMEWINNERTEAM : MessageType.GAMEWINNER, c.executeCommand());
+            return new Message(c.isDraw() ? MessageType.GAMEDRAW : (c.isTeam() ? MessageType.GAMEWINNERTEAM : MessageType.GAMEWINNER), c.executeCommand());
 
         if (command instanceof GameCommandInterruptGame)
             return new Message(MessageType.GAMEINTERRUPT, null);
@@ -70,6 +71,7 @@ final class MessageBuilder {
      * @param message The message that will be translated
      * @return The command corresponding to the provided message
      */
+    @SuppressWarnings("unchecked")
     public static GameCommand messageToCommand(Message message) {
         if (message == null)
             return null;
@@ -99,15 +101,6 @@ final class MessageBuilder {
     }
 
     /**
-     * Get the command corresponding to the specified message (in JSON form)
-     * @param message The message that will be translated
-     * @return The command corresponding to the provided message
-     */
-    public static GameCommand jsonToCommand(String message) {
-        return messageToCommand(jsonToMessage(message));
-    }
-
-    /**
      * Translate a message from an object to its JSON counterpart
      * @param message The object to be translated
      * @return A string containing the translation
@@ -124,14 +117,5 @@ final class MessageBuilder {
     public static Message jsonToMessage(String json) {
         return jsonBuilder.fromJson(json, Message.class);
     }
+
 }
-
-
-/*
-FUNZIONAMENTO
-
-Controller e View comunicano tramite command
-VirtualView si occupa di chiamare MessageBuilder, che crea una stringa contenente un JSON che contiene il messaggio
-Il messaggio è di tipo Message, record con due campi: MessageType, enumeratore con i tipi di messaggio, e value, object generico (NB: se null semplicemente non viene inviato)
-Build riceve un comando, guarda il suo tipo concreto e quindi agisce di conseguenza, trasformando nel JSON
- */
