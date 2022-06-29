@@ -8,7 +8,7 @@
              (example: group 99 will have artifactId PSP99 -->
     <artifactId>PSP27</artifactId>
 
-    <version>1.0-SNAPSHOT</version>
+    <version>Eriantys-1.0</version>
     <name>Eriantys</name>
 
     <properties>
