@@ -1,7 +1,5 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
-import it.polimi.ingsw.client.Address;
-import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge;
 import javafx.fxml.FXML;
@@ -12,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,8 +17,14 @@ import java.util.Set;
  * The client is asked for a username (different from the forbiddenUsernames)
  * and for how many years has he know magic (MagicAge) and sends it to the
  * VirtualController
+ *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+@SuppressWarnings({"unused"})
+
 public final class ClientInfoHandler implements GUIHandler {
 
     private ViewGUI gui;
@@ -107,6 +110,7 @@ public final class ClientInfoHandler implements GUIHandler {
 
     /**
      * Sets the Set of usernames that the client that can't choose
+     *
      * @param forbiddenUsernames the set of forbidden names
      */
     public void setForbiddenUsernames(Set<String> forbiddenUsernames){
@@ -115,6 +119,7 @@ public final class ClientInfoHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the ClientInfoHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override

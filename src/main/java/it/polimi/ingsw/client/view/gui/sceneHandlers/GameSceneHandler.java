@@ -23,8 +23,16 @@ import java.util.*;
  * Handler (or Controller) of the scene GameScene (gameScenePage.fxml)
  * The game's main scene
  *
- * @author Giovanni Manfredi & Sebastiano Meneghin
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for gui field has been suppressed to allow future modification of the class
+// Warnings for possible null parameters to an addImage have been suppressed because the input is constant
+// Warnings for classes that are not exported has been suppressed because are intentionally not exported
+@SuppressWarnings({"unused, FieldCanBeLocal, ConstantConditions", "ClassEscapesDefinedScope"})
+
 public final class GameSceneHandler implements GUIHandler {
 
     public ViewGUI gui;
@@ -1478,7 +1486,7 @@ public final class GameSceneHandler implements GUIHandler {
         ImageView cloudTileStudent;
         Color     cloudTileStudentColor;
         String    cloudTileStudentPath;
-        int       cloudTileMaxNumOfStudents = 0;
+        int       cloudTileMaxNumOfStudents;
         // For each cloudTile (one per player)
         for (int i = 0; i < numOfPlayers; i++) {
 

@@ -1,16 +1,12 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
-import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
 import it.polimi.ingsw.common.viewRecord.GameRules;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,8 +16,14 @@ import java.util.ResourceBundle;
  * The client is asked for the rules of the game the player wants to play with
  * (2 to 4 player, ExpertMode true or false) and sends the information to
  * the VirtualController
+ *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+@SuppressWarnings({"unused"})
+
 public final class AskForRulesHandler implements GUIHandler, Initializable {
 
     private ViewGUI gui;
@@ -68,7 +70,8 @@ public final class AskForRulesHandler implements GUIHandler, Initializable {
     /**
      * Implementation of the interface Initialize.
      * Initializes the Spinner to a default set of integers [2,4]
-     * @param url resource url
+     *
+     * @param url            resource url
      * @param resourceBundle bundle of the resource
      */
     @Override
@@ -84,6 +87,7 @@ public final class AskForRulesHandler implements GUIHandler, Initializable {
 
     /**
      * Sets the ViewGUI at which the AskForRulesHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override

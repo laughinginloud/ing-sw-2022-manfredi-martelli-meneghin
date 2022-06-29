@@ -26,7 +26,8 @@ import java.util.*;
 /**
  * View implementation for the GUI (Graphic User Interface)
  * ViewGUI implements Application to execute the program with the Java Application Thread
- * @author Giovanni Manfredi & Sebastiano Meneghin
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public final class ViewGUI extends Application implements View {
 
@@ -69,6 +70,7 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Starts the Java Application thread and the GUI Window
+     *
      * @param stage the stage
      */
     @Override
@@ -122,6 +124,7 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Sets an alert if the close button is pressed, and if confirmed closes the stage (and the game)
+     *
      * @param stage the stage to be closed
      */
     public void exit(Stage stage){
@@ -208,7 +211,8 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Updates the model, in order to show the latest model condition
-     * @param model The updated model present on the server's model
+     *
+     * @param model         The updated model present on the server's model
      * @param updatedValues The updated fields of the model
      */
     @Override
@@ -605,6 +609,7 @@ public final class ViewGUI extends Application implements View {
     /**
      * Sets the username in the VirtualController after getting it from the player.
      * This will come in handy when the View needs to identify self-player infos in the model
+     *
      * @param readUsername the username of the player
      */
     @Override
@@ -661,6 +666,7 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Gets the model saved in the View
+     *
      * @return the model saved
      */
     @Override
@@ -671,6 +677,7 @@ public final class ViewGUI extends Application implements View {
     /**
      * Gets the localPlayer by comparing the Username present in the VirtualController
      * with the players present in the GameModel
+     *
      * @return the localPlayer (null if not present)
      */
     @Override
@@ -690,6 +697,7 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Gets the positional index of the localPlayer in the playersArray of the current Model
+     *
      * @return An int representing the localPlayerIndex
      */
     public int getLocalPlayerIndex() {
@@ -725,6 +733,7 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Sets the current Game Model to the one specified
+     *
      * @param model A reference to the model
      */
     @Override

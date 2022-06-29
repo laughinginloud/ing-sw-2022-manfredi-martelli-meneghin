@@ -17,8 +17,17 @@ import java.util.List;
 /**
  * Handler (or Controller) of the scene EndGame (endGamePage.fxml)
  * The client is shown the game's winner(s) or of a draw
+ *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for gui field has been suppressed to allow future modification of the class
+// Warnings for possible null parameters to an addImage have been suppressed because the input is constant
+// Warnings for classes that are not exported has been suppressed because are intentionally not exported
+@SuppressWarnings({"unused, FieldCanBeLocal, ConstantConditions", "ClassEscapesDefinedScope"})
+
 public final class EndGameHandler implements GUIHandler {
 
     private ViewGUI gui;
@@ -71,6 +80,7 @@ public final class EndGameHandler implements GUIHandler {
 
     /**
      * Shows the single winner it receives as input in the EndGameScene
+     *
      * @param winner the game's winner
      */
     public void displayWinner(Player winner) {
@@ -95,6 +105,7 @@ public final class EndGameHandler implements GUIHandler {
 
     /**
      * Shows the players in the winning team in the EndGameScene
+     *
      * @param team the game's winning team
      */
     public void displayWinningTeam(List<Player> team) {
@@ -111,6 +122,7 @@ public final class EndGameHandler implements GUIHandler {
 
     /**
      * Shows the players who ended the game in a draw in the EndGameScene
+     *
      * @param drawers the players who ended the game in a draw
      */
     public void displayDraw(List<Player> drawers) {
@@ -132,6 +144,7 @@ public final class EndGameHandler implements GUIHandler {
 
     /**
      * Shows the players array it receives as input in the EndGameScene
+     *
      * @param players the players to be shown
      */
     private void displayPlayers(List<Player> players) {
@@ -168,6 +181,7 @@ public final class EndGameHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the EndGameHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override

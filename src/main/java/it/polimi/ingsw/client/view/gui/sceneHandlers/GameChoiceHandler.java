@@ -1,9 +1,7 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
-import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.Pages;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
-import it.polimi.ingsw.common.viewRecord.GameRules;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -13,8 +11,15 @@ import javafx.scene.layout.AnchorPane;
  * Handler (or Controller) of the scene GameChoice (gameChoicePage.fxml)
  * The client is asked whether he wants to play a new game or continue
  * the saved game. The information is then sent to the VirtualController
- * @author Giovanni Manfredi & Sebastiano Meneghin
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for gui field has been suppressed to allow future modification of the class
+@SuppressWarnings({"unused, FieldCanBeLocal"})
+
 public final class GameChoiceHandler implements GUIHandler {
 
     private ViewGUI gui;
@@ -54,6 +59,7 @@ public final class GameChoiceHandler implements GUIHandler {
 
     /**
      * Sets the ViewGUI at which the GameChoiceHandler is related
+     *
      * @param gui the ViewGUI instance
      */
     @Override

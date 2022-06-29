@@ -1,8 +1,6 @@
 package it.polimi.ingsw.client.view.gui.sceneHandlers;
 
-import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.view.gui.ViewGUI;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,12 +10,17 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * Handler (or Controller) of the scene Initial (initialPage.fxml)
- * The client is shown a landing page with few informations (authors and logos)
+ * The client is shown a landing page with little information (authors and logos)
  * and a play button. If the button is pressed the application starts notifying
  * the Client.java otherwise if the window is closed the application is closed
  *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+@SuppressWarnings({"unused"})
+
 public final class InitialHandler implements GUIHandler{
     private ViewGUI gui;
 

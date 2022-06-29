@@ -10,8 +10,15 @@ import javafx.scene.layout.AnchorPane;
  * Handler (or Controller) of the scene ConnectionError (connectionErrorPage.fxml)
  * The client is informed that the connection to the server was lost
  * and advises him to close the application and try again
+ *
  * @author Giovanni Manfredi
  */
+
+// Warnings for unused fields have been disabled, since the fields that these fields are accessing
+// could be useful in the future and difficult to add without opening the .fxml
+// Warnings for gui field has been suppressed to allow future modification of the class
+@SuppressWarnings({"unused, FieldCanBeLocal"})
+
 public final class ConnectionErrorHandler implements GUIHandler {
 
     private ViewGUI gui;
