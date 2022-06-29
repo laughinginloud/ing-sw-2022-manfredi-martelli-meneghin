@@ -31,6 +31,7 @@ import static it.polimi.ingsw.common.termutils.Ansi.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
 import static it.polimi.ingsw.common.termutils.Graphics.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
+import static java.lang.Thread.sleep;
 import static java.util.Comparator.*;
 
 /**
@@ -54,7 +55,7 @@ public final class ViewCLI implements View {
 
     private final Attributes  savedAttributes;
     private final Display     display;
-    private final InputStream keyStream;
+    private InputStream keyStream;
     private final LineReader  reader;
     private final Terminal    terminal;
     private final PrintWriter writer;
@@ -183,8 +184,15 @@ public final class ViewCLI implements View {
      * Context switch to a different "window"
      * @param window The "window" to switch to
      */
-    private void contextSwitch(Runnable window) {
-        ifNotNull(currentMenu, Thread::interrupt);
+    private synchronized void contextSwitch(Runnable window) {
+        ifNotNull(currentMenu, m -> {
+            m.interrupt();
+
+            reader.setVariable(LineReader.KILL_LINE,    Boolean.TRUE);
+            reader.setVariable(LineReader.KILL_BUFFER,  Boolean.TRUE);
+            //reader.setVariable(LineReader.CLEAR_SCREEN, Boolean.TRUE);
+        });
+
 
         currentMenu = new Thread(() -> {
             try {
@@ -1389,7 +1397,7 @@ public final class ViewCLI implements View {
 
     @Override
     public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        contextSwitch(() -> requestPlayCharacterCard_noSwitch(playableCharacterCards));
+        contextSwitch(this::requestPlayCharacterCard_noSwitch, playableCharacterCards);
     }
 
     /**
@@ -1952,7 +1960,13 @@ public final class ViewCLI implements View {
                         if (readCldInd <= 0 || readCldInd > cloudsNum)
                             throw new NumberFormatException();
 
-                        forwardViewToVirtualController(findCloud(availableClouds[readCldInd - 1].getStudents(), model.getCloudTiles()));
+                        int cloudIndex = findCloud(availableClouds[readCldInd - 1].getStudents(), model.getCloudTiles());
+
+                        Entrance en = localPlayer.getSchoolBoard().getEntrance();
+                        Arrays.stream(model.getCloudTile(cloudIndex).getStudents()).forEach(en::appendStudent);
+
+                        forwardViewToVirtualController(cloudIndex);
+
                         return;
                     }
 
@@ -2729,16 +2743,10 @@ public final class ViewCLI implements View {
         writer.println();
 
         try {
-            hideCursor(writer);
-            writer.print("Press any key to continue...");
-            keyStream.read();
-            showCursor(writer);
+            sleep(1000);
         }
 
-        // Should never happen
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        catch (InterruptedException ignored) {}
     }
 
     @Override
@@ -2766,16 +2774,10 @@ public final class ViewCLI implements View {
             writer.println();
 
             try {
-                hideCursor(writer);
-                writer.print("Press any key to continue...");
-                keyStream.read();
-                showCursor(writer);
+                sleep(1000);
             }
 
-            // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            catch (InterruptedException ignored) {}
         });
     }
 
@@ -2791,45 +2793,24 @@ public final class ViewCLI implements View {
             writer.println();
 
             try {
-                hideCursor(writer);
-                writer.print("Press any key to continue...");
-                keyStream.read();
-
-                updateModel(model, null);
+                sleep(1000);
             }
 
-            // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            catch (InterruptedException ignored) {}
+
+            updateModel(model, null);
         });
     }
 
     @Override
     public void notifyEndOfTurn() {
-        contextSwitch(() -> {
-            display.clear();
-            display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
+        display.clear();
+        display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
-            writer.println();
-            writer.println("Your turn has now ended!");
-            writer.println("Please wait for the other's to end");
-            writer.println();
-
-            try {
-                hideCursor(writer);
-                writer.print("Press any key to continue...");
-                keyStream.read();
-                showCursor(writer);
-            }
-
-            catch (InterruptedIOException ignored) {}
-
-            // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        writer.println();
+        writer.println("Your turn has now ended!");
+        writer.println("Please wait for the other's to end");
+        writer.println();
     }
 
     @Override
@@ -2851,9 +2832,7 @@ public final class ViewCLI implements View {
             }
 
             // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            catch (IOException ignored) {}
         });
     }
 
@@ -2880,9 +2859,7 @@ public final class ViewCLI implements View {
             }
 
             // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            catch (IOException ignored) {}
         });
     }
 

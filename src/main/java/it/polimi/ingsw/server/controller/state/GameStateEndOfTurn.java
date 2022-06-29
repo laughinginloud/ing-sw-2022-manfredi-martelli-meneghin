@@ -13,8 +13,6 @@ import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * State representing the end of a player ActionPhase's turn
