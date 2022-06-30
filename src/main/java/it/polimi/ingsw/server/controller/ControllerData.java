@@ -17,8 +17,9 @@ import static it.polimi.ingsw.common.utils.Methods.copyOf;
 
 /**
  * Singleton containing data used by the controller during the game
- * @author Mattia Martelli
+ * @author Giovanni Manfredi, Mattia Martelli & Sebastiano Meneghin
  */
+@SuppressWarnings("unused")
 public final class ControllerData {
 
     // region Character cards flags
