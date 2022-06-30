@@ -61,9 +61,10 @@ public class BardStrategy extends CharacterCardStrategy {
 
                 // For chosenNumOfMovement times asks the player which students he would like to move,
                 // waits for response and then notifies all the players after the movement
-                for (int i = 0; i < chosenNumOfMovement; i++)
-                    changeStudent(model, curPlayer, playerView, chosenNumOfMovement, i);
-
+                for (int i = 0; i < chosenNumOfMovement; i++) {
+                    boolean lastMovement = i == chosenNumOfMovement - 1;
+                    changeStudent(model, curPlayer, playerView, lastMovement);
+                }
             }
 
             // If the response is of the wrong kind throw an exception to help debug
@@ -81,7 +82,7 @@ public class BardStrategy extends CharacterCardStrategy {
         }
     }
 
-    private void changeStudent(GameModel model, Player curPlayer, VirtualView playerView, int chosenNumOfMovement, int iteration) throws Exception {
+    private void changeStudent(GameModel model, Player curPlayer, VirtualView playerView, boolean lastMovement) throws Exception {
         Player[] players = model.getPlayers();
 
         // Gets the students present in the current player's Entrance
@@ -153,7 +154,7 @@ public class BardStrategy extends CharacterCardStrategy {
                 updatedSchoolBoards[i] = players[i].getSchoolBoard();
 
             // If it's the last iteration, then saves these data in the afterEffectUpdate map
-            if (iteration == (chosenNumOfMovement - 1)) {
+            if (lastMovement) {
                 // Save into the afterEffectUpdate the updated fields that will be broadcast to the players
                 afterEffectUpdate.put(GameValues.SCHOOLBOARDARRAY, updatedSchoolBoards);
                 afterEffectUpdate.put(GameValues.GLOBALPROFESSORTABLE, updatedGPT);
