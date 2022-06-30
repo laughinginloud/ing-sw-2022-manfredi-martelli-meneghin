@@ -455,6 +455,9 @@ public final class ControllerData {
 
     // region Instance related methods
 
+    /**
+     * Build a fresh instance
+     */
     private ControllerData() {
         expertMode                = false;
         winTrigger                = false;
@@ -516,7 +519,7 @@ public final class ControllerData {
     /**
      * Method to search for the original copy of a player in the model
      * @param players The array containing the original copies
-     * @param player The player to search in the model
+     * @param player  The player to search in the model
      * @return A pointer to the original copy of the player
      */
     private static Player findPlayer(Player[] players, Player player) {
@@ -532,8 +535,8 @@ public final class ControllerData {
      * Delete all data currently saved and return a fresh instance
      */
     public static ControllerData nukeInstance() {
-        instance = null;
-        return getInstance();
+        instance = new ControllerData();
+        return instance;
     }
 
     // endregion
