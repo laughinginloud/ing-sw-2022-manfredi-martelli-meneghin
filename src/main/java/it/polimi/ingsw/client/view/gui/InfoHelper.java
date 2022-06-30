@@ -4,20 +4,30 @@ import it.polimi.ingsw.common.model.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-// TODO - JavaDocs (?)
-
 /**
  * Helper class with useful methods to switch from elements ID to their information (position, color,
  * index, number, etc...) related to the Model's way to store data
  * GS = Game Scene
+ *
  * @author Sebastiano Meneghin
  */
+
+// Warnings for unused fields have been disabled, since many methods now not used, could become useful in the future
+// Warnings for classes that are not exported has been suppressed because are intentionally not exported
+@SuppressWarnings({"unused, ClassEscapesDefinedScope"})
+
 public class InfoHelper {
 
     // region GameSceneInfo
 
     // region IslandInfo
 
+    /**
+     * Gets the IslandIndex related to the IslandPane (ID)
+     *
+     * @param islandPaneID the specified IslandAnchorPane of the desired islandIndex
+     * @return the index of the specified IslandPane in the GUI interface
+     */
     public static int gsFindIslandIndex(AnchorPane islandPaneID) {
         return switch(islandPaneID.getId()) {
             case "isl0_pane"  -> 0;
@@ -36,6 +46,12 @@ public class InfoHelper {
         };
     }
 
+    /**
+     * Gets the IslandIndex related to the IslandImage (ID)
+     *
+     * @param islandImageID the specified IslandImageView of the desired islandIndex
+     * @return the index of the specified IslandImage in the GUI interface
+     */
     public static int gsFindIslandIndex(ImageView islandImageID) {
         return switch(islandImageID.getId()) {
             case "isl0_img"  -> 0;
@@ -58,6 +74,12 @@ public class InfoHelper {
 
     // region CloudInfo
 
+    /**
+     * Gets the CloudTileIndex related to the CloudTilePane (ID)
+     *
+     * @param cloudTilePaneID the specified CloudTileAnchorPane of the desired cloudTileIndex
+     * @return the index of the specified CloudTilePane in the GUI interface
+     */
     public static int gsFindCloudTileIndex(AnchorPane cloudTilePaneID) {
         return switch(cloudTilePaneID.getId()) {
             case "cloudTile0_pane" -> 0;
@@ -68,6 +90,12 @@ public class InfoHelper {
         };
     }
 
+    /**
+     * Gets the CloudTileIndex related to the CloudTileImage (ID)
+     *
+     * @param cloudTileImageID the specified CloudTileImageView of the desired cloudTileIndex
+     * @return the index of the specified CloudTileImage in the GUI interface
+     */
     public static int gsFindCloudTileIndex(ImageView cloudTileImageID) {
         return switch(cloudTileImageID.getId()) {
             case "cloud0_img" -> 0;
@@ -82,6 +110,12 @@ public class InfoHelper {
 
     // region CharacterCardInfo
 
+    /**
+     * Gets the CharacterCardIndex related to the CharacterCardImage (ID)
+     *
+     * @param characterCardImageID the specified CharacterCardImageView of the desired characterCardIndex
+     * @return the index of the specified CharacterCardImage in the GUI interface
+     */
     public static int gsFindCharacterCardIndex(ImageView characterCardImageID) {
         return switch(characterCardImageID.getId()) {
             case "characterCard0_img" -> 0;
@@ -93,15 +127,27 @@ public class InfoHelper {
 
     // region CharacterCardElementInfo
 
+    /**
+     * Gets the CharacterCardIndex that contains the specified CharacterCardElementImage (ID)
+     *
+     * @param elementImageID the specified CharacterCardElementImageView of the desired characterCardIndex
+     * @return the index of the CharacterCard that contains the specified CharacterCardElementImage in the GUI interface
+     */
     public static int gsFindCharacterCardIndexFromSelectedElement (ImageView elementImageID) {
         return switch(elementImageID.getId()) {
             case "CC0_elem0_img", "CC0_elem1_img", "CC0_elem2_img", "CC0_elem3_img", "CC0_elem4_img", "CC0_elem5_img" -> 0;
             case "CC1_elem0_img", "CC1_elem1_img", "CC1_elem2_img", "CC1_elem3_img", "CC1_elem4_img", "CC1_elem5_img" -> 1;
             case "CC2_elem0_img", "CC2_elem1_img", "CC2_elem2_img", "CC2_elem3_img", "CC2_elem4_img", "CC2_elem5_img" -> 2;
-            default -> throw new IllegalStateException("The elementImageID you have inserted is not contemplated. You've inserted: " + elementImageID.getId());
+            default                                                                                                   -> throw new IllegalStateException("The elementImageID you have inserted is not contemplated. You've inserted: " + elementImageID.getId());
         };
     }
 
+    /**
+     * Gets the CharacterCardElementIndex related to the CharacterCardElementImage (ID)
+     *
+     * @param elementImageID the specified CharacterCardElementImageView of the desired characterCardElementIndex
+     * @return the index of the specified CharacterCardElementImage in the GUI interface
+     */
     public static int gsFindCharacterCardElementIndex(ImageView elementImageID) {
         return switch(elementImageID.getId()) {
             case "CC0_elem0_img", "CC1_elem0_img", "CC2_elem0_img" -> 0;
@@ -114,6 +160,13 @@ public class InfoHelper {
         };
     }
 
+    /**
+     * Gets the Color of the CharacterCardElement specified by the CharacterCardElementImage (ID)
+     * This gets the Color only if the element is a student, it raises a IllegalStateException otherwise
+     *
+     * @param elementImageID the specified CharacterCardElementImageView of the desired color
+     * @return the color of the student corresponding to the CharacterCardElementImage
+     */
     public static Color gsFindCharacterCardElementColor(ImageView elementImageID) {
         String     elementImageFXMLPath = elementImageID.getImage().getUrl();
         ImageTypes elementImageType     = PathHelper.fromFXMLPathToImageTypes(elementImageFXMLPath);
@@ -135,6 +188,12 @@ public class InfoHelper {
 
     // region DiningRoomInfo
 
+    /**
+     * Gets the Color of the diningRoomTable specified by the DiningRoomTablePane (ID)
+     *
+     * @param diningRoomTablePaneID the specified DiningRoomTableAnchorPane of the desired color
+     * @return the color of the diningRoomTable corresponding to the DiningRoomTablePane
+     */
     public static Color gsFindDiningRoomTableColor(AnchorPane diningRoomTablePaneID) {
         return switch(diningRoomTablePaneID.getId()) {
             case "greenDiningRoom_pane"  -> Color.GREEN;
@@ -150,6 +209,12 @@ public class InfoHelper {
 
     // region EntranceInfo
 
+    /**
+     * Gets the index of the student in the entrance specified by the EntranceStudentImage (ID)
+     *
+     * @param entranceStudentImageID the specified EntranceStudentImageView of the desired studentIndex
+     * @return the studentIndex corresponding to the entranceStudentImage
+     */
     public static int gsFindEntranceStudentIndex (ImageView entranceStudentImageID) {
         return switch(entranceStudentImageID.getId()) {
             case "E_student0_img" -> 0;
@@ -165,6 +230,12 @@ public class InfoHelper {
         };
     }
 
+    /**
+     * Gets the Color of the student in the entrance specified by the EntranceStudentImage (ID)
+     *
+     * @param studentImageID the specified EntranceStudentImageView of the desired student (color)
+     * @return the color of the student corresponding to the entranceStudentImage
+     */
     public static Color gsFindEntranceStudentColor(ImageView studentImageID) {
         String     studentImageFXMLPath = studentImageID.getImage().getUrl();
         ImageTypes studentImageType     = PathHelper.fromFXMLPathToImageTypes(studentImageFXMLPath);
@@ -183,6 +254,12 @@ public class InfoHelper {
 
     // region AssistantCardInfo
 
+    /**
+     * Gets the index of the assistantCard from the specified AssistantCardImage (ID)
+     *
+     * @param assistantCardImageID the specified AssistantCardImageView of the desired ACIndex
+     * @return the index of the assistantCard corresponding to the assistantCardImage
+     */
     public static int gsFindAssistantCardIndex (ImageView assistantCardImageID) {
         String     assistantCardImageFXMLPath = assistantCardImageID.getImage().getUrl();
         ImageTypes assistantCardImageType     = PathHelper.fromFXMLPathToImageTypes(assistantCardImageFXMLPath);
