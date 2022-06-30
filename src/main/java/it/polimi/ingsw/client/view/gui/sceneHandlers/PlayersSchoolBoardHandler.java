@@ -1538,7 +1538,6 @@ public final class PlayersSchoolBoardHandler implements GUIHandler {
             gpt.getProfessorLocation(color).ifPresent(p -> {
                 ImageView gptImageView = IDHelper.psbFindProfessorSingleImageID(this, playerIndex, color);
 
-                // TODO: verify this
                 gptImageView.setVisible(p.getUsername().equals(player.getUsername()));
             });
     }

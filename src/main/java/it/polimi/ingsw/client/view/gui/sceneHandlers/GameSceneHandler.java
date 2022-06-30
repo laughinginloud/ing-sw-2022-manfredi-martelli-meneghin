@@ -2004,10 +2004,6 @@ public final class GameSceneHandler implements GUIHandler {
         CloudTile[]     cloudTilesModel                = gui.getModel().getCloudTiles();
         int[]           availableCloudsPositionOnModel = new int[numOfAvailableClouds];
 
-
-
-        // TODO: Verify it works using the ViewGUI
-
         // For all the cloudTiles that has been sent by the VirtualController
         for (int i = 0; i < numOfAvailableClouds; i++) {
             boolean cloudMatch = false;
@@ -2158,7 +2154,6 @@ public final class GameSceneHandler implements GUIHandler {
         }
     }
 
-    // TODO: verify if we distinguish between CCStudent and CCNoEntryTile
     /**
      * Associates clickHandler to each available characterCardElement - activating the clicks on the CharacterCardElement
      *
@@ -2495,9 +2490,6 @@ public final class GameSceneHandler implements GUIHandler {
         // gets all the currently present Model's AssistantCards
         int             selectedAssistantCardValue = InfoHelper.gsFindAssistantCardIndex(selectedAssistantCardID);
         AssistantCard[] modelAssistantDeck         = gui.getModel().getPlayer(localPlayerIndex).getAssistantDeck();
-
-
-        // TODO: verify the following part of code using the ViewGUI
 
         // Retrieve the real position in the AssistantDeck of the selected AssistantCard
         int positionOnModelAssCardArray = 0;
