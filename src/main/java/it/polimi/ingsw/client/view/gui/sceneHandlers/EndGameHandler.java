@@ -160,9 +160,9 @@ public final class EndGameHandler implements GUIHandler {
             m = 3;
         }
 
-        for (int i = k; i < m; i++) {
+        for (int i = k, j = 0; i < m; i++, j++) {
             // Gets the current Player from the list
-            curr = players.get(i);
+            curr = players.get(j);
 
             // Gets the id of the ImageView and the path to the img
             currPlayerWizard = IDHelper.egFindWizardID(this, i);
@@ -172,7 +172,7 @@ public final class EndGameHandler implements GUIHandler {
             currPlayerWizard.setImage(new Image(getClass().getResourceAsStream(wizardImgPath)));
 
             // Gets the id of the Label
-            currPlayerUsername = IDHelper.egFindUsernameID(this, i);
+            currPlayerUsername = IDHelper.egFindUsernameID(this, j);
 
             // Sets the correct Username
             currPlayerUsername.setText(curr.getUsername());
