@@ -23,6 +23,7 @@ import java.io.IOException;
  * Adapter for a generic tuple
  * @author Mattia Martelli
  */
+@SuppressWarnings("rawtypes")
 public class TupleJSONAdapter extends TypeAdapter<Tuple> {
     private static final Gson json = new GsonBuilder()
         .registerTypeAdapter(AssistantCard.class,        new AssistantCardJSONAdapter())
@@ -86,6 +87,7 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
         jsonWriter.endObject();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Tuple read(JsonReader jsonReader) throws IOException {
         Object left  = null;
@@ -111,7 +113,7 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
                 while (jsonReader.hasNext()) {
                     JsonToken sideToken = jsonReader.peek();
 
-                    if (jsonToken.equals(JsonToken.NAME))
+                    if (sideToken == JsonToken.NAME)
                         sideField = jsonReader.nextName();
 
                     if (sideField != null)

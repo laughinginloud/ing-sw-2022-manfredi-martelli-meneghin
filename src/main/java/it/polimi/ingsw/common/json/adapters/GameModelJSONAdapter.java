@@ -148,6 +148,9 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
 
         jsonReader.endObject();
 
+        if (players == null)
+            throw new IOException();
+
         GameModel gameModel = new GameModel(players.length, expertMode);
 
         GlobalProfessorTable globalProfessorTable = new GlobalProfessorTable();
@@ -155,7 +158,7 @@ public class GameModelJSONAdapter extends TypeAdapter<GameModel> {
             if (e.right() == null)
                 continue;
 
-            Player ePlayer = Arrays.stream(players).reduce((p1, p2) -> p1.getPlayerID() == e.right() ? p1 : p2).get();
+            Player ePlayer = Arrays.stream(players).reduce((p1, p2) -> p1.getPlayerID() == e.right() ? p1 : p2).orElseThrow();
             globalProfessorTable.setProfessorLocation(e.left(), ePlayer);
         }
 

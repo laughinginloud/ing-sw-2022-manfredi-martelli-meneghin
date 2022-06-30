@@ -1,7 +1,5 @@
 package it.polimi.ingsw.common.json.adapters;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -17,6 +15,7 @@ import java.io.IOException;
  */
 public class CharacterCardJSONAdapter extends TypeAdapter<CharacterCard> {
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public void write(JsonWriter jsonWriter, CharacterCard characterCard) throws IOException {
         jsonWriter.beginObject();
 

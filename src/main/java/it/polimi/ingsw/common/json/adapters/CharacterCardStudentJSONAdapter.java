@@ -19,6 +19,7 @@ public class CharacterCardStudentJSONAdapter extends TypeAdapter<CharacterCardSt
     private static final Gson json = new GsonBuilder().registerTypeAdapter(Color[].class, new ColorArrayJSONAdapter()).setPrettyPrinting().create();
 
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public void write(JsonWriter jsonWriter, CharacterCardStudent characterCardStudent) throws IOException {
         jsonWriter.beginObject();
 
@@ -70,6 +71,9 @@ public class CharacterCardStudentJSONAdapter extends TypeAdapter<CharacterCardSt
         CharacterCardStudent card = (CharacterCardStudent) CharacterCard.build(character);
         card.setCost(cost);
         card.setHasCoin(hasCoin);
+
+        if (students == null)
+            throw new IOException();
 
         for (int i = 0; i < students.length; ++i)
             card.setStudents(students[i], i);

@@ -24,6 +24,7 @@ import java.io.IOException;
  * Adapter for a message
  * @author Mattia Martelli
  */
+@SuppressWarnings("unchecked")
 public class MessageJSONAdapter extends TypeAdapter<Message> {
     private static final Gson json = new GsonBuilder()
         .registerTypeAdapter(AssistantCard.class,        new AssistantCardJSONAdapter())
@@ -84,6 +85,7 @@ public class MessageJSONAdapter extends TypeAdapter<Message> {
         jsonWriter.endObject();
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Message read(JsonReader jsonReader) throws IOException {
         MessageType type = null;
@@ -95,7 +97,7 @@ public class MessageJSONAdapter extends TypeAdapter<Message> {
         while (jsonReader.hasNext()) {
             JsonToken jsonToken = jsonReader.peek();
 
-            if (jsonToken.equals(JsonToken.NAME))
+            if (jsonToken == JsonToken.NAME)
                 fieldName = jsonReader.nextName();
 
             if (fieldName != null)

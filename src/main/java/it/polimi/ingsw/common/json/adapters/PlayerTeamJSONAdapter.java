@@ -25,6 +25,7 @@ public class PlayerTeamJSONAdapter extends TypeAdapter<PlayerTeam> {
         .create();
 
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public void write(JsonWriter jsonWriter, PlayerTeam playerTeam) throws IOException {
         jsonWriter.beginObject();
 
@@ -53,6 +54,7 @@ public class PlayerTeamJSONAdapter extends TypeAdapter<PlayerTeam> {
     }
 
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public PlayerTeam read(JsonReader jsonReader) throws IOException {
         AssistantCard[] assistantDeck = null;
         AssistantCard lastPlayedCard = null;

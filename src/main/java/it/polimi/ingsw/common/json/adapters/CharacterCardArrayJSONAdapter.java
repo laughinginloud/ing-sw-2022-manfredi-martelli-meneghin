@@ -48,6 +48,7 @@ public class CharacterCardArrayJSONAdapter extends TypeAdapter<CharacterCard[]> 
         jsonWriter.endObject();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public CharacterCard[] read(JsonReader jsonReader) throws IOException {
         List<CharacterCard> characterCardList = new ArrayList<>();
@@ -96,6 +97,7 @@ public class CharacterCardArrayJSONAdapter extends TypeAdapter<CharacterCard[]> 
         return "base";
     }
 
+    @SuppressWarnings("rawtypes")
     private static Class characterCardType(String type) {
         return switch (type) {
             case "base"    -> CharacterCard.class;

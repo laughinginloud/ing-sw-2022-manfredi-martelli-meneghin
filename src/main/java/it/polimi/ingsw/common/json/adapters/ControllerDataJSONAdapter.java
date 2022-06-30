@@ -237,7 +237,7 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
                             while (jsonReader.hasNext()) {
                                 JsonToken jsonTokenFlag = jsonReader.peek();
 
-                                if (jsonToken == JsonToken.NAME)
+                                if (jsonTokenFlag == JsonToken.NAME)
                                     flagField = jsonReader.nextName();
 
                                 if (flagField != null)
@@ -248,6 +248,9 @@ public class ControllerDataJSONAdapter extends TypeAdapter<ControllerData> {
 
                                 jsonReader.peek();
                             }
+
+                            if (flag == null)
+                                throw new IOException();
 
                             flags[flag.ordinal()] = flagValue;
 
