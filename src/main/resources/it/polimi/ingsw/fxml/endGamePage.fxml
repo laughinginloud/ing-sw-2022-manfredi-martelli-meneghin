@@ -54,9 +54,6 @@
               </rowConstraints>
                <children>
                   <ImageView fx:id="wizard0_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/wizards/0_NATURE.jpg" />
-                     </image>
                      <effect>
                         <DropShadow>
                            <color>
@@ -66,9 +63,6 @@
                      </effect>
                   </ImageView>
                   <ImageView fx:id="wizard1_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-                     <image>
-                        <Image url="@../images/wizards/1_DESERT.jpg" />
-                     </image>
                      <effect>
                         <DropShadow>
                            <color>
@@ -78,9 +72,6 @@
                      </effect>
                   </ImageView>
                   <ImageView fx:id="wizard2_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-                     <image>
-                        <Image url="@../images/wizards/2_CLOUD.jpg" />
-                     </image>
                      <effect>
                         <DropShadow>
                            <color>
@@ -90,9 +81,6 @@
                      </effect>
                   </ImageView>
                   <ImageView fx:id="wizard3_img" fitHeight="333.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-                     <image>
-                        <Image url="@../images/wizards/3_SNOW.jpg" />
-                     </image>
                      <effect>
                         <DropShadow>
                            <color>
@@ -101,7 +89,7 @@
                         </DropShadow>
                      </effect>
                   </ImageView>
-                  <Label fx:id="user0_label" alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="407.0" text="UsernameWin0" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
+                  <Label fx:id="user0_label" alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="407.0" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
                         <Font size="50.0" />
                      </font>
@@ -109,7 +97,7 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <Label fx:id="user1_label" alignment="CENTER" prefHeight="63.0" prefWidth="418.0" text="UsernameWin1" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="user1_label" alignment="CENTER" prefHeight="63.0" prefWidth="418.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="50.0" />
                      </font>
@@ -117,7 +105,7 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <Label fx:id="user2_label" alignment="CENTER" prefHeight="63.0" prefWidth="417.0" text="UsernameWin2" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label fx:id="user2_label" alignment="CENTER" prefHeight="63.0" prefWidth="417.0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="50.0" />
                      </font>
@@ -125,7 +113,7 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <Label fx:id="user3_label" alignment="CENTER" prefHeight="63.0" prefWidth="429.0" text="UsernameWin3" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Label fx:id="user3_label" alignment="CENTER" prefHeight="63.0" prefWidth="429.0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font size="50.0" />
                      </font>

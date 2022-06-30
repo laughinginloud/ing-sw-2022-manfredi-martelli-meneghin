@@ -90,17 +90,6 @@ public final class EndGameHandler implements GUIHandler {
         String wizardImgPath = PathHelper.fromWizardEnumToHandlerPath(winner.getPlayerWizard());
         wizard0_img.setImage(new Image(getClass().getResourceAsStream(wizardImgPath)));
         user0_label.setText(winner.getUsername());
-
-        ImageView wizard;
-        Label     username;
-        // For each wizard and username that did not win hides them
-        for (int i = 1; i < 4; i++) {
-            wizard   = IDHelper.egFindWizardID(this, i);
-            wizard.setVisible(false);
-
-            username = IDHelper.egFindUsernameID(this, i);
-            username.setVisible(false);
-        }
     }
 
     /**
@@ -112,12 +101,6 @@ public final class EndGameHandler implements GUIHandler {
         description_label.setText("And the winning team is ...");
 
         displayPlayers(team);
-
-        // For each wizard and username not in the team hides it
-        wizard0_img.setVisible(false);
-        wizard3_img.setVisible(false);
-        user0_label.setVisible(false);
-        user3_label.setVisible(false);
     }
 
     /**
@@ -129,17 +112,6 @@ public final class EndGameHandler implements GUIHandler {
         description_label.setText("It's a draw! Between ...");
 
         displayPlayers(drawers);
-
-        ImageView currPlayerWizard;
-        Label     currPlayerUsername;
-        // For each wizard and username not in the List hides them
-        for (int i = drawers.size(); i < 4; i++) {
-            currPlayerWizard   = IDHelper.egFindWizardID(this, i);
-            currPlayerWizard.setVisible(false);
-
-            currPlayerUsername = IDHelper.egFindUsernameID(this, i);
-            currPlayerUsername.setVisible(false);
-        }
     }
 
     /**
@@ -154,8 +126,8 @@ public final class EndGameHandler implements GUIHandler {
         String    wizardImgPath;
         int       k = 0, m = 4;
 
-        // If the players are 2 or less, I'll display them from the second imgView (to center them)
-        if (players.size() < 3) {
+        // If the players are 2, I'll display them from the second imgView (to center them)
+        if (players.size() == 2) {
             k = 1;
             m = 3;
         }
@@ -172,7 +144,7 @@ public final class EndGameHandler implements GUIHandler {
             currPlayerWizard.setImage(new Image(getClass().getResourceAsStream(wizardImgPath)));
 
             // Gets the id of the Label
-            currPlayerUsername = IDHelper.egFindUsernameID(this, j);
+            currPlayerUsername = IDHelper.egFindUsernameID(this, i);
 
             // Sets the correct Username
             currPlayerUsername.setText(curr.getUsername());
