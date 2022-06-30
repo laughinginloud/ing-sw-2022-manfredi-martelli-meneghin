@@ -127,7 +127,7 @@ public final class ViewGUI extends Application implements View {
      *
      * @param stage the stage to be closed
      */
-    public void exit(Stage stage){
+    public void exit(Stage stage) {
         // Sets a particular alert passing the parameters to the function getAlert present in GUIAlert class
         Alert alert = GUIAlert.getAlert(GUIAlert.EXIT, null);
 

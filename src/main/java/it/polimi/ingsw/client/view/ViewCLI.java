@@ -54,7 +54,7 @@ public final class ViewCLI implements View {
 
     private final Attributes  savedAttributes;
     private final Display     display;
-    private InputStream keyStream;
+    private final InputStream keyStream;
     private final LineReader  reader;
     private final Terminal    terminal;
     private final PrintWriter writer;
@@ -83,7 +83,6 @@ public final class ViewCLI implements View {
             .encoding("UTF-8")
             .system(true)
             .nativeSignals(true)
-            //.type("screen")
             .jna(true)
             .build();
 
@@ -187,9 +186,8 @@ public final class ViewCLI implements View {
         ifNotNull(currentMenu, m -> {
             m.interrupt();
 
-            reader.setVariable(LineReader.KILL_LINE,    Boolean.TRUE);
-            reader.setVariable(LineReader.KILL_BUFFER,  Boolean.TRUE);
-            //reader.setVariable(LineReader.CLEAR_SCREEN, Boolean.TRUE);
+            reader.setVariable(LineReader.KILL_LINE,   Boolean.TRUE);
+            reader.setVariable(LineReader.KILL_BUFFER, Boolean.TRUE);
         });
 
 
@@ -231,9 +229,11 @@ public final class ViewCLI implements View {
     private void showModel() throws IOException {
         updateModel(model, null);
 
-        writer.println();
-        writer.print("Press any key to continue...");
-        keyStream.read();
+        try {
+            sleep(1500);
+        }
+
+        catch (InterruptedException ignored) {}
     }
 
     @Override
@@ -1757,12 +1757,12 @@ public final class ViewCLI implements View {
                 display.clear();
                 display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
-                for (int i = 0, isl = 0; i < 2; ++i) {
-                    for (int j = 0; j < 6; ++j, ++isl) {
-                        if (isl >= islandNum)
+                for (int i = 0, isl = model.getMotherNaturePosition() + 1, islCnt = 0; i < 2; ++i) {
+                    for (int j = 0; j < 6; ++j, ++isl, ++islCnt) {
+                        if (islCnt >= islandNum)
                             break;
 
-                        drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
+                        drawIsland(writer, model.getIsland(isl), false);
 
                         writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
                         writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
@@ -1928,7 +1928,7 @@ public final class ViewCLI implements View {
                 });
 
                 writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 8));
 
                 writer.println();
                 writer.print("Please enter the index, starting from 1, of the cloud tile you've chosen:");
@@ -2135,8 +2135,8 @@ public final class ViewCLI implements View {
 
                     List<String> colorOptions = new ArrayList<>(numOfColors);
 
-                    for (Color color : availableColors)
-                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)));
+                    Arrays.stream(availableColors).forEach(color ->
+                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false))));
 
                     underlineElem(colorOptions, colorSel.value());
                     menu.addAll(colorOptions);
@@ -2570,7 +2570,9 @@ public final class ViewCLI implements View {
                             if (isl >= islandNum)
                                 break;
 
-                            drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
+                            int avlblIslIndx = elemIndex(availableIslands[isl], model.getIslands());
+
+                            drawIsland(writer, model.getIsland(avlblIslIndx), avlblIslIndx == model.getMotherNaturePosition());
 
                             writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
                             writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
@@ -2645,8 +2647,8 @@ public final class ViewCLI implements View {
 
                     List<String> colorOptions = new ArrayList<>(numOfColors);
 
-                    for (Color color : compatibleDiningRoomTable)
-                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)));
+                    Arrays.stream(compatibleDiningRoomTable).forEach(color ->
+                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false))));
 
                     underlineElem(colorOptions, colorSel.value());
                     menu.addAll(colorOptions);
@@ -2742,10 +2744,14 @@ public final class ViewCLI implements View {
         writer.println();
 
         try {
-            sleep(1000);
+            hideCursor(writer);
+            writer.print("Press any key to continue...");
+            keyStream.read();
+            showCursor(writer);
         }
 
-        catch (InterruptedException ignored) {}
+        // Should never happen
+        catch (IOException ignored) {}
     }
 
     @Override
@@ -2773,10 +2779,14 @@ public final class ViewCLI implements View {
             writer.println();
 
             try {
-                sleep(1000);
+                hideCursor(writer);
+                writer.print("Press any key to continue...");
+                keyStream.read();
+                showCursor(writer);
             }
 
-            catch (InterruptedException ignored) {}
+            // Should never happen
+            catch (IOException ignored) {}
         });
     }
 
@@ -2792,7 +2802,7 @@ public final class ViewCLI implements View {
             writer.println();
 
             try {
-                sleep(1000);
+                sleep(1500);
             }
 
             catch (InterruptedException ignored) {}
@@ -2810,6 +2820,15 @@ public final class ViewCLI implements View {
         writer.println("Your turn has now ended!");
         writer.println("Please wait for the other's to end");
         writer.println();
+
+
+        try {
+            sleep(1000);
+        }
+
+        catch (InterruptedException ignored) {}
+
+        updateModel(model, null);
     }
 
     @Override
