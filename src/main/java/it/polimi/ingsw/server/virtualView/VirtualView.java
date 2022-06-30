@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.virtualView;
 
 import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
+import it.polimi.ingsw.common.utils.Methods;
 import it.polimi.ingsw.server.controller.GameController;
 import it.polimi.ingsw.server.controller.command.GameCommand;
 import it.polimi.ingsw.server.controller.command.GameCommandInterruptGame;
@@ -32,9 +33,14 @@ public class VirtualView extends Thread implements AutoCloseable {
     private static final Message PONG_MESSAGE = new Message(MessageType.PONG, null);
 
     /**
+     * A constant that represents whether assertions are currently enabled
+     */
+    private static final boolean assertions = Methods.assertionsEnabled();
+
+    /**
      * Signal whether a pong has been received
      */
-    private static boolean pongReceived;
+    private       boolean          pongReceived;
 
     private final Socket           socket;
     private final DataInputStream  inputStream;
@@ -94,7 +100,8 @@ public class VirtualView extends Thread implements AutoCloseable {
             if (isInterrupted())
                 return;
 
-            System.out.println("Exit");
+            if (assertions)
+                System.out.println("Player left");
 
             // Stop the thread and close the socket
             interrupt();
@@ -183,10 +190,14 @@ public class VirtualView extends Thread implements AutoCloseable {
         while (!isInterrupted()) {
             try {
                 String message;
+
                 synchronized (inputStream) {
                     message = inputStream.readUTF();
                 }
-                System.out.println(message);
+
+                if (assertions)
+                    System.out.println(message);
+
                 msg = MessageBuilder.jsonToMessage(message);
 
                 if (msg == null)
