@@ -6,13 +6,16 @@ import it.polimi.ingsw.common.model.Character;
 import java.lang.String;
 import java.util.Objects;
 
-// TODO - JavaDocs (?)
-
 /**
  * Class containing useful support method for FXMLPath and HandlerPath usage
  *
- * @author Sebastiano
+ * @author Sebastiano Meneghin
  */
+
+// Warnings for unused fields have been disabled, since many methods now not used, could become useful in the future
+// Warnings for classes that are not exported has been suppressed because are intentionally not exported
+@SuppressWarnings({"unused, ClassEscapesDefinedScope"})
+
 public class PathHelper {
 
     // region Translators/Switches
@@ -383,12 +386,24 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the HandlerPath associated to a specific StudentColor
+     *
+     * @param color A Color representing the StudentColor we want the associated HandlerPath of
+     * @return the HandlerPath associated to the provided StudentColor
+     */
     public static String fromStudentColorToHandlerPath (Color color) { return fromImageTypesToHandlerPath(fromStudentColorToImageTypes(color)); }
 
+    /**
+     * Gets the FXMLPath associated to a specific StudentColor
+     *
+     * @param color A Color representing the StudentColor we want the associated FXMLPath of
+     * @return the FXMLPath associated to the provided StudentColor
+     */
     public static String fromStudentColorToFXMLPath (Color color) { return fromImageTypesToFXMLPath(fromStudentColorToImageTypes(color)); }
 
     /**
-     * Gets the StudentColor associated to a specific ImageType
+     * Gets the (student) Color associated to a specific ImageType
      *
      * @param imageType The ImageType we want the associated StudentColor of
      * @return A Color representing the StudentColor associated to the provided ImageType
@@ -404,8 +419,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the (student) Color associated to a specific HandlerPath
+     *
+     * @param handlerPath The HandlerPath we want the associated StudentColor of
+     * @return A Color representing the StudentColor associated to the provided HandlerPath
+     */
     public static Color fromHandlerPathToStudentColor (String handlerPath) { return fromImageTypesToStudentColor(fromHandlerPathToImageTypes(handlerPath)); }
 
+    /**
+     * Gets the (student) Color associated to a specific FXMLPath
+     *
+     * @param fxmlPath The FXMLPath we want the associated StudentColor of
+     * @return A Color representing the StudentColor associated to the provided FXMLPath
+     */
     public static Color fromFXMLPathToStudentColor (String fxmlPath) { return fromImageTypesToStudentColor(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion StudentColorTranslator
@@ -428,8 +455,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the HandlerPath associated to a specific ProfessorColor
+     *
+     * @param color A Color representing the ProfessorColor we want the HandlerPath of
+     * @return The HandlerPath associated to the provided ProfessorColor
+     */
     public static String fromProfessorColorToHandlerPath (Color color) { return fromImageTypesToHandlerPath(fromProfessorColorToImageTypes(color)); }
 
+    /**
+     * Gets the FXMLPath associated to a specific ProfessorColor
+     *
+     * @param color A Color representing the ProfessorColor we want the FXMLPath of
+     * @return The FXMLPath associated to the provided ProfessorColor
+     */
     public static String fromProfessorColorToFXMLPath (Color color) { return fromImageTypesToFXMLPath(fromProfessorColorToImageTypes(color)); }
 
     /**
@@ -449,8 +488,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the ProfessorColor associated to a specific HandlerPath
+     *
+     * @param handlerPath The HandlerPath we want the associated ProfessorColor of
+     * @return A Color representing the ProfessorColor associated to the provided HandlerPath
+     */
     public static Color fromHandlerPathToProfessorColor (String handlerPath) { return fromImageTypesToProfessorColor(fromHandlerPathToImageTypes(handlerPath)); }
 
+    /**
+     * Gets the ProfessorColor associated to a specific FXMLHandler
+     *
+     * @param fxmlPath The FXMLPath we want the associated ProfessorColor of
+     * @return A Color representing the ProfessorColor associated to the provided FXMLPath
+     */
     public static Color fromFXMLPathToProfessorColor (String fxmlPath) { return fromImageTypesToProfessorColor(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion ProfessorColorTranslator
@@ -471,8 +522,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the HandlerPath associated to a specific TowerColor
+     *
+     * @param towerColor A TowerColor representing the TowerColor we want the associated HandlerPath of
+     * @return The HandlerPath associated to the provided TowerColor
+     */
     public static String fromTowerColorToHandlerPath (TowerColor towerColor) { return fromImageTypesToHandlerPath(fromTowerColorToImageTypes(towerColor)); }
 
+    /**
+     * Gets the FXMLPath associated to a specific TowerColor
+     *
+     * @param towerColor A TowerColor representing the TowerColor we want the associated FXMLPath of
+     * @return The FXMLPath associated to the provided TowerColor
+     */
     public static String fromTowerColorToFXMLPath (TowerColor towerColor) { return fromImageTypesToFXMLPath(fromTowerColorToImageTypes(towerColor)); }
 
     /**
@@ -490,8 +553,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the TowerColor associated to a specific HandlerPath
+     *
+     * @param handlerPath The HandlerPath we want the associated TowerColor of
+     * @return A TowerColor representing the TowerColor associated to the provided HandlerPath
+     */
     public static TowerColor fromHandlerPathToTowerColor (String handlerPath) { return fromImageTypesToTowerColor(fromHandlerPathToImageTypes(handlerPath)); }
 
+    /**
+     * Gets the TowerColor associated to a specific FXMLPath
+     *
+     * @param fxmlPath The FXMLPath we want the associated TowerColor of
+     * @return A TowerColor representing the TowerColor associated to the provided FXMLPath
+     */
     public static TowerColor fromFXMLPathToTowerColor (String fxmlPath) { return fromImageTypesToTowerColor(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion TowerColorTranslator
@@ -520,8 +595,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the HandlerPath associated to a specific AssistantCard
+     *
+     * @param assistantCardNumber An int representing the cardValue of the AssistantCard we want the associated HandlerPath of
+     * @return The HandlerPath associated to the provided AssistantCard
+     */
     public static String fromAssistantCardNumberToHandlerPath (int assistantCardNumber) { return fromImageTypesToHandlerPath(fromAssistantCardNumberToImageTypes(assistantCardNumber)); }
 
+    /**
+     * Gets the FXMLPath associated to a specific AssistantCard
+     *
+     * @param assistantCardNumber An int representing the cardValue of the AssistantCard we want the associated FXMLPath of
+     * @return The FXMLPath associated to the provided AssistantCard
+     */
     public static String fromAssistantCardNumberToFXMLPath (int assistantCardNumber) { return fromImageTypesToFXMLPath(fromAssistantCardNumberToImageTypes(assistantCardNumber)); }
 
     /**
@@ -546,8 +633,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the number of the AssistantCard associated to a specific HandlerPath
+     *
+     * @param handlerPath The HandlerPath we want the associated AssistantCard of
+     * @return An int representing the number of the AssistantCard associated to the provided HandlerPath
+     */
     public static int fromHandlerPathToAssistantCardNumber (String handlerPath) { return fromImageTypesToAssistantCardNumber(fromHandlerPathToImageTypes(handlerPath)); }
 
+    /**
+     * Gets the number of the AssistantCard associated to a specific FXMLPath
+     *
+     * @param fxmlPath The FXMLPath we want the associated AssistantCard of
+     * @return An int representing the number of the AssistantCard associated to the provided FXMLPath
+     */
     public static int fromFXMLPathToAssistantCardNumber (String fxmlPath) { return fromImageTypesToAssistantCardNumber(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion AssistantCardTranslator
@@ -577,8 +676,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the HandlerPath associated to a specific CharacterCard
+     *
+     * @param character The character Enumeration constant of the CharacterCard we want the associated HandlerPath of
+     * @return The HandlerPath associated to the provided CharacterCard
+     */
     public static String fromCharacterEnumToHandlerPath (Character character) { return fromImageTypesToHandlerPath(fromCharacterEnumToImageTypes(character)); }
 
+    /**
+     * Gets the FXMLPath associated to a specific CharacterCard
+     *
+     * @param character The character Enumeration constant of the CharacterCard we want the associated FXMLPath of
+     * @return The FXMLPath associated to the provided CharacterCard
+     */
     public static String fromCharacterEnumToFXMLPath (Character character) { return fromImageTypesToFXMLPath(fromCharacterEnumToImageTypes(character)); }
 
     /**
@@ -605,8 +716,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the Character of the CharacterCard associated to a specific HandlerPath
+     *
+     * @param handlerPath The HandlerPath we want the associated CharacterCard of
+     * @return The Character of the CharacterCard associated to the provided HandlerPath
+     */
     public static Character fromHandlerPathToCharacterEnum (String handlerPath) { return fromImageTypesToCharacterEnum(fromHandlerPathToImageTypes(handlerPath)); }
 
+    /**
+     * Gets the Character of the CharacterCard associated to a specific FXMLPath
+     *
+     * @param fxmlPath The FXMLPath we want the associated CharacterCard of
+     * @return The Character of the CharacterCard associated to the provided FXMLPath
+     */
     public static Character fromFXMLPathToCharacterEnum (String fxmlPath) { return fromImageTypesToCharacterEnum(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion CharacterEnumTranslator
@@ -628,8 +751,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the HandlerPath associated to a specific Wizard
+     *
+     * @param wizard The Wizard we want the associated HandlerPath of
+     * @return The HandlerPath associated to the provided Wizard
+     */
     public static String fromWizardEnumToHandlerPath (Wizard wizard) { return fromImageTypesToHandlerPath(fromWizardEnumToImageTypes(wizard)); }
 
+    /**
+     * Gets the FXMLPath associated to a specific Wizard
+     *
+     * @param wizard The Wizard we want the associated FXMLPath of
+     * @return The FXMLPath associated to the provided Wizard
+     */
     public static String fromWizardEnumToFXMLPath (Wizard wizard) { return fromImageTypesToFXMLPath(fromWizardEnumToImageTypes(wizard)); }
 
     /**
@@ -648,8 +783,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the Wizard associated to a specific HandlerPath
+     *
+     * @param handlerPath The HandlerPath we want the associated Wizard of
+     * @return The Wizard associated to the provided HandlerPath
+     */
     public static Wizard fromHandlerPathToWizardEnum (String handlerPath) { return fromImageTypesToWizardEnum(fromHandlerPathToImageTypes(handlerPath)); }
 
+    /**
+     * Gets the Wizard associated to a specific FXMLPath
+     *
+     * @param fxmlPath The FXMLPath we want the associated Wizard of
+     * @return The Wizard associated to the provided FXMLPath
+     */
     public static Wizard fromFXMLPathToWizardEnum (String fxmlPath) { return fromImageTypesToWizardEnum(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion WizardEnumTranslator
@@ -659,11 +806,11 @@ public class PathHelper {
     /**
      * Gets the ImageTypes associated to a specific IslandBackGroundNumber
      *
-     * @param islandIDNumber The IslandBackGroundNumber we want the associated ImageType of
+     * @param islandBackGroundNumber The IslandBackGroundNumber we want the associated ImageType of
      * @return The ImageType associated to the provided IslandBackGroundNumber
      */
-    public static ImageTypes fromIslandBackGroundNumberToImageTypes (int islandIDNumber) {
-        return switch (islandIDNumber) {
+    public static ImageTypes fromIslandBackGroundNumberToImageTypes (int islandBackGroundNumber) {
+        return switch (islandBackGroundNumber) {
             case 0  -> ImageTypes.ISLAND_0_IMG;
             case 1  -> ImageTypes.ISLAND_1_IMG;
             case 2  -> ImageTypes.ISLAND_2_IMG;
@@ -671,9 +818,25 @@ public class PathHelper {
         };
     }
 
-    public static String fromIslandBackGroundNumberToHandlerPath (int islandBackGroundNumber) { return fromImageTypesToHandlerPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber)); }
+    /**
+     * Gets the HandlerPath associated to a specific IslandBackGroundNumber
+     *
+     * @param islandBackGroundNumber The IslandBackGroundNumber we want the associated HandlerPath of
+     * @return The HandlerPath associated to the provided IslandBackGroundNumber
+     */
+    public static String fromIslandBackGroundNumberToHandlerPath (int islandBackGroundNumber) {
+        return fromImageTypesToHandlerPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber));
+    }
 
-    public static String fromIslandBackGroundNumberToFXMLPath (int islandBackGroundNumber) { return fromImageTypesToFXMLPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber)); }
+    /**
+     * Gets the FXMLPath associated to a specific IslandBackGroundNumber
+     *
+     * @param islandBackGroundNumber The IslandBackGroundNumber we want the associated FXMLPath of
+     * @return The FXMLPath associated to the provided IslandBackGroundNumber
+     */
+    public static String fromIslandBackGroundNumberToFXMLPath (int islandBackGroundNumber) {
+        return fromImageTypesToFXMLPath(fromIslandBackGroundNumberToImageTypes(islandBackGroundNumber));
+    }
 
     /**
      * Gets the IslandBackGroundNumber associated to a specific ImageType
@@ -690,8 +853,20 @@ public class PathHelper {
         };
     }
 
+    /**
+     * Gets the IslandBackGroundNumber associated to a specific HandlerPath
+     *
+     * @param handlerPath The HandlerPath we want the associated IslandBackGroundNumber of
+     * @return An int representing the IslandBackGroundNumber associated to the provided HandlerPath
+     */
     public static int fromHandlerPathToIslandBackGroundNumber (String handlerPath) { return fromImageTypesToIslandBackGroundNumber(fromHandlerPathToImageTypes(handlerPath)); }
 
+    /**
+     * Gets the IslandBackGroundNumber associated to a specific FXMLPath
+     *
+     * @param fxmlPath The FXMLPath we want the associated IslandBackGroundNumber of
+     * @return An int representing the IslandBackGroundNumber associated to the provided FXMLPath
+     */
     public static int fromFXMLPathToIslandBackGroundNumber (String fxmlPath) { return fromImageTypesToIslandBackGroundNumber(fromFXMLPathToImageTypes(fxmlPath)); }
 
     // endregion IslandBackgroundTranslator
