@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.view.gui;
 
-import it.polimi.ingsw.client.Address;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.client.view.gui.sceneHandlers.*;
 import it.polimi.ingsw.client.virtualController.VirtualController;
@@ -8,7 +7,6 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Color;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,7 +19,7 @@ import java.util.Set;
 import java.io.IOException;
 import java.util.*;
 
-// TODO - Fix JavaDocs and increase readability
+import static javafx.application.Platform.*;
 
 /**
  * View implementation for the GUI (Graphic User Interface)
@@ -29,6 +27,12 @@ import java.util.*;
  *
  * @author Giovanni Manfredi and Sebastiano Meneghin
  */
+
+// Warnings for unused fields have been disabled, since many methods now not used, could become useful in the future
+// Warnings for possible null parameters to an addImage have been suppressed because the input is constant
+// Warnings for classes that are not exported has been suppressed because are intentionally not exported
+@SuppressWarnings({"unused, ConstantConditions, ClassEscapesDefinedScope"})
+
 public final class ViewGUI extends Application implements View {
 
     // region Constants
@@ -57,7 +61,6 @@ public final class ViewGUI extends Application implements View {
     private GameModel model;
     private Scene     currentScene;
     private Stage     stage;
-    private Address   connectionAddress;
 
     // The different scenes and scenesHandlers are saved in two maps,
     // using the page (an enum for the scene) as key
@@ -155,9 +158,7 @@ public final class ViewGUI extends Application implements View {
         this.currentScene = nameMapScene.get(nextPage);
         nameMapHandler.get(nextPage).setGUI(this);
 
-        Platform.runLater(() -> {
-            stage.setScene(currentScene);
-        });
+        runLater(() -> stage.setScene(currentScene));
     }
 
     // endregion SwitchScene
@@ -179,7 +180,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void playExitMenu() {
-        Platform.runLater(() -> {
+        runLater(() -> {
             switchScene(Pages.INITIAL_PAGE);
             stage.show();
         });
@@ -191,9 +192,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalConnectionError() {
-        Platform.runLater(() -> {
-            switchScene(Pages.CONNECTION_ERROR);
-        });
+        runLater(() -> switchScene(Pages.CONNECTION_ERROR));
     }
 
     /**
@@ -204,7 +203,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void updateModel(GameModel model, Set<GameValues> updatedValues) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             ((GameSceneHandler) nameMapHandler.get(Pages.GAME_SCENE)).gsUpdateModel(model, getLocalPlayer(), updatedValues);
             ((PlayersSchoolBoardHandler) nameMapHandler.get(Pages.SCHOOL_BOARDS)).psbUpdateModel(model,updatedValues);
 
@@ -222,9 +221,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askAddress() {
-        Platform.runLater(() -> {
-            switchScene(Pages.SERVER_INFO);
-        });
+        runLater(() -> switchScene(Pages.SERVER_INFO));
     }
 
     /**
@@ -233,9 +230,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askRules() {
-        Platform.runLater(() -> {
-            switchScene(Pages.ASK_RULES);
-        });
+        runLater(() -> switchScene(Pages.ASK_RULES));
     }
 
     /**
@@ -243,9 +238,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askReloadGame() {
-        Platform.runLater(() -> {
-            switchScene(Pages.GAME_CHOICE);
-        });
+        runLater(() -> switchScene(Pages.GAME_CHOICE));
     }
 
     /**
@@ -254,7 +247,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void askEndOfTurn() {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsAskEndOfTurn();
         });
@@ -271,7 +264,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestUsernameAndMagicAge(Set<String> forbiddenUsernames) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             ((ClientInfoHandler) nameMapHandler.get(Pages.CLIENT_INFO)).setForbiddenUsernames(forbiddenUsernames);
             switchScene(Pages.CLIENT_INFO);
         });
@@ -284,7 +277,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestWizard(Wizard[] availableWizards) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setAvailableWizard(availableWizards);
             ((WizardChoiceHandler) nameMapHandler.get(Pages.WIZARD_CHOICE)).setClicksWizard();
             switchScene(Pages.WIZARD_CHOICE);
@@ -300,7 +293,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayAssistantCard(AssistantCard[] assistantCards) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestPlayAssistantCard(assistantCards);
         });
@@ -316,7 +309,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseIsland(Island[] availableIslands) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestChooseIsland(availableIslands);
         });
@@ -331,7 +324,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMotherNatureMovement(Island[] possibleMovement) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestMotherNatureMovement(possibleMovement);
         });
@@ -344,7 +337,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestCloudTileSelection(CloudTile[] availableClouds) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestCloudTileSelection(availableClouds);
         });
@@ -363,7 +356,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseDiningRoom(Color[] compatibleDiningRoomTable) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestChooseDiningRoom(compatibleDiningRoomTable);
         });
@@ -378,7 +371,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromEntrance(Color[] availableColors) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsChooseStudentFromEntrance(availableColors);
         });
@@ -394,7 +387,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestStudentEntranceMovement(int selectedStudentIndex, Boolean[] diningRoomFreeTables) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestStudentEntranceMovement(selectedStudentIndex, diningRoomFreeTables);
         });
@@ -411,7 +404,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestPlayCharacterCard(CharacterCard[] playableCharacterCards) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestPlayCharacterCard(playableCharacterCards);
         });
@@ -424,7 +417,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestHowManyStudentsToMove(int maxNumOfStudentMovable) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestHowManyStudentsToMove(maxNumOfStudentMovable);
         });
@@ -437,7 +430,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseColor(Color[] availableColors) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestChooseColor(availableColors);
         });
@@ -455,7 +448,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsChooseStudentFromCharacterCard(characterCardPosition, availableColors, numOfAvailableStudent);
         });
@@ -474,7 +467,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestChooseCloudOrPlayCC(availableClouds, playableCharacterCards);
         });
@@ -490,7 +483,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestMoveStudentOrPlayCC(entranceStudents, playableCharacterCards);
         });
@@ -507,7 +500,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             GameSceneHandler gs = (GameSceneHandler) this.nameMapHandler.get(Pages.GAME_SCENE);
             gs.gsRequestMoveMotherNatureOrPlayCC(possibleMovement, playableCharacterCards);
         });
@@ -527,9 +520,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyGameInProgress() {
-        Platform.runLater(() -> {
-            switchScene(Pages.UNABLE_JOIN);
-        });
+        runLater(() -> switchScene(Pages.UNABLE_JOIN));
     }
 
     /**
@@ -544,7 +535,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyPlayerDisconnection() {
-        Platform.runLater(() -> {
+        runLater(() -> {
             Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_PLAYER_DISCONNECTION, null);
             playerDisconnection.showAndWait();
 
@@ -560,7 +551,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyStartGameTurn(String playingPlayerUsername) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.START_ANOTHER_PLAYER_TURN, playingPlayerUsername);
             playerDisconnection.showAndWait();
         });
@@ -571,7 +562,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void notifyEndOfTurn() {
-        Platform.runLater(() -> {
+        runLater(() -> {
             Alert playerDisconnection = GUIAlert.getAlert(GUIAlert.NOTIFY_END_THIS_PLAYER_TURN, null);
             playerDisconnection.showAndWait();
         });
@@ -616,7 +607,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalWinner(Player winner) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinner(winner);
             switchScene(Pages.END_GAME);
         });
@@ -629,7 +620,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalWinner(List<Player> team) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayWinningTeam(team);
             switchScene(Pages.END_GAME);
         });
@@ -642,7 +633,7 @@ public final class ViewGUI extends Application implements View {
      */
     @Override
     public void signalDraw(List<Player> drawers) {
-        Platform.runLater(() -> {
+        runLater(() -> {
             ((EndGameHandler) nameMapHandler.get(Pages.END_GAME)).displayDraw(drawers);
             switchScene(Pages.END_GAME);
         });
