@@ -10,6 +10,7 @@ import java.util.Objects;
 
 /**
  * Class containing useful support method for FXMLPath and HandlerPath usage
+ *
  * @author Sebastiano
  */
 public class PathHelper {
@@ -20,6 +21,7 @@ public class PathHelper {
 
     /**
      * Gets the FXMlPath required to set an Image in the FXML Page, starting from the HandlerPath
+     *
      * @param handlerPath The handlerPath we want to translate into a FXMLPath
      * @return A String representing the FXMLPath correspondent to the handlerPath
      */
@@ -100,6 +102,7 @@ public class PathHelper {
 
     /**
      * Gets the HandlerPath  from the FXMlPath
+     *
      * @param fxmlPath The fxmlPath we want to translate into a HandlerPath
      * @return A String representing the HandlerPath correspondent to the fxmlPath
      */
@@ -184,6 +187,7 @@ public class PathHelper {
     // region ImageTypesTranslator
     /**
      * Gets the HandlerPath associated to a specific ImageType enum constant
+     *
      * @param imageType An enumeration constant of ImageType we want the associated HandlerPath of
      * @return A string representing the HandlerPath associated to the imageType
      */
@@ -262,6 +266,7 @@ public class PathHelper {
 
     /**
      * Gets the FXMLPath associated to a specific ImageType enum constant
+     *
      * @param imageTypes An enumeration constant of ImageType we want the associated FXMLPath of
      * @return A string representing the FXMLPath associated to the imageType
      */
@@ -269,6 +274,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific HandlerPath
+     *
      * @param handlerPath A String representing the HandlerPath we want the associated ImageType of
      * @return The ImageType associated to the provided HandlerPath
      */
@@ -349,6 +355,7 @@ public class PathHelper {
 
     /**
      * Get the ImageType associated to a specific fxmlPath
+     *
      * @param fxmlPath A String representing the fxmlPath we want the associated ImageType of
      * @return The ImageType associated to the provided fxmlPath
      */
@@ -362,6 +369,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific StudentColor
+     *
      * @param color A Color representing the StudentColor we want the associated ImageType of
      * @return The ImageType associated to the provided StudentColor
      */
@@ -381,6 +389,7 @@ public class PathHelper {
 
     /**
      * Gets the StudentColor associated to a specific ImageType
+     *
      * @param imageType The ImageType we want the associated StudentColor of
      * @return A Color representing the StudentColor associated to the provided ImageType
      */
@@ -405,6 +414,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific ProfessorColor
+     *
      * @param color A Color representing the ProfessorColor we want the associated ImageType of
      * @return The ImageType associated to the provided ProfessorColor
      */
@@ -424,6 +434,7 @@ public class PathHelper {
 
     /**
      * Gets the ProfessorColor associated to a specific ImageType
+     *
      * @param imageType The ImageType we want the associated ProfessorColor of
      * @return A Color representing the ProfessorColor associated to the provided ImageType
      */
@@ -448,6 +459,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific TowerColor
+     *
      * @param towerColor A TowerColor representing the TowerColor we want the associated ImageType of
      * @return The ImageType associated to the provided TowerColor
      */
@@ -465,6 +477,7 @@ public class PathHelper {
 
     /**
      * Gets the TowerColor associated to a specific ImageType
+     *
      * @param imageType The ImageType we want the associated TowerColor of
      * @return A TowerColor representing the TowerColor associated to the provided ImageType
      */
@@ -487,6 +500,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific AssistantCard
+     *
      * @param assistantCardNumber An int representing the cardValue of the AssistantCard we want the associated ImageType of
      * @return The ImageType associated to the provided AssistantCard
      */
@@ -512,6 +526,7 @@ public class PathHelper {
 
     /**
      * Gets the number of the AssistantCard associated to a specific ImageType
+     *
      * @param imageType The ImageType we want the associated AssistantCard of
      * @return An int representing the number of the AssistantCard associated to the provided ImageType
      */
@@ -541,6 +556,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific CharacterCard
+     *
      * @param character The character Enumeration constant of the CharacterCard we want the associated ImageType of
      * @return The ImageType associated to the provided CharacterCard
      */
@@ -567,6 +583,7 @@ public class PathHelper {
 
     /**
      * Gets the Character of the CharacterCard associated to a specific ImageType
+     *
      * @param imageType The ImageType we want the associated CharacterCard of
      * @return The Character of the CharacterCard associated to the provided ImageType
      */
@@ -598,6 +615,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific Wizard
+     *
      * @param wizard The Wizard we want the associated ImageType of
      * @return The ImageType associated to the provided Wizard
      */
@@ -616,6 +634,7 @@ public class PathHelper {
 
     /**
      * Gets the Wizard associated to a specific ImageType
+     *
      * @param imageType The ImageType we want the associated Wizard of
      * @return The Wizard associated to the provided ImageType
      */
@@ -639,6 +658,7 @@ public class PathHelper {
 
     /**
      * Gets the ImageTypes associated to a specific IslandBackGroundNumber
+     *
      * @param islandIDNumber The IslandBackGroundNumber we want the associated ImageType of
      * @return The ImageType associated to the provided IslandBackGroundNumber
      */
@@ -657,6 +677,7 @@ public class PathHelper {
 
     /**
      * Gets the IslandBackGroundNumber associated to a specific ImageType
+     *
      * @param imageType The ImageType we want the associated IslandBackGroundNumber of
      * @return An int representing the IslandBackGroundNumber associated to the provided ImageType
      */
@@ -679,6 +700,7 @@ public class PathHelper {
 
     /**
      * Converts the absolute URL, that depends on the devices, on the relative URL useful for the project
+     *
      * @param absoluteURL A String containing the absolute URL
      * @return A String representing the relative URL
      */

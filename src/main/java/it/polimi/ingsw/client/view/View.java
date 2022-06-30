@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  * Interface shared between ViewCLI and ViewGUI
- * @author Giovanni Manfredi, Mattia Martelli & Sebastiano Meneghin
+ * @author Giovanni Manfredi, Mattia Martelli and Sebastiano Meneghin
  */
 public sealed interface View permits ViewCLI, ViewGUI {
 
@@ -32,6 +32,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Updates the model, in order to show the latest model condition
+     *
      * @param model The updated model present on the server's model
      * @param updatedValues
      */
@@ -67,33 +68,38 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Requests the player to provide his username and from how many years he knows Magic
+     *
      * @param forbiddenUsernames A Set(String) containing all the username already used by the other player
      */
     void requestUsernameAndMagicAge(Set<String> forbiddenUsernames);
 
     /**
      * Requests the player which deck (wizard) he wants to play with
+     *
      * @param availableWizards An array of Wizard that haven't been already chosen by other players
      */
     void requestWizard(Wizard[] availableWizards);
 
     /**
      * Requests the player which assistantCard he wants to play between the provided assistantCards
+     *
      * @param assistantCards An array of AssistantCards that are currently playable
      */
     void requestPlayAssistantCard(AssistantCard[] assistantCards);
 
     /**
      * Requests the player which characterCards he would like to play between the CharacterCard provided
+     *
      * @param playableCharacterCards An array of characterCards that are currently playable
      */
     void requestPlayCharacterCard(CharacterCard[] playableCharacterCards);
 
     /**
      * Shows to the player the entranceStudents and the playableCharacterCards, waiting for a selection.
-     * It sets clickable all and only entranceStudents and playableCharactercards and based on
+     * It sets clickable all and only entranceStudents and playableCharacterCards and based on
      * the click, I'll decide the return
-     * @param entranceStudents An array of students containing the entrance's students
+     *
+     * @param entranceStudents       An array of students containing the entrance's students
      * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
      */
     void requestMoveStudentOrPlayCC(Color[] entranceStudents, CharacterCard[] playableCharacterCards);
@@ -109,8 +115,9 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Requests the player how far he wants to move MotherNature
-     * It sets to clickable only the Islands that can be selected by the player, according to the
-     * provided Islands' array
+     * It sets to clickable only the Islands that can be selected by the player,
+     * according to the provided Islands' array
+     *
      * @param possibleMovement An array containing the Islands that can be moved by the player
      */
     void requestMotherNatureMovement(Island[] possibleMovement);
@@ -120,13 +127,15 @@ public sealed interface View permits ViewCLI, ViewGUI {
      * Shows to the player the Islands where motherNature could be moved and the CharacterCards
      * that can be played. It sets to clickable only the Islands that can be selected by the player,
      * according to the provided Islands' array and only the playable CharacterCards
-     * @param possibleMovement An array containing the Islands that can be moved by the player
+     *
+     * @param possibleMovement       An array containing the Islands that can be moved by the player
      * @param playableCharacterCards An array of CharacterCard representing the playable CharacterCards
      */
     void requestMoveMotherNatureOrPlayCC(Island[] possibleMovement, CharacterCard[] playableCharacterCards);
 
     /**
      * Requests the player to choose a CloudTile from the availableClouds
+     *
      * @param availableClouds An array of CloudTile representing the available CloudTiles
      */
     void requestCloudTileSelection(CloudTile[] availableClouds);
@@ -135,19 +144,22 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Requests the player to choose between selecting a CloudTile or playing a CharacterCard.
      * Shows to the player the CloudTiles that can be selected and the CharacterCard that can be played
-     * @param availableClouds An array of CloudTiles containing the CloudTiles that have students on them
+     *
+     * @param availableClouds        An array of CloudTiles containing the CloudTiles that have students on them
      * @param playableCharacterCards An array of CharacterCard containing the playableCharacterCards
      */
     void requestChooseCloudOrPlayCC(CloudTile[] availableClouds, CharacterCard[] playableCharacterCards);
 
     /**
      * Requests the player how many students he wants to move
+     *
      * @param maxNumOfStudentMovable The maximum number of student the player can decide to move
      */
     void requestHowManyStudentsToMove(int maxNumOfStudentMovable);
 
     /**
      * Requests the player to choose a color between the provided ones
+     *
      * @param availableColors The color that can be chosen by the player
      */
     void requestChooseColor(Color[] availableColors);
@@ -155,10 +167,11 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Requests the player to choose a student from a specific CharacterCard, between the students provided
      * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
      * @param characterCardPosition The position in the characterCardArray
      *                              of the characterCard that is being played
-     * @param availableColors The colors correspondent to the students that
-     *                        can be chosen between the characterCard's students
+     * @param availableColors       The colors correspondent to the students that
+     *                              can be chosen between the characterCard's students
      * @param numOfAvailableStudent The number of students available
      *                              on the characterCard (it could be useful)
      */
@@ -167,6 +180,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Requests the player to choose a student from his Entrance.
      * It sets to "clickable" only the students colored as the students contained in "availableColors"
+     *
      * @param availableColors The colors correspondent to the students that can be
      *                        moved/picked from the Entrance
      */
@@ -175,6 +189,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Requests the player to choose an Island. It sets to "clickable"
      * only the island present in the "availableIslands" array
+     *
      * @param availableIslands An array of Island representing the Island that can be chosen by the player
      */
     void requestChooseIsland(Island[] availableIslands);
@@ -183,6 +198,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
      * Requests the player to choose a diningRoomTable from the provided ones.
      * It links the diningRoomTable with theirs color, then make "clickable" only the
      * diningRoomTable that have the same color of the provided "compatibleDiningRoomTable" colors' array
+     *
      * @param compatibleDiningRoomTable The color of the diningRoomTables that can be chosen by the player
      */
     void requestChooseDiningRoom(Color[] compatibleDiningRoomTable);
@@ -210,6 +226,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Notifies the player about the beginning of another player's turn
+     *
      * @param playingPlayerUsername The username of the currentPlayer, that is the
      *                              player which is beginning his actionPhase turn
      */
@@ -227,6 +244,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Forwards the infoToSend to the Virtual Controller,
      * contacting it through the method "messageAfterUserInteraction"
+     *
      * @param infoToSend An object containing the information that the client has to provide to the
      *                   server in order to make some actions during the game (es. play a CharacterCard,
      *                   move a Students, etc...)
@@ -236,6 +254,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Sets the username in the VirtualController after getting it from the player.
      * This will come in handy when the View needs to identify self-player infos in the model
+     *
      * @param readUsername the username of the player
      */
     void setUsernameVirtualController(String readUsername);
@@ -246,18 +265,21 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Signals the player the winner
+     *
      * @param winner the winning player
      */
     void signalWinner(Player winner);
 
     /**
      * Signals the player the winning team
+     *
      * @param team the winning team
      */
     void signalWinner(List<Player> team);
 
     /**
      * Signals the player who ended in a draw
+     *
      * @param drawers the player who ended in a draw
      */
     void signalDraw(List<Player> drawers);
@@ -268,6 +290,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Gets the model saved in the View
+     *
      * @return the model saved
      */
     GameModel getModel();
@@ -275,6 +298,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Gets the localPlayer by comparing the Username present in the VirtualController
      * with the players present in the GameModel
+     *
      * @return the localPlayer (null if not present)
      */
     Player getLocalPlayer();
@@ -285,12 +309,14 @@ public sealed interface View permits ViewCLI, ViewGUI {
 
     /**
      * Sets the current Game Model to the one specified
+     *
      * @param model A reference to the model
      */
     void setModel(GameModel model);
 
     /**
      * Sets the virtualController of this class to a specific virtualController received with the method
+     *
      * @param virtualController The VirtualController that this.virtualController has to be set to
      */
     void setVirtualController(VirtualController virtualController);

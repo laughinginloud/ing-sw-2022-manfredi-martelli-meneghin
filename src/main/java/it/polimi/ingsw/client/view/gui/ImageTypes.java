@@ -1,10 +1,9 @@
 package it.polimi.ingsw.client.view.gui;
 
-// TODO - JavaDocs (?)
-
 /**
  * Enum used to have an easier access to the images through theirs url path
  * for the ImageViews (ID) that changes their linked Image (then their places in the pages)
+ *
  * @author Sebastiano Meneghin
  */
 public enum ImageTypes {
@@ -118,7 +117,7 @@ public enum ImageTypes {
     PLAYERS_ICON_IMG,
     POLIMI_LOGO_IMG,
     RETURN_IMG,
-    SCHOOL_BOARD_IMG;
+    SCHOOL_BOARD_IMG
 
     // endregion MiscellaneousImageTypes
 
