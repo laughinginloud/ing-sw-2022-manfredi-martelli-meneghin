@@ -266,8 +266,8 @@ java -jar PSP27-Eriantys-1.0.jar
 if it doesn't, execute the command by substituting the command above with the correct file name
 
 3. A CLI will appear, and you'll be able to choose an option among the present by using:
-   * **Windows** <kbd>&uarr;</kbd> <kbd>&darr;</kbd> or <kbd>Tab</kbd>; 
-   * **Unix** <kbd>Tab</kbd>.
+   * **Windows** <kbd>&uarr;</kbd> <kbd>&darr;</kbd> or <kbd>Tab</kbd>
+   * **Unix** <kbd>Tab</kbd>
 4. The options are:
    * Server
    * Client CLI
