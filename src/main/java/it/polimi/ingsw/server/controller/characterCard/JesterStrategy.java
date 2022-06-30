@@ -59,9 +59,10 @@ public class JesterStrategy extends CharacterCardStrategy {
                 int chosenNumOfMovement = (int) chosenField.get(GameValues.MOVEMENTJESTER);
 
                 // For chosenNumOfMovement times asks the player which student he would like to move, waits for response and notifies all the players after the movement
-                for (int i = 0; i < chosenNumOfMovement; i++)
-                    changeStudent(data, model, curPlayer, playerView, chosenNumOfMovement, i);
-
+                for (int i = 0; i < chosenNumOfMovement; i++) {
+                    boolean lastMovement = i == chosenNumOfMovement - 1;
+                    changeStudent(data, model, curPlayer, playerView, lastMovement);
+                }
             }
 
             // If the response is of the wrong kind throw an exception to help debug
@@ -79,7 +80,7 @@ public class JesterStrategy extends CharacterCardStrategy {
         }
     }
 
-    public void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView, int chosenNumOfMovements, int iteration) throws Exception {
+    public void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView, boolean lastMovement) throws Exception {
         Player[] players = data.getGameModel().getPlayers();
 
         // Cast the CharacterCard to a CharacterCardStudent
@@ -128,7 +129,7 @@ public class JesterStrategy extends CharacterCardStrategy {
                 updatedEntrances[i] = players[i].getSchoolBoard().getEntrance();
 
             // If it's the last iteration of "changeStudent" saves these data in the Map afterEffectUpdate
-            if (iteration == (chosenNumOfMovements - 1)) {
+            if (lastMovement) {
                 afterEffectUpdate.put(GameValues.CHARACTERCARDARRAY, updatedCharacterCards);
                 afterEffectUpdate.put(GameValues.ENTRANCEARRAY, updatedEntrances);
             }
