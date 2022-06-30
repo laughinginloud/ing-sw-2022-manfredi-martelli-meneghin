@@ -74,6 +74,6 @@ public record UsernameAndMagicAge(String username, int magicAge) {
      * An enum to represent the result of the username check
      */
     public enum UsernameResult {
-        OK, LONG, CHOSEN, NULL;
+        OK, LONG, CHOSEN, NULL
     }
 }
