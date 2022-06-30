@@ -137,11 +137,11 @@ public class InfoHelper {
 
     public static Color gsFindDiningRoomTableColor(AnchorPane diningRoomTablePaneID) {
         return switch(diningRoomTablePaneID.getId()) {
-            case "greenDiningRoom_Pane"  -> Color.GREEN;
-            case "redDiningRoom_Pane"    -> Color.RED;
-            case "yellowDiningRoom_Pane" -> Color.YELLOW;
-            case "pinkDiningRoom_Pane"   -> Color.PINK;
-            case "blueDiningRoom_Pane"   -> Color.BLUE;
+            case "greenDiningRoom_pane"  -> Color.GREEN;
+            case "redDiningRoom_pane"    -> Color.RED;
+            case "yellowDiningRoom_pane" -> Color.YELLOW;
+            case "pinkDiningRoom_pane"   -> Color.PINK;
+            case "blueDiningRoom_pane"   -> Color.BLUE;
             default                      -> throw new IllegalStateException("The diningRoomTableID you have inserted is not contemplated. You've inserted: " + diningRoomTablePaneID.getId());
         };
     }
