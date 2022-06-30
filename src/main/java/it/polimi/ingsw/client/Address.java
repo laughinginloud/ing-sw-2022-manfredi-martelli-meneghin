@@ -5,8 +5,10 @@ import java.util.regex.Pattern;
 
 /**
  * Record containing an IP address and a port, along with a couple utility methods
+ *
  * @param ipAddress A string containing the IP address
- * @param port An integer containing the port number
+ * @param port      An integer containing the port number
+ * @author Mattia Martelli
  */
 public record Address(String ipAddress, int port) {
     /**
@@ -15,7 +17,7 @@ public record Address(String ipAddress, int port) {
     private static final Predicate<String> ipMatcher = Pattern.compile("localhost|(\\b25[0-5]|\\b2[0-4]\\d|\\b[01]?\\d\\d?)(\\.(25[0-5]|2[0-4]\\d|[01]?\\d\\d?)){3}").asMatchPredicate();
 
     /**
-     * Return a trimmed, lower case, spaceless copy of the passed string
+     * Return a trimmed, lower case, space-less copy of the passed string
      * @param ip The string to sanitize
      * @return The sanitized string
      */
