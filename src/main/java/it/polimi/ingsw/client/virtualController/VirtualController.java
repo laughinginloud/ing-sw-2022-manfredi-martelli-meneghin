@@ -953,7 +953,7 @@ public final class VirtualController extends Thread {
 
                 // Gets the Entrance of the player (sent by the Server) and then find which is the color of
                 // the student that has been selected by the player, according to its entranceIndex
-                Entrance entranceToMoveFrom   = (Entrance) savedReceivedMap.get(GameValues.ENTRANCE);
+                Entrance entranceToMoveFrom   = ((Tuple<Integer, Entrance>) savedReceivedMap.get(GameValues.ENTRANCE)).right();
                 Color    selectedStudentColor = entranceToMoveFrom.getStudents()[entranceStudentIndex];
 
                 // Gets the color of the compatible DiningRooms, according to the Info received via message from the Server

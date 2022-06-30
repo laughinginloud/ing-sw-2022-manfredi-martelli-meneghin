@@ -5,6 +5,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.PlayCharacterAction;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
+import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
@@ -98,7 +99,7 @@ public class BardStrategy extends CharacterCardStrategy {
 
         // Add the Entrance from which the students will be selected
         Entrance entranceToMoveFrom = curPlayer.getSchoolBoard().getEntrance();
-        bardMap.put(GameValues.ENTRANCE, entranceToMoveFrom);
+        bardMap.put(GameValues.ENTRANCE, new Tuple<>(curPlayer.getPlayerID(), entranceToMoveFrom));
 
         // Add to the Map that will be sent to the player the SwapMap related to the swappableStudents
         Map<Color, Boolean[]> bardPossibleMovementMap = setBardPossibleMovements(curPlayer, swappableStudents);
@@ -182,6 +183,9 @@ public class BardStrategy extends CharacterCardStrategy {
 
         // For each student currently present in the entrance
         for (Color color : entranceStudents) {
+            if (color == null)
+                continue;
+
             // If there's a DiningTable of a different color of the student that is not empty, set "addable" to true
             for (Color compareColor : Color.values())
                 if (color != compareColor && diningRoom.getStudentCounters(compareColor) > 0) {
@@ -222,6 +226,9 @@ public class BardStrategy extends CharacterCardStrategy {
 
         // For each swappableStudents (that is contained in the Entrance)
         for (Color student : swappableStudents) {
+            if (student == null)
+                continue;
+
             Boolean[] compatibleDiningTable = {false, false, false, false, false};
 
             // For each color different by the student's color, set the compatibleDiningTable to true

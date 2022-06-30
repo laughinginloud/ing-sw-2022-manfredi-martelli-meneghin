@@ -86,7 +86,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
                     updatedDiningRooms[i] = players[i].getSchoolBoard().getDiningRoom();
 
                 // Save into the afterEffectUpdate the updated field that will be broadcast to the players
-                afterEffectUpdate.put(GameValues.DININGROOM, updatedDiningRooms);
+                afterEffectUpdate.put(GameValues.DININGROOMARRAY, updatedDiningRooms);
             }
 
             // If the response is of the wrong kind throw an exception to help debug
