@@ -1842,17 +1842,18 @@ public final class GameSceneHandler implements GUIHandler {
         Color     CC_student_Color;
         String    CC_student_ImgPath;
         // For each student present, sets the image depending on the studentColor
-        for (int i = 0; i < characterCardStudent.getStudents().length; i++) {
-            CC_student         = IDHelper.gsFindCharacterCardElementID(this, index, i);
-            CC_student_Color   = characterCardStudent.getStudents()[i];
-            CC_student_ImgPath = PathHelper.fromStudentColorToHandlerPath(CC_student_Color);
-            CC_student.setImage(new Image(getClass().getResourceAsStream(CC_student_ImgPath)));
-        }
-
-        // For each student absent, remove the img
-        for (int i = characterCardStudent.getStudents().length; i < ViewGUI.MAX_CC_ELEMENTS; i++) {
-            CC_student = IDHelper.gsFindCharacterCardElementID(this, index, i);
-            CC_student.setImage(null);
+        for (int i = 0; i < ViewGUI.MAX_CC_ELEMENTS; i++) {
+            // If the student is present on the CharacterCard's Students array
+            if (i < characterCardStudent.getStudents().length && characterCardStudent.getStudents()[i] != null) {
+                CC_student = IDHelper.gsFindCharacterCardElementID(this, index, i);
+                CC_student_Color = characterCardStudent.getStudents()[i];
+                CC_student_ImgPath = PathHelper.fromStudentColorToHandlerPath(CC_student_Color);
+                CC_student.setImage(new Image(getClass().getResourceAsStream(CC_student_ImgPath)));
+            }
+            else {
+                CC_student = IDHelper.gsFindCharacterCardElementID(this, index, i);
+                CC_student.setImage(null);
+            }
         }
     }
 
@@ -2164,24 +2165,26 @@ public final class GameSceneHandler implements GUIHandler {
     public void activateClicksCharacterCardElements(int characterCardPosition, Color[] availableColors, int numOfAvailableElements) {
         CharacterCardStudent playedCharacterCard    = (CharacterCardStudent) gui.getModel().getCharacterCard(characterCardPosition);
         Color[]              studentOnCharacterCard = playedCharacterCard.getStudents();
-        int                  numOfCCStudents        = studentOnCharacterCard.length;
+        int                  numOfCCElements        = studentOnCharacterCard.length;
 
         ImageView ccStudentImageView;
 
         for (Color color : availableColors) {
-            for (int i = 0; i < numOfCCStudents; i++) {
-                if (color.equals(studentOnCharacterCard[i])) {
-                    ccStudentImageView = IDHelper.gsFindCharacterCardElementID(this, characterCardPosition, i);
+            for (int i = 0; i < numOfCCElements; i++) {
+                if (studentOnCharacterCard[i] != null) {
+                    if (color.equals(studentOnCharacterCard[i])) {
+                        ccStudentImageView = IDHelper.gsFindCharacterCardElementID(this, characterCardPosition, i);
 
-                    EventHandler<MouseEvent> clickOnCharacterCardStudentHandler = mouseEvent -> {
-                        // Associates to the click of the mouse the function clickOnCharacterCardElements
-                        // as response to the user's action
-                        clickOnCharacterCardStudent(mouseEvent);
+                        EventHandler<MouseEvent> clickOnCharacterCardStudentHandler = mouseEvent -> {
+                            // Associates to the click of the mouse the function clickOnCharacterCardElements
+                            // as response to the user's action
+                            clickOnCharacterCardStudent(mouseEvent);
 
-                        mouseEvent.consume();
-                    };
+                            mouseEvent.consume();
+                        };
 
-                    ccStudentImageView.setOnMouseClicked(clickOnCharacterCardStudentHandler);
+                        ccStudentImageView.setOnMouseClicked(clickOnCharacterCardStudentHandler);
+                    }
                 }
             }
         }
