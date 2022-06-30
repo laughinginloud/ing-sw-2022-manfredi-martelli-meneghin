@@ -28,7 +28,7 @@ import java.util.Set;
 // Warnings for unused fields have been disabled, since the fields that these fields are accessing
 // could be useful in the future and difficult to add without opening the .fxml
 // Warnings for classes that are not exported has been suppressed because are intentionally not exported
-@SuppressWarnings({"unused, ClassEscapesDefinedScope"})
+@SuppressWarnings({"unused", "ClassEscapesDefinedScope"})
 
 public final class WizardChoiceHandler implements GUIHandler {
     private ViewGUI gui;

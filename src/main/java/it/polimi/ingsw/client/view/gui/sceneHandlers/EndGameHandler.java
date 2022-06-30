@@ -26,7 +26,7 @@ import java.util.List;
 // Warnings for gui field has been suppressed to allow future modification of the class
 // Warnings for possible null parameters to an addImage have been suppressed because the input is constant
 // Warnings for classes that are not exported has been suppressed because are intentionally not exported
-@SuppressWarnings({"unused, FieldCanBeLocal, ConstantConditions", "ClassEscapesDefinedScope"})
+@SuppressWarnings({"unused", "FieldCanBeLocal", "ConstantConditions", "ClassEscapesDefinedScope"})
 
 public final class EndGameHandler implements GUIHandler {
 
