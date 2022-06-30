@@ -28,10 +28,10 @@ import static javafx.application.Platform.*;
  * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 
-// Warnings for unused fields have been disabled, since many methods now not used, could become useful in the future
+// Warnings for unused fields or methods have been disabled, since many methods now not used, could become useful in the future
 // Warnings for possible null parameters to an addImage have been suppressed because the input is constant
 // Warnings for classes that are not exported has been suppressed because are intentionally not exported
-@SuppressWarnings({"unused, ConstantConditions, ClassEscapesDefinedScope"})
+@SuppressWarnings({"unused", "ConstantConditions", "ClassEscapesDefinedScope"})
 
 public final class ViewGUI extends Application implements View {
 

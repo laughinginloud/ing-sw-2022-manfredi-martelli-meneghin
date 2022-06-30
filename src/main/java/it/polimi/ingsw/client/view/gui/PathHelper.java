@@ -12,9 +12,9 @@ import java.util.Objects;
  * @author Sebastiano Meneghin
  */
 
-// Warnings for unused fields have been disabled, since many methods now not used, could become useful in the future
+// Warnings for unused fields or methods have been disabled, since many methods now not used, could become useful in the future
 // Warnings for classes that are not exported has been suppressed because are intentionally not exported
-@SuppressWarnings({"unused, ClassEscapesDefinedScope"})
+@SuppressWarnings({"unused", "ClassEscapesDefinedScope"})
 
 public class PathHelper {
 
