@@ -2,7 +2,6 @@ package it.polimi.ingsw.common.json.adapters;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw.common.GameActions;
 
@@ -25,9 +24,7 @@ public class GameActionsJSONAdapter extends TypeAdapter<GameActions> {
 
     @Override
     public GameActions read(JsonReader jsonReader) throws IOException {
-        GameActions actions = null;
-
-        String fieldName = null;
+        GameActions actions;
 
         jsonReader.beginObject();
         jsonReader.nextName();

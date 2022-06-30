@@ -118,6 +118,7 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
         return map;
     }
 
+    @SuppressWarnings("unchecked")
     private static void serialize(GameValues key, Object value, JsonWriter jsonWriter) throws IOException {
         switch (key) {
             case BOOLARRAY -> {
@@ -199,7 +200,7 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
                  REDUCECOLOR -> jsonWriter.value(((Color) value).name());
 
             default -> jsonWriter.value(json.toJson(value));
-        };
+        }
     }
 
     private static Object deserialize(GameValues key, JsonReader jsonReader) throws IOException {

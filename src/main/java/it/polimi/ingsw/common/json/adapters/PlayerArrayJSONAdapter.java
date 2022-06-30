@@ -55,6 +55,7 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
         jsonWriter.endObject();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Player[] read(JsonReader jsonReader) throws IOException {
         List<Player> playerList = new ArrayList<>();
@@ -111,6 +112,7 @@ public class PlayerArrayJSONAdapter extends TypeAdapter<Player[]> {
         return "base";
     }
 
+    @SuppressWarnings("rawtypes")
     private static Class playerType(String type) {
         return switch (type) {
             case "base"       -> Player.class;

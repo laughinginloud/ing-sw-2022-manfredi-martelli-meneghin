@@ -14,7 +14,7 @@ import java.io.InputStream;
  * Client's main class
  * @author Mattia Martelli
  */
-public class Client {
+public final class Client {
     /**
      * Start the client
      * @param gui <code>true</code> if the client should start in GUI mode, <code>false</code> otherwise

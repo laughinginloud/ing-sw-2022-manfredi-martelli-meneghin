@@ -50,6 +50,9 @@ public class EntranceJSONAdapter extends TypeAdapter<Entrance> {
 
         jsonReader.endObject();
 
+        if (students == null)
+            throw new IOException();
+
         Entrance entrance = new Entrance(students.length);
         entrance.setStudents(students);
 

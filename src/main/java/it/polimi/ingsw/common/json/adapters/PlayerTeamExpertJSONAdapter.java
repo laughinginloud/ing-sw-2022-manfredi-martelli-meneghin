@@ -25,6 +25,7 @@ public class PlayerTeamExpertJSONAdapter extends TypeAdapter<PlayerTeamExpert> {
         .create();
 
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public void write(JsonWriter jsonWriter, PlayerTeamExpert playerTeamExpert) throws IOException {
         jsonWriter.beginObject();
 

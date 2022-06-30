@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class CharacterCardNoEntryJSONAdapter extends TypeAdapter<CharacterCardNoEntry> {
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public void write(JsonWriter jsonWriter, CharacterCardNoEntry characterCardNoEntry) throws IOException {
         jsonWriter.beginObject();
 

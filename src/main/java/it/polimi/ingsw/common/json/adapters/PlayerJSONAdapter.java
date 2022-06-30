@@ -25,6 +25,7 @@ public class PlayerJSONAdapter extends TypeAdapter<Player> {
         .create();
 
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public void write(JsonWriter jsonWriter, Player player) throws IOException {
         jsonWriter.beginObject();
 
