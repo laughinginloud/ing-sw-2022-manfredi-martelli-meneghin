@@ -88,8 +88,8 @@ public final class EndGameHandler implements GUIHandler {
 
         // Sets the winning player Wizard and username
         String wizardImgPath = PathHelper.fromWizardEnumToHandlerPath(winner.getPlayerWizard());
-        wizard0_img.setImage(new Image(getClass().getResourceAsStream(wizardImgPath)));
-        user0_label.setText(winner.getUsername());
+        wizard1_img.setImage(new Image(getClass().getResourceAsStream(wizardImgPath)));
+        user1_label.setText(winner.getUsername());
     }
 
     /**
