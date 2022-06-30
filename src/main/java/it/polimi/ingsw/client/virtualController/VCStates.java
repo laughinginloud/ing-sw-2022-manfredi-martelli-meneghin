@@ -1,5 +1,9 @@
 package it.polimi.ingsw.client.virtualController;
 
+/**
+ * The current state of the virtual controller
+ * @author Mattia Martelli
+ */
 public enum VCStates {
     REQ_USER_AGE,
     REQ_RULES,
