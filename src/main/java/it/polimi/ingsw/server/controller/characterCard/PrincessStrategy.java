@@ -90,8 +90,11 @@ public class PrincessStrategy extends CharacterCardStrategy {
                 for (Color student: Color.values())
                     // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
                     // The professorLocation is changed to the currentPlayer
-                    model.getGlobalProfessorTable().getProfessorLocation(student).ifPresent(p -> {
+                    model.getGlobalProfessorTable().getProfessorLocation(student).ifPresentOrElse(p -> {
                         if (!currentPlayer.equals(p) && GameStateMoveStudents.checkProfessorMovement(currentPlayer, p, student))
+                            model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
+                    }, () -> {
+                        if (currentPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) > 0)
                             model.getGlobalProfessorTable().setProfessorLocation(student, currentPlayer);
                     });
 
