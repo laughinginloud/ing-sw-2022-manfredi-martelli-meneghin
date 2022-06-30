@@ -157,8 +157,11 @@ public class BardStrategy extends CharacterCardStrategy {
             for (Color student: Color.values())
                 // If the currentPlayer is not the controllingPlayer and the professor needs to be moved
                 // The professorLocation is changed to the currentPlayer
-                model.getGlobalProfessorTable().getProfessorLocation(student).ifPresent(p -> {
+                model.getGlobalProfessorTable().getProfessorLocation(student).ifPresentOrElse(p -> {
                     if (!curPlayer.equals(p) && GameStateMoveStudents.checkProfessorMovement(curPlayer, p, student))
+                        model.getGlobalProfessorTable().setProfessorLocation(student, curPlayer);
+                }, () -> {
+                    if (curPlayer.getSchoolBoard().getDiningRoom().getStudentCounters(student) > 0)
                         model.getGlobalProfessorTable().setProfessorLocation(student, curPlayer);
                 });
 
