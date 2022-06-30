@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 
 /**
  * Helper class with useful methods to switch between model elements and corresponding id
- * GS = Game Scene; PSB = PlayersSchoolBoard
+ * GS = Game Scene; PSB = PlayersSchoolBoard; EG = End Game
  *
  * @author Sebastiano Meneghin
  */
@@ -1376,10 +1376,10 @@ public class IDHelper {
     /**
      * Gets the ImageView (ID) of the tower related to the specified playerAnchorPane and towerPosition
      *
-     * @param psb          the playersSchoolBoardHandler
-     * @param playerPaneID the specified playerPaneID related to the single tower (same player)
+     * @param psb           the playersSchoolBoardHandler
+     * @param playerPaneID  the specified playerPaneID related to the single tower (same player)
      * @param towerPosition the position of the tower in the SchoolBoard
-     * @return An ImageView correspondent to the specified tower
+     * @return An ImageView correspondent to the specified playerPaneID and towerPosition
      */
     public static ImageView psbFindTowerSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, int towerPosition) {
         return switch (playerPaneID.getId()) {
@@ -1440,12 +1440,12 @@ public class IDHelper {
     }
 
     /**
+     * Gets the ImageView (ID) of the tower related to the specified playerIndex and towerPosition
      *
-     *
-     * @param psb
-     * @param playerIndex
-     * @param towerPosition
-     * @return
+     * @param psb           the playersSchoolBoardHandler
+     * @param playerIndex   the specified index of the player related to the towerPane (same player)
+     * @param towerPosition the position of the tower in the SchoolBoard
+     * @return An ImageView correspondent to the specified playerIndex and towerPosition
      */
     public static ImageView psbFindTowerSingleImageID (PlayersSchoolBoardHandler psb, int playerIndex, int towerPosition) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
@@ -1460,6 +1460,13 @@ public class IDHelper {
 
     // region DiningRoomPaneID
 
+    /**
+     * Gets the AnchorPane (ID) of the diningRoomPane related to the specified playerAnchorPane
+     *
+     * @param psb          the playersSchoolBoardHandler
+     * @param playerPaneID the specified playerPaneID related to the diningRoomPane (same player)
+     * @return The AnchorPane correspondent to the specified playerPaneID
+     */
     public static AnchorPane psbFindDiningRoomPaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
         return switch (playerPaneID.getId()) {
             case "p0_h0_pane" -> psb.p0_diningRoom_pane;
@@ -1470,6 +1477,13 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the AnchorPane (ID) of the diningRoomPane related to the specified playerIndex
+     *
+     * @param psb         the playersSchoolBoardHandler
+     * @param playerIndex the specified index of the player related to the diningRoomPane (same player)
+     * @return The AnchorPane correspondent to the specified playerIndex
+     */
     public static AnchorPane psbFindDiningRoomPaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
         return psbFindDiningRoomPaneID(psb, playerPaneID);
@@ -1481,6 +1495,13 @@ public class IDHelper {
 
     // region DiningRoomProfessorTablePaneID
 
+    /**
+     * Gets the Anchor (ID) of the professorTablePane related to the specified playerAnchorPane
+     *
+     * @param psb          the playersSchoolBoardHandler
+     * @param playerPaneID the specified playerPaneID related to the professorTablePane (same player)
+     * @return The AnchorPane correspondent to the specified playerPaneID
+     */
     public static AnchorPane psbFindProfessorTablePaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
         return switch (playerPaneID.getId()) {
             case "p0_h0_pane" -> psb.p0_professorTable_pane;
@@ -1491,6 +1512,13 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the Anchor (ID) of the professorTablePane related to the specified playerIndex
+     *
+     * @param psb         the playersSchoolBoardHandler
+     * @param playerIndex the specified index of the player related to the professorTablePane (same player)
+     * @return The AnchorPane correspondent to the specified playerIndex
+     */
     public static AnchorPane psbFindProfessorTablePaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
         return psbFindProfessorTablePaneID(psb, playerPaneID);
@@ -1500,6 +1528,14 @@ public class IDHelper {
 
     // region DiningRoomProfessorSingleImageID
 
+    /**
+     * Gets the ImageView (ID) of the professor related to the specified playerAnchorPane and color
+     *
+     * @param psb            the playersSchoolBoardHandler
+     * @param playerPaneID   the specified playerPaneID related to the professor (same player)
+     * @param professorColor the color of the professor
+     * @return An ImageView correspondent to the specified playerPaneID and color
+     */
     public static ImageView psbFindProfessorSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, Color professorColor) {
         return switch (playerPaneID.getId()) {
             case "p0_h0_pane" ->
@@ -1542,6 +1578,14 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the ImageView (ID) of the professor related to the specified playerIndex and color
+     *
+     * @param psb            the playersSchoolBoardHandler
+     * @param playerIndex    the specified index of the player related to the professor (same player)
+     * @param professorColor the color of the desired professor
+     * @return An ImageView correspondent to the specified playerIndex and color
+     */
     public static ImageView psbFindProfessorSingleImageID (PlayersSchoolBoardHandler psb, int playerIndex, Color professorColor) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
         return psbFindProfessorSingleImageID(psb, playerPaneID, professorColor);
@@ -1553,6 +1597,14 @@ public class IDHelper {
 
     // region DiningRoomTablePaneID
 
+    /**
+     * Gets the AnchorPane (ID) of the diningRoomTable related to the specified playerAnchorPane and color
+     *
+     * @param psb          the playersSchoolBoardHandler
+     * @param playerPaneID the specified playerPaneID related to the diningRoomTable (same player)
+     * @param tableColor   the color of the desired diningRoomTable
+     * @return The AnchorPane correspondent to the specified playerPaneID and color
+     */
     public static AnchorPane psbFindDiningRoomSingleTablePaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, Color tableColor) {
         return switch (playerPaneID.getId()) {
             case "p0_h0_pane" ->
@@ -1595,6 +1647,14 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the AnchorPane (ID) of the diningRoomTable related to the specified playerIndex and color
+     *
+     * @param psb         the playersSchoolBoardHandler
+     * @param playerIndex the specified index of the player related to the diningRoomTable (same player)
+     * @param tableColor  the color of the desired diningRoomTable
+     * @return The AnchorPane correspondent to the specified playerIndex and color
+     */
     public static AnchorPane psbFindDiningRoomSingleTablePaneID (PlayersSchoolBoardHandler psb, int playerIndex, Color tableColor) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
         return psbFindDiningRoomSingleTablePaneID(psb, playerPaneID, tableColor);
@@ -1604,6 +1664,14 @@ public class IDHelper {
 
     // region DiningRoomStudentSingleImageID
 
+    /**
+     * Gets the ImageView (ID) of the student in the diningRoom related to the specified diningRoomTablePane and studentPosition
+     *
+     * @param psb               the playersSchoolBoardHandler
+     * @param singleTablePaneID the specified diningRoomTablePane related to the desired student (same table)
+     * @param studentPosition   the index of the student in the diningRoomTable
+     * @return The ImageView correspondent to the specified diningRoomTablePane and studentPosition
+     */
     public static ImageView psbFindDiningRoomStudentSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane singleTablePaneID, int studentPosition) {
         return switch (singleTablePaneID.getId()) {
             case "p0_greenDiningRoom_pane" ->
@@ -1910,11 +1978,33 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the ImageView (ID) of the student in the diningRoom related to the specified playerAnchorPane,
+     * color of the table (and the student) and studentPosition
+     *
+     * @param psb             the playersSchoolBoardHandler
+     * @param playerPaneID    the specified playerPaneID related to the student (same player)
+     * @param tableColor      the specified color of the diningRoomTable and the student
+     * @param studentPosition the index of the student in the diningRoom
+     * @return The ImageView correspondent to the specified playerAnchorPane,
+     *         color of the table (and the student) and studentPosition
+     */
     public static ImageView psbFindDiningRoomStudentSingleImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, Color tableColor, int studentPosition) {
         AnchorPane singleTablePaneID = psbFindDiningRoomSingleTablePaneID(psb, playerPaneID, tableColor);
         return psbFindDiningRoomStudentSingleImageID(psb, singleTablePaneID, studentPosition);
     }
 
+    /**
+     * Gets the ImageView (ID) of the student in the diningRoom related to the specified playerIndex,
+     * color of the table (and the student) and studentPosition
+     *
+     * @param psb             the playersSchoolBoardHandler
+     * @param playerIndex     the specified index of the player related to the student (same player)
+     * @param tableColor      the specified color of the diningRoomTable and the student
+     * @param studentPosition the index of the student in the diningRoom
+     * @return The ImageView correspondent to the specified playerIndex,
+     *         color of the table (and the student) and studentPosition
+     */
     public static ImageView psbFindDiningRoomStudentSingleImageID (PlayersSchoolBoardHandler psb, int playerIndex, Color tableColor, int studentPosition) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
         return psbFindDiningRoomStudentSingleImageID(psb, playerPaneID, tableColor, studentPosition);
@@ -1928,6 +2018,13 @@ public class IDHelper {
 
     // region EntrancePaneID
 
+    /**
+     * Gets the AnchorPane (ID) of the entrance related to the specified playerAnchorPane
+     *
+     * @param psb          the playersSchoolBoardHandler
+     * @param playerPaneID the specified playerPaneID related to the entrance (same player)
+     * @return The AnchorPane correspondent to the specified playerPaneID
+     */
     public static AnchorPane psbFindEntrancePaneID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID) {
         return switch (playerPaneID.getId()) {
             case "p0_h0_pane" -> psb.p0_entrance_pane;
@@ -1938,6 +2035,13 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the AnchorPane (ID) of the entrance related to the specified playerIndex
+     *
+     * @param psb         the playersSchoolBoardHandler
+     * @param playerIndex the specified index of the player related to the entrance (same player)
+     * @return The AnchorPane correspondent to the specified playerPaneID
+     */
     public static AnchorPane psbFindEntrancePaneID (PlayersSchoolBoardHandler psb, int playerIndex) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
         return psbFindEntrancePaneID(psb, playerPaneID);
@@ -1947,6 +2051,14 @@ public class IDHelper {
 
     // region EntranceStudentImageID
 
+    /**
+     * Gets the ImageView (ID) of the student in the entrance related to specified playerAnchorPane and entranceStudentPosition
+     *
+     * @param psb                the playersSchoolBoardHandler
+     * @param playerPaneID       the specified playerPaneID related to the student (same player)
+     * @param entranceStudentPos the index of the student in the entrance
+     * @return The ImageView correspondent to the specified playerAnchorPane and studentPosition
+     */
     public static ImageView psbFindEntranceStudentImageID (PlayersSchoolBoardHandler psb, AnchorPane playerPaneID, int entranceStudentPos) {
         return switch (playerPaneID.getId()) {
             case "p0_h0_pane" ->
@@ -2009,6 +2121,14 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the ImageView (ID) of the student in the entrance related to specified playerIndex and entranceStudentPosition
+     *
+     * @param psb                the playersSchoolBoardHandler
+     * @param playerIndex        the specified index of the player related to the student (same player)
+     * @param entranceStudentPos the index of the student in the entrance
+     * @return The ImageView correspondent to the specified playerIndex and studentPosition
+     */
     public static ImageView psbFindEntranceStudentImageID (PlayersSchoolBoardHandler psb, int playerIndex, int entranceStudentPos) {
         AnchorPane playerPaneID = psbFindPlayerPaneID(psb, playerIndex);
         return psbFindEntranceStudentImageID(psb, playerPaneID, entranceStudentPos);
@@ -2022,6 +2142,13 @@ public class IDHelper {
 
     // region EndGameID
 
+    /**
+     * Gets the ImageView (ID) of the wizard related to the wizardIndex
+     *
+     * @param eg          the EndGameHandler
+     * @param wizardIndex the index of the Wizard image on screen (from 0 to 3)
+     * @return the ImageView correspondent to the specified wizardIndex
+     */
     public static ImageView egFindWizardID (EndGameHandler eg, int wizardIndex) {
         return switch (wizardIndex) {
             case 0  -> eg.wizard0_img;
@@ -2032,6 +2159,13 @@ public class IDHelper {
         };
     }
 
+    /**
+     * Gets the Label (ID) of the username of the winners related to the usernameIndex
+     *
+     * @param eg            the EndGameHandler
+     * @param usernameIndex the index of the username textBox on screen (from 0 to 3)
+     * @return the Label correspondent to the specified usernameIndex
+     */
     public static Label egFindUsernameID (EndGameHandler eg, int usernameIndex) {
         return switch (usernameIndex) {
             case 0  -> eg.user0_label;
