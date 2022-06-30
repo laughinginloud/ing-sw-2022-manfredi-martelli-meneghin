@@ -15,8 +15,6 @@ import it.polimi.ingsw.server.virtualView.VirtualView;
 import java.net.SocketException;
 import java.util.*;
 
-import static it.polimi.ingsw.common.utils.Methods.ifNotNull;
-
 /**
  * State representing the retrieval of students from an island
  * @author Mattia Martelli

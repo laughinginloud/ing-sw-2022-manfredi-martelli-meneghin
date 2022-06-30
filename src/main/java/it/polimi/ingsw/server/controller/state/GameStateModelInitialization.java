@@ -31,6 +31,7 @@ public final class GameStateModelInitialization implements GameStateSetup {
     /**
      * Set up the teams (0, 2) and (1, 3)
      */
+    @SuppressWarnings("ConstantConditions")
     private void setMembers(Player[] players) {
         for (int i = 0; i < 4; ++i) {
             if (players[i] instanceof PlayerTeam p)

@@ -19,6 +19,7 @@ import java.util.List;
  * State representing the request and subsequent movement of the Mother Nature pawn
  * @author Mattia Martelli
  */
+@SuppressWarnings("unused")
 public final class GameStateMoveMotherNature implements GameStateActionPhase {
     public GameState nextState() {
         return
