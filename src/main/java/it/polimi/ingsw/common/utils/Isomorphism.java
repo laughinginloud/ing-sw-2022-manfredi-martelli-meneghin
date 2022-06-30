@@ -11,36 +11,45 @@ import java.util.stream.Collectors;
  * @param <Left> The "left side" of the isomorphism, i.e. the domain
  * @param <Right> The "right side" of the isomorphism, i.e. the codomain
  */
+@SuppressWarnings("unused")
 public final class Isomorphism<Left, Right> {
+
+    // region Fields
+
+    /**
+     * Map Left -> Right
+     */
     private final Map<Left, Right> leftRightMap;
+
+    /**
+     * Map Right -> Left
+     */
     private final Map<Right, Left> rightLeftMap;
 
+    // endregion
+
+    // region Constructors
+
+    /**
+     * Create an empty isomorphism
+     */
     public Isomorphism() {
         leftRightMap = new HashMap<>();
         rightLeftMap = new HashMap<>();
     }
 
+    /**
+     * Create an empty isomorphism
+     * @param initialCapacity The initial capacity of the morphism
+     */
     public Isomorphism(int initialCapacity) {
         leftRightMap = new HashMap<>(initialCapacity);
         rightLeftMap = new HashMap<>(initialCapacity);
     }
 
-    /**
-     * Adds the specified values to the isomorphism, if either values are not already present
-     * @param left The value of the domain
-     * @param right The value of the codomain
-     * @return A boolean representing whether the insertion was successful
-     */
-    public boolean put(Left left, Right right) {
-        if (leftRightMap.containsKey(left) || rightLeftMap.containsKey(right)
-            || left == null || right == null)
-            return false;
+    // endregion
 
-        leftRightMap.put(left, right);
-        rightLeftMap.put(right, left);
-
-        return true;
-    }
+    // region Getters
 
     /**
      * Returns the value of the domain corresponding the specified codomain value
@@ -78,6 +87,27 @@ public final class Isomorphism<Left, Right> {
         return rightLeftMap.containsKey(right);
     }
 
+    // endregion
+
+    // region Setters
+
+    /**
+     * Adds the specified values to the isomorphism, if either values are not already present
+     * @param left  The value of the domain
+     * @param right The value of the codomain
+     * @return A boolean representing whether the insertion was successful
+     */
+    public boolean put(Left left, Right right) {
+        if (leftRightMap.containsKey(left) || rightLeftMap.containsKey(right)
+            || left == null || right == null)
+            return false;
+
+        leftRightMap.put(left, right);
+        rightLeftMap.put(right, left);
+
+        return true;
+    }
+
     /**
      * Clears all the data from the isomorphism
      */
@@ -85,6 +115,30 @@ public final class Isomorphism<Left, Right> {
         leftRightMap.clear();
         rightLeftMap.clear();
     }
+
+    /**
+     * Remove a tuple from the isomorphism
+     * @param left The domain value of the tuple
+     * @return The codomain value of the tuple that was removed
+     */
+    public Right removeLeft(Left left) {
+        rightLeftMap.remove(leftRightMap.get(left));
+        return leftRightMap.remove(left);
+    }
+
+    /**
+     * Remove a tuple from the isomorphism
+     * @param right The codomain value of the tuple
+     * @return The domain value of the tuple that was removed
+     */
+    public Left removeRight(Right right) {
+        leftRightMap.remove(rightLeftMap.get(right));
+        return rightLeftMap.remove(right);
+    }
+
+    // endregion
+
+    // region Functional interface
 
     /**
      * Traverse the isomorphism, discarding the intermediate results
@@ -102,8 +156,7 @@ public final class Isomorphism<Left, Right> {
      */
     public <T> List<T> traverse(BiFunction<? super Left, ? super Right, T> action) {
         List<T> result = new ArrayList<>();
-        for (Map.Entry<Left, Right> entry : entrySet())
-            result.add(action.apply(entry.getKey(), entry.getValue()));
+        entrySet().forEach(e -> result.add(action.apply(e.getKey(), e.getValue())));
         return result;
     }
 
@@ -133,10 +186,10 @@ public final class Isomorphism<Left, Right> {
 
     /**
      * Map the isomorphism to a new domain
-     * @param leftMap The mapper function for the left side
+     * @param leftMap  The mapper function for the left side
      * @param rightMap The mapper function for the right side
      * @return The new isomorphism
-     * @param <NewLeft> The type of the new left domain
+     * @param <NewLeft>  The type of the new left domain
      * @param <NewRight> The type of the new right domain
      */
     public <NewLeft, NewRight> Isomorphism<NewLeft, NewRight> map(Function<Left, NewLeft> leftMap, Function<Right, NewRight> rightMap) {
@@ -162,26 +215,6 @@ public final class Isomorphism<Left, Right> {
     }
 
     /**
-     * Remove a tuple from the isomorphism
-     * @param left The domain value of the tuple
-     * @return The codomain value of the tuple that was removed
-     */
-    public Right removeLeft(Left left) {
-        rightLeftMap.remove(leftRightMap.get(left));
-        return leftRightMap.remove(left);
-    }
-
-    /**
-     * Remove a tuple from the isomorphism
-     * @param right The codomain value of the tuple
-     * @return The domain value of the tuple that was removed
-     */
-    public Left removeRight(Right right) {
-        leftRightMap.remove(rightLeftMap.get(right));
-        return rightLeftMap.remove(right);
-    }
-
-    /**
      * Return a set of tuples representing the isomorphism
      * @return An unordered Set(Tuple(Left, Right))
      */
@@ -193,10 +226,13 @@ public final class Isomorphism<Left, Right> {
      * Map the isomorphism to a new domain
      * @param map The mapper function
      * @return The new isomorphism
-     * @param <NewLeft> The type of the new left domain
+     * @param <NewLeft>  The type of the new left domain
      * @param <NewRight> The type of the new right domain
      */
     public <NewLeft, NewRight> Isomorphism<NewLeft, NewRight> map(Function<Isomorphism<Left, Right>, Isomorphism<NewLeft, NewRight>> map) {
         return map.apply(this);
     }
+
+    // endregion
+
 }
