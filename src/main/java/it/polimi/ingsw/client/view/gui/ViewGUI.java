@@ -156,19 +156,6 @@ public final class ViewGUI extends Application implements View {
         nameMapHandler.get(nextPage).setGUI(this);
 
         Platform.runLater(() -> {
-            /*
-            if (nextPage == Pages.GAME_SCENE) {
-                Scale scale = new Scale(1, 1);
-                scale.setPivotX(0);
-                scale.setPivotY(0);
-                currentScene.getRoot().getTransforms().setAll(scale);
-                SceneSizeChangeListener sizeChangeListener = new SceneSizeChangeListener(currentScene, currentScene.getWidth() / currentScene.getHeight(), currentScene.getHeight(), currentScene.getWidth(), (Pane) currentScene.lookup("playersBoards_BorderPane"));
-                currentScene.widthProperty().addListener(sizeChangeListener);
-                currentScene.heightProperty().addListener(sizeChangeListener);
-                letterbox(currentScene, (Pane) currentScene.lookup("playersBoards_BorderPane"));
-            }
-            */
-
             stage.setScene(currentScene);
         });
     }
@@ -337,8 +324,8 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Requests the player how far he wants to move MotherNature
-     * It sets to clickable only the Islands that can be selected by the player, according to the
-     * provided Islands' array
+     * It sets to clickable only the Islands that can be selected by the player,
+     * according to the provided Islands' array
      *
      * @param possibleMovement An array containing the Islands that can be moved by the player
      */
@@ -567,6 +554,7 @@ public final class ViewGUI extends Application implements View {
 
     /**
      * Notifies the player about the beginning of another player's turn
+     *
      * @param playingPlayerUsername The username of the currentPlayer, that is the
      *                              player which is beginning his actionPhase turn
      */
