@@ -30,6 +30,7 @@ public record Address(String ipAddress, int port) {
      * @param ip A string containing the IP to check
      * @return <code>true</code> if the string contains a valid address, <code>false</code> otherwise
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean checkIP(String ip) {
         return ipMatcher.test(sanitizeIP(ip));
     }
