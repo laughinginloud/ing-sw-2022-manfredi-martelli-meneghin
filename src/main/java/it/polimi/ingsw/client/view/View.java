@@ -33,8 +33,8 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Updates the model, in order to show the latest model condition
      *
-     * @param model The updated model present on the server's model
-     * @param updatedValues
+     * @param model         The updated model present on the server's model
+     * @param updatedValues The updated fields of the model
      */
     void updateModel(GameModel model, Set<GameValues> updatedValues);
 
@@ -107,6 +107,7 @@ public sealed interface View permits ViewCLI, ViewGUI {
     /**
      * Requests the player to move the selected student from his entrance to an Island or to a table
      * of his diningRoom
+     *
      * @param selectedStudentIndex The index of the entrance's player selected by the player
      * @param diningRoomFreeTables An array of boolean indicating which DiningRoomTables still
      *                             have free seats (where the player can move the student)
