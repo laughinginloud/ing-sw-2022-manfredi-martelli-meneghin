@@ -30,19 +30,8 @@ public class GameActionsJSONAdapter extends TypeAdapter<GameActions> {
         String fieldName = null;
 
         jsonReader.beginObject();
-
-        while (jsonReader.hasNext()) {
-            JsonToken jsonToken = jsonReader.peek();
-
-            if (jsonToken == JsonToken.NAME)
-                fieldName = jsonReader.nextName();
-
-            if (fieldName != null)
-                actions = GameActions.valueOf(jsonReader.nextString());
-
-            jsonReader.peek();
-        }
-
+        jsonReader.nextName();
+        actions = GameActions.valueOf(jsonReader.nextString());
         jsonReader.endObject();
 
         return actions;

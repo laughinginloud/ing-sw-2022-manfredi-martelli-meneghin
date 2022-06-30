@@ -108,6 +108,8 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
             jsonReader.endObject();
 
             map.put(key, value);
+
+            jsonReader.peek();
         }
 
         jsonReader.endArray();
@@ -170,6 +172,9 @@ public class InfoMapJSONAdapter extends TypeAdapter<InfoMap> {
                 jsonWriter.beginArray();
 
                 for (Map.Entry<Color, Boolean[]> entry : map.entrySet()) {
+                    if (entry.getKey() == null)
+                        continue;
+
                     jsonWriter.beginObject();
 
                     jsonWriter.name("color");

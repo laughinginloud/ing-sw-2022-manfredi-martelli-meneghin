@@ -98,7 +98,7 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
         while (jsonReader.hasNext()) {
             JsonToken jsonToken = jsonReader.peek();
 
-            if (jsonToken.equals(JsonToken.NAME))
+            if (jsonToken == JsonToken.NAME)
                 fieldName = jsonReader.nextName();
 
             if (fieldName != null) {
@@ -122,8 +122,8 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
                                 }
 
                                 // Should never happen, since the class is saved correctly
-                                catch (ClassNotFoundException e) {
-                                    throw new RuntimeException(e);
+                                catch (ClassNotFoundException ignored) {
+                                    throw new IOException();
                                 }
                             }
 
@@ -140,6 +140,8 @@ public class TupleJSONAdapter extends TypeAdapter<Tuple> {
                     case "right" -> right = value;
                 }
             }
+
+            jsonReader.peek();
         }
 
         jsonReader.endObject();
