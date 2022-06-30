@@ -529,10 +529,11 @@ public final class ControllerData {
     }
 
     /**
-     * Delete all data currently saved
+     * Delete all data currently saved and return a fresh instance
      */
-    public static void nukeInstance() {
+    public static ControllerData nukeInstance() {
         instance = null;
+        return getInstance();
     }
 
     // endregion
