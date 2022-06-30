@@ -6,12 +6,14 @@ import it.polimi.ingsw.common.model.CharacterCard;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CENTAUR'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class CentaurStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'CentaurStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public CentaurStrategy(CharacterCard card) {

@@ -16,12 +16,14 @@ import java.util.*;
 
 /**
  * Strategy representing the activation of the CharacterCard 'BARD'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class BardStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'BardStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public BardStrategy(CharacterCard card) {
@@ -83,11 +85,25 @@ public class BardStrategy extends CharacterCardStrategy {
         }
     }
 
+    /**
+     * Swaps a student from the entrance to the diningRoom
+     * by asking the player the student they want to swap
+     *
+     * @param model        The model on which the action is executed
+     * @param curPlayer    The player who activated the Bard Card effect
+     * @param playerView   The VirtualView associated with the current player
+     * @param lastMovement A boolean indicating if the swap will be the last one (true - last, false - not last)
+     * @throws Exception   IllegalStateException if the response is of the wrong kind
+     */
+
+    // Warnings for possible null parameters to a swappable student have been suppressed because the input is constant
+    @SuppressWarnings({"ConstantConditions"})
+
     private void changeStudent(GameModel model, Player curPlayer, VirtualView playerView, boolean lastMovement) throws Exception {
         Player[] players = model.getPlayers();
 
         // Gets the students present in the current player's Entrance
-        Color[] entranceStudents = curPlayer.getSchoolBoard().getEntrance().getStudents();
+        Color[] entranceStudents  = curPlayer.getSchoolBoard().getEntrance().getStudents();
 
         // Gets the entranceStudents that can be swapped using the Bard's effect
         Color[] swappableStudents = getSwappableStudents(curPlayer, entranceStudents);
@@ -116,12 +132,12 @@ public class BardStrategy extends CharacterCardStrategy {
             InfoMap chosenField = (InfoMap) c.executeCommand();
 
             // Gets the index of the swappableStudent and the diningRoomTable's student color of the player wants to swap the swappableStudent with
-            int   entranceStudentIndex    = (int)   chosenField.get(GameValues.ENTRANCESTUDENTINDEX);
+            int   entranceStudentIndex     = (int)   chosenField.get(GameValues.ENTRANCESTUDENTINDEX);
             Color diningRoomTableStudent   = (Color) chosenField.get(GameValues.DININGROOMTABLECOLOR);
 
             // The server exchanges the students across Entrance and DiningRoom (using a tmp student)
             DiningRoom diningRoom = curPlayer.getSchoolBoard().getDiningRoom();
-            Entrance entrance = curPlayer.getSchoolBoard().getEntrance();
+            Entrance entrance     = curPlayer.getSchoolBoard().getEntrance();
 
             // Removes the chosen student from the entrance
             Color movedStudent = entrance.retrieveStudent(entranceStudentIndex);
@@ -172,7 +188,8 @@ public class BardStrategy extends CharacterCardStrategy {
 
     /**
      * Gets all the entranceStudents that can be swapped with a diningRoom's student
-     * @param player The player who is going to swap a student
+     *
+     * @param player           The player who is going to swap a student
      * @param entranceStudents The student in the entrance of the current player
      * @return An array of Color representing the students of the entrance that can be swapped
      */
@@ -194,7 +211,7 @@ public class BardStrategy extends CharacterCardStrategy {
                 }
 
             // If the DiningTable of the same color of the student is full, set "addable" to false
-            if (color != null && diningRoom.getStudentCounters(color) == 10)
+            if (diningRoom.getStudentCounters(color) == 10)
                 addable = false;
 
             // If the student is swappable at least with a single DiningRoomTable, it is not already present on the list, then add it to the swappableStudents list
@@ -216,7 +233,8 @@ public class BardStrategy extends CharacterCardStrategy {
 
     /**
      * For each swappableStudents calculates which DiningTable contains a student which is swappable with the entranceStudent
-     * @param player The player that has to swap the student
+     *
+     * @param player            The player that has to swap the student
      * @param swappableStudents The entranceStudents that can be swapped
      * @return A Map(Color, Boolean[]) containing, for each swappableStudent, the compatibleDiningTable flags
      */
@@ -247,11 +265,17 @@ public class BardStrategy extends CharacterCardStrategy {
 
     /**
      * Link the selected swappableStudent to the correspondent entranceStudent
-     * @param entranceStudents An array of students containing the entrance's students
-     * @param swappableStudent An array of students containing the swappableStudents
+     *
+     * @param entranceStudents      An array of students containing the entrance's students
+     * @param swappableStudent      An array of students containing the swappableStudents
      * @param swappableStudentIndex The index of the students selected by the player from the swappableStudents
      * @return The index of the student selected by the player mapped on the entranceStudents
      */
+
+    // Warnings for unused methods have been disabled, since many methods now not used, could become useful in the future
+    // Warnings for duplicated code have been suppressed because the other method is also not used but could become useful
+    @SuppressWarnings({"unused", "DuplicatedCode"})
+
     private int getEntranceStudentIndex (Color[] entranceStudents, Color[] swappableStudent, int swappableStudentIndex) {
         Color swappedStudent = swappableStudent[swappableStudentIndex];
         int sameColorAntecedentSwappedStudents  = 0;
@@ -278,9 +302,10 @@ public class BardStrategy extends CharacterCardStrategy {
     /**
      * Update the players about the students' movements caused by the effect of the
      * CharacterCard 'BARD' on the CharacterCards and on the Entrances
-     * @param model The updated GameModel
+     *
+     * @param model               The updated GameModel
      * @param updatedSchoolBoards The updated CharacterCardArray
-     * @param updatedGPT The updated EntranceArray
+     * @param updatedGPT          The updated EntranceArray
      */
     private void updateDuringIteration(GameModel model, SchoolBoard[] updatedSchoolBoards, GlobalProfessorTable updatedGPT) {
         InfoMap duringInteractionMap = new InfoMap();

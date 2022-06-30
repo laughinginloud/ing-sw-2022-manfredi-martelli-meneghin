@@ -7,12 +7,14 @@ import it.polimi.ingsw.common.model.Player;
 
 /**
  * Strategy representing the activation of the CharacterCard 'CAVALIER'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class CavalierStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'CavalierStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public CavalierStrategy(CharacterCard card) {
