@@ -146,7 +146,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
         // For each student of the array availableStudents select if it's movable
         for (Color availableStudent : availableStudents)
             // A student is movable if the DiningTable of the same color has free seat(s)
-            if (diningRoom.getStudentCounters(availableStudent) < 10)
+            if (availableStudent != null && diningRoom.getStudentCounters(availableStudent) < 10)
                 movableStudentsList.add(availableStudent);
 
         // Save the movableStudentList in an array movableStudents of the same size
