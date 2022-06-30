@@ -188,7 +188,7 @@ public enum GUIAlert {
 
             case CHOOSE_ASSISTANT -> {
                 title       = "Select Assistant Card";
-                headerText  = "It's time to select the AssistantCard you want to play!" + dynamicString;
+                headerText  = "It's time to select the AssistantCard you want to play!";
                 contentText = "Remember that the lower is the number of the card, the earlier will be your turn";
                 alertType   = Alert.AlertType.INFORMATION;
             }
@@ -219,35 +219,35 @@ public enum GUIAlert {
             case SELECT_DINING_ROOM_TABLE -> {
                 title       = "Select a DiningRoomTable";
                 headerText  = "You may now select a DiningRoomTable";
-                contentText = "Choosing it you'll decide with which DiningRoomTable interact";
+                contentText = "Choosing it you'll decide with which DiningRoomTable to interact";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
             case SELECT_CC_STUDENT -> {
                 title       = "Select a Student";
                 headerText  = "You may now select a student from the CharacterCard you played";
-                contentText = "Choose only one student from the student present on the CharacterCard: " + dynamicString;
+                contentText = "Choose only one student from the students present on the CharacterCard: " + dynamicString;
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
             case SELECT_COLOR -> {
                 title       = "Select a Color";
                 headerText  = "You may now select a Color";
-                contentText = "Choose it clicking on the Dining Room Table of the desired Color!";
+                contentText = "Choose it by clicking on the Dining Room Table of the desired Color!";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
             case SELECT_CLOUD -> {
                 title       = "Select a CloudTile";
                 headerText  = "You may now select a CloudTile";
-                contentText = "Choose it in order to take the students from its and\n" + "move them on your entrance!";
+                contentText = "Choose it in order to take the students from it and\n" + "move them on your entrance!";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
             case SELECT_CLOUD_OR_CC -> {
                 title       = "Select a cloudTile or a CharacterCard";
                 headerText  = "You can decide to play a CharacterCard or select a CloudTile";
-                contentText = "Choose one of them clicking on the desired CharacterCard or on the\n" +
+                contentText = "Choose one of them by clicking on the desired CharacterCard or on the\n" +
                               "CloudTile with the best students!";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
@@ -278,15 +278,15 @@ public enum GUIAlert {
 
             case MOVE_MOTHER_NATURE              -> {
                 title       = "Select in Island";
-                headerText  = "You may now decide where you want to more MotherNature ";
-                contentText = "You can move MotherNature as far as the AssistantCards you played in the" +
+                headerText  = "You may now decide where you want to move MotherNature ";
+                contentText = "You can move MotherNature as far as the AssistantCards you played in the " +
                               "PlanPhase allows you to do";
                 alertType   =  Alert.AlertType.INFORMATION;
             }
 
             case MOVE_MOTHER_NATURE_OR_CC        -> {
                 title       = "Select an Island or a CharacterCard!";
-                headerText  = "You may now decide if move MotherNature or play before a CharacterCard ";
+                headerText  = "You may now decide to move MotherNature or to play a CharacterCard";
                 contentText = "You can move MotherNature as far as the AssistantCards you played in the" +
                               "PlanPhase allows you to do or choose a CharacterCard which is not too expensive!";
                 alertType   =  Alert.AlertType.INFORMATION;
@@ -295,14 +295,14 @@ public enum GUIAlert {
 
             case ASK_END_OF_TURN                 -> {
                 title       = "Ending the turn";
-                headerText  = "You may choose to end the turn now by pressing OK or play a CharacterCard by pressing cancel";
+                headerText  = "You may choose to end the turn now by pressing OK or to play a CharacterCard by pressing cancel";
                 contentText = "If you press OK you will end you turn and pass to the next player. Do you wish to continue?";
                 alertType   =  Alert.AlertType.CONFIRMATION;
             }
 
             case NOTIFY_PLAYER_DISCONNECTION     -> {
                 title       = "A player left the game";
-                headerText  = "You now will disconnected!";
+                headerText  = "You now will be disconnected!";
                 contentText = "If you want to resume the game that you were playing, try to reconnect to the Server!\n" +
                               "If the other participants want too, you'll restart from this point!";
                 alertType   =  Alert.AlertType.WARNING;
