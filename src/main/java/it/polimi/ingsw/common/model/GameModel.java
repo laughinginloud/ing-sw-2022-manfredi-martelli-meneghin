@@ -62,17 +62,10 @@ public final class GameModel {
         // Use a set to avoid getting duplicates
         Set<Integer> cardSet = new HashSet<>();
 
-        // TODO: Remove this hardcoded part
-        cardSet.add(6);
-        cardSet.add(7);
-        cardSet.add(8);
-
-        /*
         // Create a subset of three elements from [0, 11]
         for (int i = 0; i < 3; ++i)
             // Add a new random integer, retrying if add returns false, i.e. the set already contains the element
             while (!cardSet.add(rng.nextInt(12)));
-         */
 
         // Create a stream from the set to ease operations
         return cardSet.stream()
