@@ -77,6 +77,7 @@ public final class Bag {
             randomColorIndex = (randomColorIndex + 1) % 5;
 
         studentCounters[randomColorIndex]--;
+        numOfStudents--;
 
         return Color.values()[randomColorIndex];
     }

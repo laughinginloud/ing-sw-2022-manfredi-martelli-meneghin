@@ -58,7 +58,7 @@ public final class GameStatePlaceTokens implements GameStateSetup {
             bag.setStudentCounters(2);
             BagResult initialStudents = bag.drawStudents(10);
 
-            if (initialStudents.emptyBag() || initialStudents.drawnStudents().length < 10)
+            if (initialStudents.drawnStudents().length < 10)
                 throw new IllegalStateException("Bag not correctly filled using the corresponding functions");
 
             // Iterate through the islands, adding the students
@@ -68,9 +68,7 @@ public final class GameStatePlaceTokens implements GameStateSetup {
                     model.getIsland(i).setStudentCounters(initialStudents.drawnStudents()[j++], 1);
         }
 
-        catch (EmptyBagException e) {
-            throw new IllegalStateException("Bag not correctly filled using the corresponding functions");
-        }
+        catch (EmptyBagException ignored){}
 
         catch (Exception e) {
             throw new IllegalStateException(e);

@@ -62,11 +62,12 @@ public final class GameStateFillClouds implements GameStatePlanPhase {
 
         try {
             // Try to draw "numOfStudentsToDraw" students
-            Bag     bagToDrawFrom = data.getGameModel().getBag();
-            Color[] drawnStudents = bagToDrawFrom.drawStudents(numOfStudentsToDraw).drawnStudents();
+            Bag       bagToDrawFrom = data.getGameModel().getBag();
+            BagResult bagDrawResult = bagToDrawFrom.drawStudents(numOfStudentsToDraw);
+            Color[]   drawnStudents = bagDrawResult.drawnStudents();
 
             // If the Bag get emptied during the withdrawal set to "true" the EmptyBagTrigger
-            if (drawnStudents.length < numOfStudentsToDraw) {
+            if (bagDrawResult.emptyBag()) {
                 data.setEmptyBagTrigger();
                 drawnStudents = Arrays.copyOf(drawnStudents, numOfStudentsToDraw);
             }
