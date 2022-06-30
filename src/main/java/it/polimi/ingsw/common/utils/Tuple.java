@@ -4,12 +4,13 @@ import java.util.function.Function;
 
 /**
  * A tuple of two elements
- * @param left The first element
+ * @param left  The first element
  * @param right The second element
- * @param <Left> The type of the first element
+ * @param <Left>  The type of the first element
  * @param <Right> The type of the second element
  * @author Mattia Martelli
  */
+@SuppressWarnings("unused")
 public record Tuple<Left, Right>(Left left, Right right) {
     /**
      * Swap the elements of the tuple

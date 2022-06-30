@@ -11,7 +11,14 @@ import java.util.stream.Stream;
  * @author Mattia Martelli
  */
 public final class SortedList<T> {
+    /**
+     * The concrete list
+     */
     private final List<T>       list;
+
+    /**
+     * The comparator used to sort the list
+     */
     private final Comparator<T> comparator;
 
     /**

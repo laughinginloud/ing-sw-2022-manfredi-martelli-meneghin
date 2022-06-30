@@ -14,6 +14,7 @@ import static it.polimi.ingsw.common.termutils.Ansi.Direction.*;
  * Class containing useful CLI constants
  * @author Mattia Martelli
  */
+@SuppressWarnings("unused")
 public /*static*/ final class Graphics {
 
     // Hid the constructor to emulate a static class

@@ -15,6 +15,7 @@ import static it.polimi.ingsw.common.termutils.Ansi.Escapes.SGR;
  * Enum containing some ANSI commands
  * @author Mattia Martelli
  */
+@SuppressWarnings("unused")
 public enum Ansi {
 
     // region Enum constants
@@ -263,7 +264,7 @@ public enum Ansi {
      * Used for moving the cursor
      */
     public enum Direction {
-        UP, DOWN, LEFT, RIGHT;
+        UP, DOWN, LEFT, RIGHT
     }
 
     //endregion

@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
 
-import static it.polimi.ingsw.common.utils.Methods.interrupted;
-import static java.lang.Thread.sleep;
-
 /**
  * Enum that represents some common keys
  * @author Mattia Martelli
