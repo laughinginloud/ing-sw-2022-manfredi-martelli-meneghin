@@ -26,6 +26,10 @@ import static it.polimi.ingsw.common.termutils.Ansi.*;
  * @author Mattia Martelli
  */
 public class Main {
+    /**
+     * Entry point of the program
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         try {
             if (args.length != 0)
@@ -51,13 +55,15 @@ public class Main {
      * @throws GameNotStarted If the game did not start
      */
     private static void startGame(String[] args) throws GameNotStarted {
-        // There's at least one arg, so start with the first
+        // There's at least one arg, so start with reading the first
         switch (args[0].trim().toLowerCase()) {
             // Simply start the server
             case "server" -> {
+                // If a custom port wasn't specified, start with the default
                 if (args.length == 1)
                     Server.main();
 
+                // Otherwise, interpret the port and try to start the server with it
                 else {
                     Optional<Integer> port = parsePort(args[1].trim());
 
@@ -70,7 +76,7 @@ public class Main {
                 }
             }
 
-            // The client needs a second parameter to signal the UI
+            // The client needs a second parameter to specify the UI
             case "client" -> {
                 // If there is not a second parameter, signal the user
                 if (args.length == 1) {
