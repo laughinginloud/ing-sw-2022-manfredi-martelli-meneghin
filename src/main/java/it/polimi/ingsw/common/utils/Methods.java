@@ -172,6 +172,28 @@ public /*static*/ final class Methods {
         return elemindexOpt(elem, array).orElseThrow();
     }
 
+    /**
+     * Check whether assertions have been enabled
+     * @return <code>true</code> if assertions are enabled, <code>false</code> otherwise
+     */
+    @SuppressWarnings("ConstantConditions")
+    public static boolean assertionsEnabled() {
+        // Start by assuming that the assertions are disabled
+        boolean assertions = false;
+
+        // Try to assert false, which is guaranteed to fail if checked
+        try {
+            assert false;
+        }
+
+        // If it failed, it means that assertions are enabled
+        catch (AssertionError ignored) {
+            assertions = true;
+        }
+
+        return assertions;
+    }
+
     // endregion
 
 }

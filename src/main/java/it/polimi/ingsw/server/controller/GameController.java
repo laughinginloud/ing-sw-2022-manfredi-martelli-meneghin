@@ -178,6 +178,7 @@ public /*static*/ final class GameController {
 
                         savedGame = null;
                         playerAgeList.clear();
+                        forbiddenNames.clear();
                         activeGame = true;
                         data.sendMessageToPlayers(new GameCommandGameStart());
 

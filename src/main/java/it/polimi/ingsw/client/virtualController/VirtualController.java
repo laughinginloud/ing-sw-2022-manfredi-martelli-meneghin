@@ -9,6 +9,7 @@ import it.polimi.ingsw.common.message.Message;
 import it.polimi.ingsw.common.message.MessageType;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.Methods;
 import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.common.GameActions;
 import it.polimi.ingsw.common.viewRecord.GameRules;
@@ -35,6 +36,11 @@ import static it.polimi.ingsw.common.message.MessageType.*;
 public final class VirtualController extends Thread {
 
     // region Fields
+
+    /**
+     * A constant that represents whether assertions are currently enabled
+     */
+    private static final boolean assertions = Methods.assertionsEnabled();
 
     private final Socket           socket;
     private final DataInputStream  inputStream;
@@ -111,7 +117,7 @@ public final class VirtualController extends Thread {
                     msg = inputStream.readUTF();
                 }
 
-                if (!msg.equals(jsonBuilder.toJson(new Message(PING, null))) && !msg.equals(jsonBuilder.toJson(new Message(PONG, null))))
+                if (assertions && !msg.equals(jsonBuilder.toJson(new Message(PING, null))) && !msg.equals(jsonBuilder.toJson(new Message(PONG, null))))
                     System.out.println(msg);
 
                 messageInterpreter(jsonBuilder.fromJson(msg, Message.class));
@@ -136,7 +142,7 @@ public final class VirtualController extends Thread {
         try {
             String msg = jsonBuilder.toJson(message);
 
-            if (!msg.equals(jsonBuilder.toJson(new Message(PING, null))) && !msg.equals(jsonBuilder.toJson(new Message(PONG, null))))
+            if (assertions && !msg.equals(jsonBuilder.toJson(new Message(PING, null))) && !msg.equals(jsonBuilder.toJson(new Message(PONG, null))))
                 System.out.println(msg);
 
             synchronized (outputStream) {

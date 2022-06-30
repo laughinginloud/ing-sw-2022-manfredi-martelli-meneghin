@@ -2851,6 +2851,10 @@ public final class ViewCLI implements View {
 
             // Should never happen
             catch (IOException ignored) {}
+
+            finally {
+                virtualController.close();
+            }
         });
     }
 
@@ -2878,6 +2882,10 @@ public final class ViewCLI implements View {
 
             // Should never happen
             catch (IOException ignored) {}
+
+            finally {
+                virtualController.close();
+            }
         });
     }
 
@@ -2907,8 +2915,10 @@ public final class ViewCLI implements View {
             }
 
             // Should never happen
-            catch (IOException e) {
-                e.printStackTrace();
+            catch (IOException ignored) {}
+
+            finally {
+                virtualController.close();
             }
         });
     }
