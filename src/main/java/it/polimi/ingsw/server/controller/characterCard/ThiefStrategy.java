@@ -15,12 +15,14 @@ import java.util.List;
 
 /**
  * Strategy representing the activation of the CharacterCard 'THIEF'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class ThiefStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'ThiefStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public ThiefStrategy(CharacterCard card) {
@@ -106,8 +108,9 @@ public class ThiefStrategy extends CharacterCardStrategy {
 
     /**
      * Gets all the color that can be reduced from all the player's diningRoom using the characterCard effect
+     *
      * @param model The GameModel of the current Game
-     * @param data The ControllerData of the current Game
+     * @param data  The ControllerData of the current Game
      * @return An array of color representing the colors of students that can be reduced from the DiningRooms
      */
     private Color[] getReducibleColors(GameModel model, ControllerData data) {

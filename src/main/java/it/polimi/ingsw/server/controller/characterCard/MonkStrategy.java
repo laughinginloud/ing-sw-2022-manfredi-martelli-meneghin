@@ -16,12 +16,14 @@ import java.util.Arrays;
 
 /**
  * Strategy representing the activation of the CharacterCard 'MONK'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class MonkStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'MonkStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public MonkStrategy(CharacterCard card) {
@@ -107,10 +109,15 @@ public class MonkStrategy extends CharacterCardStrategy {
 
     /**
      * This method gets the Students array of this card and reduces it, removing all null elements
-     * @param students the array that needs to be reduced
+     *
+     * @param students   the array that needs to be reduced
      * @param max_length the length of the array
      * @return the new array of not-Null elements
      */
+
+    // Warning has been suppressed because other parameters could be used in the future
+    @SuppressWarnings("SameParameterValue")
+
     private Color[] getAvailableStudents(Color[] students, int max_length){
         int length = 0;
         do {

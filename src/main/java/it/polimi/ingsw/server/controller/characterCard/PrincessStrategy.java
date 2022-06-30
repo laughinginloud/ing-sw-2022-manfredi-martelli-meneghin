@@ -16,12 +16,14 @@ import java.util.*;
 
 /**
  * Strategy representing the activation of the CharacterCard 'PRINCESS'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class PrincessStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'PrincessStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public PrincessStrategy(CharacterCard card) {
@@ -132,7 +134,8 @@ public class PrincessStrategy extends CharacterCardStrategy {
 
     /**
      * Select which students from the availableStudents are really movable, according to the seats on the DiningRoomTables
-     * @param player The player who will move the student
+     *
+     * @param player            The player who will move the student
      * @param availableStudents The students that are currently on the characterCard
      * @return An array of color representing the students that can really be moved
      */
@@ -157,11 +160,17 @@ public class PrincessStrategy extends CharacterCardStrategy {
 
     /**
      * Link the selected movableStudent to the correspondent characterCardStudent
+     *
      * @param characterCardStudents An array of students containing the characterCard's students
-     * @param movableStudents An array of students containing the movableStudents
-     * @param movableStudentIndex The index of the students selected by the player from the movableStudents
+     * @param movableStudents       An array of students containing the movableStudents
+     * @param movableStudentIndex   The index of the students selected by the player from the movableStudents
      * @return The index of the student selected by the player mapped on the characterCardStudents
      */
+
+    // Warnings for unused methods have been disabled, since many methods now not used, could become useful in the future
+    // Warnings for duplicated code have been suppressed because the other method is also not used but could become useful
+    @SuppressWarnings({"unused", "DuplicatedCode"})
+
     private int getCharacterCardStudentIndex (Color[] characterCardStudents, Color[] movableStudents, int movableStudentIndex) {
         Color movedStudent = movableStudents[movableStudentIndex];
         int sameColorAntecedentMovedStudents  = 0;

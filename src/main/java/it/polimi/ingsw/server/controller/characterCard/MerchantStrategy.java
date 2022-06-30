@@ -15,12 +15,14 @@ import java.net.SocketException;
 
 /**
  * Strategy representing the activation of the CharacterCard 'MERCHANT'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class MerchantStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'MerchantStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public MerchantStrategy(CharacterCard card) {

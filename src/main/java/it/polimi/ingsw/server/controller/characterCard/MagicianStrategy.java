@@ -7,7 +7,8 @@ import it.polimi.ingsw.common.model.Player;
 
 /**
  * Strategy representing the activation of the CharacterCard 'MAGICIAN'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class MagicianStrategy extends CharacterCardStrategy {
 

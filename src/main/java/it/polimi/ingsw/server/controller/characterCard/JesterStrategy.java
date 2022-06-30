@@ -14,12 +14,14 @@ import java.net.SocketException;
 
 /**
  * Strategy representing the activation of the CharacterCard 'JESTER'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class JesterStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'JesterStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public JesterStrategy(CharacterCard card) {
@@ -55,7 +57,6 @@ public class JesterStrategy extends CharacterCardStrategy {
                 InfoMap chosenField = (InfoMap) c.executeCommand();
 
                 // Gets the number of students that the player wants to move, from the Map received from the client
-                // TODO: [ClientImplementation] Int movementJester chosen from the client has to be between 1 and maxNumOfMovements
                 int chosenNumOfMovement = (int) chosenField.get(GameValues.MOVEMENTJESTER);
 
                 // For chosenNumOfMovement times asks the player which student he would like to move, waits for response and notifies all the players after the movement
@@ -80,6 +81,17 @@ public class JesterStrategy extends CharacterCardStrategy {
         }
     }
 
+    /**
+     * Swaps a student from the JesterCharacterCard (CharacterCardStudent) to
+     * the entrance by asking the player the student they want to swap
+     *
+     * @param data         The server's ControllerData
+     * @param model        The model on which the action is executed
+     * @param curPlayer    The player who activated the Jester Card effect
+     * @param playerView   The VirtualView associated with the current player
+     * @param lastMovement A boolean indicating if the swap will be the last one (true - last, false - not last)
+     * @throws Exception   IllegalStateException if the response is of the wrong kind
+     */
     public void changeStudent(ControllerData data, GameModel model, Player curPlayer, VirtualView playerView, boolean lastMovement) throws Exception {
         Player[] players = data.getGameModel().getPlayers();
 
@@ -146,9 +158,10 @@ public class JesterStrategy extends CharacterCardStrategy {
     /**
      * Update the players about the students' movements caused by the effect of the
      * CharacterCard 'JESTER' on the CharacterCards and on the Entrances
-     * @param model The updated GameModel
+     *
+     * @param model                 The updated GameModel
      * @param updatedCharacterCards The updated CharacterCardArray
-     * @param updatedEntrances The updated EntranceArray
+     * @param updatedEntrances      The updated EntranceArray
      */
     private void updateDuringIteration(GameModel model, CharacterCard[] updatedCharacterCards, Entrance[] updatedEntrances) {
         InfoMap duringInteractionMap = new InfoMap();

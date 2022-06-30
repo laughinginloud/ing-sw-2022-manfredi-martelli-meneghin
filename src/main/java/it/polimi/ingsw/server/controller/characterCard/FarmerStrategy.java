@@ -7,12 +7,14 @@ import it.polimi.ingsw.server.controller.state.GameStateMoveStudents;
 
 /**
  * Strategy representing the activation of the CharacterCard 'FARMER'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class FarmerStrategy extends CharacterCardStrategy {
 
     /**
      * Builder of the class 'FarmerStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public FarmerStrategy(CharacterCard card) {

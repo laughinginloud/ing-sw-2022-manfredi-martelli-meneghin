@@ -9,11 +9,13 @@ import java.util.List;
 
 /**
  * Class containing method that manage the CharacterCard utilization
+ *
  * @author Sebastiano Meneghin
  */
 public class CharacterCardManager {
     /**
      * Gets the card that are playable by the current player
+     *
      * @param player The player who could play a CharacterCard
      * @return An array of CharacterCard containing the playable CharacterCards
      */
@@ -44,8 +46,9 @@ public class CharacterCardManager {
 
     /**
      * Checks if with the current game-board condition specific CharacterCard can be played by the current player
+     *
      * @param characterCard The CharacterCard which need a game-board situation compatibility check
-     * @param player The player who could use the CharacterCard
+     * @param player        The player who could use the CharacterCard
      * @return A boolean representing the playability of the card
      */
     private static boolean checkCharacterCardTokens(CharacterCard characterCard, Player player) {
@@ -115,6 +118,7 @@ public class CharacterCardManager {
 
     /**
      * Gets the characterCardStrategy linked to the characterCard provided as parameter
+     *
      * @param chosenCharacter The characterCard that needs to be linked to a characterCardStrategy
      * @return The characterCardStrategy linked to characterCard
      */
@@ -140,6 +144,7 @@ public class CharacterCardManager {
 
     /**
      * Find the position of the CharacterCard into the model's characterCardArray
+     *
      * @param character The character of which is searched the position
      * @return The position of the provided CharacterCard into the model's characterCardArray
      */

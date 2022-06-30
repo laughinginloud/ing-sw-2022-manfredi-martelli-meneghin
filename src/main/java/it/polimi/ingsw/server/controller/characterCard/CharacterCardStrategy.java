@@ -12,7 +12,8 @@ import java.net.SocketException;
 
 /**
  * Abstract class representing the strategy of the CharacterCard
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public abstract class CharacterCardStrategy {
     // Reference to the corresponding card in the model
@@ -23,6 +24,7 @@ public abstract class CharacterCardStrategy {
 
     /**
      * Factory method: Associates the strategy to the CharacterCard
+     *
      * @param card The card that needs the strategy
      * @return the CharacterCardStrategy containing the association between card and strategy
      */
@@ -71,7 +73,8 @@ public abstract class CharacterCardStrategy {
 
     /**
      * Moves coins from the player to the globalCoin pool, decrementing and incrementing the pool respectively
-     * @param currentPlayer the player that has activated the CharacterCard
+     *
+     * @param currentPlayer     the player that has activated the CharacterCard
      * @param characterCardCost the cost of the activated CharacterCard
      */
     private void moveCoins(Player currentPlayer, int characterCardCost) {
@@ -109,6 +112,7 @@ public abstract class CharacterCardStrategy {
 
     /**
      * Sends to the players the updated values of currentPlayerCoins, characterCard's hasCoin, globalCoinPool
+     *
      * @param data The controllerData of the current Game
      */
     private void updatePlayersAboutCoin(ControllerData data){

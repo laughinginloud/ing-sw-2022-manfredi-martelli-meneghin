@@ -14,17 +14,17 @@ import it.polimi.ingsw.common.model.Player;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'STANDARD_BEARER'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class StandardBearerStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'StandardBearerStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public StandardBearerStrategy(CharacterCard card) {

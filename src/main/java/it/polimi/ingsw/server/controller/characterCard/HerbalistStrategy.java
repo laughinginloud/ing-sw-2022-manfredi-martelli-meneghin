@@ -10,17 +10,17 @@ import it.polimi.ingsw.server.controller.command.*;
 import it.polimi.ingsw.server.virtualView.VirtualView;
 
 import java.net.SocketException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Strategy representing the activation of the CharacterCard 'HERBALIST'
- * @author Giovanni Manfredi
+ *
+ * @author Giovanni Manfredi and Sebastiano Meneghin
  */
 public class HerbalistStrategy extends CharacterCardStrategy {
 
     /**
      * Constructor of the class 'HerbalistStrategy'
+     *
      * @param card the card to which the class is initialized
      */
     public HerbalistStrategy(CharacterCard card) {
