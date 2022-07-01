@@ -25,8 +25,10 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.common.termutils.Ansi.*;
+import static it.polimi.ingsw.common.termutils.Ansi.Direction.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
 import static it.polimi.ingsw.common.termutils.Graphics.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
@@ -243,12 +245,9 @@ public final class ViewCLI implements View {
 
     @Override
     public Player getLocalPlayer() {
-        if (localPlayer == null)
-            localPlayer = Arrays.stream(model.getPlayers())
-                .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
-                .orElseThrow();
-
-        return localPlayer;
+        return Arrays.stream(model.getPlayers())
+            .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
+            .orElseThrow();
     }
 
     @Override
@@ -512,7 +511,7 @@ public final class ViewCLI implements View {
         display.clear();
         display.updateAnsi(logoList, (terminal.getWidth() + 1) * logoList.size());
 
-        writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 1));
+        moveCursor(writer, DOWN, 1);
 
         for (int i = 0, isl = 0; i < 2; ++i) {
             for (int j = 0; j < 6; ++j, ++isl) {
@@ -521,27 +520,48 @@ public final class ViewCLI implements View {
 
                 drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
-                writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
-                writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
+                moveCursor(writer, UP, 9);
+                moveCursor(writer, RIGHT, 20);
             }
 
-            writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-            writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+            moveCursor(writer, LEFT, terminal.getWidth());
+            moveCursor(writer, DOWN, 10);
         }
 
-        writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 1));
+        moveCursor(writer, DOWN, 1);
 
         for (int i = 0; i < model.getCloudTiles().length; ++i) {
             drawCloud(writer, model.getCloudTile(i));
 
-            writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
-            writer.print(Ansi.moveCursor(Ansi.Direction.UP, 7));
+            moveCursor(writer, RIGHT, 20);
+            moveCursor(writer, UP, 7);
         }
 
-        writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-        writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 8));
+        moveCursor(writer, LEFT, terminal.getWidth());
+        moveCursor(writer, DOWN, 8);
 
         drawTable(writer, getLocalPlayer().getSchoolBoard(), model, getLocalPlayer());
+
+        moveCursor(writer, LEFT, terminal.getWidth());
+        moveCursor(writer, DOWN, 2);
+
+        if (model.getExpertMode()) {
+            int coinPool = 0;
+
+            if (getLocalPlayer() instanceof PlayerExpert p)
+                coinPool = p.getCoinCount();
+
+            else if (getLocalPlayer() instanceof PlayerTeamExpert p)
+                coinPool = p.getCoinCount();
+
+            String cards = Arrays.stream(model.getCharacterCards())
+                .map(this::characterName)
+                .collect(Collectors.joining(", "));
+
+            writer.println("Global coin pool: " + model.getCoinPool());
+            writer.println("Your coin pool: "   + coinPool);
+            writer.println("Character cards: "  + cards);
+        }
     }
 
     @Override
@@ -1674,12 +1694,12 @@ public final class ViewCLI implements View {
 
                             drawIsland(writer, model.getIsland(isl), isl == model.getMotherNaturePosition());
 
-                            writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
-                            writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
+                            moveCursor(writer, UP, 9);
+                            moveCursor(writer, RIGHT, 20);
                         }
 
-                        writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                        writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                        moveCursor(writer, LEFT, terminal.getWidth());
+                        moveCursor(writer, DOWN, 10);
                     }
 
                     writer.println();
@@ -1764,12 +1784,12 @@ public final class ViewCLI implements View {
 
                         drawIsland(writer, model.getIsland(isl), false);
 
-                        writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
-                        writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
+                        moveCursor(writer, UP, 9);
+                        moveCursor(writer, RIGHT, 20);
                     }
 
-                    writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                    writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                    moveCursor(writer, LEFT, terminal.getWidth());
+                    moveCursor(writer, DOWN, 10);
                 }
 
                 writer.println();
@@ -1923,12 +1943,12 @@ public final class ViewCLI implements View {
                 Arrays.stream(availableClouds).forEach(availableCloud -> {
                     drawCloud(writer, availableCloud);
 
-                    writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
-                    writer.print(Ansi.moveCursor(Ansi.Direction.UP, 7));
+                    moveCursor(writer, RIGHT, 20);
+                    moveCursor(writer, UP, 7);
                 });
 
-                writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 8));
+                moveCursor(writer, LEFT, terminal.getWidth());
+                moveCursor(writer, DOWN, 8);
 
                 writer.println();
                 writer.print("Please enter the index, starting from 1, of the cloud tile you've chosen:");
@@ -2574,12 +2594,12 @@ public final class ViewCLI implements View {
 
                             drawIsland(writer, model.getIsland(avlblIslIndx), avlblIslIndx == model.getMotherNaturePosition());
 
-                            writer.print(Ansi.moveCursor(Ansi.Direction.UP, 9));
-                            writer.print(Ansi.moveCursor(Ansi.Direction.RIGHT, 20));
+                            moveCursor(writer, UP, 9);
+                            moveCursor(writer, RIGHT, 20);
                         }
 
-                        writer.print(Ansi.moveCursor(Ansi.Direction.LEFT, terminal.getWidth()));
-                        writer.print(Ansi.moveCursor(Ansi.Direction.DOWN, 10));
+                        moveCursor(writer, LEFT, terminal.getWidth());
+                        moveCursor(writer, DOWN, 10);
                     }
 
                     writer.println();
