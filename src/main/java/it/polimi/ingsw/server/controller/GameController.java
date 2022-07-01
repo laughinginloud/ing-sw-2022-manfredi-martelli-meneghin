@@ -208,8 +208,15 @@ public /*static*/ final class GameController {
                         data.sendMessageToPlayers(new GameCommandGameStart());
 
                         // If a save was loaded, send the past state of the data
-                        if (loadedGame)
+                        if (loadedGame) {
+                            InfoMap map = new InfoMap(GameValues.MODEL, data.getGameModel());
+
+                            // If the game loaded is in expert mode, also send the character card array
+                            if (data.getExpertMode())
+                                map.put(GameValues.CHARACTERCARDARRAY, data.getGameModel().getCharacterCards());
+
                             data.sendMessageToPlayers(new GameCommandSendInfo(new InfoMap(GameValues.MODEL, data.getGameModel())));
+                        }
 
                         // Start the DFA and reset the starting state
                         (gameStateThread = new GameStateThread(startState, mkFileName(data.getPlayersOrder()))).start();
