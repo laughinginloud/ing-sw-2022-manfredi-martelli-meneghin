@@ -55,7 +55,7 @@ public abstract class CharacterCardStrategy {
         ControllerData data = ControllerData.getInstance();
         Player currentPlayer = data.getCurrentPlayer();
 
-        // This method makes the player 'spend' his coins
+        // This method makes the player 'spend' them coins
         moveCoins(currentPlayer, card.getCost());
 
         // This method updates the players' about coin fields' changes

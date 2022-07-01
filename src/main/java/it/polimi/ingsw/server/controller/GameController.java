@@ -131,7 +131,7 @@ public /*static*/ final class GameController {
                 return;
             }
 
-            // If a game is already in progress, notify the player and then close its connection
+            // If a game is already in progress, notify the player and then close them connection
             if (activeGame) {
                 view.sendMessage(new GameCommandGameProgress());
                 view.close();
@@ -344,7 +344,7 @@ public /*static*/ final class GameController {
     }
 
     /**
-     * Add a player to the controller's data, linking it with its virtual view
+     * Add a player to the controller's data, linking it with them virtual view
      * @param view                The player's virtual view
      * @param usernameAndMagicAge The player's username and magic age
      * @return <code>true</code> if the player was the last needed for the game to start, <code>false</code> otherwise
@@ -393,12 +393,12 @@ public /*static*/ final class GameController {
                         usernameAndMagicAge.username(),
                         wizard,
                         // If there are three players, each one gets 6 towers, else if there are two players, each one takes 8 towers,
-                        // otherwise, there are four players and the first member of each team gets 8 towers, whilst its teammate gets 0
+                        // otherwise, there are four players and the first member of each team gets 8 towers, whilst them teammate gets 0
                         gameNumOfPlayers == 3 ? 6 : gameNumOfPlayers == 2 || i <= 1 ? 8 : 0,
                         // The entrance's size is 7 for two or four players games, 9 otherwise
                         gameNumOfPlayers == 3 ? 9 : 7);
 
-                // Link the current player with its team member if both exist
+                // Link the current player with them team member if both exist
                 if (teamMode && i > 1)
                     linkTeams(players, i);
 

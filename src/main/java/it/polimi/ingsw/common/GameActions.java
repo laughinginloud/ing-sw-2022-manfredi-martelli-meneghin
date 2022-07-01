@@ -11,12 +11,12 @@ public enum GameActions {
     ENDTURN,
 
     /**
-    * A signal sent by the client if the player decide to end his turn instead of play a characterCard
+    * A signal sent by the client if the player decide to end them turn instead of play a characterCard
     */
     ENDTHISTURN,
 
     /**
-    * Contains the cloudTiles that can be chosen by the player, at the end of his ActonPhase
+    * Contains the cloudTiles that can be chosen by the player, at the end of them ActonPhase
     */
     CHOOSECLOUD,
 
@@ -66,7 +66,7 @@ public enum GameActions {
     PLAYASSISTANTCARD,
 
     /**
-    * The AssistantCard chosen by the player during his PlanPhase turn
+    * The AssistantCard chosen by the player during them PlanPhase turn
     */
     CHOSENASSISTANTCARD,
 
@@ -91,7 +91,7 @@ public enum GameActions {
     LOADGAMECHOICE,
 
     /**
-    * Used to ask the player his username
+    * Used to ask the player them username
     */
     USERNAMEANDMAGICAGE,
 

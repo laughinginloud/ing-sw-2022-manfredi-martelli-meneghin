@@ -70,7 +70,7 @@ public enum Pages {
 
     /**
      * Choose a wizard scene:
-     * The client is asked what wizard he/she wants to play with
+     * The client is asked what wizard they wants to play with
      * from the one available
      */
     WIZARD_CHOICE,

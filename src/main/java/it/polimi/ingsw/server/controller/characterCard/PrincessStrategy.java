@@ -57,7 +57,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
             princessMap.put(GameValues.CARDSTUDENTS,          movableStudents);
             princessMap.put(GameValues.CHARACTERCARDPOSITION, position);
 
-            // The server asks the player which students would like to move from the entrance to its DiningRoom
+            // The server asks the player which students would like to move from the entrance to them DiningRoom
             GameCommand request = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, princessMap);
             GameCommand response = playerView.sendRequest(request);
 

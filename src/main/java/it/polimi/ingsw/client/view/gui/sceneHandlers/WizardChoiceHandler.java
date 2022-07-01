@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  * Handler (or Controller) of the scene WizardChoice (wizardChoicePage.fxml)
- * The client is asked what wizard he/she wants to play with
+ * The client is asked what wizard they want to play with
  * from the one available
  *
  * @author Giovanni Manfredi

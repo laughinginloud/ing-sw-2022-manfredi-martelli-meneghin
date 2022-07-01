@@ -574,7 +574,7 @@ public final class VirtualController extends Thread {
                 this.curState = VCStates.REQ_MERCH_FIRST;
 
                 // Asks the player which color he wants to select in order to inhibit it during the calculus
-                // of the influence during its turn
+                // of the influence during them turn
                 view.requestChooseColor(colors);
             }
 

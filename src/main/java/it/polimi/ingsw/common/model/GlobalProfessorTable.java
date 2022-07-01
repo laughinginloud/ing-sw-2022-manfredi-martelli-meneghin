@@ -17,7 +17,7 @@ public final class GlobalProfessorTable {
     /**
      * Gets the player who is controlling the specific professor
      * @param color Color of the specific professor to locate (not null)
-     * @return An optional containing the controlling player, if he exists
+     * @return An optional containing the controlling player, if they exist
      */
     public Optional<Player> getProfessorLocation(Color color) {
         return Optional.ofNullable(professorLocations[color.ordinal()]);

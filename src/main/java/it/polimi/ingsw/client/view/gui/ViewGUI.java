@@ -242,7 +242,7 @@ public final class ViewGUI extends Application implements View {
     }
 
     /**
-     * Asks the player whether he wants to end his turn or he wants to play a CharacterCard
+     * Asks the player whether he wants to end them turn or he wants to play a CharacterCard
      * It's possible only when the player hasn't already played a characterCard
      */
     @Override
@@ -258,7 +258,7 @@ public final class ViewGUI extends Application implements View {
     // region Requests
 
     /**
-     * Requests the player to provide his username and from how many years he knows Magic
+     * Requests the player to provide them username and from how many years he knows Magic
      *
      * @param forbiddenUsernames A Set(String) containing all the username already used by the other player
      */

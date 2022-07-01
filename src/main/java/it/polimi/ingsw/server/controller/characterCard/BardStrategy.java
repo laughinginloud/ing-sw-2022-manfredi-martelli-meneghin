@@ -49,7 +49,7 @@ public class BardStrategy extends CharacterCardStrategy {
             movementMap.put(GameValues.CHARACTERVALUE, PlayCharacterAction.BARDFIRST);
             movementMap.put(GameValues.MAXMOVEMENTBARD, maxNumOfMovements);
 
-            // The server asks the player how many students he would like to move using the Bard's cardEffect
+            // The server asks the player how many students they would like to move using the Bard's cardEffect
             GameCommand request  = new GameCommandRequestAction(GameActions.CHARACTERCARDEFFECT, movementMap);
             GameCommand response = playerView.sendRequest(request);
 
