@@ -111,7 +111,7 @@ obtainable by using [this link][windowsTerminal-link].
 3. Then go to `START -> Edit the system environment variables`;
 4. In the `USER` section select the `Path` variable and click `Edit`;
 5. Select `New` and type `C:\Users\<your-user>\<path-to-extracted-folder-jdk>\bin` then save and exit;
-6. Open Windows Terminal (also named just "Terminal") and verify you java version by typing the following command:
+6. Open Windows Terminal (also named just "Terminal") and verify your java version by typing the following command:
 ```shell
 java -version
 ```
@@ -128,7 +128,7 @@ If something went wrong with the installation try again this or another method a
 3. Then go to `START -> Edit the system environment variables`;
 4. In the `USER` section select the `Path` variable and click `Edit`;
 5. Select `New` and type `C:\Users\<your-user>\<path-to-extracted-folder-maven>\bin` then save and exit;
-6. Open Windows Terminal (also named just "Terminal") and verify you Maven version by typing the following command:
+6. Open Windows Terminal (also named just "Terminal") and verify your Maven version by typing the following command:
 ```shell
 mvn --version
 ```
@@ -285,7 +285,7 @@ java -jar PSP27-Eriantys-1.0.jar server ${port number}
 java -jar PSP27-Eriantys-1.0.jar client cli
 java -jar PSP27-Eriantys-1.0.jar client gui
 ```
-where `${port number}` indicates a custom port number instead of the default one, which is 6556.
+Where `${port number}` indicates a custom port number instead of the default one, which is 6556.
 A couple of help commands are also present:
 ```shell
 java -jar PSP27-Eriantys-1.0.jar help
@@ -298,7 +298,7 @@ This project has a large number of methods and classes and can sometimes be diff
 to understand the purpose of each one of them. For this reason, each method and class has a doc associated to it.
 
 The complete collection of the Javadocs can't be published right now because the
-project has yet to be evaluated. Nonetheless, ìt is possible to execute Maven locally
+project has yet to be evaluated. Nonetheless, it is possible to execute Maven locally
 on the repo by using the command `mvn javadoc:javadoc` to generate a few html files containing 
 all the Javadocs of the project.
 
@@ -308,7 +308,7 @@ all the Javadocs of the project.
 
 During the development of the project we have found necessary to automate the execution
 of the application. To do so we created a few `.xml` files that IntelliJ reads as running options (these files
-are all contained in the `/.run` folder.
+are all contained in the `/.run` folder).
 They are still in the project to show our methods and how we worked during the project.
 
 *WARNING* :warning: : these running options were used only internally for debugging and are not 
