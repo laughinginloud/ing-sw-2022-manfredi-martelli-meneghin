@@ -79,12 +79,12 @@ public class MonkStrategy extends CharacterCardStrategy {
                 // The server refills the card (appending the player) taking a student from the Bag (EmptyBagException)
                 try {
                     movedStudent = model.getBag().drawStudents(1).drawnStudents()[0];
+                    enhancedCard.appendStudent(movedStudent);
                 }
 
                 catch (EmptyBagException e){
                     data.setEmptyBagTrigger();
                 }
-                enhancedCard.appendStudent(movedStudent);
 
                 // After the server managed the use of the CharacterCard, gets the updated values of
                 // CharacterCardsArray and IslandsArray and put them in the map that will be broadcast
