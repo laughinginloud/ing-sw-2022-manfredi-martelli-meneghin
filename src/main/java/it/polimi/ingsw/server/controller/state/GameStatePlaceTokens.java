@@ -70,9 +70,10 @@ public final class GameStatePlaceTokens implements GameStateSetup {
                 throw new IllegalStateException("Bag not correctly filled using the corresponding functions");
 
             // Iterate through the islands, adding the students
-            for (int i = 0, j = 0; i < 12; ++i, ++j)
+            // Note: "j++" executes the increment at the end of the statement, after the current value ("j") has been used
+            for (int i = 0, j = 0; i < 12; ++i)
                 if (i != motherNaturePosition && i != ((motherNaturePosition + 6) % 12))
-                    model.getIsland(i).setStudentCounters(initialStudents.drawnStudents()[j], 1);
+                    model.getIsland(i).setStudentCounters(initialStudents.drawnStudents()[j++], 1);
         }
 
         catch (EmptyBagException ignored){}

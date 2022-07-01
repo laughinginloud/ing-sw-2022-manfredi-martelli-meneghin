@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -83,9 +85,11 @@ public final class GameSave {
      */
     public static Optional<File> findSavedGame(String username) {
         try {
-            for (File savedGame : Objects.requireNonNull(SAVE_FOLDER.listFiles()))
-                if (savedGame.getName().contains(username))
+            for (File savedGame : Objects.requireNonNull(SAVE_FOLDER.listFiles())) {
+                List<String> usernames = Arrays.asList(savedGame.getName().split("-"));
+                if (usernames.contains(username))
                     return Optional.of(savedGame);
+            }
         }
 
         catch (NullPointerException ignored) {

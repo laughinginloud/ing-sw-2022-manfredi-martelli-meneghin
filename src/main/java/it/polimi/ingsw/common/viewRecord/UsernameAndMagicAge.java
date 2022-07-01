@@ -15,8 +15,11 @@ public record UsernameAndMagicAge(String username, int magicAge) {
      * @param username The string to sanitize
      * @return The sanitized string
      */
-    public static String sanitizeUsername(String username){
-        return username.toLowerCase().trim();
+    public static String sanitizeUsername(String username) {
+        if (username == null)
+            return "";
+
+        return username.replaceAll("[^a-zA-Z\\d]", "").toLowerCase().trim();
     }
 
     /**
@@ -28,8 +31,10 @@ public record UsernameAndMagicAge(String username, int magicAge) {
      * @param forbiddenUsernames the set of forbidden usernames
      * @return The result of the check
      */
-    public static UsernameResult checkUsername(String username, Set<String> forbiddenUsernames){
-        if (username == null || username.equals(""))
+    public static UsernameResult checkUsername(String username, Set<String> forbiddenUsernames) {
+        username = sanitizeUsername(username);
+
+        if (username.equals(""))
             return UsernameResult.NULL;
 
         if (username.length() > 10)

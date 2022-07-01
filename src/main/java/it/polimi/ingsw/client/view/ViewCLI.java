@@ -32,6 +32,8 @@ import static it.polimi.ingsw.common.termutils.Ansi.Direction.*;
 import static it.polimi.ingsw.common.termutils.Key.parseKey;
 import static it.polimi.ingsw.common.termutils.Graphics.*;
 import static it.polimi.ingsw.common.utils.Methods.*;
+import static it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge.*;
+import static it.polimi.ingsw.common.viewRecord.UsernameAndMagicAge.sanitizeUsername;
 import static java.lang.Thread.sleep;
 import static java.util.Comparator.*;
 
@@ -1076,13 +1078,13 @@ public final class ViewCLI implements View {
                         }
 
                         case NULL -> {
-                            String readName = reader.readLine();
+                            String readName = sanitizeUsername(reader.readLine());
 
                             if (readName.equals(""))
                                 continue;
 
                             // Otherwise, the candidate is correct, so update the tuple accordingly
-                            username = new Tuple<>(readName, UsernameAndMagicAge.checkUsername(readName, forbiddenUsernames));
+                            username = new Tuple<>(readName, checkUsername(readName, forbiddenUsernames));
                             continue;
                         }
                     }
@@ -1116,7 +1118,7 @@ public final class ViewCLI implements View {
                         continue;
 
                     try {
-                        if (UsernameAndMagicAge.checkMagicAge(readAge)) {
+                        if (checkMagicAge(readAge)) {
                             display.clear();
                             List<String> menu = new ArrayList<>(logoList);
                             menu.add("");
@@ -1126,7 +1128,7 @@ public final class ViewCLI implements View {
 
                             if (confirmMenu(menu, true)) {
                                 setUsernameVirtualController(username.left());
-                                forwardViewToVirtualController(new UsernameAndMagicAge(username.left(), UsernameAndMagicAge.parseMagicAge(readAge)));
+                                forwardViewToVirtualController(new UsernameAndMagicAge(username.left(), parseMagicAge(readAge)));
                                 return;
                             }
 
