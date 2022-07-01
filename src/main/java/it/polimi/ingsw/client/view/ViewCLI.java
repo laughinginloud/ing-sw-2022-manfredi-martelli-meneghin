@@ -67,7 +67,6 @@ public final class ViewCLI implements View {
 
     private Address           address;
     private Thread            currentMenu;
-    private Player            localPlayer;
     private GameModel         model;
     private VirtualController virtualController;
 
@@ -98,8 +97,6 @@ public final class ViewCLI implements View {
         terminal.puts(InfoCmp.Capability.enter_ca_mode);
 
         keyStream = terminal.input();
-
-        localPlayer = null;
     }
 
     /**
@@ -117,8 +114,6 @@ public final class ViewCLI implements View {
 
         reader = LineReaderBuilder.builder().terminal(terminal).build();
         writer = terminal.writer();
-
-        localPlayer = null;
     }
 
     // endregion
@@ -1594,7 +1589,7 @@ public final class ViewCLI implements View {
                 MENU:
                 while (!interrupted()) {
                     // Check whether the selected student can be moved to the corresponding table, breaking the loop if it can't
-                    if (!diningRoomFreeTables[localPlayer.getSchoolBoard().getEntrance().getStudents()[selectedStudentIndex].ordinal()])
+                    if (!diningRoomFreeTables[getLocalPlayer().getSchoolBoard().getEntrance().getStudents()[selectedStudentIndex].ordinal()])
                         break MENU;
 
                     List<String> menu = new ArrayList<>(logoList);
@@ -1654,7 +1649,7 @@ public final class ViewCLI implements View {
 
                                     case 1 -> {
                                         forwardViewToVirtualController(new MoveStudentInfo(true, null, selectedStudentIndex));
-                                        SchoolBoard sch = localPlayer.getSchoolBoard();
+                                        SchoolBoard sch = getLocalPlayer().getSchoolBoard();
                                         Color std = sch.getEntrance().retrieveStudent(selectedStudentIndex);
                                         sch.getDiningRoom().setStudentCounters(std, sch.getDiningRoom().getStudentCounters(std) + 1);
                                         return;
@@ -1732,7 +1727,7 @@ public final class ViewCLI implements View {
                                 throw new NumberFormatException();
 
                             forwardViewToVirtualController(new MoveStudentInfo(false, readIslInd - 1, selectedStudentIndex));
-                            Color std = localPlayer.getSchoolBoard().getEntrance().retrieveStudent(selectedStudentIndex);
+                            Color std = getLocalPlayer().getSchoolBoard().getEntrance().retrieveStudent(selectedStudentIndex);
                             model.getIsland(readIslInd - 1).setStudentCounters(std, model.getIsland(readIslInd - 1).getStudentCounters(std) + 1);
                             return;
                         }
@@ -1981,7 +1976,7 @@ public final class ViewCLI implements View {
 
                         int cloudIndex = findCloud(availableClouds[readCldInd - 1].getStudents(), model.getCloudTiles());
 
-                        Entrance en = localPlayer.getSchoolBoard().getEntrance();
+                        Entrance en = getLocalPlayer().getSchoolBoard().getEntrance();
                         Arrays.stream(model.getCloudTile(cloudIndex).getStudents()).forEach(en::appendStudent);
 
                         forwardViewToVirtualController(cloudIndex);

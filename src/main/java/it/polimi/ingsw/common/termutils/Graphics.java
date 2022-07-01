@@ -117,7 +117,7 @@ public /*static*/ final class Graphics {
             " " :
             colorString(stdCnt == 1 ?
                 " " :
-                String.valueOf(stdCnt), getStudentColor(student, true), BLACK);
+                String.valueOf(stdCnt), getStudentColor(student, true), BLACK) + (stdCnt >= 10 ? "\b " : "");
     }
 
     /**
