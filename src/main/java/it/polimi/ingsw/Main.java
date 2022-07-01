@@ -250,6 +250,10 @@ public class Main {
                                 // Option 3: start the client in GUI mode
                                 case GUI -> {
                                     showCursor(writer);
+                                    terminal.puts(InfoCmp.Capability.exit_ca_mode);
+                                    terminal.setAttributes(attributes);
+                                    writer.println("GUI started");
+                                    writer.println();
                                     Client.main(true);
                                 }
 
