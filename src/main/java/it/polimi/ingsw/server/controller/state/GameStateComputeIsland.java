@@ -29,10 +29,17 @@ public final class GameStateComputeIsland implements GameStateActionPhase {
 
     // region Constructors
 
+    /**
+     * Create the state, pointing to the island where mother nature is located
+     */
     public GameStateComputeIsland() {
         this(ControllerData.getInstance().getGameModel().getMotherNaturePosition());
     }
 
+    /**
+     * Create the state
+     * @param islandIndex The island to point to
+     */
     public GameStateComputeIsland(int islandIndex) {
         this.islandIndex = islandIndex;
              winner      = null;

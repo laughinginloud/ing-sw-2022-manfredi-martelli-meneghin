@@ -64,10 +64,12 @@ public final class GameStateEndGame implements GameState {
 
     // region DFA related methods
 
+    @Override
     public GameState nextState() {
         return null;
     }
 
+    @Override
     public void executeState() {
         ControllerData data = ControllerData.getInstance();
 

@@ -13,10 +13,12 @@ import it.polimi.ingsw.server.virtualView.VirtualView;
  * @author Mattia Martelli
  */
 public final class GameStatePlaceTokens implements GameStateSetup {
+    @Override
     public GameState nextState() {
         return ControllerData.getInstance().getExpertMode() ? new GameStateExpertInitialization() : new GameStateFillClouds();
     }
 
+    @Override
     public void executeState() {
         GameModel model = ControllerData.getInstance().getGameModel();
         Bag       bag   = model.getBag();
@@ -52,6 +54,12 @@ public final class GameStatePlaceTokens implements GameStateSetup {
         }
     }
 
+    /**
+     * Set the students for each island
+     * @param model                The <code>GameModel</code> instance
+     * @param bag                  The <code>Bag</code> from which to grab
+     * @param motherNaturePosition An <code>int</code> representing the island where mother nature is located
+     */
     private void setIslandsStudents(GameModel model, Bag bag, int motherNaturePosition) {
         try {
             // Use the bag to generate a random sequence of colors whilst following the restrictions
@@ -62,10 +70,9 @@ public final class GameStatePlaceTokens implements GameStateSetup {
                 throw new IllegalStateException("Bag not correctly filled using the corresponding functions");
 
             // Iterate through the islands, adding the students
-            // Note: "j++" executes the increment at the end of the statement, after the current value ("j") has been used
-            for (int i = 0, j = 0; i < 12; ++i)
+            for (int i = 0, j = 0; i < 12; ++i, ++j)
                 if (i != motherNaturePosition && i != ((motherNaturePosition + 6) % 12))
-                    model.getIsland(i).setStudentCounters(initialStudents.drawnStudents()[j++], 1);
+                    model.getIsland(i).setStudentCounters(initialStudents.drawnStudents()[j], 1);
         }
 
         catch (EmptyBagException ignored){}
@@ -75,6 +82,10 @@ public final class GameStatePlaceTokens implements GameStateSetup {
         }
     }
 
+    /**
+     * Set the students in each entrance
+     * @param bag The <code>Bag</code> from which to grab
+     */
     private void setEntrancesStudents(Bag bag) {
         try {
             Player[] players          = ControllerData.getInstance().getGameModel().getPlayers();

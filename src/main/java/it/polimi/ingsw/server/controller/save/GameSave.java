@@ -50,6 +50,9 @@ public final class GameSave {
             bf.write(saveBuilder.toJson(data));
             bf.flush();
         }
+
+        // If there was a null pointer exception, just end gracefully
+        catch (NullPointerException ignored) {}
     }
 
     /**

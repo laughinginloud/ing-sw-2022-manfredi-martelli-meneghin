@@ -74,6 +74,7 @@ public final class GameStateFillClouds implements GameStatePlanPhase {
 
             Color[] fixedDrawnStudents;
 
+            // Fix the length of the array if it's shorter than four
             if (data.getNumOfPlayers() != 3) {
                 fixedDrawnStudents = new Color[4];
 
@@ -82,6 +83,7 @@ public final class GameStateFillClouds implements GameStatePlanPhase {
                 fixedDrawnStudents[3] = null;
             }
 
+            // Otherwise, the current array is already of the correct length
             else
                 fixedDrawnStudents = drawnStudents;
 

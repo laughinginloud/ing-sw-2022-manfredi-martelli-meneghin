@@ -15,14 +15,30 @@ import static it.polimi.ingsw.common.utils.Methods.ifNotNullOrElse;
  * @author Mattia Martelli
  */
 public final class GameStateThread extends Thread {
+    /**
+     * The name that will be used for the save
+     */
     private final String    fileName;
+
+    /**
+     * The current state
+     */
     private       GameState state;
 
+    /**
+     * Create the DFA
+     * @param state    The state from which to start
+     * @param fileName The name that will be used for the save file
+     */
     public GameStateThread(GameState state, String fileName) {
         this.state    = state;
         this.fileName = fileName;
     }
 
+    /**
+     * Run the DFA
+     */
+    @Override
     public void run() {
         try {
             do {

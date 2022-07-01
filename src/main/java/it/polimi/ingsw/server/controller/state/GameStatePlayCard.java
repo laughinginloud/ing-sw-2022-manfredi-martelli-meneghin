@@ -18,6 +18,7 @@ import java.util.*;
  * @author Sebastiano Meneghin
  */
 public final class GameStatePlayCard implements GameStatePlanPhase {
+    @Override
     public GameState nextState() {
         return new GameStateSelectTurnOrder();
     }

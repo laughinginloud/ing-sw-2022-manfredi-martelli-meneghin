@@ -28,6 +28,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
         setStudentsOnCards(characterCards, model);
         setCoins(players, model);
 
+        // Create the card strategies for the character cards in the model and set them in the ControllerData instance
         data.setCardStrategies(Arrays.stream(characterCards)
             .map(CharacterCardStrategy::build)
             .toArray(CharacterCardStrategy[]::new));
@@ -89,7 +90,7 @@ public final class GameStateExpertInitialization implements GameStateSetup {
             throw new IllegalStateException("Bag not correctly filled using the corresponding functions");
         }
 
-        catch (Exception e){
+        catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }

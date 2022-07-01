@@ -9,10 +9,12 @@ import it.polimi.ingsw.server.controller.ControllerData;
 public final class GameStateEndCheckPhase implements GameState {
     private boolean end;
 
+    @Override
     public GameState nextState() {
         return end ? new GameStateEndGame() : new GameStateFillClouds();
     }
 
+    @Override
     public void executeState() {
         end = ControllerData.getInstance().getEmptyAssistantDeckTrigger() || ControllerData.getInstance().getEmptyBagTrigger();
     }

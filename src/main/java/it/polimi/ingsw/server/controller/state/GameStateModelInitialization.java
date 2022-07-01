@@ -11,21 +11,25 @@ import it.polimi.ingsw.common.model.PlayerTeamExpert;
  * @author Mattia Martelli
  */
 public final class GameStateModelInitialization implements GameStateSetup {
+    @Override
     public GameState nextState() {
         return new GameStatePlaceTokens();
     }
 
+    @Override
     public void executeState() {
         ControllerData data = ControllerData.getInstance();
         data.setGameModel(new GameModel(data.getNumOfPlayers(), data.getExpertMode()));
 
+        // Set all the players in the model in the correct order, which means that the ID should match the array index
         GameModel model   = data.getGameModel();
         Player[]  players = data.getPlayersOrder();
         for (Player player : players)
             model.setPlayer(player, player.getPlayerID());
 
+        // If the game is being played by four people, link the teams
         if (data.getNumOfPlayers() == 4)
-            setMembers(players);
+            setMembers(model.getPlayers());
     }
 
     /**
@@ -35,10 +39,10 @@ public final class GameStateModelInitialization implements GameStateSetup {
     private void setMembers(Player[] players) {
         for (int i = 0; i < 4; ++i) {
             if (players[i] instanceof PlayerTeam p)
-                p.setTeamMemberID(players[(i + 2) % 4].getPlayerID());
+                p.setTeamMemberID((i + 2) % 4);
 
             else if (players[i] instanceof PlayerTeamExpert p)
-                p.setTeamMemberID(players[(i + 2) % 4].getPlayerID());
+                p.setTeamMemberID((i + 2) % 4);
 
             else
                 throw new IllegalStateException("The players were not correctly created: use PlayerTeam or PlayerTeamExpert when there are four players");

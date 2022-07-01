@@ -17,10 +17,11 @@ import java.util.List;
 
 /**
  * State representing the request and subsequent movement of the Mother Nature pawn
- * @author Mattia Martelli
+ * @author Mattia Martelli & Sebastiano Meneghin
  */
 @SuppressWarnings("unused")
 public final class GameStateMoveMotherNature implements GameStateActionPhase {
+    @Override
     public GameState nextState() {
         return
             // Check if the game has been won already
@@ -31,6 +32,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
                 new GameStateComputeIsland();
     }
 
+    @Override
     public void executeState() throws SocketException {
         try {
             ControllerData data                 = ControllerData.getInstance();

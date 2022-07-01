@@ -12,6 +12,7 @@ import java.util.Comparator;
  * @author Sebastiano Meneghin
  */
 public final class GameStateSelectTurnOrder implements GameStatePlanPhase {
+    @Override
     public GameState nextState() {
         return new GameStateMoveStudents();
     }
@@ -21,12 +22,14 @@ public final class GameStateSelectTurnOrder implements GameStatePlanPhase {
         try {
             ControllerData data = ControllerData.getInstance();
 
+            // Create a sorted list, that will sort the players based on the value of the card they played
             SortedList<Tuple<Player, Integer>> playList = new SortedList<>(data.getNumOfPlayers(), Comparator.comparingInt(Tuple::right));
 
             // Add all the players from the current turn order, so that the stable sorting will keep the current ordering for equal values
             for (Player player : data.getPlayersOrder())
                 playList.add(new Tuple<>(player, data.getPlayerCard(player).cardValue()));
 
+            // Set the order to the one currently in the list
             data.updatePlayersOrder(playList.stream().map(Tuple::left).toArray(Player[]::new));
         }
 

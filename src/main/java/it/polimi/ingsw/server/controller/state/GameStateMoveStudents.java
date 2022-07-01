@@ -20,6 +20,7 @@ import java.util.*;
  * @author Sebastiano Meneghin
  */
 public final class GameStateMoveStudents implements GameStateActionPhase {
+    @Override
     public GameState nextState() {
         return
             // Check if the game has been won already
@@ -30,6 +31,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 new GameStateMoveMotherNature();
     }
 
+    @Override
     public void executeState() throws SocketException {
         try {
             ControllerData data          = ControllerData.getInstance();
@@ -57,6 +59,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                     playerToUpdateView.sendMessage(update);
                 }
 
+            // Try to move the students one at a time
             for (int i = 0; i < numOfMovements && !data.checkWinTrigger(); i++)
                 moveOneStudent(currentPlayer, playerView);
         }

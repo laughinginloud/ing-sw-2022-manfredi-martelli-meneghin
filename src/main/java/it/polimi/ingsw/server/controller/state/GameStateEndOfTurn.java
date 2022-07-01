@@ -19,8 +19,12 @@ import java.net.SocketException;
  * @author Sebastiano Meneghin
  */
 public final class GameStateEndOfTurn implements GameStateActionPhase {
+    /**
+     * Flags that signifies whether the current turn has ended for all players (so the current round has ended)
+     */
     private boolean turnEnd;
 
+    @Override
     public GameState nextState() {
         return
             // Check if the game has been won already
@@ -33,6 +37,7 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                     new GameStateMoveStudents();
     }
 
+    @Override
     public void executeState() throws SocketException {
         try {
             ControllerData data          = ControllerData.getInstance();
@@ -98,9 +103,11 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                 curPlayerView.sendMessage(new GameCommandNotifyEndTurn());
             }
 
+            // If all players have already played, set the corresponding flag
             if (data.turnEnd())
                 turnEnd = true;
 
+            // Otherwise, set the current player to the next in line
             else
                 data.nextPlayer();
         }
