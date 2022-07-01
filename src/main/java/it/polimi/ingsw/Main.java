@@ -238,6 +238,8 @@ public class Main {
                                     showCursor(writer);
                                     display.clear();
                                     display.updateAnsi(new ArrayList<>(), 0);
+                                    terminal.puts(InfoCmp.Capability.exit_ca_mode);
+                                    terminal.setAttributes(attributes);
                                     Server.main();
                                 }
 
@@ -250,6 +252,8 @@ public class Main {
                                 // Option 3: start the client in GUI mode
                                 case GUI -> {
                                     showCursor(writer);
+                                    display.clear();
+                                    display.updateAnsi(new ArrayList<>(), 0);
                                     terminal.puts(InfoCmp.Capability.exit_ca_mode);
                                     terminal.setAttributes(attributes);
                                     writer.println("GUI started");
