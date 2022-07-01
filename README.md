@@ -257,7 +257,7 @@ cd ls
 
 1. Once you met all the requirements, open a terminal and go to the project target directory 
    (which has to be previously built with maven, see the [compiling](#Compiling) section if you skipped 
-   this step, alternatively the already compiled `PSP27-Eriantys-1.0.jar` in the `deliverables/jar` folder can be used).
+   this step, alternatively the already compiled `PSP27-Eriantys-1.0.jar` in the [`deliverables/jar` folder][jar-link] can be used).
 2. Once there, execute this command:
 ```shell
 java -jar PSP27-Eriantys-1.0.jar
@@ -335,7 +335,7 @@ These running tools were tested only on Windows based systems.
 
 [firstUML-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/deliverables/UML/initial_uml.png
 [firstUML_updated-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/deliverables/UML/initialUML_updated.pdf
-[finalUML-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/deliverables
+[finalUML-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/deliverables/UML%20-%20final
 [protocolDoc-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/blob/main/deliverables/protocolDocumentation/protocolDocumentation.pdf
 [main-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/main
 [tests-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/test/java/it/polimi/ingsw/common/model
@@ -351,6 +351,7 @@ These running tools were tested only on Windows based systems.
 [characterCard-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/main/java/it/polimi/ingsw/server/controller/characterCard
 [server-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/main/java/it/polimi/ingsw/server
 [save-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/tree/main/src/main/java/it/polimi/ingsw/server/controller/save
+[jar-link]: https://github.com/laughinginloud/ing-sw-2022-manfredi-martelli-meneghin/blob/main/deliverables/jar/PSP27-Eriantys-1.0.jar
 
 [oracleJDK18-link]: https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html
 [oracleJDK18JARwin64-link]: https://download.oracle.com/java/18/archive/jdk-18.0.1_windows-x64_bin.zip
