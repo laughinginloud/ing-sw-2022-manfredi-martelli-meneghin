@@ -419,7 +419,7 @@ public final class ViewCLI implements View {
             MENU:
             while (!interrupted()) {
                 List<String> menu = new ArrayList<>(logoList);
-                menu.add("Welcome to Eryantis!");
+                menu.add("Welcome to Eriantys!");
                 menu.add("");
 
                 List<String> numOptions = new ArrayList<>(2);

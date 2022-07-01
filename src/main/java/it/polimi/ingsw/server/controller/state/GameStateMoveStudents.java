@@ -5,6 +5,7 @@ import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.InfoMap;
 import it.polimi.ingsw.common.model.*;
 import it.polimi.ingsw.common.model.Character;
+import it.polimi.ingsw.common.utils.Tuple;
 import it.polimi.ingsw.server.controller.ControllerData;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardManager;
 import it.polimi.ingsw.server.controller.characterCard.CharacterCardStrategy;
@@ -113,9 +114,9 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
         // If the player responded with the students he wants to move
         if (response instanceof GameCommandMoveStudent c) {
             // Executes the Command and saves the returned values
-            Object[] commandReturnInfo = (Object[]) c.executeCommand();
-            boolean  toDiningRoom      = (boolean)  commandReturnInfo[0];
-            Color    movedStudent      = (Color)    commandReturnInfo[1];
+            Tuple<Boolean, Color> commandReturnInfo = c.executeCommand();
+            boolean               toDiningRoom      = commandReturnInfo.left();
+            Color                 movedStudent      = commandReturnInfo.right();
 
             // Create a Map where to store updatedFields in order to send them to the players
             InfoMap updateInfo = new InfoMap();
@@ -181,7 +182,7 @@ public final class GameStateMoveStudents implements GameStateActionPhase {
                 throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
             // Executes the command received
-            Character chosenCharacter = (Character) c.executeCommand();
+            Character chosenCharacter = c.executeCommand();
 
             // Gets the characterCardStrategy linked to the CharacterCard chosen by the player
             CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);

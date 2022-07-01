@@ -57,7 +57,7 @@ public class StandardBearerStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                InfoMap chosenFields = (InfoMap) c.executeCommand();
+                InfoMap chosenFields = c.executeCommand();
 
                 // Gets the index of Island that the player wants to compute, from the Map received from the client
                 int island_index = (int) chosenFields.get(GameValues.ISLANDINDEX);

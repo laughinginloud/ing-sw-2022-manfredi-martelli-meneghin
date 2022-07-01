@@ -1,18 +1,27 @@
 package it.polimi.ingsw.server.controller.command;
 
-import it.polimi.ingsw.common.GameValues;
 import it.polimi.ingsw.common.message.InfoMap;
 
-import java.util.Map;
-
-public class GameCommandSendInfo implements GameCommand {
+/**
+ * Send various model info to the players
+ * @author Mattia Martelli
+ */
+public final class GameCommandSendInfo implements GameCommand {
     private final InfoMap data;
 
+    /**
+     * Build the command with the info to send
+     * @param data An <code>InfoMap</code> containing the info
+     */
     public GameCommandSendInfo(InfoMap data) {
         this.data = data;
     }
 
-    public Object executeCommand() {
+    /**
+     * Get the info sent
+     * @return An <code>InfoMap</code> containing the info
+     */
+    public InfoMap executeCommand() {
         return data;
     }
 }

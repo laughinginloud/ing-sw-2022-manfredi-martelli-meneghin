@@ -81,7 +81,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
             // If the response is of the right type, try to execute
             if (response instanceof GameCommandChooseCloud c) {
                 try {
-                    Color[] students = (Color[]) c.executeCommand();
+                    Color[] students = c.executeCommand();
                     for (Color student : students)
                         player.getSchoolBoard().getEntrance().appendStudent(student);
 
@@ -100,7 +100,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                     throw new IllegalStateException("Character card already used");
 
                 // Executes the command received
-                Character chosenCharacter = (Character) c.executeCommand();
+                Character chosenCharacter = c.executeCommand();
 
                 // Gets the characterCardStrategy linked to the CharacterCard chosen by the player
                 CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);

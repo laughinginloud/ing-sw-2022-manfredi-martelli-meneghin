@@ -53,7 +53,7 @@ public class HerbalistStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                InfoMap chosenField = (InfoMap) c.executeCommand();
+                InfoMap chosenField = c.executeCommand();
 
                 // Gets the value of the chosenField from the Map and retrieve the selected island from its index
                 int    chosenIslandIndex = (int) chosenField.get(GameValues.ISLANDINDEX);

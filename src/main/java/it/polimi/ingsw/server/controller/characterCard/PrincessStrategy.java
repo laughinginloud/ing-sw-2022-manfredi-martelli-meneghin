@@ -64,7 +64,7 @@ public class PrincessStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                InfoMap chosenField = (InfoMap) c.executeCommand();
+                InfoMap chosenField = c.executeCommand();
 
                 // Gets the index of students that the player wants to move, from the Map received from the client
                 int characterCardStudentIndex = (int) chosenField.get(GameValues.STUDENTINDEX);

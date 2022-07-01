@@ -66,7 +66,7 @@ public final class GameStateEndOfTurn implements GameStateActionPhase {
                             throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
                         // Executes the command received
-                        Character chosenCharacter = (Character) c.executeCommand();
+                        Character chosenCharacter = c.executeCommand();
 
                         // Gets the characterCardStrategy linked to the CharacterCard chosen by the player
                         CharacterCardStrategy chosenCardStrategy = CharacterCardManager.getChosenCharacterCardStrategy(chosenCharacter);

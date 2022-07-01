@@ -65,7 +65,7 @@ public class MonkStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                InfoMap chosenFields = (InfoMap) c.executeCommand();
+                InfoMap chosenFields = c.executeCommand();
 
                 // A cast for the information requested by the server (student and island index)
                 int student_index = (int) chosenFields.get(GameValues.STUDENTINDEX);

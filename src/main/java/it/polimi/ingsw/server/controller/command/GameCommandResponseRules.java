@@ -2,13 +2,26 @@ package it.polimi.ingsw.server.controller.command;
 
 import it.polimi.ingsw.common.viewRecord.GameRules;
 
-public class GameCommandResponseRules implements GameCommand{
-
+/**
+ * Represent the response to the request of the rules
+ * @author Sebastiano Meneghin
+ */
+public final class GameCommandResponseRules implements GameCommand{
     private final GameRules gameRules;
 
-    public GameCommandResponseRules(GameRules gameRules) { this.gameRules = gameRules; }
+    /**
+     * Build the command with the rules
+     * @param gameRules A <code>GameRules</code> containing the rules
+     */
+    public GameCommandResponseRules(GameRules gameRules) {
+        this.gameRules = gameRules;
+    }
 
-    public Object executeCommand() {
+    /**
+     * Get the rules
+     * @return A <code>GameRules</code> containing the rules
+     */
+    public GameRules executeCommand() {
         return gameRules;
     }
 }

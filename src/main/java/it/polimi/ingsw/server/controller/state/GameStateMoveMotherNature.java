@@ -99,7 +99,7 @@ public final class GameStateMoveMotherNature implements GameStateActionPhase {
                     throw new IllegalStateException("CharacterCard has been already used by the current player!");
 
                 // Executes the command received
-                Character chosenCharacter = (Character) c.executeCommand();
+                Character chosenCharacter = c.executeCommand();
 
                 try {
                     // Gets the characterCardStrategy linked to the CharacterCard chosen by the player

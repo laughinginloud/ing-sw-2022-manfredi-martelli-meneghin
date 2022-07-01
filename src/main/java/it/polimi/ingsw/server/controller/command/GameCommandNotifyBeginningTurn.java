@@ -5,10 +5,22 @@ package it.polimi.ingsw.server.controller.command;
  * another player's ActionPhase Turn
  * @author Sebastiano Meneghin
  */
-public class GameCommandNotifyBeginningTurn implements GameCommand {
+public final class GameCommandNotifyBeginningTurn implements GameCommand {
     private final String username;
 
-    public GameCommandNotifyBeginningTurn(String username) { this.username = username; }
+    /**
+     * Build the command with the player beginning its turn
+     * @param username The username of the player
+     */
+    public GameCommandNotifyBeginningTurn(String username) {
+        this.username = username;
+    }
 
-    public Object executeCommand() { return this.username; }
+    /**
+     * Get the username
+     * @return A <code>String</code> containing the username
+     */
+    public String executeCommand() {
+        return this.username;
+    }
 }

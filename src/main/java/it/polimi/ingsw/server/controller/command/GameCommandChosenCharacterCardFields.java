@@ -7,16 +7,22 @@ import it.polimi.ingsw.common.message.InfoMap;
  * value chosen by the player in order the use selected characterCard's effect
  * @author Sebastiano Meneghin
  */
-public class GameCommandChosenCharacterCardFields implements GameCommand {
+public final class GameCommandChosenCharacterCardFields implements GameCommand {
     private final InfoMap chosenData;
 
-    public GameCommandChosenCharacterCardFields(InfoMap chosenData) { this.chosenData = chosenData; }
+    /**
+     * Build the command, encapsulating the data
+     * @param chosenData An <code>InfoMap</code> containing the data
+     */
+    public GameCommandChosenCharacterCardFields(InfoMap chosenData) {
+        this.chosenData = chosenData;
+    }
 
     /**
      * Executes the GameCommand procedure
-     * @return An object representing a Map(GameCommandValues, Object) containing all the field's values chosen by the player
+     * @return An <code>InfoMap</code> containing all the field's values chosen by the player
      */
-    public Object executeCommand() {
+    public InfoMap executeCommand() {
         return chosenData;
     }
 }

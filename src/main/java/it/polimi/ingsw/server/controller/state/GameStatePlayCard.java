@@ -42,7 +42,7 @@ public final class GameStatePlayCard implements GameStatePlanPhase {
                 GameCommand response   = playerView.sendRequest(request);
 
                 if (response instanceof GameCommandPlayAssistantCard c) {
-                    AssistantCard chosenCard = (AssistantCard) c.executeCommand();
+                    AssistantCard chosenCard = c.executeCommand();
 
                     // Saves the chosenAssistantCard into the playerAssistantCardMap, updates the GameBoard and notifies all the players
                     saveAssistantCardChoice(player, chosenCard);

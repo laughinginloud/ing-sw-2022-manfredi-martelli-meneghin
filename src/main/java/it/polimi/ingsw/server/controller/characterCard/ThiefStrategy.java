@@ -55,7 +55,7 @@ public class ThiefStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                InfoMap chosenField = (InfoMap) c.executeCommand();
+                InfoMap chosenField = c.executeCommand();
 
                 // Gets the color of the students the player wants to reduce from all the players' diningRooms
                 Color colorToReduce = (Color) chosenField.get(GameValues.REDUCECOLOR);

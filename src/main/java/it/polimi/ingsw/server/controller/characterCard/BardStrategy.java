@@ -56,7 +56,7 @@ public class BardStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                InfoMap chosenField = (InfoMap) c.executeCommand();
+                InfoMap chosenField = c.executeCommand();
 
                 // Gets the number of students that the player wants to move, from the Map received
                 // from the client (it has to be between 1 and maxNumOfMovements)
@@ -129,7 +129,7 @@ public class BardStrategy extends CharacterCardStrategy {
         // If the response is of the right kind
         if (movementResponse instanceof GameCommandChosenCharacterCardFields c) {
             // The player responds with the information requested by the server
-            InfoMap chosenField = (InfoMap) c.executeCommand();
+            InfoMap chosenField = c.executeCommand();
 
             // Gets the index of the swappableStudent and the diningRoomTable's student color of the player wants to swap the swappableStudent with
             int   entranceStudentIndex     = (int)   chosenField.get(GameValues.ENTRANCESTUDENTINDEX);

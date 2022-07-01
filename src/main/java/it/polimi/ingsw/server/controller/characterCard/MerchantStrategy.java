@@ -54,7 +54,7 @@ public class MerchantStrategy extends CharacterCardStrategy {
             // If the response is of the right kind
             if (response instanceof GameCommandChosenCharacterCardFields c) {
                 // The player responds with the information requested by the server
-                InfoMap chosenFields = (InfoMap) c.executeCommand();
+                InfoMap chosenFields = c.executeCommand();
 
                 // A cast for the information requested by the server (color to inhibit)
                 Color selectedColor = (Color) chosenFields.get(GameValues.MERCHANTCOLOR);
