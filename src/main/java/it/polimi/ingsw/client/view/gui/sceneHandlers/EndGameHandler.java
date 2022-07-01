@@ -124,7 +124,7 @@ public final class EndGameHandler implements GUIHandler {
         ImageView currPlayerWizard;
         Label     currPlayerUsername;
         String    wizardImgPath;
-        int       k = 0, m = 4;
+        int       k = 0, m = players.size();
 
         // If the players are 2, I'll display them from the second imgView (to center them)
         if (players.size() == 2) {
