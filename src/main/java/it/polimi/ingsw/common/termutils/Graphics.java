@@ -131,9 +131,13 @@ public /*static*/ final class Graphics {
 
         int twrCnt = island.getMultiplicity();
 
-        return colorString(twrCnt == 1 ?
-            " " :
-            String.valueOf(twrCnt), getTowerColor(island.getTowerColor(), true));
+        if (twrCnt == 1)
+            return colorString(" ", getTowerColor(island.getTowerColor(), true));
+
+        if (island.getTowerColor() == TowerColor.BLACK)
+            return colorString(String.valueOf(twrCnt), getTowerColor(island.getTowerColor(), true), WHITE);
+
+        return colorString(String.valueOf(twrCnt), getTowerColor(island.getTowerColor(), true), BLACK);
     }
 
     /**

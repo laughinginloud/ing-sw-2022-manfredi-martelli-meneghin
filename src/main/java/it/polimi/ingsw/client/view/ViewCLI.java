@@ -70,6 +70,8 @@ public final class ViewCLI implements View {
     private GameModel         model;
     private VirtualController virtualController;
 
+    private int playerID;
+
     // endregion
 
     // region Constructors
@@ -97,6 +99,8 @@ public final class ViewCLI implements View {
         terminal.puts(InfoCmp.Capability.enter_ca_mode);
 
         keyStream = terminal.input();
+
+        playerID = -1;
     }
 
     /**
@@ -114,6 +118,8 @@ public final class ViewCLI implements View {
 
         reader = LineReaderBuilder.builder().terminal(terminal).build();
         writer = terminal.writer();
+
+        playerID = -1;
     }
 
     // endregion
@@ -220,10 +226,9 @@ public final class ViewCLI implements View {
     }
 
     /**
-     * Shows the game board and awaits for user input
-     * @throws IOException If there is an error whilst reading
+     * Shows the game board for 1.5 seconds
      */
-    private void showModel() throws IOException {
+    private void showModel() {
         updateModel(model, null);
 
         try {
@@ -240,9 +245,13 @@ public final class ViewCLI implements View {
 
     @Override
     public Player getLocalPlayer() {
-        return Arrays.stream(model.getPlayers())
-            .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
-            .orElseThrow();
+        if (playerID == -1)
+            playerID = Arrays.stream(model.getPlayers())
+                .reduce((p1, p2) -> p1.getUsername().equals(virtualController.getUsername()) ? p1 : p2)
+                .orElseThrow()
+                .getPlayerID();
+
+        return model.getPlayer(playerID);
     }
 
     @Override
@@ -2838,7 +2847,7 @@ public final class ViewCLI implements View {
 
 
         try {
-            sleep(1000);
+            sleep(1500);
         }
 
         catch (InterruptedException ignored) {}

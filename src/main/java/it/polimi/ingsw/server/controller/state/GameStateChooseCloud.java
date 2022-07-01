@@ -62,6 +62,7 @@ public final class GameStateChooseCloud implements GameStateActionPhase {
                 }
             }
 
+            // If there is only one cloud tile available, automatically use it to fill the player's entrance and end the state
             if (availableCloud.get().length == 1 && !canPlayCharacterCard) {
                 for (Color color : availableCloud.get()[0].retrieveStudents())
                     player.getSchoolBoard().getEntrance().appendStudent(color);
