@@ -215,7 +215,7 @@ public /*static*/ final class GameController {
                             if (data.getExpertMode())
                                 map.put(GameValues.CHARACTERCARDARRAY, data.getGameModel().getCharacterCards());
 
-                            data.sendMessageToPlayers(new GameCommandSendInfo(new InfoMap(GameValues.MODEL, data.getGameModel())));
+                            data.sendMessageToPlayers(new GameCommandSendInfo(map));
                         }
 
                         // Start the DFA and reset the starting state
