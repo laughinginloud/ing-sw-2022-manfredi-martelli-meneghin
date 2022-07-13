@@ -1784,7 +1784,7 @@ public final class ViewCLI implements View {
                 display.updateAnsi(menu, (terminal.getWidth() + 1) * menu.size());
 
                 for (int i = 0, isl = model.getMotherNaturePosition() + 1, islCnt = 0; i < 2; ++i) {
-                    for (int j = 0; j < 6; ++j, ++isl, ++islCnt) {
+                    for (int j = 0; j < 6; ++j, isl = (isl + 1) % model.getIslandsCount(), ++islCnt) {
                         if (islCnt >= islandNum)
                             break;
 
@@ -2147,7 +2147,7 @@ public final class ViewCLI implements View {
     public void requestChooseColor(Color[] availableColors) {
         contextSwitch(() -> {
             try {
-                int       numOfColors = availableColors.length;
+                int       numOfColors = (int) Arrays.stream(availableColors).filter(Objects::nonNull).count();
                 ModuloNat colorSel    = new ModuloNat(numOfColors);
 
                 hideCursor(writer);
@@ -2162,7 +2162,8 @@ public final class ViewCLI implements View {
                     List<String> colorOptions = new ArrayList<>(numOfColors);
 
                     Arrays.stream(availableColors).forEach(color ->
-                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false))));
+                        ifNotNull(color, () ->
+                            colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)))));
 
                     underlineElem(colorOptions, colorSel.value());
                     menu.addAll(colorOptions);
@@ -2289,7 +2290,7 @@ public final class ViewCLI implements View {
     public void chooseStudentFromCharacterCard(int characterCardPosition, Color[] availableColors, int numOfAvailableStudent) {
         contextSwitch(() -> {
             try {
-                int       numOfColors = availableColors.length;
+                int       numOfColors = (int) Arrays.stream(availableColors).filter(Objects::nonNull).count();
                 ModuloNat colorSel    = new ModuloNat(numOfColors);
 
                 hideCursor(writer);
@@ -2304,7 +2305,8 @@ public final class ViewCLI implements View {
                     List<String> colorOptions = new ArrayList<>(numOfColors);
 
                     for (Color color : availableColors)
-                        colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false)));
+                        ifNotNull(color, () ->
+                            colorOptions.add("> " + colorString(capitalize(color.name()), getStudentColor(color, false))));
 
                     underlineElem(colorOptions, colorSel.value());
                     menu.addAll(colorOptions);
@@ -2440,7 +2442,7 @@ public final class ViewCLI implements View {
      */
     private void chooseStudentFromEntrance_noSwitch(Color[] availableColors) {
         try {
-            int       numOfColors = availableColors.length;
+            int       numOfColors = (int) Arrays.stream(availableColors).filter(Objects::nonNull).count();
             ModuloNat colorSel    = new ModuloNat(numOfColors);
 
             hideCursor(writer);
