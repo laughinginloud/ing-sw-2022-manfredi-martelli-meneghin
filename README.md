@@ -16,6 +16,8 @@ Eriantys Board Game is the final project of **"Software Engineering"**, course o
 **Tutor** Federica Suriano</br>
 **Tutor** Lorenzo Italiano
 
+**Final Score:** 30/30 cum laude
+
 ### The Team
 
 * [Giovanni Manfredi](https://github.com/Silemo)
