@@ -6,7 +6,7 @@
 
 <img src="https://www.craniocreations.it/wp-content/uploads/2021/06/Eriantys_scatola3Dombra-600x600.png" width=300px height=300px align="right"/>
 
-Eriantys Board Game is the final project of **"Software Engineering"**, course of **"Computer Science Engineering"** held at Politecnico di Milano (2021/2022).
+Eriantys Board Game is the final project of **"Software Engineering"**, course of **"Computer Science and Engineering"** held at Politecnico di Milano (2021/2022).
 
 **Professor** Pierluigi San Pietro
 
