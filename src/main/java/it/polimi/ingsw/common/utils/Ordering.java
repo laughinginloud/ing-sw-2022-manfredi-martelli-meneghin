@@ -11,14 +11,14 @@ public enum Ordering {
     LT,
 
     /**
-     * Greater than
-     */
-    GT,
-
-    /**
      * Equal to
      */
-    EQ;
+    EQ,
+
+    /**
+     * Greater than
+     */
+    GT;
 
     /**
      * Compares two comparable objects, returning a result relative to the first (e.g. LT <=> a < b)

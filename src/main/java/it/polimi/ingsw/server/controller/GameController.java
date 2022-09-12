@@ -98,7 +98,7 @@ public /*static*/ final class GameController {
         forbiddenNames = new HashSet<>();
 
         // The list is set to by sorted by the integer of the tuple, from biggest to smallest
-        playerAgeList  = new SortedList<>(Comparator.comparingInt(Tuple<Player, Integer>::right).reversed());
+        playerAgeList  = new SortedList<>(4, Comparator.comparingInt(Tuple<Player, Integer>::right).reversed());
 
         File savedGame = null;
 
