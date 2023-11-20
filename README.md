@@ -22,7 +22,7 @@ Eriantys Board Game is the final project of **"Software Engineering"**, course o
 
 * [Giovanni Manfredi](https://github.com/Silemo)
 * [Mattia Martelli](https://github.com/laughinginloud)
-* [Sebastiano Meneghin](https://github.com/TheLastSoldier)
+* [Sebastiano Meneghin](https://github.com/SebastianoMeneghin)
 
 ## Table of Contents
 
