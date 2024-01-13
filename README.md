@@ -4,7 +4,7 @@
 
 ## About
 
-<img src="cover.png" width=300px height=300px align="right"/>
+<img src="github/cover.png" width=300px height=300px align="right"/>
 
 Eriantys Board Game is the final project of **"Software Engineering"**, course of **"Computer Science and Engineering"** held at Politecnico di Milano (2021/2022).
 
