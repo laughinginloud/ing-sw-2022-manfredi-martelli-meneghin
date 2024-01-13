@@ -31,6 +31,14 @@ Eriantys Board Game is the final project of **"Software Engineering"**, course o
 * [Javadocs](#Javadocs)
 * [More](#More)
 
+## Game's screenshots
+
+<img src="github/gamescreens/initialscreen.png"/>
+
+<img src="github/gamescreens/ingamescreen1.png"/>
+
+<img src="github/gamescreens/ingamescreen2.png"/>
+
 
 ## Specifications
 
